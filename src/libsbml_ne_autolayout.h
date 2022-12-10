@@ -23,11 +23,11 @@ void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_t* subgraph);
 
 void addReactionGlyphsToGraph(Layout* layout, Agraph_t* graph);
 
-void addReactinGlyphToGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph);
+void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph);
 
-void addSpeciesReferenceGlyphsToGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode);
+void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode);
 
-void addSpeciesReferenceGlyphToGraph(SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode);
+void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode);
 
 void applyAutoLayoutOnGraph(Layout* layout, GVC_t* gvc, Agraph_t* graph);
 
@@ -41,11 +41,11 @@ void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_t* graph, d
 
 void extractReactionGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractReactionGlyphFromGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractSpeciesReferenceGlyphsFromGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractSpeciesReferenceGlyphFromGraph(SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
 void updateBoundingBox(BoundingBox* box, Agnode_t* node);
 

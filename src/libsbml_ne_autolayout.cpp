@@ -47,7 +47,7 @@ void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_t* subgraph) {
     double maxSpeciesBoxWidth =  120.0;
     double minSpeciesBoxHeight = 36.0;
     int stringLength = speciesGlyph->getSpeciesId().length();
-    std::string value = speciesGlyph->getId();
+    std::string value = speciesGlyph->getSpeciesId();
     Agnode_t* node = agnode(subgraph, &value[0], true);
     std::string attribute = "width";
     value = std::to_string((std::max(std::min(14.5 * (stringLength + 2), maxSpeciesBoxWidth), minSpeciesBoxHeight)) / 72.0);
@@ -67,13 +67,13 @@ void addReactionGlyphsToGraph(Layout* layout, Agraph_t* graph) {
     ReactionGlyph* reactionGlyph = NULL;
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         reactionGlyph = layout->getReactionGlyph(i);
-        addReactinGlyphToGraph(reactionGlyph, graph);
+        addReactinGlyphToGraph(layout, reactionGlyph, graph);
     }
 }
 
-void addReactinGlyphToGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph) {
+void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph) {
     double minReactionBoxHeight = 36.0;
-    std::string value = reactionGlyph->getId();
+    std::string value = reactionGlyph->getReactionId();
     Agnode_t* node = agnode(graph, &value[0], true);
     std::string attribute = "width";
     value = std::to_string(0.8 * minReactionBoxHeight / 72.0);
@@ -87,25 +87,28 @@ void addReactinGlyphToGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph) {
     attribute = "shape";
     value = "ellipse";
     agsafeset(node, &attribute[0], &value[0], &value[0]);
-    addSpeciesReferenceGlyphsToGraph(reactionGlyph, graph, node);
+    addSpeciesReferenceGlyphsToGraph(layout, reactionGlyph, graph, node);
 }
 
-void addSpeciesReferenceGlyphsToGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode) {
+void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = NULL;
     for (int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
         speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(i);
-        addSpeciesReferenceGlyphToGraph(speciesReferenceGlyph, graph, reactionNode);
+        addSpeciesReferenceGlyphToGraph(layout, speciesReferenceGlyph, graph, reactionNode);
     }
 }
 
-void addSpeciesReferenceGlyphToGraph(SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode) {
-    std::string value = speciesReferenceGlyph->getSpeciesGlyphId();
-    Agnode_t* speciesNode = agnode(graph, &value[0], true);
-    value = speciesReferenceGlyph->getId();
-    if (speciesReferenceGlyph->getRole() == SPECIES_ROLE_PRODUCT)
-        agedge(graph, reactionNode, speciesNode, &value[0], true);
-    else
-        agedge(graph, speciesNode, reactionNode, &value[0], true);
+void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode) {
+    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
+    if (speciesGlyph) {
+        std::string value = speciesGlyph->getSpeciesId();
+        Agnode_t* speciesNode = agnode(graph, &value[0], true);
+        value = speciesReferenceGlyph->getId();
+        if (speciesReferenceGlyph->getRole() == SPECIES_ROLE_PRODUCT)
+            agedge(graph, reactionNode, speciesNode, &value[0], true);
+        else
+            agedge(graph, speciesNode, reactionNode, &value[0], true);
+    }
 }
 
 void applyAutoLayoutOnGraph(Layout* layout, GVC_t* gvc, Agraph_t* graph) {
@@ -153,7 +156,7 @@ void extractSpeciesGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minX
 }
 
 void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment) {
-    std::string value = speciesGlyph->getId();
+    std::string value = speciesGlyph->getSpeciesId();
     Agnode_t* node = agnode(graph, &value[0], false);
     if (node) {
         updateBoundingBox(speciesGlyph->getBoundingBox(), node);
@@ -166,41 +169,44 @@ void extractReactionGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& min
     ReactionGlyph* reactionGlyph = NULL;
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         reactionGlyph = layout->getReactionGlyph(i);
-        extractReactionGlyphFromGraph(reactionGlyph, graph, minXLayout, minYLayout, maxXLayout, maxYLayout);
+        extractReactionGlyphFromGraph(layout, reactionGlyph, graph, minXLayout, minYLayout, maxXLayout, maxYLayout);
     }
 }
 
-void extractReactionGlyphFromGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
-    std::string value = reactionGlyph->getId();
+void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+    std::string value = reactionGlyph->getReactionId();
     Agnode_t* node = agnode(graph, &value[0], false);
     if (node) {
         updateBoundingBox(reactionGlyph->getBoundingBox(), node);
         updateExtetns(minXLayout, minYLayout, maxXLayout, maxYLayout, reactionGlyph->getBoundingBox());
-        extractSpeciesReferenceGlyphsFromGraph(reactionGlyph, graph, node, minXLayout, minYLayout, maxXLayout, maxYLayout);
+        extractSpeciesReferenceGlyphsFromGraph(layout, reactionGlyph, graph, node, minXLayout, minYLayout, maxXLayout, maxYLayout);
     }
 }
 
-void extractSpeciesReferenceGlyphsFromGraph(ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = NULL;
     for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
         speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(i);
-        extractSpeciesReferenceGlyphFromGraph(speciesReferenceGlyph, graph, reactionNode, minXLayout, minYLayout, maxXLayout, maxYLayout);
+        extractSpeciesReferenceGlyphFromGraph(layout, speciesReferenceGlyph, graph, reactionNode, minXLayout, minYLayout, maxXLayout, maxYLayout);
     }
 }
 
-void extractSpeciesReferenceGlyphFromGraph(SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
-    std::string value = speciesReferenceGlyph->getSpeciesGlyphId();
-    Agnode_t* speciesNode = agnode(graph, &value[0], false);
-    value = speciesReferenceGlyph->getId();
-    Agedge_t* e = NULL;
-    if (speciesReferenceGlyph->getRole() == SPECIES_ROLE_PRODUCT)
-        e = agedge(graph, reactionNode, speciesNode, &value[0], true);
-    else
-        e = agedge(graph, speciesNode, reactionNode, &value[0], true);
-    
-    if (e) {
-        updateLineSegment(speciesReferenceGlyph->getCurve()->getCurveSegment(0), e);
-        updateExtetns(minXLayout, minYLayout, maxXLayout, maxYLayout, speciesReferenceGlyph->getCurve()->getCurveSegment(0));
+void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
+    if (speciesGlyph) {
+        std::string value = speciesGlyph->getSpeciesId();
+        Agnode_t* speciesNode = agnode(graph, &value[0], false);
+        value = speciesReferenceGlyph->getId();
+        Agedge_t* e = NULL;
+        if (speciesReferenceGlyph->getRole() == SPECIES_ROLE_PRODUCT)
+            e = agedge(graph, reactionNode, speciesNode, &value[0], true);
+        else
+            e = agedge(graph, speciesNode, reactionNode, &value[0], true);
+        
+        if (e) {
+            updateLineSegment(speciesReferenceGlyph->getCurve()->getCurveSegment(0), e);
+            updateExtetns(minXLayout, minYLayout, maxXLayout, maxYLayout, speciesReferenceGlyph->getCurve()->getCurveSegment(0));
+        }
     }
 }
 
