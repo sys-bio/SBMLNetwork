@@ -1,0 +1,78 @@
+#ifndef __LIBSBML_NE_RENDER_H_
+#define __LIBSBML_NE_RENDER_H_
+
+#include "libsbml_ne_common.h"
+
+#ifndef SWIG
+#include "sbml/SBMLTypes.h"
+#include "sbml/packages/layout/common/LayoutExtensionTypes.h"
+#include "sbml/packages/render/common/RenderExtensionTypes.h"
+#endif
+
+namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
+
+/// @brief Get the List of global render Information of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return a pointer to the ListOfRenderInformationBase object of the SBML document.
+LIBSBML_NETWORKEDITOR_EXTERN ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* document);
+
+/// @brief Get the List of local render Information of the Layout.
+/// @param document a pointer to the Layout object.
+/// @return a pointer to the ListOfGlobalInformationBase object of the SBML document.
+LIBSBML_NETWORKEDITOR_EXTERN ListOfLocalRenderInformation* getListOfLocalRenderInformation(Layout* layout);
+
+/// @brief Add GlobalRenderInformation to list of global renders of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param globalRednderInformation a pointer to the GlobalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRednderInformation);
+
+/// @brief Add LlobalRenderInformation to list of local renders of the Layout.
+/// @param layout a pointer to the Layout object.
+/// @param localRednderInformation a pointer to the LocalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addLocalRender(Layout* layout, LocalRenderInformation* localRednderInformation);
+
+/// @brief Create a GlobalRenderInformation object and add it to list of global renders of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return a pointer to the created GlobalRenderInformation object.
+LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* createGlobalRender(SBMLDocument* document);
+
+/// @brief Create a LocalRenderInformation object and add it to list of local renders of the Layout.
+/// @param layout a pointer to the Layout object.
+/// @return a pointer to the created LocalRenderInformation object.
+LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* createLocalRender(Layout* layout);
+
+/// @brief Remove all the global render information objects from the list of global renders of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int removeGlobalRenders(SBMLDocument* document);
+
+/// @brief Remove all the local render information objects from the list of local renders of the Layout.
+/// @param layout a pointer to the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int removeLocalRenders(Layout* layout);
+
+/// @brief Set all the necessary features for the global render information object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param globalRednderInformation a pointer to the GlobalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultGlobalRenderFeatures(SBMLDocument* document, GlobalRenderInformation* globalRednderInformation);
+
+/// @brief Set all the necessary features for the local render information object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param localRednderInformation a pointer to the LocalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRednderInformation);
+
+/// @brief Searches among the styles of both local render information and global render information and returns one with the "id"
+/// attribute of the GraphicalObject object in its "idlist" attribute list.
+/// @param localRednderInformation  a pointer to the LocalRenderInformation object.
+/// @param graphicalObject  a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednderInformation, GraphicalObject* graphicalObject);
+
+}
+
+#endif
+
