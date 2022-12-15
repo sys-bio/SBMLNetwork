@@ -111,13 +111,13 @@ void setInhibitorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkg
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces);
 
-Transformation2D* createRectangleShape();
+void setDefaultRectangleShapeFeatures(Rectangle* rectangle);
 
-Transformation2D* createEllipseShape();
+void setDefaultEllipseShapeFeatures(Ellipse* ellipse);
 
-Transformation2D* createTriangleShape(RenderPkgNamespaces* renderPkgNamespaces);
+void setDefaultTriangleShapeFeatures(Polygon* polygon);
 
-Transformation2D* createDiamondShape(RenderPkgNamespaces* renderPkgNamespaces);
+void setDefaultDiamondShapeFeatures(Polygon* polygon);
 
 }
 

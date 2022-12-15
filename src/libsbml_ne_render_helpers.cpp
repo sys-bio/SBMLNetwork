@@ -100,13 +100,13 @@ void addCompartmentGlyphStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInf
 }
 
 void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
-    Transformation2D* shape = createRectangleShape();
-    ((Rectangle*)shape)->setStroke("darkcyan");
-    ((Rectangle*)shape)->setStrokeWidth(2.0);
-    ((Rectangle*)shape)->setFill("lightgray");
-    ((Rectangle*)shape)->setRX(RelAbsVector(0.0, 5.0));
-    ((Rectangle*)shape)->setRY(RelAbsVector(0.0, 5.0));
-    renderGroup->addElement(shape);
+    Rectangle* rectangle = renderGroup->createRectangle();
+    setDefaultRectangleShapeFeatures(rectangle);
+    rectangle->setStroke("darkcyan");
+    rectangle->setStrokeWidth(2.0);
+    rectangle->setFill("lightgray");
+    rectangle->setRX(RelAbsVector(0.0, 5.0));
+    rectangle->setRY(RelAbsVector(0.0, 5.0));
 }
 
 void addCompartmentTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -142,11 +142,11 @@ void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* lo
 }
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
-    Transformation2D* shape = createRectangleShape();
-    ((Rectangle*)shape)->setStroke("black");
-    ((Rectangle*)shape)->setStrokeWidth(2.0);
-    ((Rectangle*)shape)->setFill("white");
-    renderGroup->addElement(shape);
+    Rectangle* rectangle = renderGroup->createRectangle();
+    setDefaultRectangleShapeFeatures(rectangle);
+    rectangle->setStroke("black");
+    rectangle->setStrokeWidth(2.0);
+    rectangle->setFill("white");
 }
 
 void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -179,11 +179,11 @@ void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation*
 }
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
-    Transformation2D* shape = createEllipseShape();
-    ((Ellipse*)shape)->setStroke("black");
-    ((Ellipse*)shape)->setStrokeWidth(2.0);
-    ((Ellipse*)shape)->setFill("white");
-    renderGroup->addElement(shape);
+    Ellipse* ellipse = renderGroup->createEllipse();
+    setDefaultEllipseShapeFeatures(ellipse);
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2.0);
+    ellipse->setFill("white");
 }
 
 void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -293,13 +293,13 @@ LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces
 
 void setProductHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Transformation2D* shape = createTriangleShape(renderPkgNamespaces);
-    ((Polygon*)shape)->getElement(1)->setY(RelAbsVector(0.0, 50.0));
-    ((Polygon*)shape)->getElement(2)->setX(RelAbsVector(0.0, 0.0));
-    ((Polygon*)shape)->setStroke("black");
-    ((Polygon*)shape)->setStrokeWidth(2.0);
-    ((Polygon*)shape)->setFill("black");
-    renderGroup->addElement(shape);
+    Polygon* triangle = renderGroup->createPolygon();
+    setDefaultTriangleShapeFeatures(triangle);
+    triangle->getElement(1)->setY(RelAbsVector(0.0, 50.0));
+    triangle->getElement(2)->setX(RelAbsVector(0.0, 0.0));
+    triangle->setStroke("black");
+    triangle->setStrokeWidth(2.0);
+    triangle->setFill("black");
 }
 
 void addModifierHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -316,11 +316,11 @@ LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespace
 
 void setModifierHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Transformation2D* shape = createDiamondShape(renderPkgNamespaces);
-    ((Polygon*)shape)->setStroke("black");
-    ((Polygon*)shape)->setStrokeWidth(2.0);
-    ((Polygon*)shape)->setFill("white");
-    renderGroup->addElement(shape);
+    Polygon* diamond = renderGroup->createPolygon();
+    setDefaultDiamondShapeFeatures(diamond);
+    diamond->setStroke("black");
+    diamond->setStrokeWidth(2.0);
+    diamond->setFill("white");
 }
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -337,11 +337,11 @@ LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespac
 
 void setActivatorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Transformation2D* shape = createEllipseShape();
-    ((Ellipse*)shape)->setStroke("black");
-    ((Ellipse*)shape)->setStrokeWidth(2.0);
-    ((Ellipse*)shape)->setFill("white");
-    renderGroup->addElement(shape);
+    Ellipse* ellipse = renderGroup->createEllipse();
+    setDefaultEllipseShapeFeatures(ellipse);
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2.0);
+    ellipse->setFill("white");
 }
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -359,15 +359,15 @@ LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespac
 
 void setInhibitorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Transformation2D* shape = createRectangleShape();
-    ((Rectangle*)shape)->setX(RelAbsVector(0.0, 80.0));
-    ((Rectangle*)shape)->setWidth(RelAbsVector(0.0, 20.0));
-    ((Rectangle*)shape)->setRX(RelAbsVector(0.0, 0.0));
-    ((Rectangle*)shape)->setRY(RelAbsVector(0.0, 0.0));
-    ((Rectangle*)shape)->setStroke("black");
-    ((Rectangle*)shape)->setStrokeWidth(2.0);
-    ((Rectangle*)shape)->setFill("black");
-    renderGroup->addElement(shape);
+    Rectangle* rectangle = renderGroup->createRectangle();
+    setDefaultRectangleShapeFeatures(rectangle);
+    rectangle->setX(RelAbsVector(0.0, 80.0));
+    rectangle->setWidth(RelAbsVector(0.0, 20.0));
+    rectangle->setRX(RelAbsVector(0.0, 0.0));
+    rectangle->setRY(RelAbsVector(0.0, 0.0));
+    rectangle->setStroke("black");
+    rectangle->setStrokeWidth(2.0);
+    rectangle->setFill("black");
 }
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces) {
@@ -375,41 +375,49 @@ void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* l
     lineEnding->setBoundingBox(new BoundingBox(layoutPkgNamespaces, lineEnding->getId() + "_bb", -12.0, -6.0, 12.0, 12.0));
 }
 
-Transformation2D* createRectangleShape() {
-    Transformation2D* rectangle = new Rectangle();
-    ((Rectangle*)rectangle)->setX(RelAbsVector(0.0, 0.0));
-    ((Rectangle*)rectangle)->setY(RelAbsVector(0.0, 0.0));
-    ((Rectangle*)rectangle)->setWidth(RelAbsVector(0.0, 100.0));
-    ((Rectangle*)rectangle)->setHeight(RelAbsVector(0.0, 100.0));
-    ((Rectangle*)rectangle)->setRX(RelAbsVector(0.0, 10.0));
-    ((Rectangle*)rectangle)->setRY(RelAbsVector(0.0, 10.0));
-    return rectangle;
+void setDefaultRectangleShapeFeatures(Rectangle* rectangle) {
+    rectangle->setX(RelAbsVector(0.0, 0.0));
+    rectangle->setY(RelAbsVector(0.0, 0.0));
+    rectangle->setWidth(RelAbsVector(0.0, 100.0));
+    rectangle->setHeight(RelAbsVector(0.0, 100.0));
+    rectangle->setRX(RelAbsVector(0.0, 10.0));
+    rectangle->setRY(RelAbsVector(0.0, 10.0));
 }
 
-Transformation2D* createEllipseShape() {
-    Transformation2D* ellipse = new Ellipse();
-    ((Ellipse*)ellipse)->setCX(RelAbsVector(0.0, 50.0));
-    ((Ellipse*)ellipse)->setCY(RelAbsVector(0.0, 50.0));
-    ((Ellipse*)ellipse)->setRX(RelAbsVector(0.0, 50.0));
-    ((Ellipse*)ellipse)->setRY(RelAbsVector(0.0, 50.0));
-    return ellipse;
+void setDefaultEllipseShapeFeatures(Ellipse* ellipse) {
+    ellipse->setCX(RelAbsVector(0.0, 50.0));
+    ellipse->setCY(RelAbsVector(0.0, 50.0));
+    ellipse->setRX(RelAbsVector(0.0, 50.0));
+    ellipse->setRY(RelAbsVector(0.0, 50.0));
 }
 
-Transformation2D* createTriangleShape(RenderPkgNamespaces* renderPkgNamespaces) {
-    Transformation2D* triangle = new Polygon();
-    ((Polygon*)triangle)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 0.0), RelAbsVector(0.0, 0.0)));
-    ((Polygon*)triangle)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 100.0), RelAbsVector(0.0, 0.0)));
-    ((Polygon*)triangle)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 50.0), RelAbsVector(0.0, 100.0)));
-    return triangle;
+void setDefaultTriangleShapeFeatures(Polygon* triangle) {
+    RenderPoint* point = NULL;
+    point = triangle->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 0.0));
+    point = triangle->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 0.0));
+    point = triangle->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 100.0));
 }
 
-Transformation2D* createDiamondShape(RenderPkgNamespaces* renderPkgNamespaces) {
-    Transformation2D* diamond = new Polygon();
-    ((Polygon*)diamond)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 0.0), RelAbsVector(0.0, 50.0)));
-    ((Polygon*)diamond)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 50.0), RelAbsVector(0.0, 0.0)));
-    ((Polygon*)diamond)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 100.0), RelAbsVector(0.0, 50.0)));
-    ((Polygon*)diamond)->addElement(new RenderPoint(renderPkgNamespaces, RelAbsVector(0.0, 50.0), RelAbsVector(0.0, 100.0)));
-    return diamond;
+void setDefaultDiamondShapeFeatures(Polygon* diamond) {
+    RenderPoint* point = NULL;
+    point = diamond->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 50.0));
+    point = diamond->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 0.0));
+    point = diamond->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 50.0));
+    point = diamond->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 100.0));
 }
 
 }
