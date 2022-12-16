@@ -35,8 +35,6 @@ void extractGlyphsFeaturesFromGraph(Model* model, Layout* layout, Agraph_t* grap
 
 void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractSpeciesGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment);
-
 void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_t* graph, double &minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment);
 
 void extractReactionGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);

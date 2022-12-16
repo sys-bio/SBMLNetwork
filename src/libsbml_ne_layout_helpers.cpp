@@ -219,17 +219,11 @@ Compartment* findSpeicesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     return NULL;
 }
 
-bool containsSpecies(Model* model, CompartmentGlyph* compartmentGlyph) {
-    for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
-        Compartment* compartment = NULL;
-        if (model->getCompartment(i)->getId() == compartmentGlyph->getCompartmentId()) {
-            compartment = model->getCompartment(i);
-            for (int j = 0; j < model->getNumSpecies(); j++) {
-                if (model->getSpecies(i)->getCompartment() == compartment->getId())
-                    return true;
-            }
-        }
-    }
+bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph) {
+    std::string compartmentId = getEntityId(layout, compartmentGlyph);
+    for (unsigned int i = 0; i < model->getNumSpecies(); i++)
+        if (model->getSpecies(i)->getCompartment() == compartmentId)
+            return true;
     
     return false;
 }

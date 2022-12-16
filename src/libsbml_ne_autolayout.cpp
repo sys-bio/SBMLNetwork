@@ -140,18 +140,17 @@ void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_t* g
         minYCompartment = INT_MAX;
         maxXCompartment = INT_MIN;
         maxYCompartment = INT_MIN;
-        extractSpeciesGlyphsFromGraph(layout, graph, minXLayout, minYLayout, maxXLayout, maxYLayout, minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
+        SpeciesGlyph* speciesGlyph = NULL;
+        Compartment* compartment = NULL;
+        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+            speciesGlyph = layout->getSpeciesGlyph(i);
+            compartment = findSpeicesGlyphCompartment(model, speciesGlyph);
+            if (compartment && compartmentGlyphBelongs(compartmentGlyph, compartment))
+                extractSpeciesGlyphFromGraph(speciesGlyph, graph, minXLayout, minYLayout, maxXLayout, maxYLayout, minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
+        }
         
-        if (containsSpecies(model, compartmentGlyph))
+        if (containsSpecies(model, layout, compartmentGlyph))
             updateBoundingBox(compartmentGlyph->getBoundingBox(), minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
-    }
-}
-
-void extractSpeciesGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment) {
-    SpeciesGlyph* speciesGlyph = NULL;
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
-        extractSpeciesGlyphFromGraph(speciesGlyph, graph, minXLayout, minYLayout, maxXLayout, maxYLayout, minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
     }
 }
 

@@ -51,7 +51,7 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph,
 
 Compartment* findSpeicesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph);
 
-bool containsSpecies(Model* model, CompartmentGlyph* compartmentGlyph);
+bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 
 bool compartmentGlyphBelongs(CompartmentGlyph* compartmentGlyph, Compartment* compartment);
 
