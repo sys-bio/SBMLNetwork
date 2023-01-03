@@ -68,4 +68,63 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
+GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphicalObjectId) {
+    if (layout) {
+        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+            if (layout->getCompartmentGlyph(i)->getId() == graphicalObjectId)
+                return layout->getCompartmentGlyph(i);
+        }
+        
+        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+            if (layout->getSpeciesGlyph(i)->getId() == graphicalObjectId)
+                return layout->getSpeciesGlyph(i);
+        }
+        
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+            if (layout->getReactionGlyph(i)->getId() == graphicalObjectId)
+                return layout->getReactionGlyph(i);
+            
+            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+            for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
+                if (reactionGlyph->getSpeciesReferenceGlyph(j)->getId() == graphicalObjectId)
+                    return reactionGlyph->getSpeciesReferenceGlyph(i);
+            }
+        }
+    }
+    
+    return NULL;
+}
+
+const double getPositionX(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->getBoundingBox()->x();
+    
+    return 0.0;
+}
+
+int setPositionX(GraphicalObject* graphicalObject, const double& x) {
+    if (graphicalObject) {
+        graphicalObject->getBoundingBox()->setX(x);
+        return 0;
+    }
+    
+    return -1;
+}
+
+const double getPositionY(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->getBoundingBox()->y();
+    
+    return 0.0;
+}
+
+int setPositionY(GraphicalObject* graphicalObject, const double& y) {
+    if (graphicalObject) {
+        graphicalObject->getBoundingBox()->setY(y);
+        return 0;
+    }
+    
+    return -1;
+}
+
 }

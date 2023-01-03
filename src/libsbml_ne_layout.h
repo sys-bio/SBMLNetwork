@@ -37,6 +37,34 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeLayouts(SBMLDocument* document);
 /// @return integer value indicating success/failure of the function.
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout);
 
+/// @brief Returns the GraphicalObject object with entered graphical object id.
+/// @param layout a pointer to the Layout object.
+/// @param graphicalObjectId the id of the graphical object to be returned.
+/// @return a pointer to the GraphicalObject object with the same graphical object id.
+GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphicalObjectId);
+
+/// @brief Returns the value of the "x" attribute of the bouniding box of this GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "x" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
+const double getPositionX(GraphicalObject* graphicalObject);
+
+/// @brief Sets the value of the "x" attribute of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param x a double value to use as the value of the "x" attribute of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setPositionX(GraphicalObject* graphicalObject, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the bouniding box of this GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "y" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
+const double getPositionY(GraphicalObject* graphicalObject);
+
+/// @brief Sets the value of the "y" attribute of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setPositionY(GraphicalObject* graphicalObject, const double& y);
+
 }
 
 #endif
