@@ -74,13 +74,35 @@ void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, R
     addReactionGlyphsStyles(layout, localRenderInformation, renderPkgNamespaces);
 }
 
-Style* findStyle(LocalRenderInformation* localRednderInformation, const std::string& graphicalObjectId) {
+Style* findStyle(LocalRenderInformation* localRednderInformation, const std::string& objectIdOrRole) {
     if (localRednderInformation) {
-        Style* style = NULL;
         for (unsigned int i = 0; i < localRednderInformation->getNumStyles(); i++) {
             std::set<std::string> idList = localRednderInformation->getStyle(i)->getIdList();
-            if (idList.find(graphicalObjectId) != idList.end())
+            if (idList.find(objectIdOrRole) != idList.end())
                 return localRednderInformation->getStyle(i);
+        }
+        for (unsigned int i = 0; i < localRednderInformation->getNumStyles(); i++) {
+            std::set<std::string> roleList = localRednderInformation->getStyle(i)->getRoleList();
+            if (roleList.find(objectIdOrRole) != roleList.end())
+                return localRednderInformation->getStyle(i);
+        }
+    }
+    
+    return NULL;
+}
+
+Style* findStyle(GlobalRenderInformation* globalRednderInformation, const std::string& objectRoleOrType) {
+    if (globalRednderInformation) {
+        Style* style = NULL;
+        for (unsigned int i = 0; i < globalRednderInformation->getNumStyles(); i++) {
+            // role
+            std::set<std::string> roleList = globalRednderInformation->getStyle(i)->getRoleList();
+            if (roleList.find(objectRoleOrType) != roleList.end())
+                return globalRednderInformation->getStyle(i);
+            // type
+            std::set<std::string> typeList = globalRednderInformation->getStyle(i)->getTypeList();
+            if (typeList.find(objectRoleOrType) != typeList.end())
+                return globalRednderInformation->getStyle(i);
         }
     }
     

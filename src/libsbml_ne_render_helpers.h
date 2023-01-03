@@ -25,7 +25,9 @@ void enableRenderPlugin(Layout* layout);
 
 void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-Style* findStyle(LocalRenderInformation* localRednderInformation, const std::string& graphicalObjectId);
+Style* findStyle(LocalRenderInformation* localRednderInformation, const std::string& objectIdOrRole);
+
+Style* findStyle(GlobalRenderInformation* globalRednderInformation, const std::string& objectRoleOrType);
 
 void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
