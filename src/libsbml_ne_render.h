@@ -65,13 +65,21 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDefaultGlobalRenderFeatures(SBMLDocument* do
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRednderInformation);
 
-/// @brief Searches among the styles of both local render information and global render information and returns one with the "id"
+/// @brief Searches among the styles of local render information information and returns one with the "id"
 /// attribute of the GraphicalObject object in its "idlist" attribute list.
 /// @param localRednderInformation  a pointer to the LocalRenderInformation object.
 /// @param graphicalObject  a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednderInformation, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the styles of global render information and returns one with either the "role"
+/// attribute of the GraphicalObject object in its "rolelist" attribute list or "type"
+/// in its "typelist" attribute list.
+/// @param globalRednderInformation  a pointer to the GlobalRenderInformation object.
+/// @param graphicalObject  a pointer to the GraphicalObject object.
+/// @param objectType  a string indicating the type of the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
 }
 
 #endif

@@ -122,11 +122,36 @@ int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalR
 
 
 Style* findStyle(LocalRenderInformation* localRednderInformation, GraphicalObject* graphicalObject) {
-    if (graphicalObject && localRednderInformation) {
-        return findStyle(localRednderInformation, graphicalObject->getId());
+    Style * style = NULL;
+    if (localRednderInformation && graphicalObject) {
+        style = findStyle(localRednderInformation, graphicalObject->getId());
+        if (!style) {
+            std::string objectRole;
+            RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
+            if (renderGraphicalObjectPlugin && renderGraphicalObjectPlugin->isSetObjectRole())
+                objectRole = renderGraphicalObjectPlugin->getObjectRole();
+            style = findStyle(localRednderInformation, objectRole);
+        }
     }
     
-    return NULL;
+    return style;
+}
+
+Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType) {
+    Style * style = NULL;
+    if (globalRednderInformation) {
+        // by role
+        if (graphicalObject) {
+            RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
+            if (renderGraphicalObjectPlugin && renderGraphicalObjectPlugin->isSetObjectRole())
+                style = findStyle(globalRednderInformation, renderGraphicalObjectPlugin->getObjectRole());
+        }
+        // by type
+        if (!style)
+            style = findStyle(globalRednderInformation, objectType);
+    }
+    
+    return style;
 }
 
 }
