@@ -127,4 +127,36 @@ int setPositionY(GraphicalObject* graphicalObject, const double& y) {
     return -1;
 }
 
+const double getDimensionWidth(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->getBoundingBox()->width();
+    
+    return 0.0;
+}
+
+int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
+    if (graphicalObject) {
+        graphicalObject->getBoundingBox()->setWidth(width);
+        return 0;
+    }
+    
+    return -1;
+}
+
+const double getDimensionHeight(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->getBoundingBox()->height();
+    
+    return 0.0;
+}
+
+int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
+    if (graphicalObject) {
+        graphicalObject->getBoundingBox()->setHeight(height);
+        return 0;
+    }
+    
+    return -1;
+}
+
 }

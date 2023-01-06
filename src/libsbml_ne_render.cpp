@@ -154,5 +154,37 @@ Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObj
     return style;
 }
 
+const std::string getStrokeColor(Style* style) {
+    if (style)
+        return style->getGroup()->getStroke();
+    
+    return "";
+}
+
+int setStrokeColor(Style* style, const std::string& stroke) {
+    if (style) {
+        style->getGroup()->setStroke(stroke);
+        return 0;
+    }
+    
+    return -1;
+}
+
+const double getStrokeWidth(Style* style) {
+    if (style)
+        return style->getGroup()->getStrokeWidth();
+    
+    return 0.0;
+}
+
+int setStrokeWidth(Style* style, const double& strokeWidth) {
+    if (style) {
+        style->getGroup()->setStrokeWidth(strokeWidth);
+        return 0;
+    }
+    
+    return -1;
+}
+
 }
 

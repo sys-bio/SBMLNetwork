@@ -48,9 +48,9 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphical
 /// @return the "x" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
 const double getPositionX(GraphicalObject* graphicalObject);
 
-/// @brief Sets the value of the "x" attribute of this GraphicalObject object.
+/// @brief Sets the value of the "x" attribute of the bouniding box of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param x a double value to use as the value of the "x" attribute of this GraphicalObject object.
+/// @param x a double value to use as the value of the "x" attribute of the bouniding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 int setPositionX(GraphicalObject* graphicalObject, const double& x);
 
@@ -59,11 +59,33 @@ int setPositionX(GraphicalObject* graphicalObject, const double& x);
 /// @return the "y" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
 const double getPositionY(GraphicalObject* graphicalObject);
 
-/// @brief Sets the value of the "y" attribute of this GraphicalObject object.
+/// @brief Sets the value of the "y" attribute of the bouniding box this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param y a double value to use as the value of the "y" attribute of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bouniding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 int setPositionY(GraphicalObject* graphicalObject, const double& y);
+
+/// @brief Returns the value of the "width" attribute of the bouniding box of this GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "width" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
+const double getDimensionWidth(GraphicalObject* graphicalObject);
+
+/// @brief Sets the value of the "width" attribute of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param width a double value to use as the value of the "width" attribute of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setDimensionWidth(GraphicalObject* graphicalObject, const double& width);
+
+/// @brief Returns the value of the "height" attribute of the bouniding box of this GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "height" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
+const double getDimensionHeight(GraphicalObject* graphicalObject);
+
+/// @brief Sets the value of the "height" attribute of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param width a double value to use as the value of the "height" attribute of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setDimensionHeight(GraphicalObject* graphicalObject, const double& height);
 
 }
 

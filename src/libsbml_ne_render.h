@@ -80,6 +80,28 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednd
 /// @param objectType  a string indicating the type of the GraphicalObject object.
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @return the "stroke" attribute of the RenderGroup of the Style object, or @c "" if the object is @c NULL
+const std::string getStrokeColor(Style* style);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+int setStrokeColor(Style* style, const std::string& stroke);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @return the "stroke-width" attribute of the RenderGroup of the Style object, or @c 0.0 if the object is @c NULL
+const double getStrokeWidth(Style* style);
+
+/// @brief Sets the value of the RenderGroup of the "stroke-width" attribute of this Style object.
+/// @param style a pointer to the Style object.
+/// @param strokeWidth a double value to use as the value  of the "stroke-width" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+int setStrokeWidth(Style* style, const double& strokeWidth);
 }
 
 #endif
