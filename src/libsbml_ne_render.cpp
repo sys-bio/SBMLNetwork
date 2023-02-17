@@ -154,16 +154,48 @@ Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObj
     return style;
 }
 
+const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D)
+        return graphicalPrimitive1D->getStroke();
+    
+    return "";
+}
+
+int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke) {
+    if (graphicalPrimitive1D) {
+        graphicalPrimitive1D->setStroke(stroke);
+        return 0;
+    }
+    
+    return -1;
+}
+
 const std::string getStrokeColor(Style* style) {
     if (style)
-        return style->getGroup()->getStroke();
+        return getStrokeColor(style->getGroup());
     
     return "";
 }
 
 int setStrokeColor(Style* style, const std::string& stroke) {
     if (style) {
-        style->getGroup()->setStroke(stroke);
+        setStrokeColor(style->getGroup(), stroke);
+        return 0;
+    }
+    
+    return -1;
+}
+
+const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D)
+        return graphicalPrimitive1D->getStrokeWidth();
+    
+    return 0.0;
+}
+
+int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth) {
+    if (graphicalPrimitive1D) {
+        graphicalPrimitive1D->setStrokeWidth(strokeWidth);
         return 0;
     }
     
@@ -172,14 +204,46 @@ int setStrokeColor(Style* style, const std::string& stroke) {
 
 const double getStrokeWidth(Style* style) {
     if (style)
-        return style->getGroup()->getStrokeWidth();
+        return getStrokeWidth(style->getGroup());
     
     return 0.0;
 }
 
 int setStrokeWidth(Style* style, const double& strokeWidth) {
     if (style) {
-        style->getGroup()->setStrokeWidth(strokeWidth);
+        setStrokeWidth(style->getGroup(), strokeWidth);
+        return 0;
+    }
+    
+    return -1;
+}
+
+const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D)
+        return graphicalPrimitive1D->getStrokeDashArray();
+    
+    return std::vector<unsigned int>();
+}
+
+int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray) {
+    if (graphicalPrimitive1D) {
+        graphicalPrimitive1D->setStrokeDashArray(strokeDashArray);
+        return 0;
+    }
+    
+    return -1;
+}
+
+const std::vector<unsigned int> getStrokeDashArray(Style* style) {
+    if (style)
+        return getStrokeDashArray(style->getGroup());
+    
+    return std::vector<unsigned int>();
+}
+
+int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray) {
+    if (style) {
+        setStrokeDashArray(style->getGroup(), strokeDashArray);
         return 0;
     }
     

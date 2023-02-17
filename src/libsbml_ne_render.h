@@ -81,6 +81,17 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednd
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
 
+/// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @return the "stroke" attribute of the GraphicalPrimitive1D object, or @c "" if the object is @c NULL
+const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D object.
+/// @return integer value indicating success/failure of the function.
+int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke);
+
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of this Style.
 /// @param style a pointer to the Style object.
 /// @return the "stroke" attribute of the RenderGroup of the Style object, or @c "" if the object is @c NULL
@@ -92,16 +103,50 @@ const std::string getStrokeColor(Style* style);
 /// @return integer value indicating success/failure of the function.
 int setStrokeColor(Style* style, const std::string& stroke);
 
+/// @brief Returns the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @return the "stroke-width" attribute of the GraphicalPrimitive1D object, or @c 0.0 if the object is @c NULL
+const double getStrokeWidth(Style* style);
+
+/// @brief Sets the value of the "stroke-width" attribute of this GraphicalPrimitive1D object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param strokeWidth a double value to use as the value  of the "stroke-width" attribute of this GraphicalPrimitive1D object.
+/// @return integer value indicating success/failure of the function.
+int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth);
+
 /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of this Style.
 /// @param style a pointer to the Style object.
 /// @return the "stroke-width" attribute of the RenderGroup of the Style object, or @c 0.0 if the object is @c NULL
 const double getStrokeWidth(Style* style);
 
-/// @brief Sets the value of the RenderGroup of the "stroke-width" attribute of this Style object.
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param strokeWidth a double value to use as the value  of the "stroke-width" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 int setStrokeWidth(Style* style, const double& strokeWidth);
+
+/// @brief Returns the vector of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
+/// @param style a pointer to the GraphicalPrimitive1D object.
+/// @return the "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an empty vector if the object is @c NULL
+const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "stroke-dasharray" of this GraphicalPrimitive1D object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of this GraphicalPrimitive1D object.
+/// @return integer value indicating success/failure of the function.
+int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
+
+/// @brief Returns the vector of the "stroke-dasharray" attribute of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @return the "stroke-dasharray" attribute of the RenderGroup of the Style object, or an empty vector if the object is @c NULL
+const std::vector<unsigned int> getStrokeDashArray(Style* style);
+
+/// @brief Sets the value of the "stroke-dasharray" of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray);
+
 }
 
 #endif
