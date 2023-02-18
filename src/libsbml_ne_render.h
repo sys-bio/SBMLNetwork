@@ -106,7 +106,7 @@ int setStrokeColor(Style* style, const std::string& stroke);
 /// @brief Returns the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke-width" attribute of the GraphicalPrimitive1D object, or @c 0.0 if the object is @c NULL
-const double getStrokeWidth(Style* style);
+const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
 
 /// @brief Sets the value of the "stroke-width" attribute of this GraphicalPrimitive1D object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
