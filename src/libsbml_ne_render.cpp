@@ -170,22 +170,6 @@ int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string
     return -1;
 }
 
-const std::string getStrokeColor(Style* style) {
-    if (style)
-        return getStrokeColor(style->getGroup());
-    
-    return "";
-}
-
-int setStrokeColor(Style* style, const std::string& stroke) {
-    if (style) {
-        setStrokeColor(style->getGroup(), stroke);
-        return 0;
-    }
-    
-    return -1;
-}
-
 const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->getStrokeWidth();
@@ -196,22 +180,6 @@ const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
 int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth) {
     if (graphicalPrimitive1D) {
         graphicalPrimitive1D->setStrokeWidth(strokeWidth);
-        return 0;
-    }
-    
-    return -1;
-}
-
-const double getStrokeWidth(Style* style) {
-    if (style)
-        return getStrokeWidth(style->getGroup());
-    
-    return 0.0;
-}
-
-int setStrokeWidth(Style* style, const double& strokeWidth) {
-    if (style) {
-        setStrokeWidth(style->getGroup(), strokeWidth);
         return 0;
     }
     
@@ -234,16 +202,292 @@ int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::ve
     return -1;
 }
 
-const std::vector<unsigned int> getStrokeDashArray(Style* style) {
-    if (style)
-        return getStrokeDashArray(style->getGroup());
+const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
+    if (graphicalPrimitive2D)
+        return graphicalPrimitive2D->getFill();
     
-    return std::vector<unsigned int>();
+    return "";
 }
 
-int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray) {
-    if (style) {
-        setStrokeDashArray(style->getGroup(), strokeDashArray);
+int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fill) {
+    if (graphicalPrimitive2D) {
+        graphicalPrimitive2D->setFill(fill);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeX(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetX();
+    
+    return false;
+}
+
+const RelAbsVector getRectangleShapeX(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getX();
+    
+    return RelAbsVector();
+}
+
+int setRectangleShapeX(Rectangle* rectangle, const RelAbsVector& x) {
+    if (rectangle) {
+        rectangle->setX(x);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeY(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetY();
+    
+    return false;
+}
+
+const RelAbsVector getRectangleShapeY(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getY();
+    
+    return RelAbsVector();
+}
+
+int setRectangleShapeY(Rectangle* rectangle, const RelAbsVector& y) {
+    if (rectangle) {
+        rectangle->setX(y);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeWidth(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetWidth();
+    
+    return false;
+}
+
+const RelAbsVector getRectangleShapeWidth(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getWidth();
+    
+    return RelAbsVector();
+}
+
+int setRectangleShapeWidth(Rectangle* rectangle, const RelAbsVector& width) {
+    if (rectangle) {
+        rectangle->setWidth(width);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeHeight(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetHeight();
+    
+    return false;
+}
+
+const RelAbsVector getRectangleShapeHeight(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getHeight();
+    
+    return RelAbsVector();
+}
+
+int setRectangleShapeHeight(Rectangle* rectangle, const RelAbsVector& height) {
+    if (rectangle) {
+        rectangle->setHeight(height);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeRatio(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetRatio();
+    
+    return false;
+}
+
+const double getRectangleShapeRatio(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getRatio();
+    
+    return 0.0;
+}
+
+int setRectangleShapeRatio(Rectangle* rectangle, const double& ratio) {
+    if (rectangle) {
+        rectangle->setRatio(ratio);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeRX(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetRX();
+    
+    return false;
+}
+
+const RelAbsVector getRectangleShapeRX(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getRX();
+    
+    return RelAbsVector();
+}
+
+int setRectangleShapeRX(Rectangle* rectangle, const RelAbsVector& rx) {
+    if (rectangle) {
+        rectangle->setRX(rx);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetRectangleShapeRY(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->isSetRY();
+    
+    return false;
+}
+
+const RelAbsVector getRectangleShapeRY(Rectangle* rectangle) {
+    if (rectangle)
+        return rectangle->getRY();
+    
+    return RelAbsVector();
+}
+
+int setRectangleShapeRY(Rectangle* rectangle, const RelAbsVector& ry) {
+    if (rectangle) {
+        rectangle->setRY(ry);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetEllipseShapeCX(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->isSetCX();
+    
+    return false;
+}
+
+const RelAbsVector getEllipseShapeCX(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->getCX();
+    
+    return RelAbsVector();
+}
+
+int setEllipseShapeCX(Ellipse* ellipse, const RelAbsVector& cx) {
+    if (ellipse) {
+        ellipse->setCX(cx);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetEllipseShapeCY(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->isSetCY();
+    
+    return false;
+}
+
+const RelAbsVector getEllipseShapeCY(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->getCY();
+    
+    return RelAbsVector();
+}
+
+int setEllipseShapeCY(Ellipse* ellipse, const RelAbsVector& cy) {
+    if (ellipse) {
+        ellipse->setCY(cy);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetEllipseShapeRX(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->isSetRX();
+    
+    return false;
+}
+
+const RelAbsVector getEllipseShapeRX(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->getRX();
+    
+    return RelAbsVector();
+}
+
+int setEllipseShapeRX(Ellipse* ellipse, const RelAbsVector& rx) {
+    if (ellipse) {
+        ellipse->setRX(rx);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetEllipseShapeRY(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->isSetRY();
+    
+    return false;
+}
+
+const RelAbsVector getEllipseShapeRY(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->getRY();
+    
+    return RelAbsVector();
+}
+
+int setEllipseShapeRY(Ellipse* ellipse, const RelAbsVector& ry) {
+    if (ellipse) {
+        ellipse->setRY(ry);
+        return 0;
+    }
+    
+    return -1;
+}
+
+bool isSetEllipseShapeRatio(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->isSetRatio();
+    
+    return false;
+}
+
+const double getEllipseShapeRatio(Ellipse* ellipse) {
+    if (ellipse)
+        return ellipse->getRatio();
+    
+    return 0.0;
+}
+
+int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio) {
+    if (ellipse) {
+        ellipse->setRatio(ratio);
         return 0;
     }
     

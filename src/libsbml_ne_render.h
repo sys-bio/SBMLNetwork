@@ -92,17 +92,6 @@ const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
 /// @return integer value indicating success/failure of the function.
 int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke);
 
-/// @brief Returns the value of the "stroke" attribute of the RenderGroup of this Style.
-/// @param style a pointer to the Style object.
-/// @return the "stroke" attribute of the RenderGroup of the Style object, or @c "" if the object is @c NULL
-const std::string getStrokeColor(Style* style);
-
-/// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
-/// @param style a pointer to the Style object.
-/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
-/// @return integer value indicating success/failure of the function.
-int setStrokeColor(Style* style, const std::string& stroke);
-
 /// @brief Returns the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke-width" attribute of the GraphicalPrimitive1D object, or @c 0.0 if the object is @c NULL
@@ -113,17 +102,6 @@ const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
 /// @param strokeWidth a double value to use as the value  of the "stroke-width" attribute of this GraphicalPrimitive1D object.
 /// @return integer value indicating success/failure of the function.
 int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth);
-
-/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of this Style.
-/// @param style a pointer to the Style object.
-/// @return the "stroke-width" attribute of the RenderGroup of the Style object, or @c 0.0 if the object is @c NULL
-const double getStrokeWidth(Style* style);
-
-/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of this Style object.
-/// @param style a pointer to the Style object.
-/// @param strokeWidth a double value to use as the value  of the "stroke-width" attribute of the RenderGroup of this Style object.
-/// @return integer value indicating success/failure of the function.
-int setStrokeWidth(Style* style, const double& strokeWidth);
 
 /// @brief Returns the vector of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
 /// @param style a pointer to the GraphicalPrimitive1D object.
@@ -136,16 +114,208 @@ const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphic
 /// @return integer value indicating success/failure of the function.
 int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
 
-/// @brief Returns the vector of the "stroke-dasharray" attribute of the RenderGroup of this Style.
-/// @param style a pointer to the Style object.
-/// @return the "stroke-dasharray" attribute of the RenderGroup of the Style object, or an empty vector if the object is @c NULL
-const std::vector<unsigned int> getStrokeDashArray(Style* style);
+/// @brief Returns the value of the "fill" attribute of this GraphicalPrimitive2D.
+/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
+/// @return the "fill" attribute of the GraphicalPrimitive2D object, or @c "" if the object is @c NULL
+const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D);
 
-/// @brief Sets the value of the "stroke-dasharray" of the RenderGroup of this Style object.
-/// @param style a pointer to the Style object.
-/// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of the RenderGroup of this Style object.
+/// @brief Sets the value of the "fill" attribute of this GraphicalPrimitive2D object.
+/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
+/// @param fill a string value to use as the value of the "fill" attribute of this GraphicalPrimitive2D object.
 /// @return integer value indicating success/failure of the function.
-int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray);
+int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fill);
+
+/// @brief Predicates returning @c true if the "x" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "x" attribute of this Rectangle object is set, @c false if either the "x" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeX(Rectangle* rectangle);
+
+/// @brief Returns the value of the "x" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "x" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getRectangleShapeX(Rectangle* rectangle);
+
+/// @brief Sets the value of the "x" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeX(Rectangle* rectangle, const RelAbsVector& x);
+
+/// @brief Predicates returning @c true if the "y" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "y" attribute of this Rectangle object is set, @c false if either the "y" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeY(Rectangle* rectangle);
+
+/// @brief Returns the value of the "y" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "y" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getRectangleShapeY(Rectangle* rectangle);
+
+/// @brief Sets the value of the "y" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeY(Rectangle* rectangle, const RelAbsVector& y);
+
+/// @brief Predicates returning @c true if the "width" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "width" attribute of this Rectangle object is set, @c false if either the "width" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeWidth(Rectangle* rectangle);
+
+/// @brief Returns the value of the "width" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "width" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getRectangleShapeWidth(Rectangle* rectangle);
+
+/// @brief Sets the value of the "width" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeWidth(Rectangle* rectangle, const RelAbsVector& width);
+
+/// @brief Predicates returning @c true if the "height" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "height" attribute of this Rectangle object is set, @c false if either the "height" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeHeight(Rectangle* rectangle);
+
+/// @brief Returns the value of the "height" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "height" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getRectangleShapeHeight(Rectangle* rectangle);
+
+/// @brief Sets the value of the "height" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeHeight(Rectangle* rectangle, const RelAbsVector& height);
+
+/// @brief Predicates returning @c true if the "ratio" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "ratio" attribute of this Rectangle object is set, @c false if either the "ratio" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeRatio(Rectangle* rectangle);
+
+/// @brief Returns the value of the "ratio" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "ratio" attribute of the Rectangle object, or @c "0.0" if the object is @c NULL
+const double getRectangleShapeRatio(Rectangle* rectangle);
+
+/// @brief Sets the value of the "ratio" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param ratio a double value to use as the value of the "ratio" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeRatio(Rectangle* rectangle, const double& ratio);
+
+/// @brief Predicates returning @c true if the "rx" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "rx" attribute of this Rectangle object is set, @c false if either the "rx" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeRX(Rectangle* rectangle);
+
+/// @brief Returns the value of the "rx" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "rx" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getRectangleShapeRX(Rectangle* rectangle);
+
+/// @brief Sets the value of the "rx" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeRX(Rectangle* rectangle, const RelAbsVector& rx);
+
+/// @brief Predicates returning @c true if the "ry" attribute of this Rectangle is set.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return @c true if the "ry" attribute of this Rectangle object is set, @c false if either the "ry" attribute is not set or the object is @c NULL .
+bool isSetRectangleShapeRY(Rectangle* rectangle);
+
+/// @brief Returns the value of the "ry" attribute of this Rectangle.
+/// @param rectangle a pointer to the Rectangle object.
+/// @return the "ry" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getRectangleShapeRY(Rectangle* rectangle);
+
+/// @brief Sets the value of the "ry" attribute of this Rectangle object.
+/// @param rectangle a pointer to the Rectangle object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Rectangle object.
+/// @return integer value indicating success/failure of the function.
+int setRectangleShapeRY(Rectangle* rectangle, const RelAbsVector& ry);
+
+/// @brief Predicates returning @c true if the "cx" attribute of this Ellipse is set.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return @c true if the "cx" attribute of this Ellipse object is set, @c false if either the "cx" attribute is not set or the object is @c NULL .
+bool isSetEllipseShapeCX(Ellipse* ellipse);
+
+/// @brief Returns the value of the "cx" attribute of this Ellipse.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return the "cx" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getEllipseShapeCX(Ellipse* ellipse);
+
+/// @brief Sets the value of the "cx" attribute of this Ellipse object.
+/// @param ellipse a pointer to the Ellipse object.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Ellipse object.
+/// @return integer value indicating success/failure of the function.
+int setEllipseShapeCX(Ellipse* ellipse, const RelAbsVector& cx);
+
+/// @brief Predicates returning @c true if the "cy" attribute of this Ellipse is set.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return @c true if the "cy" attribute of this Ellipse object is set, @c false if either the "cy" attribute is not set or the object is @c NULL .
+bool isSetEllipseShapeCY(Ellipse* ellipse);
+
+/// @brief Returns the value of the "cy" attribute of this Ellipse.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return the "cy" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getEllipseShapeCY(Ellipse* ellipse);
+
+/// @brief Sets the value of the "cy" attribute of this Ellipse object.
+/// @param ellipse a pointer to the Ellipse object.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Ellipse object.
+/// @return integer value indicating success/failure of the function.
+int setEllipseShapeCY(Ellipse* ellipse, const RelAbsVector& cy);
+
+/// @brief Predicates returning @c true if the "rx" attribute of this Ellipse is set.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return @c true if the "rx" attribute of this Ellipse object is set, @c false if either the "rx" attribute is not set or the object is @c NULL .
+bool isSetEllipseShapeRX(Ellipse* ellipse);
+
+/// @brief Returns the value of the "rx" attribute of this Ellipse.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return the "rx" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getEllipseShapeRX(Ellipse* ellipse);
+
+/// @brief Sets the value of the "rx" attribute of this Ellipse object.
+/// @param ellipse a pointer to the Ellipse object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Ellipse object.
+/// @return integer value indicating success/failure of the function.
+int setEllipseShapeRX(Ellipse* ellipse, const RelAbsVector& rx);
+
+/// @brief Predicates returning @c true if the "ry" attribute of this Ellipse is set.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return @c true if the "ry" attribute of this Ellipse object is set, @c false if either the "ry" attribute is not set or the object is @c NULL .
+bool isSetEllipseShapeRY(Ellipse* ellipse);
+
+/// @brief Returns the value of the "ry" attribute of this Ellipse.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return the "ry" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getEllipseShapeRY(Ellipse* ellipse);
+
+/// @brief Sets the value of the "ry" attribute of this Ellipse object.
+/// @param ellipse a pointer to the Ellipse object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Ellipse object.
+/// @return integer value indicating success/failure of the function.
+int setEllipseShapeRY(Ellipse* ellipse, const RelAbsVector& ry);
+
+/// @brief Predicates returning @c true if the "ratio" attribute of this Ellipse is set.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return @c true if the "ratio" attribute of this Ellipse object is set, @c false if either the "ratio" attribute is not set or the object is @c NULL .
+bool isSetEllipseShapeRatio(Ellipse* ellipse);
+
+/// @brief Returns the value of the "ratio" attribute of this Ellipse.
+/// @param ellipse a pointer to the Ellipse object.
+/// @return the "ratio" attribute of the Ellipse object, or @c "0.0" if the object is @c NULL
+const double getEllipseShapeRatio(Ellipse* ellipse);
+
+/// @brief Sets the value of the "ratio" attribute of this Ellipse object.
+/// @param ellipse a pointer to the Ellipse object.
+/// @param ratio a double value to use as the value of the "ratio" attribute of this Ellipse object.
+/// @return integer value indicating success/failure of the function.
+int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio);
 
 }
 
