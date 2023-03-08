@@ -317,6 +317,18 @@ const double getEllipseShapeRatio(Ellipse* ellipse);
 /// @return integer value indicating success/failure of the function.
 int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio);
 
+/// @brief Add a geometric shape to this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+
+/// @brief Remove a geometric shape from this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @return a pointer to the nth Transformation2D in this RenderGroup.
+int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+
 }
 
 #endif

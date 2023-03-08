@@ -494,5 +494,29 @@ int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio) {
     return -1;
 }
 
+int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
+    if (renderGroup) {
+        if (stringCompare(shape, "rectangle")) {
+            Rectangle* rectangle = renderGroup->createRectangle();
+            setDefaultRectangleShapeFeatures(rectangle);
+            return 0;
+        }
+        else if (stringCompare(shape, "ellipse")) {
+            Ellipse* ellipse = renderGroup->createEllipse();
+            setDefaultEllipseShapeFeatures(ellipse);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+Transformation2D * removeGeometricShape(RenderGroup* renderGroup, unsigned int n) {
+    if (renderGroup)
+        return renderGroup->removeElement(n);
+
+    return NULL;
+}
+
 }
 
