@@ -2,6 +2,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 ## sources
 set(SOURCES 
+	libsbml_ne_common.cpp
     	libsbml_ne_layout.cpp
 	libsbml_ne_autolayout.cpp
 	libsbml_ne_layout_helpers.cpp

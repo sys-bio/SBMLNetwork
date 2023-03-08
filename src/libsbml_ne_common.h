@@ -10,5 +10,11 @@
     #endif
 #endif
 
+#include <iostream>
+
+bool compareChar(const char& c1, const char& c2);
+
+bool stringCompare(const std::string& str1, const std::string& str2);
+
 #endif
 
