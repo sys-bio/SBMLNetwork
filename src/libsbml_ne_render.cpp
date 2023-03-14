@@ -550,6 +550,31 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
             setDefaultEllipseShapeFeatures(ellipse);
             return 0;
         }
+        else if (stringCompare(shape, "triangle")) {
+            Polygon* triangle = renderGroup->createPolygon();
+            setDefaultTriangleShapeFeatures(triangle);
+            return 0;
+        }
+        else if (stringCompare(shape, "diamond")) {
+            Polygon* diamond = renderGroup->createPolygon();
+            setDefaultDiamondShapeFeatures(diamond);
+            return 0;
+        }
+        else if (stringCompare(shape, "pentagon")) {
+            Polygon* pentagon = renderGroup->createPolygon();
+            setDefaultPentagonShapeFeatures(pentagon);
+            return 0;
+        }
+        else if (stringCompare(shape, "hexagon")) {
+            Polygon* hexagon = renderGroup->createPolygon();
+            setDefaultHexagonShapeFeatures(hexagon);
+            return 0;
+        }
+        else if (stringCompare(shape, "octagon")) {
+            Polygon* octagon = renderGroup->createPolygon();
+            setDefaultOctagonShapeFeatures(octagon);
+            return 0;
+        }
     }
 
     return -1;
