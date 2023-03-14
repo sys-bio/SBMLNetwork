@@ -494,6 +494,50 @@ int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio) {
     return -1;
 }
 
+const RelAbsVector getPolygonShapeElementX(Polygon* polygon, unsigned  int n) {
+    if (polygon) {
+        RenderPoint* element = polygon->getElement(n);
+        if (element)
+            element->getX();
+    }
+
+    return RelAbsVector();
+}
+
+int setPolygonShapeElementX(Polygon* polygon, unsigned  int n, const RelAbsVector& x) {
+    if (polygon) {
+        RenderPoint* element = polygon->getElement(n);
+        if (element) {
+            element->setX(x);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+const RelAbsVector getPolygonShapeElementY(Polygon* polygon, unsigned  int n) {
+    if (polygon) {
+        RenderPoint* element = polygon->getElement(n);
+        if (element)
+            element->getY();
+    }
+
+    return RelAbsVector();
+}
+
+int setPolygonShapeElementY(Polygon* polygon, unsigned  int n, const RelAbsVector& y) {
+    if (polygon) {
+        RenderPoint* element = polygon->getElement(n);
+        if (element) {
+            element->setY(y);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
         if (stringCompare(shape, "rectangle")) {
