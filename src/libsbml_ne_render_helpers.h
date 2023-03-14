@@ -117,9 +117,15 @@ void setDefaultRectangleShapeFeatures(Rectangle* rectangle);
 
 void setDefaultEllipseShapeFeatures(Ellipse* ellipse);
 
-void setDefaultTriangleShapeFeatures(Polygon* polygon);
+void setDefaultTriangleShapeFeatures(Polygon* triangle);
 
-void setDefaultDiamondShapeFeatures(Polygon* polygon);
+void setDefaultDiamondShapeFeatures(Polygon* diamond);
+
+void setDefaultPentagonShapeFeatures(Polygon* pentagon);
+
+void setDefaultHexagonShapeFeatures(Polygon* pentagon);
+
+void setDefaultOctagonShapeFeatures(Polygon* pentagon);
 
 }
 

@@ -1,6 +1,8 @@
 #include "libsbml_ne_render_helpers.h"
 #include "libsbml_ne_layout_helpers.h"
 
+#include <cmath>
+
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
 SBasePlugin* getRenderPlugin(SBMLDocument* document) {
@@ -440,6 +442,77 @@ void setDefaultDiamondShapeFeatures(Polygon* diamond) {
     point = diamond->createPoint();
     point->setX(RelAbsVector(0.0, 50.0));
     point->setY(RelAbsVector(0.0, 100.0));
+}
+
+void setDefaultPentagonShapeFeatures(Polygon* pentagon) {
+    const double pi = 3.14159265;
+    RenderPoint* point = NULL;
+    point = pentagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.4 * pi))));
+    point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
+    point = pentagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50.));
+    point->setY(RelAbsVector(0.0, 0.));
+    point = pentagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.4 * pi))));
+    point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
+    point = pentagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.2 * pi))));
+    point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
+    point = pentagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.2 * pi))));
+    point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
+}
+
+void setDefaultHexagonShapeFeatures(Polygon* hexagon) {
+    RenderPoint* point = NULL;
+    point = hexagon->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 25.0));
+    point = hexagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 0.0));
+    point = hexagon->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 25.0));
+    point = hexagon->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 75.0));
+    point = hexagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 100.0));
+    point = hexagon->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 75.0));
+}
+
+void setDefaultOctagonShapeFeatures(Polygon* octagon) {
+    const double pi = 3.14159265;
+    RenderPoint* point = NULL;
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 50.0));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
+    point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 0.0));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
+    point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 50.0));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
+    point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50.0));
+    point->setY(RelAbsVector(0.0, 100.0));
+    point = octagon->createPoint();
+    point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
+    point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
 }
 
 }
