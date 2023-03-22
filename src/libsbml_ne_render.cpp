@@ -498,7 +498,7 @@ const RelAbsVector getPolygonShapeElementX(Polygon* polygon, unsigned  int n) {
     if (polygon) {
         RenderPoint* element = polygon->getElement(n);
         if (element)
-            element->getX();
+            return element->getX();
     }
 
     return RelAbsVector();
@@ -520,7 +520,7 @@ const RelAbsVector getPolygonShapeElementY(Polygon* polygon, unsigned  int n) {
     if (polygon) {
         RenderPoint* element = polygon->getElement(n);
         if (element)
-            element->getY();
+            return element->getY();
     }
 
     return RelAbsVector();
