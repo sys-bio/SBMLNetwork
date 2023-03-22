@@ -587,5 +587,30 @@ Transformation2D * removeGeometricShape(RenderGroup* renderGroup, unsigned int n
     return NULL;
 }
 
+
+int addElement(Transformation2D* shape) {
+    if (shape) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
+        if (shape->isPolygon())
+            return ((Polygon*)shape)->addElement(new RenderPoint(renderPkgNamespaces));
+        else if (shape->isRenderCurve())
+            return ((RenderCurve*)shape)->addElement(new RenderPoint(renderPkgNamespaces));
+    }
+
+    return -1;
+}
+
+RenderPoint * removeElement(Transformation2D* shape, unsigned int n) {
+    if (shape) {
+        if (shape->isPolygon())
+            return ((Polygon*)shape)->removeElement(n);
+        else if (shape->isRenderCurve())
+            return ((RenderCurve*)shape)->removeElement(n);
+    }
+
+    return NULL;
+}
+
+
 }
 
