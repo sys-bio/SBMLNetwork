@@ -357,16 +357,16 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
 /// @return a pointer to the nth Transformation2D in this RenderGroup.
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
 
-/// @brief Add an element to this Transformation2d (Polygon or RenderCurve).
+/// @brief Add a render point to this Transformation2d (Polygon or RenderCurve).
 /// @param shape a pointer to the Transformation2d object.
 /// @return integer value indicating success/failure of the function.
-int addElement(Transformation2D* shape);
+int addShapeRenderPoint(Transformation2D* shape);
 
 /// @brief Remove an element from this Transformation2d (Polygon or RenderCurve).
 /// @param shape a pointer to the Transformation2d object.
 /// @param n an unsigned int representing the index of the RenderPoint to remove.
 /// @return a pointer to the nth RenderPoint in this Transformation2d.
-RenderPoint * removeElement(Transformation2D* shape, unsigned int n);
+RenderPoint * removeShapeElement(Transformation2D* shape, unsigned int n);
 
 }
 
