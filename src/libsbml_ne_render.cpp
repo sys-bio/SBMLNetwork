@@ -600,6 +600,18 @@ int addShapeRenderPoint(Transformation2D* shape) {
     return -1;
 }
 
+int addShapeRenderCubicBezier(Transformation2D* shape) {
+    if (shape) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
+        if (shape->isPolygon())
+            return ((Polygon*)shape)->addElement(new RenderCubicBezier(renderPkgNamespaces));
+        else if (shape->isRenderCurve())
+            return ((RenderCurve*)shape)->addElement(new RenderCubicBezier(renderPkgNamespaces));
+    }
+
+    return -1;
+}
+
 RenderPoint * removeShapeElement(Transformation2D* shape, unsigned int n) {
     if (shape) {
         if (shape->isPolygon())

@@ -362,6 +362,11 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
 /// @return integer value indicating success/failure of the function.
 int addShapeRenderPoint(Transformation2D* shape);
 
+/// @brief Add a render cubic bezier to this Transformation2d (Polygon or RenderCurve).
+/// @param shape a pointer to the Transformation2d object.
+/// @return integer value indicating success/failure of the function.
+int addShapeRenderCubicBezier(Transformation2D* shape);
+
 /// @brief Remove an element from this Transformation2d (Polygon or RenderCurve).
 /// @param shape a pointer to the Transformation2d object.
 /// @param n an unsigned int representing the index of the RenderPoint to remove.
