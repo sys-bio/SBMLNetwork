@@ -588,7 +588,7 @@ Transformation2D * removeGeometricShape(RenderGroup* renderGroup, unsigned int n
 }
 
 
-int addShapeRenderPoint(Transformation2D* shape) {
+int addRenderPointToShape(Transformation2D* shape) {
     if (shape) {
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
         if (shape->isPolygon())
@@ -600,7 +600,7 @@ int addShapeRenderPoint(Transformation2D* shape) {
     return -1;
 }
 
-int addShapeRenderCubicBezier(Transformation2D* shape) {
+int addRenderCubicBezierToShape(Transformation2D* shape) {
     if (shape) {
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
         if (shape->isPolygon())
@@ -612,7 +612,7 @@ int addShapeRenderCubicBezier(Transformation2D* shape) {
     return -1;
 }
 
-RenderPoint * removeShapeElement(Transformation2D* shape, unsigned int n) {
+RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
     if (shape) {
         if (shape->isPolygon())
             return ((Polygon*)shape)->removeElement(n);
