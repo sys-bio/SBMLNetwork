@@ -515,4 +515,14 @@ void setDefaultOctagonShapeFeatures(Polygon* octagon) {
     point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
 }
 
+void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve) {
+    RenderPoint* point = NULL;
+    point = renderCurve->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 50.0));
+    point = renderCurve->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 50.0));
+}
+
 }

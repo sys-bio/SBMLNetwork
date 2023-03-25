@@ -575,6 +575,11 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
             setDefaultOctagonShapeFeatures(octagon);
             return 0;
         }
+        else if (stringCompare(shape, "rendercurve")) {
+            RenderCurve* renderCurve = renderGroup->createCurve();
+            setDefaultRenderCurveShapeFeatures(renderCurve);
+            return 0;
+        }
     }
 
     return -1;
