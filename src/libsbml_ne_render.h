@@ -343,7 +343,63 @@ int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio);
 /// @param n an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Polygon.
 /// @return integer value indicating success/failure of the function.
-    int setPolygonShapeElementY(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
+int setPolygonShapeElementY(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 1 of the nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth element of Polygon object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+    const RelAbsVector getPolygonShapeBasePoint1X(Polygon* polygon, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of the nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the nth element of this Polygon.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint1X(Polygon* polygon, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of the nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of he base point 1 of the nth element of Polygon object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint1Y(Polygon* polygon, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this Polygon.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint1Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of the nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the base point 2 of the nth element of Polygon object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint2X(Polygon* polygon, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of the nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the nth element of this Polygon.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint2X(Polygon* polygon, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of the nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of he base point 2 of the nth element of Polygon object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this Polygon.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
 
 /// @brief Add a geometric shape to this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
