@@ -626,6 +626,138 @@ int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVe
     return -1;
 }
 
+const RelAbsVector getRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element)
+            return element->getX();
+    }
+
+    return RelAbsVector();
+}
+
+int setRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element) {
+            element->setX(x);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+const RelAbsVector getRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element)
+            return element->getY();
+    }
+
+    return RelAbsVector();
+}
+
+int setRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element) {
+            element->setY(y);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+const RelAbsVector getRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier())
+            return ((RenderCubicBezier*)element)->getBasePoint1_x();
+    }
+
+    return RelAbsVector();
+}
+
+int setRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier()) {
+            ((RenderCubicBezier*)element)->setBasePoint1_x(x);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+const RelAbsVector getRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier())
+            return ((RenderCubicBezier*)element)->getBasePoint1_y();
+    }
+
+    return RelAbsVector();
+}
+
+int setRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier()) {
+            ((RenderCubicBezier*)element)->setBasePoint1_y(y);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+const RelAbsVector getRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier())
+            return ((RenderCubicBezier*)element)->getBasePoint2_x();
+    }
+
+    return RelAbsVector();
+}
+
+int setRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier()) {
+            ((RenderCubicBezier*)element)->setBasePoint2_x(x);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+const RelAbsVector getRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier())
+            return ((RenderCubicBezier*)element)->getBasePoint2_y();
+    }
+
+    return RelAbsVector();
+}
+
+int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y) {
+    if (renderCurve) {
+        RenderPoint* element = renderCurve->getElement(n);
+        if (element && element->isRenderCubicBezier()) {
+            ((RenderCubicBezier*)element)->setBasePoint2_y(y);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
         if (stringCompare(shape, "rectangle")) {

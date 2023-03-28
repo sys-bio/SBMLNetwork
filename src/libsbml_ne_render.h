@@ -401,6 +401,174 @@ const RelAbsVector getPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n)
 /// @return integer value indicating success/failure of the function.
 int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
 
+/// @brief Returns the value of the "x" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the nth element of Polygon object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeElementX(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeElementX(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the Polygon object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of the nth element of Polygon object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeElementY(Polygon* polygon, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Polygon.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeElementY(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 1 of the nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of the nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of the nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of he base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of the nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of the nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of the nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of he base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getPolygonShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setPolygonShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 1 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+const RelAbsVector getRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+    int setRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return the "y" attribute of the base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
+/// object is @c NULL or it has less than n elements
+    const RelAbsVector getRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
+/// @return integer value indicating success/failure of the function.
+int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
 /// @brief Add a geometric shape to this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param shape a string value indicating the shape of the geometric shape to be added.
