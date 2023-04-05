@@ -758,6 +758,98 @@ int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, co
     return -1;
 }
 
+bool isSetImageShapeX(Image* image) {
+    if (image)
+        return image->isSetX();
+
+    return false;
+}
+
+const RelAbsVector getImageShapeX(Image* image) {
+    if (image)
+        return image->getX();
+
+    return RelAbsVector();
+}
+
+int setImageShapeX(Image* image, const RelAbsVector& x) {
+    if (image) {
+        image->setX(x);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetImageShapeY(Image* image) {
+    if (image)
+        return image->isSetY();
+
+    return false;
+}
+
+const RelAbsVector getImageShapeY(Image* image) {
+    if (image)
+        return image->getY();
+
+    return RelAbsVector();
+}
+
+int setImageShapeY(Image* image, const RelAbsVector& y) {
+    if (image) {
+        image->setX(y);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetImageShapeWidth(Image* image) {
+    if (image)
+        return image->isSetWidth();
+
+    return false;
+}
+
+const RelAbsVector getImageShapeWidth(Image* image) {
+    if (image)
+        return image->getWidth();
+
+    return RelAbsVector();
+}
+
+int setImageShapeWidth(Image* image, const RelAbsVector& width) {
+    if (image) {
+        image->setWidth(width);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetImageShapeHeight(Image* image) {
+    if (image)
+        return image->isSetHeight();
+
+    return false;
+}
+
+const RelAbsVector getImageShapeHeight(Image* image) {
+    if (image)
+        return image->getHeight();
+
+    return RelAbsVector();
+}
+
+int setImageShapeHeight(Image* image, const RelAbsVector& height) {
+    if (image) {
+        image->setHeight(height);
+        return 0;
+    }
+
+    return -1;
+}
+
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
         if (stringCompare(shape, "rectangle")) {
@@ -812,7 +904,6 @@ Transformation2D * removeGeometricShape(RenderGroup* renderGroup, unsigned int n
     return NULL;
 }
 
-
 int addRenderPointToShape(Transformation2D* shape) {
     if (shape) {
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
@@ -847,7 +938,6 @@ RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
 
     return NULL;
 }
-
 
 }
 

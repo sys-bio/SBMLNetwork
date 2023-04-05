@@ -553,14 +553,14 @@ const RelAbsVector getRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsi
 /// @param n an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
 /// @return integer value indicating success/failure of the function.
-    int setRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
+int setRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
 /// @param renderCurve a pointer to the RenderCurve object.
 /// @param n an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
 /// object is @c NULL or it has less than n elements
-    const RelAbsVector getRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n);
+const RelAbsVector getRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
 /// @param renderCurve a pointer to the RenderCurve object.
@@ -568,6 +568,70 @@ const RelAbsVector getRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsi
 /// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
 /// @return integer value indicating success/failure of the function.
 int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
+
+/// @brief Predicates returning @c true if the "x" attribute of this Image is set.
+/// @param image a pointer to the Image object.
+/// @return @c true if the "x" attribute of this Image object is set, @c false if either the "x" attribute is not set or the object is @c NULL .
+bool isSetImageShapeX(Image* image);
+
+/// @brief Returns the value of the "x" attribute of this Image.
+/// @param image a pointer to the Image object.
+/// @return the "x" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getImageShapeX(Image* image);
+
+/// @brief Sets the value of the "x" attribute of this Image object.
+/// @param image a pointer to the Image object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Image object.
+/// @return integer value indicating success/failure of the function.
+int setImageShapeX(Image* image, const RelAbsVector& x);
+
+/// @brief Predicates returning @c true if the "y" attribute of this Image is set.
+/// @param image a pointer to the Image object.
+/// @return @c true if the "y" attribute of this Image object is set, @c false if either the "y" attribute is not set or the object is @c NULL .
+    bool isSetImageShapeY(Image* image);
+
+/// @brief Returns the value of the "y" attribute of this Image.
+/// @param image a pointer to the Image object.
+/// @return the "y" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
+    const RelAbsVector getImageShapeY(Image* image);
+
+/// @brief Sets the value of the "y" attribute of this Image object.
+/// @param image a pointer to the Image object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Image object.
+/// @return integer value indicating success/failure of the function.
+    int setImageShapeY(Image* image, const RelAbsVector& y);
+
+/// @brief Predicates returning @c true if the "width" attribute of this Image is set.
+/// @param image a pointer to the Image object.
+/// @return @c true if the "width" attribute of this Image object is set, @c false if either the "width" attribute is not set or the object is @c NULL .
+    bool isSetImageShapeWidth(Image* image);
+
+/// @brief Returns the value of the "width" attribute of this Image.
+/// @param image a pointer to the Image object.
+/// @return the "width" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
+    const RelAbsVector getImageShapeWidth(Image* image);
+
+/// @brief Sets the value of the "width" attribute of this Image object.
+/// @param image a pointer to the Image object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of this Image object.
+/// @return integer value indicating success/failure of the function.
+    int setImageShapeWidth(Image* image, const RelAbsVector& width);
+
+/// @brief Predicates returning @c true if the "height" attribute of this Image is set.
+/// @param image a pointer to the Image object.
+/// @return @c true if the "height" attribute of this Image object is set, @c false if either the "height" attribute is not set or the object is @c NULL .
+    bool isSetImageShapeHeight(Image* image);
+
+/// @brief Returns the value of the "height" attribute of this Image.
+/// @param image a pointer to the Image object.
+/// @return the "height" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
+    const RelAbsVector getImageShapeHeight(Image* image);
+
+/// @brief Sets the value of the "height" attribute of this Image object.
+/// @param image a pointer to the Image object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of this Image object.
+/// @return integer value indicating success/failure of the function.
+    int setImageShapeHeight(Image* image, const RelAbsVector& height);
 
 /// @brief Add a geometric shape to this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
