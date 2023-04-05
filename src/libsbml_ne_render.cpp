@@ -850,6 +850,29 @@ int setImageShapeHeight(Image* image, const RelAbsVector& height) {
     return -1;
 }
 
+bool isSetImageShapeHref(Image* image) {
+    if (image)
+        return image->isSetHref();
+
+    return false;
+}
+
+const std::string getImageShapeHref(Image* image) {
+    if (image)
+        return image->getHref();
+
+    return "";
+}
+
+int setImageShapeHref(Image* image, const std::string& href) {
+    if (image) {
+        image->setHref(href);
+        return 0;
+    }
+
+    return -1;
+}
+
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
         if (stringCompare(shape, "rectangle")) {

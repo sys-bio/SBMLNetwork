@@ -588,50 +588,66 @@ int setImageShapeX(Image* image, const RelAbsVector& x);
 /// @brief Predicates returning @c true if the "y" attribute of this Image is set.
 /// @param image a pointer to the Image object.
 /// @return @c true if the "y" attribute of this Image object is set, @c false if either the "y" attribute is not set or the object is @c NULL .
-    bool isSetImageShapeY(Image* image);
+bool isSetImageShapeY(Image* image);
 
 /// @brief Returns the value of the "y" attribute of this Image.
 /// @param image a pointer to the Image object.
 /// @return the "y" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
-    const RelAbsVector getImageShapeY(Image* image);
+const RelAbsVector getImageShapeY(Image* image);
 
 /// @brief Sets the value of the "y" attribute of this Image object.
 /// @param image a pointer to the Image object.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Image object.
 /// @return integer value indicating success/failure of the function.
-    int setImageShapeY(Image* image, const RelAbsVector& y);
+int setImageShapeY(Image* image, const RelAbsVector& y);
 
 /// @brief Predicates returning @c true if the "width" attribute of this Image is set.
 /// @param image a pointer to the Image object.
 /// @return @c true if the "width" attribute of this Image object is set, @c false if either the "width" attribute is not set or the object is @c NULL .
-    bool isSetImageShapeWidth(Image* image);
+bool isSetImageShapeWidth(Image* image);
 
 /// @brief Returns the value of the "width" attribute of this Image.
 /// @param image a pointer to the Image object.
 /// @return the "width" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
-    const RelAbsVector getImageShapeWidth(Image* image);
+const RelAbsVector getImageShapeWidth(Image* image);
 
 /// @brief Sets the value of the "width" attribute of this Image object.
 /// @param image a pointer to the Image object.
 /// @param width a RelAbsVector to use as the value of the "width" attribute of this Image object.
 /// @return integer value indicating success/failure of the function.
-    int setImageShapeWidth(Image* image, const RelAbsVector& width);
+int setImageShapeWidth(Image* image, const RelAbsVector& width);
 
 /// @brief Predicates returning @c true if the "height" attribute of this Image is set.
 /// @param image a pointer to the Image object.
 /// @return @c true if the "height" attribute of this Image object is set, @c false if either the "height" attribute is not set or the object is @c NULL .
-    bool isSetImageShapeHeight(Image* image);
+bool isSetImageShapeHeight(Image* image);
 
 /// @brief Returns the value of the "height" attribute of this Image.
 /// @param image a pointer to the Image object.
 /// @return the "height" attribute of the Image object, or @c RelAbsVector() if the object is @c NULL
-    const RelAbsVector getImageShapeHeight(Image* image);
+const RelAbsVector getImageShapeHeight(Image* image);
 
 /// @brief Sets the value of the "height" attribute of this Image object.
 /// @param image a pointer to the Image object.
 /// @param height a RelAbsVector to use as the value of the "height" attribute of this Image object.
 /// @return integer value indicating success/failure of the function.
-    int setImageShapeHeight(Image* image, const RelAbsVector& height);
+int setImageShapeHeight(Image* image, const RelAbsVector& height);
+
+/// @brief Predicates returning @c true if the "href" attribute of this Image is set.
+/// @param image a pointer to the Image object.
+/// @return @c true if the "href" attribute of this Image object is set, @c false if either the "href" attribute is not set or the object is @c NULL .
+bool isSetImageShapeHref(Image* image);
+
+/// @brief Returns the value of the "href" attribute of this Image object.
+/// @param image a pointer to the Image object.
+/// @return the "href" attribute of the Image object, or @c "" if the object is @c NULL
+const std::string getImageShapeHref(Image* image);
+
+/// @brief Sets the value of the "href" attribute of this Image object.
+/// @param image a pointer to the Image object.
+/// @param stroke a string value to use as the value of the "image" attribute of this Image object.
+/// @return integer value indicating success/failure of the function.
+int setImageShapeHref(Image* image, const std::string& href);
 
 /// @brief Add a geometric shape to this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
