@@ -129,6 +129,8 @@ void setDefaultOctagonShapeFeatures(Polygon* pentagon);
 
 void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
 
+void setDefaultImageShapeFeatures(Image* image);
+
 }
 
 #endif

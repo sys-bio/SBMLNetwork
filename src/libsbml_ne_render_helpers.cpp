@@ -525,4 +525,11 @@ void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve) {
     point->setY(RelAbsVector(0.0, 50.0));
 }
 
+void setDefaultImageShapeFeatures(Image* image) {
+    image->setX(RelAbsVector(0.0, 0.0));
+    image->setY(RelAbsVector(0.0, 0.0));
+    image->setWidth(RelAbsVector(0.0, 100.0));
+    image->setHeight(RelAbsVector(0.0, 100.0));
+}
+
 }

@@ -915,6 +915,11 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
             setDefaultRenderCurveShapeFeatures(renderCurve);
             return 0;
         }
+        else if (stringCompare(shape, "image")) {
+            Image* image = renderGroup->createImage();
+            setDefaultImageShapeFeatures(image);
+            return 0;
+        }
     }
 
     return -1;
