@@ -797,7 +797,7 @@ const RelAbsVector getImageShapeY(Image* image) {
 
 int setImageShapeY(Image* image, const RelAbsVector& y) {
     if (image) {
-        image->setX(y);
+        image->setY(y);
         return 0;
     }
 
