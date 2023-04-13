@@ -97,65 +97,121 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphical
 
 const double getPositionX(GraphicalObject* graphicalObject) {
     if (graphicalObject)
-        return graphicalObject->getBoundingBox()->x();
+        return getPositionX(graphicalObject->getBoundingBox());
     
     return 0.0;
 }
 
+const double getPositionX(BoundingBox* boundingBox) {
+    if (boundingBox)
+        return boundingBox->x();
+
+    return 0.0;
+}
+
 int setPositionX(GraphicalObject* graphicalObject, const double& x) {
-    if (graphicalObject) {
-        graphicalObject->getBoundingBox()->setX(x);
+    if (graphicalObject)
+        return setPositionX(graphicalObject->getBoundingBox(), x);
+    
+    return -1;
+}
+
+int setPositionX(BoundingBox* boundingBox, const double& x) {
+    if (boundingBox) {
+        boundingBox->setX(x);
         return 0;
     }
-    
+
     return -1;
 }
 
 const double getPositionY(GraphicalObject* graphicalObject) {
     if (graphicalObject)
-        return graphicalObject->getBoundingBox()->y();
+        return getPositionY(graphicalObject->getBoundingBox());
     
     return 0.0;
 }
 
+const double getPositionY(BoundingBox* boundingBox) {
+    if (boundingBox)
+        return boundingBox->y();
+
+    return 0.0;
+}
+
 int setPositionY(GraphicalObject* graphicalObject, const double& y) {
-    if (graphicalObject) {
-        graphicalObject->getBoundingBox()->setY(y);
+    if (graphicalObject)
+        setPositionY(graphicalObject->getBoundingBox(), y);
+    
+    return -1;
+}
+
+int setPositionY(BoundingBox* boundingBox, const double& y) {
+    if (boundingBox) {
+        boundingBox->setY(y);
         return 0;
     }
-    
+
     return -1;
 }
 
 const double getDimensionWidth(GraphicalObject* graphicalObject) {
     if (graphicalObject)
-        return graphicalObject->getBoundingBox()->width();
+        return getDimensionWidth(graphicalObject->getBoundingBox());
     
     return 0.0;
 }
 
+const double getDimensionWidth(BoundingBox* boundingBox) {
+    if (boundingBox)
+        return boundingBox->width();
+
+    return 0.0;
+}
+
 int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
-    if (graphicalObject) {
-        graphicalObject->getBoundingBox()->setWidth(width);
+    if (graphicalObject)
+        setDimensionWidth(graphicalObject->getBoundingBox(), width);
+    
+    return -1;
+}
+
+int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
+    if (boundingBox) {
+        boundingBox->setWidth(width);
         return 0;
     }
-    
+
     return -1;
 }
 
 const double getDimensionHeight(GraphicalObject* graphicalObject) {
     if (graphicalObject)
-        return graphicalObject->getBoundingBox()->height();
+        return getDimensionHeight(graphicalObject->getBoundingBox());
     
     return 0.0;
 }
 
+const double getDimensionHeight(BoundingBox* boundingBox) {
+    if (boundingBox)
+        return boundingBox->height();
+
+    return 0.0;
+}
+
 int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
-    if (graphicalObject) {
-        graphicalObject->getBoundingBox()->setHeight(height);
+    if (graphicalObject)
+        return setDimensionHeight(graphicalObject->getBoundingBox(), height);
+
+    return -1;
+}
+
+int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
+    if (boundingBox) {
+        boundingBox->setHeight(height);
         return 0;
     }
-    
+
     return -1;
 }
 
