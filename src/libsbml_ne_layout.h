@@ -154,10 +154,128 @@ const unsigned int getNumCurveSegments(Curve* curve);
 /// this GraphicalObject object.
 LineSegment* getCurveSegment(GraphicalObject* graphicalObject, unsigned int index);
 
+/// @brief Returns a pointer to the curve segment of this Curve object with the given index.
+/// @param index the index value of the curve segment to return.
+/// @return the @c LineSegment representing the child "curveSegment" with the appropriate index, or NULL if no such LineSegment exists for
+/// this Curve object.
+LineSegment* getCurveSegment(Curve* curve, unsigned int index);
+
 /// @brief Predicate returning true if this abstract LineSegment is of type CubicBezier.
 /// @param lineSegment a pointer to the LineSegment object.
 /// @return @c true if this abstract LineSegment is of type CubicBezier, false otherwise
 bool isCubicBezier(LineSegment* lineSegment);
+
+/// @brief Returns the value of the "x" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentStartPointX(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "x" attribute of the start point of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the start point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentStartPointX(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentStartPointX(GraphicalObject* graphicalObject, unsigned int n, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the start point of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentStartPointX(Curve* curve, unsigned int n, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentStartPointY(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "y" attribute of the start point of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the start point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentStartPointY(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentStartPointY(GraphicalObject* graphicalObject, unsigned int n, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the start point of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentStartPointY(Curve* curve, unsigned int n, const double& y);
+
+/// @brief Returns the value of the "x" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentEndPointX(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "x" attribute of the end point of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the end point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentEndPointX(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentEndPointX(GraphicalObject* graphicalObject, unsigned int n, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the end point of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentEndPointX(Curve* curve, unsigned int n, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "y" attribute of the end point of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the end point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentEndPointY(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned int n, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the end point of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentEndPointY(Curve* curve, unsigned int n, const double& y);
 
 }
 
