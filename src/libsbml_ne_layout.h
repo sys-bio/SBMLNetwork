@@ -137,6 +137,11 @@ int setDimensionHeight(BoundingBox* boundingBox, const double& height);
 /// a Curve object
 Curve* getCurve(GraphicalObject* graphicalObject);
 
+/// @brief Predicate returning true if this abstract LineSegment is of type CubicBezier.
+/// @param lineSegment a pointer to the LineSegment object.
+/// @return @c true if this abstract LineSegment is of type CubicBezier, false otherwise
+bool isCubicBezier(LineSegment* lineSegment);
+
 }
 
 #endif

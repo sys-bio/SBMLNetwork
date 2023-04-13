@@ -228,5 +228,14 @@ Curve* getCurve(GraphicalObject* graphicalObject) {
     return  NULL;
 }
 
+bool isCubicBezier(LineSegment* lineSegment) {
+    if (lineSegment) {
+        CubicBezier* cubicBezier = dynamic_cast<CubicBezier*>(cubicBezier);
+        if (cubicBezier)
+            return  true;
+    }
+
+    return  false;
+}
 
 }
