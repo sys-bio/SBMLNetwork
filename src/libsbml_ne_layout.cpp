@@ -228,6 +228,24 @@ Curve* getCurve(GraphicalObject* graphicalObject) {
     return  NULL;
 }
 
+const unsigned int getNumCurveSegments(GraphicalObject* graphicalObject) {
+    return getNumCurveSegments(getCurve(graphicalObject));
+}
+
+const unsigned int getNumCurveSegments(Curve* curve) {
+    if (curve)
+        return curve->getNumCurveSegments();
+
+    return 0;
+}
+
+LineSegment* getCurveSegment (GraphicalObject* graphicalObject, unsigned int index) {
+    if (index < getNumCurveSegments(graphicalObject))
+        return getCurve(graphicalObject)->getCurveSegment(index);
+
+    return  NULL;
+}
+
 bool isCubicBezier(LineSegment* lineSegment) {
     if (lineSegment) {
         CubicBezier* cubicBezier = dynamic_cast<CubicBezier*>(cubicBezier);

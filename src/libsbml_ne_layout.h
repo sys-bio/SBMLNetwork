@@ -137,6 +137,23 @@ int setDimensionHeight(BoundingBox* boundingBox, const double& height);
 /// a Curve object
 Curve* getCurve(GraphicalObject* graphicalObject);
 
+/// @brief Returns the number of curve segments of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
+/// or does not have a curve
+const unsigned int getNumCurveSegments(GraphicalObject* graphicalObject);
+
+/// @brief Returns the number of curve segments of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @return the number of curve segments of the Curve object, or @c 0 if the object is @c NULL
+const unsigned int getNumCurveSegments(Curve* curve);
+
+/// @brief Returns a pointer to the curve segment of this GraphicalObject object with the given index.
+/// @param index the index value of the curve segment to return.
+/// @return the @c LineSegment representing the child "curveSegment" with the appropriate index, or NULL if no such LineSegment exists for
+/// this GraphicalObject object.
+LineSegment* getCurveSegment(GraphicalObject* graphicalObject, unsigned int index);
+
 /// @brief Predicate returning true if this abstract LineSegment is of type CubicBezier.
 /// @param lineSegment a pointer to the LineSegment object.
 /// @return @c true if this abstract LineSegment is of type CubicBezier, false otherwise
