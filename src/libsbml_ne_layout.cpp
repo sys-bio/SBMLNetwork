@@ -215,4 +215,21 @@ int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
     return -1;
 }
 
+const unsigned int getNumCurveSegments(GraphicalObject* graphicalObject) {
+    if (graphicalObject) {
+        ReactionGlyph* reactionGlyph = dynamic_cast<ReactionGlyph*>(graphicalObject);
+        if (reactionGlyph)
+            return getNumCurveSegments(reactionGlyph->getCurve());
+        SpeciesReferenceGlyph* speciesReferenceGlyph = dynamic_cast<SpeciesReferenceGlyph*>(graphicalObject);
+        if (speciesReferenceGlyph)
+            return getNumCurveSegments(speciesReferenceGlyph->getCurve());
+    }
+
+    return  0;
+}
+
+const unsigned int getNumCurveSegments(Curve* curve) {
+    return  curve->getNumCurveSegments();
+}
+
 }
