@@ -228,12 +228,5 @@ Curve* getCurve(GraphicalObject* graphicalObject) {
     return  NULL;
 }
 
-const unsigned int getNumCurveSegments(GraphicalObject* graphicalObject) {
-    return getNumCurveSegments(getCurve(graphicalObject));
-}
-
-const unsigned int getNumCurveSegments(Curve* curve) {
-    return  curve->getNumCurveSegments();
-}
 
 }
