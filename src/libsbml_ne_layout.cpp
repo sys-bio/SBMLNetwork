@@ -359,4 +359,100 @@ int setCurveSegmentEndPointY(Curve* curve, unsigned int n, const double& y) {
     return  0.0;
 }
 
+const double getCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int n) {
+    return getCurveSegmentBasePoint1X(getCurve(graphicalObject), n);
+}
+
+const double getCurveSegmentBasePoint1X(Curve* curve, unsigned int n) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint1()->x();
+
+    return  0.0;
+}
+
+int setCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int n, const double& x) {
+    return setCurveSegmentBasePoint1X(getCurve(graphicalObject), n, x);
+}
+
+int setCurveSegmentBasePoint1X(Curve* curve, unsigned int n, const double& x) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint1()->setX(x);
+
+    return  0.0;
+}
+
+const double getCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int n) {
+    return getCurveSegmentBasePoint1Y(getCurve(graphicalObject), n);
+}
+
+const double getCurveSegmentBasePoint1Y(Curve* curve, unsigned int n) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint1()->y();
+
+    return  0.0;
+}
+
+int setCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int n, const double& y) {
+    return setCurveSegmentBasePoint1Y(getCurve(graphicalObject), n, y);
+}
+
+int setCurveSegmentBasePoint1Y(Curve* curve, unsigned int n, const double& y) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint1()->setY(y);
+
+    return  0.0;
+}
+
+const double getCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int n) {
+    return getCurveSegmentBasePoint2X(getCurve(graphicalObject), n);
+}
+
+const double getCurveSegmentBasePoint2X(Curve* curve, unsigned int n) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint2()->x();
+
+    return  0.0;
+}
+
+int setCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int n, const double& x) {
+    return setCurveSegmentBasePoint2X(getCurve(graphicalObject), n, x);
+}
+
+int setCurveSegmentBasePoint2X(Curve* curve, unsigned int n, const double& x) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint2()->setX(x);
+
+    return  0.0;
+}
+
+const double getCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int n) {
+    return getCurveSegmentBasePoint2Y(getCurve(graphicalObject), n);
+}
+
+const double getCurveSegmentBasePoint2Y(Curve* curve, unsigned int n) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint2()->y();
+
+    return  0.0;
+}
+
+int setCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int n, const double& y) {
+    return setCurveSegmentBasePoint2Y(getCurve(graphicalObject), n, y);
+}
+
+int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y) {
+    LineSegment* lineSegment = getCurveSegment(curve, n);
+    if (lineSegment && isCubicBezier(lineSegment))
+        ((CubicBezier*)lineSegment)->getBasePoint2()->setY(y);
+
+    return  0.0;
+}
+
 }

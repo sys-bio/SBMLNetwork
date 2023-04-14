@@ -277,6 +277,118 @@ int setCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned int n, c
 /// @return integer value indicating success/failure of the function.
 int setCurveSegmentEndPointY(Curve* curve, unsigned int n, const double& y);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "x" attribute of the base point 1 of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentBasePoint1X(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int n, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint1X(Curve* curve, unsigned int n, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 1 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentBasePoint1Y(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int n, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint1Y(Curve* curve, unsigned int n, const double& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 2 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentBasePoint2X(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int n, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint2X(Curve* curve, unsigned int n, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+const double getCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of the nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 2 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
+/// have a curve
+const double getCurveSegmentBasePoint2Y(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int n, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth curve segment of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of nth curve segment of this Curve object.
+/// @return integer value indicating success/failure of the function.
+int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y);
+
 }
 
 #endif
