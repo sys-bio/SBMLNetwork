@@ -275,6 +275,23 @@ CubicBezier* createCubicBezierCurveSegment(Curve* curve) {
     return NULL;
 }
 
+int removeCurveSegment(GraphicalObject* graphicalObject, unsigned int n) {
+    return removeCurveSegment(getCurve(graphicalObject), n);
+}
+
+int removeCurveSegment(Curve* curve, unsigned int n) {
+    if (curve) {
+        ListOfLineSegments* listOfLineSegments = curve->getListOfCurveSegments();
+        if (listOfLineSegments) {
+            LineSegment* lineSegment = listOfLineSegments->remove(n);
+            delete lineSegment;
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
 bool isCubicBezier(LineSegment* lineSegment) {
     if (lineSegment) {
         CubicBezier* cubicBezier = dynamic_cast<CubicBezier*>(cubicBezier);

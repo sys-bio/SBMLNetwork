@@ -175,6 +175,18 @@ LineSegment* createLineCurveSegment(Curve* curve);
 /// @return the created @c CubicBezier, or NULL if the line segment could not be created.
 CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject);
 
+/// @brief Removes and deletes a curve segment from the list of the Curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the curve segment to remove.
+/// @return integer value indicating success/failure of the function.
+int removeCurveSegment(GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Removes and deletes a curve segment from the list of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment to remove.
+/// @return integer value indicating success/failure of the function.
+int removeCurveSegment(Curve* curve, unsigned int n);
+
 /// @brief Creates a new CubicBezier and adds it to the end of the list of this Curve object.
 /// @param curve a pointer to the Curve object.
 /// @return the created @c CubicBezier, or NULL if the line segment could not be created.
