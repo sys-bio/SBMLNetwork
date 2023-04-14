@@ -294,7 +294,7 @@ int removeCurveSegment(Curve* curve, unsigned int n) {
 
 bool isCubicBezier(LineSegment* lineSegment) {
     if (lineSegment) {
-        CubicBezier* cubicBezier = dynamic_cast<CubicBezier*>(cubicBezier);
+        CubicBezier* cubicBezier = dynamic_cast<CubicBezier*>(lineSegment);
         if (cubicBezier)
             return true;
     }
