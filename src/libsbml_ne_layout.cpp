@@ -253,6 +253,28 @@ LineSegment* getCurveSegment(Curve* curve, unsigned int index) {
     return  NULL;
 }
 
+LineSegment* createLineCurveSegment(GraphicalObject* graphicalObject) {
+    return createLineCurveSegment(getCurve(graphicalObject));
+}
+
+LineSegment* createLineCurveSegment(Curve* curve) {
+    if (curve)
+        return curve->createLineSegment();
+
+    return NULL;
+}
+
+CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject) {
+    return createCubicBezierCurveSegment(getCurve(graphicalObject));
+}
+
+CubicBezier* createCubicBezierCurveSegment(Curve* curve) {
+    if (curve)
+        return curve->createCubicBezier();
+
+    return NULL;
+}
+
 bool isCubicBezier(LineSegment* lineSegment) {
     if (lineSegment) {
         CubicBezier* cubicBezier = dynamic_cast<CubicBezier*>(cubicBezier);

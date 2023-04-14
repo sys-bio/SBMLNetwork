@@ -160,6 +160,26 @@ LineSegment* getCurveSegment(GraphicalObject* graphicalObject, unsigned int inde
 /// this Curve object.
 LineSegment* getCurveSegment(Curve* curve, unsigned int index);
 
+/// @brief Creates a new LineSegment and adds it to the end of the list of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the created @c LineSegment, or NULL if the line segment could not be created.
+LineSegment* createLineCurveSegment(GraphicalObject* graphicalObject);
+
+/// @brief Creates a new LineSegment and adds it to the end of the list of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @return the created @c LineSegment, or NULL if the line segment could not be created.
+LineSegment* createLineCurveSegment(Curve* curve);
+
+/// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
+CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject);
+
+/// @brief Creates a new CubicBezier and adds it to the end of the list of this Curve object.
+/// @param curve a pointer to the Curve object.
+/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
+CubicBezier* createCubicBezierCurveSegment(Curve* curve);
+
 /// @brief Predicate returning true if this abstract LineSegment is of type CubicBezier.
 /// @param lineSegment a pointer to the LineSegment object.
 /// @return @c true if this abstract LineSegment is of type CubicBezier, false otherwise
