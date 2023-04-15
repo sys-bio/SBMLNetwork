@@ -131,6 +131,11 @@ int setDimensionHeight(GraphicalObject* graphicalObject, const double& height);
 /// @return integer value indicating success/failure of the function.
 int setDimensionHeight(BoundingBox* boundingBox, const double& height);
 
+/// @brief Predicate returning true if this GraphicalObject object has a Curve object and the curve consists of one or more segments
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
+bool isSetCurve(GraphicalObject* graphicalObject);
+
 /// @brief Returns the Curve object of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have
