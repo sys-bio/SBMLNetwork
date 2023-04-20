@@ -154,6 +154,13 @@ Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObj
     return style;
 }
 
+bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D)
+        return graphicalPrimitive1D->isSetStroke();
+
+    return false;
+}
+
 const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->getStroke();
@@ -168,6 +175,13 @@ int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string
     }
     
     return -1;
+}
+
+bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D)
+        return graphicalPrimitive1D->isSetStrokeWidth();
+
+    return false;
 }
 
 const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
@@ -186,6 +200,13 @@ int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& str
     return -1;
 }
 
+bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D)
+        return graphicalPrimitive1D->isSetStrokeDashArray();
+
+    return false;
+}
+
 const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->getStrokeDashArray();
@@ -200,6 +221,277 @@ int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::ve
     }
     
     return -1;
+}
+
+bool isSetTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    return isSetStrokeColor(graphicalPrimitive1D);
+}
+
+const std::string getTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    return getStrokeColor(graphicalPrimitive1D);
+}
+
+int setTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor) {
+    return setStrokeColor(graphicalPrimitive1D, fontColor);
+}
+
+bool isSetTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->isSetFontFamily();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->isSetFontFamily();
+    }
+
+    return false;
+}
+
+const std::string getTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->getFontFamily();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->getFontFamily();
+    }
+
+    return "";
+}
+
+int setTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup) {
+            renderGroup->setFontFamily(fontFamily);
+            return 0;
+        }
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text) {
+            text->setFontFamily(fontFamily);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+    if (renderGroup)
+        return renderGroup->isSetFontSize();
+    Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+    if (text)
+        return text->isSetFontSize();
+
+    return false;
+}
+
+const RelAbsVector getTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+    if (renderGroup)
+        return renderGroup->getFontSize();
+    Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+    if (text)
+        return text->getFontSize();
+
+    return RelAbsVector();
+}
+
+int setTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize) {
+    RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+    if (renderGroup) {
+        renderGroup->setFontSize(fontSize);
+        return 0;
+    }
+    Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+    if (text) {
+        text->setFontSize(fontSize);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->isSetFontWeight();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->isSetFontWeight();
+    }
+
+    return false;
+}
+
+const std::string getTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->getFontWeightAsString();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->getFontWeightAsString();
+    }
+
+    return "";
+}
+
+int setTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup) {
+            renderGroup->setFontWeight(fontWeight);
+            return 0;
+        }
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text) {
+            text->setFontWeight(fontWeight);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->isSetFontStyle();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->isSetFontStyle();
+    }
+
+    return false;
+}
+
+const std::string getTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->getFontStyleAsString();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->getFontStyleAsString();
+    }
+
+    return "";
+}
+
+int setTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup) {
+            renderGroup->setFontStyle(fontStyle);
+            return 0;
+        }
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text) {
+            text->setFontStyle(fontStyle);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->isSetTextAnchor();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->isSetTextAnchor();
+    }
+
+    return false;
+}
+
+const std::string getTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->getTextAnchorAsString();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->getTextAnchorAsString();
+    }
+
+    return "";
+}
+
+int setTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup) {
+            renderGroup->setTextAnchor(textAnchor);
+            return 0;
+        }
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text) {
+            text->setTextAnchor(textAnchor);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->isSetVTextAnchor();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->isSetVTextAnchor();
+    }
+
+    return false;
+}
+
+const std::string getTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup)
+            return renderGroup->getVTextAnchorAsString();
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text)
+            return text->getVTextAnchorAsString();
+    }
+
+    return "";
+}
+
+int setTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor) {
+    if (graphicalPrimitive1D) {
+        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
+        if (renderGroup) {
+            renderGroup->setVTextAnchor(vtextAnchor);
+            return 0;
+        }
+        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
+        if (text) {
+            text->setVTextAnchor(vtextAnchor);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
+    if (graphicalPrimitive2D)
+        return graphicalPrimitive2D->isSetFill();
+
+    return false;
 }
 
 const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {

@@ -81,6 +81,12 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednd
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
 
+/// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
 /// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke" attribute of the GraphicalPrimitive1D object, or @c "" if the object is @c NULL
@@ -91,6 +97,12 @@ const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
 /// @param stroke a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D object.
 /// @return integer value indicating success/failure of the function.
 int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of this GraphicalPrimitive1D is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @return @c true if the "stroke-width" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke-width"
+/// attribute is not set or the object is @c NULL .
+bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
 
 /// @brief Returns the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
@@ -103,6 +115,12 @@ const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
 /// @return integer value indicating success/failure of the function.
 int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth);
 
+/// @brief Predicates returning @c true if the "stroke-dasharray" attribute of this GraphicalPrimitive1D is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @return @c true if the "stroke-dasharray" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke-dasharray"
+/// attribute is not set or the object is @c NULL .
+bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
+
 /// @brief Returns the vector of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
 /// @param style a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an empty vector if the object is @c NULL
@@ -113,6 +131,131 @@ const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphic
 /// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of this GraphicalPrimitive1D object.
 /// @return integer value indicating success/failure of the function.
 int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "stroke" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const std::string getTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor);
+
+/// @brief Predicates returning @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-family"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-family" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "font-family" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const std::string getTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "font-family" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily);
+
+/// @brief Predicates returning @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-size"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-size" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "font-size" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const RelAbsVector getTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "font-size" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param fontFamily a string value to use as the value of the "font-size" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize);
+
+/// @brief Predicates returning @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-weight"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "font-weight" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const std::string getTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight);
+
+/// @brief Predicates returning @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-style"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-style" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "font-style" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const std::string getTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "font-style" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param fontWeight a string value to use as the value of the "font-style" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle);
+
+/// @brief Predicates returning @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "text-anchor"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "text-anchor" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const std::string getTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param fontWeight a string value to use as the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor);
+
+/// @brief Predicates returning @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "vtext-anchor"
+/// attribute is not set or the object is @c NULL .
+bool isSetTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @return the "vtext-anchor" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
+const std::string getTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) object.
+/// @return integer value indicating success/failure of the function.
+int setTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor);
+
+/// @brief Predicates returning @c true if the "fill" attribute of this GraphicalPrimitive2D is set.
+/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
+/// @return @c true if the "fill" attribute of this GraphicalPrimitive2D object is set, @c false if either the "fill"
+/// attribute is not set or the object is @c NULL .
+bool isSetFillColor(GraphicalPrimitive2D* graphicalPrimitive2D);
 
 /// @brief Returns the value of the "fill" attribute of this GraphicalPrimitive2D.
 /// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
