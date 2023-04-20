@@ -132,124 +132,124 @@ const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphic
 /// @return integer value indicating success/failure of the function.
 int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
 
-/// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "stroke"
+/// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "stroke" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const std::string getTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "stroke" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const std::string getFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param fontColor a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor);
+int setFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor);
 
-/// @brief Predicates returning @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-family"
+/// @brief Predicates returning @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-family"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "font-family" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "font-family" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const std::string getTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "font-family" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const std::string getFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "font-family" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param fontFamily a string value to use as the value of the "font-family" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily);
+int setFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily);
 
-/// @brief Predicates returning @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-size"
+/// @brief Predicates returning @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-size"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "font-size" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "font-size" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const RelAbsVector getTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "font-size" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const RelAbsVector getFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "font-size" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param fontFamily a string value to use as the value of the "font-size" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontFamily a string value to use as the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize);
+int setFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize);
 
-/// @brief Predicates returning @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-weight"
+/// @brief Predicates returning @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-weight"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "font-weight" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const std::string getTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "font-weight" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const std::string getFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param fontWeight a string value to use as the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight);
+int setFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight);
 
-/// @brief Predicates returning @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "font-style"
+/// @brief Predicates returning @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-style"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "font-style" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "font-style" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const std::string getTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "font-style" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const std::string getFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "font-style" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param fontWeight a string value to use as the value of the "font-style" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontWeight a string value to use as the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle);
+int setFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle);
 
-/// @brief Predicates returning @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "text-anchor"
+/// @brief Predicates returning @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "text-anchor"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "text-anchor" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const std::string getTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "text-anchor" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const std::string getTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param fontWeight a string value to use as the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontWeight a string value to use as the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor);
+int setTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor);
 
-/// @brief Predicates returning @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) object is set, @c false if either the "vtext-anchor"
+/// @brief Predicates returning @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "vtext-anchor"
 /// attribute is not set or the object is @c NULL .
-bool isSetTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+bool isSetVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @return the "vtext-anchor" attribute of the GraphicalPrimitive1D (Text) object, or @c "" if the object is @c NULL
-const std::string getTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @return the "vtext-anchor" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+const std::string getVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Sets the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text) object.
-/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text) object.
+/// @brief Sets the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-int setTextVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor);
+int setVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor);
 
 /// @brief Predicates returning @c true if the "fill" attribute of this GraphicalPrimitive2D is set.
 /// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
