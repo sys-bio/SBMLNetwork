@@ -1259,5 +1259,29 @@ RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
     return NULL;
 }
 
+bool isSetEnableRotationalMapping(LineEnding* lineEnding) {
+    if (lineEnding) {
+        lineEnding->isSetEnableRotationalMapping();
+    }
+
+    return false;
+}
+
+bool getEnableRotationalMapping(LineEnding* lineEnding) {
+    if (lineEnding) {
+        lineEnding->getEnableRotationalMapping();
+    }
+
+    return false;
+}
+
+int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping) {
+    if (lineEnding) {
+        lineEnding->setEnableRotationalMapping(enableRotationalMapping);
+    }
+
+    return false;
+}
+
 }
 
