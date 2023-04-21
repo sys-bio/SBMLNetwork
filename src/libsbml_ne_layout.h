@@ -426,6 +426,18 @@ int setCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int n,
 /// @return integer value indicating success/failure of the function.
 int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y);
 
+/// @brief Returns the text associated with this TextGlyph object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return the "text" attribute of this TextGlyph object
+/// or @c empty string if the object is @c NULL.
+const std::string getText(TextGlyph* textGlyph);
+
+/// @brief Sets the value of the "text" attribute this TextGlyph object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+int setText(TextGlyph* textGlyph);
+
+
 }
 
 #endif

@@ -523,4 +523,20 @@ int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y) {
     return  -1;
 }
 
+const std::string getText(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return textGlyph->getText();
+
+    return "";
+}
+
+int setText(TextGlyph* textGlyph, const std::string& text) {
+    if (textGlyph) {
+        textGlyph->setText(text);
+        return 0;
+    }
+
+    return -1;
+}
+
 }
