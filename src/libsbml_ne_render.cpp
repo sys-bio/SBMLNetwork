@@ -227,7 +227,7 @@ bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return isSetStrokeColor(graphicalPrimitive1D);
 }
 
-const std::string getTextFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
+const std::string getFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return getStrokeColor(graphicalPrimitive1D);
 }
 
