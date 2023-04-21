@@ -435,7 +435,7 @@ const std::string getText(TextGlyph* textGlyph);
 /// @brief Sets the value of the "text" attribute this TextGlyph object.
 /// @param textGlyph a pointer to the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
-int setText(TextGlyph* textGlyph);
+int setText(TextGlyph* textGlyph, const std::string& text);
 
 
 }
