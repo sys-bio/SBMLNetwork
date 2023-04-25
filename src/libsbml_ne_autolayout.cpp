@@ -271,7 +271,7 @@ void updateExtetns(double& minX, double& minY, double& maxX, double& maxY, const
 
 void updateDimensions(Layout* layout, const double minX, const double minY, const double maxX, const double maxY) {
     layout->getDimensions()->setWidth(maxX - minX);
-    layout->getDimensions()->setWidth(maxY - minY);
+    layout->getDimensions()->setHeight(maxY - minY);
 }
 
 void deleteGraph(GVC_t* gvc, Agraph_t* graph) {
