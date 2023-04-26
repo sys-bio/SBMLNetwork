@@ -806,6 +806,22 @@ const RelAbsVector getPolygonShapeBasePoint2Y(RenderCurve* renderCurve, unsigned
 /// @return integer value indicating success/failure of the function.
 int setPolygonShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
 
+/// @brief Returns the number of elements of this RenderCurve.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @return the number of elements of the RenderCurve object, or @c 0 if the object is @c NULL
+const unsigned int getRenderCurveShapeNumElements(RenderCurve* renderCurve);
+
+/// @brief Predicate returning true if the nth element of this RenderCurve is of type RenderCubicBezier.
+/// @param renderCurve a pointer to the RenderCurve object.
+/// @param n an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the nth element of this RenderCurve is of type RenderCubicBezier, false otherwise
+bool isRenderCubicBezier(RenderCurve* renderCurve, unsigned  int n);
+
+/// @brief Predicate returning true if this RenderCurve is of type RenderCubicBezier.
+/// @param renderPoint a pointer to the RenderPoint object.
+/// @return @c true if this RenderPoint is of type RenderCubicBezier, false otherwise
+bool isRenderCubicBezier(RenderPoint* renderPoint);
+
 /// @brief Returns the value of the "x" attribute of nth element of this RenderCurve.
 /// @param renderCurve a pointer to the RenderCurve object.
 /// @param n an unsigned int representing the index of the element to retrieve.

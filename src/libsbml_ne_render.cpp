@@ -1156,6 +1156,27 @@ int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVe
     return -1;
 }
 
+const unsigned int getRenderCurveShapeNumElements(RenderCurve* renderCurve) {
+    if (renderCurve)
+        return  renderCurve->getNumElements();
+
+    return 0;
+}
+
+bool isRenderCubicBezier(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve)
+        return isRenderCubicBezier(renderCurve->getElement(n));
+
+    return false;
+}
+
+bool isRenderCubicBezier(RenderPoint* renderPoint) {
+    if (renderPoint)
+        return renderPoint->isRenderCubicBezier();
+
+    return false;
+}
+
 const RelAbsVector getRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n) {
     if (renderCurve) {
         RenderPoint* element = renderCurve->getElement(n);
