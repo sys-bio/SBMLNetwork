@@ -1259,6 +1259,52 @@ RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
     return NULL;
 }
 
+bool isSetStartHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        renderGroup->isSetStartHead();
+
+    return false;
+}
+
+const std::string getStartHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        renderGroup->isSetStartHead();
+
+    return "";
+}
+
+int setStartHead(RenderGroup* renderGroup, const std::string startHead) {
+    if (renderGroup) {
+        renderGroup->setStartHead(startHead);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetEndHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        renderGroup->isSetEndHead();
+
+    return false;
+}
+
+const std::string getEndHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        renderGroup->getEndHead();
+
+    return "";
+}
+
+int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
+    if (renderGroup) {
+        renderGroup->setEndHead(endHead);
+        return 0;
+    }
+
+    return -1;
+}
+
 bool isSetEnableRotationalMapping(LineEnding* lineEnding) {
     if (lineEnding) {
         lineEnding->isSetEnableRotationalMapping();

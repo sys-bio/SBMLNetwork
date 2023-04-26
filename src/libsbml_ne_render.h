@@ -820,6 +820,38 @@ int addRenderCubicBezierToShape(Transformation2D* shape);
 /// @return a pointer to the nth RenderPoint in this Transformation2d.
 RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n);
 
+/// @brief Predicates returning @c true if the "startHead" attribute of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return @c true if the "startHead" attribute of this RenderGroup object is set, @c false if either the "startHead" attribute is not set or the object is @c NULL .
+bool isSetStartHead(RenderGroup* renderGroup);
+
+/// @brief Returns the value of the "startHead" attribute of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return the "startHead" attribute of the RenderGroup object, or @c false if the object is @c NULL
+const std::string getStartHead(RenderGroup* renderGroup);
+
+/// @brief Sets the value of the "startHead" attribute of this RenderGroup object.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param startHead a boolean to use as the value of the "startHead" attribute of this RenderGroup object.
+/// @return integer value indicating success/failure of the function.
+int setStartHead(RenderGroup* renderGroup, const std::string startHead);
+
+/// @brief Predicates returning @c true if the "endHead" attribute of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return @c true if the "endHead" attribute of this RenderGroup object is set, @c false if either the "endHead" attribute is not set or the object is @c NULL .
+bool isSetEndHead(RenderGroup* renderGroup);
+
+/// @brief Returns the value of the "endHead" attribute of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return the "endHead" attribute of the RenderGroup object, or @c false if the object is @c NULL
+const std::string getEndHead(RenderGroup* renderGroup);
+
+/// @brief Sets the value of the "endHead" attribute of this RenderGroup object.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
+/// @return integer value indicating success/failure of the function.
+int setEndHead(RenderGroup* renderGroup, const std::string endHead);
+
 /// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of this LineEnding is set.
 /// @param lineEnding a pointer to the LineEnding object.
 /// @return @c true if the "enableRotationalMapping" attribute of this LineEnding object is set, @c false if either the "enableRotationalMapping" attribute is not set or the object is @c NULL .
