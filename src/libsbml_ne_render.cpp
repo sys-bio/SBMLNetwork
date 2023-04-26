@@ -120,6 +120,226 @@ int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalR
     return -1;
 }
 
+bool isLinearGradient(GradientBase* gradientBase) {
+    if (gradientBase)
+        return gradientBase->isLinearGradient();
+
+    return false;
+}
+
+bool isRadialGradient(GradientBase* gradientBase) {
+    if (gradientBase)
+        return gradientBase->isRadialGradient();
+
+    return false;
+}
+
+bool isSetLinearGradientX1(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->isSetX1();
+
+    return false;
+}
+
+const RelAbsVector getLinearGradientX1(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->getX1();
+
+    return RelAbsVector();
+}
+
+int setLinearGradientX1(GradientBase* gradientBase, const RelAbsVector& x1) {
+    if (isLinearGradient(gradientBase)) {
+        ((LinearGradient *) gradientBase)->setX1(x1);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetLinearGradientX2(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->isSetX2();
+
+    return false;
+}
+
+const RelAbsVector getLinearGradientX2(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->getX2();
+
+    return RelAbsVector();
+}
+
+int setLinearGradientX2(GradientBase* gradientBase, const RelAbsVector& x2) {
+    if (isLinearGradient(gradientBase)) {
+        ((LinearGradient *) gradientBase)->setX2(x2);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetLinearGradientY1(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->isSetY1();
+
+    return false;
+}
+
+const RelAbsVector getLinearGradientY1(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->getY1();
+
+    return RelAbsVector();
+}
+
+int setLinearGradientY1(GradientBase* gradientBase, const RelAbsVector& y1) {
+    if (isLinearGradient(gradientBase)) {
+        ((LinearGradient*) gradientBase)->setY1(y1);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetLinearGradientY2(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->isSetY2();
+
+    return false;
+}
+
+const RelAbsVector getLinearGradientY2(GradientBase* gradientBase) {
+    if (isLinearGradient(gradientBase))
+        ((LinearGradient*)gradientBase)->getY2();
+
+    return RelAbsVector();
+}
+
+int setLinearGradientY2(GradientBase* gradientBase, const RelAbsVector& y2) {
+    if (isLinearGradient(gradientBase)) {
+        ((LinearGradient*) gradientBase)->setY2(y2);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetRadialGradientCx(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->isSetCx();
+
+    return false;
+}
+
+const RelAbsVector getRadialGradientCx(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->getCx();
+
+    return RelAbsVector();
+}
+
+int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx) {
+    if (isLinearGradient(gradientBase)) {
+        ((RadialGradient*) gradientBase)->setCx(cx);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetRadialGradientCy(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->isSetCy();
+
+    return false;
+}
+
+const RelAbsVector getRadialGradientCy(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->getCy();
+
+    return RelAbsVector();
+}
+
+int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy) {
+    if (isLinearGradient(gradientBase)) {
+        ((RadialGradient*)gradientBase)->setCy(cy);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetRadialGradientFx(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->isSetFx();
+
+    return false;
+}
+
+const RelAbsVector getRadialGradientFx(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->getFx();
+
+    return RelAbsVector();
+}
+
+int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
+    if (isLinearGradient(gradientBase)) {
+        ((RadialGradient*)gradientBase)->setFx(fx);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetRadialGradientFy(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->isSetFy();
+
+    return false;
+}
+
+const RelAbsVector getRadialGradientFy(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->getFy();
+
+    return RelAbsVector();
+}
+
+int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy) {
+    if (isLinearGradient(gradientBase)) {
+        ((RadialGradient*)gradientBase)->setFy(fy);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetRadialGradientR(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->isSetR();
+
+    return false;
+}
+
+const RelAbsVector getRadialGradientR(GradientBase* gradientBase) {
+    if (isRadialGradient(gradientBase))
+        ((RadialGradient*)gradientBase)->getR();
+
+    return RelAbsVector();
+}
+
+int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
+    if (isLinearGradient(gradientBase)) {
+        ((RadialGradient*)gradientBase)->setR(r);
+        return 0;
+    }
+
+    return -1;
+}
 
 Style* findStyle(LocalRenderInformation* localRednderInformation, GraphicalObject* graphicalObject) {
     Style * style = NULL;
