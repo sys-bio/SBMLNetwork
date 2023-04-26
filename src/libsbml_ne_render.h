@@ -122,7 +122,7 @@ int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& str
 bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
 
 /// @brief Returns the vector of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
-/// @param style a pointer to the GraphicalPrimitive1D object.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an empty vector if the object is @c NULL
 const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
 
@@ -131,6 +131,17 @@ const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphic
 /// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of this GraphicalPrimitive1D object.
 /// @return integer value indicating success/failure of the function.
 int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
+
+/// @brief Returns the size of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @return the size of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an 0 if the object is @c NULL
+unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param n an unsigned int representing the index of the dash to retrieve.
+/// @return the dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an 0 if the object is @c NULL
+unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned  int n);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.

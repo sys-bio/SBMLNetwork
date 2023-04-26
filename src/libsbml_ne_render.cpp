@@ -223,6 +223,17 @@ int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::ve
     return -1;
 }
 
+unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    return getStrokeDashArray(graphicalPrimitive1D).size();
+}
+
+unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned  int n) {
+    if (graphicalPrimitive1D)
+        graphicalPrimitive1D->getDashByIndex(n);
+
+    return 0;
+}
+
 bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return isSetStrokeColor(graphicalPrimitive1D);
 }
