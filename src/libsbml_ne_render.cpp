@@ -1017,6 +1017,13 @@ int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio) {
     return -1;
 }
 
+const unsigned int getPolygonShapeNumElements(Polygon* polygon) {
+    if (polygon)
+        return polygon->getNumElements();
+
+    return 0;
+}
+
 const RelAbsVector getPolygonShapeElementX(Polygon* polygon, unsigned  int n) {
     if (polygon) {
         RenderPoint* element = polygon->getElement(n);

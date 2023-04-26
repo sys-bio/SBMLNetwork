@@ -633,6 +633,11 @@ const double getEllipseShapeRatio(Ellipse* ellipse);
 /// @return integer value indicating success/failure of the function.
 int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio);
 
+/// @brief Returns the number of elements of this Polygon.
+/// @param polygon a pointer to the Polygon object.
+/// @return the number of elements of the Polygon object, or @c 0 if the object is @c NULL
+const unsigned int getPolygonShapeNumElements(Polygon* polygon);
+
 /// @brief Returns the value of the "x" attribute of nth element of this Polygon.
 /// @param polygon a pointer to the Polygon object.
 /// @param n an unsigned int representing the index of the element to retrieve.
