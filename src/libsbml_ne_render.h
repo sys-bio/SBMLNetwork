@@ -986,6 +986,38 @@ const std::string getImageShapeHref(Image* image);
 /// @return integer value indicating success/failure of the function.
 int setImageShapeHref(Image* image, const std::string& href);
 
+/// @brief Predicates returning @c true if the "x" attribute of this Text is set.
+/// @param text a pointer to the Text object.
+/// @return @c true if the "x" attribute of this Text object is set, @c false if either the "x" attribute is not set or the object is @c NULL .
+bool isSetTextShapeX(Text* text);
+
+/// @brief Returns the value of the "x" attribute of this Text.
+/// @param text a pointer to the Text object.
+/// @return the "x" attribute of the Text object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getTextShapeX(Text* text);
+
+/// @brief Sets the value of the "x" attribute of this Text object.
+/// @param text a pointer to the Text object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Text object.
+/// @return integer value indicating success/failure of the function.
+int setTextShapeX(Text* text, const RelAbsVector& x);
+
+/// @brief Predicates returning @c true if the "y" attribute of this Text is set.
+/// @param text a pointer to the Text object.
+/// @return @c true if the "y" attribute of this Text object is set, @c false if either the "y" attribute is not set or the object is @c NULL .
+bool isSetTextShapeY(Text* text);
+
+/// @brief Returns the value of the "y" attribute of this Text.
+/// @param text a pointer to the Text object.
+/// @return the "y" attribute of the Text object, or @c RelAbsVector() if the object is @c NULL
+const RelAbsVector getTextShapeY(Text* text);
+
+/// @brief Sets the value of the "y" attribute of this Text object.
+/// @param text a pointer to the Text object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Text object.
+/// @return integer value indicating success/failure of the function.
+int setTextShapeY(Text* text, const RelAbsVector& y);
+
 /// @brief Add a geometric shape to this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param shape a string value indicating the shape of the geometric shape to be added.

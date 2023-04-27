@@ -1424,6 +1424,52 @@ int setImageShapeHref(Image* image, const std::string& href) {
     return -1;
 }
 
+bool isSetTextShapeX(Text* text) {
+    if (text)
+        return text->isSetX();
+
+    return false;
+}
+
+const RelAbsVector getTextShapeX(Text* text) {
+    if (text)
+        return text->getX();
+
+    return RelAbsVector();
+}
+
+int setTextShapeX(Text* text, const RelAbsVector& x) {
+    if (text) {
+        text->setX(x);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetTextShapeY(Text* text) {
+    if (text)
+        return text->isSetY();
+
+    return false;
+}
+
+const RelAbsVector getTextShapeY(Text* text) {
+    if (text)
+        return text->getY();
+
+    return RelAbsVector();
+}
+
+int setTextShapeY(Text* text, const RelAbsVector& y) {
+    if (text) {
+        text->setY(y);
+        return 0;
+    }
+
+    return -1;
+}
+
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
         if (stringCompare(shape, "rectangle")) {
