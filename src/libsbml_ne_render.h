@@ -243,6 +243,11 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednd
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
 
+/// Returns the value of the "group" element of this Style.
+/// @param style a pointer to the Style object.
+/// @return the value of the "group" element of this Style as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(Style* style);
+
 /// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke"
@@ -1093,6 +1098,16 @@ LIBSBML_NETWORKEDITOR_EXTERN bool getEnableRotationalMapping(LineEnding* lineEnd
 /// @param enableRotationalMapping a boolean to use as the value of the "enableRotationalMapping" attribute of this LineEnding object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping);
+
+/// Returns the bounding box for the LineEnding.
+/// @param lineEnding a pointer to the LineEnding object.
+/// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox * getBoundingBox(LineEnding* lineEnding);
+
+/// Returns the value of the "group" element of this LineEnding.
+/// @param lineEnding a pointer to the LineEnding object.
+/// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(LineEnding* lineEnding);
 
 }
 

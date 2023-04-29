@@ -68,6 +68,94 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
+bool isSetId(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->isSetId();
+
+    return false;
+}
+
+const std::string getId(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->getId();
+
+    return "";
+}
+
+int setId(GraphicalObject* graphicalObject, const std::string& sid) {
+    if (graphicalObject) {
+        graphicalObject->setId(sid);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetName(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->isSetName();
+
+    return false;
+}
+
+const std::string getName(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return graphicalObject->getName();
+
+    return "";
+}
+
+int setName(GraphicalObject* graphicalObject, const std::string& name) {
+    if (graphicalObject) {
+        graphicalObject->setName(name);
+        return 0;
+    }
+
+    return -1;
+}
+
+const std::string getCompartmentId(CompartmentGlyph* compartmentGlyph) {
+    if (compartmentGlyph)
+        return compartmentGlyph->getCompartmentId();
+
+    return "";
+}
+
+const std::string getSpeciesId(SpeciesGlyph* speciesGlyph) {
+    if (speciesGlyph)
+        return speciesGlyph->getSpeciesId();
+
+    return "";
+}
+
+const std::string getReactionId(ReactionGlyph* reactionGlyph) {
+    if (reactionGlyph)
+        return reactionGlyph->getReactionId();
+
+    return "";
+}
+
+const std::string getSpeciesReferenceId(SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (speciesReferenceGlyph)
+        return speciesReferenceGlyph->getSpeciesReferenceId();
+
+    return "";
+}
+
+const std::string getSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (speciesReferenceGlyph)
+        return speciesReferenceGlyph->getSpeciesGlyphId();
+
+    return "";
+}
+
+const std::string getRole(SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (speciesReferenceGlyph)
+        return speciesReferenceGlyph->getRoleString();
+
+    return "";
+}
+
 GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphicalObjectId) {
     if (layout) {
         for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
@@ -95,11 +183,15 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphical
     return NULL;
 }
 
-const double getPositionX(GraphicalObject* graphicalObject) {
+BoundingBox* getBoundingBox(GraphicalObject* graphicalObject) {
     if (graphicalObject)
-        return getPositionX(graphicalObject->getBoundingBox());
-    
-    return 0.0;
+        return graphicalObject->getBoundingBox();
+
+    return NULL;
+}
+
+const double getPositionX(GraphicalObject* graphicalObject) {
+    return getPositionX(getBoundingBox(graphicalObject));
 }
 
 const double getPositionX(BoundingBox* boundingBox) {
@@ -110,10 +202,7 @@ const double getPositionX(BoundingBox* boundingBox) {
 }
 
 int setPositionX(GraphicalObject* graphicalObject, const double& x) {
-    if (graphicalObject)
-        return setPositionX(graphicalObject->getBoundingBox(), x);
-    
-    return -1;
+    return setPositionX(getBoundingBox(graphicalObject), x);
 }
 
 int setPositionX(BoundingBox* boundingBox, const double& x) {
@@ -126,10 +215,7 @@ int setPositionX(BoundingBox* boundingBox, const double& x) {
 }
 
 const double getPositionY(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return getPositionY(graphicalObject->getBoundingBox());
-    
-    return 0.0;
+    return getPositionY(getBoundingBox(graphicalObject));
 }
 
 const double getPositionY(BoundingBox* boundingBox) {
@@ -140,10 +226,7 @@ const double getPositionY(BoundingBox* boundingBox) {
 }
 
 int setPositionY(GraphicalObject* graphicalObject, const double& y) {
-    if (graphicalObject)
-        setPositionY(graphicalObject->getBoundingBox(), y);
-    
-    return -1;
+    return setPositionY(getBoundingBox(graphicalObject), y);
 }
 
 int setPositionY(BoundingBox* boundingBox, const double& y) {
@@ -156,10 +239,7 @@ int setPositionY(BoundingBox* boundingBox, const double& y) {
 }
 
 const double getDimensionWidth(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return getDimensionWidth(graphicalObject->getBoundingBox());
-    
-    return 0.0;
+    return getDimensionWidth(getBoundingBox(graphicalObject));
 }
 
 const double getDimensionWidth(BoundingBox* boundingBox) {
@@ -170,10 +250,7 @@ const double getDimensionWidth(BoundingBox* boundingBox) {
 }
 
 int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
-    if (graphicalObject)
-        setDimensionWidth(graphicalObject->getBoundingBox(), width);
-    
-    return -1;
+    return setDimensionWidth(getBoundingBox(graphicalObject), width);
 }
 
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
@@ -186,10 +263,7 @@ int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
 }
 
 const double getDimensionHeight(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return getDimensionHeight(graphicalObject->getBoundingBox());
-    
-    return 0.0;
+    return getDimensionHeight(getBoundingBox(graphicalObject));
 }
 
 const double getDimensionHeight(BoundingBox* boundingBox) {
@@ -200,10 +274,7 @@ const double getDimensionHeight(BoundingBox* boundingBox) {
 }
 
 int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
-    if (graphicalObject)
-        return setDimensionHeight(graphicalObject->getBoundingBox(), height);
-
-    return -1;
+    return setDimensionHeight(getBoundingBox(graphicalObject), height);
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
@@ -303,6 +374,10 @@ int removeCurveSegment(Curve* curve, unsigned int n) {
     }
 
     return -1;
+}
+
+bool isCubicBezier(Curve* curve, unsigned int n) {
+    return isCubicBezier(getCurveSegment(curve, n));
 }
 
 bool isCubicBezier(LineSegment* lineSegment) {
@@ -523,6 +598,13 @@ int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y) {
     return  -1;
 }
 
+bool isSetText(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return textGlyph->isSetText();
+
+    return false;
+}
+
 const std::string getText(TextGlyph* textGlyph) {
     if (textGlyph)
         return textGlyph->getText();
@@ -533,6 +615,52 @@ const std::string getText(TextGlyph* textGlyph) {
 int setText(TextGlyph* textGlyph, const std::string& text) {
     if (textGlyph) {
         textGlyph->setText(text);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetOriginOfTextId(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return textGlyph->isSetOriginOfTextId();
+
+    return false;
+}
+
+const std::string getOriginOfTextId(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return textGlyph->getOriginOfTextId();
+
+    return "";
+}
+
+int setOriginOfTextId(TextGlyph* textGlyph, const std::string& orig) {
+    if (textGlyph) {
+        return textGlyph->setOriginOfTextId(orig);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetGraphicalObjectId(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return textGlyph->isSetGraphicalObjectId();
+
+    return false;
+}
+
+const std::string getGraphicalObjectId(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return textGlyph->getGraphicalObjectId();
+
+    return "";
+}
+
+int setGraphicalObjectId(TextGlyph* textGlyph, const std::string& orig) {
+    if (textGlyph) {
+        return textGlyph->setGraphicalObjectId(orig);
         return 0;
     }
 

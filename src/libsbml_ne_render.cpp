@@ -374,6 +374,13 @@ Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObj
     return style;
 }
 
+RenderGroup* getRenderGroup(Style* style) {
+    if (style)
+        return style->getGroup();
+
+    return NULL;
+}
+
 bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->isSetStroke();
@@ -1566,14 +1573,14 @@ RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
 
 bool isSetStartHead(RenderGroup* renderGroup) {
     if (renderGroup)
-        renderGroup->isSetStartHead();
+        return renderGroup->isSetStartHead();
 
     return false;
 }
 
 const std::string getStartHead(RenderGroup* renderGroup) {
     if (renderGroup)
-        renderGroup->isSetStartHead();
+        return renderGroup->getStartHead();
 
     return "";
 }
@@ -1589,14 +1596,14 @@ int setStartHead(RenderGroup* renderGroup, const std::string startHead) {
 
 bool isSetEndHead(RenderGroup* renderGroup) {
     if (renderGroup)
-        renderGroup->isSetEndHead();
+        return renderGroup->isSetEndHead();
 
     return false;
 }
 
 const std::string getEndHead(RenderGroup* renderGroup) {
     if (renderGroup)
-        renderGroup->getEndHead();
+        return renderGroup->getEndHead();
 
     return "";
 }
@@ -1632,6 +1639,20 @@ int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapp
     }
 
     return false;
+}
+
+BoundingBox* getBoundingBox(LineEnding* lineEnding) {
+    if (lineEnding)
+        return lineEnding->getBoundingBox();
+
+    return NULL;
+}
+
+RenderGroup* getRenderGroup(LineEnding* lineEnding) {
+    if (lineEnding)
+        return lineEnding->getGroup();
+
+    return NULL;
 }
 
 }

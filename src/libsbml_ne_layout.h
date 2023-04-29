@@ -37,11 +37,80 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeLayouts(SBMLDocument* document);
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout);
 
+/// @brief Predicates returning @c true if the "id" attribute of this GraphicalObject is set.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "id" attribute of this GraphicalObject object is set, @c false if either the "id"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetId(GraphicalObject* graphicalObject);
+
+/// Returns the value of the "id" attribute of this GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "id" attribute of the GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getId(GraphicalObject* graphicalObject);
+
+/// @brief Sets the value of the "id" attribute this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param sid a string value to be set as "id" attribute of the GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setId(GraphicalObject* graphicalObject, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "name" attribute of this GraphicalObject is set.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "name" attribute of this GraphicalObject object is set, @c false if either the "name"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetName(GraphicalObject* graphicalObject);
+
+/// Returns the value of the "name" attribute of this GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "name" attribute of the GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getName(GraphicalObject* graphicalObject);
+
+/// @brief Sets the value of the "name" attribute this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param name a string value to be set as "name" attribute of the GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setName(GraphicalObject* graphicalObject, const std::string& name);
+
+/// Returns the id of the associated compartment.
+/// @param compartmentGlyph a pointer to the CompartmentGlyph object.
+/// @return the value of the "compartment" attribute, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getCompartmentId(CompartmentGlyph* compartmentGlyph);
+
+/// Returns the id of the associated species.
+/// @param speciesGlyph a pointer to the SpeciesGlyph object.
+/// @return the value of the "species" attribute, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpeciesId(SpeciesGlyph* speciesGlyph);
+
+/// Returns the id of the associated reaction.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @return the value of the "reaction" attribute, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getReactionId(ReactionGlyph* reactionGlyph);
+
+/// Returns the id of the associated species reference.
+/// @param speciesReference a pointer to the SpeciesReference object.
+/// @return the value of the "speciesReference" attribute, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpeciesReferenceId(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+/// Returns the id of the associated SpeciesGlyph.
+/// @param speciesReference a pointer to the SpeciesReference object.
+/// @return the value of the "speciesglyph" attribute, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+/// Returns a string representation of the role.
+/// @param speciesReference a pointer to the SpeciesReference object.
+/// @return the value of the "speciesglyph" attribute, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getRole(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
 /// @brief Returns the GraphicalObject object with entered graphical object id.
 /// @param layout a pointer to the Layout object.
 /// @param graphicalObjectId the id of the graphical object to be returned.
 /// @return a pointer to the GraphicalObject object with the same graphical object id.
 LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphicalObjectId);
+
+/// Returns the bounding box for the GraphicalObject.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the bounding box for the GraphicalObject object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox * getBoundingBox(GraphicalObject* graphicalObject);
 
 /// @brief Returns the value of the "x" attribute of the bounding box of this GraphicalObject.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -196,6 +265,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeCurveSegment(Curve* curve, unsigned int n
 /// @param curve a pointer to the Curve object.
 /// @return the created @c CubicBezier, or NULL if the line segment could not be created.
 LIBSBML_NETWORKEDITOR_EXTERN CubicBezier* createCubicBezierCurveSegment(Curve* curve);
+
+/// @brief Predicate returning true if the nth curve segment of this Curve object is of type CubicBezier.
+/// @param curve a pointer to the Curve object.
+/// @param n an unsigned int representing the index of the curve segment.
+/// @return @c true if this curve segment is of type CubicBezier, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isCubicBezier(Curve* curve, unsigned int n);
 
 /// @brief Predicate returning true if this abstract LineSegment is of type CubicBezier.
 /// @param lineSegment a pointer to the LineSegment object.
@@ -426,6 +501,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y);
 
+/// @brief Predicates returning @c true if the "text" attribute of this TextGlyph is set.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return @c true if the "text" attribute of this TextGlyph object is set, @c false if either the "text"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(TextGlyph* textGlyph);
+
 /// @brief Returns the text associated with this TextGlyph object.
 /// @param textGlyph a pointer to the TextGlyph object.
 /// @return the "text" attribute of this TextGlyph object
@@ -434,9 +515,43 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(TextGlyph* textGlyph);
 
 /// @brief Sets the value of the "text" attribute this TextGlyph object.
 /// @param textGlyph a pointer to the TextGlyph object.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setText(TextGlyph* textGlyph, const std::string& text);
 
+/// @brief Predicates returning @c true if the id of the origin of text is not the empty string.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return @c true if the id of the origin of text of this TextGlyph object not the empty string, @c false either
+/// the id attribute is empty string or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(TextGlyph* textGlyph);
+
+/// @brief Returns the id of the origin of text.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return the id of the origin of text of this TextGlyph object or @c empty string if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(TextGlyph* textGlyph);
+
+/// @brief Sets the id of the origin of text.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @param orig a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(TextGlyph* textGlyph, const std::string& orig);
+
+/// @brief Predicates returning @c true if the id of id of the associated graphical object is not the empty string.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return @c true if the id of the associated graphical object of this TextGlyph object not the empty string, @c false either
+/// the id attribute is empty string or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(TextGlyph* textGlyph);
+
+/// @brief Returns the id of the associated graphical object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return the id of the associated graphical object of this TextGlyph object or @c empty string if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(TextGlyph* textGlyph);
+
+/// @brief Sets the id of the associated graphical object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @param id a string value to be set as id of the associated graphical object of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(TextGlyph* textGlyph, const std::string& id);
 
 }
 
