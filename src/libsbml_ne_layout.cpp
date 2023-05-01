@@ -15,11 +15,26 @@ ListOfLayouts* getListOfLayouts(SBMLDocument* document) {
     return NULL;
 }
 
+const unsigned int getNumLayouts(SBMLDocument* document) {
+    return getNumLayouts(getListOfLayouts(document));
+}
+
 const unsigned int getNumLayouts(ListOfLayouts* listOfLayouts) {
     if (listOfLayouts)
         return listOfLayouts->size();
 
     return 0;
+}
+
+Layout* getLayout(SBMLDocument* document, unsigned int n) {
+    return getLayout(getListOfLayouts(document), n);
+}
+
+Layout* getLayout(ListOfLayouts* listOfLayouts, unsigned int n) {
+    if (listOfLayouts)
+        return listOfLayouts->get(n);
+
+    return NULL;
 }
 
 int addLayout(SBMLDocument* document, Layout* layout) {
@@ -44,7 +59,7 @@ Layout* createLayout(SBMLDocument* document) {
     return NULL;
 }
 
-int removeLayouts(SBMLDocument* document) {
+int removeAllLayouts(SBMLDocument* document) {
     ListOfLayouts* listOfLayouts = getListOfLayouts(document);
     if (listOfLayouts) {
         while (listOfLayouts->size())

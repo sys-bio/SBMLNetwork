@@ -15,11 +15,25 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 /// @return a pointer to the Layout object of the SBML document.
 LIBSBML_NETWORKEDITOR_EXTERN ListOfLayouts* getListOfLayouts(SBMLDocument* document);
 
+/// @brief Returns the number of items in the ListOfLayouts of this SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the number of items in of this SBML document, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLayouts(SBMLDocument* document);
+
 /// @brief Returns the number of items in this ListOfLayouts object.
 /// @param listOfLayouts a pointer to the ListOfLayouts object.
 /// @return the number of items in this ListOfLayouts object, or @c 0 if the object is @c NULL
-/// or does not have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLayouts(ListOfLayouts* listOfLayouts);
+
+/// @brief Returns a pointer to the nth Layout in the ListOfLayouts of the SBML document.
+/// @param n the index number of the Layout to return.
+/// @return the @c the nth Layout in the ListOfLayouts of the SBML document or NULL if no such Layout exists or the document is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN Layout* getLayout(SBMLDocument* document, unsigned int n);
+
+/// @brief Returns a pointer to the nth Layout in this ListOfLayouts.
+/// @param n the index number of the Layout to return.
+/// @return the @c the nth Layout in this ListOfLayouts or NULL if no such Layout exists or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN Layout* getLayout(ListOfLayouts* listOfLayouts, unsigned int n);
 
 /// @brief Add Layout to list of layouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -35,7 +49,7 @@ LIBSBML_NETWORKEDITOR_EXTERN Layout* createLayout(SBMLDocument* document);
 /// @brief Remove all the layout objects from the list of layouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int removeLayouts(SBMLDocument* document);
+LIBSBML_NETWORKEDITOR_EXTERN int removeAllLayouts(SBMLDocument* document);
 
 /// @brief Set all the necessary features for the layout object.
 /// @param document a pointer to the SBMLDocument object.
