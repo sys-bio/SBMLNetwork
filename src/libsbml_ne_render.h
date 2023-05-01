@@ -301,13 +301,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(GraphicalPrimitive1D* graphi
 
 /// @brief Returns the size of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return the size of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an 0 if the object is @c NULL
+/// @return the size of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D);
 
 /// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @param n an unsigned int representing the index of the dash to retrieve.
-/// @return the dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an 0 if the object is @c NULL
+/// @return the dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned  int n);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
@@ -445,6 +445,47 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(GraphicalPrimitive2D
 /// @param fill a string value to use as the value of the "fill" attribute of this GraphicalPrimitive2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fill);
+
+/// @brief Returns Get the number of Transformation2D objects in this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return the number of Transformation2D objects in this RenderGroup, or 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGeometricShapes(RenderGroup* renderGroup);
+
+/// @brief Returns the Transformation2D at the given index of the this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the Transformation2D at the given index of the RenderGroup object, or NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Rectangle.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Rectangle, @c false if either it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Ellipse.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Ellipse, @c false if either it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Polygon.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Polygon, @c false if either it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type RenderCurve.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type RenderCurve, @c false if either it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Image.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Image, @c false if either it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Text.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Text, @c false if either it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(Transformation2D* shape);
 
 /// @brief Predicates returning @c true if the "x" attribute of this Rectangle is set.
 /// @param rectangle a pointer to the Rectangle object.

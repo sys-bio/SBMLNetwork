@@ -748,6 +748,62 @@ int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& 
     return -1;
 }
 
+unsigned int getNumGeometricShapes(RenderGroup* renderGroup) {
+    if (renderGroup)
+        return renderGroup->getNumElements();
+
+    return 0;
+}
+
+Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n) {
+    if (renderGroup)
+        return renderGroup->getElement(n);
+
+    return NULL;
+}
+
+bool isRectangle(Transformation2D* shape) {
+    if (shape)
+        return shape->isRectangle();
+
+    return false;
+}
+
+bool isEllipse(Transformation2D* shape) {
+    if (shape)
+        return shape->isEllipse();
+
+    return false;
+}
+
+bool isPolygon(Transformation2D* shape) {
+    if (shape)
+        return shape->isPolygon();
+
+    return false;
+}
+
+bool isRenderCurve(Transformation2D* shape) {
+    if (shape)
+        return shape->isRenderCurve();
+
+    return false;
+}
+
+bool isImage(Transformation2D* shape) {
+    if (shape)
+        return shape->isImage();
+
+    return false;
+}
+
+bool isText(Transformation2D* shape) {
+    if (shape)
+        return shape->isText();
+
+    return false;
+}
+
 bool isSetRectangleShapeX(Rectangle* rectangle) {
     if (rectangle)
         return rectangle->isSetX();
