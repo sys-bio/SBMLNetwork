@@ -65,6 +65,23 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDefaultGlobalRenderFeatures(SBMLDocument* do
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRednderInformation);
 
+/// @brief Predicates returning @c true if the "value" attribute of this ColorDefinition is set.
+/// @param colorDefinition a pointer to the ColorDefinition object.
+/// @return @c true if the "value" attribute of this ColorDefinition object is set, @c false if either the "value"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetValue(ColorDefinition* colorDefinition);
+
+/// @brief Returns the value of the "value" attribute of this ColorDefinition.
+/// @param colorDefinition a pointer to the ColorDefinition object.
+/// @return the "value" attribute of the ColorDefinition object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getValue(ColorDefinition* colorDefinition);
+
+/// @brief Sets the value of the "value" attribute of this ColorDefinition object.
+/// @param colorDefinition a pointer to the ColorDefinition object.
+/// @param value a string value to use as the value of the "value" attribute of this ColorDefinition object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setValue(ColorDefinition* colorDefinition, const std::string& value);
+
 /// @brief Predicate returning true if this abstract GradientBase is of type LinearGradient.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if this abstract GradientBase is of type LinearGradient, false otherwise
@@ -74,6 +91,107 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isLinearGradient(GradientBase* gradientBase);
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if this abstract GradientBase is of type RadialGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRadialGradient(GradientBase* gradientBase);
+
+/// @brief Predicates returning @c true if the "spreadMethod" attribute of this GradientBase is set.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @return @c true if the "spreadMethod" attribute of this GradientBase object is set, @c false if either the "spreadMethod"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetSpreadMethod(GradientBase* gradientBase);
+
+/// @brief Returns the value of the "spreadMethod" attribute of this GradientBase.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @return the "spreadMethod" attribute of the GradientBase object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpreadMethod(GradientBase* gradientBase);
+
+/// @brief Sets the value of the "spreadMethod" attribute of this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param spreadMethod a string value to use as the value of the "spreadMethod" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod);
+
+/// @brief Returns the nth GradientStop of this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param n an unsigned int representing the index of the GradientStop to retrieve.
+/// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(GradientBase* gradientBase, unsigned  int n);
+
+/// @brief Predicates returning @c true if the "offset" attribute of the nth GradientStop of this GradientBase is set.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return @c true if the "offset" attribute of the nth GradientStop of this GradientBase object is set, @c false if
+/// either the "offset" attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientStop* gradientStop , unsigned  int n);
+
+/// @brief Predicates returning @c true if the "offset" attribute of this GradientStop is set.
+/// @param gradientStop a pointer to the GradientStop object.
+/// @return @c true if the "offset" attribute of this GradientStop object is set, @c false if either the "offset" attribute is not set
+/// or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientStop* gradientStop);
+
+/// @brief Returns the value of the "offset" attribute of the nth GradientStop of this GradientBase.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "offset" attribute of the nth GradientStop of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop , unsigned  int n);
+
+/// @brief Returns the value of the "offset" attribute of this GradientStop.
+/// @param gradientStop a pointer to the GradientStop object.
+/// @return the "offset" attribute of the GradientStop object, or @c RelAbsVector() if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop);
+
+/// @brief Sets the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientBase* gradientBase, unsigned  int n, const RelAbsVector& offset);
+
+/// @brief Sets the value of the "offset" attribute of this GradientStop object.
+/// @param gradientStop a pointer to the GradientStop object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientStop* gradientStop, const RelAbsVector& offset);
+
+/// @brief Returns Get the number of GradientStop objects in this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(GradientBase* gradientBase);
+
+/// @brief Predicates returning @c true if the "stop-color" attribute of the nth GradientStop of this GradientBase is set.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientBase* gradientBase, unsigned int n);
+
+/// @brief Predicates returning @c true if the "stop-color" attribute of this GradientStop is set.
+/// @param gradientStop a pointer to the GradientStop object.
+/// @return @c true if the "stop-color" attribute of this GradientStop object is set, @c false if either the "stop-color"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientStop* gradientStop);
+
+/// @brief Returns the value of the "stop-color" attribute of the nth GradientStop of this GradientBase.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "stop-color" attribute of the nth GradientStop of this GradientStop object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientBase* gradientBase, unsigned int n);
+
+/// @brief Returns the value of the "stop-color" attribute of this GradientStop.
+/// @param gradientStop a pointer to the GradientStop object.
+/// @return the "stop-color" attribute of the GradientStop object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientStop* gradientStop);
+
+/// @brief Sets the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientBase* gradientBase, unsigned int n, const std::string& stopColor);
+
+/// @brief Sets the value of the "stop-color" attribute of this GradientStop object.
+/// @param gradientStop a pointer to the GradientStop object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientStop* gradientStop, const std::string& stopColor);
 
 /// @brief Predicates returning @c true if the "x1" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.

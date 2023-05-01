@@ -120,6 +120,29 @@ int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalR
     return -1;
 }
 
+bool isSetValue(ColorDefinition* colorDefinition) {
+    if (colorDefinition)
+        colorDefinition->isSetValue();
+
+    return false;
+}
+
+const std::string getValue(ColorDefinition* colorDefinition) {
+    if (colorDefinition)
+        return colorDefinition->getValue();
+
+    return "";
+}
+
+int setValue(ColorDefinition* colorDefinition, const std::string& value) {
+    if (colorDefinition) {
+        colorDefinition->setValue(value);
+        return 0;
+    }
+
+    return -1;
+}
+
 bool isLinearGradient(GradientBase* gradientBase) {
     if (gradientBase)
         return gradientBase->isLinearGradient();
@@ -132,6 +155,113 @@ bool isRadialGradient(GradientBase* gradientBase) {
         return gradientBase->isRadialGradient();
 
     return false;
+}
+
+bool isSetSpreadMethod(GradientBase* gradientBase) {
+    if (gradientBase)
+        gradientBase->isSetSpreadMethod();
+
+    return false;
+}
+
+const std::string getSpreadMethod(GradientBase* gradientBase) {
+    if (gradientBase)
+        return gradientBase->getSpreadMethodAsString();
+
+    return "";
+}
+
+int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod) {
+    if (gradientBase) {
+        gradientBase->setSpreadMethod(spreadMethod);
+        return 0;
+    }
+
+    return -1;
+}
+
+GradientStop* getGradientStop(GradientBase* gradientBase, unsigned  int n) {
+    if (gradientBase)
+        return gradientBase->getGradientStop(n);
+
+    return NULL;
+}
+
+bool isSetOffset(GradientBase* gradientBase, unsigned  int n) {
+    return isSetOffset(getGradientStop(gradientBase, n));
+}
+
+bool isSetOffset(GradientStop* gradientStop) {
+    if (gradientStop)
+        return gradientStop->isSetOffset();
+
+    return false;
+}
+
+const RelAbsVector getOffset(GradientBase* gradientBase, unsigned  int n) {
+    return getOffset(getGradientStop(gradientBase, n));
+}
+
+const RelAbsVector getOffset(GradientStop* gradientStop) {
+    if (gradientStop)
+        return gradientStop->getOffset();
+
+    return RelAbsVector();
+}
+
+int setOffset(GradientBase* gradientBase, unsigned  int n, const RelAbsVector& offset) {
+    return setOffset(getGradientStop(gradientBase, n), offset);
+}
+
+int setOffset(GradientStop* gradientStop, const RelAbsVector& offset) {
+    if (gradientStop) {
+        gradientStop->setOffset(offset);
+        return 0;
+    }
+
+    return -1;
+}
+
+unsigned int getNumGradientStops(GradientBase* gradientBase) {
+    if (gradientBase)
+        return gradientBase->getNumGradientStops();
+
+    return 0;
+}
+
+bool isSetStopColor(GradientBase* gradientBase, unsigned  int n) {
+    return isSetStopColor(getGradientStop(gradientBase, n));
+}
+
+bool isSetStopColor(GradientStop* gradientStop) {
+    if (gradientStop)
+        return gradientStop->isSetStopColor();
+
+    return false;
+}
+
+const std::string getStopColor(GradientBase* gradientBase, unsigned  int n) {
+    return getStopColor(getGradientStop(gradientBase, n));
+}
+
+const std::string getStopColor(GradientStop* gradientStop) {
+    if (gradientStop)
+        return gradientStop->getStopColor();
+
+    return "";
+}
+
+int setStopColor(GradientBase* gradientBase, unsigned  int n, const std::string& stopColor) {
+    return setStopColor(getGradientStop(gradientBase, n), stopColor);
+}
+
+int setStopColor(GradientStop* gradientStop, const std::string& stopColor) {
+    if (gradientStop) {
+        gradientStop->setStopColor(stopColor);
+        return 0;
+    }
+
+    return -1;
 }
 
 bool isSetLinearGradientX1(GradientBase* gradientBase) {
