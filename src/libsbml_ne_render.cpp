@@ -17,6 +17,73 @@ ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* do
     return NULL;
 }
 
+const unsigned int getNumGlobalRenderInformation(SBMLDocument* document) {
+    return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(document));
+}
+
+const unsigned int getNumGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation) {
+    if (listOfGlobalRenderInformation)
+        return listOfGlobalRenderInformation->size();
+
+    return 0;
+}
+
+GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n) {
+    return getGlobalRenderInformation(getListOfGlobalRenderInformation(document), n);
+}
+
+GlobalRenderInformation* getGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation, unsigned int n) {
+    if (listOfGlobalRenderInformation)
+        return listOfGlobalRenderInformation->get(n);
+
+    return NULL;
+}
+
+int addGlobalRenderInformation(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
+    if (globalRenderInformation) {
+        ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
+        if (listOfGlobalRenderInformation) {
+            listOfGlobalRenderInformation->addGlobalRenderInformation(globalRenderInformation);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+GlobalRenderInformation* createGlobalRenderInformation(SBMLDocument* document) {
+    ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
+    if (listOfGlobalRenderInformation)
+        return listOfGlobalRenderInformation->createGlobalRenderInformation();
+
+    return NULL;
+}
+
+int removeAllGlobalRenderInformation(SBMLDocument* document) {
+    ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
+    if (listOfGlobalRenderInformation) {
+        while(listOfGlobalRenderInformation->size())
+            listOfGlobalRenderInformation->remove(0);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
+    if (document && globalRenderInformation) {
+        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
+        globalRenderInformation->setId("libSBML_NetworkEditor_Global_Render");
+        globalRenderInformation->setBackgroundColor("lightgray");
+        addDefaultColors(globalRenderInformation, renderPkgNamespaces);
+        addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+        return 0;
+    }
+
+    return -1;
+}
+
 ListOfLocalRenderInformation* getListOfLocalRenderInformation(Layout* layout) {
     if (layout) {
         SBasePlugin* renderBase = getRenderPlugin(layout);
@@ -30,19 +97,29 @@ ListOfLocalRenderInformation* getListOfLocalRenderInformation(Layout* layout) {
     return NULL;
 }
 
-int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
-    if (globalRenderInformation) {
-        ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
-        if (listOfGlobalRenderInformation) {
-            listOfGlobalRenderInformation->addGlobalRenderInformation(globalRenderInformation);
-            return 0;
-        }
-    }
-    
-    return -1;
+const unsigned int getNumLocalRenderInformation(Layout* layout) {
+    return getNumLocalRenderInformation(getListOfLocalRenderInformation(layout));
 }
 
-int addLocalRender(Layout* layout, LocalRenderInformation* localRenderInformation) {
+const unsigned int getNumLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation) {
+    if (listOfLocalRenderInformation)
+        return listOfLocalRenderInformation->size();
+
+    return 0;
+}
+
+LocalRenderInformation* getLocalRenderInformation(Layout* layout, unsigned int n) {
+    return getLocalRenderInformation(getListOfLocalRenderInformation(layout), n);
+}
+
+LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int n) {
+    if (listOfLocalRenderInformation)
+        return listOfLocalRenderInformation->get(n);
+
+    return NULL;
+}
+
+int addLocalRenderInformation(Layout* layout, LocalRenderInformation* localRenderInformation) {
     if (localRenderInformation) {
         ListOfLocalRenderInformation* listOfLocalRenderInformation = getListOfLocalRenderInformation(layout);
         if (listOfLocalRenderInformation) {
@@ -54,15 +131,7 @@ int addLocalRender(Layout* layout, LocalRenderInformation* localRenderInformatio
     return -1;
 }
 
-GlobalRenderInformation* createGlobalRender(SBMLDocument* document) {
-    ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
-    if (listOfGlobalRenderInformation)
-        return listOfGlobalRenderInformation->createGlobalRenderInformation();
-    
-    return NULL;
-}
-
-LocalRenderInformation* createLocalRender(Layout* layout) {
+LocalRenderInformation* createLocalRenderInformation(Layout* layout) {
     ListOfLocalRenderInformation* listOfLocalRenderInformation = getListOfLocalRenderInformation(layout);
     if (listOfLocalRenderInformation)
         return listOfLocalRenderInformation->createLocalRenderInformation();
@@ -70,18 +139,7 @@ LocalRenderInformation* createLocalRender(Layout* layout) {
     return NULL;
 }
 
-int removeGlobalRenders(SBMLDocument* document) {
-    ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
-    if (listOfGlobalRenderInformation) {
-        while(listOfGlobalRenderInformation->size())
-            listOfGlobalRenderInformation->remove(0);
-        return 0;
-    }
-        
-    return -1;
-}
-
-int removeLocalRenders(Layout* layout) {
+int removeAllLocalRenderInformation(Layout* layout) {
     ListOfLocalRenderInformation* listOfLocalRenderInformation = getListOfLocalRenderInformation(layout);
     if (listOfLocalRenderInformation) {
         while(listOfLocalRenderInformation->size())
@@ -92,21 +150,7 @@ int removeLocalRenders(Layout* layout) {
     return -1;
 }
 
-int setDefaultGlobalRenderFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
-    if (document && globalRenderInformation) {
-        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
-        globalRenderInformation->setId("libSBML_NetworkEditor_Global_Render");
-        globalRenderInformation->setBackgroundColor("lightgray");
-        addDefaultColors(globalRenderInformation, renderPkgNamespaces);
-        addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-        return 0;
-    }
-    
-    return -1;
-}
-
-int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation) {
+int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation) {
     if (document && localRenderInformation) {
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
         localRenderInformation->setId("libSBML_NetworkEditor_Local_Render");
