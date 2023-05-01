@@ -15,6 +15,13 @@ ListOfLayouts* getListOfLayouts(SBMLDocument* document) {
     return NULL;
 }
 
+const unsigned int getNumLayouts(ListOfLayouts* listOfLayouts) {
+    if (listOfLayouts)
+        return listOfLayouts->size();
+
+    return 0;
+}
+
 int addLayout(SBMLDocument* document, Layout* layout) {
     if (document && layout) {
         LayoutModelPlugin* layoutModelPlugin = enableAndGetLayoutModelPlugin(document);

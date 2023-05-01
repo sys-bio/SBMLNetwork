@@ -15,6 +15,12 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 /// @return a pointer to the Layout object of the SBML document.
 LIBSBML_NETWORKEDITOR_EXTERN ListOfLayouts* getListOfLayouts(SBMLDocument* document);
 
+/// @brief Returns the number of items in this ListOfLayouts object.
+/// @param listOfLayouts a pointer to the ListOfLayouts object.
+/// @return the number of items in this ListOfLayouts object, or @c 0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLayouts(ListOfLayouts* listOfLayouts);
+
 /// @brief Add Layout to list of layouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layout a pointer to the Layout object.
