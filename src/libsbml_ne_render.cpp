@@ -30,11 +30,11 @@ ListOfLocalRenderInformation* getListOfLocalRenderInformation(Layout* layout) {
     return NULL;
 }
 
-int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRednderInformation) {
-    if (globalRednderInformation) {
+int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
+    if (globalRenderInformation) {
         ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
         if (listOfGlobalRenderInformation) {
-            listOfGlobalRenderInformation->addGlobalRenderInformation(globalRednderInformation);
+            listOfGlobalRenderInformation->addGlobalRenderInformation(globalRenderInformation);
             return 0;
         }
     }
@@ -42,11 +42,11 @@ int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRednd
     return -1;
 }
 
-int addLocalRender(Layout* layout, LocalRenderInformation* localRednderInformation) {
-    if (localRednderInformation) {
+int addLocalRender(Layout* layout, LocalRenderInformation* localRenderInformation) {
+    if (localRenderInformation) {
         ListOfLocalRenderInformation* listOfLocalRenderInformation = getListOfLocalRenderInformation(layout);
         if (listOfLocalRenderInformation) {
-            listOfLocalRenderInformation->addLocalRenderInformation(localRednderInformation);
+            listOfLocalRenderInformation->addLocalRenderInformation(localRenderInformation);
             return 0;
         }
     }
@@ -92,27 +92,27 @@ int removeLocalRenders(Layout* layout) {
     return -1;
 }
 
-int setDefaultGlobalRenderFeatures(SBMLDocument* document, GlobalRenderInformation* globalRednderInformation) {
-    if (document && globalRednderInformation) {
+int setDefaultGlobalRenderFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
+    if (document && globalRenderInformation) {
         LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
-        globalRednderInformation->setId("libSBML_NetworkEditor_Global_Render");
-        globalRednderInformation->setBackgroundColor("lightgray");
-        addDefaultColors(globalRednderInformation, renderPkgNamespaces);
-        addDefaultLineEndings(globalRednderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+        globalRenderInformation->setId("libSBML_NetworkEditor_Global_Render");
+        globalRenderInformation->setBackgroundColor("lightgray");
+        addDefaultColors(globalRenderInformation, renderPkgNamespaces);
+        addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
         return 0;
     }
     
     return -1;
 }
 
-int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRednderInformation) {
-    if (document && localRednderInformation) {
+int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation) {
+    if (document && localRenderInformation) {
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
-        localRednderInformation->setId("libSBML_NetworkEditor_Local_Render");
-        localRednderInformation->setReferenceRenderInformation("libSBML_NetworkEditor_Global_Render");
+        localRenderInformation->setId("libSBML_NetworkEditor_Local_Render");
+        localRenderInformation->setReferenceRenderInformation("libSBML_NetworkEditor_Global_Render");
         if (layout) {
-            addStyles(layout, localRednderInformation, renderPkgNamespaces);
+            addStyles(layout, localRenderInformation, renderPkgNamespaces);
             return 0;
         }
     }
@@ -471,34 +471,34 @@ int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
     return -1;
 }
 
-Style* findStyle(LocalRenderInformation* localRednderInformation, GraphicalObject* graphicalObject) {
+Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject) {
     Style * style = NULL;
-    if (localRednderInformation && graphicalObject) {
-        style = findStyle(localRednderInformation, graphicalObject->getId());
+    if (localRenderInformation && graphicalObject) {
+        style = findStyle(localRenderInformation, graphicalObject->getId());
         if (!style) {
             std::string objectRole;
             RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
             if (renderGraphicalObjectPlugin && renderGraphicalObjectPlugin->isSetObjectRole())
                 objectRole = renderGraphicalObjectPlugin->getObjectRole();
-            style = findStyle(localRednderInformation, objectRole);
+            style = findStyle(localRenderInformation, objectRole);
         }
     }
     
     return style;
 }
 
-Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType) {
+Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObject* graphicalObject, const std::string& objectType) {
     Style * style = NULL;
-    if (globalRednderInformation) {
+    if (globalRenderInformation) {
         // by role
         if (graphicalObject) {
             RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
             if (renderGraphicalObjectPlugin && renderGraphicalObjectPlugin->isSetObjectRole())
-                style = findStyle(globalRednderInformation, renderGraphicalObjectPlugin->getObjectRole());
+                style = findStyle(globalRenderInformation, renderGraphicalObjectPlugin->getObjectRole());
         }
         // by type
         if (!style)
-            style = findStyle(globalRednderInformation, objectType);
+            style = findStyle(globalRenderInformation, objectType);
     }
     
     return style;
