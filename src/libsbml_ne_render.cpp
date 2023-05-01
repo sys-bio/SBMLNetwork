@@ -1349,25 +1349,18 @@ int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVe
     return -1;
 }
 
+bool isRenderCubicBezier(Polygon* polygon, unsigned  int n) {
+    if (polygon)
+        return isRenderCubicBezier(polygon->getElement(n));
+
+    return false;
+}
+
 const unsigned int getRenderCurveShapeNumElements(RenderCurve* renderCurve) {
     if (renderCurve)
         return  renderCurve->getNumElements();
 
     return 0;
-}
-
-bool isRenderCubicBezier(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve)
-        return isRenderCubicBezier(renderCurve->getElement(n));
-
-    return false;
-}
-
-bool isRenderCubicBezier(RenderPoint* renderPoint) {
-    if (renderPoint)
-        return renderPoint->isRenderCubicBezier();
-
-    return false;
 }
 
 const RelAbsVector getRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n) {
@@ -1500,6 +1493,20 @@ int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, co
     }
 
     return -1;
+}
+
+bool isRenderCubicBezier(RenderCurve* renderCurve, unsigned  int n) {
+    if (renderCurve)
+        return isRenderCubicBezier(renderCurve->getElement(n));
+
+    return false;
+}
+
+bool isRenderCubicBezier(RenderPoint* renderPoint) {
+    if (renderPoint)
+        return renderPoint->isRenderCubicBezier();
+
+    return false;
 }
 
 bool isSetImageShapeX(Image* image) {
