@@ -76,35 +76,35 @@ void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, R
     addReactionGlyphsStyles(layout, localRenderInformation, renderPkgNamespaces);
 }
 
-Style* findStyle(LocalRenderInformation* localRednderInformation, const std::string& objectIdOrRole) {
-    if (localRednderInformation) {
-        for (unsigned int i = 0; i < localRednderInformation->getNumStyles(); i++) {
-            std::set<std::string> idList = localRednderInformation->getStyle(i)->getIdList();
+Style* findStyle(LocalRenderInformation* localRenderInformation, const std::string& objectIdOrRole) {
+    if (localRenderInformation) {
+        for (unsigned int i = 0; i < localRenderInformation->getNumStyles(); i++) {
+            std::set<std::string> idList = localRenderInformation->getStyle(i)->getIdList();
             if (idList.find(objectIdOrRole) != idList.end())
-                return localRednderInformation->getStyle(i);
+                return localRenderInformation->getStyle(i);
         }
-        for (unsigned int i = 0; i < localRednderInformation->getNumStyles(); i++) {
-            std::set<std::string> roleList = localRednderInformation->getStyle(i)->getRoleList();
+        for (unsigned int i = 0; i < localRenderInformation->getNumStyles(); i++) {
+            std::set<std::string> roleList = localRenderInformation->getStyle(i)->getRoleList();
             if (roleList.find(objectIdOrRole) != roleList.end())
-                return localRednderInformation->getStyle(i);
+                return localRenderInformation->getStyle(i);
         }
     }
     
     return NULL;
 }
 
-Style* findStyle(GlobalRenderInformation* globalRednderInformation, const std::string& objectRoleOrType) {
-    if (globalRednderInformation) {
+Style* findStyle(GlobalRenderInformation* globalRenderInformation, const std::string& objectRoleOrType) {
+    if (globalRenderInformation) {
         Style* style = NULL;
-        for (unsigned int i = 0; i < globalRednderInformation->getNumStyles(); i++) {
+        for (unsigned int i = 0; i < globalRenderInformation->getNumStyles(); i++) {
             // role
-            std::set<std::string> roleList = globalRednderInformation->getStyle(i)->getRoleList();
+            std::set<std::string> roleList = globalRenderInformation->getStyle(i)->getRoleList();
             if (roleList.find(objectRoleOrType) != roleList.end())
-                return globalRednderInformation->getStyle(i);
+                return globalRenderInformation->getStyle(i);
             // type
-            std::set<std::string> typeList = globalRednderInformation->getStyle(i)->getTypeList();
+            std::set<std::string> typeList = globalRenderInformation->getStyle(i)->getTypeList();
             if (typeList.find(objectRoleOrType) != typeList.end())
-                return globalRednderInformation->getStyle(i);
+                return globalRenderInformation->getStyle(i);
         }
     }
     
@@ -253,59 +253,59 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
     renderGroup->setVTextAnchor("middle");
 }
 
-void addDefaultColors(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    addWhiteColor(globalRednderInformation, renderPkgNamespaces);
-    addBlackColor(globalRednderInformation, renderPkgNamespaces);
-    addLightGrayColor(globalRednderInformation, renderPkgNamespaces);
-    addDarkCyanColor(globalRednderInformation, renderPkgNamespaces);
-    addTealColor(globalRednderInformation, renderPkgNamespaces);
-    addSilverColor(globalRednderInformation, renderPkgNamespaces);
+void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    addWhiteColor(globalRenderInformation, renderPkgNamespaces);
+    addBlackColor(globalRenderInformation, renderPkgNamespaces);
+    addLightGrayColor(globalRenderInformation, renderPkgNamespaces);
+    addDarkCyanColor(globalRenderInformation, renderPkgNamespaces);
+    addTealColor(globalRenderInformation, renderPkgNamespaces);
+    addSilverColor(globalRenderInformation, renderPkgNamespaces);
 }
 
-void addWhiteColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getColorDefinition("white"))
-        globalRednderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "white", 255, 255, 255));
+void addWhiteColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getColorDefinition("white"))
+        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "white", 255, 255, 255));
 }
 
-void addBlackColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getColorDefinition("black"))
-        globalRednderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "black", 0, 0, 0));
+void addBlackColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getColorDefinition("black"))
+        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "black", 0, 0, 0));
 }
 
-void addLightGrayColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getColorDefinition("lightgray"))
-        globalRednderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "lightgray", 211, 211, 211));
+void addLightGrayColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getColorDefinition("lightgray"))
+        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "lightgray", 211, 211, 211));
 }
 
-void addDarkCyanColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getColorDefinition("darkcyan"))
-        globalRednderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "darkcyan", 0, 139, 139));
+void addDarkCyanColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getColorDefinition("darkcyan"))
+        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "darkcyan", 0, 139, 139));
 }
 
-void addTealColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getColorDefinition("teal"))
-        globalRednderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "teal", 0, 128, 128));
+void addTealColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getColorDefinition("teal"))
+        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "teal", 0, 128, 128));
 }
 
-void addSilverColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getColorDefinition("silver"))
-        globalRednderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "silver", 192, 192, 192));
+void addSilverColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getColorDefinition("silver"))
+        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "silver", 192, 192, 192));
 }
 
 ColorDefinition* createColorDefintion(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     return new ColorDefinition(renderPkgNamespaces, id, r, g, b, a);
 }
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    addProductHeadLineEnding(globalRednderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-    addModifierHeadLineEnding(globalRednderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-    addActivatorHeadLineEnding(globalRednderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-    addInhibitorHeadLineEnding(globalRednderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+    addProductHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+    addModifierHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+    addActivatorHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+    addInhibitorHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
 }
 
-void addProductHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getLineEnding("productHead"))
-        globalRednderInformation->addLineEnding(createProductHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getLineEnding("productHead"))
+        globalRenderInformation->addLineEnding(createProductHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
 }
 
 LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -326,9 +326,9 @@ void setProductHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNa
     triangle->setFill("black");
 }
 
-void addModifierHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getLineEnding("modifierHead"))
-        globalRednderInformation->addLineEnding(createModifierHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getLineEnding("modifierHead"))
+        globalRenderInformation->addLineEnding(createModifierHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
 }
 
 LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -347,9 +347,9 @@ void setModifierHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgN
     diamond->setFill("white");
 }
 
-void addActivatorHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getLineEnding("activatorHead"))
-        globalRednderInformation->addLineEnding(createActivatorHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getLineEnding("activatorHead"))
+        globalRenderInformation->addLineEnding(createActivatorHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
 }
 
 LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -368,9 +368,9 @@ void setActivatorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkg
     ellipse->setFill("white");
 }
 
-void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRednderInformation->getLineEnding("inhibitorHead"))
-        globalRednderInformation->addLineEnding(createInhibitorHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+    if (!globalRenderInformation->getLineEnding("inhibitorHead"))
+        globalRenderInformation->addLineEnding(createInhibitorHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
 }
 
 LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {

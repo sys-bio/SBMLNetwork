@@ -25,9 +25,9 @@ void enableRenderPlugin(Layout* layout);
 
 void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-Style* findStyle(LocalRenderInformation* localRednderInformation, const std::string& objectIdOrRole);
+Style* findStyle(LocalRenderInformation* localRenderInformation, const std::string& objectIdOrRole);
 
-Style* findStyle(GlobalRenderInformation* globalRednderInformation, const std::string& objectRoleOrType);
+Style* findStyle(GlobalRenderInformation* globalRenderInformation, const std::string& objectRoleOrType);
 
 void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
@@ -69,43 +69,43 @@ LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, Gra
 
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addDefaultColors(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addWhiteColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addWhiteColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addBlackColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addBlackColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addLightGrayColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addLightGrayColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addDarkCyanColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addDarkCyanColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addTealColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addTealColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addSilverColor(GlobalRenderInformation* globalRednderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addSilverColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
 ColorDefinition* createColorDefintion(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addProductHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 void setProductHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addModifierHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 void setModifierHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addActivatorHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 void setActivatorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRednderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 

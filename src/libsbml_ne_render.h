@@ -23,15 +23,15 @@ LIBSBML_NETWORKEDITOR_EXTERN ListOfLocalRenderInformation* getListOfLocalRenderI
 
 /// @brief Add GlobalRenderInformation to list of global renders of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param globalRednderInformation a pointer to the GlobalRenderInformation object.
+/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRednderInformation);
+LIBSBML_NETWORKEDITOR_EXTERN int addGlobalRender(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation);
 
 /// @brief Add LlobalRenderInformation to list of local renders of the Layout.
 /// @param layout a pointer to the Layout object.
-/// @param localRednderInformation a pointer to the LocalRenderInformation object.
+/// @param localRenderInformation a pointer to the LocalRenderInformation object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addLocalRender(Layout* layout, LocalRenderInformation* localRednderInformation);
+LIBSBML_NETWORKEDITOR_EXTERN int addLocalRender(Layout* layout, LocalRenderInformation* localRenderInformation);
 
 /// @brief Create a GlobalRenderInformation object and add it to list of global renders of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -55,15 +55,15 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeLocalRenders(Layout* layout);
 
 /// @brief Set all the necessary features for the global render information object.
 /// @param document a pointer to the SBMLDocument object.
-/// @param globalRednderInformation a pointer to the GlobalRenderInformation object.
+/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setDefaultGlobalRenderFeatures(SBMLDocument* document, GlobalRenderInformation* globalRednderInformation);
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultGlobalRenderFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation);
 
 /// @brief Set all the necessary features for the local render information object.
 /// @param document a pointer to the SBMLDocument object.
-/// @param localRednderInformation a pointer to the LocalRenderInformation object.
+/// @param localRenderInformation a pointer to the LocalRenderInformation object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRednderInformation);
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation);
 
 /// @brief Predicates returning @c true if the "value" attribute of this ColorDefinition is set.
 /// @param colorDefinition a pointer to the ColorDefinition object.
@@ -347,10 +347,10 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(GradientBase* gradientBase, 
 
 /// @brief Searches among the styles of local render information information and returns one with the "id"
 /// attribute of the GraphicalObject object in its "idlist" attribute list.
-/// @param localRednderInformation  a pointer to the LocalRenderInformation object.
+/// @param localRenderInformation  a pointer to the LocalRenderInformation object.
 /// @param graphicalObject  a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
-LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednderInformation, GraphicalObject* graphicalObject);
+LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
 
 /// @brief Searches among the styles of global render information and returns one with either the "role"
 /// attribute of the GraphicalObject object in its "rolelist" attribute list or "type"
@@ -359,7 +359,7 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRednd
 /// @param graphicalObject  a pointer to the GraphicalObject object.
 /// @param objectType  a string indicating the type of the GraphicalObject object.
 /// @return a pointer to the found Style object.
-LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRednderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
+LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
 
 /// Returns the value of the "group" element of this Style.
 /// @param style a pointer to the Style object.
