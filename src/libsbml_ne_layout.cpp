@@ -330,14 +330,14 @@ bool isSetText(GraphicalObject* textGlyph) {
     return false;
 }
 
-const std::string getText(TextGlyph* textGlyph) {
+const std::string getText(GraphicalObject* textGlyph) {
     if (isText(textGlyph))
         return ((TextGlyph*)textGlyph)->getText();
 
     return "";
 }
 
-int setText(TextGlyph* textGlyph, const std::string& text) {
+int setText(GraphicalObject* textGlyph, const std::string& text) {
     if (isText(textGlyph)) {
         ((TextGlyph*)textGlyph)->setText(text);
         return 0;
@@ -346,21 +346,21 @@ int setText(TextGlyph* textGlyph, const std::string& text) {
     return -1;
 }
 
-bool isSetOriginOfTextId(TextGlyph* textGlyph) {
+bool isSetOriginOfTextId(GraphicalObject* textGlyph) {
     if (isText(textGlyph))
         return ((TextGlyph*)textGlyph)->isSetOriginOfTextId();
 
     return false;
 }
 
-const std::string getOriginOfTextId(TextGlyph* textGlyph) {
+const std::string getOriginOfTextId(GraphicalObject* textGlyph) {
     if (isText(textGlyph))
         return ((TextGlyph*)textGlyph)->getOriginOfTextId();
 
     return "";
 }
 
-int setOriginOfTextId(TextGlyph* textGlyph, const std::string& orig) {
+int setOriginOfTextId(GraphicalObject* textGlyph, const std::string& orig) {
     if (isText(textGlyph)) {
         ((TextGlyph*)textGlyph)->setOriginOfTextId(orig);
         return 0;
@@ -369,21 +369,21 @@ int setOriginOfTextId(TextGlyph* textGlyph, const std::string& orig) {
     return -1;
 }
 
-bool isSetGraphicalObjectId(TextGlyph* textGlyph) {
+bool isSetGraphicalObjectId(GraphicalObject* textGlyph) {
     if (isText(textGlyph))
         return ((TextGlyph*)textGlyph)->isSetGraphicalObjectId();
 
     return false;
 }
 
-const std::string getGraphicalObjectId(TextGlyph* textGlyph) {
+const std::string getGraphicalObjectId(GraphicalObject* textGlyph) {
     if (isText(textGlyph))
         return ((TextGlyph*)textGlyph)->getGraphicalObjectId();
 
     return "";
 }
 
-int setGraphicalObjectId(TextGlyph* textGlyph, const std::string& orig) {
+int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& orig) {
     if (isText(textGlyph)) {
         ((TextGlyph*)textGlyph)->setGraphicalObjectId(orig);
         return 0;
