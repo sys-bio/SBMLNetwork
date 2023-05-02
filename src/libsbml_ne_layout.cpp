@@ -136,11 +136,39 @@ int setName(GraphicalObject* graphicalObject, const std::string& name) {
     return -1;
 }
 
+const unsigned int getNumCompartmentGlyphs(Layout* layout) {
+    if (layout)
+        return layout->getNumCompartmentGlyphs();
+
+    return 0;
+}
+
+CompartmentGlyph* getCompartmentGlyph(Layout* layout, unsigned int index) {
+    if (layout)
+        return layout->getCompartmentGlyph(index);
+
+    return NULL;
+}
+
 const std::string getCompartmentId(CompartmentGlyph* compartmentGlyph) {
     if (compartmentGlyph)
         return compartmentGlyph->getCompartmentId();
 
     return "";
+}
+
+const unsigned int getNumSpeciesGlyphs(Layout* layout) {
+    if (layout)
+        return layout->getNumSpeciesGlyphs();
+
+    return 0;
+}
+
+SpeciesGlyph* getSpeciesGlyph(Layout* layout, unsigned int index) {
+    if (layout)
+        return layout->getSpeciesGlyph(index);
+
+    return NULL;
 }
 
 const std::string getSpeciesId(SpeciesGlyph* speciesGlyph) {
@@ -150,11 +178,39 @@ const std::string getSpeciesId(SpeciesGlyph* speciesGlyph) {
     return "";
 }
 
+const unsigned int getNumReactionGlyphs(Layout* layout) {
+    if (layout)
+        return layout->getNumReactionGlyphs();
+
+    return 0;
+}
+
+ReactionGlyph* getReactionGlyph(Layout* layout, unsigned int index) {
+    if (layout)
+        return layout->getReactionGlyph(index);
+
+    return NULL;
+}
+
 const std::string getReactionId(ReactionGlyph* reactionGlyph) {
     if (reactionGlyph)
         return reactionGlyph->getReactionId();
 
     return "";
+}
+
+const unsigned int getNumSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    if (reactionGlyph)
+        return reactionGlyph->getNumSpeciesReferenceGlyphs();
+
+    return 0;
+}
+
+SpeciesReferenceGlyph* getSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, unsigned int index) {
+    if (reactionGlyph)
+        return reactionGlyph->getSpeciesReferenceGlyph(index);
+
+    return NULL;
 }
 
 const std::string getSpeciesReferenceId(SpeciesReferenceGlyph* speciesReferenceGlyph) {
@@ -179,26 +235,21 @@ const std::string getRole(SpeciesReferenceGlyph* speciesReferenceGlyph) {
 }
 
 GraphicalObject* getGraphicalObject(Layout* layout, const std::string& graphicalObjectId) {
-    if (layout) {
-        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-            if (layout->getCompartmentGlyph(i)->getId() == graphicalObjectId)
-                return layout->getCompartmentGlyph(i);
-        }
-        
-        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-            if (layout->getSpeciesGlyph(i)->getId() == graphicalObjectId)
-                return layout->getSpeciesGlyph(i);
-        }
-        
-        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-            if (layout->getReactionGlyph(i)->getId() == graphicalObjectId)
-                return layout->getReactionGlyph(i);
-            
-            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
-            for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
-                if (reactionGlyph->getSpeciesReferenceGlyph(j)->getId() == graphicalObjectId)
-                    return reactionGlyph->getSpeciesReferenceGlyph(i);
-            }
+    for (unsigned int i = 0; i < getNumCompartmentGlyphs(layout); i++) {
+        if (getCompartmentGlyph(layout, i)->getId() == graphicalObjectId)
+            return getCompartmentGlyph(layout, i);
+    }
+    for (unsigned int i = 0; i < getNumSpeciesGlyphs(layout); i++) {
+        if (getSpeciesGlyph(layout, i)->getId() == graphicalObjectId)
+            return getSpeciesGlyph(layout, i);
+    }
+    for (unsigned int i = 0; i < getNumReactionGlyphs(layout); i++) {
+        if (getReactionGlyph(layout, i)->getId() == graphicalObjectId)
+            return getReactionGlyph(layout, i);
+        ReactionGlyph* reactionGlyph = getReactionGlyph(layout, i);
+        for (unsigned int j = 0; j < getNumSpeciesReferenceGlyphs(reactionGlyph); j++) {
+            if (getSpeciesReferenceGlyph(reactionGlyph, j)->getId() == graphicalObjectId)
+                return getSpeciesReferenceGlyph(reactionGlyph, i);
         }
     }
     
@@ -618,6 +669,20 @@ int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y) {
     }
 
     return  -1;
+}
+
+const unsigned int getNumTextGlyphs(Layout* layout) {
+    if (layout)
+        return layout->getNumTextGlyphs();
+
+    return 0;
+}
+
+TextGlyph* getTextGlyph(Layout* layout, unsigned int index) {
+    if (layout)
+        return layout->getTextGlyph(index);
+
+    return NULL;
 }
 
 bool isSetText(TextGlyph* textGlyph) {

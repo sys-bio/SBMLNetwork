@@ -91,6 +91,36 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getName(GraphicalObject* graphica
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setName(GraphicalObject* graphicalObject, const std::string& name);
 
+/// @brief Returns the number of CompartmentGlyphs of this Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @return the number of CompartmentGlyphs of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(Layout* layout);
+
+/// @brief Returns a pointer to the CompartmentGlyph of this Layout object with the given index.
+/// @param index the index value of the CompartmentGlyph to return.
+/// @return the @c CompartmentGlyph with the given index, or NULL if CompartmentGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layout, unsigned int index);
+
+/// @brief Returns the number of SpeciesGlyphs of this Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @return the number of SpeciesGlyphs of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesGlyphs(Layout* layout);
+
+/// @brief Returns a pointer to the SpeciesGlyph of this Layout object with the given index.
+/// @param index the index value of the SpeciesGlyph to return.
+/// @return the @c SpeciesGlyph with the given index, or NULL if SpeciesGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getSpeciesGlyph(Layout* layout, unsigned int index);
+
+/// @brief Returns the number of ReactionGlyphs of this Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @return the number of ReactionGlyphs of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactionGlyphs(Layout* layout);
+
+/// @brief Returns a pointer to the ReactionGlyph of this Layout object with the given index.
+/// @param index the index value of the ReactionGlyph to return.
+/// @return the @c ReactionGlyph with the given index, or NULL if ReactionGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(Layout* layout, unsigned int index);
+
 /// Returns the id of the associated compartment.
 /// @param compartmentGlyph a pointer to the CompartmentGlyph object.
 /// @return the value of the "compartment" attribute, or @c "" if the object is @c NULL
@@ -105,6 +135,16 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpeciesId(SpeciesGlyph* specie
 /// @param reactionGlyph a pointer to the ReactionGlyph object.
 /// @return the value of the "reaction" attribute, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getReactionId(ReactionGlyph* reactionGlyph);
+
+/// @brief Returns the number of SpeciesReferenceGlyphs of this ReactionGlyph object.
+/// @param reactionGlyph a pointer to the ReactionGlyph object.
+/// @return the number of SpeciesReferenceGlyphs of this ReactionGlyph object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
+
+/// @brief Returns a pointer to the SpeciesReferenceGlyphs of this ReactionGlyph object with the given index.
+/// @param index the index value of the SpeciesReferenceGlyphs to return.
+/// @return the @c SpeciesReferenceGlyphs with the given index, or NULL if SpeciesReferenceGlyphs does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesReferenceGlyph* getSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, unsigned int index);
 
 /// Returns the id of the associated species reference.
 /// @param speciesReference a pointer to the SpeciesReference object.
@@ -520,6 +560,16 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(GraphicalObject* gra
 /// @param y a double value to use as the value of the "y" attribute of the base point 2 of nth curve segment of this Curve object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int n, const double& y);
+
+/// @brief Returns the number of TextGlyphs of this Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @return the number of TextGlyphs of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(Layout* layout);
+
+/// @brief Returns a pointer to the TextGlyphs of this Layout object with the given index.
+/// @param index the index value of the TextGlyphs to return.
+/// @return the @c TextGlyphs with the given index, or NULL if TextGlyphs does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, unsigned int index);
 
 /// @brief Predicates returning @c true if the "text" attribute of this TextGlyph is set.
 /// @param textGlyph a pointer to the TextGlyph object.

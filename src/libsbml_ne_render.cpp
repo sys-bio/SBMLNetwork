@@ -164,6 +164,36 @@ int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* lay
     return -1;
 }
 
+bool isSetBackgroundColor(GlobalRenderInformation* globalRenderInformation) {
+    if (globalRenderInformation)
+        globalRenderInformation->isSetBackgroundColor();
+
+    return false;
+}
+
+const std::string getBackgroundColor(GlobalRenderInformation* globalRenderInformation) {
+    if (globalRenderInformation)
+        return globalRenderInformation->getBackgroundColor();
+
+    return "";
+}
+
+int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const std::string& backgroundColor) {
+    if (globalRenderInformation) {
+        globalRenderInformation->setBackgroundColor(backgroundColor);
+        return 0;
+    }
+
+    return -1;
+}
+
+ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    if (renderInformationBase)
+        return renderInformationBase->getColorDefinition(sid);
+
+    return NULL;
+}
+
 bool isSetValue(ColorDefinition* colorDefinition) {
     if (colorDefinition)
         colorDefinition->isSetValue();
@@ -185,6 +215,13 @@ int setValue(ColorDefinition* colorDefinition, const std::string& value) {
     }
 
     return -1;
+}
+
+GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    if (renderInformationBase)
+        return renderInformationBase->getGradientDefinition(sid);
+
+    return NULL;
 }
 
 bool isLinearGradient(GradientBase* gradientBase) {
@@ -1852,6 +1889,13 @@ int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
     }
 
     return -1;
+}
+
+LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    if (renderInformationBase)
+        return renderInformationBase->getLineEnding(sid);
+
+    return NULL;
 }
 
 bool isSetEnableRotationalMapping(LineEnding* lineEnding) {

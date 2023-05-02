@@ -108,10 +108,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeAllLocalRenderInformation(Layout* layout)
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation);
 
+/// @brief Predicates returning @c true if the "backgroundColor" attribute of this GlobalRenderInformation is set.
+/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
+/// @return @c true if the "backgroundColor" attribute of this GlobalRenderInformation object is set, @c false if either the "backgroundColor"
+/// attribute is not set or the object is @c NULL.
+bool isSetBackgroundColor(GlobalRenderInformation* globalRenderInformation);
+
+/// @brief Returns the value of the "backgroundColor" attribute of this GlobalRenderInformation.
+/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
+/// @return the "backgroundColor" attribute of the GlobalRenderInformation object, or @c "" if the object is @c NULL
+const std::string getBackgroundColor(GlobalRenderInformation* globalRenderInformation);
+
+/// @brief Sets the value of the "backgroundColor" attribute of this GlobalRenderInformation object.
+/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
+/// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this GlobalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const std::string& backgroundColor);
+
+/// @brief Returns a ColorDefinition from the RenderInformationBase based on its identifier.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return the @c ColorDefinition in the ListOfColorDefinitions within this RenderInformationBase with the given sid or @c NULL if no such ColorDefinition exists.
+LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Predicates returning @c true if the "value" attribute of this ColorDefinition is set.
 /// @param colorDefinition a pointer to the ColorDefinition object.
 /// @return @c true if the "value" attribute of this ColorDefinition object is set, @c false if either the "value"
-/// attribute is not set or the object is @c NULL .
+/// attribute is not set or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetValue(ColorDefinition* colorDefinition);
 
 /// @brief Returns the value of the "value" attribute of this ColorDefinition.
@@ -124,6 +146,11 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getValue(ColorDefinition* colorDe
 /// @param value a string value to use as the value of the "value" attribute of this ColorDefinition object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setValue(ColorDefinition* colorDefinition, const std::string& value);
+
+/// @brief Returns a GradientBase from the RenderInformationBase based on its identifier.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the @c GradientBase in the ListOfGradientDefinitions within this RenderInformationBase with the given sid or @c NULL if no such GradientBase exists.
+LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicate returning true if this abstract GradientBase is of type LinearGradient.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -1290,6 +1317,11 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGro
 /// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
+
+/// @brief Returns a LineEnding from the RenderInformationBase based on its identifier.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the @c LineEnding in the ListOfLineEndings within this RenderInformationBase with the given sid or @c NULL if no such LineEnding exists.
+LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of this LineEnding is set.
 /// @param lineEnding a pointer to the LineEnding object.
