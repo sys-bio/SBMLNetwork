@@ -503,27 +503,19 @@ int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
 }
 
 bool isSetCurve(GraphicalObject* graphicalObject) {
-    if (graphicalObject) {
-        ReactionGlyph* reactionGlyph = dynamic_cast<ReactionGlyph*>(graphicalObject);
-        if (reactionGlyph)
-            return reactionGlyph->isSetCurve();
-        SpeciesReferenceGlyph* speciesReferenceGlyph = dynamic_cast<SpeciesReferenceGlyph*>(graphicalObject);
-        if (speciesReferenceGlyph)
-            return speciesReferenceGlyph->isSetCurve();
-    }
+    if (isReactionGlyph(graphicalObject))
+        return ((ReactionGlyph*)graphicalObject)->isSetCurve();
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return ((SpeciesReferenceGlyph*)graphicalObject)->isSetCurve();
 
     return  false;
 }
 
 Curve* getCurve(GraphicalObject* graphicalObject) {
-    if (graphicalObject) {
-        ReactionGlyph* reactionGlyph = dynamic_cast<ReactionGlyph*>(graphicalObject);
-        if (reactionGlyph)
-            return  reactionGlyph->getCurve();
-        SpeciesReferenceGlyph* speciesReferenceGlyph = dynamic_cast<SpeciesReferenceGlyph*>(graphicalObject);
-        if (speciesReferenceGlyph)
-            return speciesReferenceGlyph->getCurve();
-    }
+    if (isReactionGlyph(graphicalObject))
+        return ((ReactionGlyph*)graphicalObject)->getCurve();
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return ((SpeciesReferenceGlyph*)graphicalObject)->getCurve();
 
     return  NULL;
 }
