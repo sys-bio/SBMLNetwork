@@ -126,9 +126,17 @@ const std::string getBackgroundColor(GlobalRenderInformation* globalRenderInform
 int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const std::string& backgroundColor);
 
 /// @brief Returns a ColorDefinition from the RenderInformationBase based on its identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the ColorDefinition to retrieve.
 /// @return the @c ColorDefinition in the ListOfColorDefinitions within this RenderInformationBase with the given sid or @c NULL if no such ColorDefinition exists.
 LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return @c true if the "value" attribute of this ColorDefinition object is set, @c false if either the "value"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetValue(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "value" attribute of this ColorDefinition is set.
 /// @param colorDefinition a pointer to the ColorDefinition object.
@@ -136,10 +144,23 @@ LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformati
 /// attribute is not set or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetValue(ColorDefinition* colorDefinition);
 
+/// @brief Returns the value of the "value" attribute of the ColorDefinition with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return the "value" attribute of the ColorDefinition object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getValue(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "value" attribute of this ColorDefinition.
 /// @param colorDefinition a pointer to the ColorDefinition object.
 /// @return the "value" attribute of the ColorDefinition object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getValue(ColorDefinition* colorDefinition);
+
+/// @brief Sets the value of the "value" attribute of the ColorDefinition with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @param value a string value to use as the value of the "value" attribute of this ColorDefinition object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setValue(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& value);
 
 /// @brief Sets the value of the "value" attribute of this ColorDefinition object.
 /// @param colorDefinition a pointer to the ColorDefinition object.
@@ -152,15 +173,34 @@ LIBSBML_NETWORKEDITOR_EXTERN int setValue(ColorDefinition* colorDefinition, cons
 /// @return the @c GradientBase in the ListOfGradientDefinitions within this RenderInformationBase with the given sid or @c NULL if no such GradientBase exists.
 LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
 
+/// @brief Predicate returning true if the abstract GradientBase with the given identifier is of type LinearGradient.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if this abstract GradientBase is of type LinearGradient, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isLinearGradient(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Predicate returning true if this abstract GradientBase is of type LinearGradient.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if this abstract GradientBase is of type LinearGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isLinearGradient(GradientBase* gradientBase);
 
+/// @brief Predicate returning true if the abstract GradientBase with the given identifier is of type RadialGradient.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if this abstract GradientBase is of type RadialGradient, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isRadialGradient(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Predicate returning true if this abstract GradientBase is of type RadialGradient.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if this abstract GradientBase is of type RadialGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRadialGradient(GradientBase* gradientBase);
+
+/// @brief Predicates returning @c true if the "spreadMethod" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "spreadMethod" attribute of this GradientBase object is set, @c false if either the "spreadMethod"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetSpreadMethod(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "spreadMethod" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -168,10 +208,23 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isRadialGradient(GradientBase* gradientBase);
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetSpreadMethod(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "spreadMethod" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "spreadMethod" attribute of the GradientBase object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpreadMethod(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "spreadMethod" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "spreadMethod" attribute of the GradientBase object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpreadMethod(GradientBase* gradientBase);
+
+/// @brief Sets the value of the "spreadMethod" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param spreadMethod a string value to use as the value of the "spreadMethod" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setSpreadMethod(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& spreadMethod);
 
 /// @brief Sets the value of the "spreadMethod" attribute of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -179,18 +232,44 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpreadMethod(GradientBase* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod);
 
+/// @brief Returns Get the number of GradientStop objects in the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Returns Get the number of GradientStop objects in this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(GradientBase* gradientBase);
+
+/// @brief Returns the nth GradientStop of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param n an unsigned int representing the index of the GradientStop to retrieve.
+/// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n);
+
 /// @brief Returns the nth GradientStop of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param n an unsigned int representing the index of the GradientStop to retrieve.
 /// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(GradientBase* gradientBase, unsigned  int n);
 
+/// @brief Predicates returning @c true if the "offset" attribute of the nth GradientStop of this the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return @c true if the "offset" attribute of the nth GradientStop of this GradientBase object is set, @c false if
+/// either the "offset" attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n);
+
 /// @brief Predicates returning @c true if the "offset" attribute of the nth GradientStop of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
 /// @return @c true if the "offset" attribute of the nth GradientStop of this GradientBase object is set, @c false if
 /// either the "offset" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientStop* gradientStop , unsigned  int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientBase* gradientBase, unsigned  int n);
 
 /// @brief Predicates returning @c true if the "offset" attribute of this GradientStop is set.
 /// @param gradientStop a pointer to the GradientStop object.
@@ -198,18 +277,33 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientStop* gradientStop , unsig
 /// or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientStop* gradientStop);
 
+/// @brief Returns the value of the "offset" attribute of the nth GradientStop of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "offset" attribute of the nth GradientStop of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(RenderInformationBase* renderInformationBase, const std::string& sid , unsigned  int n);
+
 /// @brief Returns the value of the "offset" attribute of the nth GradientStop of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
 /// @return the "offset" attribute of the nth GradientStop of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop , unsigned  int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientBase* gradientBase , unsigned  int n);
 
-/// @brief Returns the value of the "offset" attribute of this GradientStop.
+/// @brief Returns the value of the "offset" attribute of this GradientBase.
 /// @param gradientStop a pointer to the GradientStop object.
 /// @return the "offset" attribute of the GradientStop object, or @c RelAbsVector() if the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop);
 
-/// @brief Sets the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
+/// @brief Sets the value of the "offset" attribute of the nth GradientStop of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n, const RelAbsVector& offset);
+
+/// @brief Sets the value of the "offset" attribute of the nth GradientStop of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
 /// @param offset a RelAbsVector to use as the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
@@ -222,10 +316,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientBase* gradientBase, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientStop* gradientStop, const RelAbsVector& offset);
 
-/// @brief Returns Get the number of GradientStop objects in this GradientBase object.
-/// @param gradientBase a pointer to the GradientBase object.
-/// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(GradientBase* gradientBase);
+/// @brief Predicates returning @c true if the "stop-color" attribute of the nth GradientStop of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n);
 
 /// @brief Predicates returning @c true if the "stop-color" attribute of the nth GradientStop of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -239,6 +335,13 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientBase* gradientBase, uns
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientStop* gradientStop);
 
+/// @brief Returns the value of the "stop-color" attribute of the nth GradientStop of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "stop-color" attribute of the nth GradientStop of this GradientStop object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n);
+
 /// @brief Returns the value of the "stop-color" attribute of the nth GradientStop of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
@@ -249,6 +352,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientBase* gradie
 /// @param gradientStop a pointer to the GradientStop object.
 /// @return the "stop-color" attribute of the GradientStop object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientStop* gradientStop);
+
+/// @brief Sets the value of the "stop-color" attribute of the nth GradientStop of this the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n, const std::string& stopColor);
 
 /// @brief Sets the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -263,22 +374,49 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientBase* gradientBase, unsign
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientStop* gradientStop, const std::string& stopColor);
 
+/// @brief Predicates returning @c true if the "x1" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "x1" attribute of this GradientBase object is set, @c false if either the "x1" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX1(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Predicates returning @c true if the "x1" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if the "x1" attribute of this GradientBase object is set, @c false if either the "x1" attribute is not set
 /// , the object is @c NULL, or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX1(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "x1" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "x1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX1(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "x1" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "x1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX1(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "x1" attribute of this GradientBase object.
+/// @brief Sets the value of the "x1" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param x1 a RelAbsVector to use as the value of the "x1" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX1(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& x1);
+
+/// @brief Sets the value of the "x1" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param x1 a RelAbsVector to use as the value of the "x1" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX1(GradientBase* gradientBase, const RelAbsVector& x1);
+
+/// @brief Predicates returning @c true if the "x2" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "x2" attribute of this GradientBase object is set, @c false if either the "x2" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX2(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "x2" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -286,16 +424,36 @@ LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX1(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX2(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "x2" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "x2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX2(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "x2" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "x2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX2(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "x2" attribute of this GradientBase object.
+/// @brief Sets the value of the "x2" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param x2 a RelAbsVector to use as the value of the "x2" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX2(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& x2);
+
+/// @brief Sets the value of the "x2" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param x2 a RelAbsVector to use as the value of the "x2" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX2(GradientBase* gradientBase, const RelAbsVector& x2);
+
+/// @brief Predicates returning @c true if the "y1" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "y1" attribute of this GradientBase object is set, @c false if either the "y1" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY1(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "y1" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -303,16 +461,36 @@ LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX2(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY1(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "y1" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "y1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY1(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "y1" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "y1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY1(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "y1" attribute of this GradientBase object.
+/// @brief Sets the value of the "y1" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param y1 a RelAbsVector to use as the value of the "y1" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY1(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& y1);
+
+/// @brief Sets the value of the "y1" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param y1 a RelAbsVector to use as the value of the "y1" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY1(GradientBase* gradientBase, const RelAbsVector& y1);
+
+/// @brief Predicates returning @c true if the "y2" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "y2" attribute of this GradientBase object is set, @c false if either the "y2" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY2(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "y2" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -320,16 +498,36 @@ LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY1(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY2(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "y2" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "y2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY2(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "y2" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "y2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY2(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "y2" attribute of this GradientBase object.
+/// @brief Sets the value of the "y2" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param y2 a RelAbsVector to use as the value of the "y2" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY2(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& y2);
+
+/// @brief Sets the value of the "y2" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param y2 a RelAbsVector to use as the value of the "y2" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY2(GradientBase* gradientBase, const RelAbsVector& y2);
+
+/// @brief Predicates returning @c true if the "cx" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "cx" attribute of this GradientBase object is set, @c false if either the "cx" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCx(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "cx" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -337,16 +535,36 @@ LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY2(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCx(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "cx" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "cx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCx(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "cx" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "cx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCx(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "cx" attribute of this GradientBase object.
+/// @brief Sets the value of the "cx" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCx(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& cx);
+
+/// @brief Sets the value of the "cx" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx);
+
+/// @brief Predicates returning @c true if the "cy" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "cy" attribute of this GradientBase object is set, @c false if either the "cy" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCy(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "cy" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -354,16 +572,36 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCx(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCy(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "cy" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "cy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCy(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "cy" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "cy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCy(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "cy" attribute of this GradientBase object.
+/// @brief Sets the value of the "cy" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCy(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& cy);
+
+/// @brief Sets the value of the "cy" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param cy a RelAbsVector to use as the value of the "cy" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy);
+
+/// @brief Predicates returning @c true if the "fx" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "fx" attribute of this GradientBase object is set, @c false if either the "fx" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFx(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "fx" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -371,16 +609,36 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCy(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFx(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "fx" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "fx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFx(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "fx" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "fx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFx(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "fx" attribute of this GradientBase object.
+/// @brief Sets the value of the "fx" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param fx a RelAbsVector to use as the value of the "fx" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFx(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& fx);
+
+/// @brief Sets the value of the "fx" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param fx a RelAbsVector to use as the value of the "fx" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx);
+
+/// @brief Predicates returning @c true if the "fy" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "fy" attribute of this GradientBase object is set, @c false if either the "fy" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFy(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "fy" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -388,28 +646,60 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFx(GradientBase* gradientBase,
 /// , the object is @c NULL, or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFy(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "fy" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "fy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFy(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "fy" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "fy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFy(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "fy" attribute of this GradientBase object.
+/// @brief Sets the value of the "fy" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param fy a RelAbsVector to use as the value of the "fy" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFy(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& fy);
+
+/// @brief Sets the value of the "fy" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param fy a RelAbsVector to use as the value of the "fy" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy);
+
+/// @brief Predicates returning @c true if the "r" attribute of the GradientBase with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "r" attribute of this GradientBase object is set, @c false if either the "r" attribute is not set
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientR(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "r" attribute of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if the "r" attribute of this GradientBase object is set, @c false if either the "r" attribute is not set
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientR(GradientBase* gradientBase);
 
+/// @brief Returns the value of the "r" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "r" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientR(RenderInformationBase* renderInformationBase, const std::string& sid);
+
 /// @brief Returns the value of the "r" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return the "r" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientR(GradientBase* gradientBase);
 
-/// @brief Sets the value of the "r" attribute of this GradientBase object.
+/// @brief Sets the value of the "r" attribute of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param r a RelAbsVector to use as the value of the "r" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& r);
+
+/// @brief Sets the value of the "r" attribute of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param r a RelAbsVector to use as the value of the "r" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.

@@ -194,6 +194,10 @@ ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase
     return NULL;
 }
 
+bool isSetValue(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetValue(getColorDefinition(renderInformationBase, sid));
+}
+
 bool isSetValue(ColorDefinition* colorDefinition) {
     if (colorDefinition)
         colorDefinition->isSetValue();
@@ -201,11 +205,19 @@ bool isSetValue(ColorDefinition* colorDefinition) {
     return false;
 }
 
+const std::string getValue(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getValue(getColorDefinition(renderInformationBase, sid));
+}
+
 const std::string getValue(ColorDefinition* colorDefinition) {
     if (colorDefinition)
         return colorDefinition->getValue();
 
     return "";
+}
+
+int setValue(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& value) {
+    return setValue(getColorDefinition(renderInformationBase, sid), value);
 }
 
 int setValue(ColorDefinition* colorDefinition, const std::string& value) {
@@ -224,11 +236,19 @@ GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase
     return NULL;
 }
 
+bool isLinearGradient(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isLinearGradient(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isLinearGradient(GradientBase* gradientBase) {
     if (gradientBase)
         return gradientBase->isLinearGradient();
 
     return false;
+}
+
+bool isRadialGradient(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isRadialGradient(getGradientDefinition(renderInformationBase, sid));
 }
 
 bool isRadialGradient(GradientBase* gradientBase) {
@@ -238,6 +258,10 @@ bool isRadialGradient(GradientBase* gradientBase) {
     return false;
 }
 
+bool isSetSpreadMethod(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetSpreadMethod(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetSpreadMethod(GradientBase* gradientBase) {
     if (gradientBase)
         gradientBase->isSetSpreadMethod();
@@ -245,11 +269,19 @@ bool isSetSpreadMethod(GradientBase* gradientBase) {
     return false;
 }
 
+const std::string getSpreadMethod(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getSpreadMethod(getGradientDefinition(renderInformationBase, sid));
+}
+
 const std::string getSpreadMethod(GradientBase* gradientBase) {
     if (gradientBase)
         return gradientBase->getSpreadMethodAsString();
 
     return "";
+}
+
+int setSpreadMethod(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& spreadMethod) {
+    return setSpreadMethod(getGradientDefinition(renderInformationBase, sid), spreadMethod);
 }
 
 int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod) {
@@ -261,11 +293,30 @@ int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod)
     return -1;
 }
 
+unsigned int getNumGradientStops(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getNumGradientStops(getGradientDefinition(renderInformationBase, sid));
+}
+
+unsigned int getNumGradientStops(GradientBase* gradientBase) {
+    if (gradientBase)
+        return gradientBase->getNumGradientStops();
+
+    return 0;
+}
+
+GradientStop* getGradientStop(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n) {
+    return getGradientStop(getGradientDefinition(renderInformationBase, sid), n);
+}
+
 GradientStop* getGradientStop(GradientBase* gradientBase, unsigned  int n) {
     if (gradientBase)
         return gradientBase->getGradientStop(n);
 
     return NULL;
+}
+
+bool isSetOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n) {
+    return isSetOffset(getGradientDefinition(renderInformationBase, sid), n);
 }
 
 bool isSetOffset(GradientBase* gradientBase, unsigned  int n) {
@@ -279,6 +330,10 @@ bool isSetOffset(GradientStop* gradientStop) {
     return false;
 }
 
+const RelAbsVector getOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n) {
+    return getOffset(getGradientDefinition(renderInformationBase, sid), n);
+}
+
 const RelAbsVector getOffset(GradientBase* gradientBase, unsigned  int n) {
     return getOffset(getGradientStop(gradientBase, n));
 }
@@ -288,6 +343,10 @@ const RelAbsVector getOffset(GradientStop* gradientStop) {
         return gradientStop->getOffset();
 
     return RelAbsVector();
+}
+
+int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n, const RelAbsVector& offset) {
+    return setOffset(getGradientDefinition(renderInformationBase, sid), n, offset);
 }
 
 int setOffset(GradientBase* gradientBase, unsigned  int n, const RelAbsVector& offset) {
@@ -303,11 +362,8 @@ int setOffset(GradientStop* gradientStop, const RelAbsVector& offset) {
     return -1;
 }
 
-unsigned int getNumGradientStops(GradientBase* gradientBase) {
-    if (gradientBase)
-        return gradientBase->getNumGradientStops();
-
-    return 0;
+bool isSetStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n) {
+    return isSetStopColor(getGradientDefinition(renderInformationBase, sid), n);
 }
 
 bool isSetStopColor(GradientBase* gradientBase, unsigned  int n) {
@@ -321,6 +377,10 @@ bool isSetStopColor(GradientStop* gradientStop) {
     return false;
 }
 
+const std::string getStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n) {
+    return getStopColor(getGradientDefinition(renderInformationBase, sid), n);
+}
+
 const std::string getStopColor(GradientBase* gradientBase, unsigned  int n) {
     return getStopColor(getGradientStop(gradientBase, n));
 }
@@ -330,6 +390,10 @@ const std::string getStopColor(GradientStop* gradientStop) {
         return gradientStop->getStopColor();
 
     return "";
+}
+
+int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned  int n, const std::string& stopColor) {
+    return setStopColor(getGradientDefinition(renderInformationBase, sid), n, stopColor);
 }
 
 int setStopColor(GradientBase* gradientBase, unsigned  int n, const std::string& stopColor) {
@@ -345,6 +409,10 @@ int setStopColor(GradientStop* gradientStop, const std::string& stopColor) {
     return -1;
 }
 
+bool isSetLinearGradientX1(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetLinearGradientX1(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetLinearGradientX1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->isSetX1();
@@ -352,11 +420,19 @@ bool isSetLinearGradientX1(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getLinearGradientX1(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getLinearGradientX1(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getLinearGradientX1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->getX1();
 
     return RelAbsVector();
+}
+
+int setLinearGradientX1(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& x1) {
+    return setLinearGradientX1(getGradientDefinition(renderInformationBase, sid), x1);
 }
 
 int setLinearGradientX1(GradientBase* gradientBase, const RelAbsVector& x1) {
@@ -368,6 +444,10 @@ int setLinearGradientX1(GradientBase* gradientBase, const RelAbsVector& x1) {
     return -1;
 }
 
+bool isSetLinearGradientX2(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetLinearGradientX2(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetLinearGradientX2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->isSetX2();
@@ -375,11 +455,19 @@ bool isSetLinearGradientX2(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getLinearGradientX2(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getLinearGradientX2(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getLinearGradientX2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->getX2();
 
     return RelAbsVector();
+}
+
+int setLinearGradientX2(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& x2) {
+    return setLinearGradientX2(getGradientDefinition(renderInformationBase, sid), x2);
 }
 
 int setLinearGradientX2(GradientBase* gradientBase, const RelAbsVector& x2) {
@@ -391,6 +479,10 @@ int setLinearGradientX2(GradientBase* gradientBase, const RelAbsVector& x2) {
     return -1;
 }
 
+bool isSetLinearGradientY1(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetLinearGradientY1(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetLinearGradientY1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->isSetY1();
@@ -398,11 +490,19 @@ bool isSetLinearGradientY1(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getLinearGradientY1(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getLinearGradientY1(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getLinearGradientY1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->getY1();
 
     return RelAbsVector();
+}
+
+int setLinearGradientY1(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& y1) {
+    return setLinearGradientY1(getGradientDefinition(renderInformationBase, sid), y1);
 }
 
 int setLinearGradientY1(GradientBase* gradientBase, const RelAbsVector& y1) {
@@ -414,6 +514,10 @@ int setLinearGradientY1(GradientBase* gradientBase, const RelAbsVector& y1) {
     return -1;
 }
 
+bool isSetLinearGradientY2(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetLinearGradientY2(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetLinearGradientY2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->isSetY2();
@@ -421,11 +525,19 @@ bool isSetLinearGradientY2(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getLinearGradientY2(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getLinearGradientY2(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getLinearGradientY2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
         ((LinearGradient*)gradientBase)->getY2();
 
     return RelAbsVector();
+}
+
+int setLinearGradientY2(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& y2) {
+    return setLinearGradientY2(getGradientDefinition(renderInformationBase, sid), y2);
 }
 
 int setLinearGradientY2(GradientBase* gradientBase, const RelAbsVector& y2) {
@@ -437,6 +549,10 @@ int setLinearGradientY2(GradientBase* gradientBase, const RelAbsVector& y2) {
     return -1;
 }
 
+bool isSetRadialGradientCx(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetRadialGradientCx(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetRadialGradientCx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->isSetCx();
@@ -444,11 +560,19 @@ bool isSetRadialGradientCx(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getRadialGradientCx(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getRadialGradientCx(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getRadialGradientCx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->getCx();
 
     return RelAbsVector();
+}
+
+int setRadialGradientCx(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& cx) {
+    return setRadialGradientCx(getGradientDefinition(renderInformationBase, sid), cx);
 }
 
 int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx) {
@@ -460,6 +584,10 @@ int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx) {
     return -1;
 }
 
+bool isSetRadialGradientCy(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetRadialGradientCy(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetRadialGradientCy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->isSetCy();
@@ -467,11 +595,19 @@ bool isSetRadialGradientCy(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getRadialGradientCy(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getRadialGradientCy(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getRadialGradientCy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->getCy();
 
     return RelAbsVector();
+}
+
+int setRadialGradientCy(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& cy) {
+    return setRadialGradientCy(getGradientDefinition(renderInformationBase, sid), cy);
 }
 
 int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy) {
@@ -483,6 +619,10 @@ int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy) {
     return -1;
 }
 
+bool isSetRadialGradientFx(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetRadialGradientFx(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetRadialGradientFx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->isSetFx();
@@ -490,11 +630,19 @@ bool isSetRadialGradientFx(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getRadialGradientFx(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getRadialGradientFx(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getRadialGradientFx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->getFx();
 
     return RelAbsVector();
+}
+
+int setRadialGradientFx(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& fx) {
+    return setRadialGradientFx(getGradientDefinition(renderInformationBase, sid), fx);
 }
 
 int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
@@ -506,6 +654,10 @@ int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
     return -1;
 }
 
+bool isSetRadialGradientFy(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetRadialGradientFy(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetRadialGradientFy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->isSetFy();
@@ -513,11 +665,19 @@ bool isSetRadialGradientFy(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getRadialGradientFy(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getRadialGradientFy(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getRadialGradientFy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->getFy();
 
     return RelAbsVector();
+}
+
+int setRadialGradientFy(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& fy) {
+    return setRadialGradientFy(getGradientDefinition(renderInformationBase, sid), fy);
 }
 
 int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy) {
@@ -529,6 +689,10 @@ int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy) {
     return -1;
 }
 
+bool isSetRadialGradientR(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetRadialGradientR(getGradientDefinition(renderInformationBase, sid));
+}
+
 bool isSetRadialGradientR(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->isSetR();
@@ -536,11 +700,19 @@ bool isSetRadialGradientR(GradientBase* gradientBase) {
     return false;
 }
 
+const RelAbsVector getRadialGradientR(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getRadialGradientR(getGradientDefinition(renderInformationBase, sid));
+}
+
 const RelAbsVector getRadialGradientR(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
         ((RadialGradient*)gradientBase)->getR();
 
     return RelAbsVector();
+}
+
+int setRadialGradientR(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& r) {
+    return setRadialGradientR(getGradientDefinition(renderInformationBase, sid), r);
 }
 
 int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
