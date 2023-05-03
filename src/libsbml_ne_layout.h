@@ -671,16 +671,34 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(GraphicalObject* graphicalOb
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(BoundingBox* boundingBox, const double& height);
 
+/// @brief Predicate returning true if this GraphicalObject object with the given id has a Curve object and the curve consists of one or more segments
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetCurve(Layout* layout, const std::string& id);
+
 /// @brief Predicate returning true if this GraphicalObject object has a Curve object and the curve consists of one or more segments
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetCurve(GraphicalObject* graphicalObject);
 
+/// @brief Returns the Curve object of this GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have a Curve object
+LIBSBML_NETWORKEDITOR_EXTERN Curve* getCurve(Layout* layout, const std::string& id);
+
 /// @brief Returns the Curve object of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have
-/// a Curve object
+/// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have a Curve object
 LIBSBML_NETWORKEDITOR_EXTERN Curve* getCurve(GraphicalObject* graphicalObject);
+
+/// @brief Returns the number of curve segments of the curve of this GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCurveSegments(Layout* layout, const std::string& id);
 
 /// @brief Returns the number of curve segments of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -692,6 +710,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCurveSegments(GraphicalObj
 /// @param curve a pointer to the Curve object.
 /// @return the number of curve segments of the Curve object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCurveSegments(Curve* curve);
+
+/// @brief Returns a pointer to the curve segment with the given index of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param index the index value of the curve segment to return.
+/// @return the @c LineSegment representing the child "curveSegment" with the appropriate index, or NULL if no such LineSegment exists for
+/// this GraphicalObject object.
+LIBSBML_NETWORKEDITOR_EXTERN LineSegment* getCurveSegment(Layout* layout, const std::string& id, unsigned int index);
 
 /// @brief Returns a pointer to the curve segment of this GraphicalObject object with the given index.
 /// @param index the index value of the curve segment to return.
@@ -705,6 +731,12 @@ LIBSBML_NETWORKEDITOR_EXTERN LineSegment* getCurveSegment(GraphicalObject* graph
 /// this Curve object.
 LIBSBML_NETWORKEDITOR_EXTERN LineSegment* getCurveSegment(Curve* curve, unsigned int index);
 
+/// @brief Creates a new LineSegment and adds it to the end of the list of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @return the created @c LineSegment, or NULL if the line segment could not be created.
+LIBSBML_NETWORKEDITOR_EXTERN LineSegment* createLineCurveSegment(Layout* layout, const std::string& id);
+
 /// @brief Creates a new LineSegment and adds it to the end of the list of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the created @c LineSegment, or NULL if the line segment could not be created.
@@ -715,6 +747,12 @@ LIBSBML_NETWORKEDITOR_EXTERN LineSegment* createLineCurveSegment(GraphicalObject
 /// @return the created @c LineSegment, or NULL if the line segment could not be created.
 LIBSBML_NETWORKEDITOR_EXTERN LineSegment* createLineCurveSegment(Curve* curve);
 
+/// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
+LIBSBML_NETWORKEDITOR_EXTERN CubicBezier* createCubicBezierCurveSegment(Layout* layout, const std::string& id);
+
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the created @c CubicBezier, or NULL if the line segment could not be created.
@@ -724,6 +762,13 @@ LIBSBML_NETWORKEDITOR_EXTERN CubicBezier* createCubicBezierCurveSegment(Graphica
 /// @param curve a pointer to the Curve object.
 /// @return the created @c CubicBezier, or NULL if the line segment could not be created.
 LIBSBML_NETWORKEDITOR_EXTERN CubicBezier* createCubicBezierCurveSegment(Curve* curve);
+
+/// @brief Removes and deletes a curve segment from the list of the Curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int removeCurveSegment(Layout* layout, const std::string& id, unsigned int n);
 
 /// @brief Removes and deletes a curve segment from the list of the Curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -736,6 +781,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeCurveSegment(GraphicalObject* graphicalOb
 /// @param n an unsigned int representing the index of the curve segment to remove.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int removeCurveSegment(Curve* curve, unsigned int n);
+
+/// @brief Predicate returning true if the nth curve segment of the Curve of the GraphicalObject object with the given id is of type CubicBezier.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment.
+/// @return @c true if this curve segment is of type CubicBezier, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isCubicBezier(Layout* layout, const std::string& id, unsigned int n);
 
 /// @brief Predicate returning true if the nth curve segment of the Curve of this GraphicalObject object is of type CubicBezier.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -754,6 +806,14 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isCubicBezier(Curve* curve, unsigned int n);
 /// @return @c true if this abstract LineSegment is of type CubicBezier, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isCubicBezier(LineSegment* lineSegment);
 
+/// @brief Returns the value of the "x" attribute of the start point of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointX(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "x" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -767,6 +827,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointX(GraphicalOb
 /// @return the "x" attribute of the start point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointX(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the start point of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(Layout* layout, const std::string& id, unsigned int n, const double& x);
 
 /// @brief Sets the value of the "x" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -782,6 +850,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(Curve* curve, unsigned int n, const double& x);
 
+/// @brief Returns the value of the "y" attribute of the start point of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointY(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "y" attribute of the start point of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -795,6 +871,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointY(GraphicalOb
 /// @return the "y" attribute of the start point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointY(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the start point of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(Layout* layout, const std::string& id, unsigned int n, const double& y);
 
 /// @brief Sets the value of the "y" attribute of the start point of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -810,6 +894,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(Curve* curve, unsigned int n, const double& y);
 
+/// @brief Returns the value of the "x" attribute of the end point of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointX(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "x" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -823,6 +915,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointX(GraphicalObje
 /// @return the "x" attribute of the end point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointX(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the end point of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(Layout* layout, const std::string& id, unsigned int n, const double& x);
 
 /// @brief Sets the value of the "x" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -838,6 +938,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(GraphicalObject* graph
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(Curve* curve, unsigned int n, const double& x);
 
+/// @brief Returns the value of the "y" attribute of the end point of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointY(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "y" attribute of the end point of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -851,6 +959,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointY(GraphicalObje
 /// @return the "y" attribute of the end point of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointY(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the end point of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(Layout* layout, const std::string& id, unsigned int n, const double& y);
 
 /// @brief Sets the value of the "y" attribute of the end point of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -866,6 +982,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(GraphicalObject* graph
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(Curve* curve, unsigned int n, const double& y);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1X(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "x" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -879,6 +1003,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1X(GraphicalOb
 /// @return the "x" attribute of the base point 1 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1X(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(Layout* layout, const std::string& id, unsigned int n, const double& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -894,6 +1026,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(Curve* curve, unsigned int n, const double& x);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1Y(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "y" attribute of the base point 1 of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -907,6 +1047,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1Y(GraphicalOb
 /// @return the "y" attribute of the base point 1 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1Y(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth curve segment of the curve of the GraphicalObject object with given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(Layout* layout, const std::string& id, unsigned int n, const double& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -922,6 +1070,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(Curve* curve, unsigned int n, const double& y);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2X(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "x" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -935,6 +1091,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2X(GraphicalOb
 /// @return the "x" attribute of the base point 2 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2X(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(Layout* layout, const std::string& id, unsigned int n, const double& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -950,6 +1114,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(Curve* curve, unsigned int n, const double& x);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2Y(Layout* layout, const std::string& id, unsigned int n);
+
 /// @brief Returns the value of the "y" attribute of the base point 2 of the nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the curve segment to retrieve.
@@ -963,6 +1135,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2Y(GraphicalOb
 /// @return the "y" attribute of the base point 2 of the nth curve segment of the Curve object, or @c 0.0 if the object is @c NULL or does not
 /// have a curve
 LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2Y(Curve* curve, unsigned int n);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth curve segment of the curve of the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(Layout* layout, const std::string& id, unsigned int n, const double& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of nth curve segment of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
