@@ -220,7 +220,7 @@ Compartment* findSpeicesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
 }
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph) {
-    std::string compartmentId = getEntityId(layout, compartmentGlyph);
+    std::string compartmentId = compartmentGlyph->getCompartmentId();
     for (unsigned int i = 0; i < model->getNumSpecies(); i++)
         if (model->getSpecies(i)->getCompartment() == compartmentId)
             return true;
