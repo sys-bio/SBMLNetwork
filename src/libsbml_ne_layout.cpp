@@ -202,11 +202,11 @@ bool isCompartmentGlyph(GraphicalObject* graphicalObject) {
 }
 
 const unsigned int getNumSpeciesGlyphs(Layout* layout) {
-        if (layout)
-            return layout->getNumSpeciesGlyphs();
+    if (layout)
+        return layout->getNumSpeciesGlyphs();
 
-        return 0;
-    }
+    return 0;
+}
 
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& id) {
     if (layout)
@@ -239,10 +239,6 @@ const std::string getSpeciesId(GraphicalObject* speciesGlyph) {
 
 bool isSpeciesGlyph(Layout* layout, const std::string& id) {
     return isSpeciesGlyph(getSpeciesGlyph(layout, id));
-}
-
-bool isSpeciesGlyph(Layout* layout, unsigned int index) {
-    return isSpeciesGlyph(getSpeciesGlyph(layout, index));
 }
 
 bool isSpeciesGlyph(GraphicalObject* graphicalObject) {
@@ -306,10 +302,6 @@ bool isReactionGlyph(Layout* layout, const std::string& id) {
     return isReactionGlyph(getReactionGlyph(layout, id));
 }
 
-bool isReactionGlyph(Layout* layout, unsigned int index) {
-    return isReactionGlyph(getReactionGlyph(layout, index));
-}
-
 bool isReactionGlyph(GraphicalObject* graphicalObject) {
     if (dynamic_cast<ReactionGlyph*>(graphicalObject))
         return true;
@@ -348,10 +340,6 @@ const std::string getRole(GraphicalObject* speciesReferenceGlyph) {
         return ((SpeciesReferenceGlyph*)speciesReferenceGlyph)->getRoleString();
 
     return "";
-}
-
-bool isSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, unsigned int index) {
-    return isSpeciesReferenceGlyph(getSpeciesReferenceGlyph(reactionGlyph, index));
 }
 
 bool isSpeciesReferenceGlyph(GraphicalObject* graphicalObject) {
@@ -525,10 +513,6 @@ int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& orig) {
 
 bool isText(Layout* layout, const std::string& id) {
     return isText(getTextGlyph(layout, id));
-}
-
-bool isText(Layout* layout, unsigned int index) {
-    return isText(getTextGlyph(layout, index));
 }
 
 bool isText(GraphicalObject* graphicalObject) {

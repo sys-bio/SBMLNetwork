@@ -188,12 +188,6 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpeciesId(GraphicalObject* spe
 /// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesGlyph(Layout* layout, const std::string& id);
 
-/// @brief Predicate returning true if the abstract GraphicalObject with the given index is of type SpeciesGlyph.
-/// @param Layout a pointer to the Layout object.
-/// @param index the index value of the GraphicalObject.
-/// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesGlyph(Layout* layout, unsigned int index);
-
 /// @brief Predicate returning true if this abstract GraphicalObject is of type SpeciesGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
@@ -238,12 +232,6 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getReactionId(GraphicalObject* re
 /// @param id the id of the GraphicalObject.
 /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isReactionGlyph(Layout* layout, const std::string& id);
-
-/// @brief Predicate returning true if the abstract GraphicalObject with the given index is of type ReactionGlyph.
-/// @param Layout a pointer to the Layout object.
-/// @param index the index value of the GraphicalObject.
-/// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isReactionGlyph(Layout* layout, unsigned int index);
 
 /// @brief Predicate returning true if this abstract GraphicalObject is of type ReactionGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -296,12 +284,6 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getRole(GraphicalObject* reaction
 /// @param speciesReference a pointer to the GraphicalObject object.
 /// @return the value of the "role" attribute, or @c "" if the object is not of type SpeciesReferenceGlyph or is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getRole(GraphicalObject* speciesReferenceGlyph);
-
-/// @brief Predicate returning true if the abstract GraphicalObject with the given index is of type SpeciesReferenceGlyph.
-/// @param Layout a pointer to the Layout object.
-/// @param index the index value of the GraphicalObject.
-/// @return @c true if this abstract GraphicalObject is of type SpeciesReferenceGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesReferenceGlyph(Layout* layout, unsigned int index);
 
 /// @brief Predicate returning true if this abstract GraphicalObject is of type SpeciesReferenceGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -508,12 +490,6 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(GraphicalObject* textGlyph
 /// @param id the id of the GraphicalObject.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isText(Layout* layout, const std::string& id);
-
-/// @brief Predicate returning true if the abstract GraphicalObject with the given index is of type TextGlyph.
-/// @param Layout a pointer to the Layout object.
-/// @param index the index value of the GraphicalObject.
-/// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(Layout* layout, unsigned int index);
 
 /// @brief Predicate returning true if this abstract GraphicalObject is of type TextGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
