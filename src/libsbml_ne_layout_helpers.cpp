@@ -205,17 +205,11 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph,
     }
 }
 
-Compartment* findSpeicesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph) {
-    if (model && speciesGlyph) {
-        Species* species = model->getSpecies(speciesGlyph->getSpeciesId());
-        if (species) {
-            for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
-                if (model->getCompartment(i)->getId() == species->getCompartment())
-                    return model->getCompartment(i);
-            }
-        }
-    }
-    
+Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph) {
+    Species* species = model->getSpecies(speciesGlyph->getSpeciesId());
+    if (species)
+        return model->getCompartment(species->getCompartment());
+
     return NULL;
 }
 

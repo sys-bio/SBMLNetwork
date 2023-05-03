@@ -49,7 +49,7 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
 
-Compartment* findSpeicesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph);
+Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph);
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 

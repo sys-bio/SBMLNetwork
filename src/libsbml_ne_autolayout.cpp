@@ -37,7 +37,7 @@ void addSpeciesGlyphsToSubGraph(Model* model, Layout* layout, CompartmentGlyph* 
     SpeciesGlyph* speciesGlyph = NULL;
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         speciesGlyph = layout->getSpeciesGlyph(i);
-        Compartment* compartment = findSpeicesGlyphCompartment(model, speciesGlyph);
+        Compartment* compartment = findSpeciesGlyphCompartment(model, speciesGlyph);
         if (compartment && compartmentGlyphBelongs(compartmentGlyph, compartment))
             addSpeciesGlyphToSubGraph(speciesGlyph, subgraph);
     }
@@ -144,7 +144,7 @@ void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_t* g
         Compartment* compartment = NULL;
         for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
             speciesGlyph = layout->getSpeciesGlyph(i);
-            compartment = findSpeicesGlyphCompartment(model, speciesGlyph);
+            compartment = findSpeciesGlyphCompartment(model, speciesGlyph);
             if (compartment && compartmentGlyphBelongs(compartmentGlyph, compartment))
                 extractSpeciesGlyphFromGraph(speciesGlyph, graph, minXLayout, minYLayout, maxXLayout, maxYLayout, minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
         }
