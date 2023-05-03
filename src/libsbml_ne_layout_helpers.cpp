@@ -253,26 +253,15 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
 }
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (graphicalObject->getId() == layout->getCompartmentGlyph(i)->getId())
-            return layout->getCompartmentGlyph(i)->getCompartmentId();
-    }
-    
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (graphicalObject->getId() == layout->getSpeciesGlyph(i)->getId())
-            return layout->getSpeciesGlyph(i)->getSpeciesId();
-    }
-    
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (graphicalObject->getId() == layout->getReactionGlyph(i)->getId())
-            return layout->getReactionGlyph(i)->getReactionId();
-        
-        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
-        for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
-            if (graphicalObject->getId() == reactionGlyph->getSpeciesReferenceGlyph(j)->getId())
-                return reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesReferenceId();
-        }
-    }
+    CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(graphicalObject->getId());
+    if (compartmentGlyph)
+        return compartmentGlyph->getCompartmentId();
+    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(graphicalObject->getId());
+    if (speciesGlyph)
+        return speciesGlyph->getSpeciesId();
+    ReactionGlyph* reactionGlyph = layout->getReactionGlyph(graphicalObject->getId());
+    if (reactionGlyph)
+        return reactionGlyph->getReactionId();
     
     return "";
 }
