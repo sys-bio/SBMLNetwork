@@ -825,9 +825,8 @@ Style* getStyleById(RenderInformationBase* renderInformationBase, GraphicalObjec
 }
 
 Style* getStyleById(RenderInformationBase* renderInformationBase, const std::string& id) {
-    if (renderInformationBase) {
+    if (renderInformationBase)
         return findStyleByIdList(renderInformationBase, id);
-    }
 
     return NULL;
 }
