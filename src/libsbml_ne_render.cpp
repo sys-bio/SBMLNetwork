@@ -790,41 +790,6 @@ RenderGroup* getRenderGroup(LineEnding* lineEnding) {
     return NULL;
 }
 
-/*
-Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject) {
-    Style * style = NULL;
-    if (localRenderInformation && graphicalObject) {
-        style = findStyle(localRenderInformation, graphicalObject->getId());
-        if (!style) {
-            std::string objectRole;
-            RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
-            if (renderGraphicalObjectPlugin && renderGraphicalObjectPlugin->isSetObjectRole())
-                objectRole = renderGraphicalObjectPlugin->getObjectRole();
-            style = findStyle(localRenderInformation, objectRole);
-        }
-    }
-    
-    return style;
-}
-
-Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObject* graphicalObject, const std::string& objectType) {
-    Style * style = NULL;
-    if (globalRenderInformation) {
-        // by role
-        if (graphicalObject) {
-            RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
-            if (renderGraphicalObjectPlugin && renderGraphicalObjectPlugin->isSetObjectRole())
-                style = findStyle(globalRenderInformation, renderGraphicalObjectPlugin->getObjectRole());
-        }
-        // by type
-        if (!style)
-            style = findStyle(globalRenderInformation, objectType);
-    }
-    
-    return style;
-}
-*/
-
 Style* getStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     Style* style = NULL;
     style = getStyleById(renderInformationBase, graphicalObject);

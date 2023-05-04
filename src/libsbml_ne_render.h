@@ -767,22 +767,6 @@ LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* 
 /// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(LineEnding* lineEnding);
 
-/// @brief Searches among the styles of local render information and returns one with the "id"
-/// attribute of the GraphicalObject object in its "idlist" attribute list.
-/// @param localRenderInformation  a pointer to the LocalRenderInformation object.
-/// @param graphicalObject  a pointer to the GraphicalObject object.
-/// @return a pointer to the found Style object.
-//LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
-
-/// @brief Searches among the styles of global render information and returns one with either the "role"
-/// attribute of the GraphicalObject object in its "rolelist" attribute list or "type"
-/// in its "typelist" attribute list.
-/// @param globalRenderInformation  a pointer to the GlobalRenderInformation object.
-/// @param graphicalObject  a pointer to the GraphicalObject object.
-/// @param objectType  a string indicating the type of the GraphicalObject object.
-/// @return a pointer to the found Style object.
-//LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
-
 /// @brief Searches among the styles of the render information base and returns one that matches this GraphicalObject attributes
 /// @param renderInformationBase  a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
