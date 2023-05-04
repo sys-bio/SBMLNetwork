@@ -803,7 +803,6 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(RenderInformationBase* render
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(RenderInformationBase* renderInformationBase, const std::string& role);
 
-
 /// @brief Searches among the styles of the render information base and returns one contains the "type" in its typelist.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
