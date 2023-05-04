@@ -772,7 +772,7 @@ LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(LineEnding* lineEnding)
 /// @param localRenderInformation  a pointer to the LocalRenderInformation object.
 /// @param graphicalObject  a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
-LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
+//LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
 
 /// @brief Searches among the styles of global render information and returns one with either the "role"
 /// attribute of the GraphicalObject object in its "rolelist" attribute list or "type"
@@ -781,7 +781,56 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(LocalRenderInformation* localRende
 /// @param graphicalObject  a pointer to the GraphicalObject object.
 /// @param objectType  a string indicating the type of the GraphicalObject object.
 /// @return a pointer to the found Style object.
-LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
+//LIBSBML_NETWORKEDITOR_EXTERN Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObject* graphicalObject, const std::string& objectType = "");
+
+/// @brief Searches among the styles of the render information base and returns one that matches this GraphicalObject attributes
+/// @param renderInformationBase  a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyle(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Searches among the styles of the render information base and returns one contains the "id" in its idlist.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleById(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base and returns one contains the "id" in its idlist.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param id the id attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleById(RenderInformationBase* renderInformationBase, const std::string& id);
+
+/// @brief Searches among the styles of the render information base and returns one contains the "role" in its rolelist.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base and returns one contains the "role" in its rolelist.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param role the role attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(RenderInformationBase* renderInformationBase, const std::string& role);
+
+
+/// @brief Searches among the styles of the render information base and returns one contains the "type" in its typelist.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base and returns one contains the "type" in its typelist.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param type the type attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(RenderInformationBase* renderInformationBase, const std::string& type);
 
 /// Returns the value of the "group" element of this Style.
 /// @param style a pointer to the Style object.
@@ -1645,7 +1694,7 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "startHead" attribute of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "startHead" attribute of the RenderGroup object, or @c false if the object is @c NULL
+/// @return the "startHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderGroup* renderGroup);
 
 /// @brief Sets the value of the "startHead" attribute of this RenderGroup object.
@@ -1661,7 +1710,7 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "endHead" attribute of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "endHead" attribute of the RenderGroup object, or @c false if the object is @c NULL
+/// @return the "endHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGroup);
 
 /// @brief Sets the value of the "endHead" attribute of this RenderGroup object.
@@ -1669,6 +1718,11 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGro
 /// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
+
+/// @brief Returns the value of the "endHead" attribute of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return the "objetRole" attribute of the GraphicalObject object, or @c false if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getObjectRole(GraphicalObject* graphicalObject);
 
 }
 

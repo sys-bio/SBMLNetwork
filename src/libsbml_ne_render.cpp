@@ -1,4 +1,5 @@
 #include "libsbml_ne_render.h"
+#include "libsbml_ne_layout.h"
 #include "libsbml_ne_layout_helpers.h"
 #include "libsbml_ne_render_helpers.h"
 
@@ -789,6 +790,7 @@ RenderGroup* getRenderGroup(LineEnding* lineEnding) {
     return NULL;
 }
 
+/*
 Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject) {
     Style * style = NULL;
     if (localRenderInformation && graphicalObject) {
@@ -820,6 +822,71 @@ Style* findStyle(GlobalRenderInformation* globalRenderInformation, GraphicalObje
     }
     
     return style;
+}
+*/
+
+Style* getStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    Style* style = NULL;
+    style = getStyleById(renderInformationBase, graphicalObject);
+    if (style)
+        return style;
+    style = getStyleByRole(renderInformationBase, graphicalObject);
+    if (style)
+        return style;
+    style = getStyleByType(renderInformationBase, graphicalObject);
+    if (style)
+        return style;
+
+    return NULL;
+}
+
+Style* getStyle(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    Style* style = NULL;
+    style = getStyleById(renderInformationBase, attribute);
+    if (style)
+        return style;
+    style = getStyleByRole(renderInformationBase, attribute);
+    if (style)
+        return style;
+    style = getStyleByType(renderInformationBase, attribute);
+    if (style)
+        return style;
+
+    return NULL;
+}
+
+Style* getStyleById(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStyleById(renderInformationBase, getId(graphicalObject));
+}
+
+Style* getStyleById(RenderInformationBase* renderInformationBase, const std::string& id) {
+    if (renderInformationBase) {
+        return findStyleByIdList(renderInformationBase, id);
+    }
+
+    return NULL;
+}
+
+Style* getStyleByRole(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStyleByRole(renderInformationBase, getObjectRole(graphicalObject));
+}
+
+Style* getStyleByRole(RenderInformationBase* renderInformationBase, const std::string& role) {
+    if (renderInformationBase)
+        return findStyleByRoleList(renderInformationBase, role);
+
+    return NULL;
+}
+
+Style* getStyleByType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStyleByType(renderInformationBase, getStyleType(graphicalObject));
+}
+
+Style* getStyleByType(RenderInformationBase* renderInformationBase, const std::string& type) {
+    if (renderInformationBase)
+        return findStyleByTypeList(renderInformationBase, type);
+
+    return NULL;
 }
 
 RenderGroup* getRenderGroup(Style* style) {
@@ -2126,6 +2193,16 @@ int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
     }
 
     return -1;
+}
+
+const std::string getObjectRole(GraphicalObject* graphicalObject) {
+    if (graphicalObject) {
+        RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
+        if (renderGraphicalObjectPlugin)
+            return renderGraphicalObjectPlugin->getObjectRole();
+    }
+
+    return "";
 }
 
 }

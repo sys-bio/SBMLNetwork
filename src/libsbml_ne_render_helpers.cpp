@@ -1,5 +1,6 @@
 #include "libsbml_ne_render_helpers.h"
 #include "libsbml_ne_layout_helpers.h"
+#include "libsbml_ne_layout.h"
 
 #include <cmath>
 
@@ -76,39 +77,98 @@ void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, R
     addReactionGlyphsStyles(layout, localRenderInformation, renderPkgNamespaces);
 }
 
-Style* findStyle(LocalRenderInformation* localRenderInformation, const std::string& objectIdOrRole) {
-    if (localRenderInformation) {
-        for (unsigned int i = 0; i < localRenderInformation->getNumStyles(); i++) {
-            std::set<std::string> idList = localRenderInformation->getStyle(i)->getIdList();
-            if (idList.find(objectIdOrRole) != idList.end())
-                return localRenderInformation->getStyle(i);
-        }
-        for (unsigned int i = 0; i < localRenderInformation->getNumStyles(); i++) {
-            std::set<std::string> roleList = localRenderInformation->getStyle(i)->getRoleList();
-            if (roleList.find(objectIdOrRole) != roleList.end())
-                return localRenderInformation->getStyle(i);
-        }
-    }
-    
+Style* findStyleByIdList(RenderInformationBase* renderInformationBase, const std::string& id) {
+    if (renderInformationBase->isLocalRenderInformation())
+        return findStyleByIdList((LocalRenderInformation*)renderInformationBase, id);
+
     return NULL;
 }
 
-Style* findStyle(GlobalRenderInformation* globalRenderInformation, const std::string& objectRoleOrType) {
-    if (globalRenderInformation) {
-        Style* style = NULL;
-        for (unsigned int i = 0; i < globalRenderInformation->getNumStyles(); i++) {
-            // role
-            std::set<std::string> roleList = globalRenderInformation->getStyle(i)->getRoleList();
-            if (roleList.find(objectRoleOrType) != roleList.end())
-                return globalRenderInformation->getStyle(i);
-            // type
-            std::set<std::string> typeList = globalRenderInformation->getStyle(i)->getTypeList();
-            if (typeList.find(objectRoleOrType) != typeList.end())
-                return globalRenderInformation->getStyle(i);
-        }
+Style* findStyleByIdList(LocalRenderInformation* localRenderInformation, const std::string& id) {
+    for (unsigned int i = 0; i < localRenderInformation->getNumLocalStyles(); i++) {
+        std::set<std::string> idList = localRenderInformation->getLocalStyle(i)->getIdList();
+        if (idList.find(id) != idList.end())
+            return localRenderInformation->getLocalStyle(i);
     }
-    
+
     return NULL;
+}
+
+Style* findStyleByRoleList(RenderInformationBase* renderInformationBase, const std::string& role) {
+    if (renderInformationBase->isLocalRenderInformation())
+        return findStyleByRoleList((LocalRenderInformation*)renderInformationBase, role);
+    else if (renderInformationBase->isGlobalRenderInformation())
+        return findStyleByRoleList((GlobalRenderInformation*)renderInformationBase, role);
+
+    return NULL;
+}
+
+Style* findStyleByRoleList(LocalRenderInformation* localRenderInformation, const std::string& role) {
+    for (unsigned int i = 0; i < localRenderInformation->getNumLocalStyles(); i++) {
+        std::set<std::string> roleList = localRenderInformation->getLocalStyle(i)->getRoleList();
+        if (roleList.find(role) != roleList.end())
+            return localRenderInformation->getLocalStyle(i);
+    }
+
+    return NULL;
+}
+
+Style* findStyleByRoleList(GlobalRenderInformation* globalRenderInformation, const std::string& role) {
+    for (unsigned int i = 0; i < globalRenderInformation->getNumGlobalStyles(); i++) {
+        std::set<std::string> roleList = globalRenderInformation->getGlobalStyle(i)->getRoleList();
+        if (roleList.find(role) != roleList.end())
+            return globalRenderInformation->getGlobalStyle(i);
+    }
+
+    return NULL;
+}
+
+Style* findStyleByTypeList(RenderInformationBase* renderInformationBase, const std::string& type) {
+    if (renderInformationBase->isLocalRenderInformation())
+        return findStyleByTypeList((LocalRenderInformation*)renderInformationBase, type);
+    else if (renderInformationBase->isGlobalRenderInformation())
+        return findStyleByTypeList((GlobalRenderInformation*)renderInformationBase, type);
+
+    return NULL;
+}
+
+Style* findStyleByTypeList(LocalRenderInformation* localRenderInformation, const std::string& type) {
+    for (unsigned int i = 0; i < localRenderInformation->getNumLocalStyles(); i++) {
+        std::set<std::string> typeList = localRenderInformation->getLocalStyle(i)->getTypeList();
+        if (typeList.find(type) != typeList.end())
+            return localRenderInformation->getLocalStyle(i);
+    }
+
+    return NULL;
+}
+
+Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, const std::string& type) {
+    for (unsigned int i = 0; i < globalRenderInformation->getNumGlobalStyles(); i++) {
+        std::set<std::string> typeList = globalRenderInformation->getGlobalStyle(i)->getTypeList();
+        if (typeList.find(type) != typeList.end())
+            return globalRenderInformation->getGlobalStyle(i);
+    }
+
+    return NULL;
+}
+
+const std::string getStyleType(GraphicalObject* graphicalObject) {
+    if (graphicalObject) {
+        if (isCompartmentGlyph(graphicalObject))
+            return "COMPARTMENTGLYPH";
+        else if (isSpeciesGlyph(graphicalObject))
+            return "SPECIESGLYPH";
+        else if (isReactionGlyph(graphicalObject))
+            return "REACTIONGLYPH";
+        else if (isSpeciesReferenceGlyph(graphicalObject))
+            return "SPECIESREFERENCEGLYPH";
+        else if (isTextGlyph(graphicalObject))
+            return "TEXTGLYPH";
+
+        return "GRAPHICALOBJECT";
+    }
+
+    return "";
 }
 
 void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
