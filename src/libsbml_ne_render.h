@@ -705,7 +705,69 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(RenderInformationBase* rende
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r);
 
-/// @brief Searches among the styles of local render information information and returns one with the "id"
+/// @brief Returns a LineEnding from the RenderInformationBase based on its identifier.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the @c LineEnding in the ListOfLineEndings within this RenderInformationBase with the given sid or @c NULL if no such LineEnding exists.
+LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of the LineEnding with the given identifier is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "enableRotationalMapping" attribute of this LineEnding object is set, @c false if either the "enableRotationalMapping" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of this LineEnding is set.
+/// @param lineEnding a pointer to the LineEnding object.
+/// @return @c true if the "enableRotationalMapping" attribute of this LineEnding object is set, @c false if either the "enableRotationalMapping" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(LineEnding* lineEnding);
+
+/// @brief Returns the value of the "enableRotationalMapping" attribute of the LineEnding with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the "enableRotationalMapping" attribute of the LineEnding object, or @c false if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN bool getEnableRotationalMapping(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Returns the value of the "enableRotationalMapping" attribute of this LineEnding.
+/// @param lineEnding a pointer to the LineEnding object.
+/// @return the "enableRotationalMapping" attribute of the LineEnding object, or @c false if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN bool getEnableRotationalMapping(LineEnding* lineEnding);
+
+/// @brief Sets the value of the "enableRotationalMapping" attribute of the LineEnding with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param enableRotationalMapping a boolean to use as the value of the "enableRotationalMapping" attribute of this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(RenderInformationBase* renderInformationBase, const std::string& sid, bool enableRotationalMapping);
+
+/// @brief Sets the value of the "enableRotationalMapping" attribute of this LineEnding .
+/// @param lineEnding a pointer to the LineEnding object.
+/// @param enableRotationalMapping a boolean to use as the value of the "enableRotationalMapping" attribute of this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping);
+
+/// Returns the bounding box for the LineEnding with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// Returns the bounding box for the LineEnding.
+/// @param lineEnding a pointer to the LineEnding object.
+/// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(LineEnding* lineEnding);
+
+/// Returns the value of the "group" element of the LineEnding with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// Returns the value of the "group" element of this LineEnding.
+/// @param lineEnding a pointer to the LineEnding object.
+/// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(LineEnding* lineEnding);
+
+/// @brief Searches among the styles of local render information and returns one with the "id"
 /// attribute of the GraphicalObject object in its "idlist" attribute list.
 /// @param localRenderInformation  a pointer to the LocalRenderInformation object.
 /// @param graphicalObject  a pointer to the GraphicalObject object.
@@ -1607,37 +1669,6 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGro
 /// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
-
-/// @brief Returns a LineEnding from the RenderInformationBase based on its identifier.
-/// @param sid a string representing the identifier of the LineEnding to retrieve.
-/// @return the @c LineEnding in the ListOfLineEndings within this RenderInformationBase with the given sid or @c NULL if no such LineEnding exists.
-LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
-
-/// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of this LineEnding is set.
-/// @param lineEnding a pointer to the LineEnding object.
-/// @return @c true if the "enableRotationalMapping" attribute of this LineEnding object is set, @c false if either the "enableRotationalMapping" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(LineEnding* lineEnding);
-
-/// @brief Returns the value of the "enableRotationalMapping" attribute of this LineEnding.
-/// @param lineEnding a pointer to the LineEnding object.
-/// @return the "enableRotationalMapping" attribute of the LineEnding object, or @c false if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN bool getEnableRotationalMapping(LineEnding* lineEnding);
-
-/// @brief Sets the value of the "enableRotationalMapping" attribute of this LineEnding object.
-/// @param lineEnding a pointer to the LineEnding object.
-/// @param enableRotationalMapping a boolean to use as the value of the "enableRotationalMapping" attribute of this LineEnding object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping);
-
-/// Returns the bounding box for the LineEnding.
-/// @param lineEnding a pointer to the LineEnding object.
-/// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN BoundingBox * getBoundingBox(LineEnding* lineEnding);
-
-/// Returns the value of the "group" element of this LineEnding.
-/// @param lineEnding a pointer to the LineEnding object.
-/// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(LineEnding* lineEnding);
 
 }
 

@@ -724,6 +724,71 @@ int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
     return -1;
 }
 
+LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    if (renderInformationBase)
+        return renderInformationBase->getLineEnding(sid);
+
+    return NULL;
+}
+
+bool isSetEnableRotationalMapping(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return isSetEnableRotationalMapping(getLineEnding(renderInformationBase, sid));
+}
+
+bool isSetEnableRotationalMapping(LineEnding* lineEnding) {
+    if (lineEnding) {
+        lineEnding->isSetEnableRotationalMapping();
+    }
+
+    return false;
+}
+
+bool getEnableRotationalMapping(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getEnableRotationalMapping(getLineEnding(renderInformationBase, sid));
+}
+
+bool getEnableRotationalMapping(LineEnding* lineEnding) {
+    if (lineEnding) {
+        lineEnding->getEnableRotationalMapping();
+    }
+
+    return false;
+}
+
+int setEnableRotationalMapping(RenderInformationBase* renderInformationBase, const std::string& sid, bool enableRotationalMapping) {
+    return setEnableRotationalMapping(getLineEnding(renderInformationBase, sid), enableRotationalMapping);
+}
+
+int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping) {
+    if (lineEnding) {
+        lineEnding->setEnableRotationalMapping(enableRotationalMapping);
+    }
+
+    return false;
+}
+
+BoundingBox* getBoundingBox(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getBoundingBox(getLineEnding(renderInformationBase, sid));
+}
+
+BoundingBox* getBoundingBox(LineEnding* lineEnding) {
+    if (lineEnding)
+        return lineEnding->getBoundingBox();
+
+    return NULL;
+}
+
+RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getRenderGroup(getLineEnding(renderInformationBase, sid));
+}
+
+RenderGroup* getRenderGroup(LineEnding* lineEnding) {
+    if (lineEnding)
+        return lineEnding->getGroup();
+
+    return NULL;
+}
+
 Style* findStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject) {
     Style * style = NULL;
     if (localRenderInformation && graphicalObject) {
@@ -2061,51 +2126,6 @@ int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
     }
 
     return -1;
-}
-
-LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
-    if (renderInformationBase)
-        return renderInformationBase->getLineEnding(sid);
-
-    return NULL;
-}
-
-bool isSetEnableRotationalMapping(LineEnding* lineEnding) {
-    if (lineEnding) {
-        lineEnding->isSetEnableRotationalMapping();
-    }
-
-    return false;
-}
-
-bool getEnableRotationalMapping(LineEnding* lineEnding) {
-    if (lineEnding) {
-        lineEnding->getEnableRotationalMapping();
-    }
-
-    return false;
-}
-
-int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping) {
-    if (lineEnding) {
-        lineEnding->setEnableRotationalMapping(enableRotationalMapping);
-    }
-
-    return false;
-}
-
-BoundingBox* getBoundingBox(LineEnding* lineEnding) {
-    if (lineEnding)
-        return lineEnding->getBoundingBox();
-
-    return NULL;
-}
-
-RenderGroup* getRenderGroup(LineEnding* lineEnding) {
-    if (lineEnding)
-        return lineEnding->getGroup();
-
-    return NULL;
 }
 
 }
