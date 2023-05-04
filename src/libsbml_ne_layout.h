@@ -489,12 +489,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(GraphicalObject* textGlyph
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the GraphicalObject.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN bool isTextGlyph(Layout* layout, const std::string& id);
 
 /// @brief Predicate returning true if this abstract GraphicalObject is of type TextGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(GraphicalObject* graphicalObject);
+LIBSBML_NETWORKEDITOR_EXTERN bool isTextGlyph(GraphicalObject* graphicalObject);
 
 /// @brief Returns the bounding box for the GraphicalObject object with the given id.
 /// @param layout a pointer to the Layout object.
