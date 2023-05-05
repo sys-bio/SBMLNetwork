@@ -1096,8 +1096,32 @@ bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return isSetStrokeColor(graphicalPrimitive1D);
 }
 
+const std::string getFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getFontColor(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::string getFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getFontColor(getStyle(renderInformationBase, attribute));
+}
+
+const std::string getFontColor(Style* style) {
+    return getFontColor(getRenderGroup(style));
+}
+
 const std::string getFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return getStrokeColor(graphicalPrimitive1D);
+}
+
+int setFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontColor) {
+    return setFontColor(getStyle(renderInformationBase, graphicalObject), fontColor);
+}
+
+int setFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontColor) {
+    return setFontColor(getStyle(renderInformationBase, attribute), fontColor);
+}
+
+int setFontColor(Style* style, const std::string& fontColor) {
+    return setFontColor(getRenderGroup(style), fontColor);
 }
 
 int setFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor) {

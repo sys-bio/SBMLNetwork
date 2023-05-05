@@ -1128,10 +1128,47 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(Style* style);
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "stroke" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(Style* style);
+
 /// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return the "stroke" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontColor);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontColor);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(Style* style, const std::string& fontColor);
 
 /// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
