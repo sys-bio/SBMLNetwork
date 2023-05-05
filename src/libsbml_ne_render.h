@@ -1224,6 +1224,26 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(Style* style);
 /// @return the "font-family" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontFamily);
+
+/// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontFamily);
+
+/// @brief Sets the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(Style* style, const std::string& fontFamily);
+
 /// @brief Sets the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1278,9 +1298,29 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(Style* style);
 /// @return the "font-size" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c RelAbsVector() if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fontSize a RelAbsVector value to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& fontSize);
+
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& fontSize);
+
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(Style* style, const RelAbsVector& fontSize);
+
 /// @brief Sets the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontFamily a string value to use as the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize);
 
@@ -1331,6 +1371,26 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(Style* style);
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return the "font-weight" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontWeight);
+
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontWeight);
+
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(Style* style, const std::string& fontWeight);
 
 /// @brief Sets the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1386,6 +1446,26 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(Style* style);
 /// @return the "font-style" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontStyle);
+
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontStyle);
+
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(Style* style, const std::string& fontStyle);
+
 /// @brief Sets the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param fontWeight a string value to use as the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1440,9 +1520,29 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(Style* style);
 /// @return the "text-anchor" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& textAnchor);
+
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& textAnchor);
+
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(Style* style, const std::string& textAnchor);
+
 /// @brief Sets the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontWeight a string value to use as the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor);
 
@@ -1494,6 +1594,26 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(Style* style);
 /// @return the "vtext-anchor" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& vtextAnchor);
+
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& vtextAnchor);
+
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(Style* style, const std::string& vtextAnchor);
+
 /// @brief Sets the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1531,11 +1651,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(GraphicalPrimitive2D* graphical
 /// @return the "fill" attribute of the GraphicalPrimitive2D object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D);
 
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(Style* style, const std::string& fillColor);
+
 /// @brief Sets the value of the "fill" attribute of this GraphicalPrimitive2D object.
 /// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @param fill a string value to use as the value of the "fill" attribute of this GraphicalPrimitive2D object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of this GraphicalPrimitive2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fill);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillColor);
 
 /// @brief Returns Get the number of Transformation2D objects in this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.

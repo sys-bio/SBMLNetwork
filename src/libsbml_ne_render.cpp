@@ -1178,6 +1178,18 @@ const std::string getFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return "";
 }
 
+int setFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontFamily) {
+    return setFontFamily(getStyle(renderInformationBase, graphicalObject), fontFamily);
+}
+
+int setFontFamily(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontFamily) {
+    return setFontFamily(getStyle(renderInformationBase, attribute), fontFamily);
+}
+
+int setFontFamily(Style* style, const std::string& fontFamily) {
+    return setFontFamily(getRenderGroup(style), fontFamily);
+}
+
 int setFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily) {
     if (graphicalPrimitive1D) {
         RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
@@ -1239,6 +1251,18 @@ const RelAbsVector getFontSize(GraphicalPrimitive1D* graphicalPrimitive1D) {
         return text->getFontSize();
 
     return RelAbsVector();
+}
+
+int setFontSize(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& fontSize) {
+    return setFontSize(getStyle(renderInformationBase, graphicalObject), fontSize);
+}
+
+int setFontSize(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& fontSize) {
+    return setFontSize(getStyle(renderInformationBase, attribute), fontSize);
+}
+
+int setFontSize(Style* style, const RelAbsVector& fontSize) {
+    return setFontSize(getRenderGroup(style), fontSize);
 }
 
 int setFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize) {
@@ -1304,6 +1328,18 @@ const std::string getFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D) {
     }
 
     return "";
+}
+
+int setFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontWeight) {
+    return setFontWeight(getStyle(renderInformationBase, graphicalObject), fontWeight);
+}
+
+int setFontWeight(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontWeight) {
+    return setFontWeight(getStyle(renderInformationBase, attribute), fontWeight);
+}
+
+int setFontWeight(Style* style, const std::string& fontWeight) {
+    return setFontWeight(getRenderGroup(style), fontWeight);
 }
 
 int setFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight) {
@@ -1373,6 +1409,18 @@ const std::string getFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return "";
 }
 
+int setFontStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontStyle) {
+    return setFontStyle(getStyle(renderInformationBase, graphicalObject), fontStyle);
+}
+
+int setFontStyle(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontStyle) {
+    return setFontStyle(getStyle(renderInformationBase, attribute), fontStyle);
+}
+
+int setFontStyle(Style* style, const std::string& fontStyle) {
+    return setFontStyle(getRenderGroup(style), fontStyle);
+}
+
 int setFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle) {
     if (graphicalPrimitive1D) {
         RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
@@ -1438,6 +1486,18 @@ const std::string getTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     }
 
     return "";
+}
+
+int setTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& textAnchor) {
+    return setTextAnchor(getStyle(renderInformationBase, graphicalObject), textAnchor);
+}
+
+int setTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& textAnchor) {
+    return setTextAnchor(getStyle(renderInformationBase, attribute), textAnchor);
+}
+
+int setTextAnchor(Style* style, const std::string& textAnchor) {
+    return setTextAnchor(getRenderGroup(style), textAnchor);
 }
 
 int setTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor) {
@@ -1507,6 +1567,18 @@ const std::string getVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return "";
 }
 
+int setVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& vtextAnchor) {
+    return setVTextAnchor(getStyle(renderInformationBase, graphicalObject), vtextAnchor);
+}
+
+int setVTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& vtextAnchor) {
+    return setVTextAnchor(getStyle(renderInformationBase, attribute), vtextAnchor);
+}
+
+int setVTextAnchor(Style* style, const std::string& vtextAnchor) {
+    return setVTextAnchor(getRenderGroup(style), vtextAnchor);
+}
+
 int setVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor) {
     if (graphicalPrimitive1D) {
         RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
@@ -1550,9 +1622,21 @@ const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
     return "";
 }
 
-int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fill) {
+int setFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillColor) {
+    return setFillColor(getStyle(renderInformationBase, graphicalObject), fillColor);
+}
+
+int setFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillColor) {
+    return setFillColor(getStyle(renderInformationBase, attribute), fillColor);
+}
+
+int setFillColor(Style* style, const std::string& fillColor) {
+    return setFillColor(getRenderGroup(style), fillColor);
+}
+
+int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillColor) {
     if (graphicalPrimitive2D) {
-        graphicalPrimitive2D->setFill(fill);
+        graphicalPrimitive2D->setFill(fillColor);
         return 0;
     }
     
