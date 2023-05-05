@@ -1024,6 +1024,18 @@ const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphic
     return std::vector<unsigned int>();
 }
 
+int setStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::vector<unsigned int>& strokeDashArray) {
+    return setStrokeDashArray(getStyle(renderInformationBase, graphicalObject), strokeDashArray);
+}
+
+int setStrokeDashArray(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::vector<unsigned int>& strokeDashArray) {
+    return setStrokeDashArray(getStyle(renderInformationBase, attribute), strokeDashArray);
+}
+
+int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray) {
+    return setStrokeDashArray(getRenderGroup(style), strokeDashArray);
+}
+
 int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray) {
     if (graphicalPrimitive1D) {
         graphicalPrimitive1D->setStrokeDashArray(strokeDashArray);
