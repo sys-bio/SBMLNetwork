@@ -832,23 +832,23 @@ LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* 
 /// @return the value of the "group" element of this Style as a RenderGroup, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(Style* style);
 
-/// @brief Predicates returning @c true if the "stroke" attribute of this RenderGroup of the Style for this GraphicalObject is set.
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return @c true if the "stroke" attribute of this RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
+/// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
 
-/// @brief Predicates returning @c true if the "stroke" attribute of this RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @return @c true if the "stroke" attribute of this RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
+/// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
 
-/// @brief Predicates returning @c true if the "stroke" attribute of this RenderGroup of this Style object is set.
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @return @c true if the "stroke" attribute of this RenderGroup of this Style object is set, @c false if either the "stroke"
+/// @return @c true if the "stroke" attribute of the RenderGroup of this Style object is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(Style* style);
 
@@ -857,6 +857,23 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(Style* style);
 /// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "stroke" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(Style* style);
 
 /// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.

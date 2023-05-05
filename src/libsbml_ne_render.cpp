@@ -869,11 +869,11 @@ RenderGroup* getRenderGroup(Style* style) {
 }
 
 bool isSetStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
-    return isSetStrokeColor(getRenderGroup(renderInformationBase, graphicalObject));
+    return isSetStrokeColor(getStyle(renderInformationBase, graphicalObject));
 }
 
 bool isSetStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute) {
-    return isSetStrokeColor(getRenderGroup(renderInformationBase, attribute));
+    return isSetStrokeColor(getStyle(renderInformationBase, attribute));
 }
 
 bool isSetStrokeColor(Style* style) {
@@ -885,6 +885,18 @@ bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
         return graphicalPrimitive1D->isSetStroke();
 
     return false;
+}
+
+const std::string getStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStrokeColor(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::string getStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getStrokeColor(getStyle(renderInformationBase, attribute));
+}
+
+const std::string getStrokeColor(Style* style) {
+    return getStrokeColor(getRenderGroup(style));
 }
 
 const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
