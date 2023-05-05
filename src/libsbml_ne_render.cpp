@@ -1005,6 +1005,18 @@ bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return false;
 }
 
+const std::vector<unsigned int> getStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStrokeDashArray(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::vector<unsigned int> getStrokeDashArray(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getStrokeDashArray(getStyle(renderInformationBase, attribute));
+}
+
+const std::vector<unsigned int> getStrokeDashArray(Style* style) {
+    return getStrokeDashArray(getRenderGroup(style));
+}
+
 const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->getStrokeDashArray();

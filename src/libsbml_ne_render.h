@@ -1006,6 +1006,23 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeDashArray(Style* style);
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Returns the value of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, or an empty vector if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject, or an empty vector if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "stroke-dasharray" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "stroke-dasharray" attribute of the RenderGroup of this Style object, or an empty vector if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(Style* style);
+
 /// @brief Returns the vector of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an empty vector if the object is @c NULL
