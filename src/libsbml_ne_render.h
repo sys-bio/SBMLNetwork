@@ -1176,11 +1176,48 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(Style* style, const std::string& f
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor);
 
+/// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-family"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-family"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "font-family" attribute of the RenderGroup of this Style object is set, @c false if either the "font-family"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(Style* style);
+
 /// @brief Predicates returning @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-family"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "font-family" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(Style* style);
 
 /// @brief Returns the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1193,15 +1230,52 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(GraphicalPrimitive1
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily);
 
+/// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-size"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-size"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "font-size" attribute of the RenderGroup of this Style object is set, @c false if either the "font-size"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(Style* style);
+
 /// @brief Predicates returning @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-size"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "font-size" attribute of the RenderGroup of this Style object, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(Style* style);
+
 /// @brief Returns the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "font-size" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+/// @return the "font-size" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c RelAbsVector() if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
 
 /// @brief Sets the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1210,11 +1284,48 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(GraphicalPrimitive1D
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize);
 
+/// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-weight"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-weight"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "font-weight" attribute of the RenderGroup of this Style object is set, @c false if either the "font-weight"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(Style* style);
+
 /// @brief Predicates returning @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-weight"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "font-weight" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(Style* style);
 
 /// @brief Returns the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1227,11 +1338,48 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(GraphicalPrimitive1
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight);
 
+/// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-style"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-style"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "font-style" attribute of the RenderGroup of this Style object is set, @c false if either the "font-style"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(Style* style);
+
 /// @brief Predicates returning @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-style"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "font-style" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(Style* style);
 
 /// @brief Returns the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1244,11 +1392,48 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(GraphicalPrimitive1D
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle);
 
+/// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
+/// attribute is not set or the object is @c NULL .
+   LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "text-anchor" attribute of the RenderGroup of this Style object is set, @c false if either the "text-anchor"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(Style* style);
+
 /// @brief Predicates returning @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "text-anchor"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "text-anchor" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(Style* style);
 
 /// @brief Returns the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1261,11 +1446,48 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(GraphicalPrimitive1
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor);
 
+/// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "vtext-anchor"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "vtext-anchor"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "vtext-anchor" attribute of the RenderGroup of this Style object is set, @c false if either the "vtext-anchor"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(Style* style);
+
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "vtext-anchor"
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+/// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "vtext-anchor" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(Style* style);
 
 /// @brief Returns the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
@@ -1277,6 +1499,26 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(GraphicalPrimitive
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "fill" attribute of the RenderGroup of this Style object is set, @c false if either the "fill"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(Style* style);
 
 /// @brief Predicates returning @c true if the "fill" attribute of this GraphicalPrimitive2D is set.
 /// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
