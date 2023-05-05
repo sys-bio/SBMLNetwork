@@ -946,6 +946,18 @@ bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return false;
 }
 
+const double getStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStrokeWidth(getStyle(renderInformationBase, graphicalObject));
+}
+
+const double getStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getStrokeWidth(getStyle(renderInformationBase, attribute));
+}
+
+const double getStrokeWidth(Style* style) {
+    return getStrokeWidth(getRenderGroup(style));
+}
+
 const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->getStrokeWidth();

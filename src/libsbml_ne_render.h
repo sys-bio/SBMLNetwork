@@ -938,6 +938,23 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeWidth(Style* style);
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c 0.0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "stroke-width" attribute of the RenderGroup of this Style object, or @c 0.0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(Style* style);
+
 /// @brief Returns the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the "stroke-width" attribute of the GraphicalPrimitive1D object, or @c 0.0 if the object is @c NULL
