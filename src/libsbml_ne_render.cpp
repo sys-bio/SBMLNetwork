@@ -974,6 +974,18 @@ int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& str
     return -1;
 }
 
+int setStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth) {
+    return setStrokeWidth(getStyle(renderInformationBase, graphicalObject), strokeWidth);
+}
+
+int setStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& strokeWidth) {
+    return setStrokeWidth(getStyle(renderInformationBase, attribute), strokeWidth);
+}
+
+int setStrokeWidth(Style* style, const double& strokeWidth) {
+    return setStrokeWidth(getRenderGroup(style), strokeWidth);
+}
+
 bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->isSetStrokeDashArray();

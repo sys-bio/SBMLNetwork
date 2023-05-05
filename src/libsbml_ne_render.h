@@ -900,12 +900,6 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(RenderInformationBase* renderInf
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
 
-/// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
-/// @param style a pointer to the Style object.
-/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
-
 /// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @param stroke a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D object.
@@ -960,9 +954,29 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(Style* style);
 /// @return the "stroke-width" attribute of the GraphicalPrimitive1D object, or @c 0.0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(Style* style, const double& strokeWidth);
+
 /// @brief Sets the value of the "stroke-width" attribute of this GraphicalPrimitive1D object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @param strokeWidth a double value to use as the value  of the "stroke-width" attribute of this GraphicalPrimitive1D object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of this GraphicalPrimitive1D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth);
 
