@@ -1045,6 +1045,18 @@ int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::ve
     return -1;
 }
 
+unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getNumStrokeDashes(getStyle(renderInformationBase, graphicalObject));
+}
+
+unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getNumStrokeDashes(getStyle(renderInformationBase, attribute));
+}
+
+unsigned int getNumStrokeDashes(Style* style) {
+    return getNumStrokeDashes(getRenderGroup(style));
+}
+
 unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return getStrokeDashArray(graphicalPrimitive1D).size();
 }

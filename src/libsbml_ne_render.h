@@ -1054,6 +1054,23 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(Style* style, const std::vec
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
 
+/// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the size of the "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(Style* style);
+
 /// @brief Returns the size of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @return the size of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or 0 if the object is @c NULL
