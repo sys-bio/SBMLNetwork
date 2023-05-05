@@ -1080,6 +1080,18 @@ unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned  int n
     return 0;
 }
 
+bool isSetFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return isSetFontColor(getStyle(renderInformationBase, graphicalObject));
+}
+
+bool isSetFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return isSetFontColor(getStyle(renderInformationBase, attribute));
+}
+
+bool isSetFontColor(Style* style) {
+    return isSetFontColor(getRenderGroup(style));
+}
+
 bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return isSetStrokeColor(graphicalPrimitive1D);
 }

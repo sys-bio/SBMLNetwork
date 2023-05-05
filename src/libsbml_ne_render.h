@@ -1102,6 +1102,26 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(Style* style, unsigned  int n)
 /// @return the dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned  int n);
 
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "stroke" attribute of the RenderGroup of this Style object is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(Style* style);
+
 /// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
 /// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "stroke"
