@@ -927,6 +927,18 @@ int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string
     return -1;
 }
 
+bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return isSetStrokeWidth(getStyle(renderInformationBase, graphicalObject));
+}
+
+bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return isSetStrokeWidth(getStyle(renderInformationBase, attribute));
+}
+
+bool isSetStrokeWidth(Style* style) {
+    return isSetStrokeWidth(getRenderGroup(style));
+}
+
 bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
     if (graphicalPrimitive1D)
         return graphicalPrimitive1D->isSetStrokeWidth();
