@@ -906,6 +906,18 @@ const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return "";
 }
 
+int setStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& stroke) {
+    return setStrokeColor(getStyle(renderInformationBase, graphicalObject), stroke);
+}
+
+int setStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& stroke) {
+    return setStrokeColor(getStyle(renderInformationBase, attribute), stroke);
+}
+
+int setStrokeColor(Style* style, const std::string& stroke) {
+    return setStrokeColor(getRenderGroup(style), stroke);
+}
+
 int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke) {
     if (graphicalPrimitive1D) {
         graphicalPrimitive1D->setStroke(stroke);

@@ -880,6 +880,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(Style* style);
 /// @return the "stroke" attribute of the GraphicalPrimitive1D object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
 
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
+
 /// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D object.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
 /// @param stroke a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D object.
