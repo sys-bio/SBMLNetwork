@@ -1061,6 +1061,18 @@ unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return getStrokeDashArray(graphicalPrimitive1D).size();
 }
 
+unsigned int getDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return getDash(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+unsigned int getDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return getDash(getStyle(renderInformationBase, attribute), n);
+}
+
+unsigned int getDash(Style* style, unsigned  int n) {
+    return getDash(getRenderGroup(style), n);
+}
+
 unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned  int n) {
     if (graphicalPrimitive1D)
         graphicalPrimitive1D->getDashByIndex(n);
