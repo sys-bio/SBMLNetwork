@@ -760,7 +760,7 @@ LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(LineEnding* lineEnding)
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroupOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// Returns the value of the "group" element of this LineEnding.
 /// @param lineEnding a pointer to the LineEnding object.
@@ -815,10 +815,42 @@ LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(RenderInformationBase* render
 /// @return a pointer to the found Style object.
 LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(RenderInformationBase* renderInformationBase, const std::string& type);
 
+/// Returns the value of the "group" element of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the value of the "group" element of the Style for this GraphicalObjet as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// Returns the value of the "group" element of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
 /// Returns the value of the "group" element of this Style.
 /// @param style a pointer to the Style object.
 /// @return the value of the "group" element of this Style as a RenderGroup, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(Style* style);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of this RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "stroke" attribute of this RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of this RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "stroke" attribute of this RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of this RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "stroke" attribute of this RenderGroup of this Style object is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(Style* style);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D is set.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.

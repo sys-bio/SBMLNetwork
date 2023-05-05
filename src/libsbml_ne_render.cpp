@@ -779,7 +779,7 @@ BoundingBox* getBoundingBox(LineEnding* lineEnding) {
     return NULL;
 }
 
-RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, const std::string& sid) {
+RenderGroup* getRenderGroupOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
     return getRenderGroup(getLineEnding(renderInformationBase, sid));
 }
 
@@ -853,11 +853,31 @@ Style* getStyleByType(RenderInformationBase* renderInformationBase, const std::s
     return NULL;
 }
 
+RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getRenderGroup(getStyle(renderInformationBase, graphicalObject));
+}
+
+RenderGroup* getRenderGroup(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getRenderGroup(getStyle(renderInformationBase, attribute));
+}
+
 RenderGroup* getRenderGroup(Style* style) {
     if (style)
         return style->getGroup();
 
     return NULL;
+}
+
+bool isSetStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return isSetStrokeColor(getRenderGroup(renderInformationBase, graphicalObject));
+}
+
+bool isSetStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return isSetStrokeColor(getRenderGroup(renderInformationBase, attribute));
+}
+
+bool isSetStrokeColor(Style* style) {
+    return isSetStrokeColor(getRenderGroup(style));
 }
 
 bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
