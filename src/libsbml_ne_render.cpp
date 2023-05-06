@@ -1643,6 +1643,124 @@ int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& 
     return -1;
 }
 
+bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return isSetStartHead(getStyle(renderInformationBase, graphicalObject));
+}
+
+bool isSetStartHead(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return isSetStartHead(getStyle(renderInformationBase, attribute));
+}
+
+bool isSetStartHead(Style* style) {
+    return isSetStartHead(getRenderGroup(style));
+}
+
+bool isSetStartHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        return renderGroup->isSetStartHead();
+
+    return false;
+}
+
+const std::string getStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStartHead(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::string getStartHead(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getStartHead(getStyle(renderInformationBase, attribute));
+}
+
+const std::string getStartHead(Style* style) {
+    return getStartHead(getRenderGroup(style));
+}
+
+const std::string getStartHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        return renderGroup->getStartHead();
+
+    return "";
+}
+
+int setStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& startHead) {
+    return setStartHead(getStyle(renderInformationBase, graphicalObject), startHead);
+}
+
+int setStartHead(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& startHead) {
+    return setStartHead(getStyle(renderInformationBase, attribute), startHead);
+}
+
+int setStartHead(Style* style, const std::string& startHead) {
+    return setStartHead(getRenderGroup(style), startHead);
+}
+
+int setStartHead(RenderGroup* renderGroup, const std::string startHead) {
+    if (renderGroup) {
+        renderGroup->setStartHead(startHead);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetEndHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return isSetEndHead(getStyle(renderInformationBase, graphicalObject));
+}
+
+bool isSetEndHead(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return isSetEndHead(getStyle(renderInformationBase, attribute));
+}
+
+bool isSetEndHead(Style* style) {
+    return isSetEndHead(getRenderGroup(style));
+}
+
+bool isSetEndHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        return renderGroup->isSetEndHead();
+
+    return false;
+}
+
+const std::string getEndHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getEndHead(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::string getStgetEndHeadartHead(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getEndHead(getStyle(renderInformationBase, attribute));
+}
+
+const std::string getEndHead(Style* style) {
+    return getEndHead(getRenderGroup(style));
+}
+
+const std::string getEndHead(RenderGroup* renderGroup) {
+    if (renderGroup)
+        return renderGroup->getEndHead();
+
+    return "";
+}
+
+int setEndHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& endHead) {
+    return setEndHead(getStyle(renderInformationBase, graphicalObject), endHead);
+}
+
+int setEndHead(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& endHead) {
+    return setEndHead(getStyle(renderInformationBase, attribute), endHead);
+}
+
+int setEndHead(Style* style, const std::string& endHead) {
+    return setEndHead(getRenderGroup(style), endHead);
+}
+
+int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
+    if (renderGroup) {
+        renderGroup->setEndHead(endHead);
+        return 0;
+    }
+
+    return -1;
+}
+
 unsigned int getNumGeometricShapes(RenderGroup* renderGroup) {
     if (renderGroup)
         return renderGroup->getNumElements();
@@ -2527,52 +2645,6 @@ RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
     }
 
     return NULL;
-}
-
-bool isSetStartHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->isSetStartHead();
-
-    return false;
-}
-
-const std::string getStartHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->getStartHead();
-
-    return "";
-}
-
-int setStartHead(RenderGroup* renderGroup, const std::string startHead) {
-    if (renderGroup) {
-        renderGroup->setStartHead(startHead);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetEndHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->isSetEndHead();
-
-    return false;
-}
-
-const std::string getEndHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->getEndHead();
-
-    return "";
-}
-
-int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
-    if (renderGroup) {
-        renderGroup->setEndHead(endHead);
-        return 0;
-    }
-
-    return -1;
 }
 
 const std::string getObjectRole(GraphicalObject* graphicalObject) {

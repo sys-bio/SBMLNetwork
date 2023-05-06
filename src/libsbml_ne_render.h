@@ -1646,6 +1646,23 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(Style* style);
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(GraphicalPrimitive2D* graphicalPrimitive2D);
 
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "fill" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "fill" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "fill" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(Style* style);
+
 /// @brief Returns the value of the "fill" attribute of this GraphicalPrimitive2D.
 /// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
 /// @return the "fill" attribute of the GraphicalPrimitive2D object, or @c "" if the object is @c NULL
@@ -1676,6 +1693,152 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(Style* style, const std::string& f
 /// @param fillColor a string value to use as the value of the "fill" attribute of this GraphicalPrimitive2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillColor);
+
+/// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "startHead"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "startHead"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "startHead" attribute of the RenderGroup of this Style object is set, @c false if either the "startHead"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(Style* style);
+
+/// @brief Predicates returning @c true if the "startHead" attribute of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return @c true if the "startHead" attribute of this RenderGroup object is set, @c false if either the "startHead" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderGroup* renderGroup);
+
+/// @brief Returns the value of the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "startHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "startHead" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "startHead" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(Style* style);
+
+/// @brief Returns the value of the "startHead" attribute of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return the "startHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderGroup* renderGroup);
+
+/// @brief Sets the value of the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& startHead);
+
+/// @brief Sets the value of the "startHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& startHead);
+
+/// @brief Sets the value of the "startHead" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(Style* style, const std::string& startHead);
+
+/// @brief Sets the value of the "startHead" attribute of this RenderGroup object.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param startHead a boolean to use as the value of the "startHead" attribute of this RenderGroup object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(RenderGroup* renderGroup, const std::string startHead);
+
+/// @brief Predicates returning @c true if the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "endHead"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "endHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "endHead"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "endHead" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "endHead" attribute of the RenderGroup of this Style object is set, @c false if either the "endHead"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(Style* style);
+
+/// @brief Predicates returning @c true if the "endHead" attribute of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return @c true if the "endHead" attribute of this RenderGroup object is set, @c false if either the "endHead" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderGroup* renderGroup);
+
+/// @brief Returns the value of the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "endHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "endHead" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "endHead" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(Style* style);
+
+/// @brief Returns the value of the "endHead" attribute of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @return the "endHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGroup);
+
+/// @brief Sets the value of the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param endHead a string value to use as the value of the "endHead" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& endHead);
+
+/// @brief Sets the value of the "endHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param endHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& endHead);
+
+/// @brief Sets the value of the "endHead" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param endHead a string value to use as the value of the "endHead" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(Style* style, const std::string& endHead);
+
+/// @brief Sets the value of the "endHead" attribute of this RenderGroup object.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
 
 /// @brief Returns Get the number of Transformation2D objects in this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
@@ -2328,38 +2491,6 @@ LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToShape(Transformation2D* s
 /// @param n an unsigned int representing the index of the RenderPoint to remove.
 /// @return a pointer to the nth RenderPoint in this Transformation2d.
 LIBSBML_NETWORKEDITOR_EXTERN RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n);
-
-/// @brief Predicates returning @c true if the "startHead" attribute of this RenderGroup is set.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return @c true if the "startHead" attribute of this RenderGroup object is set, @c false if either the "startHead" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderGroup* renderGroup);
-
-/// @brief Returns the value of the "startHead" attribute of this RenderGroup.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "startHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderGroup* renderGroup);
-
-/// @brief Sets the value of the "startHead" attribute of this RenderGroup object.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @param startHead a boolean to use as the value of the "startHead" attribute of this RenderGroup object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(RenderGroup* renderGroup, const std::string startHead);
-
-/// @brief Predicates returning @c true if the "endHead" attribute of this RenderGroup is set.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return @c true if the "endHead" attribute of this RenderGroup object is set, @c false if either the "endHead" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderGroup* renderGroup);
-
-/// @brief Returns the value of the "endHead" attribute of this RenderGroup.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "endHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGroup);
-
-/// @brief Sets the value of the "endHead" attribute of this RenderGroup object.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
 
 /// @brief Returns the value of the "endHead" attribute of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
