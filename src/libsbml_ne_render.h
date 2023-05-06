@@ -2137,13 +2137,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(Transformation2D* shape, con
 /// @brief Predicates returning @c true if the "width" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if the "width" attribute of this Transformation2D object is set, @c false if
-/// either he Transformation2D object does not have "width" attribute, it is not set, or the object is @c NULL.
+/// either the Transformation2D object does not have "width" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(Transformation2D* shape);
 
 /// @brief Returns the value of the "width" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @return the "width" attribute of the Transformation2D object, or @c RelAbsVector() if
-/// either he Transformation2D object does not have "width" attribute, it is not set, or the object is @c NULL.
+/// either the Transformation2D object does not have "width" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(Transformation2D* shape);
 
 /// @brief Sets the value of the "width" attribute of this Transformation2D object.
@@ -2155,13 +2155,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(Transformation2D* shape,
 /// @brief Predicates returning @c true if the "height" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if the "height" attribute of this Transformation2D object is set, @c false if
-/// either he Transformation2D object does not have "height" attribute, it is not set, or the object is @c NULL.
+/// either the Transformation2D object does not have "height" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(Transformation2D* shape);
 
 /// @brief Returns the value of the "height" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @return the "height" attribute of the Transformation2D object, or @c RelAbsVector() if
-/// either he Transformation2D object does not have "height" attribute, it is not set, or the object is @c NULL.
+/// either the Transformation2D object does not have "height" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(Transformation2D* shape);
 
 /// @brief Sets the value of the "height" attribute of this Transformation2D object.
@@ -2173,13 +2173,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(Transformation2D* shape
 /// @brief Predicates returning @c true if the "ratio" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if the "ratio" attribute of this Transformation2D object is set, @c false if
-/// either he Transformation2D object does not have "ratio" attribute, it is not set, or the object is @c NULL.
+/// either the Transformation2D object does not have "ratio" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(Transformation2D* shape);
 
 /// @brief Returns the value of the "ratio" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @return the "ratio" attribute of the Transformation2D object, or @c "0.0" if
-///// either he Transformation2D object does not have "ratio" attribute, it is not set, or the object is @c NULL.
+///// either the Transformation2D object does not have "ratio" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(Transformation2D* shape);
 
 /// @brief Sets the value of the "height" attribute of this Transformation2D object.
@@ -2190,12 +2190,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(Transformation2D* shape,
 
 /// @brief Predicates returning @c true if the "rx" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
-/// @return @c true if the "rx" attribute of this Transformation2D object is set, @c false if either the "rx" attribute is not set or the object is @c NULL .
+/// @return @c true if the "rx" attribute of this Transformation2D object is set, @c false if
+/// either the Transformation2D object does not have "rx" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape);
 
 /// @brief Returns the value of the "rx" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @return the "rx" attribute of the Rectangle object, or @c RelAbsVector() if the object is @c NULL
+/// @return the "rx" attribute of the Rectangle object, or @c RelAbsVector() if
+/// either the Transformation2D object does not have "rx" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape);
 
 /// @brief Sets the value of the "rx" attribute of this Transformation2D object.
@@ -2206,12 +2208,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(Transfo
 
 /// @brief Predicates returning @c true if the "ry" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
-/// @return @c true if the "ry" attribute of this Transformation2D object is set, @c false if either the "ry" attribute is not set or the object is @c NULL .
+/// @return @c true if the "ry" attribute of this Transformation2D object is set, @c false if
+/// either the Transformation2D object does not have "ry" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape);
 
 /// @brief Returns the value of the "ry" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @return the "ry" attribute of the Transformation2D object, or @c RelAbsVector() if the object is @c NULL
+/// @return the "ry" attribute of the Transformation2D object, or @c RelAbsVector() if
+/// either the Transformation2D object does not have "ry" attribute, it is not set, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape);
 
 /// @brief Sets the value of the "ry" attribute of this Transformation2D object.
@@ -2220,69 +2224,77 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvature
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAbsVector& ry);
 
-/// @brief Predicates returning @c true if the "cx" attribute of this Ellipse is set.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return @c true if the "cx" attribute of this Ellipse object is set, @c false if either the "cx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEllipseShapeCX(Ellipse* ellipse);
+/// @brief Predicates returning @c true if the "cx" attribute of this Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "cx" attribute of this Transformation2D object is set, @c false if
+/// either the Transformation2D object does not have "cx" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(Transformation2D* shape);
 
-/// @brief Returns the value of the "cx" attribute of this Ellipse.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return the "cx" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getEllipseShapeCX(Ellipse* ellipse);
+/// @brief Returns the value of the "cx" attribute of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return the "cx" attribute of the Transformation2D object, or @c RelAbsVector() if
+/// either the Transformation2D object does not have "cx" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(Transformation2D* shape);
 
-/// @brief Sets the value of the "cx" attribute of this Ellipse object.
-/// @param ellipse a pointer to the Ellipse object.
-/// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Ellipse object.
+/// @brief Sets the value of the "cx" attribute of this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEllipseShapeCX(Ellipse* ellipse, const RelAbsVector& cx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(Transformation2D* shape, const RelAbsVector& cx);
 
-/// @brief Predicates returning @c true if the "cy" attribute of this Ellipse is set.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return @c true if the "cy" attribute of this Ellipse object is set, @c false if either the "cy" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEllipseShapeCY(Ellipse* ellipse);
+/// @brief Predicates returning @c true if the "cy" attribute of this Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "cy" attribute of this Transformation2D object is set, @c false
+/// either the Transformation2D object does not have "cy" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(Transformation2D* shape);
 
-/// @brief Returns the value of the "cy" attribute of this Ellipse.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return the "cy" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getEllipseShapeCY(Ellipse* ellipse);
+/// @brief Returns the value of the "cy" attribute of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return the "cy" attribute of the Transformation2D object, or @c RelAbsVector() if
+/// either the Transformation2D object does not have "cy" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(Transformation2D* shape);
 
-/// @brief Sets the value of the "cy" attribute of this Ellipse object.
-/// @param ellipse a pointer to the Ellipse object.
-/// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Ellipse object.
+/// @brief Sets the value of the "cy" attribute of this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEllipseShapeCY(Ellipse* ellipse, const RelAbsVector& cy);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(Transformation2D* shape, const RelAbsVector& cy);
 
-/// @brief Predicates returning @c true if the "rx" attribute of this Ellipse is set.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return @c true if the "rx" attribute of this Ellipse object is set, @c false if either the "rx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEllipseShapeRX(Ellipse* ellipse);
+/// @brief Predicates returning @c true if the "rx" attribute of this Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "rx" attribute of this Transformation2D object is set, @c false if
+/// either the Transformation2D object does not have "rx" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(Transformation2D* shape);
 
-/// @brief Returns the value of the "rx" attribute of this Ellipse.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return the "rx" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getEllipseShapeRX(Ellipse* ellipse);
+/// @brief Returns the value of the "rx" attribute of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return the "rx" attribute of the Transformation2D object, or @c RelAbsVector() if
+/// either the Transformation2D object does not have "rx" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(Transformation2D* shape);
 
-/// @brief Sets the value of the "rx" attribute of this Ellipse object.
-/// @param ellipse a pointer to the Ellipse object.
-/// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Ellipse object.
+/// @brief Sets the value of the "rx" attribute of this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEllipseShapeRX(Ellipse* ellipse, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(Transformation2D* shape, const RelAbsVector& rx);
 
-/// @brief Predicates returning @c true if the "ry" attribute of this Ellipse is set.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return @c true if the "ry" attribute of this Ellipse object is set, @c false if either the "ry" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEllipseShapeRY(Ellipse* ellipse);
+/// @brief Predicates returning @c true if the "ry" attribute of this Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "ry" attribute of this Transformation2D object is set, @c false if
+/// either the Transformation2D object does not have "ry" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(Transformation2D* shape);
 
-/// @brief Returns the value of the "ry" attribute of this Ellipse.
-/// @param ellipse a pointer to the Ellipse object.
-/// @return the "ry" attribute of the Ellipse object, or @c RelAbsVector() if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getEllipseShapeRY(Ellipse* ellipse);
+/// @brief Returns the value of the "ry" attribute of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return the "ry" attribute of the Transformation2D object, or @c RelAbsVector() if
+/// either the Transformation2D object does not have "ry" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(Transformation2D* shape);
 
-/// @brief Sets the value of the "ry" attribute of this Ellipse object.
-/// @param ellipse a pointer to the Ellipse object.
-/// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Ellipse object.
+/// @brief Sets the value of the "ry" attribute of this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEllipseShapeRY(Ellipse* ellipse, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry);
 
 /// @brief Returns the number of elements of this Polygon.
 /// @param polygon a pointer to the Polygon object.

@@ -2154,92 +2154,92 @@ int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAb
     return -1;
 }
 
-bool isSetEllipseShapeCX(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->isSetCX();
+bool isSetGeometricShapeCenterX(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->isSetCX();
     
     return false;
 }
 
-const RelAbsVector getEllipseShapeCX(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->getCX();
+const RelAbsVector getGeometricShapeCenterX(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->getCX();
     
     return RelAbsVector();
 }
 
-int setEllipseShapeCX(Ellipse* ellipse, const RelAbsVector& cx) {
-    if (ellipse) {
-        ellipse->setCX(cx);
+int setGeometricShapeCenterX(Transformation2D* shape, const RelAbsVector& cx) {
+    if (isEllipse(shape)) {
+        ((Ellipse*)shape)->setCX(cx);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetEllipseShapeCY(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->isSetCY();
+bool isSetGeometricShapeCenterY(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->isSetCY();
     
     return false;
 }
 
-const RelAbsVector getEllipseShapeCY(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->getCY();
+const RelAbsVector getGeometricShapeCenterY(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->getCY();
     
     return RelAbsVector();
 }
 
-int setEllipseShapeCY(Ellipse* ellipse, const RelAbsVector& cy) {
-    if (ellipse) {
-        ellipse->setCY(cy);
+int setGeometricShapeCenterY(Transformation2D* shape, const RelAbsVector& cy) {
+    if (isEllipse(shape)) {
+        ((Ellipse*)shape)->setCY(cy);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetEllipseShapeRX(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->isSetRX();
+bool isSetGeometricShapeRadiusX(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->isSetRX();
     
     return false;
 }
 
-const RelAbsVector getEllipseShapeRX(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->getRX();
+const RelAbsVector getGeometricShapeRadiusX(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->getRX();
     
     return RelAbsVector();
 }
 
-int setEllipseShapeRX(Ellipse* ellipse, const RelAbsVector& rx) {
-    if (ellipse) {
-        ellipse->setRX(rx);
+int setGeometricShapeRadiusX(Transformation2D* shape, const RelAbsVector& rx) {
+    if (isEllipse(shape)) {
+        ((Ellipse*)shape)->setRX(rx);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetEllipseShapeRY(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->isSetRY();
+bool isSetGeometricShapeRadiusY(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->isSetRY();
     
     return false;
 }
 
-const RelAbsVector getEllipseShapeRY(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->getRY();
+const RelAbsVector getGeometricShapeRadiusY(Transformation2D* shape) {
+    if (isEllipse(shape))
+        return ((Ellipse*)shape)->getRY();
     
     return RelAbsVector();
 }
 
-int setEllipseShapeRY(Ellipse* ellipse, const RelAbsVector& ry) {
-    if (ellipse) {
-        ellipse->setRY(ry);
+int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry) {
+    if (isEllipse(shape)) {
+        ((Ellipse*)shape)->setRY(ry);
         return 0;
     }
     
