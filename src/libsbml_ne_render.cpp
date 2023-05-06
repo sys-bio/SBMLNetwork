@@ -1799,11 +1799,43 @@ Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n) {
     return NULL;
 }
 
+bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return isRectangle(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isRectangle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return isRectangle(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isRectangle(Style* style, unsigned  int n) {
+    return isRectangle(getRenderGroup(style), n);
+}
+
+bool isRectangle(RenderGroup* renderGroup, unsigned  int n) {
+    return isRectangle(getGeometricShape(renderGroup, n));
+}
+
 bool isRectangle(Transformation2D* shape) {
     if (shape)
         return shape->isRectangle();
 
     return false;
+}
+
+bool isEllipse(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return isEllipse(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isEllipse(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return isEllipse(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isEllipse(Style* style, unsigned  int n) {
+    return isEllipse(getRenderGroup(style), n);
+}
+
+bool isEllipse(RenderGroup* renderGroup, unsigned  int n) {
+    return isEllipse(getGeometricShape(renderGroup, n));
 }
 
 bool isEllipse(Transformation2D* shape) {
@@ -1813,11 +1845,43 @@ bool isEllipse(Transformation2D* shape) {
     return false;
 }
 
+bool isPolygon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return isPolygon(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isPolygon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return isPolygon(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isPolygon(Style* style, unsigned  int n) {
+    return isPolygon(getRenderGroup(style), n);
+}
+
+bool isPolygon(RenderGroup* renderGroup, unsigned  int n) {
+    return isPolygon(getGeometricShape(renderGroup, n));
+}
+
 bool isPolygon(Transformation2D* shape) {
     if (shape)
         return shape->isPolygon();
 
     return false;
+}
+
+bool isRenderCurve(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return isRenderCurve(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isRenderCurve(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return isRenderCurve(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isRenderCurve(Style* style, unsigned  int n) {
+    return isRenderCurve(getRenderGroup(style), n);
+}
+
+bool isRenderCurve(RenderGroup* renderGroup, unsigned  int n) {
+    return isRenderCurve(getGeometricShape(renderGroup, n));
 }
 
 bool isRenderCurve(Transformation2D* shape) {
@@ -1827,11 +1891,43 @@ bool isRenderCurve(Transformation2D* shape) {
     return false;
 }
 
+bool isImage(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return isImage(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isImage(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return isImage(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isImage(Style* style, unsigned  int n) {
+    return isImage(getRenderGroup(style), n);
+}
+
+bool isImage(RenderGroup* renderGroup, unsigned  int n) {
+    return isImage(getGeometricShape(renderGroup, n));
+}
+
 bool isImage(Transformation2D* shape) {
     if (shape)
         return shape->isImage();
 
     return false;
+}
+
+bool isText(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return isText(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isText(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return isText(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isText(Style* style, unsigned  int n) {
+    return isText(getRenderGroup(style), n);
+}
+
+bool isText(RenderGroup* renderGroup, unsigned  int n) {
+    return isText(getGeometricShape(renderGroup, n));
 }
 
 bool isText(Transformation2D* shape) {

@@ -1888,30 +1888,210 @@ LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(Style* style, u
 /// @return the Transformation2D at the given index of the RenderGroup object, or NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n);
 
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
+/// it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Rectangle.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
+/// it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Rectangle.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Rectangle, @c false if
+/// it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(Style* style, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Rectangle.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Rectangle, @c false if
+/// it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderGroup* renderGroup, unsigned  int n);
+
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Rectangle.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type Rectangle, @c false if either it is not of type Rectangle or is or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
+/// it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Ellipse.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
+/// it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Ellipse.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Ellipse, @c false if
+/// it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(Style* style, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Ellipse.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Ellipse, @c false if
+/// it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderGroup* renderGroup, unsigned  int n);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Ellipse.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type Ellipse, @c false if either it is not of type Ellipse or is or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(Transformation2D* shape);
 
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
+/// it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Polygon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
+/// it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Polygon.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Polygon, @c false if
+/// it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(Style* style, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Polygon.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Polygon, @c false if
+/// it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderGroup* renderGroup, unsigned  int n);
+
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Polygon.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type Polygon, @c false if either it is not of type Polygon or is or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
+/// it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type RenderCurve.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
+/// it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCurve.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCurve, @c false if
+/// it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(Style* style, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type RenderCurve.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type RenderCurve, @c false if
+/// it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderGroup* renderGroup, unsigned  int n);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type RenderCurve.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type RenderCurve, @c false if either it is not of type RenderCurve or is or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(Transformation2D* shape);
 
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
+/// it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Image.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
+/// it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Image.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Image, @c false if
+/// it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(Style* style, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Image.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Image, @c false if
+/// it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderGroup* renderGroup, unsigned  int n);
+
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Image.
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type Image, @c false if either it is not of type Image or is or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isImage(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
+/// it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Text.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
+/// it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Text.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Text, @c false if
+/// it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(Style* style, unsigned  int n);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Text.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Text, @c false if
+/// it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderGroup* renderGroup, unsigned  int n);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Text.
 /// @param shape a pointer to the Transformation2D object.
