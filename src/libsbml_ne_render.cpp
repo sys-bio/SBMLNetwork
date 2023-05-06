@@ -1937,161 +1937,217 @@ bool isText(Transformation2D* shape) {
     return false;
 }
 
-bool isSetRectangleShapeX(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetX();
+bool isSetGeometricShapeX(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetX();
+    else if (isImage(shape))
+        return ((Image*)shape)->isSetX();
+    else if (isText(shape))
+        return ((Text*)shape)->isSetX();
     
     return false;
 }
 
-const RelAbsVector getRectangleShapeX(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getX();
+const RelAbsVector getGeometricShapeX(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getX();
+    else if (isImage(shape))
+        return ((Image*)shape)->getX();
+    else if (isText(shape))
+        return ((Text*)shape)->getX();
     
     return RelAbsVector();
 }
 
-int setRectangleShapeX(Rectangle* rectangle, const RelAbsVector& x) {
-    if (rectangle) {
-        rectangle->setX(x);
+int setGeometricShapeX(Transformation2D* shape, const RelAbsVector& x) {
+    if (isRectangle(shape)) {
+        ((Rectangle*)shape)->setX(x);
+        return 0;
+    }
+    else if (isImage(shape)) {
+        ((Image*)shape)->setX(x);
+        return 0;
+    }
+    else if (isText(shape)) {
+        ((Text*)shape)->setX(x);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetRectangleShapeY(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetY();
+bool isSetGeometricShapeY(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetY();
+    else if (isImage(shape))
+        return ((Image*)shape)->isSetY();
+    else if (isText(shape))
+        return ((Text*)shape)->isSetY();
+
+    return false;
+}
+
+const RelAbsVector getGeometricShapeY(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getY();
+    else if (isImage(shape))
+        return ((Image*)shape)->getY();
+    else if (isText(shape))
+        return ((Text*)shape)->getY();
+
+    return RelAbsVector();
+}
+
+int setGeometricShapeY(Transformation2D* shape, const RelAbsVector& y) {
+    if (isRectangle(shape)) {
+        ((Rectangle*)shape)->setY(y);
+        return 0;
+    }
+    else if (isImage(shape)) {
+        ((Image*)shape)->setY(y);
+        return 0;
+    }
+    else if (isText(shape)) {
+        ((Text*)shape)->setY(y);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeWidth(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetWidth();
+    else if (isRectangle(shape))
+        return ((Image*)shape)->isSetWidth();
     
     return false;
 }
 
-const RelAbsVector getRectangleShapeY(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getY();
+const RelAbsVector getGeometricShapeWidth(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getWidth();
+    else if (isRectangle(shape))
+        return ((Image*)shape)->getWidth();
     
     return RelAbsVector();
 }
 
-int setRectangleShapeY(Rectangle* rectangle, const RelAbsVector& y) {
-    if (rectangle) {
-        rectangle->setX(y);
+int setGeometricShapeWidth(Transformation2D* shape, const RelAbsVector& width) {
+    if (isRectangle(shape)) {
+        ((Rectangle*)shape)->setWidth(width);
+        return 0;
+    }
+    else if (isImage(shape)) {
+        ((Image*)shape)->setWidth(width);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetRectangleShapeWidth(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetWidth();
-    
+bool isSetGeometricShapeHeight(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetHeight();
+    else if (isRectangle(shape))
+        return ((Image*)shape)->isSetHeight();
+
     return false;
 }
 
-const RelAbsVector getRectangleShapeWidth(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getWidth();
-    
+const RelAbsVector getGeometricShapeHeight(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getHeight();
+    else if (isRectangle(shape))
+        return ((Image*)shape)->getHeight();
+
     return RelAbsVector();
 }
 
-int setRectangleShapeWidth(Rectangle* rectangle, const RelAbsVector& width) {
-    if (rectangle) {
-        rectangle->setWidth(width);
+int setGeometricShapeHeight(Transformation2D* shape, const RelAbsVector& height) {
+    if (isRectangle(shape)) {
+        ((Rectangle*)shape)->setHeight(height);
         return 0;
     }
-    
+    else if (isImage(shape)) {
+        ((Image*)shape)->setHeight(height);
+        return 0;
+    }
+
     return -1;
 }
 
-bool isSetRectangleShapeHeight(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetHeight();
+bool isSetGeometricShapeRatio(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetRatio();
+    else if (isEllipse(shape))
+        return ((Ellipse*)shape)->isSetRatio();
     
     return false;
 }
 
-const RelAbsVector getRectangleShapeHeight(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getHeight();
-    
-    return RelAbsVector();
-}
-
-int setRectangleShapeHeight(Rectangle* rectangle, const RelAbsVector& height) {
-    if (rectangle) {
-        rectangle->setHeight(height);
-        return 0;
-    }
-    
-    return -1;
-}
-
-bool isSetRectangleShapeRatio(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetRatio();
-    
-    return false;
-}
-
-const double getRectangleShapeRatio(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getRatio();
+const double getGeometricShapeRatio(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getRatio();
+    else if (isEllipse(shape))
+        return ((Ellipse*)shape)->getRatio();
     
     return 0.0;
 }
 
-int setRectangleShapeRatio(Rectangle* rectangle, const double& ratio) {
-    if (rectangle) {
-        rectangle->setRatio(ratio);
+int setGeometricShapeRatio(Transformation2D* shape, const double& ratio) {
+    if (isRectangle(shape)) {
+        ((Rectangle*)shape)->setRatio(ratio);
+        return 0;
+    }
+    else if (isEllipse(shape)) {
+        ((Ellipse*)shape)->setRatio(ratio);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetRectangleShapeRX(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetRX();
+bool isSetGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetRX();
     
     return false;
 }
 
-const RelAbsVector getRectangleShapeRX(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getRX();
+const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getRX();
     
     return RelAbsVector();
 }
 
-int setRectangleShapeRX(Rectangle* rectangle, const RelAbsVector& rx) {
-    if (rectangle) {
-        rectangle->setRX(rx);
+int setGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape, const RelAbsVector& rx) {
+    if (isRectangle(shape)) {
+        ((Rectangle*)shape)->setRX(rx);
         return 0;
     }
     
     return -1;
 }
 
-bool isSetRectangleShapeRY(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->isSetRY();
+bool isSetGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->isSetRY();
     
     return false;
 }
 
-const RelAbsVector getRectangleShapeRY(Rectangle* rectangle) {
-    if (rectangle)
-        return rectangle->getRY();
+const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape) {
+    if (isRectangle(shape))
+        return ((Rectangle*)shape)->getRY();
     
     return RelAbsVector();
 }
 
-int setRectangleShapeRY(Rectangle* rectangle, const RelAbsVector& ry) {
-    if (rectangle) {
-        rectangle->setRY(ry);
+int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAbsVector& ry) {
+    if (isRectangle(shape)) {
+        return ((Rectangle*)shape)->setRY(ry);
         return 0;
     }
     
@@ -2184,29 +2240,6 @@ const RelAbsVector getEllipseShapeRY(Ellipse* ellipse) {
 int setEllipseShapeRY(Ellipse* ellipse, const RelAbsVector& ry) {
     if (ellipse) {
         ellipse->setRY(ry);
-        return 0;
-    }
-    
-    return -1;
-}
-
-bool isSetEllipseShapeRatio(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->isSetRatio();
-    
-    return false;
-}
-
-const double getEllipseShapeRatio(Ellipse* ellipse) {
-    if (ellipse)
-        return ellipse->getRatio();
-    
-    return 0.0;
-}
-
-int setEllipseShapeRatio(Ellipse* ellipse, const double& ratio) {
-    if (ellipse) {
-        ellipse->setRatio(ratio);
         return 0;
     }
     
@@ -2512,98 +2545,6 @@ bool isRenderCubicBezier(RenderPoint* renderPoint) {
     return false;
 }
 
-bool isSetImageShapeX(Image* image) {
-    if (image)
-        return image->isSetX();
-
-    return false;
-}
-
-const RelAbsVector getImageShapeX(Image* image) {
-    if (image)
-        return image->getX();
-
-    return RelAbsVector();
-}
-
-int setImageShapeX(Image* image, const RelAbsVector& x) {
-    if (image) {
-        image->setX(x);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetImageShapeY(Image* image) {
-    if (image)
-        return image->isSetY();
-
-    return false;
-}
-
-const RelAbsVector getImageShapeY(Image* image) {
-    if (image)
-        return image->getY();
-
-    return RelAbsVector();
-}
-
-int setImageShapeY(Image* image, const RelAbsVector& y) {
-    if (image) {
-        image->setY(y);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetImageShapeWidth(Image* image) {
-    if (image)
-        return image->isSetWidth();
-
-    return false;
-}
-
-const RelAbsVector getImageShapeWidth(Image* image) {
-    if (image)
-        return image->getWidth();
-
-    return RelAbsVector();
-}
-
-int setImageShapeWidth(Image* image, const RelAbsVector& width) {
-    if (image) {
-        image->setWidth(width);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetImageShapeHeight(Image* image) {
-    if (image)
-        return image->isSetHeight();
-
-    return false;
-}
-
-const RelAbsVector getImageShapeHeight(Image* image) {
-    if (image)
-        return image->getHeight();
-
-    return RelAbsVector();
-}
-
-int setImageShapeHeight(Image* image, const RelAbsVector& height) {
-    if (image) {
-        image->setHeight(height);
-        return 0;
-    }
-
-    return -1;
-}
-
 bool isSetImageShapeHref(Image* image) {
     if (image)
         return image->isSetHref();
@@ -2621,52 +2562,6 @@ const std::string getImageShapeHref(Image* image) {
 int setImageShapeHref(Image* image, const std::string& href) {
     if (image) {
         image->setHref(href);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetTextShapeX(Text* text) {
-    if (text)
-        return text->isSetX();
-
-    return false;
-}
-
-const RelAbsVector getTextShapeX(Text* text) {
-    if (text)
-        return text->getX();
-
-    return RelAbsVector();
-}
-
-int setTextShapeX(Text* text, const RelAbsVector& x) {
-    if (text) {
-        text->setX(x);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetTextShapeY(Text* text) {
-    if (text)
-        return text->isSetY();
-
-    return false;
-}
-
-const RelAbsVector getTextShapeY(Text* text) {
-    if (text)
-        return text->getY();
-
-    return RelAbsVector();
-}
-
-int setTextShapeY(Text* text, const RelAbsVector& y) {
-    if (text) {
-        text->setY(y);
         return 0;
     }
 
