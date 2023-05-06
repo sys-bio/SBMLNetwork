@@ -1761,11 +1761,35 @@ int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
     return -1;
 }
 
+unsigned int getNumGeometricShapes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getNumGeometricShapes(getStyle(renderInformationBase, graphicalObject));
+}
+
+unsigned int getNumGeometricShapes(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getNumGeometricShapes(getStyle(renderInformationBase, attribute));
+}
+
+unsigned int getNumGeometricShapes(Style* style) {
+    return getNumGeometricShapes(getRenderGroup(style));
+}
+
 unsigned int getNumGeometricShapes(RenderGroup* renderGroup) {
     if (renderGroup)
         return renderGroup->getNumElements();
 
     return 0;
+}
+
+Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return getGeometricShape(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return getGeometricShape(getStyle(renderInformationBase, attribute), n);
+}
+
+Transformation2D* getGeometricShape(Style* style, unsigned  int n) {
+    return getGeometricShape(getRenderGroup(style), n);
 }
 
 Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n) {

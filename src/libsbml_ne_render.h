@@ -1840,10 +1840,47 @@ LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(Style* style, const std::string& end
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
 
+/// @brief Returns number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGeometricShapes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns number of Transformation2D objects in the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGeometricShapes(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns number of Transformation2D objects in the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the number of Transformation2D objects in the RenderGroup of this Style object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGeometricShapes(Style* style);
+
 /// @brief Returns Get the number of Transformation2D objects in this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the number of Transformation2D objects in this RenderGroup, or 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGeometricShapes(RenderGroup* renderGroup);
+
+/// @brief Returns the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the Transformation2D at the given index the RenderGroup of the Style for this GraphicalObject object, @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Returns the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Returns the Transformation2D at the given index of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the Transformation2D at the given index of the RenderGroup of this Style object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(Style* style, unsigned  int n);
 
 /// @brief Returns the Transformation2D at the given index of the this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
