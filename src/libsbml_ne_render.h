@@ -2296,279 +2296,101 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(Transfo
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry);
 
-/// @brief Returns the number of elements of this Polygon.
-/// @param polygon a pointer to the Polygon object.
-/// @return the number of elements of the Polygon object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getPolygonShapeNumElements(Polygon* polygon);
+/// @brief Returns the number of elements of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return the number of elements of the Transformation2D object, or @c 0 if
+/// either the Transformation2D object does not have any elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(Transformation2D* shape);
 
-/// @brief Returns the value of the "x" attribute of nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Returns the value of the "x" attribute of nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeElementX(Polygon* polygon, unsigned  int n);
+/// @return the "x" attribute of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned  int n);
 
-/// @brief Sets the value of the "x" attribute of nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Sets the value of the "x" attribute of nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this Polygon.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeElementX(Polygon* polygon, unsigned  int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(Transformation2D* shape, unsigned  int n, const RelAbsVector& x);
 
-/// @brief Returns the value of the "y" attribute of nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Returns the value of the "y" attribute of nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeElementY(Polygon* polygon, unsigned  int n);
+/// @return the "y" attribute of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned  int n);
 
-/// @brief Sets the value of the "y" attribute of nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Sets the value of the "y" attribute of nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Polygon.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeElementY(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(Transformation2D* shape, unsigned  int n, const RelAbsVector& y);
 
-/// @brief Returns the value of the "x" attribute of the base point 1 of the nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Returns the value of the "x" attribute of the base point 1 of the nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint1X(Polygon* polygon, unsigned  int n);
+/// @return the "x" attribute of the base point 1 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigned  int n);
 
-/// @brief Sets the value of the "x" attribute of the base point 1 of the nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Sets the value of the "x" attribute of the base point 1 of the nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the nth element of this Polygon.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint1X(Polygon* polygon, unsigned  int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned  int n, const RelAbsVector& x);
 
-/// @brief Returns the value of the "y" attribute of the base point 1 of the nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Returns the value of the "y" attribute of the base point 1 of the nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of he base point 1 of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint1Y(Polygon* polygon, unsigned  int n);
+/// @return the "y" attribute of he base point 1 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned  int n);
 
-/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this Polygon.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint1Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned  int n, const RelAbsVector& y);
 
-/// @brief Returns the value of the "x" attribute of the base point 2 of the nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Returns the value of the "x" attribute of the base point 2 of the nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint2X(Polygon* polygon, unsigned  int n);
+/// @return the "x" attribute of the base point 2 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigned  int n);
 
-/// @brief Sets the value of the "x" attribute of the base point 2 of the nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Sets the value of the "x" attribute of the base point 2 of the nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the nth element of this Polygon.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint2X(Polygon* polygon, unsigned  int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned  int n, const RelAbsVector& x);
 
-/// @brief Returns the value of the "y" attribute of the base point 2 of the nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Returns the value of the "y" attribute of the base point 2 of the nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of he base point 2 of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n);
+/// @return the "y" attribute of he base point 2 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned  int n);
 
-/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this Polygon.
-/// @param polygon a pointer to the Polygon object.
+/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this Polygon.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned  int n, const RelAbsVector& y);
 
-/// @brief Returns the value of the "x" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the Polygon object.
+/// @brief Predicate returning true if the nth element of this Transformation2D is of type RenderCubicBezier.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeElementX(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "x" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeElementX(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
-
-/// @brief Returns the value of the "y" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the Polygon object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of Polygon object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeElementY(Polygon* polygon, unsigned  int n);
-
-/// @brief Sets the value of the "y" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Polygon.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeElementY(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
-
-/// @brief Returns the value of the "x" attribute of the base point 1 of the nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "x" attribute of the base point 1 of the nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
-
-/// @brief Returns the value of the "y" attribute of the base point 1 of the nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of he base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
-
-/// @brief Returns the value of the "x" attribute of the base point 2 of the nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "x" attribute of the base point 2 of the nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
-
-/// @brief Returns the value of the "y" attribute of the base point 2 of the nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of he base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getPolygonShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setPolygonShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
-
-/// @brief Predicate returning true if the nth element of this Polygon is of type RenderCubicBezier.
-/// @param polygon a pointer to the Polygon object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return @c true if the nth element of this Polygon is of type RenderCubicBezier, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Polygon* polygon, unsigned  int n);
-
-/// @brief Returns the number of elements of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @return the number of elements of the RenderCurve object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getRenderCurveShapeNumElements(RenderCurve* renderCurve);
-
-/// @brief Returns the value of the "x" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "x" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
-
-/// @brief Returns the value of the "y" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "y" attribute of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
-
-/// @brief Returns the value of the "x" attribute of the base point 1 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "x" attribute of the base point 1 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
-
-/// @brief Returns the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 1 of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
-
-/// @brief Returns the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x);
-
-/// @brief Returns the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of RenderCurve object, or @c RelAbsVector() if the
-/// object is @c NULL or it has less than n elements
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n);
-
-/// @brief Sets the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of the base point 2 of nth element of this RenderCurve.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y);
-
-/// @brief Predicate returning true if the nth element of this RenderCurve is of type RenderCubicBezier.
-/// @param renderCurve a pointer to the RenderCurve object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @return @c true if the nth element of this RenderCurve is of type RenderCubicBezier, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderCurve* renderCurve, unsigned  int n);
+/// @return @c true if the nth element of this Transformation2D is of type RenderCubicBezier, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Transformation2D* shape, unsigned  int n);
 
 /// @brief Predicate returning true if this RenderCurve is of type RenderCubicBezier.
 /// @param renderPoint a pointer to the RenderPoint object.

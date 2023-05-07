@@ -2246,294 +2246,188 @@ int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry) {
     return -1;
 }
 
-const unsigned int getPolygonShapeNumElements(Polygon* polygon) {
-    if (polygon)
-        return polygon->getNumElements();
+const unsigned int getGeometricShapeNumElements(Transformation2D* shape) {
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->getNumElements();
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->getNumElements();
 
     return 0;
 }
 
-const RelAbsVector getPolygonShapeElementX(Polygon* polygon, unsigned  int n) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element)
-            return element->getX();
-    }
+const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned  int n) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (element)
+        return element->getX();
 
     return RelAbsVector();
 }
 
-int setPolygonShapeElementX(Polygon* polygon, unsigned  int n, const RelAbsVector& x) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element) {
-            element->setX(x);
-            return 0;
-        }
+int setGeometricShapeElementX(Transformation2D* shape, unsigned  int n, const RelAbsVector& x) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (element) {
+        element->setX(x);
+        return 0;
     }
 
     return -1;
 }
 
-const RelAbsVector getPolygonShapeElementY(Polygon* polygon, unsigned  int n) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element)
-            return element->getY();
-    }
+const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned  int n) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (element)
+        return element->getY();
 
     return RelAbsVector();
 }
 
-int setPolygonShapeElementY(Polygon* polygon, unsigned  int n, const RelAbsVector& y) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element) {
-            element->setY(y);
-            return 0;
-        }
+int setGeometricShapeElementY(Transformation2D* shape, unsigned  int n, const RelAbsVector& y) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (element) {
+        element->setY(y);
+        return 0;
     }
 
     return -1;
 }
 
-const RelAbsVector getPolygonShapeBasePoint1X(Polygon* polygon, unsigned  int n) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint1_x();
-    }
+const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigned  int n) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element))
+        return ((RenderCubicBezier*)element)->getBasePoint1_x();
 
     return RelAbsVector();
 }
 
-int setPolygonShapeBasePoint1X(Polygon* polygon, unsigned  int n, const RelAbsVector& x) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint1_x(x);
-            return 0;
-        }
+int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned  int n, const RelAbsVector& x) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element)) {
+        ((RenderCubicBezier*)element)->setBasePoint1_x(x);
+        return 0;
     }
 
     return -1;
 }
 
-const RelAbsVector getPolygonShapeBasePoint1Y(Polygon* polygon, unsigned  int n) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint1_y();
-    }
+const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned  int n) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element))
+        return ((RenderCubicBezier*)element)->getBasePoint1_y();
 
     return RelAbsVector();
 }
 
-int setPolygonShapeBasePoint1Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint1_y(y);
-            return 0;
-        }
+int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned  int n, const RelAbsVector& y) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element)) {
+        ((RenderCubicBezier*)element)->setBasePoint1_y(y);
+        return 0;
     }
 
     return -1;
 }
 
-const RelAbsVector getPolygonShapeBasePoint2X(Polygon* polygon, unsigned  int n) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint2_x();
-    }
+const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigned  int n) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element))
+        return ((RenderCubicBezier*)element)->getBasePoint2_x();
 
     return RelAbsVector();
 }
 
-int setPolygonShapeBasePoint2X(Polygon* polygon, unsigned  int n, const RelAbsVector& x) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint2_x(x);
-            return 0;
-        }
+int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned  int n, const RelAbsVector& x) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element)) {
+        ((RenderCubicBezier*)element)->setBasePoint2_x(x);
+        return 0;
     }
 
     return -1;
 }
 
-const RelAbsVector getPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint2_y();
-    }
+const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned  int n) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element))
+        return ((RenderCubicBezier*)element)->getBasePoint2_y();
 
     return RelAbsVector();
 }
 
-int setPolygonShapeBasePoint2Y(Polygon* polygon, unsigned  int n, const RelAbsVector& y) {
-    if (polygon) {
-        RenderPoint* element = polygon->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint2_y(y);
-            return 0;
-        }
+int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned  int n, const RelAbsVector& y) {
+    RenderPoint* element = NULL;
+    if (isPolygon(shape))
+        element = ((Polygon*)shape)->getElement(n);
+    else if (isRenderCurve(shape))
+        element = ((Polygon*)shape)->getElement(n);
+
+    if (isRenderCubicBezier(element)) {
+        ((RenderCubicBezier*)element)->setBasePoint2_y(y);
+        return 0;
     }
 
     return -1;
 }
 
-bool isRenderCubicBezier(Polygon* polygon, unsigned  int n) {
-    if (polygon)
-        return isRenderCubicBezier(polygon->getElement(n));
-
-    return false;
-}
-
-const unsigned int getRenderCurveShapeNumElements(RenderCurve* renderCurve) {
-    if (renderCurve)
-        return  renderCurve->getNumElements();
-
-    return 0;
-}
-
-const RelAbsVector getRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element)
-            return element->getX();
-    }
-
-    return RelAbsVector();
-}
-
-int setRenderCurveShapeElementX(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element) {
-            element->setX(x);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-const RelAbsVector getRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element)
-            return element->getY();
-    }
-
-    return RelAbsVector();
-}
-
-int setRenderCurveShapeElementY(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element) {
-            element->setY(y);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-const RelAbsVector getRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint1_x();
-    }
-
-    return RelAbsVector();
-}
-
-int setRenderCurveShapeBasePoint1X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint1_x(x);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-const RelAbsVector getRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint1_y();
-    }
-
-    return RelAbsVector();
-}
-
-int setRenderCurveShapeBasePoint1Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint1_y(y);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-const RelAbsVector getRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint2_x();
-    }
-
-    return RelAbsVector();
-}
-
-int setRenderCurveShapeBasePoint2X(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& x) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint2_x(x);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-const RelAbsVector getRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier())
-            return ((RenderCubicBezier*)element)->getBasePoint2_y();
-    }
-
-    return RelAbsVector();
-}
-
-int setRenderCurveShapeBasePoint2Y(RenderCurve* renderCurve, unsigned  int n, const RelAbsVector& y) {
-    if (renderCurve) {
-        RenderPoint* element = renderCurve->getElement(n);
-        if (element && element->isRenderCubicBezier()) {
-            ((RenderCubicBezier*)element)->setBasePoint2_y(y);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-bool isRenderCubicBezier(RenderCurve* renderCurve, unsigned  int n) {
-    if (renderCurve)
-        return isRenderCubicBezier(renderCurve->getElement(n));
+bool isRenderCubicBezier(Transformation2D* shape, unsigned  int n) {
+    if (isPolygon(shape))
+        return isRenderCubicBezier(((Polygon*)shape)->getElement(n));
+    else if (isRenderCurve(shape))
+        return isRenderCubicBezier(((RenderCurve*)shape)->getElement(n));
 
     return false;
 }
