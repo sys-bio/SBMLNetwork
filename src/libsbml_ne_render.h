@@ -2465,7 +2465,7 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(Transformat
 /// @param shape a pointer to the Transformation2D object.
 /// @param stroke a string value to use as the value of the "image" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setImageShapeHref(Transformation2D* shape, const std::string& href);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
 
 /// @brief Add a render point to this Transformation2d (Polygon or RenderCurve).
 /// @param shape a pointer to the Transformation2d object.

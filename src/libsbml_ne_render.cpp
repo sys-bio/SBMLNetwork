@@ -2522,23 +2522,23 @@ bool isRenderCubicBezier(RenderPoint* renderPoint) {
     return false;
 }
 
-bool isSetImageShapeHref(Image* image) {
-    if (image)
-        return image->isSetHref();
+bool isSetGeometricShapeHref(Transformation2D* shape) {
+    if (isImage(shape))
+        return ((Image*)shape)->isSetHref();
 
     return false;
 }
 
-const std::string getImageShapeHref(Image* image) {
-    if (image)
-        return image->getHref();
+const std::string getGeometricShapeHref(Transformation2D* shape) {
+    if (isImage(shape))
+        return ((Image*)shape)->getHref();
 
     return "";
 }
 
-int setImageShapeHref(Image* image, const std::string& href) {
-    if (image) {
-        image->setHref(href);
+int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
+    if (isImage(shape)) {
+        ((Image*)shape)->setHref(href);
         return 0;
     }
 
