@@ -2467,25 +2467,25 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(Transformat
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
 
-/// @brief Add a render point to this Transformation2d (Polygon or RenderCurve).
-/// @param shape a pointer to the Transformation2d object.
+/// @brief Add a render point to this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToShape(Transformation2D* shape);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Transformation2D* shape);
 
-/// @brief Add a render cubic bezier to this Transformation2d (Polygon or RenderCurve).
-/// @param shape a pointer to the Transformation2d object.
+/// @brief Add a render cubic bezier to this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToShape(Transformation2D* shape);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Transformation2D* shape);
 
-/// @brief Remove an element from this Transformation2d (Polygon or RenderCurve).
-/// @param shape a pointer to the Transformation2d object.
+/// @brief Remove an element from this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
 /// @param n an unsigned int representing the index of the RenderPoint to remove.
-/// @return a pointer to the nth RenderPoint in this Transformation2d.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n);
+/// @return a pointer to the nth RenderPoint in this Transformation2D object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int n);
 
-/// @brief Returns the value of the "endHead" attribute of this RenderGroup.
+/// @brief Returns the object role string this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "objetRole" attribute of the GraphicalObject object, or @c false if the object is @c NULL
+/// @return the object role string of the GraphicalObject object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getObjectRole(GraphicalObject* graphicalObject);
 
 }

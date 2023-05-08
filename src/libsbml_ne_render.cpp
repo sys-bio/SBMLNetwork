@@ -2545,37 +2545,29 @@ int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
     return -1;
 }
 
-int addRenderPointToShape(Transformation2D* shape) {
-    if (shape) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
-        if (shape->isPolygon())
-            return ((Polygon*)shape)->addElement(new RenderPoint(renderPkgNamespaces));
-        else if (shape->isRenderCurve())
-            return ((RenderCurve*)shape)->addElement(new RenderPoint(renderPkgNamespaces));
-    }
+int addRenderPointToGeometricShape(Transformation2D* shape) {
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
 
     return -1;
 }
 
 int addRenderCubicBezierToShape(Transformation2D* shape) {
-    if (shape) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(shape->getLevel(), shape->getVersion());
-        if (shape->isPolygon())
-            return ((Polygon*)shape)->addElement(new RenderCubicBezier(renderPkgNamespaces));
-        else if (shape->isRenderCurve())
-            return ((RenderCurve*)shape)->addElement(new RenderCubicBezier(renderPkgNamespaces));
-    }
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
 
     return -1;
 }
 
-RenderPoint * removeElementFromShape(Transformation2D* shape, unsigned int n) {
-    if (shape) {
-        if (shape->isPolygon())
-            return ((Polygon*)shape)->removeElement(n);
-        else if (shape->isRenderCurve())
-            return ((RenderCurve*)shape)->removeElement(n);
-    }
+RenderPoint* removeElementFromShape(Transformation2D* shape, unsigned int n) {
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->removeElement(n);
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->removeElement(n);
 
     return NULL;
 }
