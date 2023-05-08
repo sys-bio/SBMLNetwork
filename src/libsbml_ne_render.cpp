@@ -1799,6 +1799,89 @@ Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n) {
     return NULL;
 }
 
+int addGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape) {
+    return addGeometricShape(getStyle(renderInformationBase, graphicalObject), shape);
+}
+
+int addGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape) {
+    return addGeometricShape(getStyle(renderInformationBase, attribute), shape);
+}
+
+int addGeometricShape(Style* style, const std::string& shape) {
+    return addGeometricShape(getRenderGroup(style), shape);
+}
+
+int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
+    if (renderGroup) {
+        if (stringCompare(shape, "rectangle")) {
+            Rectangle* rectangle = renderGroup->createRectangle();
+            setDefaultRectangleShapeFeatures(rectangle);
+            return 0;
+        }
+        else if (stringCompare(shape, "ellipse")) {
+            Ellipse* ellipse = renderGroup->createEllipse();
+            setDefaultEllipseShapeFeatures(ellipse);
+            return 0;
+        }
+        else if (stringCompare(shape, "triangle")) {
+            Polygon* triangle = renderGroup->createPolygon();
+            setDefaultTriangleShapeFeatures(triangle);
+            return 0;
+        }
+        else if (stringCompare(shape, "diamond")) {
+            Polygon* diamond = renderGroup->createPolygon();
+            setDefaultDiamondShapeFeatures(diamond);
+            return 0;
+        }
+        else if (stringCompare(shape, "pentagon")) {
+            Polygon* pentagon = renderGroup->createPolygon();
+            setDefaultPentagonShapeFeatures(pentagon);
+            return 0;
+        }
+        else if (stringCompare(shape, "hexagon")) {
+            Polygon* hexagon = renderGroup->createPolygon();
+            setDefaultHexagonShapeFeatures(hexagon);
+            return 0;
+        }
+        else if (stringCompare(shape, "octagon")) {
+            Polygon* octagon = renderGroup->createPolygon();
+            setDefaultOctagonShapeFeatures(octagon);
+            return 0;
+        }
+        else if (stringCompare(shape, "rendercurve")) {
+            RenderCurve* renderCurve = renderGroup->createCurve();
+            setDefaultRenderCurveShapeFeatures(renderCurve);
+            return 0;
+        }
+        else if (stringCompare(shape, "image")) {
+            Image* image = renderGroup->createImage();
+            setDefaultImageShapeFeatures(image);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
+    return removeGeometricShape(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n) {
+    return removeGeometricShape(getStyle(renderInformationBase, attribute), n);
+}
+
+Transformation2D* removeGeometricShape(Style* style, unsigned  int n) {
+    return removeGeometricShape(getRenderGroup(style), n);
+}
+
+Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int n) {
+    if (renderGroup)
+        return renderGroup->removeElement(n);
+
+    return NULL;
+}
+
 bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n) {
     return isRectangle(getStyle(renderInformationBase, graphicalObject), n);
 }
@@ -2460,65 +2543,6 @@ int setImageShapeHref(Image* image, const std::string& href) {
     }
 
     return -1;
-}
-
-int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
-    if (renderGroup) {
-        if (stringCompare(shape, "rectangle")) {
-            Rectangle* rectangle = renderGroup->createRectangle();
-            setDefaultRectangleShapeFeatures(rectangle);
-            return 0;
-        }
-        else if (stringCompare(shape, "ellipse")) {
-            Ellipse* ellipse = renderGroup->createEllipse();
-            setDefaultEllipseShapeFeatures(ellipse);
-            return 0;
-        }
-        else if (stringCompare(shape, "triangle")) {
-            Polygon* triangle = renderGroup->createPolygon();
-            setDefaultTriangleShapeFeatures(triangle);
-            return 0;
-        }
-        else if (stringCompare(shape, "diamond")) {
-            Polygon* diamond = renderGroup->createPolygon();
-            setDefaultDiamondShapeFeatures(diamond);
-            return 0;
-        }
-        else if (stringCompare(shape, "pentagon")) {
-            Polygon* pentagon = renderGroup->createPolygon();
-            setDefaultPentagonShapeFeatures(pentagon);
-            return 0;
-        }
-        else if (stringCompare(shape, "hexagon")) {
-            Polygon* hexagon = renderGroup->createPolygon();
-            setDefaultHexagonShapeFeatures(hexagon);
-            return 0;
-        }
-        else if (stringCompare(shape, "octagon")) {
-            Polygon* octagon = renderGroup->createPolygon();
-            setDefaultOctagonShapeFeatures(octagon);
-            return 0;
-        }
-        else if (stringCompare(shape, "rendercurve")) {
-            RenderCurve* renderCurve = renderGroup->createCurve();
-            setDefaultRenderCurveShapeFeatures(renderCurve);
-            return 0;
-        }
-        else if (stringCompare(shape, "image")) {
-            Image* image = renderGroup->createImage();
-            setDefaultImageShapeFeatures(image);
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-Transformation2D * removeGeometricShape(RenderGroup* renderGroup, unsigned int n) {
-    if (renderGroup)
-        return renderGroup->removeElement(n);
-
-    return NULL;
 }
 
 int addRenderPointToShape(Transformation2D* shape) {

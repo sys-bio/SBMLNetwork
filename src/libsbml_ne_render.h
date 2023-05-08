@@ -1888,6 +1888,58 @@ LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(Style* style, u
 /// @return the Transformation2D at the given index of the RenderGroup object, or NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned  int n);
 
+/// @brief Add a geometric shape to the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
+
+/// @brief Add a geometric shape to the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape);
+
+/// @brief Add a geometric shape to the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(Style* style, const std::string& shape);
+
+/// @brief Add a geometric shape to this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+
+/// @brief Remove a geometric shape from the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned  int n);
+
+/// @brief Remove a geometric shape from the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned  int n);
+
+/// @brief Remove a geometric shape from the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @return a pointer to the nth Transformation2D of the RenderGroup of this Style, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(Style* style, unsigned  int n);
+
+/// @brief Remove a geometric shape from this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @return a pointer to the nth Transformation2D of this RenderGroup, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int n);
+
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2397,33 +2449,23 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Transformation2D* shape, u
 /// @return @c true if this RenderPoint is of type RenderCubicBezier, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderPoint* renderPoint);
 
-/// @brief Predicates returning @c true if the "href" attribute of this Image is set.
-/// @param image a pointer to the Image object.
-/// @return @c true if the "href" attribute of this Image object is set, @c false if either the "href" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetImageShapeHref(Image* image);
+/// @brief Predicates returning @c true if the "href" attribute of this Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "href" attribute of this Transformation2D object is set, @c false if
+/// either the Transformation2D object does not have "href" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(Transformation2D* shape);
 
-/// @brief Returns the value of the "href" attribute of this Image object.
-/// @param image a pointer to the Image object.
-/// @return the "href" attribute of the Image object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getImageShapeHref(Image* image);
+/// @brief Returns the value of the "href" attribute of this Transformation2D object.
+/// @param shape a pointer to the Image object.
+/// @return the "href" attribute of the Transformation2D object, or @c "" if the object is @c NULL if
+/// either the Transformation2D object does not have "href" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(Transformation2D* shape);
 
-/// @brief Sets the value of the "href" attribute of this Image object.
-/// @param image a pointer to the Image object.
-/// @param stroke a string value to use as the value of the "image" attribute of this Image object.
+/// @brief Sets the value of the "href" attribute of this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @param stroke a string value to use as the value of the "image" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setImageShapeHref(Image* image, const std::string& href);
-
-/// @brief Add a geometric shape to this RenderGroup.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @param shape a string value indicating the shape of the geometric shape to be added.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
-
-/// @brief Remove a geometric shape from this RenderGroup.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D in this RenderGroup.
-LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+LIBSBML_NETWORKEDITOR_EXTERN int setImageShapeHref(Transformation2D* shape, const std::string& href);
 
 /// @brief Add a render point to this Transformation2d (Polygon or RenderCurve).
 /// @param shape a pointer to the Transformation2d object.
