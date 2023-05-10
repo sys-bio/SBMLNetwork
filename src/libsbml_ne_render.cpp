@@ -3404,6 +3404,10 @@ int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
     return -1;
 }
 
+const std::string getObjectRole(Layout* layout, const std::string& id) {
+    return getObjectRole(getGraphicalObject(layout, id));
+}
+
 const std::string getObjectRole(GraphicalObject* graphicalObject) {
     if (graphicalObject) {
         RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));

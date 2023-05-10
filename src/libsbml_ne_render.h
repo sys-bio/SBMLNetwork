@@ -4103,9 +4103,15 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup,
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
 
-/// @brief Returns the object role string this RenderGroup.
+/// @brief Returns the object role string for the GraphicalObject object with the given id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the graphical object.
+/// @return the object role string the for this GraphicalObject object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getObjectRole(Layout* layout, const std::string& id);
+
+/// @brief Returns the object role string for this GraphicalObject.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @return the object role string of the GraphicalObject object, or @c "" if the object is @c NULL
+/// @return the object role string for the GraphicalObject object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getObjectRole(GraphicalObject* graphicalObject);
 
 }
