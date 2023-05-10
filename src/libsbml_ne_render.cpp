@@ -2213,7 +2213,7 @@ bool isSetGeometricShapeWidth(RenderGroup* renderGroup, unsigned int n) {
 bool isSetGeometricShapeWidth(Transformation2D* shape) {
     if (isRectangle(shape))
         return ((Rectangle*)shape)->isSetWidth();
-    else if (isRectangle(shape))
+    else if (isImage(shape))
         return ((Image*)shape)->isSetWidth();
     
     return false;
@@ -2238,7 +2238,7 @@ const RelAbsVector getGeometricShapeWidth(RenderGroup* renderGroup, unsigned int
 const RelAbsVector getGeometricShapeWidth(Transformation2D* shape) {
     if (isRectangle(shape))
         return ((Rectangle*)shape)->getWidth();
-    else if (isRectangle(shape))
+    else if (isImage(shape))
         return ((Image*)shape)->getWidth();
     
     return RelAbsVector();
@@ -2292,7 +2292,7 @@ bool isSetGeometricShapeHeight(RenderGroup* renderGroup, unsigned int n) {
 bool isSetGeometricShapeHeight(Transformation2D* shape) {
     if (isRectangle(shape))
         return ((Rectangle*)shape)->isSetHeight();
-    else if (isRectangle(shape))
+    else if (isImage(shape))
         return ((Image*)shape)->isSetHeight();
 
     return false;
@@ -2317,7 +2317,7 @@ const RelAbsVector getGeometricShapeHeight(RenderGroup* renderGroup, unsigned in
 const RelAbsVector getGeometricShapeHeight(Transformation2D* shape) {
     if (isRectangle(shape))
         return ((Rectangle*)shape)->getHeight();
-    else if (isRectangle(shape))
+    else if (isImage(shape))
         return ((Image*)shape)->getHeight();
 
     return RelAbsVector();
