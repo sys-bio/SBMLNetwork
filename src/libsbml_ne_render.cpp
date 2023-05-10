@@ -2887,7 +2887,7 @@ const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned i
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (element)
         return element->getX();
@@ -2916,7 +2916,7 @@ int setGeometricShapeElementX(Transformation2D* shape, unsigned int index, const
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (element) {
         element->setX(x);
@@ -2947,7 +2947,7 @@ const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned i
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (element)
         return element->getY();
@@ -2976,7 +2976,7 @@ int setGeometricShapeElementY(Transformation2D* shape, unsigned  int index, cons
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (element) {
         element->setY(y);
@@ -3007,7 +3007,7 @@ const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigne
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element))
         return ((RenderCubicBezier*)element)->getBasePoint1_x();
@@ -3036,7 +3036,7 @@ int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned  int index, c
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element)) {
         ((RenderCubicBezier*)element)->setBasePoint1_x(x);
@@ -3067,7 +3067,7 @@ const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigne
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element))
         return ((RenderCubicBezier*)element)->getBasePoint1_y();
@@ -3096,7 +3096,7 @@ int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned  int index, c
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element)) {
         ((RenderCubicBezier*)element)->setBasePoint1_y(y);
@@ -3127,7 +3127,7 @@ const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigne
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element))
         return ((RenderCubicBezier*)element)->getBasePoint2_x();
@@ -3156,7 +3156,7 @@ int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int index, co
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element)) {
         ((RenderCubicBezier*)element)->setBasePoint2_x(x);
@@ -3187,7 +3187,7 @@ const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigne
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element))
         return ((RenderCubicBezier*)element)->getBasePoint2_y();
@@ -3216,7 +3216,7 @@ int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int index, co
     if (isPolygon(shape))
         element = ((Polygon*)shape)->getElement(index);
     else if (isRenderCurve(shape))
-        element = ((Polygon*)shape)->getElement(index);
+        element = ((RenderCurve*)shape)->getElement(index);
 
     if (isRenderCubicBezier(element)) {
         ((RenderCubicBezier*)element)->setBasePoint2_y(y);
