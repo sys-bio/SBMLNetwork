@@ -3924,7 +3924,8 @@ LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Transforma
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param n an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
-/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
+/////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
 
 /// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
@@ -3932,27 +3933,31 @@ LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Render
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param n an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
-/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
+/////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
 
 /// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param n an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
-/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
+/////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Style* style, unsigned int n, unsigned int index);
 
 /// @brief Remove an element from the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param n an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
-/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
+/////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderGroup* renderGroup, unsigned int n, unsigned int index);
 
 /// @brief Remove an element from this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
 /// @param index an unsigned int representing the index of the element to be removed.
-/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
+///// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int index);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier.
