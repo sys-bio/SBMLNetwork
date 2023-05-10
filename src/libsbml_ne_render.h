@@ -3857,15 +3857,143 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderGroup* rende
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int index, const RelAbsVector& y);
 
+/// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+
+/// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Style* style, unsigned int n);
+
+/// @brief Add a render point to the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderGroup* renderGroup, unsigned int n);
+
+/// @brief Add a render point to this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Transformation2D* shape);
+
+/// @brief Add a render cubic bezier to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+
+/// @brief Add a render cubic bezier to the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+
+/// @brief Add a render cubic bezier to the Transformation2D at the given index of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Style* style, unsigned int n);
+
+/// @brief Add a render cubic bezier to the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderGroup* renderGroup, unsigned int n);
+
+/// @brief Add a render cubic bezier to this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Transformation2D* shape);
+
+/// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to be removed.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+
+/// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to be removed.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+
+/// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to be removed.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Style* style, unsigned int n, unsigned int index);
+
+/// @brief Remove an element from the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to be removed.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+
+/// @brief Remove an element from this Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @param index an unsigned int representing the index of the element to be removed.
+/// @return a pointer to the RenderPoint at the given index of this Transformation2D object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int index);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier, @c false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type RenderCubicBezier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier, @c false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCubicBezier.
+/// @param style a pointer to the Style object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCubicBezier, @c false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Style* style, unsigned int n, unsigned int index);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type RenderCubicBezier.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param index an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the element at the given index of the Transformation2D at the given index of this RenderGroup is of type RenderCubicBezier, @c false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+
 /// @brief Predicate returning true if the element at the given index of this Transformation2D is of type RenderCubicBezier.
 /// @param shape a pointer to the Transformation2D object.
 /// @param index an unsigned int representing the index of the element to retrieve.
-/// @return @c true if the element at the given index of this Transformation2D is of type RenderCubicBezier, false otherwise
+/// @return @c true if the element at the given index of this Transformation2D is of type RenderCubicBezier, @c false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Transformation2D* shape, unsigned int index);
 
 /// @brief Predicate returning true if this RenderCurve is of type RenderCubicBezier.
 /// @param renderPoint a pointer to the RenderPoint object.
-/// @return @c true if this RenderPoint is of type RenderCubicBezier, false otherwise
+/// @return @c true if this RenderPoint is of type RenderCubicBezier, @c false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderPoint* renderPoint);
 
 /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3974,22 +4102,6 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup,
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
-
-/// @brief Add a render point to this Transformation2D object.
-/// @param shape a pointer to the Transformation2D object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Transformation2D* shape);
-
-/// @brief Add a render cubic bezier to this Transformation2D object.
-/// @param shape a pointer to the Transformation2D object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Transformation2D* shape);
-
-/// @brief Remove an element from this Transformation2D object.
-/// @param shape a pointer to the Transformation2D object.
-/// @param n an unsigned int representing the index of the RenderPoint to remove.
-/// @return a pointer to the nth RenderPoint in this Transformation2D object.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int n);
 
 /// @brief Returns the object role string this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.

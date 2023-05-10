@@ -3226,6 +3226,97 @@ int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int index, co
     return -1;
 }
 
+int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n) {
+    return addRenderPointToGeometricShape(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n) {
+    return addRenderPointToGeometricShape(getStyle(renderInformationBase, attribute), n);
+}
+
+int addRenderPointToGeometricShape(Style* style, unsigned int n) {
+    return addRenderPointToGeometricShape(getRenderGroup(style), n);
+}
+
+int addRenderPointToGeometricShape(RenderGroup* renderGroup, unsigned int n) {
+    return addRenderPointToGeometricShape(getGeometricShape(renderGroup, n));
+}
+
+int addRenderPointToGeometricShape(Transformation2D* shape) {
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+
+    return -1;
+}
+
+int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n) {
+    return addRenderCubicBezierToGeometricShape(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n) {
+    return addRenderCubicBezierToGeometricShape(getStyle(renderInformationBase, attribute), n);
+}
+
+int addRenderCubicBezierToGeometricShape(Style* style, unsigned int n) {
+    return addRenderCubicBezierToGeometricShape(getRenderGroup(style), n);
+}
+
+int addRenderCubicBezierToGeometricShape(RenderGroup* renderGroup, unsigned int n) {
+    return addRenderCubicBezierToGeometricShape(getGeometricShape(renderGroup, n));
+}
+
+int addRenderCubicBezierToGeometricShape(Transformation2D* shape) {
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+
+    return -1;
+}
+
+RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index) {
+    return removeElementFromGeometricShape(getStyle(renderInformationBase, graphicalObject), n, index);
+}
+
+RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index) {
+    return removeElementFromGeometricShape(getStyle(renderInformationBase, attribute), n, index);
+}
+
+RenderPoint* removeElementFromGeometricShape(Style* style, unsigned int n, unsigned int index) {
+    return removeElementFromGeometricShape(getRenderGroup(style), n, index);
+}
+
+RenderPoint* removeElementFromGeometricShape(RenderGroup* renderGroup, unsigned int n, unsigned int index) {
+    return removeElementFromGeometricShape(getGeometricShape(renderGroup, n), index);
+}
+
+RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int index) {
+    if (isPolygon(shape))
+        return ((Polygon*)shape)->removeElement(index);
+    else if (isRenderCurve(shape))
+        return ((RenderCurve*)shape)->removeElement(index);
+
+    return NULL;
+}
+
+bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index) {
+    return isRenderCubicBezier(getStyle(renderInformationBase, graphicalObject), n, index);
+}
+
+bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index) {
+    return isRenderCubicBezier(getStyle(renderInformationBase, attribute), n, index);
+}
+
+bool isRenderCubicBezier(Style* style, unsigned int n, unsigned int index) {
+    return isRenderCubicBezier(getRenderGroup(style), n, index);
+}
+
+bool isRenderCubicBezier(RenderGroup* renderGroup, unsigned int n, unsigned int index) {
+    return isRenderCubicBezier(getGeometricShape(renderGroup, n), index);
+}
+
 bool isRenderCubicBezier(Transformation2D* shape, unsigned int index) {
     if (isPolygon(shape))
         return isRenderCubicBezier(((Polygon*)shape)->getElement(index));
@@ -3311,33 +3402,6 @@ int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
     }
 
     return -1;
-}
-
-int addRenderPointToGeometricShape(Transformation2D* shape) {
-    if (isPolygon(shape))
-        return ((Polygon*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
-    else if (isRenderCurve(shape))
-        return ((RenderCurve*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
-
-    return -1;
-}
-
-int addRenderCubicBezierToShape(Transformation2D* shape) {
-    if (isPolygon(shape))
-        return ((Polygon*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
-    else if (isRenderCurve(shape))
-        return ((RenderCurve*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
-
-    return -1;
-}
-
-RenderPoint* removeElementFromShape(Transformation2D* shape, unsigned int n) {
-    if (isPolygon(shape))
-        return ((Polygon*)shape)->removeElement(n);
-    else if (isRenderCurve(shape))
-        return ((RenderCurve*)shape)->removeElement(n);
-
-    return NULL;
 }
 
 const std::string getObjectRole(GraphicalObject* graphicalObject) {
