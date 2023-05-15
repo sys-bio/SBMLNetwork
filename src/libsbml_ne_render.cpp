@@ -1615,6 +1615,18 @@ bool isSetFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
     return false;
 }
 
+const std::string getFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getFillColor(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::string getFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getFillColor(getStyle(renderInformationBase, attribute));
+}
+
+const std::string getFillColor(Style* style) {
+    return getFillColor(getRenderGroup(style));
+}
+
 const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
     if (graphicalPrimitive2D)
         return graphicalPrimitive2D->getFill();
@@ -1725,7 +1737,7 @@ const std::string getEndHead(RenderInformationBase* renderInformationBase, Graph
     return getEndHead(getStyle(renderInformationBase, graphicalObject));
 }
 
-const std::string getStgetEndHeadartHead(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+const std::string getEndHead(RenderInformationBase* renderInformationBase, const std::string& attribute) {
     return getEndHead(getStyle(renderInformationBase, attribute));
 }
 
@@ -2571,6 +2583,22 @@ int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAb
     }
     
     return -1;
+}
+
+bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n) {
+    return isSetGeometricShapeX(getStyle(renderInformationBase, graphicalObject), n);
+}
+
+bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n) {
+    return isSetGeometricShapeX(getStyle(renderInformationBase, attribute), n);
+}
+
+bool isSetGeometricShapeCenterX(Style* style, unsigned int n) {
+    return isSetGeometricShapeX(getRenderGroup(style), n);
+}
+
+bool isSetGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int n) {
+    return isSetGeometricShapeX(getGeometricShape(renderGroup, n));
 }
 
 bool isSetGeometricShapeCenterX(Transformation2D* shape) {
