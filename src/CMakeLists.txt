@@ -131,3 +131,8 @@ elseif(UNIX)
 	install(FILES ${GRAPHVIZ_APIS} ${GRAPHVIZ_API_CONFIG}
 			DESTINATION lib/dependencies/graphviz COMPONENT sbml_networkeditor_api)
 endif()
+
+### build language bindings
+if (WITH_SWIG)
+	add_subdirectory(bindings)
+endif()
