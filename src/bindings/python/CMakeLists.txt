@@ -64,5 +64,14 @@ if (APPLE)
     add_custom_command(TARGET binding_python_lib POST_BUILD
             COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
             "libsbml.5.dylib" "@rpath/libsbml.5.dylib"
-            $<TARGET_FILE:binding_python_lib>)
+            $<TARGET_FILE:binding_python_lib>
+            COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
+            "/usr/local/opt/graphviz/lib/libgvc.6.dylib"
+            "@rpath/libgvc.6.dylib" $<TARGET_FILE:binding_python_lib>
+            COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
+            "/usr/local/opt/graphviz/lib/libcgraph.6.dylib"
+            "@rpath/libcgraph.6.dylib" $<TARGET_FILE:binding_python_lib>
+            COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
+            "/usr/local/opt/graphviz/lib/libcdt.5.dylib"
+            "@rpath/libcdt.5.dylib" $<TARGET_FILE:binding_python_lib>)
 endif()
