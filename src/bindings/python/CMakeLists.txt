@@ -75,3 +75,32 @@ if (APPLE)
             "/usr/local/opt/graphviz/lib/libcdt.5.dylib"
             "@rpath/libcdt.5.dylib" $<TARGET_FILE:binding_python_lib>)
 endif()
+
+## determine the python installation directory
+set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python${Python_VERSION}/site-packages)
+
+## install using the configured install prefix
+option (PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." ON)
+if (PYTHON_INSTALL_IN_PREFIX)
+    install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor 	COMPONENT libsbml_networkeditor_python_bindings)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml_networkeditor.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbml_networkeditor_python_bindings)
+endif()
+
+## install using setup.py
+option (PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." ON)
+if (PYTHON_INSTALL_WITH_SETUP)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/setup.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbml_networkeditor_python_bindings)
+    if (NOT EXISTS ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor.py)
+        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml_networkeditor.py DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbml_networkeditor_python_bindings)
+    endif()
+    ## __init__.py
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml_networkeditor.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/libsbml_networkeditor RENAME __init__.py COMPONENT python_extra)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml_networkeditor/__init__.py DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor COMPONENT libsbml_networkeditor_python_bindings)
+
+    if (UNIX)
+        install(FILES ${SBML_LIBS} ${GRAPHVIZ_LIBS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor/dependencies COMPONENT libsbml_networkeditor_python_bindings)
+        install(FILES ${GRAPHVIZ_APIS} ${GRAPHVIZ_API_CONFIG} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor/dependencies/graphviz COMPONENT libsbml_networkeditor_python_bindings)
+    endif ()
+    install(CODE "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E chdir ${PYTHON_PACKAGE_INSTALL_DIR} pip install .)" COMPONENT python_extra)
+endif()
