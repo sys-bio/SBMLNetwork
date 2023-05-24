@@ -78,16 +78,26 @@ endif()
 
 ## determine the python installation directory
 set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python${Python_VERSION}/site-packages)
+if (UNIX OR CYGWIN)
+    execute_process(COMMAND "${Python_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
+            OUTPUT_VARIABLE Python_VERSION)
+endif()
 
 ## install using the configured install prefix
 option (PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." ON)
 if (PYTHON_INSTALL_IN_PREFIX)
     install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor 	COMPONENT libsbml_networkeditor_python_bindings)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml_networkeditor.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbml_networkeditor_python_bindings)
+
+    if (WIN32)
+        include(InstallRequiredSystemLibraries)
+        install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor COMPONENT libsbml_networkeditor_python_bindings)
+        install(FILES ${LIBSBML_DLLS} ${GRAPHVIZ_DLLS} ${GRAPHVIZ_API_CONFIG} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml_networkeditor COMPONENT libsbml_networkeditor_python_bindings)
+    endif(WIN32)
 endif()
 
 ## install using setup.py
-option (PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." ON)
+option (PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." OFF)
 if (PYTHON_INSTALL_WITH_SETUP)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/setup.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbml_networkeditor_python_bindings)
