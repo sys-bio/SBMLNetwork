@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
-project(libsbml_networkeditor)
+project(libsbmlnetworkeditor)
 add_definitions(-DLIBSBML_NETWORKEDITOR_EXPORTS=true)
 
 include(GNUInstallDirs)
@@ -127,6 +127,6 @@ if(WITH_SWIG)
 	find_package(SWIG)
 endif(WITH_SWIG)
 
-option(WITH_PYTHON "Generate the Python language interface for libsbml_networkeditor." OFF)
+option(WITH_PYTHON "Generate the Python language interface for libsbmlnetworkeditor." OFF)
 
 add_subdirectory(src)

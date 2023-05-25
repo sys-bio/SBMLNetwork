@@ -4,8 +4,8 @@ from setuptools.dist import Distribution
 import platform
 
 import os.path, sys
-if not os.path.isfile('libsbml_networkeditor.py'):
-      print("First build the libsbml_networkeditor and then run this script.")
+if not os.path.isfile('libsbmlnetworkeditor.py'):
+      print("First build the libsbmlnetworkeditor and then run this script.")
       sys.exit(1)
 
 class BinaryDistribution(Distribution):
@@ -39,7 +39,7 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Unix"
     ],
-    keywords= ["SBML", "Layout", "Render" "Graphviz"],
+    keywords= ["SBML", "Layout", "Render", "Graphviz"],
     package_dir={"": "."},
     packages=find_packages(),
     package_data={"": deps},

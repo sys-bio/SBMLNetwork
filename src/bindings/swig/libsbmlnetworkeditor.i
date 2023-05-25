@@ -1,4 +1,4 @@
-%module libsbml_networkeditor
+%module libsbmlnetworkeditor
 %{
 #include <libsbml_ne_common.h>
 #include <libsbml_ne_layout.h>
