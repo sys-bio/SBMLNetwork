@@ -39,7 +39,7 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Unix"
     ],
-    keywords= ["SBML", "Layout", "Render" "Graphiviz"],
+    keywords= ["SBML", "Layout", "Render" "Graphviz"],
     package_dir={"": "."},
     packages=find_packages(),
     package_data={"": deps},
