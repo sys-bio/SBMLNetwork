@@ -43,4 +43,15 @@ int addDefaultGlobalRenderInformation(SBMLDocument* document) {
     return -1;
 }
 
+int addDefaultLocalRenderInformation(SBMLDocument* document) {
+    Layout* layout = getLayout(document);
+    if (!getNumLocalRenderInformation(layout)) {
+        LocalRenderInformation* localRenderInformation = createLocalRenderInformation(layout);
+        setDefaultLocalRenderInformationFeatures(document,layout, localRenderInformation);
+        return addLocalRenderInformation(layout, localRenderInformation);
+    }
+
+    return -1;
+}
+
 }

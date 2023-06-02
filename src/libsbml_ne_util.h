@@ -41,6 +41,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int addDefaultRenderInformation(SBMLDocument* docum
 /// @return a pointer to the Layout object of the SBML document.
 LIBSBML_NETWORKEDITOR_EXTERN int addDefaultGlobalRenderInformation(SBMLDocument* document);
 
+/// @brief Get the Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return a pointer to the Layout object of the SBML document.
+LIBSBML_NETWORKEDITOR_EXTERN int addDefaultLocalRenderInformation(SBMLDocument* document);
+
 }
 
 #endif
