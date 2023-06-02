@@ -33,6 +33,13 @@ int addDefaultLayout(SBMLDocument* document) {
     return -1;
 }
 
+int addDefaultRenderInformation(SBMLDocument* document) {
+    if (!addDefaultLocalRenderInformation(document) && !addDefaultGlobalRenderInformation(document))
+        return 0;
+
+    return -1;
+}
+
 int addDefaultGlobalRenderInformation(SBMLDocument* document) {
     if (!getNumGlobalRenderInformation(document)) {
         GlobalRenderInformation* globalRenderInformation = createGlobalRenderInformation(document);
