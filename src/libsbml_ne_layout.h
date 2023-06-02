@@ -28,7 +28,7 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLayouts(ListOfLayouts* lis
 /// @brief Returns a pointer to the nth Layout in the ListOfLayouts of the SBML document.
 /// @param n the index number of the Layout to return.
 /// @return the @c the nth Layout in the ListOfLayouts of the SBML document or NULL if no such Layout exists or the document is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN Layout* getLayout(SBMLDocument* document, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Layout* getLayout(SBMLDocument* document, unsigned int n = 0);
 
 /// @brief Returns a pointer to the nth Layout in this ListOfLayouts.
 /// @param n the index number of the Layout to return.
