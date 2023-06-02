@@ -4,7 +4,6 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-
 ListOfLayouts* getListOfLayouts(SBMLDocument* document) {
     if (document) {
         LayoutModelPlugin* layoutModelPlugin = getLayoutModelPlugin(document);
