@@ -1,0 +1,10 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  SOURCE_DIR: '$(System.DefaultWorkingDirectory)'
+  BUILD_DIR: '$(SOURCE_DIR)/build'
+  INSTALL_DIR: '$(SOURCE_DIR)/libsbmlnetworkeditor-$(Agent.OS)'
+  LIBSBML_INSTALL_PREFIX: '$(SOURCE_DIR)/libsbml'
+  SWIG_SOURCE_DIR: '$(SOURCE_DIR)/swig'
+  SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
+  SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
