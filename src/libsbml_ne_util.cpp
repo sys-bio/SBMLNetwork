@@ -59,16 +59,8 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
     return -1;
 }
 
-ListOfGraphicalObjects getListOfAssociatedGraphicalObjects(SBMLDocument* document, const std::string& id) {
-    ListOfGraphicalObjects listOfAssociatedGraphicalObjects;
-    mergeListsOfGraphicalObjects(listOfAssociatedGraphicalObjects, getListOfAssociatedCompartmentGlyphs(document, id));
-    mergeListsOfGraphicalObjects(listOfAssociatedGraphicalObjects, getListOfAssociatedSpeciesGlyphs(document, id));
-    mergeListsOfGraphicalObjects(listOfAssociatedGraphicalObjects, getListOfAssociatedReactionGlyphs(document, id));
-    return listOfAssociatedGraphicalObjects;
-}
-
-ListOfGraphicalObjects getListOfAssociatedCompartmentGlyphs(SBMLDocument* document, const std::string& id) {
-    ListOfGraphicalObjects listOfAssociatedCompartmentGlyphs;
+ListOfCompartmentGlyphs getListOfAssociatedCompartmentGlyphs(SBMLDocument* document, const std::string& id) {
+    ListOfCompartmentGlyphs listOfAssociatedCompartmentGlyphs;
     Layout* layout = getLayout(document);
     if (layout) {
         for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
@@ -80,8 +72,8 @@ ListOfGraphicalObjects getListOfAssociatedCompartmentGlyphs(SBMLDocument* docume
     return listOfAssociatedCompartmentGlyphs;
 }
 
-ListOfGraphicalObjects getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, const std::string& id) {
-    ListOfGraphicalObjects listOfAssociatedSpeciesGlyphs;
+ListOfSpeciesGlyphs getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, const std::string& id) {
+    ListOfSpeciesGlyphs listOfAssociatedSpeciesGlyphs;
     Layout* layout = getLayout(document);
     if (layout) {
         for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -93,8 +85,8 @@ ListOfGraphicalObjects getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, 
     return listOfAssociatedSpeciesGlyphs;
 }
 
-ListOfGraphicalObjects getListOfAssociatedReactionGlyphs(SBMLDocument* document, const std::string& id) {
-    ListOfGraphicalObjects listOfAssociatedReactionGlyphs;
+ListOfReactionGlyphs getListOfAssociatedReactionGlyphs(SBMLDocument* document, const std::string& id) {
+    ListOfReactionGlyphs listOfAssociatedReactionGlyphs;
     Layout* layout = getLayout(document);
     if (layout) {
         for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
@@ -106,32 +98,24 @@ ListOfGraphicalObjects getListOfAssociatedReactionGlyphs(SBMLDocument* document,
     return listOfAssociatedReactionGlyphs;
 }
 
-GraphicalObject* getAssociatedGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int index) {
-    ListOfGraphicalObjects listOfAssociatedGraphicalObjects = getListOfAssociatedGraphicalObjects(document, id);
-    if (index < listOfAssociatedGraphicalObjects.size())
-        return listOfAssociatedGraphicalObjects.get(index);
-
-    return NULL;
-}
-
-GraphicalObject* getAssociatedCompartmentGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
-    ListOfGraphicalObjects listOfAssociatedCompartmentGlyphs = getListOfAssociatedCompartmentGlyphs(document, id);
+CompartmentGlyph* getAssociatedCompartmentGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
+    ListOfCompartmentGlyphs listOfAssociatedCompartmentGlyphs = getListOfAssociatedCompartmentGlyphs(document, id);
     if (index < listOfAssociatedCompartmentGlyphs.size())
         return listOfAssociatedCompartmentGlyphs.get(index);
 
     return NULL;
 }
 
-GraphicalObject* getAssociatedSpeciesGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
-    ListOfGraphicalObjects listOfAssociatedSpeciesGlyphs = getListOfAssociatedSpeciesGlyphs(document, id);
+SpeciesGlyph* getAssociatedSpeciesGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
+    ListOfSpeciesGlyphs listOfAssociatedSpeciesGlyphs = getListOfAssociatedSpeciesGlyphs(document, id);
     if (index < listOfAssociatedSpeciesGlyphs.size())
         return listOfAssociatedSpeciesGlyphs.get(index);
 
     return NULL;
 }
 
-GraphicalObject* getAssociatedReactionGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
-    ListOfGraphicalObjects listOfAssociatedReactionGlyphs = getListOfAssociatedReactionGlyphs(document, id);
+ReactionGlyph* getAssociatedReactionGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
+    ListOfReactionGlyphs listOfAssociatedReactionGlyphs = getListOfAssociatedReactionGlyphs(document, id);
     if (index < listOfAssociatedReactionGlyphs.size())
         return listOfAssociatedReactionGlyphs.get(index);
 
