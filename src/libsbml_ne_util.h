@@ -57,25 +57,33 @@ LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLocalRenderInformation(SBMLDocumen
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
 /// @return a pointer to the GraphicalObject object with the same graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfGraphicalObjects(SBMLDocument* document, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfAssociatedGraphicalObjects(SBMLDocument* document, const std::string& id);
 
 /// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
 /// @return a pointer to the GraphicalObject object with the same graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfCompartmentGlyphs(SBMLDocument* document, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfAssociatedCompartmentGlyphs(SBMLDocument* document, const std::string& id);
 
 /// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
 /// @return a pointer to the GraphicalObject object with the same graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfSpeciesGlyphs(SBMLDocument* document, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, const std::string& id);
 
 /// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
 /// @return a pointer to the GraphicalObject object with the same graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfReactionGlyphs(SBMLDocument* document, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN ListOfGraphicalObjects getListOfAssociatedReactionGlyphs(SBMLDocument* document, const std::string& id);
+
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getAssociatedGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int index);
+
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getAssociatedCompartmentGlyph(SBMLDocument* document, const std::string& id, unsigned int index);
+
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getAssociatedSpeciesGlyph(SBMLDocument* document, const std::string& id, unsigned int index);
+
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getAssociatedReactionGlyph(SBMLDocument* document, const std::string& id, unsigned int index);
 
 }
 
