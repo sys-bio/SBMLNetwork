@@ -59,18 +59,6 @@ LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLocalRenderInformation(SBMLDocumen
 /// @return a pointer to the GraphicalObject object with the same graphical object id.
 LIBSBML_NETWORKEDITOR_EXTERN ListOfCompartmentGlyphs getListOfAssociatedCompartmentGlyphs(SBMLDocument* document, const std::string& id);
 
-/// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
-/// @param document a pointer to the SBMLDocument object.
-/// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
-/// @return a pointer to the GraphicalObject object with the same graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN ListOfSpeciesGlyphs getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, const std::string& id);
-
-/// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
-/// @param document a pointer to the SBMLDocument object.
-/// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
-/// @return a pointer to the GraphicalObject object with the same graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN ListOfReactionGlyphs getListOfAssociatedReactionGlyphs(SBMLDocument* document, const std::string& id);
-
 /// @brief Returns the nth CompartmentGlyph object associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the compartment the CompartmentGlyph object of which is going to be returned.
@@ -78,12 +66,24 @@ LIBSBML_NETWORKEDITOR_EXTERN ListOfReactionGlyphs getListOfAssociatedReactionGly
 /// @return a pointer the nth CompartmentGlyph object associated with the entered compartment id.
 LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getAssociatedCompartmentGlyph(SBMLDocument* document, const std::string& id, unsigned int index = 0);
 
+/// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
+/// @return a pointer to the GraphicalObject object with the same graphical object id.
+LIBSBML_NETWORKEDITOR_EXTERN ListOfSpeciesGlyphs getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, const std::string& id);
+
 /// @brief Returns the nth SpeciesGlyph object associated with the entered species id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the species the SpeciesGlyph object of which is going to be returned.
 /// @param n the index number of the SpeciesGlyph object to return.
 /// @return a pointer the nth SpeciesGlyph object associated with the entered species id.
 LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getAssociatedSpeciesGlyph(SBMLDocument* document, const std::string& id, unsigned int index = 0);
+
+/// @brief Returns a list of GraphicalObject objects associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity to the GraphicalObject objects of which are going to be returned.
+/// @return a pointer to the GraphicalObject object with the same graphical object id.
+LIBSBML_NETWORKEDITOR_EXTERN ListOfReactionGlyphs getListOfAssociatedReactionGlyphs(SBMLDocument* document, const std::string& id);
 
 /// @brief Returns the nth ReactionGlyph object associated with the entered reaction id.
 /// @param document a pointer to the SBMLDocument object.
