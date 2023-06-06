@@ -59,7 +59,7 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
     return -1;
 }
 
-ListOfCompartmentGlyphs getlistOfCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
+ListOfCompartmentGlyphs getListOfCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     ListOfCompartmentGlyphs listOfCompartmentGlyphs;
     Layout* layout = getLayout(document);
     if (layout) {
@@ -73,11 +73,11 @@ ListOfCompartmentGlyphs getlistOfCompartmentGlyphs(SBMLDocument* document, const
 }
 
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
-    return getlistOfCompartmentGlyphs(document, compartmentId).size();
+    return getListOfCompartmentGlyphs(document, compartmentId).size();
 }
 
 CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int index) {
-    ListOfCompartmentGlyphs listOfCompartmentGlyphs = getlistOfCompartmentGlyphs(document, compartmentId);
+    ListOfCompartmentGlyphs listOfCompartmentGlyphs = getListOfCompartmentGlyphs(document, compartmentId);
     if (index < listOfCompartmentGlyphs.size())
         return listOfCompartmentGlyphs.get(index);
 
