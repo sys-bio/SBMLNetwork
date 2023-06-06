@@ -30,12 +30,12 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGlobalRenderInformation(Li
 /// @param n the index number of the GlobalRenderInformation to return.
 /// @return the @c the nth GlobalRenderInformation in the ListOfGlobalRenderInformation of the SBML document or NULL if
 /// no such GlobalRenderInformation exists or the document is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n = 0);
 
 /// @brief Returns a pointer to the nth GlobalRenderInformation in this ListOfGlobalRenderInformation.
 /// @param n the index number of the GlobalRenderInformation to return.
 /// @return the @c the nth GlobalRenderInformation in this ListOfGlobalRenderInformation or NULL if no such GlobalRenderInformation exists or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation, unsigned int n = 0);
 
 /// @brief Add GlobalRenderInformation to list of global renders of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -79,12 +79,12 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLocalRenderInformation(Lis
 /// @param n the index number of the GlobalRenderInformation to return.
 /// @return the @c the nth LocalRenderInformation in the ListOfLocalRenderInformation of this Layout object or NULL if
 /// no such LocalRenderInformation exists or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(Layout* layout, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(Layout* layout, unsigned int n = 0);
 
 /// @brief Returns a pointer to the nth LocalRenderInformation in this ListOfLocalRenderInformation.
 /// @param n the index number of the LocalRenderInformation to return.
 /// @return the @c the nth LocalRenderInformation in this ListOfLocalRenderInformation or NULL if no such LocalRenderInformation exists or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int n = 0);
 
 /// @brief Add LocalRenderInformation to list of local renders of the Layout.
 /// @param layout a pointer to the Layout object.
