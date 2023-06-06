@@ -72,6 +72,10 @@ ListOfCompartmentGlyphs getListOfAssociatedCompartmentGlyphs(SBMLDocument* docum
     return listOfAssociatedCompartmentGlyphs;
 }
 
+const unsigned int getNumAssociatedCompartmentGlyphs(SBMLDocument* document, const std::string& id) {
+    return getListOfAssociatedCompartmentGlyphs(document, id).size();
+}
+
 CompartmentGlyph* getAssociatedCompartmentGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
     ListOfCompartmentGlyphs listOfAssociatedCompartmentGlyphs = getListOfAssociatedCompartmentGlyphs(document, id);
     if (index < listOfAssociatedCompartmentGlyphs.size())
@@ -93,6 +97,10 @@ ListOfSpeciesGlyphs getListOfAssociatedSpeciesGlyphs(SBMLDocument* document, con
     return listOfAssociatedSpeciesGlyphs;
 }
 
+const unsigned int getNumAssociatedSpeciesGlyphs(SBMLDocument* document, const std::string& id) {
+    return getListOfAssociatedSpeciesGlyphs(document, id).size();
+}
+
 SpeciesGlyph* getAssociatedSpeciesGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
     ListOfSpeciesGlyphs listOfAssociatedSpeciesGlyphs = getListOfAssociatedSpeciesGlyphs(document, id);
     if (index < listOfAssociatedSpeciesGlyphs.size())
@@ -112,6 +120,10 @@ ListOfReactionGlyphs getListOfAssociatedReactionGlyphs(SBMLDocument* document, c
     }
 
     return listOfAssociatedReactionGlyphs;
+}
+
+const unsigned int getNumAssociatedReactionGlyphs(SBMLDocument* document, const std::string& id) {
+    return getListOfAssociatedReactionGlyphs(document, id).size();
 }
 
 ReactionGlyph* getAssociatedReactionGlyph(SBMLDocument* document, const std::string& id, unsigned int index) {
