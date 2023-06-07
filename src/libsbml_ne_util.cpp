@@ -59,6 +59,10 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
     return -1;
 }
 
+const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
+        return getCompartmentGlyphs(document, compartmentId).size();
+    }
+
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     std::vector<CompartmentGlyph*> compartmentGlyphs;
     Layout* layout = getLayout(document);
@@ -66,10 +70,6 @@ std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, cons
         compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartmentId);
 
     return compartmentGlyphs;
-}
-
-const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
-    return getCompartmentGlyphs(document, compartmentId).size();
 }
 
 CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int index) {
@@ -80,6 +80,10 @@ CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string&
     return NULL;
 }
 
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
+        return getSpeciesGlyphs(document, speciesId).size();
+    }
+
 std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
     std::vector<SpeciesGlyph*> speciesGlyphs;
     Layout* layout = getLayout(document);
@@ -87,10 +91,6 @@ std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::s
         speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
 
     return speciesGlyphs;
-}
-
-const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
-    return getSpeciesGlyphs(document, speciesId).size();
 }
 
 SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int index) {
@@ -101,6 +101,10 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& species
     return NULL;
 }
 
+const unsigned int getNumReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
+        return getReactionGlyphs(document, reactionId).size();
+    }
+
 std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
     std::vector<ReactionGlyph*> reactionGlyphs;
     Layout* layout = getLayout(document);
@@ -108,10 +112,6 @@ std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std:
         reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, reactionId);
 
     return reactionGlyphs;
-}
-
-const unsigned int getNumReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
-    return getReactionGlyphs(document, reactionId).size();
 }
 
 ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int index) {
