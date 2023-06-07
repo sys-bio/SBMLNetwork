@@ -62,12 +62,8 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     std::vector<CompartmentGlyph*> compartmentGlyphs;
     Layout* layout = getLayout(document);
-    if (layout) {
-        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-            if (layout->getCompartmentGlyph(i)->getCompartmentId() == compartmentId)
-                compartmentGlyphs.push_back(layout->getCompartmentGlyph(i));
-        }
-    }
+    if (layout)
+        compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartmentId);
 
     return compartmentGlyphs;
 }
@@ -87,12 +83,8 @@ CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string&
 std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
     std::vector<SpeciesGlyph*> speciesGlyphs;
     Layout* layout = getLayout(document);
-    if (layout) {
-        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-            if (layout->getSpeciesGlyph(i)->getSpeciesId() == speciesId)
-                speciesGlyphs.push_back(layout->getSpeciesGlyph(i));
-        }
-    }
+    if (layout)
+        speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
 
     return speciesGlyphs;
 }
@@ -112,12 +104,8 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& species
 std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
     std::vector<ReactionGlyph*> reactionGlyphs;
     Layout* layout = getLayout(document);
-    if (layout) {
-        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-            if (layout->getReactionGlyph(i)->getReactionId() == reactionId)
-                reactionGlyphs.push_back(layout->getReactionGlyph(i));
-        }
-    }
+    if (layout)
+        reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, reactionId);
 
     return reactionGlyphs;
 }
