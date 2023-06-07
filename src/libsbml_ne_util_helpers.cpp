@@ -2,11 +2,6 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-void mergeListsOfGraphicalObjects(ListOfGraphicalObjects list1, ListOfGraphicalObjects list2) {
-    for (unsigned int i = 0; i < list2.size(); i++)
-        list1.append(list2.get(i));
-}
-
 std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(Layout* layout, const std::string& compartmentId) {
     std::vector<CompartmentGlyph*> compartmentGlyphs;
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {

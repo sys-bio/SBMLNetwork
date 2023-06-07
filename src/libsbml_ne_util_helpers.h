@@ -9,8 +9,6 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-void mergeListsOfGraphicalObjects(ListOfGraphicalObjects list1, ListOfGraphicalObjects list2);
-
 std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(Layout* layout, const std::string& compartmentId);
 
 std::vector<SpeciesGlyph*> getAssociatedSpeciesGlyphsWithSpeciesId(Layout* layout, const std::string& speciesId);
