@@ -2,6 +2,7 @@
 #include "libsbml_ne_layout.h"
 #include "libsbml_ne_render.h"
 #include "libsbml_ne_util_helpers.h"
+#include "libsbml_ne_layout_helpers.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -54,6 +55,52 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
     if (!getNumLocalRenderInformation(layout)) {
         LocalRenderInformation* localRenderInformation = createLocalRenderInformation(layout);
         return setDefaultLocalRenderInformationFeatures(document,layout, localRenderInformation);
+    }
+
+    return -1;
+}
+
+bool isSetId(SBase* object) {
+    if (object)
+        return object->isSetId();
+
+    return false;
+}
+
+const std::string getId(SBase* object) {
+    if (object)
+        return object->getId();
+
+    return "";
+}
+
+int setId(SBase* object, const std::string& sid) {
+    if (object) {
+        object->setId(sid);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetName(SBase* object) {
+    if (object)
+        object->isSetName();
+
+    return false;
+}
+
+const std::string getName(SBase* object) {
+    if (object)
+        return object->getName();
+
+    return "";
+}
+
+int setName(SBase* object, const std::string& name) {
+    if (object) {
+        object->setName(name);
+        return 0;
     }
 
     return -1;
@@ -118,6 +165,19 @@ ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& react
     std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(document, reactionId);
     if (index < reactionGlyphs.size())
         return reactionGlyphs.at(index);
+
+    return NULL;
+}
+
+Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    if (document && document->isSetModel()) {
+        if (isCompartmentGlyph(graphicalObject))
+            return findCompartmentGlyphCompartment(document->getModel(), (CompartmentGlyph*)graphicalObject);
+        else if (isSpeciesGlyph(graphicalObject))
+            return findSpeciesGlyphCompartment(document->getModel(), (SpeciesGlyph*)graphicalObject);
+        else if (isReactionGlyph(graphicalObject))
+            return findReactionGlyphCompartment(document->getModel(), (ReactionGlyph*)graphicalObject);
+    }
 
     return NULL;
 }

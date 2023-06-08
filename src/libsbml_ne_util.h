@@ -53,6 +53,40 @@ LIBSBML_NETWORKEDITOR_EXTERN int createDefaultGlobalRenderInformation(SBMLDocume
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLocalRenderInformation(SBMLDocument* document);
 
+/// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
+/// @param object a pointer to the SBML object.
+/// @return @c true if the "id" attribute of this SBML object is set, @c false if either the "id"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetId(SBase* object);
+
+/// Returns the value of the "id" attribute of this SBML object.
+/// @param object a pointer to the SBML object.
+/// @return the "id" attribute of the SBML object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getId(SBase* object);
+
+/// @brief Sets the value of the "id" attribute this SBML object.
+/// @param object a pointer to the SBML object.
+/// @param sid a string value to be set as "id" attribute of the SBML object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setId(SBase* object, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "name" attribute of this SBML object is set.
+/// @param object a pointer to the SBML object.
+/// @return @c true if the "name" attribute of this SBML object is set, @c false if either the "name"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetName(SBase* object);
+
+/// Returns the value of the "name" attribute of this SBML object.
+/// @param object a pointer to the SBML object.
+/// @return the "name" attribute of the SBML object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getName(SBase* object);
+
+/// @brief Sets the value of the "name" attribute this SBML object.
+/// @param object a pointer to the SBML object.
+/// @param name a string value to be set as "name" attribute of the SBML object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setName(SBase* object, const std::string& name);
+
 /// @brief Returns the number of CompartmentGlyph objects associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param compartmentId the id of the compartment the number of CompartmentGlyph objects associated with it is going to be returned.
@@ -113,6 +147,10 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLD
 /// @return a pointer the nth ReactionGlyph object associated with the entered reaction id.
 LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int index = 0);
 
+/// Returns a pointer to the compartment associated with the graphical object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject);
 }
 
 #endif
