@@ -135,6 +135,10 @@ int setName(GraphicalObject* graphicalObject, const std::string& name) {
     return -1;
 }
 
+const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObject) {
+    return getEntityId(layout, graphicalObject);
+}
+
 GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id) {
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(layout, id);
     if (compartmentGlyph)

@@ -91,6 +91,12 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getName(GraphicalObject* graphica
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setName(GraphicalObject* graphicalObject, const std::string& name);
 
+/// Returns the value of the "id" attribute of the SBML object associated with this GraphicalObject object.
+/// @param layout a pointer to the Layout object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "id" attribute of the SBML object associated with this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObject);
+
 /// @brief Returns the GraphicalObject object with entered graphical object id.
 /// @param layout a pointer to the Layout object.
 /// @param id the id of the graphical object to be returned.
