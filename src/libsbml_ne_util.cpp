@@ -169,6 +169,14 @@ ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& react
     return NULL;
 }
 
+std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    Compartment* compartment = getCompartment(document, graphicalObject);
+    if (compartment)
+        return compartment->getId();
+
+    return "";
+}
+
 Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
     if (document && document->isSetModel()) {
         if (isCompartmentGlyph(graphicalObject))

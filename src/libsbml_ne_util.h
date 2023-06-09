@@ -147,6 +147,11 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLD
 /// @return a pointer the nth ReactionGlyph object associated with the entered reaction id.
 LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int index = 0);
 
+/// Returns the id of the compartment associated with the graphical object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject);
+
 /// Returns a pointer to the compartment associated with the graphical object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
