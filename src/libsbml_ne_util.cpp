@@ -142,10 +142,10 @@ std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, cons
     return compartmentGlyphs;
 }
 
-CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int index) {
+CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int n) {
     std::vector<CompartmentGlyph*> compartmentGlyphs = getCompartmentGlyphs(document, compartmentId);
-    if (index < compartmentGlyphs.size())
-        return compartmentGlyphs.at(index);
+    if (n < compartmentGlyphs.size())
+        return compartmentGlyphs.at(n);
 
     return NULL;
 }
@@ -163,10 +163,10 @@ std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::s
     return speciesGlyphs;
 }
 
-SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int index) {
+SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int n) {
     std::vector<SpeciesGlyph*> speciesGlyphs = getSpeciesGlyphs(document, speciesId);
-    if (index < speciesGlyphs.size())
-        return speciesGlyphs.at(index);
+    if (n < speciesGlyphs.size())
+        return speciesGlyphs.at(n);
 
     return NULL;
 }
@@ -184,10 +184,10 @@ std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std:
     return reactionGlyphs;
 }
 
-ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int index) {
+ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int n) {
     std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(document, reactionId);
-    if (index < reactionGlyphs.size())
-        return reactionGlyphs.at(index);
+    if (n < reactionGlyphs.size())
+        return reactionGlyphs.at(n);
 
     return NULL;
 }

@@ -122,7 +122,7 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs
 /// @param compartmentId the id of the compartment the CompartmentGlyph object assoicated with it is going to be returned.
 /// @param n the index number of the CompartmentGlyph object to return.
 /// @return a pointer the nth CompartmentGlyph object associated with the entered compartment id.
-LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int index = 0);
+LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int n = 0);
 
 /// @brief Returns the number of SpeciesGlyph objects associated with the entered species id.
 /// @param document a pointer to the SBMLDocument object.
@@ -142,7 +142,7 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDoc
 /// @param speciesId the id of the species the SpeciesGlyph object associated with it is going to be returned.
 /// @param n the index number of the SpeciesGlyph object to return.
 /// @return a pointer the nth SpeciesGlyph object associated with the entered species id.
-LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int index = 0);
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int n = 0);
 
 /// @brief Returns the number of ReactionGlyph objects associated with the entered reaction id.
 /// @param document a pointer to the SBMLDocument object.
@@ -162,7 +162,7 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLD
 /// @param reactionId the id of the reaction the ReactionGlyph object associated with it is going to be returned.
 /// @param n the index number of the ReactionGlyph object to return.
 /// @return a pointer the nth ReactionGlyph object associated with the entered reaction id.
-LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int index = 0);
+LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int n = 0);
 
 /// Returns the id of the compartment associated with the graphical object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
