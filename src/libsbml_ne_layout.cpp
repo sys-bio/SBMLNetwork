@@ -135,6 +135,10 @@ int setName(GraphicalObject* graphicalObject, const std::string& name) {
     return -1;
 }
 
+const std::string getSBMLObjectId(Layout* layout, const std::string& graphicalObjectId) {
+    return getSBMLObjectId(layout, getGraphicalObject(layout, graphicalObjectId));
+}
+
 const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObject) {
     return getEntityId(layout, graphicalObject);
 }
@@ -334,6 +338,17 @@ const std::string getSpeciesGlyphId(GraphicalObject* speciesReferenceGlyph) {
     return "";
 }
 
+bool isSetRole(GraphicalObject* reactionGlyph, unsigned int index) {
+    return isSetRole(getSpeciesReferenceGlyph(reactionGlyph, index));
+}
+
+bool isSetRole(GraphicalObject* speciesReferenceGlyph) {
+    if (isSpeciesReferenceGlyph(speciesReferenceGlyph))
+        return ((SpeciesReferenceGlyph*)speciesReferenceGlyph)->isSetRole();
+
+    return false;
+}
+
 const std::string getRole(GraphicalObject* reactionGlyph, unsigned int index) {
     return getRole(getSpeciesReferenceGlyph(reactionGlyph, index));
 }
@@ -343,6 +358,19 @@ const std::string getRole(GraphicalObject* speciesReferenceGlyph) {
         return ((SpeciesReferenceGlyph*)speciesReferenceGlyph)->getRoleString();
 
     return "";
+}
+
+int setRole(GraphicalObject* reactionGlyph, unsigned int index, const std::string& role) {
+    return setRole(getSpeciesReferenceGlyph(reactionGlyph, index), role);
+}
+
+int setRole(GraphicalObject* speciesReferenceGlyph, const std::string& role) {
+    if (isSpeciesReferenceGlyph(speciesReferenceGlyph)) {
+        ((SpeciesReferenceGlyph *) speciesReferenceGlyph)->setRole(role);
+        return 0;
+    }
+
+    return -1;
 }
 
 bool isSpeciesReferenceGlyph(GraphicalObject* graphicalObject) {
@@ -512,6 +540,38 @@ int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& orig) {
     }
 
     return -1;
+}
+
+const unsigned int getNumTextGlyphs(Layout* layout, const std::string& id) {
+    return getNumTextGlyphs(layout, getGraphicalObject(layout, id));
+}
+
+const unsigned int getNumTextGlyphs(Layout* layout, GraphicalObject* graphicalObject) {
+    return getTextGlyphs(layout, graphicalObject).size();
+}
+
+std::vector<TextGlyph*> getTextGlyphs(Layout* layout, const std::string& id) {
+    return getTextGlyphs(layout, getGraphicalObject(layout, id));
+}
+
+std::vector<TextGlyph*> getTextGlyphs(Layout* layout, GraphicalObject* graphicalObject) {
+    std::vector<TextGlyph*> textGlyphs;
+    if (layout)
+        textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+
+    return textGlyphs;
+}
+
+TextGlyph* getTextGlyph(Layout* layout, const std::string& id, unsigned int index) {
+    return getTextGlyph(layout, getGraphicalObject(layout, id), index);
+}
+
+TextGlyph* getTextGlyph(Layout* layout, GraphicalObject* graphicalObject, unsigned int index) {
+    std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, graphicalObject);
+    if (index < textGlyphs.size())
+        return textGlyphs.at(index);
+
+    return NULL;
 }
 
 bool isTextGlyph(Layout* layout, const std::string& id) {
