@@ -67,6 +67,8 @@ bool speciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* species
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
+std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
+
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
 
 }

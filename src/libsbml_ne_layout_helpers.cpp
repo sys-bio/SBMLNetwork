@@ -258,6 +258,16 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
 }
 
+std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
+    std::vector<TextGlyph*> textGlyphs;
+    for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
+        if (textGlyphBelongs(layout->getTextGlyph(i), graphicalObject))
+            textGlyphs.push_back(layout->getTextGlyph(i));
+    }
+
+    return textGlyphs;
+}
+
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {
     CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(graphicalObject->getId());
     if (compartmentGlyph)
