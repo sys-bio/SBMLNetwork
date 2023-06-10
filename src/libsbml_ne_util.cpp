@@ -106,6 +106,29 @@ int setName(SBase* object, const std::string& name) {
     return -1;
 }
 
+bool isSetMetaId(SBase* object) {
+    if (object)
+        return object->isSetMetaId();
+
+    return false;
+}
+
+const std::string getMetaId(SBase* object) {
+    if (object)
+        return object->getMetaId();
+
+    return "";
+}
+
+int setMetaId(SBase* object, const std::string& metaid) {
+    if (object) {
+        object->setMetaId(metaid);
+        return 0;
+    }
+
+    return -1;
+}
+
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     return getCompartmentGlyphs(document, compartmentId).size();
 }

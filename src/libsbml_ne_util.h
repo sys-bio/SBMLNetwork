@@ -87,6 +87,23 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getName(SBase* object);
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setName(SBase* object, const std::string& name);
 
+/// @brief Predicates returning @c true if the "metaid" attribute of this SBML object is set.
+/// @param object a pointer to the SBML object.
+/// @return @c true if the "metaid" attribute of this SBML object is set, @c false if either the "metaid"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetMetaId(SBase* object);
+
+/// Returns the value of the "metaid" attribute of this SBML object.
+/// @param object a pointer to the SBML object.
+/// @return the "metaid" attribute of the SBML object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getMetaId(SBase* object);
+
+/// @brief Sets the value of the "metaid" attribute this SBML object.
+/// @param object a pointer to the SBML object.
+/// @param metaid a string value to be set as "metaid" attribute of the SBML object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setMetaId(SBase* object, const std::string& metaid);
+
 /// @brief Returns the number of CompartmentGlyph objects associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param compartmentId the id of the compartment the number of CompartmentGlyph objects associated with it is going to be returned.
