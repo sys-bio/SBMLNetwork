@@ -1,5 +1,10 @@
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
+trigger:
+  branches:
+    include:
+      - develop
+
 variables:
   SOURCE_DIR: '$(System.DefaultWorkingDirectory)'
   BUILD_DIR: '$(SOURCE_DIR)/build'
@@ -8,3 +13,10 @@ variables:
   SWIG_SOURCE_DIR: '$(SOURCE_DIR)/swig'
   SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
+
+stages:
+  - stage: Build
+    jobs:
+    - job: BuildOnMac
+      steps:
+      - Build
