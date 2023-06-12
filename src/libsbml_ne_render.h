@@ -125,11 +125,21 @@ const std::string getBackgroundColor(GlobalRenderInformation* globalRenderInform
 /// @return integer value indicating success/failure of the function.
 int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const std::string& backgroundColor);
 
+/// @brief Returns the number of ColorDefinitions of this RenderInformationBase object.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @return the number of ColorDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumColorDefinitions(RenderInformationBase* renderInformationBase);
+
 /// @brief Returns a ColorDefinition from the RenderInformationBase based on its identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the ColorDefinition to retrieve.
 /// @return the @c ColorDefinition in the ListOfColorDefinitions within this RenderInformationBase with the given sid or @c NULL if no such ColorDefinition exists.
 LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Returns a pointer to the ColorDefinition of this RenderInformationBase object with the given index.
+/// @param index the index value of the ColorDefinition to return.
+/// @return the @c ColorDefinition with the given index, or NULL if ColorDefinition does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, unsigned int index);
 
 /// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -168,10 +178,20 @@ LIBSBML_NETWORKEDITOR_EXTERN int setValue(RenderInformationBase* renderInformati
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setValue(ColorDefinition* colorDefinition, const std::string& value);
 
+/// @brief Returns the number of GradientDefinitions of this RenderInformationBase object.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @return the number of GradientDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGradientDefinitions(RenderInformationBase* renderInformationBase);
+
 /// @brief Returns a GradientBase from the RenderInformationBase based on its identifier.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @return the @c GradientBase in the ListOfGradientDefinitions within this RenderInformationBase with the given sid or @c NULL if no such GradientBase exists.
 LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Returns a pointer to the GradientBase of this RenderInformationBase object with the given index.
+/// @param index the index value of the GradientBase to return.
+/// @return the @c GradientBase with the given index, or NULL if GradientBase does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, unsigned int index);
 
 /// @brief Predicate returning true if the abstract GradientBase with the given identifier is of type LinearGradient.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -705,10 +725,20 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(RenderInformationBase* rende
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r);
 
+/// @brief Returns the number of LineEndings of this RenderInformationBase object.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @return the number of LineEndings of this RenderInformationBase object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLineEndings(RenderInformationBase* renderInformationBase);
+
 /// @brief Returns a LineEnding from the RenderInformationBase based on its identifier.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the @c LineEnding in the ListOfLineEndings within this RenderInformationBase with the given sid or @c NULL if no such LineEnding exists.
 LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Returns a pointer to the LineEnding of this RenderInformationBase object with the given index.
+/// @param index the index value of the LineEnding to return.
+/// @return the @c LineEnding with the given index, or NULL if LineEnding does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, unsigned int index);
 
 /// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of the LineEnding with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

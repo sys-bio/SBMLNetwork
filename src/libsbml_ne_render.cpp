@@ -188,9 +188,23 @@ int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const s
     return -1;
 }
 
+const unsigned int getNumColorDefinitions(RenderInformationBase* renderInformationBase) {
+    if (renderInformationBase)
+        return renderInformationBase->getNumColorDefinitions();
+
+    return 0;
+}
+
 ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, const std::string& sid) {
     if (renderInformationBase)
         return renderInformationBase->getColorDefinition(sid);
+
+    return NULL;
+}
+
+ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, unsigned int index) {
+    if (renderInformationBase)
+        return renderInformationBase->getColorDefinition(index);
 
     return NULL;
 }
@@ -230,9 +244,23 @@ int setValue(ColorDefinition* colorDefinition, const std::string& value) {
     return -1;
 }
 
+const unsigned int getNumGradientDefinitions(RenderInformationBase* renderInformationBase) {
+    if (renderInformationBase)
+        return renderInformationBase->getNumGradientDefinitions();
+
+    return 0;
+}
+
 GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid) {
     if (renderInformationBase)
         return renderInformationBase->getGradientDefinition(sid);
+
+    return NULL;
+}
+
+GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, unsigned int index) {
+    if (renderInformationBase)
+        return renderInformationBase->getGradientDefinition(index);
 
     return NULL;
 }
@@ -723,6 +751,20 @@ int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
     }
 
     return -1;
+}
+
+const unsigned int getNumLineEndings(RenderInformationBase* renderInformationBase) {
+    if (renderInformationBase)
+        return renderInformationBase->getNumLineEndings();
+
+    return 0;
+}
+
+LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, unsigned int index) {
+    if (renderInformationBase)
+        return renderInformationBase->getLineEnding(index);
+
+    return NULL;
 }
 
 LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
