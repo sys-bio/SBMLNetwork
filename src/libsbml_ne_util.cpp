@@ -192,6 +192,10 @@ ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& react
     return NULL;
 }
 
+SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
+    return getSpeciesReferenceGlyph(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesReferenceGlyphIndex);
+}
+
 std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Compartment* compartment = getCompartment(document, graphicalObject);
     if (compartment)
