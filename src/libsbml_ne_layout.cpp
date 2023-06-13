@@ -89,6 +89,29 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
+Dimensions* getDimensions(Layout* layout) {
+    if (layout)
+        return layout->getDimensions();
+
+    return NULL;
+}
+
+double getWidth(Layout* layout) {
+    Dimensions* dimensions = getDimensions(layout);
+    if (dimensions)
+        return dimensions->getWidth();
+
+    return 0.0;
+}
+
+double getHeight(Layout* layout) {
+    Dimensions* dimensions = getDimensions(layout);
+    if (dimensions)
+        return dimensions->getHeight();
+
+    return 0.0;
+}
+
 bool isSetId(GraphicalObject* graphicalObject) {
     if (graphicalObject)
         return graphicalObject->isSetId();

@@ -57,6 +57,21 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout);
 
+/// @brief Returns the Dimensions object of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @return a pointer to the Dimensions object of the Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN Dimensions* getDimensions(Layout* layout);
+
+/// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @return the value of the "width" attribute of the Dimensions object of the Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN double getWidth(Layout* layout);
+
+/// @brief Returns the value of the "height" attribute of the Dimensions object of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @return the value of the "height" attribute of the Dimensions object of the Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN double getHeight(Layout* layout);
+
 /// @brief Predicates returning @c true if the "id" attribute of this GraphicalObject is set.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if the "id" attribute of this GraphicalObject object is set, @c false if either the "id"
