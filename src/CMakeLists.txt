@@ -10,7 +10,7 @@ set(SOURCES
 	libsbml_ne_render_helpers.cpp
 	libsbml_ne_util.cpp
 	libsbml_ne_util_helpers.cpp
-	libsbml_ne_util_helpers.cpp)
+	libsbml_ne_util_layout.cpp)
 
 ## headers
 set(HEADERS 
