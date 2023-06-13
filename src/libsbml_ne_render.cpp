@@ -863,7 +863,10 @@ Style* getStyle(RenderInformationBase* renderInformationBase, const std::string&
 }
 
 Style* getStyleById(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
-    return getStyleById(renderInformationBase, getId(graphicalObject));
+    if (graphicalObject)
+        return getStyleById(renderInformationBase, graphicalObject->getId());
+
+    return NULL;
 }
 
 Style* getStyleById(RenderInformationBase* renderInformationBase, const std::string& id) {
