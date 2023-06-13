@@ -47,40 +47,6 @@ LIBSBML_NETWORKEDITOR_EXTERN double getDimensionHeight(Layout* layout);
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(Layout* layout, const double& height);
 
-/// @brief Predicates returning @c true if the "id" attribute of this GraphicalObject is set.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return @c true if the "id" attribute of this GraphicalObject object is set, @c false if either the "id"
-/// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetId(GraphicalObject* graphicalObject);
-
-/// Returns the value of the "id" attribute of this GraphicalObject.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the "id" attribute of the GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getId(GraphicalObject* graphicalObject);
-
-/// @brief Sets the value of the "id" attribute this GraphicalObject object.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param sid a string value to be set as "id" attribute of the GraphicalObject object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setId(GraphicalObject* graphicalObject, const std::string& sid);
-
-/// @brief Predicates returning @c true if the "name" attribute of this GraphicalObject is set.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return @c true if the "name" attribute of this GraphicalObject object is set, @c false if either the "name"
-/// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetName(GraphicalObject* graphicalObject);
-
-/// Returns the value of the "name" attribute of this GraphicalObject.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the "name" attribute of the GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getName(GraphicalObject* graphicalObject);
-
-/// @brief Sets the value of the "name" attribute this GraphicalObject object.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param name a string value to be set as "name" attribute of the GraphicalObject object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setName(GraphicalObject* graphicalObject, const std::string& name);
-
 /// Returns the value of the "id" attribute of the SBML object associated with the GraphicalObject object with the given id.
 /// @param layout a pointer to the Layout object.
 /// @param graphicalObjectId the id of the GraphicalObject object.

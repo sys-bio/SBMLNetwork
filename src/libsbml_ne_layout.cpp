@@ -61,52 +61,6 @@ int setDimensionHeight(Layout* layout, const double& height) {
     return -1;
 }
 
-bool isSetId(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return graphicalObject->isSetId();
-
-    return false;
-}
-
-const std::string getId(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return graphicalObject->getId();
-
-    return "";
-}
-
-int setId(GraphicalObject* graphicalObject, const std::string& sid) {
-    if (graphicalObject) {
-        graphicalObject->setId(sid);
-        return 0;
-    }
-
-    return -1;
-}
-
-bool isSetName(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return graphicalObject->isSetName();
-
-    return false;
-}
-
-const std::string getName(GraphicalObject* graphicalObject) {
-    if (graphicalObject)
-        return graphicalObject->getName();
-
-    return "";
-}
-
-int setName(GraphicalObject* graphicalObject, const std::string& name) {
-    if (graphicalObject) {
-        graphicalObject->setName(name);
-        return 0;
-    }
-
-    return -1;
-}
-
 const std::string getSBMLObjectId(Layout* layout, const std::string& graphicalObjectId) {
     return getSBMLObjectId(layout, getGraphicalObject(layout, graphicalObjectId));
 }
