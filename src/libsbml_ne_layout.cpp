@@ -96,7 +96,7 @@ Dimensions* getDimensions(Layout* layout) {
     return NULL;
 }
 
-double getWidth(Layout* layout) {
+double getDimensionWidth(Layout* layout) {
     Dimensions* dimensions = getDimensions(layout);
     if (dimensions)
         return dimensions->getWidth();
@@ -104,12 +104,32 @@ double getWidth(Layout* layout) {
     return 0.0;
 }
 
-double getHeight(Layout* layout) {
+int setDimensionWidth(Layout* layout, const double& width) {
+    Dimensions* dimensions = getDimensions(layout);
+    if (dimensions) {
+        dimensions->setWidth(width);
+        return 0;
+    }
+
+    return -1;
+}
+
+double getDimensionHeight(Layout* layout) {
     Dimensions* dimensions = getDimensions(layout);
     if (dimensions)
         return dimensions->getHeight();
 
     return 0.0;
+}
+
+int setDimensionHeight(Layout* layout, const double& height) {
+    Dimensions* dimensions = getDimensions(layout);
+    if (dimensions) {
+        dimensions->setHeight(height);
+        return 0;
+    }
+
+    return -1;
 }
 
 bool isSetId(GraphicalObject* graphicalObject) {

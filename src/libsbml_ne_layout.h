@@ -65,12 +65,24 @@ LIBSBML_NETWORKEDITOR_EXTERN Dimensions* getDimensions(Layout* layout);
 /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object.
 /// @param layout a pointer to the Layout object.
 /// @return the value of the "width" attribute of the Dimensions object of the Layout object.
-LIBSBML_NETWORKEDITOR_EXTERN double getWidth(Layout* layout);
+LIBSBML_NETWORKEDITOR_EXTERN double getDimensionWidth(Layout* layout);
+
+/// @brief Sets the value of the "width" attribute of the Dimensions object of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param width a double value to use as the value of the "width" attribute of the Dimensions object of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(Layout* layout, const double& width);
 
 /// @brief Returns the value of the "height" attribute of the Dimensions object of the Layout object.
 /// @param layout a pointer to the Layout object.
 /// @return the value of the "height" attribute of the Dimensions object of the Layout object.
-LIBSBML_NETWORKEDITOR_EXTERN double getHeight(Layout* layout);
+LIBSBML_NETWORKEDITOR_EXTERN double getDimensionHeight(Layout* layout);
+
+/// @brief Sets the value of the "height" attribute of the Dimensions object of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param height a double value to use as the value of the "height" attribute of the Dimensions object of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(Layout* layout, const double& height);
 
 /// @brief Predicates returning @c true if the "id" attribute of this GraphicalObject is set.
 /// @param graphicalObject a pointer to the GraphicalObject object.
