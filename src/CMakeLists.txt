@@ -9,6 +9,7 @@ set(SOURCES
 	libsbml_ne_render.cpp
 	libsbml_ne_render_helpers.cpp
 	libsbml_ne_util.cpp
+	libsbml_ne_util_helpers.cpp
 	libsbml_ne_util_helpers.cpp)
 
 ## headers
@@ -20,7 +21,8 @@ set(HEADERS
 	libsbml_ne_render.h
 	libsbml_ne_render_helpers.h
 	libsbml_ne_util.h
-	libsbml_ne_util_helpers.h)
+	libsbml_ne_util_helpers.h
+	libsbml_ne_util_layout.h)
 
 ### shared library
 add_library(libsbmlnetworkeditor SHARED ${SOURCES})
