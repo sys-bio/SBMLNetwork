@@ -77,6 +77,15 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
+int createDefaultLayout(SBMLDocument* document) {
+    if (!getNumLayouts(document)) {
+        Layout* layout = createLayout(document);
+        return setDefaultLayoutFeatures(document, layout);
+    }
+
+    return -1;
+}
+
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     return getCompartmentGlyphs(document, compartmentId).size();
 }
