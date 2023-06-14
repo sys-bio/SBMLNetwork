@@ -28,25 +28,6 @@ LIBSBML_NETWORKEDITOR_EXTERN bool writeSBML(SBMLDocument* document, const std::s
 /// @return the string on success and empty string if one of the underlying parser components fail.
 LIBSBML_NETWORKEDITOR_EXTERN const std::string writeSBML(SBMLDocument* document);
 
-/// @brief Create a GlobalRenderInformation object and add it to list of global renders of the SBML document, and
-/// Create a LocalRenderInformation object, add it to list of local renders of the Layout of the SBML document, and
-/// set all the necessary features for them.
-/// @param document a pointer to the SBMLDocument object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultRenderInformation(SBMLDocument* document);
-
-/// @brief Create a GlobalRenderInformation object, add it to list of global renders of the SBML document, and
-/// set all the necessary features for it.
-/// @param document a pointer to the SBMLDocument object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultGlobalRenderInformation(SBMLDocument* document);
-
-/// @brief Create a LocalRenderInformation object, add it to list of local renders of the Layout of the SBML document, and
-/// set all the necessary features for it.
-/// @param document a pointer to the SBMLDocument object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLocalRenderInformation(SBMLDocument* document);
-
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.
 /// @return @c true if the "id" attribute of this SBML object is set, @c false if either the "id"

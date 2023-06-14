@@ -26,41 +26,6 @@ const std::string writeSBML(SBMLDocument* document) {
     return writeSBMLToString(document);
 }
 
-int createDefaultLayout(SBMLDocument* document) {
-    if (!getNumLayouts(document)) {
-        Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout);
-    }
-
-    return -1;
-}
-
-int createDefaultRenderInformation(SBMLDocument* document) {
-    if (!createDefaultLocalRenderInformation(document) && !createDefaultGlobalRenderInformation(document))
-        return 0;
-
-    return -1;
-}
-
-int createDefaultGlobalRenderInformation(SBMLDocument* document) {
-    if (!getNumGlobalRenderInformation(document)) {
-        GlobalRenderInformation* globalRenderInformation = createGlobalRenderInformation(document);
-        return setDefaultGlobalRenderInformationFeatures(document, globalRenderInformation);
-    }
-
-    return -1;
-}
-
-int createDefaultLocalRenderInformation(SBMLDocument* document) {
-    Layout* layout = getLayout(document);
-    if (!getNumLocalRenderInformation(layout)) {
-        LocalRenderInformation* localRenderInformation = createLocalRenderInformation(layout);
-        return setDefaultLocalRenderInformationFeatures(document,layout, localRenderInformation);
-    }
-
-    return -1;
-}
-
 bool isSetId(SBase* object) {
     if (object)
         return object->isSetId();
