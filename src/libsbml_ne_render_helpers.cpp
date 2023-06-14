@@ -1,6 +1,6 @@
 #include "libsbml_ne_render_helpers.h"
-#include "libsbml_ne_layout_helpers.h"
 #include "libsbml_ne_layout.h"
+#include "libsbml_ne_layout_helpers.h"
 
 #include <cmath>
 
