@@ -136,18 +136,48 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs
 /// @return a pointer the nth CompartmentGlyph object associated with the entered compartment id.
 LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int n = 0);
 
-/// @brief Returns the number of SpeciesGlyph objects associated with the entered species id.
+/// @brief Returns the number of SpeciesGlyphs of all Layout objects in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the number of SpeciesGlyphs of all Layout objects, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesGlyphs(SBMLDocument* document);
+
+/// @brief Returns the number of SpeciesGlyphs of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @return the number of SpeciesGlyphs of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int n);
+
+/// @brief Returns the number of SpeciesGlyphs of all Layout objects in the ListOfLayouts of the SBML document
+/// associated with the entered species id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param speciesId the id of the species the number of SpeciesGlyph objects associated with it is going to be returned.
 /// @return the number of SpeciesGlyph objects associated with the entered species id,
 /// or @c 0 if the object is @c NULL or has no associated SpeciesGlyph objects
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId);
 
-/// @brief Returns a vector of SpeciesGlyph objects associated with the entered species id.
+/// @brief Returns the number of SpeciesGlyphs of the nth Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered species id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param speciesId the id of the species the number of SpeciesGlyph objects associated with it is going to be returned.
+/// @return the number of SpeciesGlyph objects associated with the entered species id,
+/// or @c 0 if the object is @c NULL or has no associated SpeciesGlyph objects
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int n, const std::string& speciesId);
+
+/// @brief Returns a vector of SpeciesGlyph objects of all Layout objects in the ListOfLayouts of the SBML document
+/// associated with the entered species id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param speciesId the id of the species the SpeciesGlyph objects of which are going to be returned.
 /// @return a vector of SpeciesGlyph objects associated with the entered species id.
 LIBSBML_NETWORKEDITOR_EXTERN std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId);
+
+/// @brief Returns a vector of SpeciesGlyph objects of the nth Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered species id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param speciesId the id of the species the SpeciesGlyph objects of which are going to be returned.
+/// @return a vector of SpeciesGlyph objects associated with the entered species id.
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, unsigned int n, const std::string& speciesId);
 
 /// @brief Returns the nth SpeciesGlyph object associated with the entered species id.
 /// @param document a pointer to the SBMLDocument object.

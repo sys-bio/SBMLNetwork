@@ -125,7 +125,6 @@ const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::st
     return numCompartmentGlyphs;
 }
 
-
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int n, const std::string& compartmentId) {
     return getCompartmentGlyphs(document, n, compartmentId).size();
 }
@@ -158,13 +157,44 @@ CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string&
     return NULL;
 }
 
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document) {
+    unsigned int numSpeciesGlyphs = 0;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++)
+        numSpeciesGlyphs += getNumSpeciesGlyphs(getLayout(document, i));
+
+    return numSpeciesGlyphs;
+}
+
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int n) {
+    return getNumSpeciesGlyphs(getLayout(document, n));
+}
+
 const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
-    return getSpeciesGlyphs(document, speciesId).size();
+    unsigned int numSpeciesGlyphs = 0;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++)
+        numSpeciesGlyphs += getSpeciesGlyphs(document, i, speciesId).size();
+
+    return numSpeciesGlyphs;
+}
+
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int n, const std::string& speciesId) {
+    return getSpeciesGlyphs(document, n, speciesId).size();
 }
 
 std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
     std::vector<SpeciesGlyph*> speciesGlyphs;
-    Layout* layout = getLayout(document);
+    std::vector<SpeciesGlyph*> thisLayoutSpeciesGlyphs;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++) {
+        thisLayoutSpeciesGlyphs = getSpeciesGlyphs(document, i, speciesId);
+        speciesGlyphs.insert(std::end(speciesGlyphs), std::begin(thisLayoutSpeciesGlyphs), std::end(thisLayoutSpeciesGlyphs));
+    }
+
+    return speciesGlyphs;
+}
+
+std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, unsigned int n, const std::string& speciesId) {
+    std::vector<SpeciesGlyph*> speciesGlyphs;
+    Layout* layout = getLayout(document, n);
     if (layout)
         speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
 
