@@ -6,71 +6,71 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-    ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* document) {
-        if (document) {
-            SBasePlugin* renderBase = getRenderPlugin(document);
-            if (renderBase) {
-                RenderListOfLayoutsPlugin* renderListOfLayoutsPlugin = getRenderListOfLayoutsPlugin(renderBase);
-                if (renderListOfLayoutsPlugin)
-                    return renderListOfLayoutsPlugin->getListOfGlobalRenderInformation();
-            }
+ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* document) {
+    if (document) {
+        SBasePlugin* renderBase = getRenderPlugin(document);
+        if (renderBase) {
+            RenderListOfLayoutsPlugin* renderListOfLayoutsPlugin = getRenderListOfLayoutsPlugin(renderBase);
+            if (renderListOfLayoutsPlugin)
+                return renderListOfLayoutsPlugin->getListOfGlobalRenderInformation();
         }
-
-        return NULL;
     }
 
-    const unsigned int getNumGlobalRenderInformation(SBMLDocument* document) {
-        return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(document));
-    }
+    return NULL;
+}
 
-    GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n) {
-        return getGlobalRenderInformation(getListOfGlobalRenderInformation(document), n);
-    }
+const unsigned int getNumGlobalRenderInformation(SBMLDocument* document) {
+    return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(document));
+}
 
-    int addGlobalRenderInformation(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
-        if (globalRenderInformation) {
-            ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
-            if (listOfGlobalRenderInformation) {
-                listOfGlobalRenderInformation->addGlobalRenderInformation(globalRenderInformation);
-                return 0;
-            }
-        }
+GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n) {
+    return getGlobalRenderInformation(getListOfGlobalRenderInformation(document), n);
+}
 
-        return -1;
-    }
-
-    GlobalRenderInformation* createGlobalRenderInformation(SBMLDocument* document) {
-        ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
-        if (listOfGlobalRenderInformation)
-            return listOfGlobalRenderInformation->createGlobalRenderInformation();
-
-        return NULL;
-    }
-
-    int removeAllGlobalRenderInformation(SBMLDocument* document) {
+int addGlobalRenderInformation(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
+    if (globalRenderInformation) {
         ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
         if (listOfGlobalRenderInformation) {
-            while(listOfGlobalRenderInformation->size())
-                listOfGlobalRenderInformation->remove(0);
+            listOfGlobalRenderInformation->addGlobalRenderInformation(globalRenderInformation);
             return 0;
         }
-
-        return -1;
     }
 
-    int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
-        if (document && globalRenderInformation) {
-            LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
-            RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
-            globalRenderInformation->setId("libSBML_NetworkEditor_Global_Render");
-            globalRenderInformation->setBackgroundColor("lightgray");
-            addDefaultColors(globalRenderInformation, renderPkgNamespaces);
-            addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-            return 0;
-        }
+    return -1;
+}
 
-        return -1;
+GlobalRenderInformation* createGlobalRenderInformation(SBMLDocument* document) {
+    ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
+    if (listOfGlobalRenderInformation)
+        return listOfGlobalRenderInformation->createGlobalRenderInformation();
+
+    return NULL;
+}
+
+int removeAllGlobalRenderInformation(SBMLDocument* document) {
+    ListOfGlobalRenderInformation* listOfGlobalRenderInformation = getListOfGlobalRenderInformation(document);
+    if (listOfGlobalRenderInformation) {
+        while(listOfGlobalRenderInformation->size())
+            listOfGlobalRenderInformation->remove(0);
+        return 0;
     }
+
+    return -1;
+}
+
+int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
+    if (document && globalRenderInformation) {
+        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
+        globalRenderInformation->setId("libSBML_NetworkEditor_Global_Render");
+        globalRenderInformation->setBackgroundColor("lightgray");
+        addDefaultColors(globalRenderInformation, renderPkgNamespaces);
+        addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+        return 0;
+    }
+
+    return -1;
+}
 
 int createDefaultRenderInformation(SBMLDocument* document) {
     if (!createDefaultLocalRenderInformation(document) && !createDefaultGlobalRenderInformation(document))
