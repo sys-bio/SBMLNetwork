@@ -85,6 +85,26 @@ int createDefaultLayout(SBMLDocument* document) {
     return -1;
 }
 
+Dimensions* getDimensions(SBMLDocument* document, unsigned int n) {
+    return getDimensions(getLayout(document, n));
+}
+
+double getDimensionWidth(SBMLDocument* document, unsigned int n) {
+    return getDimensionWidth(getLayout(document, n));
+}
+
+int setDimensionWidth(SBMLDocument* document, unsigned int n, const double& width) {
+    return setDimensionWidth(getLayout(document, n), width);
+}
+
+double getDimensionHeight(SBMLDocument* document, unsigned int n) {
+    return getDimensionHeight(getLayout(document, n));
+}
+
+int setDimensionHeight(SBMLDocument* document, unsigned int n, const double& height) {
+    return setDimensionHeight(getLayout(document, n), height);
+}
+
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     return getCompartmentGlyphs(document, compartmentId).size();
 }

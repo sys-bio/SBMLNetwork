@@ -21,6 +21,7 @@ LIBSBML_NETWORKEDITOR_EXTERN ListOfLayouts* getListOfLayouts(SBMLDocument* docum
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLayouts(SBMLDocument* document);
 
 /// @brief Returns a pointer to the nth Layout in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
 /// @param n the index number of the Layout to return.
 /// @return the @c the nth Layout in the ListOfLayouts of the SBML document or NULL if no such Layout exists or the document is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN Layout* getLayout(SBMLDocument* document, unsigned int n = 0);
@@ -52,6 +53,38 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document
 /// @param document a pointer to the SBMLDocument object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayout(SBMLDocument* document);
+
+/// @brief Returns the Dimensions object of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @return a pointer to the Dimensions object of the Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN Dimensions* getDimensions(SBMLDocument* document, unsigned int n = 0);
+
+/// @brief Returns the value of the "width" attribute of the Dimensions object of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @return the value of the "width" attribute of the Dimensions object of the Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN double getDimensionWidth(SBMLDocument* document, unsigned int n = 0);
+
+/// @brief Sets the value of the "width" attribute of the Dimensions object of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param width a double value to use as the value of the "width" attribute of the Dimensions object of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int n, const double& width);
+
+/// @brief Returns the value of the "height" attribute of the Dimensions object of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @return the value of the "height" attribute of the Dimensions object of the Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN double getDimensionHeight(SBMLDocument* document, unsigned int n = 0);
+
+/// @brief Sets the value of the "height" attribute of the Dimensions object of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param height a double value to use as the value of the "height" attribute of the Dimensions object of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int n, const double& height);
 
 /// @brief Returns the number of CompartmentGlyph objects associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.
