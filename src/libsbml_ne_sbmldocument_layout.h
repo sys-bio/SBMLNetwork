@@ -91,24 +91,43 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, unsi
 /// @return the number of CompartmentGlyphs of all Layout objects, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(SBMLDocument* document);
 
-/// @brief Returns the number of CompartmentGlyphs of the the nth Layout object in the ListOfLayouts of the SBML document.
+/// @brief Returns the number of CompartmentGlyphs of the nth Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param n the index number of the Layout to return.
 /// @return the number of CompartmentGlyphs of this Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int n);
 
-/// @brief Returns the number of CompartmentGlyph objects associated with the entered compartment id.
+/// @brief Returns the number of CompartmentGlyphs of all Layout objects in the ListOfLayouts of the SBML document
+/// associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param compartmentId the id of the compartment the number of CompartmentGlyph objects associated with it is going to be returned.
 /// @return the number of CompartmentGlyph objects associated with the entered compartment id,
 /// or @c 0 if the object is @c NULL or has no associated CompartmentGlyph objects
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId);
 
-/// @brief Returns a vector of CompartmentGlyph objects associated with the entered compartment id.
+/// @brief Returns the number of CompartmentGlyphs of the nth Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered compartment id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param compartmentId the id of the compartment the number of CompartmentGlyph objects associated with it is going to be returned.
+/// @return the number of CompartmentGlyph objects associated with the entered compartment id,
+/// or @c 0 if the object is @c NULL or has no associated CompartmentGlyph objects
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int n, const std::string& compartmentId);
+
+/// @brief Returns a vector of CompartmentGlyph objects of all Layout objects in the ListOfLayouts of the SBML document
+/// associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param compartmentId the id of the compartment the CompartmentGlyph objects of which are going to be returned.
 /// @return a vector of CompartmentGlyph objects associated with the entered compartment id.
 LIBSBML_NETWORKEDITOR_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId);
+
+/// @brief Returns a vector of CompartmentGlyph objects of the nth Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered compartment id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param compartmentId the id of the compartment the CompartmentGlyph objects of which are going to be returned.
+/// @return a vector of CompartmentGlyph objects associated with the entered compartment id.
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, unsigned int n, const std::string& compartmentId);
 
 /// @brief Returns the nth CompartmentGlyph object associated with the entered compartment id.
 /// @param document a pointer to the SBMLDocument object.

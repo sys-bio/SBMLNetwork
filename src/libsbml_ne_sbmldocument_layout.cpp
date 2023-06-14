@@ -118,12 +118,32 @@ const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int 
 }
 
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
-    return getCompartmentGlyphs(document, compartmentId).size();
+    unsigned int numCompartmentGlyphs = 0;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++)
+        numCompartmentGlyphs += getCompartmentGlyphs(document, i, compartmentId).size();
+
+    return numCompartmentGlyphs;
+}
+
+
+const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int n, const std::string& compartmentId) {
+    return getCompartmentGlyphs(document, n, compartmentId).size();
 }
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     std::vector<CompartmentGlyph*> compartmentGlyphs;
-    Layout* layout = getLayout(document);
+    std::vector<CompartmentGlyph*> thisLayoutCompartmentGlyphs;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++) {
+        thisLayoutCompartmentGlyphs = getCompartmentGlyphs(document, i, compartmentId);
+        compartmentGlyphs.insert(std::end(compartmentGlyphs), std::begin(thisLayoutCompartmentGlyphs), std::end(thisLayoutCompartmentGlyphs));
+    }
+
+    return compartmentGlyphs;
+}
+
+std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, unsigned int n, const std::string& compartmentId) {
+    std::vector<CompartmentGlyph*> compartmentGlyphs;
+    Layout* layout = getLayout(document, n);
     if (layout)
         compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartmentId);
 
