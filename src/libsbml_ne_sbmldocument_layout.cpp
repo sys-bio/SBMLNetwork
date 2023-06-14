@@ -209,13 +209,44 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& species
     return NULL;
 }
 
+const unsigned int getNumReactionGlyphs(SBMLDocument* document) {
+    unsigned int numReactionGlyphs = 0;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++)
+        numReactionGlyphs += getNumReactionGlyphs(getLayout(document, i));
+
+    return numReactionGlyphs;
+}
+
+const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int n) {
+    return getNumReactionGlyphs(getLayout(document, n));
+}
+
 const unsigned int getNumReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
-    return getReactionGlyphs(document, reactionId).size();
+    unsigned int numReactionGlyphs = 0;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++)
+        numReactionGlyphs += getReactionGlyphs(document, i, reactionId).size();
+
+    return numReactionGlyphs;
+}
+
+const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int n, const std::string& reactionId) {
+    return getReactionGlyphs(document, n, reactionId).size();
 }
 
 std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
     std::vector<ReactionGlyph*> reactionGlyphs;
-    Layout* layout = getLayout(document);
+    std::vector<ReactionGlyph*> thisLayoutReactionGlyphs;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++) {
+        thisLayoutReactionGlyphs = getReactionGlyphs(document, i, reactionId);
+        reactionGlyphs.insert(std::end(reactionGlyphs), std::begin(thisLayoutReactionGlyphs), std::end(thisLayoutReactionGlyphs));
+    }
+
+    return reactionGlyphs;
+}
+
+std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, unsigned int n, const std::string& reactionId) {
+    std::vector<ReactionGlyph*> reactionGlyphs;
+    Layout* layout = getLayout(document, n);
     if (layout)
         reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, reactionId);
 

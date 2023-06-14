@@ -186,22 +186,52 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDoc
 /// @return a pointer the nth SpeciesGlyph object associated with the entered species id.
 LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int n = 0);
 
-/// @brief Returns the number of ReactionGlyph objects associated with the entered reaction id.
+/// @brief Returns the number of ReactionGlyphs of all Layout objects in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of ReactionGlyph objects associated with it is going to be returned.
-/// @return the number of ReactionGlyph objects associated with the entered reaction id,
-/// or @c 0 if the object is @c NULL or has no associated ReactionGlyph objects
+/// @return the number of ReactionGlyphs of all Layout objects, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactionGlyphs(SBMLDocument* document);
+
+/// @brief Returns the number of ReactionGlyphs of the nth Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @return the number of ReactionGlyphs of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int n);
+
+/// @brief Returns the number of ReactionGlyphs of all Layout objects in the ListOfLayouts of the SBML document
+/// associated with the entered reaction id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the reaction the number of ReactionGlyphs objects associated with it is going to be returned.
+/// @return the number of ReactionGlyphs objects associated with the entered reaction id,
+/// or @c 0 if the object is @c NULL or has no associated ReactionGlyphs objects
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactionGlyphs(SBMLDocument* document, const std::string& reactionId);
 
-/// @brief Returns a vector ReactionGlyph objects associated with the entered reaction id.
+/// @brief Returns the number of ReactionGlyphs of the nth Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered reaction id.
 /// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
+/// @param reactionId the id of the reaction the number of ReactionGlyphs objects associated with it is going to be returned.
+/// @return the number of ReactionGlyphs objects associated with the entered reaction id,
+/// or @c 0 if the object is @c NULL or has no associated ReactionGlyphs objects
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int n, const std::string& reactionId);
+
+/// @brief Returns a vector of ReactionGlyphs objects of all Layout objects in the ListOfLayouts of the SBML document
+/// associated with the entered reaction id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the reaction the ReactionGlyphs objects of which are going to be returned.
+/// @return a vector of ReactionGlyphs objects associated with the entered reaction id.
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std::string& reactionId);
+
+/// @brief Returns a vector of ReactionGlyph objects of the nth Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered reaction id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param n the index number of the Layout to return.
 /// @param reactionId the id of the reaction the ReactionGlyph objects of which are going to be returned.
 /// @return a vector of ReactionGlyph objects associated with the entered reaction id.
-LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std::string& reactionId);
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, unsigned int n, const std::string& reactionId);
 
 /// @brief Returns the nth ReactionGlyph object associated with the entered reaction id.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the ReactionGlyph object associated with it is going to be returned.
+/// @param reactionId the id of the reaction the ReactionGlyphs object associated with it is going to be returned.
 /// @param n the index number of the ReactionGlyph object to return.
 /// @return a pointer the nth ReactionGlyph object associated with the entered reaction id.
 LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int n = 0);
