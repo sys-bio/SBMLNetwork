@@ -1,4 +1,4 @@
-#include "libsbml_ne_util_core.h"
+#include "libsbml_ne_sbmldocument.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 

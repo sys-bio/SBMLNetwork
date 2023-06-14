@@ -1,4 +1,4 @@
-#include "libsbml_ne_util_layout.h"
+#include "libsbml_ne_sbmldocument_layout.h"
 #include "libsbml_ne_layout.h"
 #include "libsbml_ne_layout_helpers.h"
 #include "libsbml_ne_autolayout.h"

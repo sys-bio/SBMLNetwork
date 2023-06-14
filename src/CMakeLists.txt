@@ -3,28 +3,28 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 ## sources
 set(SOURCES 
 	libsbml_ne_common.cpp
-	libsbml_ne_layout.cpp
+		libsbml_ne_layout.cpp
 	libsbml_ne_autolayout.cpp
 	libsbml_ne_layout_helpers.cpp
-	libsbml_ne_render.cpp
+		libsbml_ne_render.cpp
 	libsbml_ne_render_helpers.cpp
-	libsbml_ne_util_core.cpp
-	libsbml_ne_util_layout.cpp
-	libsbml_ne_util_layout_render.cpp
-	libsbml_ne_util_render.cpp)
+		libsbml_ne_sbmldocument.cpp
+		libsbml_ne_sbmldocument_layout.cpp
+		libsbml_ne_layout_render.cpp
+		libsbml_ne_sbmldocument_render.cpp)
 
 ## headers
 set(HEADERS 
 	libsbml_ne_common.h
-	libsbml_ne_layout.h
+		libsbml_ne_layout.h
 	libsbml_ne_autolayout.h
 	libsbml_ne_layout_helpers.h
-	libsbml_ne_render.h
+		libsbml_ne_render.h
 	libsbml_ne_render_helpers.h
-	libsbml_ne_util_core.h
-	libsbml_ne_util_layout.h
-	libsbml_ne_util_layout_render.h
-	libsbml_ne_util_render.h)
+		libsbml_ne_sbmldocument.h
+		libsbml_ne_sbmldocument_layout.h
+		libsbml_ne_layout_render.h
+		libsbml_ne_sbmldocument_render.h)
 
 ### shared library
 add_library(libsbmlnetworkeditor SHARED ${SOURCES})

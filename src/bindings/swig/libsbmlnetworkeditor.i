@@ -1,12 +1,12 @@
 %module libsbmlnetworkeditor
 %{
 #include <libsbml_ne_common.h>
+#include <libsbml_ne_sbmldocument.h>
+#include <libsbml_ne_sbmldocument_layout.h>
 #include <libsbml_ne_layout.h>
+#include <libsbml_ne_sbmldocument_render.h>
+#include <libsbml_ne_layout_render.h>
 #include <libsbml_ne_render.h>
-#include <libsbml_ne_util_core.h>
-#include <libsbml_ne_util_layout.h>
-#include <libsbml_ne_util_layout_render.h>
-#include <libsbml_ne_util_render.h>
 %}
 
 %include "std_string.i"
@@ -19,11 +19,10 @@ namespace std {
 }
 
 
-
 %include "libsbml_ne_common.h"
+%include "libsbml_ne_sbmldocument.h"
+%include "libsbml_ne_sbmldocument_layout.h"
 %include "libsbml_ne_layout.h"
+%include "libsbml_ne_sbmldocument_render.h"
+%include "libsbml_ne_layout_render.h"
 %include "libsbml_ne_render.h"
-%include "libsbml_ne_util_core.h"
-%include "libsbml_ne_util_layout.h"
-%include "libsbml_ne_util_layout_render.h"
-%include "libsbml_ne_util_render.h"
