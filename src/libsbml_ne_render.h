@@ -1647,6 +1647,80 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(Style* style, const std::string& f
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillColor);
 
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill-rule"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill-rule"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of this Style object is set.
+/// @param style a pointer to the Style object.
+/// @return @c true if the "fill-rule" attribute of the RenderGroup of this Style object is set, @c false if either the "fill-rule"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(Style* style);
+
+/// @brief Predicates returning @c true if the "fill-rule" attribute of this GraphicalPrimitive2D is set.
+/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
+/// @return @c true if the "fill-rule" attribute of this GraphicalPrimitive2D object is set, @c false if either the "fill-rule"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(GraphicalPrimitive2D* graphicalPrimitive2D);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @return the "fill-rule" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(Style* style);
+
+/// @brief Returns the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
+/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
+/// @return the "fill-rule" attribute of the GraphicalPrimitive2D object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(GraphicalPrimitive2D* graphicalPrimitive2D);
+
+/// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillColor);
+
+/// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillColor);
+
+/// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(Style* style, const std::string& fillRule);
+
+/// @brief Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D object.
+/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
+/// @param fillRule a string value to use as the value of the "fill-rule" attribute of this GraphicalPrimitive2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillRule);
+
 /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

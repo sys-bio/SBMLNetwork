@@ -1567,6 +1567,65 @@ int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& 
     return -1;
 }
 
+bool isSetFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return isSetFillRule(getStyle(renderInformationBase, graphicalObject));
+}
+
+bool isSetFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return isSetFillRule(getStyle(renderInformationBase, attribute));
+}
+
+bool isSetFillRule(Style* style) {
+    return isSetFillRule(getRenderGroup(style));
+}
+
+bool isSetFillRule(GraphicalPrimitive2D* graphicalPrimitive2D) {
+    if (graphicalPrimitive2D)
+        return graphicalPrimitive2D->isSetFillRule();
+
+    return false;
+}
+
+const std::string getFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getFillRule(getStyle(renderInformationBase, graphicalObject));
+}
+
+const std::string getFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute) {
+    return getFillRule(getStyle(renderInformationBase, attribute));
+}
+
+const std::string getFillRule(Style* style) {
+    return getFillRule(getRenderGroup(style));
+}
+
+const std::string getFillRule(GraphicalPrimitive2D* graphicalPrimitive2D) {
+    if (graphicalPrimitive2D)
+        return graphicalPrimitive2D->getFillRuleAsString();
+
+    return "";
+}
+
+int setFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillRule) {
+    return setFillRule(getStyle(renderInformationBase, graphicalObject), fillRule);
+}
+
+int setFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillRule) {
+    return setFillRule(getStyle(renderInformationBase, attribute), fillRule);
+}
+
+int setFillRule(Style* style, const std::string& fillRule) {
+    return setFillRule(getRenderGroup(style), fillRule);
+}
+
+int setFillRule(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillRule) {
+    if (graphicalPrimitive2D) {
+        graphicalPrimitive2D->setFillRule(fillRule);
+        return 0;
+    }
+
+    return -1;
+}
+
 bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetStartHead(getStyle(renderInformationBase, graphicalObject));
 }
