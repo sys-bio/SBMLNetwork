@@ -105,6 +105,18 @@ int setDimensionHeight(SBMLDocument* document, unsigned int n, const double& hei
     return setDimensionHeight(getLayout(document, n), height);
 }
 
+const unsigned int getNumCompartmentGlyphs(SBMLDocument* document) {
+    unsigned int numCompartmentGlyphs = 0;
+    for (unsigned int i = 0; i < getNumLayouts(document); i++)
+        numCompartmentGlyphs += getNumCompartmentGlyphs(getLayout(document, i));
+
+    return numCompartmentGlyphs;
+}
+
+const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int n) {
+    return getNumCompartmentGlyphs(getLayout(document, n));
+}
+
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
     return getCompartmentGlyphs(document, compartmentId).size();
 }
