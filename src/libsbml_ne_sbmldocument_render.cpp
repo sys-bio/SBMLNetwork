@@ -23,8 +23,8 @@ const unsigned int getNumGlobalRenderInformation(SBMLDocument* document) {
     return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(document));
 }
 
-GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n) {
-    return getGlobalRenderInformation(getListOfGlobalRenderInformation(document), n);
+GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int renderIndex) {
+    return getGlobalRenderInformation(getListOfGlobalRenderInformation(document), renderIndex);
 }
 
 int addGlobalRenderInformation(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {

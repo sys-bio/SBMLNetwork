@@ -21,11 +21,11 @@ LIBSBML_NETWORKEDITOR_EXTERN ListOfGlobalRenderInformation* getListOfGlobalRende
 /// @return the number of items in the ListOfGlobalRenderInformation of the SBML document, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGlobalRenderInformation(SBMLDocument* document);
 
-/// @brief Returns a pointer to the nth GlobalRenderInformation in the ListOfGlobalRenderInformation of the SBML document.
-/// @param n the index number of the GlobalRenderInformation to return.
+/// @brief Returns a pointer to the GlobalRenderInformation with the given index in the ListOfGlobalRenderInformation of the SBML document.
+/// @param renderIndex the index number of the GlobalRenderInformation to return.
 /// @return the @c the nth GlobalRenderInformation in the ListOfGlobalRenderInformation of the SBML document or NULL if
 /// no such GlobalRenderInformation exists or the document is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int n = 0);
+LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int renderIndex = 0);
 
 /// @brief Add GlobalRenderInformation to list of global renders of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
