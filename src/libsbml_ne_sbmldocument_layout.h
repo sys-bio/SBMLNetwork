@@ -66,6 +66,12 @@ LIBSBML_NETWORKEDITOR_EXTERN Dimensions* getDimensions(SBMLDocument* document, u
 /// @return the value of the "width" attribute of the Dimensions object of the Layout object.
 LIBSBML_NETWORKEDITOR_EXTERN double getDimensionWidth(SBMLDocument* document, unsigned int layoutIndex = 0);
 
+/// @brief Sets the value of the "width" attribute of the Dimensions object of all Layout objects in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param width a double value to use as the value of the "width" attribute of the Dimensions object of all Layout objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(SBMLDocument* document, const double& width);
+
 /// @brief Sets the value of the "width" attribute of the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
@@ -78,6 +84,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(SBMLDocument* document, unsig
 /// @param layoutIndex the index number of the Layout to return.
 /// @return the value of the "height" attribute of the Dimensions object of the Layout object.
 LIBSBML_NETWORKEDITOR_EXTERN double getDimensionHeight(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Sets the value of the "height" attribute of the Dimensions object of all Layout objects in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param height a double value to use as the value of the "height" attribute of the Dimensions object of all Layout objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, const double& height);
 
 /// @brief Sets the value of the "height" attribute of the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.

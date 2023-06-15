@@ -97,8 +97,28 @@ int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const do
     return setDimensionWidth(getLayout(document, layoutIndex), width);
 }
 
+int setDimensionWidth(SBMLDocument* document, const double& width) {
+
+    for (unsigned int i = 0; i < getNumLayouts(document); i++) {
+        if (setDimensionWidth(document, i, width))
+            return -1;
+    }
+
+    return 0;
+}
+
 double getDimensionHeight(SBMLDocument* document, unsigned int layoutIndex) {
     return getDimensionHeight(getLayout(document, layoutIndex));
+}
+
+int setDimensionHeight(SBMLDocument* document, const double& height) {
+
+    for (unsigned int i = 0; i < getNumLayouts(document); i++) {
+        if (setDimensionHeight(document, i, height))
+            return -1;
+    }
+
+    return 0;
 }
 
 int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
