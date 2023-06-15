@@ -318,7 +318,7 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<SpeciesReferenceGlyph*> getSpeciesRefer
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
 /// @param speciesReferenceGlyphIndex the index number of the SpeciesReferenceGlyph object to return.
 /// @return a pointer to the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id.
-    LIBSBML_NETWORKEDITOR_EXTERN SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceGlyphIndex = 0);
 
 /// @brief Returns the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the layoutIndex Layout object with the given index in the ListOfLayouts of the SBML document
