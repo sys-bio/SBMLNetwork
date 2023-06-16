@@ -21,8 +21,8 @@ const unsigned int getNumLocalRenderInformation(Layout* layout) {
     return getNumLocalRenderInformation(getListOfLocalRenderInformation(layout));
 }
 
-LocalRenderInformation* getLocalRenderInformation(Layout* layout, unsigned int n) {
-    return getLocalRenderInformation(getListOfLocalRenderInformation(layout), n);
+LocalRenderInformation* getLocalRenderInformation(Layout* layout, unsigned int renderIndex) {
+    return getLocalRenderInformation(getListOfLocalRenderInformation(layout), renderIndex);
 }
 
 int addLocalRenderInformation(Layout* layout, LocalRenderInformation* localRenderInformation) {
