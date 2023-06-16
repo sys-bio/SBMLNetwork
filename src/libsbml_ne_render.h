@@ -16,20 +16,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 /// @return the number of items in this ListOfGlobalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation);
 
-/// @brief Returns a pointer to the nth GlobalRenderInformation in this ListOfGlobalRenderInformation.
-/// @param n the index number of the GlobalRenderInformation to return.
-/// @return the @c the nth GlobalRenderInformation in this ListOfGlobalRenderInformation or NULL if no such GlobalRenderInformation exists or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation, unsigned int n = 0);
+/// @brief Returns a pointer to the the GlobalRenderInformation object with the givne index in this ListOfGlobalRenderInformation.
+/// @param renderIndex the index number of the GlobalRenderInformation to return.
+/// @return the @c the GlobalRenderInformation with the given index in this ListOfGlobalRenderInformation or NULL if no such GlobalRenderInformation exists or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation, unsigned int renderIndex = 0);
 
 /// @brief Returns the number of items in this ListOfLocalRenderInformation object.
 /// @param listOfLocalRenderInformation a pointer to the ListOfLocalRenderInformation object.
 /// @return the number of items in this ListOfLocalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation);
 
-/// @brief Returns a pointer to the nth LocalRenderInformation in this ListOfLocalRenderInformation.
-/// @param n the index number of the LocalRenderInformation to return.
-/// @return the @c the nth LocalRenderInformation in this ListOfLocalRenderInformation or NULL if no such LocalRenderInformation exists or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int n = 0);
+/// @brief Returns a pointer to the the LocalRenderInformation object with the givne index in this ListOfLocalRenderInformation.
+/// @param renderIndex the index number of the LocalRenderInformation to return.
+/// @return the @c the LocalRenderInformation object with the givne index in this ListOfLocalRenderInformation or NULL if no such LocalRenderInformation exists or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int renderIndex = 0);
 
 /// @brief Predicates returning @c true if the "backgroundColor" attribute of this GlobalRenderInformation is set.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
@@ -60,9 +60,9 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumColorDefinitions(RenderInf
 LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Returns a pointer to the ColorDefinition of this RenderInformationBase object with the given index.
-/// @param index the index value of the ColorDefinition to return.
+/// @param colorIndex the index value of the ColorDefinition to return.
 /// @return the @c ColorDefinition with the given index, or NULL if ColorDefinition does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(RenderInformationBase* renderInformationBase, unsigned int colorIndex = 0);
 
 /// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -112,9 +112,9 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGradientDefinitions(Render
 LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Returns a pointer to the GradientBase of this RenderInformationBase object with the given index.
-/// @param index the index value of the GradientBase to return.
+/// @param gradientIndex the index value of the GradientBase to return.
 /// @return the @c GradientBase with the given index, or NULL if GradientBase does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, unsigned int gradientIndex = 0);
 
 /// @brief Predicate returning true if the abstract GradientBase with the given identifier is of type LinearGradient.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -186,33 +186,33 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(RenderInformationB
 /// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(GradientBase* gradientBase);
 
-/// @brief Returns the nth GradientStop of the GradientBase with the given identifier.
+/// @brief Returns the GradientStop object with the given index of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param n an unsigned int representing the index of the GradientStop to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop to retrieve.
 /// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex = 0);
 
-/// @brief Returns the nth GradientStop of this GradientBase object.
+/// @brief Returns the GradientStop object with the given index of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param n an unsigned int representing the index of the GradientStop to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop to retrieve.
 /// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(GradientBase* gradientBase, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(GradientBase* gradientBase, unsigned int gradientStopIndex = 0);
 
-/// @brief Predicates returning @c true if the "offset" attribute of the nth GradientStop of this the GradientBase with the given identifier is set.
+/// @brief Predicates returning @c true if the "offset" attribute of the GradientStop with the given index of this the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @return @c true if the "offset" attribute of the nth GradientStop of this GradientBase object is set, @c false if
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return @c true if the "offset" attribute of the GradientStop with the given index of this GradientBase object is set, @c false if
 /// either the "offset" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex = 0);
 
-/// @brief Predicates returning @c true if the "offset" attribute of the nth GradientStop of this GradientBase is set.
+/// @brief Predicates returning @c true if the "offset" attribute of the GradientStop with the given index of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @return @c true if the "offset" attribute of the nth GradientStop of this GradientBase object is set, @c false if
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return @c true if the "offset" attribute of the GradientStop with the given index of this GradientBase object is set, @c false if
 /// either the "offset" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientBase* gradientBase, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientBase* gradientBase, unsigned int gradientStopIndex = 0);
 
 /// @brief Predicates returning @c true if the "offset" attribute of this GradientStop is set.
 /// @param gradientStop a pointer to the GradientStop object.
@@ -220,38 +220,38 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientBase* gradientBase, unsign
 /// or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(GradientStop* gradientStop);
 
-/// @brief Returns the value of the "offset" attribute of the nth GradientStop of the GradientBase with the given identifier.
+/// @brief Returns the value of the "offset" attribute of the GradientStop with the given index of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @return the "offset" attribute of the nth GradientStop of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(RenderInformationBase* renderInformationBase, const std::string& sid , unsigned int n);
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "offset" attribute of the GradientStop with the given index of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(RenderInformationBase* renderInformationBase, const std::string& sid , unsigned int gradientStopIndex = 0);
 
-/// @brief Returns the value of the "offset" attribute of the nth GradientStop of this GradientBase.
+/// @brief Returns the value of the "offset" attribute of the GradientStop with the given index of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @return the "offset" attribute of the nth GradientStop of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientBase* gradientBase , unsigned int n);
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "offset" attribute of the GradientStop with the given index of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientBase* gradientBase , unsigned int gradientStopIndex = 0);
 
 /// @brief Returns the value of the "offset" attribute of this GradientBase.
 /// @param gradientStop a pointer to the GradientStop object.
 /// @return the "offset" attribute of the GradientStop object, or @c RelAbsVector() if the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop);
 
-/// @brief Sets the value of the "offset" attribute of the nth GradientStop of the GradientBase with the given identifier.
+/// @brief Sets the value of the "offset" attribute of the GradientStop with the given index of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the GradientStop with the given index of this GradientStop object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n, const RelAbsVector& offset);
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset);
 
-/// @brief Sets the value of the "offset" attribute of the nth GradientStop of this GradientBase object.
+/// @brief Sets the value of the "offset" attribute of the GradientStop with the given index of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the nth GradientStop of this GradientStop object.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the GradientStop with the given index of this GradientStop object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientBase* gradientBase, unsigned int n, const RelAbsVector& offset);
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientBase* gradientBase, unsigned int gradientStopIndex, const RelAbsVector& offset);
 
 /// @brief Sets the value of the "offset" attribute of this GradientStop object.
 /// @param gradientStop a pointer to the GradientStop object.
@@ -259,18 +259,18 @@ LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientBase* gradientBase, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientStop* gradientStop, const RelAbsVector& offset);
 
-/// @brief Predicates returning @c true if the "stop-color" attribute of the nth GradientStop of the GradientBase with the given identifier is set.
+/// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex = 0);
 
-/// @brief Predicates returning @c true if the "stop-color" attribute of the nth GradientStop of this GradientBase is set.
+/// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientBase* gradientBase, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex = 0);
 
 /// @brief Predicates returning @c true if the "stop-color" attribute of this GradientStop is set.
 /// @param gradientStop a pointer to the GradientStop object.
@@ -278,38 +278,38 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientBase* gradientBase, uns
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(GradientStop* gradientStop);
 
-/// @brief Returns the value of the "stop-color" attribute of the nth GradientStop of the GradientBase with the given identifier.
+/// @brief Returns the value of the "stop-color" attribute of the GradientStop with the given index of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @return the "stop-color" attribute of the nth GradientStop of this GradientStop object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n);
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "stop-color" attribute of the GradientStop with the given index of this GradientStop object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex = 0);
 
-/// @brief Returns the value of the "stop-color" attribute of the nth GradientStop of this GradientBase.
+/// @brief Returns the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @return the "stop-color" attribute of the nth GradientStop of this GradientStop object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientBase* gradientBase, unsigned int n);
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "stop-color" attribute of the GradientStop with the given index of this GradientStop object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex = 0);
 
 /// @brief Returns the value of the "stop-color" attribute of this GradientStop.
 /// @param gradientStop a pointer to the GradientStop object.
 /// @return the "stop-color" attribute of the GradientStop object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientStop* gradientStop);
 
-/// @brief Sets the value of the "stop-color" attribute of the nth GradientStop of this the GradientBase with the given identifier.
+/// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int n, const std::string& stopColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor);
 
-/// @brief Sets the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
+/// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param n an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of the nth GradientStop of this GradientBase object.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientBase* gradientBase, unsigned int n, const std::string& stopColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex, const std::string& stopColor);
 
 /// @brief Sets the value of the "stop-color" attribute of this GradientStop object.
 /// @param gradientStop a pointer to the GradientStop object.
@@ -659,9 +659,9 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLineEndings(RenderInformat
 LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// @brief Returns a pointer to the LineEnding of this RenderInformationBase object with the given index.
-/// @param index the index value of the LineEnding to return.
+/// @param lineEndingIndex the index value of the LineEnding to return.
 /// @return the @c LineEnding with the given index, or NULL if LineEnding does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(RenderInformationBase* renderInformationBase, unsigned int lineEndingIndex);
 
 /// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of the LineEnding with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1032,28 +1032,28 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(GraphicalPrimitive1
 /// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
 /// @return the dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dashIndex = 0);
 
 /// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
 /// @return the dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dashIndex = 0);
 
 /// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
 /// @return the dash at the given index of "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(Style* style, unsigned int dashIndex = 0);
 
 /// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @param n an unsigned int representing the index of the dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
 /// @return the dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dashIndex = 0);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1892,33 +1892,33 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGeometricShapes(RenderGroup* ren
 /// @brief Returns the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the Transformation2D at the given index the RenderGroup of the Style for this GraphicalObject object, @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the Transformation2D at the given index of the RenderGroup of this Style object, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the Transformation2D at the given index of the this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the Transformation2D at the given index of the RenderGroup object, or NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* getGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a geometric shape to the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
 
@@ -1944,58 +1944,58 @@ LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderGroup* renderGroup, con
 /// @brief Remove a geometric shape from the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of the RenderGroup of this Style, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to remove.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of this RenderGroup, or @c NULL if the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
 /// it is not of type Rectangle or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
 /// it is not of type Rectangle or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Rectangle.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Rectangle, @c false if
 /// it is not of type Rectangle or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Rectangle.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Rectangle, @c false if
 /// it is not of type Rectangle or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Rectangle.
 /// @param shape a pointer to the Transformation2D object.
@@ -2005,32 +2005,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(Transformation2D* shape);
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
 /// it is not of type Ellipse or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Ellipse.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
 /// it is not of type Ellipse or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Ellipse.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Ellipse, @c false if
 /// it is not of type Ellipse or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Ellipse.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Ellipse, @c false if
 /// it is not of type Ellipse or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Ellipse.
 /// @param shape a pointer to the Transformation2D object.
@@ -2040,32 +2040,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(Transformation2D* shape);
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
 /// it is not of type Polygon or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Polygon.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
 /// it is not of type Polygon or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Polygon.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Polygon, @c false if
 /// it is not of type Polygon or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Polygon.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Polygon, @c false if
 /// it is not of type Polygon or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Polygon.
 /// @param shape a pointer to the Transformation2D object.
@@ -2075,32 +2075,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(Transformation2D* shape);
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
 /// it is not of type RenderCurve or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type RenderCurve.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
 /// it is not of type RenderCurve or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCurve.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCurve, @c false if
 /// it is not of type RenderCurve or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type RenderCurve.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of this RenderGroup is of type RenderCurve, @c false if
 /// it is not of type RenderCurve or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type RenderCurve.
 /// @param shape a pointer to the Transformation2D object.
@@ -2110,32 +2110,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(Transformation2D* shape);
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
 /// it is not of type Image or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Image.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
 /// it is not of type Image or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Image.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Image, @c false if
 /// it is not of type Image or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isImage(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Image.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Image, @c false if
 /// it is not of type Image or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Image.
 /// @param shape a pointer to the Transformation2D object.
@@ -2145,32 +2145,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isImage(Transformation2D* shape);
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
 /// it is not of type Text or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Text.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
 /// it is not of type Text or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Text.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Text, @c false if
 /// it is not of type Text or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Text.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Text, @c false if
 /// it is not of type Text or is or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type Text.
 /// @param shape a pointer to the Transformation2D object.
@@ -2180,32 +2180,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isText(Transformation2D* shape);
 /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "x" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "x" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "x" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "x" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "x" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "x" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "x" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2216,31 +2216,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(Transformation2D* shape);
 /// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "x" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2251,32 +2251,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(Transformatio
 /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(Style* style, unsigned int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2287,32 +2287,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(Transformation2D* shape, con
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "y" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "y" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "y" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "y" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "y" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(Style* style, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "y" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(RenderGroup* renderGroup, unsigned int n);
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "y" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2323,31 +2323,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(Transformation2D* shape);
 /// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "y" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "y" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "y" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(Style* style, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "y" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "y" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "y" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2358,32 +2358,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(Transformatio
 /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(Style* style, unsigned int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2394,32 +2394,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(Transformation2D* shape, con
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "width" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "width" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "width" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "width" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "width" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "width" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "width" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2430,31 +2430,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(Transformation2D* sha
 /// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "width" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "width" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "width" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "width" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "width" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "width" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2465,32 +2465,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(Transform
 /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& width);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
 /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& width);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
 /// @brief Sets the value of the "width" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(Style* style, unsigned int n, const RelAbsVector& width);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
 /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& width);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
 /// @brief Sets the value of the "width" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2501,32 +2501,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(Transformation2D* shape,
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "height" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "height" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "height" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "height" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "height" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(Style* style, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "height" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "height" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2537,31 +2537,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(Transformation2D* sh
 /// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "height" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "height" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "height" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(Style* style, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "height" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "height" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "height" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2572,32 +2572,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(Transfor
 /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& height);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& height);
 
 /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& height);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& height);
 
 /// @brief Sets the value of the "height" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(Style* style, unsigned int n, const RelAbsVector& height);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& height);
 
 /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& height);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& height);
 
 /// @brief Sets the value of the "height" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2608,32 +2608,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(Transformation2D* shape
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "ratio" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "ratio" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ratio" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "ratio" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ratio" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "ratio" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ratio" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2644,31 +2644,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRatio(Transformation2D* sha
 /// @brief Returns the value of the "ratio" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ratio" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ratio" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ratio" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ratio" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ratio" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ratio" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "ratio" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ratio" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ratio" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2679,32 +2679,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getGeometricShapeRatio(Transformation2
 /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const double& ratio);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& ratio);
 
 /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const double& ratio);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& ratio);
 
 /// @brief Sets the value of the "ratio" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(Style* style, unsigned int n, const double& ratio);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(Style* style, unsigned int geometricShapeIndex, const double& ratio);
 
 /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(RenderGroup* renderGroup, unsigned int n, const double& ratio);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& ratio);
 
 /// @brief Sets the value of the "height" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2715,32 +2715,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRatio(Transformation2D* shape,
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "rx" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "rx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "rx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2751,31 +2751,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusX(Tran
 /// @brief Returns the value of the "rx" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "rx" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2786,32 +2786,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvature
 /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(Style* style, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2822,32 +2822,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusX(Transfo
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "ry" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "ry" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "ry" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2858,31 +2858,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCornerCurvatureRadiusY(Tran
 /// @brief Returns the value of the "ry" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "ry" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -2893,32 +2893,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCornerCurvature
 /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(Style* style, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -2929,32 +2929,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCornerCurvatureRadiusY(Transfo
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "cx" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "cx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cx" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "cx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cx" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "cx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cx" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -2965,31 +2965,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterX(Transformation2D* s
 /// @brief Returns the value of the "cx" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cx" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cx" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cx" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "cx" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cx" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -3000,32 +3000,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterX(Transfo
 /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& cx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
 /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& cx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
 /// @brief Sets the value of the "cx" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(Style* style, unsigned int n, const RelAbsVector& cx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
 /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& cx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
 /// @brief Sets the value of the "cx" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -3036,32 +3036,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterX(Transformation2D* shap
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "cy" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "cy" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cy" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "cy" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "cy" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "cy" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -3072,31 +3072,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeCenterY(Transformation2D* s
 /// @brief Returns the value of the "cy" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cy" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cy" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cy" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "cy" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cy" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -3107,32 +3107,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeCenterY(Transfo
 /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& cy);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cy);
 
 /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& cy);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cy);
 
 /// @brief Sets the value of the "cy" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(Style* style, unsigned int n, const RelAbsVector& cy);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& cy);
 
 /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param cy a RelAbsVector to use as the value of the "cy" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& cy);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& cy);
 
 /// @brief Sets the value of the "cy" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -3143,32 +3143,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeCenterY(Transformation2D* shap
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "rx" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "rx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "rx" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "rx" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -3179,31 +3179,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusX(Transformation2D* s
 /// @brief Returns the value of the "rx" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "cy" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "cy" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "rx" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -3214,32 +3214,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusX(Transfo
 /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(Style* style, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param rx a RelAbsVector to use as the value of the "cy" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& rx);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
 /// @brief Sets the value of the "rx" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -3250,32 +3250,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusX(Transformation2D* shap
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "ry" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "ry" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "ry" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "ry" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -3286,31 +3286,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeRadiusY(Transformation2D* s
 /// @brief Returns the value of the "ry" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "ry" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "ry" attribute of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -3321,32 +3321,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeRadiusY(Transfo
 /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(Style* style, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int n, const RelAbsVector& ry);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
 /// @brief Sets the value of the "ry" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -3357,31 +3357,31 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeRadiusY(Transformation2D* shap
 /// @brief Returns the number of elements of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the number of elements of the Transformation2D object at the given index of the RenderGroup of this Style for this GraphicalObject, or @c 0 if
 /// either Transformation2D object does not exists, does not have any elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the number of elements of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the number of elements of the Transformation2D object at the given index of the RenderGroup of this Style for this GraphicalObject, or @c 0 if
 /// either Transformation2D object does not exists, does not have any elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the number of elements of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the number of elements of the Transformation2D object at the given index of the RenderGroup of this Style, or @c 0 if
 /// either Transformation2D object does not exists, does not have any elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the number of elements of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the number of elements of the Transformation2D object at the given index of this RenderGroup, or @c 0 if
 /// either Transformation2D object does not exists, does not have any elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the number of elements of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
@@ -3392,247 +3392,245 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(Tra
 /// @brief Returns the value of the "x" attribute of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the nth element of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the element of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(Style* style, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the element at the given index of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(RenderGroup* renderGroup, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(Transformation2D* shape, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the nth element of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the element of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(Style* style, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the element at the given index of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(RenderGroup* renderGroup, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(Transformation2D* shape, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 1 of the nth element of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the element at at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(Style* style, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the element at the given index of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int index, const RelAbsVector& x);
@@ -3640,275 +3638,274 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* 
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param n an unsigned int representing the index of the element to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of he base point 1 of the nth element of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the element at at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(Style* style, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the element at the given index of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "x" attribute of the base point 2 of the nth element of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the element at at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(Style* style, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the element at the given index of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int n, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int index, const RelAbsVector& x);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return the "y" attribute of he base point 2 of the nth element of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the element at at the given index of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(Style* style, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the element at the given index of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int n, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int index, const RelAbsVector& y);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render point to the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render point to this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -3918,28 +3915,28 @@ LIBSBML_NETWORKEDITOR_EXTERN int addRenderPointToGeometricShape(Transformation2D
 /// @brief Add a render cubic bezier to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render cubic bezier to the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render cubic bezier to the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render cubic bezier to the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Add a render cubic bezier to this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
@@ -3949,79 +3946,79 @@ LIBSBML_NETWORKEDITOR_EXTERN int addRenderCubicBezierToGeometricShape(Transforma
 /// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
 /// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
 /////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
 /// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
 /////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Remove an element from the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
 /// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
 /////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Remove an element from the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param index an unsigned int representing the index of the element to be removed.
 /// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
 /////// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Remove an element from this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
 /// @param index an unsigned int representing the index of the element to be removed.
 /// @return a pointer to the RenderPoint at the given index of this Transformation2D object, or @c NULL if
 ///// either Transformation2D object does not exists, does not have any elements, it has less than index elements, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN RenderPoint* removeElementFromGeometricShape(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier, @c false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type RenderCubicBezier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier, @c false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCubicBezier.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of this Style is of type RenderCubicBezier, @c false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Style* style, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type RenderCubicBezier.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return @c true if the element at the given index of the Transformation2D at the given index of this RenderGroup is of type RenderCubicBezier, @c false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderGroup* renderGroup, unsigned int n, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex = 0);
 
 /// @brief Predicate returning true if the element at the given index of this Transformation2D is of type RenderCubicBezier.
 /// @param shape a pointer to the Transformation2D object.
-/// @param index an unsigned int representing the index of the element to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @return @c true if the element at the given index of this Transformation2D is of type RenderCubicBezier, @c false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Transformation2D* shape, unsigned int index);
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(Transformation2D* shape, unsigned int elementIndex = 0);
 
 /// @brief Predicate returning true if this RenderCurve is of type RenderCubicBezier.
 /// @param renderPoint a pointer to the RenderPoint object.
@@ -4031,32 +4028,32 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCubicBezier(RenderPoint* renderPoint);
 /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "href" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "href" attribute is not set or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "href" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
 /// @c false if either the "href" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "href" attribute the Transformation2D at the given index of the RenderGroup of this Style object is set.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "href" attribute of the Transformation2D object at the given index of the RenderGroup of this Style object is set,
 /// @c false if either the "href" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of this RenderGroup is set.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "href" attribute of the Transformation2D object at the given index of this RenderGroup is set, @c false if
 /// either Transformation2D object does not exists, does not have "href" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the "href" attribute of this Transformation2D is set.
 /// @param shape a pointer to the Transformation2D object.
@@ -4067,31 +4064,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHref(Transformation2D* shap
 /// @brief Returns the value of the "href" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "href" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "href" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "href" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "href" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "href" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "href" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "href" attribute of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "href" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(Style* style, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "href" attribute of the Transformation2D object at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @return the "href" attribute of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(RenderGroup* renderGroup, unsigned int n);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value of the "href" attribute of this Transformation2D object.
 /// @param shape a pointer to the Image object.
@@ -4102,32 +4099,32 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getGeometricShapeHref(Transformat
 /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int n, const std::string& href);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int n, const std::string& href);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Style* style, unsigned int n, const std::string& href);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Style* style, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param n an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup, unsigned int n, const std::string& href);
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Sets the value of the "href" attribute of this Transformation2D object.
 /// @param shape a pointer to the Transformation2D object.
