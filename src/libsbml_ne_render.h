@@ -16,7 +16,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 /// @return the number of items in this ListOfGlobalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation);
 
-/// @brief Returns a pointer to the the GlobalRenderInformation object with the givne index in this ListOfGlobalRenderInformation.
+/// @brief Returns a pointer to the the GlobalRenderInformation object with the given index in this ListOfGlobalRenderInformation.
 /// @param renderIndex the index number of the GlobalRenderInformation to return.
 /// @return the @c the GlobalRenderInformation with the given index in this ListOfGlobalRenderInformation or NULL if no such GlobalRenderInformation exists or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation(ListOfGlobalRenderInformation* listOfGlobalRenderInformation, unsigned int renderIndex = 0);
@@ -26,9 +26,9 @@ LIBSBML_NETWORKEDITOR_EXTERN GlobalRenderInformation* getGlobalRenderInformation
 /// @return the number of items in this ListOfLocalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation);
 
-/// @brief Returns a pointer to the the LocalRenderInformation object with the givne index in this ListOfLocalRenderInformation.
+/// @brief Returns a pointer to the the LocalRenderInformation object with the given index in this ListOfLocalRenderInformation.
 /// @param renderIndex the index number of the LocalRenderInformation to return.
-/// @return the @c the LocalRenderInformation object with the givne index in this ListOfLocalRenderInformation or NULL if no such LocalRenderInformation exists or the object is @c NULL.
+/// @return the @c the LocalRenderInformation object with the given index in this ListOfLocalRenderInformation or NULL if no such LocalRenderInformation exists or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int renderIndex = 0);
 
 /// @brief Predicates returning @c true if the "backgroundColor" attribute of this GlobalRenderInformation is set.
@@ -238,6 +238,13 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientBase* gradient
 /// @return the "offset" attribute of the GradientStop object, or @c RelAbsVector() if the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop);
 
+/// @brief Sets the value of the "offset" attribute of the first GradientStop of the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the first GradientStop of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& offset);
+
 /// @brief Sets the value of the "offset" attribute of the GradientStop with the given index of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -245,6 +252,12 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(GradientStop* gradient
 /// @param offset a RelAbsVector to use as the value of the "offset" attribute of the GradientStop with the given index of this GradientStop object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset);
+
+/// @brief Sets the value of the "offset" attribute of the first GradientStop of this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the first GradientStop of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOffset(GradientBase* gradientBase, const RelAbsVector& offset);
 
 /// @brief Sets the value of the "offset" attribute of the GradientStop with the given index of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -296,6 +309,13 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientBase* gradie
 /// @return the "stop-color" attribute of the GradientStop object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientStop* gradientStop);
 
+/// @brief Sets the value of the "stop-color" attribute of the first GradientStop of this the GradientBase with the given identifier.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& stopColor);
+
 /// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -303,6 +323,12 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(GradientStop* gradie
 /// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor);
+
+/// @brief Sets the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @param gradientBase a pointer to the GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(GradientBase* gradientBase, const std::string& stopColor);
 
 /// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
@@ -1029,31 +1055,88 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(Style* style);
 /// @return the size of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D);
 
-/// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
-/// @return the dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dashIndex = 0);
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex = 0);
 
-/// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
-/// @return the dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dashIndex = 0);
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex = 0);
 
-/// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
-/// @return the dash at the given index of "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(Style* style, unsigned int dashIndex = 0);
+/// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex = 0);
 
-/// @brief Returns the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
 /// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @param dashIndex an unsigned int representing the index of the dash to retrieve.
-/// @return the dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dashIndex = 0);
+/// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex = 0);
+
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash);
+
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash);
+
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dash);
+
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash);
+
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
+/// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(Style* style, unsigned int dash);
+
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash);
+
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param dash a unsigned int value to use as the fist dash of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dash);
+
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param strokeDashIndex an unsigned int representing the index of the dash to set.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex, unsigned int dash);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

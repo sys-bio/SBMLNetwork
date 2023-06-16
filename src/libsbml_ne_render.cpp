@@ -241,8 +241,16 @@ const RelAbsVector getOffset(GradientStop* gradientStop) {
     return RelAbsVector();
 }
 
+int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, const RelAbsVector& offset) {
+    return setOffset(renderInformationBase, sid, 0, offset);
+}
+
 int setOffset(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset) {
     return setOffset(getGradientDefinition(renderInformationBase, sid), gradientStopIndex, offset);
+}
+
+int setOffset(GradientBase* gradientBase, const RelAbsVector& offset) {
+    return setOffset(gradientBase, 0, offset);
 }
 
 int setOffset(GradientBase* gradientBase, unsigned int gradientStopIndex, const RelAbsVector& offset) {
@@ -288,8 +296,16 @@ const std::string getStopColor(GradientStop* gradientStop) {
     return "";
 }
 
+int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& stopColor) {
+    return setStopColor(renderInformationBase, sid, 0, stopColor);
+}
+
 int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
     return setStopColor(getGradientDefinition(renderInformationBase, sid), gradientStopIndex, stopColor);
+}
+
+int setStopColor(GradientBase* gradientBase, const std::string& stopColor) {
+    return setStopColor(gradientBase, 0, stopColor);
 }
 
 int setStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex, const std::string& stopColor) {
@@ -973,23 +989,60 @@ unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D) {
     return getStrokeDashArray(graphicalPrimitive1D).size();
 }
 
-unsigned int getDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dashIndex) {
-    return getDash(getStyle(renderInformationBase, graphicalObject), dashIndex);
+unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex) {
+    return getStrokeDash(getStyle(renderInformationBase, graphicalObject), strokeDashIndex);
 }
 
-unsigned int getDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dashIndex) {
-    return getDash(getStyle(renderInformationBase, attribute), dashIndex);
+unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex) {
+    return getStrokeDash(getStyle(renderInformationBase, attribute), strokeDashIndex);
 }
 
-unsigned int getDash(Style* style, unsigned int dashIndex) {
-    return getDash(getRenderGroup(style), dashIndex);
+unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex) {
+    return getStrokeDash(getRenderGroup(style), strokeDashIndex);
 }
 
-unsigned int getDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dashIndex) {
+unsigned int getStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex) {
     if (graphicalPrimitive1D)
-        graphicalPrimitive1D->getDashByIndex(dashIndex);
+        graphicalPrimitive1D->getDashByIndex(strokeDashIndex);
 
     return 0;
+}
+
+unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash) {
+    return setStrokeDash(renderInformationBase, graphicalObject, 0, dash);
+}
+
+unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash) {
+    return setStrokeDash(getStyle(renderInformationBase, graphicalObject), strokeDashIndex, dash);
+}
+
+unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dash) {
+    return setStrokeDash(renderInformationBase, attribute, 0, dash);
+}
+
+unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash) {
+    return setStrokeDash(getStyle(renderInformationBase, attribute), strokeDashIndex, dash);
+}
+
+unsigned int setStrokeDash(Style* style, unsigned int dash) {
+    return setStrokeDash(style, 0, dash);
+}
+
+unsigned int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash) {
+    return setStrokeDash(getRenderGroup(style), strokeDashIndex, dash);
+}
+
+unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dash) {
+    return setStrokeDash(graphicalPrimitive1D, 0, dash);
+}
+
+unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex, unsigned int dash) {
+    if (graphicalPrimitive1D) {
+        graphicalPrimitive1D->setDashByIndex(strokeDashIndex, dash);
+        return 0;
+    }
+
+    return -1;
 }
 
 bool isSetFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
