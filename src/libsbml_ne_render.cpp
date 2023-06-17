@@ -2767,16 +2767,32 @@ const RelAbsVector getGeometricShapeCenterX(Transformation2D* shape) {
     return RelAbsVector();
 }
 
+int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(renderInformationBase, graphicalObject, 0, cx);
+}
+
 int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
     return setGeometricShapeCenterX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, cx);
+}
+
+int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(renderInformationBase, attribute, 0, cx);
 }
 
 int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
     return setGeometricShapeCenterX(getStyle(renderInformationBase, attribute), geometricShapeIndex, cx);
 }
 
+int setGeometricShapeCenterX(Style* style, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(style, cx);
+}
+
 int setGeometricShapeCenterX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
     return setGeometricShapeCenterX(getRenderGroup(style), geometricShapeIndex, cx);
+}
+
+int setGeometricShapeCenterX(RenderGroup* renderGroup, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(renderGroup, 0, cx);
 }
 
 int setGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
@@ -2838,16 +2854,32 @@ const RelAbsVector getGeometricShapeCenterY(Transformation2D* shape) {
     return RelAbsVector();
 }
 
+int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& cy) {
+    return setGeometricShapeCenterY(renderInformationBase, graphicalObject, 0, cy);
+}
+
 int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
     return setGeometricShapeCenterY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, cy);
+}
+
+int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& cy) {
+    return setGeometricShapeCenterY(renderInformationBase, attribute, 0, cy);
 }
 
 int setGeometricShapeCenterY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
     return setGeometricShapeCenterY(getStyle(renderInformationBase, attribute), geometricShapeIndex, cy);
 }
 
+int setGeometricShapeCenterY(Style* style, const RelAbsVector& cy) {
+    return setGeometricShapeCenterY(style, 0, cy);
+}
+
 int setGeometricShapeCenterY(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
     return setGeometricShapeCenterY(getRenderGroup(style), geometricShapeIndex, cy);
+}
+
+int setGeometricShapeCenterY(RenderGroup* renderGroup, const RelAbsVector& cy) {
+    return setGeometricShapeCenterY(renderGroup, 0, cy);
 }
 
 int setGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
@@ -2909,16 +2941,32 @@ const RelAbsVector getGeometricShapeRadiusX(Transformation2D* shape) {
     return RelAbsVector();
 }
 
+int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(renderInformationBase, graphicalObject, 0, rx);
+}
+
 int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
     return setGeometricShapeRadiusX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, rx);
+}
+
+int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(renderInformationBase, attribute, 0, rx);
 }
 
 int setGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
     return setGeometricShapeRadiusX(getStyle(renderInformationBase, attribute), geometricShapeIndex, rx);
 }
 
+int setGeometricShapeRadiusX(Style* style, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(style, 0, rx);
+}
+
 int setGeometricShapeRadiusX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
     return setGeometricShapeRadiusX(getRenderGroup(style), geometricShapeIndex, rx);
+}
+
+int setGeometricShapeRadiusX(RenderGroup* renderGroup, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(renderGroup, 0, rx);
 }
 
 int setGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
@@ -2980,16 +3028,32 @@ const RelAbsVector getGeometricShapeRadiusY(Transformation2D* shape) {
     return RelAbsVector();
 }
 
+int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(renderInformationBase, graphicalObject, 0, ry);
+}
+
 int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
     return setGeometricShapeRadiusY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, ry);
+}
+
+int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(renderInformationBase, attribute, 0, ry);
 }
 
 int setGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
     return setGeometricShapeRadiusY(getStyle(renderInformationBase, attribute), geometricShapeIndex, ry);
 }
 
+int setGeometricShapeRadiusY(Style* style, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(style, 0, ry);
+}
+
 int setGeometricShapeRadiusY(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
     return setGeometricShapeRadiusY(getRenderGroup(style), geometricShapeIndex, ry);
+}
+
+int setGeometricShapeRadiusY(RenderGroup* renderGroup, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(renderGroup, 0, ry);
 }
 
 int setGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
@@ -3059,20 +3123,56 @@ const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned i
     return RelAbsVector();
 }
 
+int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& x) {
+    return setGeometricShapeElementX(renderInformationBase, graphicalObject, 0, x);
+}
+
+int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(renderInformationBase, graphicalObject, 0, elementIndex, x);
+}
+
 int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeElementX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex, x);
+}
+
+int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& x) {
+    return setGeometricShapeElementX(renderInformationBase, attribute, 0, x);
+}
+
+int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(renderInformationBase, attribute, 0, elementIndex, x);
 }
 
 int setGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeElementX(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex, x);
 }
 
+int setGeometricShapeElementX(Style* style, const RelAbsVector& x) {
+    return setGeometricShapeElementX(style, 0, x);
+}
+
+int setGeometricShapeElementX(Style* style, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(style, 0, elementIndex, x);
+}
+
 int setGeometricShapeElementX(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeElementX(getRenderGroup(style), geometricShapeIndex, elementIndex, x);
 }
 
+int setGeometricShapeElementX(RenderGroup* renderGroup, const RelAbsVector& x) {
+    return setGeometricShapeElementX(renderGroup, 0, x);
+}
+
+int setGeometricShapeElementX(RenderGroup* renderGroup, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(renderGroup, 0, elementIndex, x);
+}
+
 int setGeometricShapeElementX(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeElementX(getGeometricShape(renderGroup, geometricShapeIndex), elementIndex, x);
+}
+
+int setGeometricShapeElementX(Transformation2D* shape, const RelAbsVector& x) {
+    return setGeometricShapeElementX(shape, 0, x);
 }
 
 int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x) {
@@ -3119,20 +3219,56 @@ const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned i
     return RelAbsVector();
 }
 
+int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& y) {
+    return setGeometricShapeElementY(renderInformationBase, graphicalObject, 0, y);
+}
+
+int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(renderInformationBase, graphicalObject, 0, elementIndex, y);
+}
+
 int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeElementY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex, y);
+}
+
+int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& y) {
+    return setGeometricShapeElementY(renderInformationBase, attribute, 0, y);
+}
+
+int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(renderInformationBase, attribute, 0, elementIndex, y);
 }
 
 int setGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeElementY(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex, y);
 }
 
+int setGeometricShapeElementY(Style* style, const RelAbsVector& y) {
+    return setGeometricShapeElementY(style, 0, y);
+}
+
+int setGeometricShapeElementY(Style* style, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(style, 0, elementIndex, y);
+}
+
 int setGeometricShapeElementY(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeElementY(getRenderGroup(style), geometricShapeIndex, elementIndex, y);
 }
 
+int setGeometricShapeElementY(RenderGroup* renderGroup, const RelAbsVector& y) {
+    return setGeometricShapeElementY(renderGroup, 0, y);
+}
+
+int setGeometricShapeElementY(RenderGroup* renderGroup, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(renderGroup, 0, elementIndex, y);
+}
+
 int setGeometricShapeElementY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeElementY(getGeometricShape(renderGroup, geometricShapeIndex), elementIndex, y);
+}
+
+int setGeometricShapeElementY(Transformation2D* shape, const RelAbsVector& y) {
+    return setGeometricShapeElementY(shape, 0, y);
 }
 
 int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y) {
@@ -3179,20 +3315,56 @@ const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigne
     return RelAbsVector();
 }
 
+int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(renderInformationBase, graphicalObject, 0, x);
+}
+
+int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(renderInformationBase, graphicalObject, 0, elementIndex, x);
+}
+
 int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint1X(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex, x);
+}
+
+int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(renderInformationBase, attribute, 0, x);
+}
+
+int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(renderInformationBase, attribute, 0, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint1X(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex, x);
 }
 
+int setGeometricShapeBasePoint1X(Style* style, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(style, 0, x);
+}
+
+int setGeometricShapeBasePoint1X(Style* style, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(style, 0, elementIndex, x);
+}
+
 int setGeometricShapeBasePoint1X(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint1X(getRenderGroup(style), geometricShapeIndex, elementIndex, x);
 }
 
+int setGeometricShapeBasePoint1X(RenderGroup* renderGroup, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(renderGroup, 0, x);
+}
+
+int setGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(renderGroup, 0, elementIndex, x);
+}
+
 int setGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint1X(getGeometricShape(renderGroup, geometricShapeIndex), elementIndex, x);
+}
+
+int setGeometricShapeBasePoint1X(Transformation2D* shape, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(shape, 0, x);
 }
 
 int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x) {
@@ -3239,20 +3411,56 @@ const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigne
     return RelAbsVector();
 }
 
+int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(renderInformationBase, graphicalObject, 0, y);
+}
+
+int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(renderInformationBase, graphicalObject, 0, elementIndex, y);
+}
+
 int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint1Y(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex, y);
+}
+
+int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(renderInformationBase, attribute, 0, y);
+}
+
+int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(renderInformationBase, attribute, 0, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint1Y(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex, y);
 }
 
+int setGeometricShapeBasePoint1Y(Style* style, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(style, 0, y);
+}
+
+int setGeometricShapeBasePoint1Y(Style* style, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(style, 0, elementIndex, y);
+}
+
 int setGeometricShapeBasePoint1Y(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint1Y(getRenderGroup(style), geometricShapeIndex, elementIndex, y);
 }
 
+int setGeometricShapeBasePoint1Y(RenderGroup* renderGroup, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(renderGroup, 0, y);
+}
+
+int setGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(renderGroup, 0, elementIndex, y);
+}
+
 int setGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint1Y(getGeometricShape(renderGroup, geometricShapeIndex), elementIndex, y);
+}
+
+int setGeometricShapeBasePoint1Y(Transformation2D* shape, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(shape, 0, y);
 }
 
 int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y) {
@@ -3299,20 +3507,56 @@ const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigne
     return RelAbsVector();
 }
 
+int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(renderInformationBase, graphicalObject, 0, x);
+}
+
+int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(renderInformationBase, graphicalObject, 0, elementIndex, x);
+}
+
 int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint2X(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex, x);
+}
+
+int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(renderInformationBase, attribute, 0, x);
+}
+
+int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(renderInformationBase, attribute, 0, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint2X(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex, x);
 }
 
+int setGeometricShapeBasePoint2X(Style* style, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(style, 0, x);
+}
+
+int setGeometricShapeBasePoint2X(Style* style, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(style, 0, elementIndex, x);
+}
+
 int setGeometricShapeBasePoint2X(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint2X(getRenderGroup(style), geometricShapeIndex, elementIndex, x);
 }
 
+int setGeometricShapeBasePoint2X(RenderGroup* renderGroup, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(renderGroup, 0, x);
+}
+
+int setGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(renderGroup, 0, elementIndex, x);
+}
+
 int setGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     return setGeometricShapeBasePoint2X(getGeometricShape(renderGroup, geometricShapeIndex), elementIndex, x);
+}
+
+int setGeometricShapeBasePoint2X(Transformation2D* shape, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(shape, 0, x);
 }
 
 int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x) {
@@ -3359,20 +3603,56 @@ const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigne
     return RelAbsVector();
 }
 
+int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(renderInformationBase, graphicalObject, 0, y);
+}
+
+int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(renderInformationBase, graphicalObject, 0, elementIndex, y);
+}
+
 int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint2Y(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex, y);
+}
+
+int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(renderInformationBase, attribute, 0, y);
+}
+
+int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(renderInformationBase, attribute, 0, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint2Y(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex, y);
 }
 
+int setGeometricShapeBasePoint2Y(Style* style, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(style, 0, y);
+}
+
+int setGeometricShapeBasePoint2Y(Style* style, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(style, 0, elementIndex, y);
+}
+
 int setGeometricShapeBasePoint2Y(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint2Y(getRenderGroup(style), geometricShapeIndex, elementIndex, y);
 }
 
+int setGeometricShapeBasePoint2Y(RenderGroup* renderGroup, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(renderGroup, 0, y);
+}
+
+int setGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(renderGroup, 0, elementIndex, y);
+}
+
 int setGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     return setGeometricShapeBasePoint2Y(getGeometricShape(renderGroup, geometricShapeIndex), elementIndex, y);
+}
+
+int setGeometricShapeBasePoint2Y(Transformation2D* shape, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(shape, 0, y);
 }
 
 int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y) {
@@ -3543,16 +3823,32 @@ const std::string getGeometricShapeHref(Transformation2D* shape) {
     return "";
 }
 
+int setGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& href) {
+    return setGeometricShapeHref(renderInformationBase, graphicalObject, 0, href);
+}
+
 int setGeometricShapeHref(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& href) {
     return setGeometricShapeHref(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, href);
+}
+
+int setGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& href) {
+    return setGeometricShapeHref(renderInformationBase, attribute, 0, href);
 }
 
 int setGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href) {
     return setGeometricShapeHref(getStyle(renderInformationBase, attribute), geometricShapeIndex, href);
 }
 
+int setGeometricShapeHref(Style* style, const std::string& href) {
+    return setGeometricShapeHref(style, 0, href);
+}
+
 int setGeometricShapeHref(Style* style, unsigned int geometricShapeIndex, const std::string& href) {
     return setGeometricShapeHref(getRenderGroup(style), geometricShapeIndex, href);
+}
+
+int setGeometricShapeHref(RenderGroup* renderGroup, const std::string& href) {
+    return setGeometricShapeHref(renderGroup, 0, href);
 }
 
 int setGeometricShapeHref(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& href) {
