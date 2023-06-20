@@ -113,6 +113,50 @@ int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const d
     return setDimensionHeight(getLayout(document, layoutIndex), height);
 }
 
+const unsigned int getNumGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex) {
+    //return getNumGraphicalObjects(getLayout(document, layoutIndex));
+    return 0;
+}
+
+const unsigned int getNumGraphicalObjects(SBMLDocument* document, const std::string& id) {
+    return getNumGraphicalObjects(document, 0, id);
+}
+
+const unsigned int getNumGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return getGraphicalObjects(document, layoutIndex, id).size();
+}
+
+std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocument* document, const std::string& id) {
+    return getGraphicalObjects(document, 0, id);
+}
+
+std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    std::vector<GraphicalObject*> graphicalObjects;
+    Layout* layout = getLayout(document, layoutIndex);
+    if (layout) {
+        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, id);
+        graphicalObjects.insert(graphicalObjects.end(), compartmentGlyphs.begin(), compartmentGlyphs.end());
+        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
+        graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
+        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, id);
+        graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
+    }
+
+    return graphicalObjects;
+}
+
+GraphicalObject* getGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getGraphicalObject(document, 0, id, graphicalObjectIndex);
+}
+
+GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, layoutIndex, id);
+    if (graphicalObjectIndex < graphicalObjects.size())
+        return graphicalObjects.at(graphicalObjectIndex);
+
+    return NULL;
+}
+
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
     return getNumCompartmentGlyphs(getLayout(document, layoutIndex));
 }

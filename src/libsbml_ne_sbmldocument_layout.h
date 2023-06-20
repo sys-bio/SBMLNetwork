@@ -98,6 +98,60 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, cons
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height);
 
+/// @brief Returns the number of GraphicalObjects of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @return the number of GraphicalObjects of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Returns the number of GraphicalObjects of the first Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the number of GraphicalObject objects associated with it is going to be returned.
+/// @return the number of GraphicalObject objects associated with the entered model entity id,
+/// or @c 0 if the object is @c NULL or has no associated GraphicalObject objects
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the number of GraphicalObjects of the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the number of GraphicalObject objects associated with it is going to be returned.
+/// @return the number of GraphicalObject objects associated with the entered model entity id,
+/// or @c 0 if the object is @c NULL or has no associated GraphicalObject objects
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Returns a vector of GraphicalObject objects of the first Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the compartment the CompartmentGlyph objects of which are going to be returned.
+/// @return a vector of CompartmentGlyph objects associated with the entered compartment id.
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocument* document, const std::string& compartmentId);
+
+/// @brief Returns a vector of CompartmentGlyph objects of the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered compartment id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject objects of which are going to be returned.
+/// @return a vector of GraphicalObject objects associated with the entered model entity id.
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Returns the GraphicalObject object with the given index of the first Layout object in the ListOfLayouts of the SBML document
+/// associated with the entered compartment id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to return.
+/// @return a pointer the nth GraphicalObject object associated with the entered model entity id.
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Returns the GraphicalObject object with the given index of the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
+/// @param graphicalObjectIndexIndex the index number of the GraphicalObject object to return.
+/// @return a pointer the nth GraphicalObject object associated with the entered model entity id.
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
 /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
