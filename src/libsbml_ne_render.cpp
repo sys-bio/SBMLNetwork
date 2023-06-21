@@ -3835,6 +3835,22 @@ int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
     return -1;
 }
 
+const double getAbsoluteValue(const RelAbsVector& relAbsVector) {
+    return relAbsVector.getAbsoluteValue();
+}
+
+int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs) {
+    return relAbsVector.setAbsoluteValue(abs);
+}
+
+const double getRelativeValue(const RelAbsVector& relAbsVector) {
+    return relAbsVector.getRelativeValue();
+}
+
+int setRelativeValue(RelAbsVector relAbsVector, const double& rel) {
+    return relAbsVector.setRelativeValue(rel);
+}
+
 const std::string getObjectRole(Layout* layout, const std::string& id) {
     return getObjectRole(getGraphicalObject(layout, id));
 }

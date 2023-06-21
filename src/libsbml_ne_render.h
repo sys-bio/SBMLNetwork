@@ -4901,6 +4901,33 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup,
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
 
+/// @brief Returns the absolute coordinate value of this RelAbsVector.
+/// @param relAbsVector a RelAbsVector.
+/// @return the absolute coordinate value of this RelAbsVector
+LIBSBML_NETWORKEDITOR_EXTERN const double getAbsoluteValue(const RelAbsVector& relAbsVector);
+
+/// @brief Returns the relative coordinate value of this RelAbsVector.
+/// @param relAbsVector a RelAbsVector.
+/// @return the relative coordinate value of this RelAbsVector
+LIBSBML_NETWORKEDITOR_EXTERN const double getRelativeValue(const RelAbsVector& relAbsVector);
+
+/// @brief Sets the absolute coordinate value of this RelAbsVector.
+/// @param relAbsVector a RelAbsVector.
+/// @param abs double value of the "abs" attribute to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs);
+
+/// @brief Returns the relative coordinate value of this RelAbsVector.
+/// @param relAbsVector a RelAbsVector.
+/// @return the relative coordinate value of this RelAbsVector
+LIBSBML_NETWORKEDITOR_EXTERN const double getRelativeValue(const RelAbsVector& relAbsVector);
+
+/// @brief Sets the relative coordinate value of this RelAbsVector.
+/// @param relAbsVector a RelAbsVector.
+/// @param rel double value of the "rel" attribute to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setRelativeValue(RelAbsVector relAbsVector, const double& rel);
+
 /// @brief Returns the object role string for the GraphicalObject object with the given id.
 /// @param layout a pointer to the Layout object.
 /// @param id the id of the graphical object.
