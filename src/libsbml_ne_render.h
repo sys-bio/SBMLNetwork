@@ -811,6 +811,21 @@ LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(RenderInformationBase* 
 /// @return the value of the "group" element of this Style as a RenderGroup, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(Style* style);
 
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type GraphicalPrimitive1D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type GraphicalPrimitive1D, @c false if either it is not of type GraphicalPrimitive1D or is or the object is @c NULL.
+const bool isGraphicalPrimitive1D(Transformation2D* Transformation2D);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type GraphicalPrimitive2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type GraphicalPrimitive2D, @c false if either it is not of type GraphicalPrimitive2D or is or the object is @c NULL.
+const bool isGraphicalPrimitive2D(Transformation2D* Transformation2D);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type RenderGroup.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type RenderGroup, @c false if either it is not of type RenderGroup or is or the object is @c NULL.
+const bool isRenderGroup(Transformation2D* Transformation2D);
+
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -831,11 +846,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(RenderInformationBase* render
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(Style* style);
 
-/// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke"
+/// @brief Predicates returning @c true if the "stroke" attribute of this Transformation2D is set.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if the "stroke" attribute of this Transformation2D object is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeColor(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -854,10 +869,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(RenderInformationB
 /// @return the "stroke" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(Style* style);
 
-/// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return the "stroke" attribute of the GraphicalPrimitive1D object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "stroke" attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the "stroke" attribute of the Transformation2D object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -879,11 +894,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(RenderInformationBase* renderInf
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
 
-/// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @param stroke a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D object.
+/// @brief Sets the value of the "stroke" attribute of this Transformation2D object.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke);
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -905,11 +920,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeWidth(RenderInformationBase* render
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeWidth(Style* style);
 
-/// @brief Predicates returning @c true if the "stroke-width" attribute of this GraphicalPrimitive1D is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return @c true if the "stroke-width" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke-width"
+/// @brief Predicates returning @c true if the "stroke-width" attribute of this Transformation2D is set.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if the "stroke-width" attribute of this Transformation2D object is set, @c false if either the "stroke-width"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeWidth(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -928,10 +943,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(RenderInformationBase* 
 /// @return the "stroke-width" attribute of the RenderGroup of this Style object, or @c 0.0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(Style* style);
 
-/// @brief Returns the value of the "stroke-width" attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return the "stroke-width" attribute of the GraphicalPrimitive1D object, or @c 0.0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "stroke-width" attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the "stroke-width" attribute of the Transformation2D object, or @c 0.0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getStrokeWidth(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -953,11 +968,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(RenderInformationBase* renderInf
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(Style* style, const double& strokeWidth);
 
-/// @brief Sets the value of the "stroke-width" attribute of this GraphicalPrimitive1D object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of this GraphicalPrimitive1D object.
+/// @brief Sets the value of the "stroke-width" attribute of this Transformation2D object.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth);
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth);
 
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -979,11 +994,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeDashArray(RenderInformationBase* re
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeDashArray(Style* style);
 
-/// @brief Predicates returning @c true if the "stroke-dasharray" attribute of this GraphicalPrimitive1D is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return @c true if the "stroke-dasharray" attribute of this GraphicalPrimitive1D object is set, @c false if either the "stroke-dasharray"
+/// @brief Predicates returning @c true if the "stroke-dasharray" attribute of this Transformation2D is set.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if the "stroke-dasharray" attribute of this Transformation2D object is set, @c false if either the "stroke-dasharray"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStrokeDashArray(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1002,10 +1017,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(
 /// @return the "stroke-dasharray" attribute of the RenderGroup of this Style object, or an empty vector if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(Style* style);
 
-/// @brief Returns the vector of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return the "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or an empty vector if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the vector of the "stroke-dasharray" attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the "stroke-dasharray" attribute of the Transformation2D object, or an empty vector if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::vector<unsigned int> getStrokeDashArray(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1028,10 +1043,10 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(RenderInformationBase* rende
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray);
 
 /// @brief Sets the value of the "stroke-dasharray" of this GraphicalPrimitive1D object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @param shape a pointer to the Transformation2D object.
 /// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of this GraphicalPrimitive1D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray);
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeDashArray(Transformation2D* transformation2D, const std::vector<unsigned int>& strokeDashArray);
 
 /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1050,10 +1065,10 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(RenderInformationBa
 /// @return the size of the "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(Style* style);
 
-/// @brief Returns the size of the "stroke-dasharray" attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @return the size of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the size of the "stroke-dasharray" attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the size of "stroke-dasharray" attribute of the Transformation2D object, or 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumStrokeDashes(Transformation2D* transformation2D);
 
 /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1075,11 +1090,11 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(RenderInformationBase* r
 /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex = 0);
 
-/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
 /// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
-/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the GraphicalPrimitive1D object, or @c 0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex = 0);
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the Transformation2D object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex = 0);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1125,18 +1140,18 @@ LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(Style* style, unsigned i
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash);
 
-/// @brief Sets the first dash of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
-/// @param dash a unsigned int value to use as the fist dash of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param dash a unsigned int value to use as the fist dash of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dash);
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int dash);
 
-/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D object.
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
 /// @param strokeDashIndex an unsigned int representing the index of the dash to set.
-/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of this GraphicalPrimitive1D.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1158,11 +1173,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(RenderInformationBase* renderIn
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(Style* style);
 
-/// @brief Predicates returning @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return @c true if the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "stroke"
+/// @brief Predicates returning @c true if the "stroke" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return @c true if the "stroke" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontColor(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1181,10 +1196,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(RenderInformationBas
 /// @return the "stroke" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(Style* style);
 
-/// @brief Returns the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "stroke" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return the "stroke" attribute of the Transformation2D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1206,11 +1221,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(RenderInformationBase* renderInfor
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(Style* style, const std::string& fontColor);
 
-/// @brief Sets the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontColor a string value to use as the value of the "stroke" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(Transformation2D* transformation2D, const std::string& fontColor);
 
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1232,11 +1247,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(RenderInformationBase* renderI
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(Style* style);
 
-/// @brief Predicates returning @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return @c true if the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-family"
+/// @brief Predicates returning @c true if the "font-family" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return @c true if the "font-family" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "font-family"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontFamily(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1255,10 +1270,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(RenderInformationBa
 /// @return the "font-family" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(Style* style);
 
-/// @brief Returns the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "font-family" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-family" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return the "font-family" attribute of the Transformation2D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1280,11 +1295,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(RenderInformationBase* renderInfo
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(Style* style, const std::string& fontFamily);
 
-/// @brief Sets the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontFamily a string value to use as the value of the "font-family" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "font-family" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(Transformation2D* transformation2D, const std::string& fontFamily);
 
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1306,11 +1321,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(RenderInformationBase* renderInf
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(Style* style);
 
-/// @brief Predicates returning @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return @c true if the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-size"
+/// @brief Predicates returning @c true if the "font-size" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return @c true if the "font-size" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "font-size"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontSize(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1329,10 +1344,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(RenderInformationBas
 /// @return the "font-size" attribute of the RenderGroup of this Style object, or @c RelAbsVector() if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(Style* style);
 
-/// @brief Returns the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "font-size" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c RelAbsVector() if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return the "font-size" attribute of the Transformation2D (Text or RenderGroup) object, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getFontSize(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1354,11 +1369,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(RenderInformationBase* renderInform
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(Style* style, const RelAbsVector& fontSize);
 
-/// @brief Sets the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize);
 
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1380,11 +1395,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(RenderInformationBase* renderI
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(Style* style);
 
-/// @brief Predicates returning @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return @c true if the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-weight"
+/// @brief Predicates returning @c true if the "font-weight" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return @c true if the "font-weight" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "font-weight"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontWeight(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1403,10 +1418,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(RenderInformationBa
 /// @return the "font-weight" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(Style* style);
 
-/// @brief Returns the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "font-weight" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-weight" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return the "font-weight" attribute of the Transformation2D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1428,11 +1443,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(RenderInformationBase* renderInfo
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(Style* style, const std::string& fontWeight);
 
-/// @brief Sets the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontWeight a string value to use as the value of the "font-weight" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "font-weight" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(Transformation2D* transformation2D, const std::string& fontWeight);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1454,11 +1469,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(RenderInformationBase* renderIn
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(Style* style);
 
-/// @brief Predicates returning @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Predicates returning @c true if the "font-style" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-style"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFontStyle(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1477,10 +1492,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(RenderInformationBas
 /// @return the "font-style" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(Style* style);
 
-/// @brief Returns the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "font-style" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "font-style" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return the "font-style" attribute of the Transformation2D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1502,11 +1517,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(RenderInformationBase* renderInfor
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(Style* style, const std::string& fontStyle);
 
-/// @brief Sets the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param fontWeight a string value to use as the value of the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "font-style" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param fontWeight a string value to use as the value of the "font-style" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyle);
 
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1528,11 +1543,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(RenderInformationBase* renderI
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(Style* style);
 
-/// @brief Predicates returning @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return @c true if the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "text-anchor"
+/// @brief Predicates returning @c true if the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return @c true if the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "text-anchor"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetTextAnchor(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1551,10 +1566,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(RenderInformationBa
 /// @return the "text-anchor" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(Style* style);
 
-/// @brief Returns the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return the "text-anchor" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+/// @brief Returns the value of the "text-anchor" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return the "text-anchor" attribute of the Transformation2D (Text or RenderGroup) object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1576,11 +1591,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(RenderInformationBase* renderInfo
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(Style* style, const std::string& textAnchor);
 
-/// @brief Sets the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor);
+LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnchor);
 
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1602,11 +1617,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(RenderInformationBase* render
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(Style* style);
 
-/// @brief Predicates returning @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) is set.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @return @c true if the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "vtext-anchor"
+/// @brief Predicates returning @c true if the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @return @c true if the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "vtext-anchor"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetVTextAnchor(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1625,10 +1640,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(RenderInformationB
 /// @return the "vtext-anchor" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(Style* style);
 
-/// @brief Returns the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup).
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Returns the value of the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return the "vtext-anchor" attribute of the GraphicalPrimitive1D (Text or RenderGroup) object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1650,11 +1665,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(RenderInformationBase* renderInf
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(Style* style, const std::string& vtextAnchor);
 
-/// @brief Sets the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param graphicalPrimitive1D a pointer to the GraphicalPrimitive1D (Text or RenderGroup) object.
-/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object.
+/// @brief Sets the value of the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor);
+LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1676,11 +1691,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(RenderInformationBase* renderIn
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(Style* style);
 
-/// @brief Predicates returning @c true if the "fill" attribute of this GraphicalPrimitive2D is set.
-/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @return @c true if the "fill" attribute of this GraphicalPrimitive2D object is set, @c false if either the "fill"
+/// @brief Predicates returning @c true if the "fill" attribute of this Transformation2D is set.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if the "fill" attribute of this Transformation2D object is set, @c false if either the "fill"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(GraphicalPrimitive2D* graphicalPrimitive2D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillColor(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1699,10 +1714,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(RenderInformationBas
 /// @return the "fill" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(Style* style);
 
-/// @brief Returns the value of the "fill" attribute of this GraphicalPrimitive2D.
-/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @return the "fill" attribute of the GraphicalPrimitive2D object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D);
+/// @brief Returns the value of the "fill" attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the "fill" attribute of the Transformation2D object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1724,11 +1739,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(RenderInformationBase* renderInfor
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(Style* style, const std::string& fillColor);
 
-/// @brief Sets the value of the "fill" attribute of this GraphicalPrimitive2D object.
-/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of this GraphicalPrimitive2D object.
+/// @brief Sets the value of the "fill" attribute of this Transformation2D object.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(Transformation2D* transformation2D, const std::string& fillColor);
 
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1750,11 +1765,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(RenderInformationBase* renderInf
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(Style* style);
 
-/// @brief Predicates returning @c true if the "fill-rule" attribute of this GraphicalPrimitive2D is set.
-/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @return @c true if the "fill-rule" attribute of this GraphicalPrimitive2D object is set, @c false if either the "fill-rule"
+/// @brief Predicates returning @c true if the "fill-rule" attribute of this Transformation2D is set.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return @c true if the "fill-rule" attribute of this Transformation2D object is set, @c false if either the "fill-rule"
 /// attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(GraphicalPrimitive2D* graphicalPrimitive2D);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetFillRule(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1773,10 +1788,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(RenderInformationBase
 /// @return the "fill-rule" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(Style* style);
 
-/// @brief Returns the value of the "fill-rule" attribute of this GraphicalPrimitive2D.
-/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @return the "fill-rule" attribute of the GraphicalPrimitive2D object, or @c "" if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(GraphicalPrimitive2D* graphicalPrimitive2D);
+/// @brief Returns the value of the "fill-rule" attribute of this Transformation2D.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the "fill-rule" attribute of the Transformation2D object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1798,11 +1813,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(RenderInformationBase* renderInform
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(Style* style, const std::string& fillRule);
 
-/// @brief Sets the value of the "fill-rule" attribute of this GraphicalPrimitive2D object.
-/// @param graphicalPrimitive2D a pointer to the GraphicalPrimitive2D object.
-/// @param fillRule a string value to use as the value of the "fill-rule" attribute of this GraphicalPrimitive2D object.
+/// @brief Sets the value of the "fill-rule" attribute of this Transformation2D object.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param fillRule a string value to use as the value of the "fill-rule" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillRule);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(Transformation2D* transformation2D, const std::string& fillRule);
 
 /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1824,10 +1839,10 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderInformationBase* renderIn
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(Style* style);
 
-/// @brief Predicates returning @c true if the "startHead" attribute of this RenderGroup is set.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return @c true if the "startHead" attribute of this RenderGroup object is set, @c false if either the "startHead" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(RenderGroup* renderGroup);
+/// @brief Predicates returning @c true if the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (RenderCurve or RenderGroup) object.
+/// @return @c true if the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object is set, @c false if either the "startHead" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetStartHead(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1846,10 +1861,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderInformationBas
 /// @return the "startHead" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(Style* style);
 
-/// @brief Returns the value of the "startHead" attribute of this RenderGroup.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "startHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(RenderGroup* renderGroup);
+/// @brief Returns the value of the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D (RenderCurve or RenderGroup) object.
+/// @return the "startHead" attribute of the Transformation2D (RenderCurve or RenderGroup) object, or empty string if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1871,11 +1886,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(RenderInformationBase* renderInfor
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(Style* style, const std::string& startHead);
 
-/// @brief Sets the value of the "startHead" attribute of this RenderGroup object.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @param startHead a boolean to use as the value of the "startHead" attribute of this RenderGroup object.
+/// @brief Sets the value of the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param startHead a boolean to use as the value of the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(RenderGroup* renderGroup, const std::string startHead);
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(Transformation2D* transformation2D, const std::string startHead);
 
 /// @brief Predicates returning @c true if the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1897,10 +1912,10 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderInformationBase* renderInfo
 /// attribute is not set or the object is @c NULL .
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(Style* style);
 
-/// @brief Predicates returning @c true if the "endHead" attribute of this RenderGroup is set.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return @c true if the "endHead" attribute of this RenderGroup object is set, @c false if either the "endHead" attribute is not set or the object is @c NULL .
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(RenderGroup* renderGroup);
+/// @brief Predicates returning @c true if the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) is set.
+/// @param transformation2D a pointer to the Transformation2D (RenderCurve or RenderGroup) object.
+/// @return @c true if the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object is set, @c false if either the "endHead" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEndHead(Transformation2D* transformation2D);
 
 /// @brief Returns the value of the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1919,10 +1934,10 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderInformationBase*
 /// @return the "endHead" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(Style* style);
 
-/// @brief Returns the value of the "endHead" attribute of this RenderGroup.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @return the "endHead" attribute of the RenderGroup object, or empty string if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(RenderGroup* renderGroup);
+/// @brief Returns the value of the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup).
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @return the "endHead" attribute of the Transformation2D (RenderCurve or RenderGroup) object, or empty string if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(Transformation2D* transformation2D);
 
 /// @brief Sets the value of the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1944,11 +1959,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderInformationBase* renderInforma
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(Style* style, const std::string& endHead);
 
-/// @brief Sets the value of the "endHead" attribute of this RenderGroup object.
-/// @param renderGroup a pointer to the RenderGroup object.
-/// @param endHead a boolean to use as the value of the "endHead" attribute of this RenderGroup object.
+/// @brief Sets the value of the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object.
+/// @param transformation2D a pointer to the Transformation2D object.
+/// @param endHead a boolean to use as the value of the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string endHead);
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(Transformation2D* transformation2D, const std::string endHead);
 
 /// @brief Returns number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

@@ -796,6 +796,27 @@ RenderGroup* getRenderGroup(Style* style) {
     return NULL;
 }
 
+const bool isGraphicalPrimitive1D(Transformation2D* transformation2D) {
+    if (transformation2D && dynamic_cast<GraphicalPrimitive1D*>(transformation2D))
+        return true;
+
+    return false;
+}
+
+const bool isGraphicalPrimitive2D(Transformation2D* transformation2D) {
+    if (transformation2D && dynamic_cast<GraphicalPrimitive2D*>(transformation2D))
+        return true;
+
+    return false;
+}
+
+const bool isRenderGroup(Transformation2D* transformation2D) {
+    if (transformation2D && dynamic_cast<RenderGroup*>(transformation2D))
+        return true;
+
+    return false;
+}
+
 bool isSetStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetStrokeColor(getStyle(renderInformationBase, graphicalObject));
 }
@@ -808,9 +829,9 @@ bool isSetStrokeColor(Style* style) {
     return isSetStrokeColor(getRenderGroup(style));
 }
 
-bool isSetStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D)
-        return graphicalPrimitive1D->isSetStroke();
+bool isSetStrokeColor(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        return ((GraphicalPrimitive1D*)transformation2D)->isSetStroke();
 
     return false;
 }
@@ -827,9 +848,9 @@ const std::string getStrokeColor(Style* style) {
     return getStrokeColor(getRenderGroup(style));
 }
 
-const std::string getStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D)
-        return graphicalPrimitive1D->getStroke();
+const std::string getStrokeColor(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        return ((GraphicalPrimitive1D*)transformation2D)->getStroke();
 
     return "";
 }
@@ -846,9 +867,9 @@ int setStrokeColor(Style* style, const std::string& stroke) {
     return setStrokeColor(getRenderGroup(style), stroke);
 }
 
-int setStrokeColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& stroke) {
-    if (graphicalPrimitive1D) {
-        graphicalPrimitive1D->setStroke(stroke);
+int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke) {
+    if (isGraphicalPrimitive1D(transformation2D)) {
+        ((GraphicalPrimitive1D*)transformation2D)->setStroke(stroke);
         return 0;
     }
 
@@ -867,9 +888,9 @@ bool isSetStrokeWidth(Style* style) {
     return isSetStrokeWidth(getRenderGroup(style));
 }
 
-bool isSetStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D)
-        return graphicalPrimitive1D->isSetStrokeWidth();
+bool isSetStrokeWidth(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        return ((GraphicalPrimitive1D*)transformation2D)->isSetStrokeWidth();
 
     return false;
 }
@@ -886,20 +907,11 @@ const double getStrokeWidth(Style* style) {
     return getStrokeWidth(getRenderGroup(style));
 }
 
-const double getStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D)
-        return graphicalPrimitive1D->getStrokeWidth();
+const double getStrokeWidth(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        return ((GraphicalPrimitive1D*)transformation2D)->getStrokeWidth();
 
     return 0.0;
-}
-
-int setStrokeWidth(GraphicalPrimitive1D* graphicalPrimitive1D, const double& strokeWidth) {
-    if (graphicalPrimitive1D) {
-        graphicalPrimitive1D->setStrokeWidth(strokeWidth);
-        return 0;
-    }
-
-    return -1;
 }
 
 int setStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth) {
@@ -914,6 +926,15 @@ int setStrokeWidth(Style* style, const double& strokeWidth) {
     return setStrokeWidth(getRenderGroup(style), strokeWidth);
 }
 
+int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth) {
+    if (isGraphicalPrimitive1D(transformation2D)) {
+        ((GraphicalPrimitive1D*)transformation2D)->setStrokeWidth(strokeWidth);
+        return 0;
+    }
+
+    return -1;
+}
+
 bool isSetStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetStrokeDashArray(getStyle(renderInformationBase, graphicalObject));
 }
@@ -926,9 +947,9 @@ bool isSetStrokeDashArray(Style* style) {
     return isSetStrokeDashArray(getRenderGroup(style));
 }
 
-bool isSetStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D)
-        return graphicalPrimitive1D->isSetStrokeDashArray();
+bool isSetStrokeDashArray(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        return ((GraphicalPrimitive1D*)transformation2D)->isSetStrokeDashArray();
 
     return false;
 }
@@ -945,9 +966,9 @@ const std::vector<unsigned int> getStrokeDashArray(Style* style) {
     return getStrokeDashArray(getRenderGroup(style));
 }
 
-const std::vector<unsigned int> getStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D)
-        return graphicalPrimitive1D->getStrokeDashArray();
+const std::vector<unsigned int> getStrokeDashArray(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        return ((GraphicalPrimitive1D*)transformation2D)->getStrokeDashArray();
 
     return std::vector<unsigned int>();
 }
@@ -964,9 +985,9 @@ int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDash
     return setStrokeDashArray(getRenderGroup(style), strokeDashArray);
 }
 
-int setStrokeDashArray(GraphicalPrimitive1D* graphicalPrimitive1D, const std::vector<unsigned int>& strokeDashArray) {
-    if (graphicalPrimitive1D) {
-        graphicalPrimitive1D->setStrokeDashArray(strokeDashArray);
+int setStrokeDashArray(Transformation2D* transformation2D, const std::vector<unsigned int>& strokeDashArray) {
+    if (isGraphicalPrimitive1D(transformation2D)) {
+        ((GraphicalPrimitive1D*)transformation2D)->setStrokeDashArray(strokeDashArray);
         return 0;
     }
 
@@ -985,8 +1006,8 @@ unsigned int getNumStrokeDashes(Style* style) {
     return getNumStrokeDashes(getRenderGroup(style));
 }
 
-unsigned int getNumStrokeDashes(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    return getStrokeDashArray(graphicalPrimitive1D).size();
+unsigned int getNumStrokeDashes(Transformation2D* transformation2D) {
+    return getStrokeDashArray(transformation2D).size();
 }
 
 unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex) {
@@ -1001,9 +1022,9 @@ unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex) {
     return getStrokeDash(getRenderGroup(style), strokeDashIndex);
 }
 
-unsigned int getStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex) {
-    if (graphicalPrimitive1D)
-        graphicalPrimitive1D->getDashByIndex(strokeDashIndex);
+unsigned int getStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex) {
+    if (isGraphicalPrimitive1D(transformation2D))
+        ((GraphicalPrimitive1D*)transformation2D)->getDashByIndex(strokeDashIndex);
 
     return 0;
 }
@@ -1032,13 +1053,13 @@ unsigned int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned 
     return setStrokeDash(getRenderGroup(style), strokeDashIndex, dash);
 }
 
-unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int dash) {
-    return setStrokeDash(graphicalPrimitive1D, 0, dash);
+unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int dash) {
+    return setStrokeDash(transformation2D, 0, dash);
 }
 
-unsigned int setStrokeDash(GraphicalPrimitive1D* graphicalPrimitive1D, unsigned int strokeDashIndex, unsigned int dash) {
-    if (graphicalPrimitive1D) {
-        graphicalPrimitive1D->setDashByIndex(strokeDashIndex, dash);
+unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash) {
+    if (isGraphicalPrimitive1D(transformation2D)) {
+        ((GraphicalPrimitive1D*)transformation2D)->setDashByIndex(strokeDashIndex, dash);
         return 0;
     }
 
@@ -1057,8 +1078,8 @@ bool isSetFontColor(Style* style) {
     return isSetFontColor(getRenderGroup(style));
 }
 
-bool isSetFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    return isSetStrokeColor(graphicalPrimitive1D);
+bool isSetFontColor(Transformation2D* transformation2D) {
+    return isSetStrokeColor(transformation2D);
 }
 
 const std::string getFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1073,8 +1094,8 @@ const std::string getFontColor(Style* style) {
     return getFontColor(getRenderGroup(style));
 }
 
-const std::string getFontColor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    return getStrokeColor(graphicalPrimitive1D);
+const std::string getFontColor(Transformation2D* transformation2D) {
+    return getStrokeColor(transformation2D);
 }
 
 int setFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontColor) {
@@ -1089,8 +1110,8 @@ int setFontColor(Style* style, const std::string& fontColor) {
     return setFontColor(getRenderGroup(style), fontColor);
 }
 
-int setFontColor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontColor) {
-    return setStrokeColor(graphicalPrimitive1D, fontColor);
+int setFontColor(Transformation2D* transformation2D, const std::string& fontColor) {
+    return setStrokeColor(transformation2D, fontColor);
 }
 
 bool isSetFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1105,15 +1126,11 @@ bool isSetFontFamily(Style* style) {
     return isSetFontFamily(getRenderGroup(style));
 }
 
-bool isSetFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->isSetFontFamily();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->isSetFontFamily();
-    }
+bool isSetFontFamily(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontFamily();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontFamily();
 
     return false;
 }
@@ -1130,15 +1147,11 @@ const std::string getFontFamily(Style* style) {
     return getFontFamily(getRenderGroup(style));
 }
 
-const std::string getFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->getFontFamily();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->getFontFamily();
-    }
+const std::string getFontFamily(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontFamily();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontFamily();
 
     return "";
 }
@@ -1155,18 +1168,14 @@ int setFontFamily(Style* style, const std::string& fontFamily) {
     return setFontFamily(getRenderGroup(style), fontFamily);
 }
 
-int setFontFamily(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontFamily) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup) {
-            renderGroup->setFontFamily(fontFamily);
-            return 0;
-        }
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text) {
-            text->setFontFamily(fontFamily);
-            return 0;
-        }
+int setFontFamily(Transformation2D* transformation2D, const std::string& fontFamily) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setFontFamily(fontFamily);
+        return 0;
+    }
+    else if (isText(transformation2D)) {
+        ((Text*)transformation2D)->setFontFamily(fontFamily);
+        return 0;
     }
 
     return -1;
@@ -1184,13 +1193,11 @@ bool isSetFontSize(Style* style) {
     return isSetFontSize(getRenderGroup(style));
 }
 
-bool isSetFontSize(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-    if (renderGroup)
-        return renderGroup->isSetFontSize();
-    Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-    if (text)
-        return text->isSetFontSize();
+bool isSetFontSize(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontSize();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontSize();
 
     return false;
 }
@@ -1207,14 +1214,12 @@ const RelAbsVector getFontSize(Style* style) {
     return getFontSize(getRenderGroup(style));
 }
 
-const RelAbsVector getFontSize(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-    if (renderGroup)
-        return renderGroup->getFontSize();
-    Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-    if (text)
-        return text->getFontSize();
-
+const RelAbsVector getFontSize(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontSize();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontSize();
+    
     return RelAbsVector();
 }
 
@@ -1230,15 +1235,13 @@ int setFontSize(Style* style, const RelAbsVector& fontSize) {
     return setFontSize(getRenderGroup(style), fontSize);
 }
 
-int setFontSize(GraphicalPrimitive1D* graphicalPrimitive1D, const RelAbsVector& fontSize) {
-    RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-    if (renderGroup) {
-        renderGroup->setFontSize(fontSize);
+int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setFontSize(fontSize);
         return 0;
     }
-    Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-    if (text) {
-        text->setFontSize(fontSize);
+    else if (isText(transformation2D)) {
+        ((Text*)transformation2D)->setFontSize(fontSize);
         return 0;
     }
 
@@ -1257,15 +1260,11 @@ bool isSetFontWeight(Style* style) {
     return isSetFontWeight(getRenderGroup(style));
 }
 
-bool isSetFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->isSetFontWeight();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->isSetFontWeight();
-    }
+bool isSetFontWeight(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontWeight();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontWeight();
 
     return false;
 }
@@ -1282,15 +1281,11 @@ const std::string getFontWeight(Style* style) {
     return getFontWeight(getRenderGroup(style));
 }
 
-const std::string getFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->getFontWeightAsString();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->getFontWeightAsString();
-    }
+const std::string getFontWeight(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontWeightAsString();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontWeightAsString();
 
     return "";
 }
@@ -1307,18 +1302,14 @@ int setFontWeight(Style* style, const std::string& fontWeight) {
     return setFontWeight(getRenderGroup(style), fontWeight);
 }
 
-int setFontWeight(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontWeight) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup) {
-            renderGroup->setFontWeight(fontWeight);
-            return 0;
-        }
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text) {
-            text->setFontWeight(fontWeight);
-            return 0;
-        }
+int setFontWeight(Transformation2D* transformation2D, const std::string& fontWeight) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setFontWeight(fontWeight);
+        return 0;
+    }
+    else if (isText(transformation2D)) {
+        ((Text*)transformation2D)->setFontWeight(fontWeight);
+        return 0;
     }
 
     return -1;
@@ -1336,15 +1327,11 @@ bool isSetFontStyle(Style* style) {
     return isSetFontStyle(getRenderGroup(style));
 }
 
-bool isSetFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->isSetFontStyle();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->isSetFontStyle();
-    }
+bool isSetFontStyle(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontStyle();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetFontStyle();
 
     return false;
 }
@@ -1361,15 +1348,11 @@ const std::string getFontStyle(Style* style) {
     return getFontStyle(getRenderGroup(style));
 }
 
-const std::string getFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->getFontStyleAsString();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->getFontStyleAsString();
-    }
+const std::string getFontStyle(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontStyleAsString();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->getFontStyleAsString();
 
     return "";
 }
@@ -1386,18 +1369,14 @@ int setFontStyle(Style* style, const std::string& fontStyle) {
     return setFontStyle(getRenderGroup(style), fontStyle);
 }
 
-int setFontStyle(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& fontStyle) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup) {
-            renderGroup->setFontStyle(fontStyle);
-            return 0;
-        }
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text) {
-            text->setFontStyle(fontStyle);
-            return 0;
-        }
+int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyle) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setFontStyle(fontStyle);
+        return 0;
+    }
+    else if (isText(transformation2D)) {
+        ((Text*)transformation2D)->setFontStyle(fontStyle);
+        return 0;
     }
 
     return -1;
@@ -1415,15 +1394,11 @@ bool isSetTextAnchor(Style* style) {
     return isSetTextAnchor(getRenderGroup(style));
 }
 
-bool isSetTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->isSetTextAnchor();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->isSetTextAnchor();
-    }
+bool isSetTextAnchor(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetTextAnchor();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetTextAnchor();
 
     return false;
 }
@@ -1440,15 +1415,11 @@ const std::string getTextAnchor(Style* style) {
     return getTextAnchor(getRenderGroup(style));
 }
 
-const std::string getTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->getTextAnchorAsString();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->getTextAnchorAsString();
-    }
+const std::string getTextAnchor(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getTextAnchorAsString();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->getTextAnchorAsString();
 
     return "";
 }
@@ -1465,18 +1436,14 @@ int setTextAnchor(Style* style, const std::string& textAnchor) {
     return setTextAnchor(getRenderGroup(style), textAnchor);
 }
 
-int setTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& textAnchor) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup) {
-            renderGroup->setTextAnchor(textAnchor);
-            return 0;
-        }
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text) {
-            text->setTextAnchor(textAnchor);
-            return 0;
-        }
+int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnchor) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setTextAnchor(textAnchor);
+        return 0;
+    }
+    else if (isText(transformation2D)) {
+        ((Text*)transformation2D)->setTextAnchor(textAnchor);
+        return 0;
     }
 
     return -1;
@@ -1494,15 +1461,11 @@ bool isSetVTextAnchor(Style* style) {
     return isSetVTextAnchor(getRenderGroup(style));
 }
 
-bool isSetVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->isSetVTextAnchor();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->isSetVTextAnchor();
-    }
+bool isSetVTextAnchor(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetVTextAnchor();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetVTextAnchor();
 
     return false;
 }
@@ -1519,15 +1482,11 @@ const std::string getVTextAnchor(Style* style) {
     return getVTextAnchor(getRenderGroup(style));
 }
 
-const std::string getVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup)
-            return renderGroup->getVTextAnchorAsString();
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text)
-            return text->getVTextAnchorAsString();
-    }
+const std::string getVTextAnchor(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getVTextAnchorAsString();
+    else if (isText(transformation2D))
+        return ((RenderGroup*)transformation2D)->getVTextAnchorAsString();
 
     return "";
 }
@@ -1544,20 +1503,16 @@ int setVTextAnchor(Style* style, const std::string& vtextAnchor) {
     return setVTextAnchor(getRenderGroup(style), vtextAnchor);
 }
 
-int setVTextAnchor(GraphicalPrimitive1D* graphicalPrimitive1D, const std::string& vtextAnchor) {
-    if (graphicalPrimitive1D) {
-        RenderGroup* renderGroup = dynamic_cast<RenderGroup*>(graphicalPrimitive1D);
-        if (renderGroup) {
-            renderGroup->setVTextAnchor(vtextAnchor);
-            return 0;
-        }
-        Text* text = dynamic_cast<Text*>(graphicalPrimitive1D);
-        if (text) {
-            text->setVTextAnchor(vtextAnchor);
-            return 0;
-        }
+int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setVTextAnchor(vtextAnchor);
+        return 0;
     }
-
+    else if (isText(transformation2D)) {
+        ((Text*)transformation2D)->setVTextAnchor(vtextAnchor);
+        return 0;
+    }
+    
     return -1;
 }
 
@@ -1573,9 +1528,9 @@ bool isSetFillColor(Style* style) {
     return isSetFillColor(getRenderGroup(style));
 }
 
-bool isSetFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
-    if (graphicalPrimitive2D)
-        return graphicalPrimitive2D->isSetFill();
+bool isSetFillColor(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive2D(transformation2D))
+        return ((GraphicalPrimitive2D*)transformation2D)->isSetFill();
 
     return false;
 }
@@ -1592,9 +1547,9 @@ const std::string getFillColor(Style* style) {
     return getFillColor(getRenderGroup(style));
 }
 
-const std::string getFillColor(GraphicalPrimitive2D* graphicalPrimitive2D) {
-    if (graphicalPrimitive2D)
-        return graphicalPrimitive2D->getFill();
+const std::string getFillColor(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive2D(transformation2D))
+        return ((GraphicalPrimitive2D*)transformation2D)->getFill();
 
     return "";
 }
@@ -1611,9 +1566,9 @@ int setFillColor(Style* style, const std::string& fillColor) {
     return setFillColor(getRenderGroup(style), fillColor);
 }
 
-int setFillColor(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillColor) {
-    if (graphicalPrimitive2D) {
-        graphicalPrimitive2D->setFill(fillColor);
+int setFillColor(Transformation2D* transformation2D, const std::string& fillColor) {
+    if (isGraphicalPrimitive2D(transformation2D)) {
+        ((GraphicalPrimitive2D*)transformation2D)->setFill(fillColor);
         return 0;
     }
 
@@ -1632,9 +1587,9 @@ bool isSetFillRule(Style* style) {
     return isSetFillRule(getRenderGroup(style));
 }
 
-bool isSetFillRule(GraphicalPrimitive2D* graphicalPrimitive2D) {
-    if (graphicalPrimitive2D)
-        return graphicalPrimitive2D->isSetFillRule();
+bool isSetFillRule(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive2D(transformation2D))
+        return ((GraphicalPrimitive2D*)transformation2D)->isSetFillRule();
 
     return false;
 }
@@ -1651,9 +1606,9 @@ const std::string getFillRule(Style* style) {
     return getFillRule(getRenderGroup(style));
 }
 
-const std::string getFillRule(GraphicalPrimitive2D* graphicalPrimitive2D) {
-    if (graphicalPrimitive2D)
-        return graphicalPrimitive2D->getFillRuleAsString();
+const std::string getFillRule(Transformation2D* transformation2D) {
+    if (isGraphicalPrimitive2D(transformation2D))
+        return ((GraphicalPrimitive2D*)transformation2D)->getFillRuleAsString();
 
     return "";
 }
@@ -1670,9 +1625,9 @@ int setFillRule(Style* style, const std::string& fillRule) {
     return setFillRule(getRenderGroup(style), fillRule);
 }
 
-int setFillRule(GraphicalPrimitive2D* graphicalPrimitive2D, const std::string& fillRule) {
-    if (graphicalPrimitive2D) {
-        graphicalPrimitive2D->setFillRule(fillRule);
+int setFillRule(Transformation2D* transformation2D, const std::string& fillRule) {
+    if (isGraphicalPrimitive2D(transformation2D)) {
+        ((GraphicalPrimitive2D*)transformation2D)->setFillRule(fillRule);
         return 0;
     }
 
@@ -1691,9 +1646,11 @@ bool isSetStartHead(Style* style) {
     return isSetStartHead(getRenderGroup(style));
 }
 
-bool isSetStartHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->isSetStartHead();
+bool isSetStartHead(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetStartHead();
+    else if (isRenderCurve(transformation2D))
+        return ((RenderCurve*)transformation2D)->isSetStartHead();
 
     return false;
 }
@@ -1710,9 +1667,11 @@ const std::string getStartHead(Style* style) {
     return getStartHead(getRenderGroup(style));
 }
 
-const std::string getStartHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->getStartHead();
+const std::string getStartHead(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getStartHead();
+    else if (isRenderCurve(transformation2D))
+        return ((RenderCurve*)transformation2D)->getStartHead();
 
     return "";
 }
@@ -1729,9 +1688,13 @@ int setStartHead(Style* style, const std::string& startHead) {
     return setStartHead(getRenderGroup(style), startHead);
 }
 
-int setStartHead(RenderGroup* renderGroup, const std::string startHead) {
-    if (renderGroup) {
-        renderGroup->setStartHead(startHead);
+int setStartHead(Transformation2D* transformation2D, const std::string startHead) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setStartHead(startHead);
+        return 0;
+    }
+    else if (isRenderCurve(transformation2D)) {
+        ((RenderCurve*)transformation2D)->setStartHead(startHead);
         return 0;
     }
 
@@ -1750,9 +1713,11 @@ bool isSetEndHead(Style* style) {
     return isSetEndHead(getRenderGroup(style));
 }
 
-bool isSetEndHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->isSetEndHead();
+bool isSetEndHead(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->isSetEndHead();
+    else if (isRenderCurve(transformation2D))
+        return ((RenderCurve*)transformation2D)->isSetEndHead();
 
     return false;
 }
@@ -1769,9 +1734,11 @@ const std::string getEndHead(Style* style) {
     return getEndHead(getRenderGroup(style));
 }
 
-const std::string getEndHead(RenderGroup* renderGroup) {
-    if (renderGroup)
-        return renderGroup->getEndHead();
+const std::string getEndHead(Transformation2D* transformation2D) {
+    if (isRenderGroup(transformation2D))
+        return ((RenderGroup*)transformation2D)->getEndHead();
+    else if (isRenderCurve(transformation2D))
+        return ((RenderCurve*)transformation2D)->getEndHead();
 
     return "";
 }
@@ -1788,9 +1755,13 @@ int setEndHead(Style* style, const std::string& endHead) {
     return setEndHead(getRenderGroup(style), endHead);
 }
 
-int setEndHead(RenderGroup* renderGroup, const std::string endHead) {
-    if (renderGroup) {
-        renderGroup->setEndHead(endHead);
+int setEndHead(Transformation2D* transformation2D, const std::string endHead) {
+    if (isRenderGroup(transformation2D)) {
+        ((RenderGroup*)transformation2D)->setEndHead(endHead);
+        return 0;
+    }
+    else if (isRenderCurve(transformation2D)) {
+        ((RenderCurve*)transformation2D)->setEndHead(endHead);
         return 0;
     }
 
