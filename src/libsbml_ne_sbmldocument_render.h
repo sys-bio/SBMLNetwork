@@ -49,6 +49,65 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeAllGlobalRenderInformation(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation);
 
+/// @brief Get the List of local render Information of the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return a pointer to the ListOfGlobalInformationBase object of this Layout object.
+LIBSBML_NETWORKEDITOR_EXTERN ListOfLocalRenderInformation* getListOfLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Returns the number of items in the ListOfGlobalRenderInformation of the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the number of items in the ListOfGlobalRenderInformation of this Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Returns a pointer to the LocalRenderInformation object with the given index in the ListOfLocalRenderInformation of
+/// the layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param renderIndex the index number of the GlobalRenderInformation to return.
+/// @return the @c the LocalRenderInformation with the given index in the ListOfLocalRenderInformation of this Layout object or NULL if
+/// no such LocalRenderInformation exists or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int renderIndex = 0);
+
+/// @brief Add LocalRenderInformation to the list of local renders of the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param localRenderInformation a pointer to the LocalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addLocalRenderInformation(SBMLDocument* document, LocalRenderInformation* localRenderInformation);
+
+/// @brief Add LocalRenderInformation to list of local renders of the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param localRenderInformation a pointer to the LocalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex, LocalRenderInformation* localRenderInformation);
+
+/// @brief Create a LocalRenderInformation object and add it to list of local renders of the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return a pointer to the created LocalRenderInformation object.
+LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* createLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Remove all the local render information objects from the list of local renders of the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int removeAllLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Set all the necessary features for the local render information object in the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param localRenderInformation a pointer to the LocalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, LocalRenderInformation* localRenderInformation);
+
+/// @brief Set all the necessary features for the local render information object in the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param localRenderInformation a pointer to the LocalRenderInformation object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, unsigned int layoutIndex, LocalRenderInformation* localRenderInformation);
+
 /// @brief Create a GlobalRenderInformation object and add it to list of global renders of the SBML document, and
 /// Create a LocalRenderInformation object, add it to list of local renders of the Layout of the SBML document, and
 /// set all the necessary features for them.

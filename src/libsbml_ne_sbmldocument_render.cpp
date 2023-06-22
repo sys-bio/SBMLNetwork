@@ -72,6 +72,42 @@ int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRend
     return -1;
 }
 
+ListOfLocalRenderInformation* getListOfLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex) {
+    return getListOfLocalRenderInformation(getLayout(document, layoutIndex));
+}
+
+const unsigned int getNumLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex) {
+    return getNumLocalRenderInformation(getLayout(document, layoutIndex));
+}
+
+LocalRenderInformation* getLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex, unsigned int renderIndex) {
+    return getLocalRenderInformation(getLayout(document, layoutIndex), renderIndex);
+}
+
+int addLocalRenderInformation(SBMLDocument* document, LocalRenderInformation* localRenderInformation) {
+    return addLocalRenderInformation(getLayout(document), localRenderInformation);
+}
+
+int addLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex, LocalRenderInformation* localRenderInformation) {
+    return addLocalRenderInformation(getLayout(document, layoutIndex), localRenderInformation);
+}
+
+LocalRenderInformation* createLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex) {
+    return createLocalRenderInformation(getLayout(document, layoutIndex));
+}
+
+int removeAllLocalRenderInformation(SBMLDocument* document, unsigned int layoutIndex) {
+    return removeAllLocalRenderInformation(getLayout(document, layoutIndex));
+}
+
+int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, LocalRenderInformation* localRenderInformation) {
+    return setDefaultLocalRenderInformationFeatures(document, getLayout(document), localRenderInformation);
+}
+
+int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, unsigned int layoutIndex, LocalRenderInformation* localRenderInformation) {
+    return setDefaultLocalRenderInformationFeatures(document, getLayout(document, layoutIndex), localRenderInformation);
+}
+
 int createDefaultRenderInformation(SBMLDocument* document) {
     if (!createDefaultLocalRenderInformation(document) && !createDefaultGlobalRenderInformation(document))
         return 0;
