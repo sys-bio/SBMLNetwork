@@ -209,7 +209,7 @@ int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string
 }
 
 const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex) {
-    if (getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex)))
+    if (getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex)))
         return getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex));
 
     return getNumGradientDefinitions(getLocalRenderInformation(document, 0, renderIndex));
@@ -577,5 +577,65 @@ int setRadialGradientR(SBMLDocument* document, const std::string& sid, const Rel
 int setRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& r) {
     return setRadialGradientR(getGradientDefinition(document, renderIndex, sid), r);
 }
+
+const unsigned int getNumLineEndings(SBMLDocument* document, unsigned int renderIndex) {
+    if (getNumLineEndings(getGlobalRenderInformation(document, renderIndex)))
+        return getNumLineEndings(getGlobalRenderInformation(document, renderIndex));
+
+    return getNumLineEndings(getLocalRenderInformation(document, 0, renderIndex));
+}
+
+LineEnding* getLineEnding(SBMLDocument* document, const std::string& sid) {
+    for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+        if (getLineEnding(getGlobalRenderInformation(document, i), sid))
+            return getLineEnding(getGlobalRenderInformation(document, i), sid);
+    }
+    for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+        if (getLineEnding(getLocalRenderInformation(document, i), sid))
+            return getLineEnding(getLocalRenderInformation(document, i), sid);
+    }
+
+    return NULL;
+}
+
+LineEnding* getLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    if (getLineEnding(getGlobalRenderInformation(document, renderIndex), sid))
+        return getLineEnding(getGlobalRenderInformation(document, renderIndex), sid);
+
+    return getLineEnding(getLocalRenderInformation(document, 0, renderIndex), sid);
+}
+
+LineEnding* getLineEnding(SBMLDocument* document, unsigned int renderIndex, unsigned int lineEndingIndex) {
+    if (getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex))
+        return getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex);
+
+    return getLineEnding(getLocalRenderInformation(document, 0, renderIndex), lineEndingIndex);
+}
+
+bool isSetEnableRotationalMapping(SBMLDocument* document, const std::string& sid) {
+    return isSetEnableRotationalMapping(getLineEnding(document, sid));
+}
+
+bool isSetEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetEnableRotationalMapping(getLineEnding(document, renderIndex, sid));
+}
+
+bool getEnableRotationalMapping(SBMLDocument* document, const std::string& sid) {
+    return getEnableRotationalMapping(getLineEnding(document, sid));
+}
+
+bool getEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getEnableRotationalMapping(getLineEnding(document, renderIndex, sid));
+}
+
+int setEnableRotationalMapping(SBMLDocument* document, const std::string& sid, bool enableRotationalMapping) {
+    return setEnableRotationalMapping(getLineEnding(document, sid), enableRotationalMapping);
+}
+
+int setEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, bool enableRotationalMapping) {
+    return setEnableRotationalMapping(getLineEnding(document, renderIndex, sid), enableRotationalMapping);
+}
+
+
 
 }
