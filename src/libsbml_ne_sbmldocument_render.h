@@ -127,6 +127,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int createDefaultGlobalRenderInformation(SBMLDocume
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLocalRenderInformation(SBMLDocument* document);
 
+/// @brief Predicates returning @c true if the "backgroundColor" attribute of the GlobalRenderInformation object with the given index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the GlobalRenderInformation object.
+/// @return @c true if the "backgroundColor" attribute of this GlobalRenderInformation object is set, @c false if either the "backgroundColor"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetBackgroundColor(SBMLDocument* document, unsigned int renderIndex = 0);
+
+/// @brief Returns the value of the "backgroundColor" attribute of the GlobalRenderInformation object with the given index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the GlobalRenderInformation object.
+/// @return the "backgroundColor" attribute of this RenderInformationBase object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getBackgroundColor(SBMLDocument* document, unsigned int renderIndex = 0);
+
+/// @brief Sets the value of the "backgroundColor" attribute of the first GlobalRenderInformation object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this RenderInformationBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setBackgroundColor(SBMLDocument* document, const std::string& backgroundColor);
+
+/// @brief Sets the value of the "backgroundColor" attribute of the GlobalRenderInformation object with the given index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the GlobalRenderInformation object.
+/// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this RenderInformationBase object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const std::string& backgroundColor);
+
 }
 
 #endif

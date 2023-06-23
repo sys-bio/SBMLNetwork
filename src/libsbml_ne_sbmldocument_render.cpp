@@ -134,4 +134,20 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
     return -1;
 }
 
+bool isSetBackgroundColor(SBMLDocument* document, unsigned int renderIndex) {
+    return isSetBackgroundColor(getGlobalRenderInformation(document, renderIndex));
+}
+
+const std::string getBackgroundColor(SBMLDocument* document, unsigned int renderIndex) {
+    return getBackgroundColor(getGlobalRenderInformation(document, renderIndex));
+}
+
+int setBackgroundColor(SBMLDocument* document, const std::string& backgroundColor) {
+    return setBackgroundColor(document, 0, backgroundColor);
+}
+
+int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const std::string& backgroundColor) {
+    return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
+}
+
 }
