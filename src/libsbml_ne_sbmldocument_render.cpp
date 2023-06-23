@@ -258,4 +258,324 @@ bool isRadialGradient(SBMLDocument* document, unsigned int renderIndex, const st
     return isRadialGradient(getGradientDefinition(document, renderIndex, sid));
 }
 
+bool isSetSpreadMethod(SBMLDocument* document, const std::string& sid) {
+    return isSetSpreadMethod(getGradientDefinition(document, sid));
+}
+
+bool isSetSpreadMethod(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetSpreadMethod(getGradientDefinition(document, renderIndex, sid));
+}
+
+const std::string getSpreadMethod(SBMLDocument* document, const std::string& sid) {
+    return getSpreadMethod(getGradientDefinition(document, sid));
+}
+
+const std::string getSpreadMethod(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getSpreadMethod(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setSpreadMethod(SBMLDocument* document, const std::string& sid, const std::string& spreadMethod) {
+    return setSpreadMethod(getGradientDefinition(document, sid), spreadMethod);
+}
+
+int setSpreadMethod(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& spreadMethod) {
+    return setSpreadMethod(getGradientDefinition(document, renderIndex, sid), spreadMethod);
+}
+
+unsigned int getNumGradientStops(SBMLDocument* document, const std::string& sid) {
+    return getNumGradientStops(getGradientDefinition(document, sid));
+}
+
+unsigned int getNumGradientStops(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getNumGradientStops(getGradientDefinition(document, renderIndex, sid));
+}
+
+GradientStop* getGradientStop(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex) {
+    return getGradientStop(getGradientDefinition(document, sid), gradientStopIndex);
+}
+
+GradientStop* getGradientStop(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex) {
+    return getGradientStop(getGradientDefinition(document, renderIndex, sid), gradientStopIndex);
+}
+
+bool isSetOffset(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex) {
+    return isSetOffset(getGradientDefinition(document, sid), gradientStopIndex);
+}
+
+bool isSetOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex) {
+    return isSetOffset(getGradientDefinition(document, renderIndex, sid), gradientStopIndex);
+}
+
+const RelAbsVector getOffset(SBMLDocument* document, const std::string& sid , unsigned int gradientStopIndex) {
+    return getOffset(getGradientDefinition(document, sid), gradientStopIndex);
+}
+
+const RelAbsVector getOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid , unsigned int gradientStopIndex) {
+    return getOffset(getGradientDefinition(document, renderIndex, sid), gradientStopIndex);
+}
+
+int setOffset(SBMLDocument* document, const std::string& sid, const RelAbsVector& offset) {
+    return setOffset(getGradientDefinition(document, sid), offset);
+}
+
+int setOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& offset) {
+    return setOffset(getGradientDefinition(document, renderIndex, sid), offset);
+}
+
+int setOffset(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset) {
+    return setOffset(getGradientDefinition(document, sid), gradientStopIndex, offset);
+}
+
+int setOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset) {
+    return setOffset(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, offset);
+}
+
+bool isSetStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex) {
+    return isSetStopColor(getGradientDefinition(document, sid), gradientStopIndex);
+}
+
+bool isSetStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex) {
+    return isSetStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex);
+}
+
+const std::string getStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex) {
+    return getStopColor(getGradientDefinition(document, sid), gradientStopIndex);
+}
+
+const std::string getStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex) {
+    return getStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex);
+}
+
+int setStopColor(SBMLDocument* document, const std::string& sid, const std::string& stopColor) {
+    return setStopColor(getGradientDefinition(document, sid), stopColor);
+}
+
+int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& stopColor) {
+    return setStopColor(getGradientDefinition(document, renderIndex, sid), stopColor);
+}
+
+int setStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
+    return setStopColor(getGradientDefinition(document, sid), gradientStopIndex, stopColor);
+}
+
+int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
+    return setStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, stopColor);
+}
+
+bool isSetLinearGradientX1(SBMLDocument* document, const std::string& sid) {
+    return isSetLinearGradientX1(getGradientDefinition(document, sid));
+}
+
+bool isSetLinearGradientX1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetLinearGradientX1(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getLinearGradientX1(SBMLDocument* document, const std::string& sid) {
+    return getLinearGradientX1(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getLinearGradientX1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getLinearGradientX1(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setLinearGradientX1(SBMLDocument* document, const std::string& sid, const RelAbsVector& x1) {
+    return setLinearGradientX1(getGradientDefinition(document, sid), x1);
+}
+
+int setLinearGradientX1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& x1) {
+    return setLinearGradientX1(getGradientDefinition(document, renderIndex, sid), x1);
+}
+
+bool isSetLinearGradientX2(SBMLDocument* document, const std::string& sid) {
+    return isSetLinearGradientX2(getGradientDefinition(document, sid));
+}
+
+bool isSetLinearGradientX2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetLinearGradientX2(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getLinearGradientX2(SBMLDocument* document, const std::string& sid) {
+    return getLinearGradientX2(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getLinearGradientX2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getLinearGradientX2(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setLinearGradientX2(SBMLDocument* document, const std::string& sid, const RelAbsVector& x2) {
+    return setLinearGradientX2(getGradientDefinition(document, sid), x2);
+}
+
+int setLinearGradientX2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& x2) {
+    return setLinearGradientX2(getGradientDefinition(document, renderIndex, sid), x2);
+}
+
+bool isSetLinearGradientY1(SBMLDocument* document, const std::string& sid) {
+    return isSetLinearGradientY1(getGradientDefinition(document, sid));
+}
+
+bool isSetLinearGradientY1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetLinearGradientY1(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getLinearGradientY1(SBMLDocument* document, const std::string& sid) {
+    return getLinearGradientY1(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getLinearGradientY1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getLinearGradientY1(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setLinearGradientY1(SBMLDocument* document, const std::string& sid, const RelAbsVector& y1) {
+    return setLinearGradientY1(getGradientDefinition(document, sid), y1);
+}
+
+int setLinearGradientY1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& y1) {
+    return setLinearGradientY1(getGradientDefinition(document, renderIndex, sid), y1);
+}
+
+bool isSetLinearGradientY2(SBMLDocument* document, const std::string& sid) {
+    return isSetLinearGradientY1(getGradientDefinition(document, sid));
+}
+
+bool isSetLinearGradientY2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetLinearGradientY2(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getLinearGradientY2(SBMLDocument* document, const std::string& sid) {
+    return getLinearGradientY2(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getLinearGradientY2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getLinearGradientY2(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setLinearGradientY2(SBMLDocument* document, const std::string& sid, const RelAbsVector& y2) {
+    return setLinearGradientY2(getGradientDefinition(document, sid), y2);
+}
+
+int setLinearGradientY2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& y2) {
+    return setLinearGradientY2(getGradientDefinition(document, renderIndex, sid), y2);
+}
+
+bool isSetRadialGradientCx(SBMLDocument* document, const std::string& sid) {
+    return isSetRadialGradientCx(getGradientDefinition(document, sid));
+}
+
+bool isSetRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetRadialGradientCx(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getRadialGradientCx(SBMLDocument* document, const std::string& sid) {
+    return getRadialGradientCx(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getRadialGradientCx(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setRadialGradientCx(SBMLDocument* document, const std::string& sid, const RelAbsVector& cx) {
+    return setRadialGradientCx(getGradientDefinition(document, sid), cx);
+}
+
+int setRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& cx) {
+    return setRadialGradientCx(getGradientDefinition(document, renderIndex, sid), cx);
+}
+
+bool isSetRadialGradientCy(SBMLDocument* document, const std::string& sid) {
+    return isSetRadialGradientCy(getGradientDefinition(document, sid));
+}
+
+bool isSetRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetRadialGradientCy(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getRadialGradientCy(SBMLDocument* document, const std::string& sid) {
+    return getRadialGradientCy(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getRadialGradientCy(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setRadialGradientCy(SBMLDocument* document, const std::string& sid, const RelAbsVector& cy) {
+    return setRadialGradientCy(getGradientDefinition(document, sid), cy);
+}
+
+int setRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& cy) {
+    return setRadialGradientCy(getGradientDefinition(document, renderIndex, sid), cy);
+}
+
+bool isSetRadialGradientFx(SBMLDocument* document, const std::string& sid) {
+    return isSetRadialGradientFx(getGradientDefinition(document, sid));
+}
+
+bool isSetRadialGradientFx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetRadialGradientFx(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getRadialGradientFx(SBMLDocument* document, const std::string& sid) {
+    return getRadialGradientFx(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getRadialGradientFx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getRadialGradientFx(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setRadialGradientFx(SBMLDocument* document, const std::string& sid, const RelAbsVector& fx) {
+    return setRadialGradientFx(getGradientDefinition(document, sid), fx);
+}
+
+int setRadialGradientFx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& fx) {
+    return setRadialGradientFx(getGradientDefinition(document, renderIndex, sid), fx);
+}
+
+bool isSetRadialGradientFy(SBMLDocument* document, const std::string& sid) {
+    return isSetRadialGradientFy(getGradientDefinition(document, sid));
+}
+
+bool isSetRadialGradientFy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetRadialGradientFy(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getRadialGradientFy(SBMLDocument* document, const std::string& sid) {
+    return getRadialGradientFy(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getRadialGradientFy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getRadialGradientFy(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setRadialGradientFy(SBMLDocument* document, const std::string& sid, const RelAbsVector& fy) {
+    return setRadialGradientFy(getGradientDefinition(document, sid), fy);
+}
+
+int setRadialGradientFy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& fy) {
+    return setRadialGradientFy(getGradientDefinition(document, renderIndex, sid), fy);
+}
+
+bool isSetRadialGradientR(SBMLDocument* document, const std::string& sid) {
+    return isSetRadialGradientR(getGradientDefinition(document, sid));
+}
+
+bool isSetRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetRadialGradientR(getGradientDefinition(document, renderIndex, sid));
+}
+
+const RelAbsVector getRadialGradientR(SBMLDocument* document, const std::string& sid) {
+    return getRadialGradientR(getGradientDefinition(document, sid));
+}
+
+const RelAbsVector getRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getRadialGradientR(getGradientDefinition(document, renderIndex, sid));
+}
+
+int setRadialGradientR(SBMLDocument* document, const std::string& sid, const RelAbsVector& r) {
+    return setRadialGradientR(getGradientDefinition(document, sid), r);
+}
+
+int setRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& r) {
+    return setRadialGradientR(getGradientDefinition(document, renderIndex, sid), r);
+}
+
 }

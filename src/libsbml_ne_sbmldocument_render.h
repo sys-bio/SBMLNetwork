@@ -249,32 +249,613 @@ LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(SBMLDocument* d
 /// @return the @c GradientBase with the given index, or NULL if GradientBase does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
 
-/// @brief Predicate returning true if the abstract GradientBase with the given identifier of all RenderInformationBase objects of SBML document is of type LinearGradient.
+/// @brief Predicate returning true if the abstract GradientBase with the given identifier in all RenderInformationBase objects of SBML document is of type LinearGradient.
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @return @c true if this abstract GradientBase is of type LinearGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isLinearGradient(SBMLDocument* document, const std::string& sid);
 
-/// @brief Predicate returning true if the abstract GradientBase with the given identifier of the RenderInformationBase object with the given index of the SBML document is of type LinearGradient.
+/// @brief Predicate returning true if the abstract GradientBase with the given identifier in the RenderInformationBase object with the given index of the SBML document is of type LinearGradient.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @return @c true if this abstract GradientBase is of type LinearGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isLinearGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
 
-/// @brief Predicate returning true if the abstract GradientBase with the given identifier of all RenderInformationBase objects of SBML document is of type RadialGradient.
+/// @brief Predicate returning true if the abstract GradientBase with the given identifier in all RenderInformationBase objects of SBML document with the given identifier is of type RadialGradient.
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @return @c true if this abstract GradientBase is of type RadialGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRadialGradient(SBMLDocument* document, const std::string& sid);
 
-/// @brief Predicate returning true if the abstract GradientBase with the given identifier of the RenderInformationBase object with the given index of SBML document is of type RadialGradient.
+/// @brief Predicate returning true if the abstract GradientBase with the given identifier in the RenderInformationBase object with the given index of SBML document is of type RadialGradient.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @return @c true if this abstract GradientBase is of type RadialGradient, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isRadialGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
 
+/// @brief Predicates returning @c true if the "spreadMethod" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "spreadMethod" attribute of this GradientBase object is set, @c false if either the "spreadMethod"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetSpreadMethod(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "spreadMethod" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "spreadMethod" attribute of this GradientBase object is set, @c false if either the "spreadMethod"
+/// attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetSpreadMethod(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "spreadMethod" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "spreadMethod" attribute of the GradientBase object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpreadMethod(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "spreadMethod" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "spreadMethod" attribute of the GradientBase object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const std::string getSpreadMethod(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "spreadMethod" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param spreadMethod a string value to use as the value of the "spreadMethod" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setSpreadMethod(SBMLDocument* document, const std::string& sid, const std::string& spreadMethod);
+
+/// @brief Sets the value of the "spreadMethod" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param spreadMethod a string value to use as the value of the "spreadMethod" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setSpreadMethod(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& spreadMethod);
+
+/// @brief Returns Get the number of GradientStop objects in the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns Get the number of GradientStop objects in the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the number of GradientStop objects in this GradientBase, or 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumGradientStops(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the GradientStop object with the given index of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop to retrieve.
+/// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Returns the GradientStop object with the given index of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop to retrieve.
+/// @return the GradientStop at the given index of the GradientBase object, or NULL if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN GradientStop* getGradientStop(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Predicates returning @c true if the "offset" attribute of the GradientStop with the given index of this the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return @c true if the "offset" attribute of the GradientStop with the given index of this GradientBase object is set, @c false if
+/// either the "offset" attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Predicates returning @c true if the "offset" attribute of the GradientStop with the given index of this the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return @c true if the "offset" attribute of the GradientStop with the given index of this GradientBase object is set, @c false if
+/// either the "offset" attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Returns the value of the "offset" attribute of the GradientStop with the given index of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "offset" attribute of the GradientStop with the given index of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(SBMLDocument* document, const std::string& sid , unsigned int gradientStopIndex = 0);
+
+/// @brief Returns the value of the "offset" attribute of the GradientStop with the given index of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "offset" attribute of the GradientStop with the given index of the GradientBase object, or @c RelAbsVector() if the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid , unsigned int gradientStopIndex = 0);
+
+/// @brief Sets the value of the "offset" attribute of the first GradientStop of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the first GradientStop of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setOffset(SBMLDocument* document, const std::string& sid, const RelAbsVector& offset);
+
+/// @brief Sets the value of the "offset" attribute of the first GradientStop of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the first GradientStop of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& offset);
+
+/// @brief Sets the value of the "offset" attribute of the GradientStop with the given index of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the GradientStop with the given index of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setOffset(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset);
+
+/// @brief Sets the value of the "offset" attribute of the GradientStop with the given index of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param offset a RelAbsVector to use as the value of the "offset" attribute of the GradientStop with the given index of this GradientStop object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setOffset(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const RelAbsVector& offset);
+
+/// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Returns the value of the "stop-color" attribute of the GradientStop with the given index of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "stop-color" attribute of the GradientStop with the given index of this GradientStop object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Returns the value of the "stop-color" attribute of the GradientStop with the given index of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @return the "stop-color" attribute of the GradientStop with the given index of this GradientStop object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const std::string getStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+/// @brief Sets the value of the "stop-color" attribute of the first GradientStop of this the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(SBMLDocument* document, const std::string& sid, const std::string& stopColor);
+
+/// @brief Sets the value of the "stop-color" attribute of the first GradientStop of this the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& stopColor);
+
+/// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor);
+
+/// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
+/// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor);
+
+/// @brief Predicates returning @c true if the "x1" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "x1" attribute of this GradientBase object is set, @c false if either the "x1" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX1(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "x1" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "x1" attribute of this GradientBase object is set, @c false if either the "x1" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "x1" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "x1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX1(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "x1" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "x1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "x1" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param x1 a RelAbsVector to use as the value of the "x1" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX1(SBMLDocument* document, const std::string& sid, const RelAbsVector& x1);
+
+/// @brief Sets the value of the "x1" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param x1 a RelAbsVector to use as the value of the "x1" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& x1);
+
+/// @brief Predicates returning @c true if the "x2" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "x2" attribute of this GradientBase object is set, @c false if either the "x2" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX2(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "x2" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "x2" attribute of this GradientBase object is set, @c false if either the "x2" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientX2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "x2" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "x2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX2(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "x2" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "x2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientX2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "x2" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param x2 a RelAbsVector to use as the value of the "x2" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX2(SBMLDocument* document, const std::string& sid, const RelAbsVector& x2);
+
+/// @brief Sets the value of the "x2" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param x2 a RelAbsVector to use as the value of the "x2" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientX2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& x2);
+
+/// @brief Predicates returning @c true if the "y1" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "y1" attribute of this GradientBase object is set, @c false if either the "y1" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY1(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "y1" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "y1" attribute of this GradientBase object is set, @c false if either the "y1" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "y1" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "y1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY1(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "y1" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "y1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "y1" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param y1 a RelAbsVector to use as the value of the "y1" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY1(SBMLDocument* document, const std::string& sid, const RelAbsVector& y1);
+
+/// @brief Sets the value of the "y1" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param y1 a RelAbsVector to use as the value of the "y1" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY1(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& y1);
+
+/// @brief Predicates returning @c true if the "y2" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "y2" attribute of this GradientBase object is set, @c false if either the "y2" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY2(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "y2" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "y2" attribute of this GradientBase object is set, @c false if either the "y2" attribute is not set
+/// , the object is @c NULL, or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetLinearGradientY2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "y2" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "y2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY2(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "y2" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "y2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLinearGradientY2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "y2" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param y2 a RelAbsVector to use as the value of the "y2" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY2(SBMLDocument* document, const std::string& sid, const RelAbsVector& y2);
+
+/// @brief Sets the value of the "y2" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param y2 a RelAbsVector to use as the value of the "y2" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setLinearGradientY2(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& y2);
+
+/// @brief Predicates returning @c true if the "cx" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "cx" attribute of this GradientBase object is set, @c false if either the "cx" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCx(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "cx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "cx" attribute of this GradientBase object is set, @c false if either the "cx" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "cx" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "cx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCx(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "cx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "cx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "cx" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCx(SBMLDocument* document, const std::string& sid, const RelAbsVector& cx);
+
+/// @brief Sets the value of the "cx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& cx);
+
+/// @brief Predicates returning @c true if the "cy" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "cy" attribute of this GradientBase object is set, @c false if either the "cy" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCy(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "cy" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "cy" attribute of this GradientBase object is set, @c false if either the "cy" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "cy" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "cy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCy(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "cy" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "cy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "cy" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCy(SBMLDocument* document, const std::string& sid, const RelAbsVector& cy);
+
+/// @brief Sets the value of the "cy" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& cy);
+
+/// @brief Predicates returning @c true if the "fx" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "fx" attribute of this GradientBase object is set, @c false if either the "fx" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFx(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "fx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "fx" attribute of this GradientBase object is set, @c false if either the "fx" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "fx" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "fx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFx(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "fx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "fx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "fx" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param fx a RelAbsVector to use as the value of the "fx" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFx(SBMLDocument* document, const std::string& sid, const RelAbsVector& fx);
+
+/// @brief Sets the value of the "fx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param fx a RelAbsVector to use as the value of the "fx" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& fx);
+
+/// @brief Predicates returning @c true if the "fy" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "fy" attribute of this GradientBase object is set, @c false if either the "fy" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFy(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "fy" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "fy" attribute of this GradientBase object is set, @c false if either the "fy" attribute is not set
+/// , the object is @c NULL, or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientFy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "fy" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "fy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFy(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "fy" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "fy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientFy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "fy" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param fy a RelAbsVector to use as the value of the "fy" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFy(SBMLDocument* document, const std::string& sid, const RelAbsVector& fy);
+
+/// @brief Sets the value of the "fy" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param fy a RelAbsVector to use as the value of the "fy" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientFy(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& fy);
+
+/// @brief Predicates returning @c true if the "r" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "r" attribute of this GradientBase object is set, @c false if either the "r" attribute is not set
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientR(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "r" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return @c true if the "r" attribute of this GradientBase object is set, @c false if either the "r" attribute is not set
+    LIBSBML_NETWORKEDITOR_EXTERN bool isSetRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "r" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "r" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientR(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "r" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the "r" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
+    LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "r" attribute of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param r a RelAbsVector to use as the value of the "r" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(SBMLDocument* document, const std::string& sid, const RelAbsVector& r);
+
+/// @brief Sets the value of the "r" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @param r a RelAbsVector to use as the value of the "r" attribute of this GradientBase object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& r);
 }
 
 #endif
