@@ -223,6 +223,32 @@ LIBSBML_NETWORKEDITOR_EXTERN int setValue(SBMLDocument* document, const std::str
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& value);
 
+/// @brief Returns the number of GradientDefinitions of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @return the number of GradientDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
+
+/// @brief Returns a GradientBase from all the RenderInformationBase objects of the SBML document based on its identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the @c GradientBase in the ListOfGradientDefinitions within all RenderInformationBase objects with the given sid or @c NULL if no such GradientBase exists.
+LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+/// @brief Returns a GradientBase from the RenderInformationBase object with the given index of the SBML document based on its identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the GradientBase to retrieve.
+/// @return the @c GradientBase in the ListOfGradientDefinitions within this RenderInformationBase with the given sid or @c NULL if no such GradientBase exists.
+LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns a pointer to the GradientBase with the given index of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param gradientIndex the index value of the GradientBase to return.
+/// @return the @c GradientBase with the given index, or NULL if GradientBase does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN GradientBase* getGradientDefinition(RenderInformationBase* renderInformationBase, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
+
 }
 
 #endif

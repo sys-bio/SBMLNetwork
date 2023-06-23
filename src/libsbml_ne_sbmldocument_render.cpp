@@ -208,5 +208,39 @@ int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string
     return setValue(getColorDefinition(document, renderIndex, sid), value);
 }
 
+const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex = 0) {
+    if (getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex)))
+        return getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex));
+
+    return getNumGradientDefinitions(getLocalRenderInformation(document, 0, renderIndex));
+}
+
+GradientBase* getGradientDefinition(SBMLDocument* document, const std::string& sid) {
+    for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+        if (getGradientDefinition(getGlobalRenderInformation(document, i), sid))
+            return getGradientDefinition(getGlobalRenderInformation(document, i), sid);
+    }
+    for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+        if (getGradientDefinition(getLocalRenderInformation(document, i), sid))
+            return getGradientDefinition(getLocalRenderInformation(document, i), sid);
+    }
+
+    return NULL;
+}
+
+GradientBase* getColorDefinition(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid))
+        return getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid);
+
+    return getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), sid);
+}
+
+GradientBase* getGradientDefinition(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
+    if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex))
+        return getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex);
+
+    return getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), gradientIndex);
+}
+
 
 }
