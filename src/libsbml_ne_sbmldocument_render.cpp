@@ -208,7 +208,7 @@ int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string
     return setValue(getColorDefinition(document, renderIndex, sid), value);
 }
 
-const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex = 0) {
+const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex) {
     if (getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex)))
         return getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex));
 
@@ -228,7 +228,7 @@ GradientBase* getGradientDefinition(SBMLDocument* document, const std::string& s
     return NULL;
 }
 
-GradientBase* getColorDefinition(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+GradientBase* getGradientDefinition(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
     if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid))
         return getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid);
 
@@ -236,11 +236,26 @@ GradientBase* getColorDefinition(SBMLDocument* document, unsigned int renderInde
 }
 
 GradientBase* getGradientDefinition(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
-    if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex))
+    if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex))
         return getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex);
 
     return getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), gradientIndex);
 }
 
+bool isLinearGradient(SBMLDocument* document, const std::string& sid) {
+    return isLinearGradient(getGradientDefinition(document, sid));
+}
+
+bool isLinearGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isLinearGradient(getGradientDefinition(document, renderIndex, sid));
+}
+
+bool isRadialGradient(SBMLDocument* document, const std::string& sid) {
+    return isRadialGradient(getGradientDefinition(document, sid));
+}
+
+bool isRadialGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isRadialGradient(getGradientDefinition(document, renderIndex, sid));
+}
 
 }
