@@ -170,11 +170,43 @@ ColorDefinition* getColorDefinition(SBMLDocument* document, const std::string& s
     return NULL;
 }
 
+ColorDefinition* getColorDefinition(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    if (getColorDefinition(getGlobalRenderInformation(document, renderIndex), sid))
+        return getColorDefinition(getGlobalRenderInformation(document, renderIndex), sid);
+
+    return getColorDefinition(getLocalRenderInformation(document, 0, renderIndex), sid);
+}
+
 ColorDefinition* getColorDefinition(SBMLDocument* document, unsigned int renderIndex, unsigned int colorIndex) {
     if (getColorDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex))
         return getColorDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex);
 
     return getColorDefinition(getLocalRenderInformation(document, 0, renderIndex), colorIndex);
 }
+
+bool isSetValue(SBMLDocument* document, const std::string& sid) {
+    return isSetValue(getColorDefinition(document, sid));
+}
+
+bool isSetValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return isSetValue(getColorDefinition(document, renderIndex, sid));
+}
+
+const std::string getValue(SBMLDocument* document, const std::string& sid) {
+    return getValue(getColorDefinition(document, sid));
+}
+
+const std::string getValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getValue(getColorDefinition(document, renderIndex, sid));
+}
+
+int setValue(SBMLDocument* document, const std::string& sid, const std::string& value) {
+    return setValue(getColorDefinition(document, sid), value);
+}
+
+int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& value) {
+    return setValue(getColorDefinition(document, renderIndex, sid), value);
+}
+
 
 }

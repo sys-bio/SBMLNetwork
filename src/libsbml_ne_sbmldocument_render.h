@@ -165,12 +165,63 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumColorDefinitions(SBMLDocum
 /// @return the @c ColorDefinition in the ListOfColorDefinitions within this RenderInformationBase with the given sid or @c NULL if no such ColorDefinition exists.
 LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(SBMLDocument* document, const std::string& sid);
 
+/// @brief Returns a ColorDefinition from the RenderInformationBase object with the given index of the SBML document based on its identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return the @c ColorDefinition in the ListOfColorDefinitions within this RenderInformationBase with the given sid or @c NULL if no such ColorDefinition exists.
+LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
 /// @brief Returns a pointer to the ColorDefinition with the given index of the RenderInformationBase object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param colorIndex the index value of the ColorDefinition to return.
 /// @return the @c ColorDefinition with the given index, or NULL if ColorDefinition does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
+
+/// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return @c true if the "value" attribute of this ColorDefinition object is set, @c false if either the "value"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetValue(SBMLDocument* document, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier
+/// in the RenderInformationBase with the given index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return @c true if the "value" attribute of this ColorDefinition object is set, @c false if either the "value"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Returns the value of the "value" attribute of the ColorDefinition with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return the "value" attribute of the ColorDefinition object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getValue(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns the value of the "value" attribute of the ColorDefinition with the given identifier in the RenderInformationBase with the given index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return the "value" attribute of the ColorDefinition object, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Sets the value of the "value" attribute of the ColorDefinition with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @param value a string value to use as the value of the "value" attribute of this ColorDefinition object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setValue(SBMLDocument* document, const std::string& sid, const std::string& value);
+
+/// @brief Sets the value of the "value" attribute of the ColorDefinition with the given identifier in the RenderInformationBase with the given index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @param value a string value to use as the value of the "value" attribute of this ColorDefinition object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& value);
 
 }
 
