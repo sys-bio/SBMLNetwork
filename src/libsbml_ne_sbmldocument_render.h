@@ -127,14 +127,14 @@ LIBSBML_NETWORKEDITOR_EXTERN int createDefaultGlobalRenderInformation(SBMLDocume
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLocalRenderInformation(SBMLDocument* document);
 
-/// @brief Predicates returning @c true if the "backgroundColor" attribute of the GlobalRenderInformation object with the given index is set.
+/// @brief Predicates returning @c true if the "backgroundColor" attribute of the GlobalRenderInformation object with the given index of the SBML document is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
 /// @return @c true if the "backgroundColor" attribute of this GlobalRenderInformation object is set, @c false if either the "backgroundColor"
 /// attribute is not set or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetBackgroundColor(SBMLDocument* document, unsigned int renderIndex = 0);
 
-/// @brief Returns the value of the "backgroundColor" attribute of the GlobalRenderInformation object with the given index.
+/// @brief Returns the value of the "backgroundColor" attribute of the GlobalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
 /// @return the "backgroundColor" attribute of this RenderInformationBase object, or @c "" if the object is @c NULL
@@ -146,12 +146,31 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getBackgroundColor(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setBackgroundColor(SBMLDocument* document, const std::string& backgroundColor);
 
-/// @brief Sets the value of the "backgroundColor" attribute of the GlobalRenderInformation object with the given index.
+/// @brief Sets the value of the "backgroundColor" attribute of the GlobalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
 /// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this RenderInformationBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const std::string& backgroundColor);
+
+/// @brief Returns the number of ColorDefinitions of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @return the number of ColorDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumColorDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
+
+/// @brief Returns a ColorDefinition from all RenderInformationBase objects of the SBML document based on its identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the ColorDefinition to retrieve.
+/// @return the @c ColorDefinition in the ListOfColorDefinitions within this RenderInformationBase with the given sid or @c NULL if no such ColorDefinition exists.
+LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(SBMLDocument* document, const std::string& sid);
+
+/// @brief Returns a pointer to the ColorDefinition with the given index of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param colorIndex the index value of the ColorDefinition to return.
+/// @return the @c ColorDefinition with the given index, or NULL if ColorDefinition does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN ColorDefinition* getColorDefinition(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
 
 }
 

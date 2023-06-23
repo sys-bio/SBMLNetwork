@@ -150,4 +150,31 @@ int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const s
     return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
 }
 
+const unsigned int getNumColorDefinitions(SBMLDocument* document, unsigned int renderIndex) {
+    if (getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex)))
+        return getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex));
+
+    return getNumColorDefinitions(getLocalRenderInformation(document, 0, renderIndex));
+}
+
+ColorDefinition* getColorDefinition(SBMLDocument* document, const std::string& sid) {
+    for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+        if (getColorDefinition(getGlobalRenderInformation(document, i), sid))
+            return getColorDefinition(getGlobalRenderInformation(document, i), sid);
+    }
+    for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+        if (getColorDefinition(getLocalRenderInformation(document, i), sid))
+            return getColorDefinition(getLocalRenderInformation(document, i), sid);
+    }
+
+    return NULL;
+}
+
+ColorDefinition* getColorDefinition(SBMLDocument* document, unsigned int renderIndex, unsigned int colorIndex) {
+    if (getColorDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex))
+        return getColorDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex);
+
+    return getColorDefinition(getLocalRenderInformation(document, 0, renderIndex), colorIndex);
+}
+
 }
