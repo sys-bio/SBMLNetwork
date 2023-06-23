@@ -31,22 +31,22 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLocalRenderInformation(Lis
 /// @return the @c the LocalRenderInformation object with the given index in this ListOfLocalRenderInformation or NULL if no such LocalRenderInformation exists or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int renderIndex = 0);
 
-/// @brief Predicates returning @c true if the "backgroundColor" attribute of this GlobalRenderInformation is set.
-/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @return @c true if the "backgroundColor" attribute of this GlobalRenderInformation object is set, @c false if either the "backgroundColor"
+/// @brief Predicates returning @c true if the "backgroundColor" attribute of this RenderInformationBase is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @return @c true if the "backgroundColor" attribute of this RenderInformationBase object is set, @c false if either the "backgroundColor"
 /// attribute is not set or the object is @c NULL.
-bool isSetBackgroundColor(GlobalRenderInformation* globalRenderInformation);
+bool isSetBackgroundColor(RenderInformationBase* renderInformationBase);
 
-/// @brief Returns the value of the "backgroundColor" attribute of this GlobalRenderInformation.
-/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @return the "backgroundColor" attribute of the GlobalRenderInformation object, or @c "" if the object is @c NULL
-const std::string getBackgroundColor(GlobalRenderInformation* globalRenderInformation);
+/// @brief Returns the value of the "backgroundColor" attribute of this RenderInformationBase.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @return the "backgroundColor" attribute of the RenderInformationBase object, or @c "" if the object is @c NULL
+const std::string getBackgroundColor(RenderInformationBase* renderInformationBase);
 
-/// @brief Sets the value of the "backgroundColor" attribute of this GlobalRenderInformation object.
-/// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this GlobalRenderInformation object.
+/// @brief Sets the value of the "backgroundColor" attribute of this RenderInformationBase object.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this RenderInformationBase object.
 /// @return integer value indicating success/failure of the function.
-int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const std::string& backgroundColor);
+int setBackgroundColor(RenderInformationBase* renderInformationBase, const std::string& backgroundColor);
 
 /// @brief Returns the number of ColorDefinitions of this RenderInformationBase object.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

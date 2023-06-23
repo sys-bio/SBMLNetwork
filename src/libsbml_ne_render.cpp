@@ -32,23 +32,23 @@ LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* 
     return NULL;
 }
 
-bool isSetBackgroundColor(GlobalRenderInformation* globalRenderInformation) {
-    if (globalRenderInformation)
-        globalRenderInformation->isSetBackgroundColor();
+bool isSetBackgroundColor(RenderInformationBase* renderInformationBase) {
+    if (renderInformationBase)
+        renderInformationBase->isSetBackgroundColor();
 
     return false;
 }
 
-const std::string getBackgroundColor(GlobalRenderInformation* globalRenderInformation) {
-    if (globalRenderInformation)
-        return globalRenderInformation->getBackgroundColor();
+const std::string getBackgroundColor(RenderInformationBase* renderInformationBase) {
+    if (renderInformationBase)
+        return renderInformationBase->getBackgroundColor();
 
     return "";
 }
 
-int setBackgroundColor(GlobalRenderInformation* globalRenderInformation, const std::string& backgroundColor) {
-    if (globalRenderInformation) {
-        globalRenderInformation->setBackgroundColor(backgroundColor);
+int setBackgroundColor(RenderInformationBase* renderInformationBase, const std::string& backgroundColor) {
+    if (renderInformationBase) {
+        renderInformationBase->setBackgroundColor(backgroundColor);
         return 0;
     }
 
