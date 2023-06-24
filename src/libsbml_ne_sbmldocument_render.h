@@ -886,7 +886,7 @@ LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(SBMLDocument* document, u
 /// of the first RenderInformationBase object of the SBML document is set.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return @c true if the "enableRotationalMapping" attribute of this LineEnding object is set, @c false if either the "enableRotationalMapping" attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(SBMLDocument* document, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(SBMLDocument* document, const std::string& sid);
 
 /// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of the LineEnding with the given identifier
 /// of the RenderInformationBase object with the given index of the SBML document is set.
@@ -894,14 +894,14 @@ LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(SBMLDocument* document, u
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return @c true if the "enableRotationalMapping" attribute of this LineEnding object is set, @c false if either the "enableRotationalMapping" attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
 
 /// @brief Returns the value of the "enableRotationalMapping" attribute of the LineEnding with the given identifier
 /// of the RenderInformationBase object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the "enableRotationalMapping" attribute of the LineEnding object, or @c false if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN bool getEnableRotationalMapping(SBMLDocument* document, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN bool getEnableRotationalMapping(SBMLDocument* document, const std::string& sid);
 
 /// @brief Returns the value of the "enableRotationalMapping" attribute of the LineEnding with the given identifier
 /// of the RenderInformationBase object with the given index of the SBML document.
