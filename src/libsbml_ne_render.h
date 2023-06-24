@@ -728,12 +728,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(LineEnding* lineEndi
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(RenderInformationBase* renderInformationBase, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBoxOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid);
 
 /// Returns the bounding box for the LineEnding.
 /// @param lineEnding a pointer to the LineEnding object.
 /// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(LineEnding* lineEnding);
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBoxOfLineEnding(LineEnding* lineEnding);
 
 /// Returns the value of the "group" element of the LineEnding with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

@@ -693,11 +693,11 @@ int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapp
     return false;
 }
 
-BoundingBox* getBoundingBox(RenderInformationBase* renderInformationBase, const std::string& sid) {
-    return getBoundingBox(getLineEnding(renderInformationBase, sid));
+BoundingBox* getBoundingBoxOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getBoundingBoxOfLineEnding(getLineEnding(renderInformationBase, sid));
 }
 
-BoundingBox* getBoundingBox(LineEnding* lineEnding) {
+BoundingBox* getBoundingBoxOfLineEnding(LineEnding* lineEnding) {
     if (lineEnding)
         return lineEnding->getBoundingBox();
 
