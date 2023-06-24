@@ -814,17 +814,17 @@ LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(Style* style);
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type GraphicalPrimitive1D.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type GraphicalPrimitive1D, @c false if either it is not of type GraphicalPrimitive1D or is or the object is @c NULL.
-const bool isGraphicalPrimitive1D(Transformation2D* Transformation2D);
+LIBSBML_NETWORKEDITOR_EXTERN const bool isGraphicalPrimitive1D(Transformation2D* Transformation2D);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type GraphicalPrimitive2D.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type GraphicalPrimitive2D, @c false if either it is not of type GraphicalPrimitive2D or is or the object is @c NULL.
-const bool isGraphicalPrimitive2D(Transformation2D* Transformation2D);
+LIBSBML_NETWORKEDITOR_EXTERN const bool isGraphicalPrimitive2D(Transformation2D* Transformation2D);
 
 /// @brief Predicates returning @c true if this abstract Transformation2D is of type RenderGroup.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type RenderGroup, @c false if either it is not of type RenderGroup or is or the object is @c NULL.
-const bool isRenderGroup(Transformation2D* Transformation2D);
+LIBSBML_NETWORKEDITOR_EXTERN const bool isRenderGroup(Transformation2D* Transformation2D);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
