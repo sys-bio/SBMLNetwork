@@ -928,6 +928,161 @@ LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, bool enableRotationalMapping);
 
+/// Returns the bounding box for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, const std::string& sid);
+
+/// Returns the bounding box for the LineEnding with the given identifier in the render information base with the givne index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// Returns the value of the "group" element of the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, const std::string& sid);
+
+/// Returns the value of the "group" element of the LineEnding with the given identifier in the render information base with the givne index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one that matches this GraphicalObject attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyle(SBMLDocument* document, const std::string& attribute);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "id" in its idlist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleById(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one contains the "id" in its idlist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleById(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "id" in its idlist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleById(SBMLDocument* document, const std::string& id);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one contains the "id" in its idlist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id the id attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleById(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "role" in its rolelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one contains the "role" in its rolelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "role" in its rolelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param role the role attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(SBMLDocument* document, const std::string& role);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one contains the "role" in its rolelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param role the role attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByRole(SBMLDocument* document, unsigned int renderIndex, const std::string& role);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "type" in its typelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one contains the "type" in its typelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "type" in its typelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param type the type attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(SBMLDocument* document, const std::string& type);
+
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one contains the "type" in its typelist.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param type the type attribute of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN Style* getStyleByType(SBMLDocument* document, unsigned int renderIndex, const std::string& type);
+
+/// Returns the value of the "group" element of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the value of the "group" element of the Style for this GraphicalObjet as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// Returns the value of the "group" element of the Style for this GraphicalObject in the render information base with the givne index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the value of the "group" element of the Style for this GraphicalObjet as a RenderGroup, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// Returns the value of the "group" element of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(SBMLDocument* document, const std::string& attribute);
+
+/// Returns the value of the "group" element of the Style that matches this attribute (id, role, type) of a GraphicalObject in the render information base with the givne index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroup(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute);
 
 }
 

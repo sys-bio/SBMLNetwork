@@ -636,6 +636,142 @@ int setEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex,
     return setEnableRotationalMapping(getLineEnding(document, renderIndex, sid), enableRotationalMapping);
 }
 
+BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, const std::string& sid) {
+    return getBoundingBoxOfLineEnding(getLineEnding(document, sid));
+}
 
+BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getBoundingBoxOfLineEnding(getLineEnding(document, renderIndex, sid));
+}
+
+RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, const std::string& sid) {
+    return getRenderGroup(getLineEnding(document, sid));
+}
+
+RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getRenderGroup(getLineEnding(document, renderIndex, sid));
+}
+
+Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+        if (getStyle(getLocalRenderInformation(document, i), graphicalObject))
+            return getStyle(getLocalRenderInformation(document, i), graphicalObject);
+    }
+    for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+        if (getStyle(getGlobalRenderInformation(document, i), graphicalObject))
+            return getStyle(getGlobalRenderInformation(document, i), graphicalObject);
+    }
+
+    return NULL;
+}
+
+Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    if (getStyle(getLocalRenderInformation(document, 0, renderIndex), graphicalObject))
+        return getStyle(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+
+    return getStyle(getGlobalRenderInformation(document, renderIndex), graphicalObject);
+}
+
+Style* getStyle(SBMLDocument* document, const std::string& attribute) {
+    if (getStyle(getLocalRenderInformation(document), attribute))
+        return getStyle(getLocalRenderInformation(document), attribute);
+
+    return getStyle(getGlobalRenderInformation(document), attribute);
+}
+
+Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
+    if (getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute))
+        return getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute);
+
+    return getStyle(getGlobalRenderInformation(document, renderIndex), attribute);
+}
+
+Style* getStyleById(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    return getStyleById(getLocalRenderInformation(document), graphicalObject);
+}
+
+Style* getStyleById(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    return getStyleById(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+}
+
+Style* getStyleById(SBMLDocument* document, const std::string& id) {
+    return getStyleById(getLocalRenderInformation(document), id);
+}
+
+Style* getStyleById(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    return getStyleById(getLocalRenderInformation(document, 0, renderIndex), id);
+}
+
+Style* getStyleByRole(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    if (getStyleByRole(getLocalRenderInformation(document), graphicalObject))
+        return getStyleByRole(getLocalRenderInformation(document), graphicalObject);
+
+    return getStyleByRole(getGlobalRenderInformation(document), graphicalObject);
+}
+
+Style* getStyleByRole(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    if (getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), graphicalObject))
+        return getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+
+    return getStyleByRole(getGlobalRenderInformation(document, renderIndex), graphicalObject);
+}
+
+Style* getStyleByRole(SBMLDocument* document, const std::string& role) {
+    if (getStyleByRole(getLocalRenderInformation(document), role))
+        return getStyleByRole(getLocalRenderInformation(document), role);
+
+    return getStyleByRole(getGlobalRenderInformation(document), role);
+}
+
+Style* getStyleByRole(SBMLDocument* document, unsigned int renderIndex, const std::string& role) {
+    if (getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), role))
+        return getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), role);
+
+    return getStyleByRole(getGlobalRenderInformation(document, renderIndex), role);
+}
+
+Style* getStyleByType(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    if (getStyleByType(getLocalRenderInformation(document), graphicalObject))
+        return getStyleByType(getLocalRenderInformation(document), graphicalObject);
+
+    return getStyleByType(getGlobalRenderInformation(document), graphicalObject);
+}
+
+Style* getStyleByType(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    if (getStyleByType(getLocalRenderInformation(document, 0, renderIndex), graphicalObject))
+        return getStyleByType(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+
+    return getStyleByType(getGlobalRenderInformation(document, renderIndex), graphicalObject);
+}
+
+Style* getStyleByType(SBMLDocument* document, const std::string& type) {
+    if (getStyleByType(getLocalRenderInformation(document), type))
+        return getStyleByType(getLocalRenderInformation(document), type);
+
+    return getStyleByType(getGlobalRenderInformation(document), type);
+}
+
+Style* getStyleByType(SBMLDocument* document, unsigned int renderIndex, const std::string& type) {
+    if (getStyleByType(getLocalRenderInformation(document, 0, renderIndex), type))
+    return getStyleByType(getLocalRenderInformation(document, 0, renderIndex), type);
+
+    return getStyleByType(getGlobalRenderInformation(document, renderIndex), type);
+}
+
+RenderGroup* getRenderGroup(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    return getRenderGroup(getStyle(document, graphicalObject));
+}
+
+RenderGroup* getRenderGroup(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    return getRenderGroup(getStyle(document, renderIndex, graphicalObject));
+}
+
+RenderGroup* getRenderGroup(SBMLDocument* document, const std::string& attribute) {
+    return getRenderGroup(getStyle(document, attribute));
+}
+
+RenderGroup* getRenderGroup(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
+    return getRenderGroup(getStyle(document, renderIndex, attribute));
+}
 
 }
