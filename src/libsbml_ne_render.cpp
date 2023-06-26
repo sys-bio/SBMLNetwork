@@ -82,7 +82,7 @@ bool isSetValue(RenderInformationBase* renderInformationBase, const std::string&
 
 bool isSetValue(ColorDefinition* colorDefinition) {
     if (colorDefinition)
-        colorDefinition->isSetValue();
+        return colorDefinition->isSetValue();
 
     return false;
 }
