@@ -675,6 +675,8 @@ Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObjec
 Style* getStyle(SBMLDocument* document, const std::string& attribute) {
     if (getStyle(getLocalRenderInformation(document), attribute))
         return getStyle(getLocalRenderInformation(document), attribute);
+    else if (getStyle(getLocalRenderInformation(document), getGraphicalObject(document, attribute)))
+        return getStyle(getLocalRenderInformation(document), getGraphicalObject(document, attribute));
 
     return getStyle(getGlobalRenderInformation(document), attribute);
 }
@@ -682,6 +684,8 @@ Style* getStyle(SBMLDocument* document, const std::string& attribute) {
 Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
     if (getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute))
         return getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute);
+    else if (getStyle(getLocalRenderInformation(document, 0, renderIndex), getGraphicalObject(document, 0, attribute)))
+        return getStyle(getLocalRenderInformation(document, 0, renderIndex), getGraphicalObject(document, 0, attribute));
 
     return getStyle(getGlobalRenderInformation(document, renderIndex), attribute);
 }
