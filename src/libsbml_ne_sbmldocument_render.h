@@ -1754,6 +1754,102 @@ LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(SBMLDocument
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
+/// it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Rectangle.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
+/// it is not of type Rectangle or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRectangle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
+/// it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Ellipse.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
+/// it is not of type Ellipse or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isEllipse(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
+/// it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Polygon.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
+/// it is not of type Polygon or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isPolygon(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
+/// it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type RenderCurve.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
+/// it is not of type RenderCurve or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isRenderCurve(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
+/// it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Image.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
+/// it is not of type Image or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isImage(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
+/// it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Text.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
+/// it is not of type Text or is or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isText(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
 }
 
 #endif

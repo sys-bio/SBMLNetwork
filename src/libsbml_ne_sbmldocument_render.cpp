@@ -1178,5 +1178,52 @@ Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string
     return removeGeometricShape(getStyle(document, attribute), geometricShapeIndex);
 }
 
+bool isRectangle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isRectangle(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isRectangle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isRectangle(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isEllipse(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isEllipse(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isEllipse(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isEllipse(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isPolygon(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isPolygon(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isPolygon(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isPolygon(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isRenderCurve(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isRenderCurve(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isRenderCurve(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isRenderCurve(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isImage(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isImage(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isImage(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isImage(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isText(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isText(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isText(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isText(getStyle(document, attribute), geometricShapeIndex);
+}
 
 }
