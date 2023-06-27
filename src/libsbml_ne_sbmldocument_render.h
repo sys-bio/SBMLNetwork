@@ -1850,6 +1850,254 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isText(SBMLDocument* document, GraphicalObject
 /// it is not of type Text or is or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isText(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
+/// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "x" attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "x" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the value of the "x" attribute of the first Transformation2D of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x);
+
+/// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& x);
+
+/// @brief Sets the value of the "x" attribute of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x);
+
+/// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& x);
+
+/// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "y" attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "y" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the value of the "y" attribute of the first Transformation2D of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y);
+
+/// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& y);
+
+/// @brief Sets the value of the "y" attribute of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y);
+
+/// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& y);
+
+/// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "width" attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "width" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the value of the "width" attribute of the first Transformation2D of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& width);
+
+/// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& width);
+
+/// @brief Sets the value of the "width" attribute of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, const RelAbsVector& width);
+
+/// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& width);
+
+/// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "height" attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+/// @c false if either the "height" attribute is not set or the object is @c NULL .
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the value of the "height" attribute of the first Transformation2D of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& height);
+
+/// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& height);
+
+/// @brief Sets the value of the "height" attribute of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, const RelAbsVector& height);
+
+/// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& height);
+
 }
 
 #endif
