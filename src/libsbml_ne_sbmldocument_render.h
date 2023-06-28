@@ -1115,14 +1115,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStrokeColor(SBMLDocument* docu
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& stroke);
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& stroke);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, const std::string& attribute, std::string& stroke);
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& stroke);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1291,14 +1291,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontColor(SBMLDocument* docume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& fontColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontColor);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(SBMLDocument* document, const std::string& attribute, std::string& fontColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontColor(SBMLDocument* document, const std::string& attribute, const std::string& fontColor);
 
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1331,14 +1331,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontFamily(SBMLDocument* docum
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& fontFamily);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontFamily);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(SBMLDocument* document, const std::string& attribute, std::string& fontFamily);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontFamily(SBMLDocument* document, const std::string& attribute, const std::string& fontFamily);
 
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1411,14 +1411,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontWeight(SBMLDocument* docum
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& fontWeight);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontWeight);
 
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(SBMLDocument* document, const std::string& attribute, std::string& fontWeight);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontWeight(SBMLDocument* document, const std::string& attribute, const std::string& fontWeight);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1451,14 +1451,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFontStyle(SBMLDocument* docume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& fontStyle);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontStyle);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(SBMLDocument* document, const std::string& attribute, std::string& fontStyle);
+LIBSBML_NETWORKEDITOR_EXTERN int setFontStyle(SBMLDocument* document, const std::string& attribute, const std::string& fontStyle);
 
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1491,14 +1491,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getTextAnchor(SBMLDocument* docum
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& textAnchor);
+LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& textAnchor);
 
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(SBMLDocument* document, const std::string& attribute, std::string& textAnchor);
+LIBSBML_NETWORKEDITOR_EXTERN int setTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& textAnchor);
 
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1531,14 +1531,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getVTextAnchor(SBMLDocument* docu
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& vtextAnchor);
+LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& vtextAnchor);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(SBMLDocument* document, const std::string& attribute, std::string& vtextAnchor);
+LIBSBML_NETWORKEDITOR_EXTERN int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& vtextAnchor);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1571,14 +1571,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillColor(SBMLDocument* docume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& fillColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, const std::string& attribute, std::string& fillColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
 
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1611,14 +1611,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getFillRule(SBMLDocument* documen
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& fillColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillRule);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(SBMLDocument* document, const std::string& attribute, std::string& fillColor);
+LIBSBML_NETWORKEDITOR_EXTERN int setFillRule(SBMLDocument* document, const std::string& attribute, const std::string& fillRule);
 
 /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1651,14 +1651,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getStartHead(SBMLDocument* docume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& startHead);
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& startHead);
 
 /// @brief Sets the value of the "startHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(SBMLDocument* document, const std::string& attribute, std::string& startHead);
+LIBSBML_NETWORKEDITOR_EXTERN int setStartHead(SBMLDocument* document, const std::string& attribute, const std::string& startHead);
 
 /// @brief Predicates returning @c true if the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1691,14 +1691,14 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getEndHead(SBMLDocument* document
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param endHead a string value to use as the value of the "endHead" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, std::string& endHead);
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& endHead);
 
 /// @brief Sets the value of the "endHead" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param endHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(SBMLDocument* document, const std::string& attribute, std::string& endHead);
+LIBSBML_NETWORKEDITOR_EXTERN int setEndHead(SBMLDocument* document, const std::string& attribute, const std::string& endHead);
 
 /// @brief Returns number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
