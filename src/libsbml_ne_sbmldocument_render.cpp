@@ -1722,5 +1722,230 @@ int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute
     return setGeometricShapeHeight(getStyle(document, attribute), geometricShapeIndex, height);
 }
 
+bool isSetGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRatio(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRatio(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const double getGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRatio(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const double getGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRatio(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObject, const double& ratio) {
+    return setGeometricShapeRatio(getStyle(document, graphicalObject), ratio);
+}
+
+int setGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& ratio) {
+    return setGeometricShapeRatio(getStyle(document, graphicalObject), geometricShapeIndex, ratio);
+}
+
+int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, const double& ratio) {
+    return setGeometricShapeRatio(getStyle(document, attribute), ratio);
+}
+
+int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& ratio) {
+    return setGeometricShapeRatio(getStyle(document, attribute), geometricShapeIndex, ratio);
+}
+
+bool isSetGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusX(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusX(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusX(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusX(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
+    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, graphicalObject), rx);
+}
+
+int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
+    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, graphicalObject), geometricShapeIndex, rx);
+}
+
+int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& rx) {
+    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, attribute), rx);
+}
+
+int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
+    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, attribute), geometricShapeIndex, rx);
+}
+
+bool isSetGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusY(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusY(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusY(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusY(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
+    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, graphicalObject), ry);
+}
+
+int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
+    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, graphicalObject), geometricShapeIndex, ry);
+}
+
+int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& ry) {
+    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, attribute), ry);
+}
+
+int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
+    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, attribute), geometricShapeIndex, ry);
+}
+
+bool isSetGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterX(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterX(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterX(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterX(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(getStyle(document, graphicalObject), cx);
+}
+
+int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(getStyle(document, graphicalObject), geometricShapeIndex, cx);
+}
+
+int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(getStyle(document, attribute), cx);
+}
+
+int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
+    return setGeometricShapeCenterX(getStyle(document, attribute), geometricShapeIndex, cx);
+}
+
+bool isSetGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterY(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterY(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterY(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterY(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& cy) {
+    return setGeometricShapeCenterX(getStyle(document, graphicalObject), cy);
+}
+
+int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
+    return setGeometricShapeCenterX(getStyle(document, graphicalObject), geometricShapeIndex, cy);
+}
+
+int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& cy) {
+    return setGeometricShapeCenterX(getStyle(document, attribute), cy);
+}
+
+int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
+    return setGeometricShapeCenterX(getStyle(document, attribute), geometricShapeIndex, cy);
+}
+
+bool isSetGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusX(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusX(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusX(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusX(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(getStyle(document, graphicalObject), rx);
+}
+
+int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(getStyle(document, graphicalObject), geometricShapeIndex, rx);
+}
+
+int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(getStyle(document, attribute), rx);
+}
+
+int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
+    return setGeometricShapeRadiusX(getStyle(document, attribute), geometricShapeIndex, rx);
+}
+
+bool isSetGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusY(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusY(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusY(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusY(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(getStyle(document, graphicalObject), ry);
+}
+
+int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(getStyle(document, graphicalObject), geometricShapeIndex, ry);
+}
+
+int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(getStyle(document, attribute), ry);
+}
+
+int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
+    return setGeometricShapeRadiusY(getStyle(document, attribute), geometricShapeIndex, ry);
+}
+
+
 
 }
