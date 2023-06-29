@@ -68,6 +68,14 @@ const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObje
     return getEntityId(layout, graphicalObject);
 }
 
+const unsigned int getNumGraphicalObjects(Layout* layout) {
+    if (layout)
+        return getNumCompartmentGlyphs(layout) + getNumSpeciesGlyphs(layout) + getNumReactionGlyphs(layout) +
+                getNumTextGlyphs(layout);
+
+    return 0;
+}
+
 GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id) {
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(layout, id);
     if (compartmentGlyph)
