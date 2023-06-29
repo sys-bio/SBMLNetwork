@@ -1946,6 +1946,268 @@ int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribut
     return setGeometricShapeRadiusY(getStyle(document, attribute), geometricShapeIndex, ry);
 }
 
+const unsigned int getGeometricShapeNumElements(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeNumElements(getStyle(document, graphicalObject), geometricShapeIndex);
+}
 
+const unsigned int getGeometricShapeNumElements(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeNumElements(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementX(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementX(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getStyle(document, graphicalObject), x);
+}
+
+int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getStyle(document, graphicalObject), elementIndex, x);
+}
+
+int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, x);
+}
+
+int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getStyle(document, attribute), x);
+}
+
+int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getStyle(document, attribute), elementIndex, x);
+}
+
+int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getStyle(document, attribute), geometricShapeIndex, elementIndex, x);
+}
+
+const RelAbsVector getGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementY(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementY(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getStyle(document, graphicalObject), y);
+}
+
+int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getStyle(document, graphicalObject), elementIndex, y);
+}
+
+int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, y);
+}
+
+int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getStyle(document, attribute), y);
+}
+
+int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getStyle(document, attribute), elementIndex, y);
+}
+
+int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getStyle(document, attribute), geometricShapeIndex, elementIndex, y);
+}
+
+const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1X(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1X(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(getStyle(document, graphicalObject), x);
+}
+
+int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(getStyle(document, graphicalObject), elementIndex, x);
+}
+
+int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, x);
+}
+
+int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(getStyle(document, attribute), x);
+}
+
+int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(getStyle(document, attribute), elementIndex, x);
+}
+
+int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint1X(getStyle(document, attribute), geometricShapeIndex, elementIndex, x);
+}
+
+const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex ) {
+    return getGeometricShapeBasePoint1Y(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), y);
+}
+
+int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), elementIndex, y);
+}
+
+int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, y);
+}
+
+int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(getStyle(document, attribute), y);
+}
+
+int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(getStyle(document, attribute), elementIndex, y);
+}
+
+int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint1Y(getStyle(document, attribute), geometricShapeIndex, elementIndex, y);
+}
+
+const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2X(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2X(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(getStyle(document, graphicalObject), x);
+}
+
+int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(getStyle(document, graphicalObject), elementIndex, x);
+}
+
+int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, x);
+}
+
+int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(getStyle(document, attribute), x);
+}
+
+int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(getStyle(document, attribute), elementIndex, x);
+}
+
+int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeBasePoint2X(getStyle(document, attribute), geometricShapeIndex, elementIndex, x);
+}
+
+const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2Y(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), y);
+}
+
+int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), elementIndex, y);
+}
+
+int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, y);
+}
+
+int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(getStyle(document, attribute), y);
+}
+
+int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(getStyle(document, attribute), elementIndex, y);
+}
+
+int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeBasePoint2Y(getStyle(document, attribute), geometricShapeIndex, elementIndex, y);
+}
+
+int addRenderPointToGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return addRenderPointToGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+int addRenderPointToGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return addRenderPointToGeometricShape(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int addRenderCubicBezierToGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return addRenderCubicBezierToGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+int addRenderCubicBezierToGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return addRenderCubicBezierToGeometricShape(getStyle(document, attribute), geometricShapeIndex);
+}
+
+RenderPoint* removeElementFromGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return removeElementFromGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+RenderPoint* removeElementFromGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return removeElementFromGeometricShape(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+bool isRenderCubicBezier(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+bool isRenderCubicBezier(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+}
+
+bool isSetGeometricShapeHref(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHref(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHref(getStyle(document, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeHref(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHref(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHref(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeHref(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& href) {
+    return setGeometricShapeHref(getStyle(document, graphicalObject), href);
+}
+
+int setGeometricShapeHref(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& href) {
+    return setGeometricShapeHref(getStyle(document, graphicalObject), geometricShapeIndex, href);
+}
+
+int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, const std::string& href) {
+    return setGeometricShapeHref(getStyle(document, attribute), href);
+}
+
+int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href) {
+    return setGeometricShapeHref(getStyle(document, attribute), geometricShapeIndex, href);
+}
 
 }

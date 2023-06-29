@@ -16,7 +16,31 @@ variables:
 
 stages:
   - stage: Build
+
     jobs:
-    - job: BuildOnMac
+    - job: BuildCppOnMac
+
+      timeoutInMinutes: "0"
+      displayName: BuildLibSBMLNetworkEditorCppOnMac
+      continueOnError: "false"
+
+      pool:
+        vmImage: 'macOS-11'
+        demands:
+          - cmake
+
+      strategy:
+        matrix:
+          Mac_Release:
+            BUILD_TYPE: Release
+          Mac_Debug:
+            BUILD_TYPE: Debug
+
       steps:
-      - Build
+      - task: CMake@1
+          displayName: 'CMake ..'
+          inputs:
+            workingDirectory: ${BUILD_DIR}
+            cmakeArgs: '..'
+
+

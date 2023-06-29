@@ -4875,6 +4875,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderInformationBase* re
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href);
 
+/// @brief Sets the value of the "href" attribute of the first Transformation2D of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShapeHref(Style* style, const std::string& href);
+
 /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
