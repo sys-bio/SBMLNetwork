@@ -54,38 +54,46 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(Layout* l
 
 /// @brief Returns the number of GraphicalObject objects associated with entered id of the Layout object.
 /// @param layout a pointer to the Layout object
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
 /// @return the number of the GraphicalObject objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(Layout* layout, const std::string& id);
 
-/// @brief Returns the number of GraphicalObject objects with the entered id of the Layout object.
+/// @brief Returns the GraphicalObject objects with the entered id of the Layout object.
 /// @param layout a pointer to the Layout object
-/// @param id the id of the graphical objects to be returned.
-/// @return the number of the GraphicalObject objects of the Layout object, or @c 0 if the object is @c NULL
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @return the GraphicalObject objects with the entered id of the Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::string& id);
 
 /// @brief Returns the GraphicalObject object with the given index associated with entered id.
 /// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object to be returned.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
 /// @param compartmentGlyphIndex the index of the CompartmentGlyph to return.
 /// @return a pointer to the GraphicalObject object with the given index associated with the entered id, or NULL is GraphicalObject object does not exist or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the number of CompartmentGlyph objects of the Layout object.
-/// @param Layout a pointer to the Layout object.
-/// @return the number of CompartmentGlyph objects of the Layout object, or @c 0 if the object is @c NULL
+/// @param layout a pointer to the Layout object
+/// @return the number of the CompartmentGlyph objects of the Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(Layout* layout);
 
-/// @brief Returns a pointer to the CompartmentGlyph object with the given id of the Layout object.
-/// @param Layout a pointer to the Layout object.
-/// @param id the id of the CompartmentGlyph to return.
-/// @return the CompartmentGlyph object with the given id, or NULL if CompartmentGlyph does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layout, const std::string& id);
+/// @brief Returns the number of CompartmentGlyph objects associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object
+/// @param id the id of the compartment the the CompartmentGlyph objects of which to be returned.
+/// @return the number of the CompartmentGlyph objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartmentGlyphs(Layout* layout, const std::string& id);
 
-/// @brief Returns a pointer to the CompartmentGlyph object with the given index of the Layout object.
-/// @param Layout a pointer to the Layout object.
+/// @brief Returns the CompartmentGlyph objects associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object
+/// @param id the id of the compartment the the CompartmentGlyph objects of which to be returned.
+/// @return the CompartmentGlyph objects of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout, const std::string& id);
+
+/// @brief Returns the CompartmentGlyph object with the given index associated with entered id.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the compartment the the CompartmentGlyph objects of which to be returned.
 /// @param compartmentGlyphIndex the index of the CompartmentGlyph to return.
-/// @return the CompartmentGlyph object with the given index, or NULL if CompartmentGlyph does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layout, unsigned int compartmentGlyphIndex = 0);
+/// @return a pointer to the CompartmentGlyph object with the given index associated with the entered id, or NULL is CompartmentGlyph object does not exist or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layout, const std::string& id, const unsigned int compartmentGlyphIndex = 0);
 
 /// Returns the id of the compartment associated with the CompartmentGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.

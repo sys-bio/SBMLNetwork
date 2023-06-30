@@ -101,16 +101,20 @@ const unsigned int getNumCompartmentGlyphs(Layout* layout) {
     return 0;
 }
 
-CompartmentGlyph* getCompartmentGlyph(Layout* layout, const std::string& id) {
-    if (layout)
-        return layout->getCompartmentGlyph(id);
-
-    return NULL;
+const unsigned int getNumCompartmentGlyphs(Layout* layout, const std::string& id) {
+    return getCompartmentGlyphs(layout, id).size();
 }
 
-CompartmentGlyph* getCompartmentGlyph(Layout* layout, unsigned int compartmentGlyphIndex) {
+std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout, const std::string& id) {
     if (layout)
-        return layout->getCompartmentGlyph(compartmentGlyphIndex);
+        return getAssociatedCompartmentGlyphsWithCompartmentId(layout, id);
+    return std::vector<CompartmentGlyph*>();
+}
+
+CompartmentGlyph* getCompartmentGlyph(Layout* layout, const std::string& id, const unsigned int compartmentGlyphIndex) {
+    std::vector<CompartmentGlyph*> compartmentGlyphs = getCompartmentGlyphs(layout, id);
+    if (compartmentGlyphIndex < compartmentGlyphs.size())
+        return compartmentGlyphs.at(compartmentGlyphIndex);
 
     return NULL;
 }
@@ -120,7 +124,10 @@ const std::string getCompartmentId(Layout* layout, const std::string& id) {
 }
 
 const std::string getCompartmentId(Layout* layout, unsigned int compartmentGlyphIndex) {
-    return getCompartmentId(getCompartmentGlyph(layout, compartmentGlyphIndex));
+    if (layout)
+        layout->getCompartmentGlyph(compartmentGlyphIndex);
+
+    return "";
 }
 
 const std::string getCompartmentId(GraphicalObject* compartmentGlyph) {
