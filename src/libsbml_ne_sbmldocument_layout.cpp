@@ -94,7 +94,7 @@ double getDimensionWidth(SBMLDocument* document, unsigned int layoutIndex) {
 }
 
 int setDimensionWidth(SBMLDocument* document, const double& width) {
-    return setDimensionWidth(document, 0, width);
+    return setDimensionWidth(getLayout(document), width);
 }
 
 int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
@@ -106,7 +106,7 @@ double getDimensionHeight(SBMLDocument* document, unsigned int layoutIndex) {
 }
 
 int setDimensionHeight(SBMLDocument* document, const double& height) {
-    return setDimensionHeight(document, 0, height);
+    return setDimensionHeight(getLayout(document), height);
 }
 
 int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
@@ -114,47 +114,31 @@ int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const d
 }
 
 const unsigned int getNumGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex) {
-    //return getNumGraphicalObjects(getLayout(document, layoutIndex));
-    return 0;
+    return getNumGraphicalObjects(getLayout(document, layoutIndex));
 }
 
 const unsigned int getNumGraphicalObjects(SBMLDocument* document, const std::string& id) {
-    return getNumGraphicalObjects(document, 0, id);
+    return getNumGraphicalObjects(getLayout(document), id);
 }
 
 const unsigned int getNumGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
-    return getGraphicalObjects(document, layoutIndex, id).size();
+    return getNumGraphicalObjects(getLayout(document, layoutIndex), id);
 }
 
 std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocument* document, const std::string& id) {
-    return getGraphicalObjects(document, 0, id);
+    return getGraphicalObjects(getLayout(document), id);
 }
 
 std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
-    std::vector<GraphicalObject*> graphicalObjects;
-    Layout* layout = getLayout(document, layoutIndex);
-    if (layout) {
-        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, id);
-        graphicalObjects.insert(graphicalObjects.end(), compartmentGlyphs.begin(), compartmentGlyphs.end());
-        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
-        graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
-        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, id);
-        graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
-    }
-
-    return graphicalObjects;
+    return getGraphicalObjects(getLayout(document, layoutIndex), id);
 }
 
 GraphicalObject* getGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getGraphicalObject(document, 0, id, graphicalObjectIndex);
+    return getGraphicalObject(getLayout(document), id, graphicalObjectIndex);
 }
 
 GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, layoutIndex, id);
-    if (graphicalObjectIndex < graphicalObjects.size())
-        return graphicalObjects.at(graphicalObjectIndex);
-
-    return NULL;
+    return getGraphicalObject(getLayout(document, layoutIndex), id);
 }
 
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
@@ -162,38 +146,112 @@ const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int 
 }
 
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
-    return getNumCompartmentGlyphs(document, 0, compartmentId);
+    return getNumCompartmentGlyphs(getLayout(document), compartmentId);
 }
 
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& compartmentId) {
-    return getCompartmentGlyphs(document, layoutIndex, compartmentId).size();
+    return getNumCompartmentGlyphs(getLayout(document, layoutIndex), compartmentId);
 }
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, const std::string& compartmentId) {
-    return getCompartmentGlyphs(document, 0, compartmentId);
+    return getCompartmentGlyphs(getLayout(document), compartmentId);
 }
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& compartmentId) {
-    std::vector<CompartmentGlyph*> compartmentGlyphs;
-    Layout* layout = getLayout(document, layoutIndex);
-    if (layout)
-        compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartmentId);
-
-    return compartmentGlyphs;
+    return getCompartmentGlyphs(getLayout(document, layoutIndex), compartmentId);
 }
 
 CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int compartmentGlyphIndex) {
-    return getCompartmentGlyph(document, 0, compartmentId, compartmentGlyphIndex);
+    return getCompartmentGlyph(getLayout(document), compartmentId, compartmentGlyphIndex);
 }
 
 CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& compartmentId, unsigned int compartmentGlyphIndex) {
-    std::vector<CompartmentGlyph*> compartmentGlyphs = getCompartmentGlyphs(document, layoutIndex, compartmentId);
-    if (compartmentGlyphIndex < compartmentGlyphs.size())
-        return compartmentGlyphs.at(compartmentGlyphIndex);
-
-    return NULL;
+    return getCompartmentGlyph(getLayout(document, layoutIndex), compartmentId, compartmentGlyphIndex);
 }
 
+bool isCompartmentGlyph(SBMLDocument* document, const std::string& id) {
+    return isCompartmentGlyph(getLayout(document), id);
+}
+
+bool isCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return isCompartmentGlyph(getLayout(document, layoutIndex), id);
+}
+
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
+    return getNumSpeciesGlyphs(getLayout(document, layoutIndex));
+}
+
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
+    return getNumSpeciesGlyphs(getLayout(document), speciesId);
+}
+
+const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId) {
+    return getNumSpeciesGlyphs(getLayout(document, layoutIndex), speciesId);
+}
+
+std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, const std::string& speciesId) {
+    return getSpeciesGlyphs(getLayout(document), speciesId);
+}
+
+std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId) {
+    return getSpeciesGlyphs(getLayout(document, layoutIndex), speciesId);
+}
+
+SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int speciesGlyphIndex) {
+    return getSpeciesGlyph(getLayout(document), speciesId, speciesGlyphIndex);
+}
+
+SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, unsigned int speciesGlyphIndex) {
+    return getSpeciesGlyph(getLayout(document, layoutIndex), speciesId, speciesGlyphIndex);
+}
+
+bool isSpeciesGlyph(SBMLDocument* document, const std::string& id) {
+    return isSpeciesGlyph(getLayout(document), id);
+}
+
+bool isSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return isSpeciesGlyph(getLayout(document, layoutIndex), id);
+}
+
+const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
+    return getNumReactionGlyphs(getLayout(document, layoutIndex));
+}
+
+const unsigned int getNumReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
+    return getNumReactionGlyphs(getLayout(document), reactionId);
+}
+
+const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
+    return getNumReactionGlyphs(getLayout(document, layoutIndex), reactionId);
+}
+
+std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, const std::string& reactionId) {
+    return getReactionGlyphs(getLayout(document), reactionId);
+}
+
+std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
+    return getReactionGlyphs(getLayout(document, layoutIndex), reactionId);
+}
+
+ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getReactionGlyph(getLayout(document), reactionId, reactionGlyphIndex);
+}
+
+ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getReactionGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex);
+}
+
+bool isReactionGlyph(SBMLDocument* document, const std::string& id) {
+    return isReactionGlyph(getLayout(document), id);
+}
+
+bool isReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return isReactionGlyph(getLayout(document, layoutIndex), id);
+}
+
+
+
+/*
 const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
     return getNumSpeciesGlyphs(getLayout(document, layoutIndex));
 }
@@ -229,6 +287,10 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, 
         return speciesGlyphs.at(speciesGlyphIndex);
 
     return NULL;
+}
+
+bool isSpeciesGlyph(SBMLDocument* document, const std::string& id) {
+    return isSpeciesGlyph(getLayout(document), id);
 }
 
 const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
@@ -268,6 +330,10 @@ ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex
     return NULL;
 }
 
+bool isReactionGlyph(SBMLDocument* document, const std::string& id) {
+    return isSpeciesGlyph(getLayout(document), id);
+}
+
 const unsigned int getNumSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex) {
     return getNumSpeciesReferenceGlyphs(document, 0, reactionId, reactionGlyphIndex);
 }
@@ -297,6 +363,38 @@ SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, unsigned
     return getSpeciesReferenceGlyph(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesReferenceGlyphIndex);
 }
 
+bool isReactionGlyph(SBMLDocument* document, const std::string& id) {
+    return isSpeciesGlyph(getLayout(document), id);
+}
+
+const unsigned int getNumTextGlyphs(SBMLDocument* document) {
+    return getNumTextGlyphs(getLayout(document));
+}
+
+TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id) {
+    return getTextGlyph(getLayout(document), id);
+}
+
+TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int index) {
+    return getTextGlyph(getLayout(document), index);
+}
+
+bool isSetText(SBMLDocument* document, const std::string& id) {
+    return isSetText(getLayout(document), id);
+}
+
+bool isSetText(SBMLDocument* document, unsigned int index) {
+    return isSetText(getLayout(document), index);
+}
+
+int setText(SBMLDocument* document, const std::string& id, const std::string& text) {
+    return setText(getLayout(document), id, text);
+}
+
+int setText(SBMLDocument* document, unsigned int index, const std::string& text) {
+    return setText(getLayout(document), index, text);
+}
+
 std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Compartment* compartment = getCompartment(document, graphicalObject);
     if (compartment)
@@ -317,5 +415,6 @@ Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalOb
 
     return NULL;
 }
+ */
 
 }
