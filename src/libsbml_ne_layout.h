@@ -52,11 +52,23 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(Layout* layout, const double
 /// @return the number of the GraphicalObject objects of the Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(Layout* layout);
 
-/// @brief Returns the GraphicalObject object with entered id.
+/// @brief Returns the number of GraphicalObject objects associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object
+/// @return the number of the GraphicalObject objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGraphicalObjects(Layout* layout, const std::string& id);
+
+/// @brief Returns the number of GraphicalObject objects with the entered id of the Layout object.
+/// @param layout a pointer to the Layout object
+/// @param id the id of the graphical objects to be returned.
+/// @return the number of the GraphicalObject objects of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::string& id);
+
+/// @brief Returns the GraphicalObject object with the given index associated with entered id.
 /// @param layout a pointer to the Layout object.
 /// @param id the id of the graphical object to be returned.
-/// @return a pointer to the GraphicalObject object with the given id, or NULL is GraphicalObject object does not exist or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id);
+/// @param compartmentGlyphIndex the index of the CompartmentGlyph to return.
+/// @return a pointer to the GraphicalObject object with the given index associated with the entered id, or NULL is GraphicalObject object does not exist or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the number of CompartmentGlyph objects of the Layout object.
 /// @param Layout a pointer to the Layout object.

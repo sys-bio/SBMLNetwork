@@ -68,16 +68,28 @@ const unsigned int getNumGraphicalObjects(Layout* layout) {
     return 0;
 }
 
-GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id) {
-    CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(layout, id);
-    if (compartmentGlyph)
-        return compartmentGlyph;
-    SpeciesGlyph* speciesGlyph = getSpeciesGlyph(layout, id);
-    if (speciesGlyph)
-        return speciesGlyph;
-    ReactionGlyph* reactionGlyphGlyph = getReactionGlyph(layout, id);
-    if (reactionGlyphGlyph)
-        return reactionGlyphGlyph;
+const unsigned int getNumGraphicalObjects(Layout* layout, const std::string& id) {
+    return getGraphicalObjects(layout, id).size();
+}
+
+std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::string& id) {
+    std::vector<GraphicalObject*> graphicalObjects;
+    if (layout) {
+        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, id);
+        graphicalObjects.insert(graphicalObjects.end(), compartmentGlyphs.begin(), compartmentGlyphs.end());
+        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
+        graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
+        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, id);
+        graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
+    }
+
+    return graphicalObjects;
+}
+
+GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
+    if (graphicalObjectIndex < graphicalObjects.size())
+        return graphicalObjects.at(graphicalObjectIndex);
 
     return NULL;
 }
