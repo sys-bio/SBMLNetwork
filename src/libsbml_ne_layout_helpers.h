@@ -39,9 +39,9 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
 
 ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
 
-SpeciesReferenceGlyph* getSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
 
-TextGlyph* getTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
+TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces);
 
