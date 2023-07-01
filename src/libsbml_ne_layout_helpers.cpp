@@ -312,4 +312,12 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
     return reactionGlyphs;
 }
 
+std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph) {
+    std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs;
+    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
+        speciesReferenceGlyphs.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
+
+    return speciesReferenceGlyphs;
+}
+
 }
