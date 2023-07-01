@@ -388,31 +388,31 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesReferenceGlyph(GraphicalObject* graph
 /// @return the number of TextGlyph objects of the Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(Layout* layout);
 
-/// @brief Returns a pointer to the TextGlyph object with the given id of the Layout object.
-/// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph to return.
-/// @return the TextGlyph object with the given id, or NULL if TextGlyph does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, const std::string& id);
+/// @brief Returns the number of TextGlyph objects associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return the number of the TextGlyph objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(Layout* layout, const std::string& id);
 
-/// @brief Returns a pointer to the TextGlyph object with the given index of the Layout object.
+/// @brief Returns the TextGlyph objects associated with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return the TextGlyph object with the given id, or an empty vector if TextGlyph objects does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(Layout* layout, const std::string& id);
+
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, unsigned int textGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
-/// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given id is set.
+/// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given index associated with the given id is set.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @return @c true if the "text" attribute of this TextGlyph object is set, @c false if either the "text"
 /// attribute is not set, or TextGlyph does not exits or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(Layout* layout, const std::string& id);
-
-/// @brief Predicates returning @c true if the "text" attribute of TextGlyph with the given index is set.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @return @c true if the "text" attribute of this TextGlyph object is set, @c false if either the "text"
-/// attribute is not set, or TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(Layout* layout, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "text" attribute of this TextGlyph is set.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -420,19 +420,13 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(Layout* layout, unsigned int textGly
 /// attribute is not set, or the object is not of type TextGlyph or is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(GraphicalObject* textGlyph);
 
-/// @brief Returns the text associated with the TextGlyph with the given id.
+/// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id is set.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(Layout* layout, const std::string& id);
-
-/// @brief Returns the text associated with the TextGlyph with the given index.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
-/// , TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(Layout* layout, unsigned int textGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the text associated with this TextGlyph object.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -440,25 +434,20 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(Layout* layout, unsigned 
 /// or the object is not of type TextGlyph or is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(GraphicalObject* textGlyph);
 
-/// @brief Sets the value of the "text" attribute of the TextGlyph with the given id.
+/// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param text a string value to be set as "text" attribute of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setText(Layout* layout, const std::string& id, const std::string& text);
 
-/// @brief Sets the value of the "text" attribute of the first TextGlyph.
+/// @brief Sets the value of the "text" attribute of TextGlyph object with the given index associated with the given id.
 /// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @param text a string value to be set as "text" attribute of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setText(Layout* layout, const std::string& text);
-
-/// @brief Sets the value of the "text" attribute of the TextGlyph with the given index.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @param text a string value to be set as "text" attribute of the TextGlyph object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setText(Layout* layout, unsigned int textGlyphIndex, const std::string& text);
+LIBSBML_NETWORKEDITOR_EXTERN int setText(Layout* layout, const std::string& id, unsigned int textGlyphIndex, const std::string& text);
 
 /// @brief Sets the value of the "text" attribute this TextGlyph object.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -466,19 +455,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setText(Layout* layout, unsigned int textGlyphI
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setText(GraphicalObject* textGlyph, const std::string& text);
 
-/// @brief Predicates returning @c true if the origin of text of TextGlyph object with the given id is not the empty string.
+/// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id is not the empty string.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return @c true if the origin of text of this TextGlyph object is not the empty string, @c false if either the origin of text
 /// is empty, or TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(Layout* layout, const std::string& id);
-
-/// @brief Predicates returning @c true if the origin of text of TextGlyph object with the given index is not the empty string.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @return @c true if the origin of text of this TextGlyph object is not the empty string, @c false if either the origin of text
-/// is empty, or TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(Layout* layout, unsigned int textGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the id of the origin of text of the TextGlyph object is not the empty string.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -486,19 +469,13 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(Layout* layout, unsigned i
 /// either the "originOfTextId" attribute of this TextGlyph object is not set, or the object is not of type TextGlyph or is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(GraphicalObject* textGlyph);
 
-/// @brief Returns the id of the origin of text of the TextGlyph object with the given id.
+/// @brief Returns the id of the origin of text of the TextGlyph object with the given index associated with the given id.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the id of the origin of text of this TextGlyph object or @c empty string if either the "originOfTextId" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(Layout* layout, const std::string& id);
-
-/// @brief Returns the id of the origin of text of the TextGlyph object with the given index.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @return the id of the origin of text of this TextGlyph or @c empty string if either the "originOfTextId" attribute is not set
-/// , TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(Layout* layout, unsigned int textGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the id of the origin of text of the TextGlyph object.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -506,25 +483,20 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(Layout* layout,
 /// the "originOfTextId" attribute is not set, or the object is not of type TextGlyph or is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(GraphicalObject* textGlyph);
 
-/// @brief Sets id of the origin of text of the TextGlyph obejct with the given id.
+/// @brief Sets id of the origin of text of the first TextGlyph object with the given index associated with the given id.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(Layout* layout, const std::string& id, const std::string& orig);
 
-/// @brief Sets id of the origin of text of the first TextGlyph object.
+/// @brief Sets id of the origin of text of the TextGlyph object with the given index associated with the given id.
 /// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(Layout* layout, const std::string& orig);
-
-/// @brief Sets id of the origin of text of the TextGlyph object with the given index.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(Layout* layout, unsigned int textGlyphIndex, const std::string& orig);
+LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(Layout* layout, const std::string& id, unsigned int textGlyphIndex, const std::string& orig);
 
 /// @brief Sets the id of the origin of text of the TextGlyph object.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -532,19 +504,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(Layout* layout, unsigned int 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(GraphicalObject* textGlyph, const std::string& orig);
 
-/// @brief Predicates returning @c true if id of the associated graphical object of TextGlyph object with the given id is not the empty string.
+/// @brief Predicates returning @c true if id of the associated graphical object of the TextGlyph object with the given index associated with the given id is not the empty string.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return @c true if the id of the associated graphical object of this TextGlyph object is not the empty string, @c false if either the id
 /// of the associated graphical object is empty, or TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(Layout* layout, const std::string& id);
-
-/// @brief Predicates returning @c true if the origin of text of TextGlyph object with the given index is not the empty string.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index value of the TextGlyph.
-/// @return @c true if the origin of text of this TextGlyph object is not the empty string, @c false if either the origin of text
-/// is empty, or TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(Layout* layout, unsigned int textGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the id of the associated graphical object is not the empty string.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -552,19 +518,13 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(Layout* layout, unsigne
 /// the "graphicalObjectId" attribute is not set, or the object is not of type TextGlyph or is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(GraphicalObject* textGlyph);
 
-/// @brief Returns the id of the associated graphical object of the TextGlyph object with the given id.
+/// @brief Returns the id of the associated graphical object of the TextGlyph object with the given index associated with the given id.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the id of associated graphical object of this TextGlyph or @c empty string if either the "graphicalObjectId" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(Layout* layout, const std::string& id);
-
-/// @brief Returns the id of the associated graphical object of the TextGlyph object with the given index.
-/// @param Layout a pointer to the Layout object.
-/// @param textGlyphIndex the index of the TextGlyph.
-/// @return the id of associated graphical object of this TextGlyph or @c empty string if either the "graphicalObjectId" attribute is not set
-/// , TextGlyph does not exits or the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(Layout* layout, unsigned int textGlyphIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the id of the associated graphical object.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -572,25 +532,20 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(Layout* layo
 /// attribute is not set, or the object is not of type TextGlyph or is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(GraphicalObject* textGlyph);
 
-/// @brief Sets the id of the associated graphical object of the TextGlyph object with the given id.
+/// @brief Sets the id of the associated graphical object of the first TextGlyph object associated with the given id.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the TextGlyph.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(Layout* layout, const std::string& id, const std::string& graphicalObjectId);
 
-/// @brief Sets the id of the associated graphical object of the first TextGlyph object with the given index.
+/// @brief Sets the id of the associated graphical object of the TextGlyph object with the given index associated with the given id.
 /// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(Layout* layout, const std::string& graphicalObjectId);
-
-/// @brief Sets the id of the associated graphical object of the TextGlyph object with the given index.
-/// @param Layout a pointer to the Layout object.
-/// @param index the index value of the TextGlyph.
-/// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
-/// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(Layout* layout, unsigned int index, const std::string& graphicalObjectId);
+LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(Layout* layout, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
 
 /// @brief Sets the id of the associated graphical object.
 /// @param textGlyph a pointer to the GraphicalObject object.
@@ -598,51 +553,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(Layout* layout, unsigned i
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& graphicalObjectId);
 
-/// @brief Returns the number of TextGlyph objects associated with the entered graphical object id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the GraphicalObject object the number of TextGlyph objects associated with it is going to be returned.
-/// @return the number of TextGlyph objects associated with the entered GraphicalObject id,
-/// or @c 0 if the there is no GraphicalObject object with this id or it has no associated TextGlyph objects
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumAssociatedTextGlyphs(Layout* layout, const std::string& id);
-
-/// @brief Returns the number of TextGlyph objects associated with this GraphicalObject object.
-/// @param layout a pointer to the Layout object.
-/// @param graphicalObject a pointer to the GraphicalObject object the number of TextGlyph objects associated with it is going to be returned.
-/// @return the number of TextGlyph objects associated with this GraphicalObject object,
-/// or @c 0 if the there is the object is @c NULL or it has no associated TextGlyph objects
-LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumAssociatedTextGlyphs(Layout* layout, GraphicalObject* graphicalObject);
-
-/// @brief Returns a vector of TextGlyph objects associated with the entered graphical object id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the GraphicalObject object the TextGlyph objects associated with it is going to be returned.
-/// @return a vector of TextGlyph objects associated with the entered graphical object id.
-LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getAssociatedTextGlyphs(Layout* layout, const std::string& id);
-
-/// @brief Returns a vector of TextGlyph objects associated with the this GraphicalObject object.
-/// @param layout a pointer to the Layout object.
-/// @param graphicalObject a pointer to the GraphicalObject object the TextGlyph objects associated with it are going to be returned.
-/// @return a vector of TextGlyph objects associated with this GraphicalObject.
-LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getAssociatedTextGlyphs(Layout* layout, GraphicalObject* graphicalObject);
-
-/// @brief Returns the TextGlyph object with the given index associated with the entered GraphicalObject id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the GraphicalObject object the nth TextGlyph objects associated with it is going to be returned.
-/// @param textGlyphIndex the index number of the TextGlyph object to return.
-/// @return a pointer the TextGlyph object with the givne index associated with the entered GraphicalObject id.
-LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getAssociatedTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
-
-/// @brief Returns the TextGlyph object with the given index associated with the this GraphicalObject.
-/// @param layout a pointer to the Layout object.
-/// @param graphicalObject a pointer to the GraphicalObject object the nth TextGlyph objects associated with it is going to be returned.
-/// @param textGlyphIndex the index number of the TextGlyph object to return.
-/// @return a pointer the nth TextGlyph object associated with the this GraphicalObject.
-LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
-
-/// @brief Predicate returning true if the abstract GraphicalObject object with the given id is of type TextGlyph.
+/// @brief Predicate returning true if the abstract GraphicalObject with the given index associated with the given id is of type TextGlyph.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the GraphicalObject.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
-LIBSBML_NETWORKEDITOR_EXTERN bool isTextGlyph(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN bool isTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicate returning true if this abstract GraphicalObject object is of type TextGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.

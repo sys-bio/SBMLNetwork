@@ -369,26 +369,31 @@ const unsigned int getNumTextGlyphs(Layout* layout) {
     return 0;
 }
 
-TextGlyph* getTextGlyph(Layout* layout, const std::string& id) {
-    if (layout)
-        return layout->getTextGlyph(id);
+std::vector<TextGlyph*> getTextGlyphs(Layout* layout, const std::string& id) {
+    std::vector<TextGlyph*> textGlyphs;
+    std::vector<TextGlyph*> associatedtextGlyphs;
+    if (layout) {
+        std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
+            associatedtextGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObjects.at(i));
+            textGlyphs.insert(textGlyphs.end(), associatedtextGlyphs.begin(), associatedtextGlyphs.end());
+        }
+
+    }
+
+    return textGlyphs;
+}
+
+TextGlyph* getTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, id);
+    if (textGlyphIndex < textGlyphs.size())
+        return textGlyphs.at(textGlyphIndex);
 
     return NULL;
 }
 
-TextGlyph* getTextGlyph(Layout* layout, unsigned int textGlyphIndex) {
-    if (layout)
-        return layout->getTextGlyph(textGlyphIndex);
-
-    return NULL;
-}
-
-bool isSetText(Layout* layout, const std::string& id) {
-    return isSetText(getTextGlyph(layout, id));
-}
-
-bool isSetText(Layout* layout, unsigned int textGlyphIndex) {
-    return isSetText(getTextGlyph(layout, textGlyphIndex));
+bool isSetText(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetText(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 bool isSetText(GraphicalObject* textGlyph) {
@@ -398,12 +403,8 @@ bool isSetText(GraphicalObject* textGlyph) {
     return false;
 }
 
-const std::string getText(Layout* layout, const std::string& id) {
-    return getText(getTextGlyph(layout, id));
-}
-
-const std::string getText(Layout* layout, unsigned int textGlyphIndex) {
-    return getText(getTextGlyph(layout, textGlyphIndex));
+const std::string getText(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return getText(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 const std::string getText(GraphicalObject* textGlyph) {
@@ -417,12 +418,8 @@ int setText(Layout* layout, const std::string& id, const std::string& text) {
     return setText(getTextGlyph(layout, id), text);
 }
 
-int setText(Layout* layout, const std::string& text) {
-    return setText(getTextGlyph(layout, 0), text);
-}
-
-int setText(Layout* layout, unsigned int textGlyphIndex, const std::string& text) {
-    return setText(getTextGlyph(layout, textGlyphIndex), text);
+int setText(Layout* layout, const std::string& id, unsigned int textGlyphIndex, const std::string& text) {
+    return setText(getTextGlyph(layout, id, textGlyphIndex), text);
 }
 
 int setText(GraphicalObject* textGlyph, const std::string& text) {
@@ -434,12 +431,8 @@ int setText(GraphicalObject* textGlyph, const std::string& text) {
     return -1;
 }
 
-bool isSetOriginOfTextId(Layout* layout, const std::string& id) {
-    return isSetOriginOfTextId(getTextGlyph(layout, id));
-}
-
-bool isSetOriginOfTextId(Layout* layout, unsigned int textGlyphIndex) {
-    return isSetOriginOfTextId(getTextGlyph(layout, textGlyphIndex));
+bool isSetOriginOfTextId(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetOriginOfTextId(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 bool isSetOriginOfTextId(GraphicalObject* textGlyph) {
@@ -449,12 +442,8 @@ bool isSetOriginOfTextId(GraphicalObject* textGlyph) {
     return false;
 }
 
-const std::string getOriginOfTextId(Layout* layout, const std::string& id) {
-    return getOriginOfTextId(getTextGlyph(layout, id));
-}
-
-const std::string getOriginOfTextId(Layout* layout, unsigned int textGlyphIndex) {
-    return getOriginOfTextId(getTextGlyph(layout, textGlyphIndex));
+const std::string getOriginOfTextId(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return getOriginOfTextId(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 const std::string getOriginOfTextId(GraphicalObject* textGlyph) {
@@ -468,12 +457,8 @@ int setOriginOfTextId(Layout* layout, const std::string& id, const std::string& 
     return setOriginOfTextId(getTextGlyph(layout, id), orig);
 }
 
-int setOriginOfTextId(Layout* layout, const std::string& orig) {
-    return setOriginOfTextId(getTextGlyph(layout, 0), orig);
-}
-
-int setOriginOfTextId(Layout* layout, unsigned int textGlyphIndex, const std::string& orig) {
-    return setOriginOfTextId(getTextGlyph(layout, textGlyphIndex), orig);
+int setOriginOfTextId(Layout* layout, const std::string& id, unsigned int textGlyphIndex, const std::string& orig) {
+    return setOriginOfTextId(getTextGlyph(layout, id, textGlyphIndex), orig);
 }
 
 int setOriginOfTextId(GraphicalObject* textGlyph, const std::string& orig) {
@@ -485,12 +470,8 @@ int setOriginOfTextId(GraphicalObject* textGlyph, const std::string& orig) {
     return -1;
 }
 
-bool isSetGraphicalObjectId(Layout* layout, const std::string& id) {
-    return isSetGraphicalObjectId(getTextGlyph(layout, id));
-}
-
-bool isSetGraphicalObjectId(Layout* layout, unsigned int textGlyphIndex) {
-    return isSetGraphicalObjectId(getTextGlyph(layout, textGlyphIndex));
+bool isSetGraphicalObjectId(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetGraphicalObjectId(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 bool isSetGraphicalObjectId(GraphicalObject* textGlyph) {
@@ -500,12 +481,8 @@ bool isSetGraphicalObjectId(GraphicalObject* textGlyph) {
     return false;
 }
 
-const std::string getGraphicalObjectId(Layout* layout, const std::string& id) {
-    return getGraphicalObjectId(getTextGlyph(layout, id));
-}
-
-const std::string getGraphicalObjectId(Layout* layout, unsigned int textGlyphIndex) {
-    return getGraphicalObjectId(getTextGlyph(layout, textGlyphIndex));
+const std::string getGraphicalObjectId(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return getGraphicalObjectId(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 const std::string getGraphicalObjectId(GraphicalObject* textGlyph) {
@@ -519,12 +496,8 @@ int setGraphicalObjectId(Layout* layout, const std::string& id, const std::strin
     return setGraphicalObjectId(getTextGlyph(layout, id), graphicalObjectId);
 }
 
-int setGraphicalObjectId(Layout* layout, const std::string& graphicalObjectId) {
-    return setGraphicalObjectId(getTextGlyph(layout, 0), graphicalObjectId);
-}
-
-int setGraphicalObjectId(Layout* layout, unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
-    return setGraphicalObjectId(getTextGlyph(layout, textGlyphIndex), graphicalObjectId);
+int setGraphicalObjectId(Layout* layout, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
+    return setGraphicalObjectId(getTextGlyph(layout, id, textGlyphIndex), graphicalObjectId);
 }
 
 int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& graphicalObjectId) {
@@ -536,40 +509,8 @@ int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& graphica
     return -1;
 }
 
-const unsigned int getNumAssociatedTextGlyphs(Layout* layout, const std::string& id) {
-    return getNumAssociatedTextGlyphs(layout, getGraphicalObject(layout, id));
-}
-
-const unsigned int getNumAssociatedTextGlyphs(Layout* layout, GraphicalObject* graphicalObject) {
-    return getAssociatedTextGlyphs(layout, graphicalObject).size();
-}
-
-std::vector<TextGlyph*> getAssociatedTextGlyphs(Layout* layout, const std::string& id) {
-    return getAssociatedTextGlyphs(layout, getGraphicalObject(layout, id));
-}
-
-std::vector<TextGlyph*> getAssociatedTextGlyphs(Layout* layout, GraphicalObject* graphicalObject) {
-    std::vector<TextGlyph*> associatedTextGlyphs;
-    if (layout)
-        associatedTextGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
-
-    return associatedTextGlyphs;
-}
-
-TextGlyph* getAssociatedTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
-    return getAssociatedTextGlyph(layout, getGraphicalObject(layout, id), textGlyphIndex);
-}
-
-TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
-    std::vector<TextGlyph*> assoicatedTextGlyphs = getAssociatedTextGlyphs(layout, graphicalObject);
-    if (textGlyphIndex < assoicatedTextGlyphs.size())
-        return assoicatedTextGlyphs.at(textGlyphIndex);
-
-    return NULL;
-}
-
-bool isTextGlyph(Layout* layout, const std::string& id) {
-    return isTextGlyph(getTextGlyph(layout, id));
+bool isTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return isTextGlyph(getTextGlyph(layout, id, textGlyphIndex));
 }
 
 bool isTextGlyph(GraphicalObject* graphicalObject) {
