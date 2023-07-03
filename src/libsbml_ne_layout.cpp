@@ -369,6 +369,10 @@ const unsigned int getNumTextGlyphs(Layout* layout) {
     return 0;
 }
 
+const unsigned int getNumTextGlyphs(Layout* layout, const std::string& id) {
+    return getTextGlyphs(layout, id).size();
+}
+
 std::vector<TextGlyph*> getTextGlyphs(Layout* layout, const std::string& id) {
     std::vector<TextGlyph*> textGlyphs;
     std::vector<TextGlyph*> associatedtextGlyphs;

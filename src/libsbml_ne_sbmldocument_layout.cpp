@@ -329,6 +329,138 @@ int setRole(SBMLDocument* document, unsigned int layoutIndex, const std::string&
     return setRole(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, role);
 }
 
+const unsigned int getNumTextGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
+    return getNumTextGlyphs(getLayout(document, layoutIndex));
+}
+
+const unsigned int getNumTextGlyphs(SBMLDocument* document, const std::string& id) {
+    return getNumTextGlyphs(getLayout(document), id);
+}
+
+const unsigned int getNumTextGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return getNumTextGlyphs(getLayout(document, layoutIndex), id);
+}
+
+std::vector<TextGlyph*> getTextGlyphs(SBMLDocument* document, const std::string& id) {
+    return getTextGlyphs(getLayout(document), id);
+}
+
+std::vector<TextGlyph*> getTextGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return getTextGlyphs(getLayout(document, layoutIndex), id);
+}
+
+TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return getTextGlyph(getLayout(document), id, textGlyphIndex);
+}
+
+TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return getTextGlyph(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+bool isSetText(SBMLDocument* document, const std::string& id) {
+    return isSetText(getLayout(document), id);
+}
+
+bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    return isSetText(getLayout(document, layoutIndex), id);
+}
+
+const std::string getText(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return getText(getLayout(document), id, textGlyphIndex);
+}
+
+const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return getText(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+int setText(SBMLDocument* document, const std::string& id, const std::string& text) {
+    return setText(getLayout(document), id, text);
+}
+
+int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const std::string& text) {
+    return setText(getLayout(document, layoutIndex), id, text);
+}
+
+int setText(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex, const std::string& text) {
+    return setText(getLayout(document), id, textGlyphIndex, text);
+}
+
+int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& text) {
+    return setText(getLayout(document, layoutIndex), id, textGlyphIndex, text);
+}
+
+bool isSetOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetOriginOfTextId(getLayout(document), id, textGlyphIndex);
+}
+
+bool isSetOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetOriginOfTextId(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+const std::string getOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return getOriginOfTextId(getLayout(document), id, textGlyphIndex);
+}
+
+const std::string getOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return getOriginOfTextId(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+int setOriginOfTextId(SBMLDocument* document, const std::string& id, const std::string& orig) {
+    return setOriginOfTextId(getLayout(document), id, orig);
+}
+
+int setOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const std::string& orig) {
+    return setOriginOfTextId(getLayout(document, layoutIndex), id, orig);
+}
+
+int setOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex, const std::string& orig) {
+    return setOriginOfTextId(getLayout(document), id, textGlyphIndex, orig);
+}
+
+int setOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& orig) {
+    return setOriginOfTextId(getLayout(document, layoutIndex), id, textGlyphIndex, orig);
+}
+
+bool isSetGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetGraphicalObjectId(getLayout(document), id, textGlyphIndex);
+}
+
+bool isSetGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return isSetGraphicalObjectId(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+const std::string getGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return getGraphicalObjectId(getLayout(document), id, textGlyphIndex);
+}
+
+const std::string getGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return getGraphicalObjectId(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+int setGraphicalObjectId(SBMLDocument* document, const std::string& id, const std::string& graphicalObjectId) {
+    return setGraphicalObjectId(getLayout(document), id, graphicalObjectId);
+}
+
+int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const std::string& graphicalObjectId) {
+    return setGraphicalObjectId(getLayout(document, layoutIndex), id, graphicalObjectId);
+}
+
+int setGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
+    return setGraphicalObjectId(getLayout(document), id, textGlyphIndex, graphicalObjectId);
+}
+
+int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId) {
+    return setGraphicalObjectId(getLayout(document, layoutIndex), id, textGlyphIndex, graphicalObjectId);
+}
+
+bool isTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex) {
+    return isTextGlyph(getLayout(document), id, textGlyphIndex);
+}
+
+bool isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
+    return isTextGlyph(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
 std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Compartment* compartment = getCompartment(document, graphicalObject);
     if (compartment)

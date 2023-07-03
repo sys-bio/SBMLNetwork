@@ -412,7 +412,7 @@ LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, const std::
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @return @c true if the "text" attribute of this TextGlyph object is set, @c false if either the "text"
 /// attribute is not set, or TextGlyph does not exits or the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "text" attribute of this TextGlyph is set.
 /// @param textGlyph a pointer to the GraphicalObject object.

@@ -555,6 +555,293 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRole(SBMLDocument* document, unsigned int la
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role);
 
+/// @brief Returns the number of TextGlyph objects of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @return the number of TextGlyph objects of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Returns the number of TextGlyph objects associated with entered id in the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return the number of the TextGlyph objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the number of TextGlyph objects associated with entered id of the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return the number of the TextGlyph objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Returns the TextGlyph objects associated with the given id in the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return the TextGlyph object with the given id, or an empty vector if TextGlyph objects does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the TextGlyph objects associated with the given id of the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return the TextGlyph object with the given id, or an empty vector if TextGlyph objects does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id of the Layout object in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return @c true if the "text" attribute of this TextGlyph object is set, @c false if either the "text"
+/// attribute is not set, or TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(SBMLDocument* document, const std::string& id);
+
+/// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @return @c true if the "text" attribute of this TextGlyph object is set, @c false if either the "text"
+/// attribute is not set, or TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
+/// , TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
+/// , TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setText(SBMLDocument* document, const std::string& id, const std::string& text);
+
+/// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const std::string& text);
+
+/// @brief Sets the value of the "text" attribute of TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setText(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex, const std::string& text);
+
+/// @brief Sets the value of the "text" attribute of TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& text);
+
+/// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document is not the empty string.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return @c true if the origin of text of this TextGlyph object is not the empty string, @c false if either the origin of text
+/// is empty, or TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document is not the empty string.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return @c true if the origin of text of this TextGlyph object is not the empty string, @c false if either the origin of text
+/// is empty, or TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns the id of the origin of text of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the id of the origin of text of this TextGlyph object or @c empty string if either the "originOfTextId" attribute is not set
+/// , TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns the id of the origin of text of the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the id of the origin of text of this TextGlyph object or @c empty string if either the "originOfTextId" attribute is not set
+/// , TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Sets id of the origin of text of the first TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(SBMLDocument* document, const std::string& id, const std::string& orig);
+
+/// @brief Sets id of the origin of text of the first TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const std::string& orig);
+
+/// @brief Sets id of the origin of text of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex, const std::string& orig);
+
+/// @brief Sets id of the origin of text of the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param orig a string value to be set as the if the origin of text attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& orig);
+
+/// @brief Predicates returning @c true if id of the associated graphical object of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document is not the empty string.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return @c true if the id of the associated graphical object of this TextGlyph object is not the empty string, @c false if either the id
+/// of the associated graphical object is empty, or TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Predicates returning @c true if id of the associated graphical object of the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document is not the empty string.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return @c true if the id of the associated graphical object of this TextGlyph object is not the empty string, @c false if either the id
+/// of the associated graphical object is empty, or TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns the id of the associated graphical object of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the id of associated graphical object of this TextGlyph or @c empty string if either the "graphicalObjectId" attribute is not set
+/// , TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns the id of the associated graphical object of the TextGlyph object with the given index associated with the given id
+/// in the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the id of associated graphical object of this TextGlyph or @c empty string if either the "graphicalObjectId" attribute is not set
+/// , TextGlyph does not exits or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Sets the id of the associated graphical object of the first TextGlyph object associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(SBMLDocument* document, const std::string& id, const std::string& graphicalObjectId);
+
+/// @brief Sets the id of the associated graphical object of the first TextGlyph object associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const std::string& graphicalObjectId);
+
+/// @brief Sets the id of the associated graphical object of the TextGlyph object with the given index associated with the given id in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
+
+/// @brief Sets the id of the associated graphical object of the TextGlyph object with the given index associated with the given id
+/// in the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
+
+/// @brief Predicate returning true if the abstract GraphicalObject with the given index associated with the given id in
+/// the first Layout object of the SBML document is of type TextGlyph.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Predicate returning true if the abstract GraphicalObject with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document is of type TextGlyph.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+
 
 
 /// Returns the id of the compartment associated with the graphical object.
