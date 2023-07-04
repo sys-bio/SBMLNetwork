@@ -27,7 +27,7 @@ Dimensions* getDimensions(Layout* layout) {
 double getDimensionWidth(Layout* layout) {
     Dimensions* dimensions = getDimensions(layout);
     if (dimensions)
-        return dimensions->getWidth();
+        return dimensions->width();
 
     return 0.0;
 }
@@ -45,7 +45,7 @@ int setDimensionWidth(Layout* layout, const double& width) {
 double getDimensionHeight(Layout* layout) {
     Dimensions* dimensions = getDimensions(layout);
     if (dimensions)
-        return dimensions->getHeight();
+        return dimensions->height();
 
     return 0.0;
 }
@@ -532,8 +532,8 @@ const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObje
     return getEntityId(layout, graphicalObject);
 }
 
-BoundingBox* getBoundingBox(Layout* layout, const std::string& id) {
-    return getBoundingBox(getGraphicalObject(layout, id));
+BoundingBox* getBoundingBox(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    return getBoundingBox(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 BoundingBox* getBoundingBox(GraphicalObject* graphicalObject) {
@@ -543,8 +543,8 @@ BoundingBox* getBoundingBox(GraphicalObject* graphicalObject) {
     return NULL;
 }
 
-const double getPositionX(Layout* layout, const std::string& id) {
-    return getPositionX(getGraphicalObject(layout, id));
+const double getPositionX(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    return getPositionX(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 const double getPositionX(GraphicalObject* graphicalObject) {
@@ -562,6 +562,10 @@ int setPositionX(Layout* layout, const std::string& id, const double& x) {
     return setPositionX(getGraphicalObject(layout, id), x);
 }
 
+int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x) {
+    return setPositionX(getGraphicalObject(layout, id, graphicalObjectIndex), x);
+}
+
 int setPositionX(GraphicalObject* graphicalObject, const double& x) {
     return setPositionX(getBoundingBox(graphicalObject), x);
 }
@@ -575,12 +579,12 @@ int setPositionX(BoundingBox* boundingBox, const double& x) {
     return -1;
 }
 
-const double getPositionY(Layout* layout, const std::string& id) {
-    return getPositionY(getGraphicalObject(layout, id));
+const double getPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getPositionX(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 const double getPositionY(GraphicalObject* graphicalObject) {
-    return getPositionY(getBoundingBox(graphicalObject));
+    return getPositionX(getBoundingBox(graphicalObject));
 }
 
 const double getPositionY(BoundingBox* boundingBox) {
@@ -592,6 +596,10 @@ const double getPositionY(BoundingBox* boundingBox) {
 
 int setPositionY(Layout* layout, const std::string& id, const double& y) {
     return setPositionY(getGraphicalObject(layout, id), y);
+}
+
+int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& y) {
+    return setPositionY(getGraphicalObject(layout, id, graphicalObjectIndex), y);
 }
 
 int setPositionY(GraphicalObject* graphicalObject, const double& y) {
@@ -607,8 +615,8 @@ int setPositionY(BoundingBox* boundingBox, const double& y) {
     return -1;
 }
 
-const double getDimensionWidth(Layout* layout, const std::string& id) {
-    return getDimensionWidth(getGraphicalObject(layout, id));
+const double getDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getDimensionWidth(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 const double getDimensionWidth(GraphicalObject* graphicalObject) {
@@ -626,6 +634,10 @@ int setDimensionWidth(Layout* layout, const std::string& id, const double& width
     return setDimensionWidth(getGraphicalObject(layout, id), width);
 }
 
+int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& width) {
+    return setDimensionWidth(getGraphicalObject(layout, id, graphicalObjectIndex), width);
+}
+
 int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
     return setDimensionWidth(getBoundingBox(graphicalObject), width);
 }
@@ -639,12 +651,12 @@ int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
     return -1;
 }
 
-const double getDimensionHeight(Layout* layout, const std::string& id) {
-    return getDimensionHeight(getGraphicalObject(layout, id));
+const double getDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getDimensionHeight(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 const double getDimensionHeight(GraphicalObject* graphicalObject) {
-    return getDimensionHeight(getBoundingBox(graphicalObject));
+    return getDimensionWidth(getBoundingBox(graphicalObject));
 }
 
 const double getDimensionHeight(BoundingBox* boundingBox) {
@@ -658,8 +670,12 @@ int setDimensionHeight(Layout* layout, const std::string& id, const double& heig
     return setDimensionHeight(getGraphicalObject(layout, id), height);
 }
 
+int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& height) {
+    return setDimensionHeight(getGraphicalObject(layout, id, graphicalObjectIndex), height);
+}
+
 int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
-    return setDimensionHeight(getBoundingBox(graphicalObject), height);
+    setDimensionHeight(getBoundingBox(graphicalObject), height);
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {

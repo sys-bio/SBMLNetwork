@@ -577,22 +577,24 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getSBMLObjectId(Layout* layout, c
 /// @return the "id" attribute of the SBML object associated with this GraphicalObject object, or @c "" if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObject);
 
-/// @brief Returns the bounding box for the GraphicalObject object with the given id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
-/// @return the bounding box for the GraphicalObject object, or @c NULL if the object is @c NULL.
-LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(Layout* layout, const std::string& id);
+/// Returns the BoundingBox object of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return a pointer to the BoundingBox object of the GraphicalObject object associated with the entered id, or @c NULL if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
 /// Returns the bounding box for the GraphicalObject.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the bounding box for the GraphicalObject object, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBox(GraphicalObject* graphicalObject);
 
-/// @brief Returns the value of the "x" attribute of the bounding box of the GraphicalObject with the given id.
+/// @brief Returns the value of the "x" attribute of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @return the "x" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const double getPositionX(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN const double getPositionX(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the bounding box of this GraphicalObject.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -604,14 +606,22 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getPositionX(GraphicalObject* graphica
 /// @return the "x" attribute of the BoundingBox object, or @c 0.0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const double getPositionX(BoundingBox* boundingBox);
 
-/// @brief Sets the value of the "x" attribute of the bounding box of the GraphicalObject object with the given id.
+/// @brief Sets the value of the "x" attribute of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setPositionX(Layout* layout, const std::string& id, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @brief Sets the value of the "x" attribute of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the bounding box of this GraphicalObject object associated with the object with the given id of the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
@@ -623,11 +633,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setPositionX(GraphicalObject* graphicalObject, 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setPositionX(BoundingBox* boundingBox, const double& x);
 
-/// @brief Returns the value of the "y" attribute of the bounding box of the GraphicalObject with the given id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @brief Returns the value of the "y" attribute of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the "y" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const double getPositionY(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN const double getPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of the bounding box of this GraphicalObject.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -639,12 +650,20 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getPositionY(GraphicalObject* graphica
 /// @return the "y" attribute of the BoundingBox object, or @c 0.0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const double getPositionY(BoundingBox* boundingBox);
 
-/// @brief Sets the value of the "y" attribute of the bounding box of the GraphicalObject object with the given id.
+/// @brief Sets the value of the "y" attribute of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setPositionY(Layout* layout, const std::string& id, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
 
 /// @brief Sets the value of the "y" attribute of the bounding box this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -658,11 +677,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setPositionY(GraphicalObject* graphicalObject, 
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setPositionY(BoundingBox* boundingBox, const double& y);
 
-/// @brief Returns the value of the "width" attribute of the bounding box of the GraphicalObject with the given id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @brief Returns the value of the "width" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the "width" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionWidth(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the value of the "width" attribute of the bounding box of this GraphicalObject.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -674,16 +694,24 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionWidth(GraphicalObject* gra
 /// @return the "width" attribute of the bounding box of the BoundingBox object, or @c 0.0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionWidth(BoundingBox* boundingBox);
 
-/// @brief Sets the value of the "width" attribute of the bounding box of the GraphicalObject object with the given id.
+/// @brief Sets the value of the "width" attribute of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(Layout* layout, const std::string& id, const double& width);
 
-/// @brief Sets the value of the "width" attribute of this GraphicalObject object.
+/// @brief Sets the value of the "width" attribute of the bounding box the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
+
+/// @brief Sets the value of the "width" attribute of the bounding box this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param width a double value to use as the value of the "width" attribute of this GraphicalObject object.
+/// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(GraphicalObject* graphicalObject, const double& width);
 
@@ -693,11 +721,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(GraphicalObject* graphicalObj
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionWidth(BoundingBox* boundingBox, const double& width);
 
-/// @brief Returns the value of the "height" attribute of the bounding box of the GraphicalObject with the given id.
-/// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @brief Returns the value of the "height" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the "height" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionHeight(Layout* layout, const std::string& id);
+LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the value of the "height" attribute of the bounding box of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -709,14 +738,22 @@ LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionHeight(GraphicalObject* gr
 /// @return the "height" attribute of the BoundingBox object, or @c 0.0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const double getDimensionHeight(BoundingBox* boundingBox);
 
-/// @brief Sets the value of the "height" attribute of the bounding box of the GraphicalObject object with the given id.
+/// @brief Sets the value of the "height" attribute of the bounding box of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
-/// @param id the id of the graphical object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(Layout* layout, const std::string& id, const double& height);
 
-/// @brief Sets the value of the "height" attribute of this GraphicalObject object.
+/// @brief Sets the value of the "height" attribute of the bounding box of the GraphicalObject object with the given index of associated with the object with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+/// @brief Sets the value of the "height" attribute of this GraphicalObject object associated with the object with the given id of the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param width a double value to use as the value of the "height" attribute of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
