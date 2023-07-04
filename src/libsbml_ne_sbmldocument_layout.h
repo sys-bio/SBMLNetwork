@@ -1068,6 +1068,644 @@ LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, cons
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
 
+/// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of
+/// the first Layout object in the SBML document has a Curve object and the curve consists of one or more segments.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document
+/// has a Curve object and the curve consists of one or more segments.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Returns the Curve object of the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have a Curve object
+LIBSBML_NETWORKEDITOR_EXTERN Curve* getCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Returns the Curve object of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have a Curve object
+LIBSBML_NETWORKEDITOR_EXTERN Curve* getCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Returns the number of curve segments of the curve of the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCurveSegments(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Returns the number of curve segments of the curve of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Returns a pointer to the curve segment with the given index of the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex the index value of the curve segment to return.
+/// @return the @c LineSegment representing the child "curveSegment" with the appropriate index, or NULL if no such LineSegment exists for
+/// this GraphicalObject object.
+LIBSBML_NETWORKEDITOR_EXTERN LineSegment* getCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns a pointer to the curve segment with the given index of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex the index value of the curve segment to return.
+/// @return the @c LineSegment representing the child "curveSegment" with the appropriate index, or NULL if no such LineSegment exists for
+/// this GraphicalObject object.
+LIBSBML_NETWORKEDITOR_EXTERN LineSegment* getCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Creates a new LineSegment and adds it to the end of the list of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the created @c LineSegment, or NULL if the line segment could not be created.
+LIBSBML_NETWORKEDITOR_EXTERN LineSegment* createLineCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Creates a new LineSegment and adds it to the end of the list of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the created @c LineSegment, or NULL if the line segment could not be created.
+LIBSBML_NETWORKEDITOR_EXTERN LineSegment* createLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
+LIBSBML_NETWORKEDITOR_EXTERN CubicBezier* createCubicBezierCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
+LIBSBML_NETWORKEDITOR_EXTERN CubicBezier* createCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// @brief Removes and deletes the curve segment with the given index from the list of the Curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int removeCurveSegment(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex = 0);
+
+/// @brief Removes and deletes the curve segment with the given index from the list of the Curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int removeCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex = 0);
+
+/// @brief Predicate returning true if the curve segment with the given index of the Curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document is of type CubicBezier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment.
+/// @return @c true if this curve segment is of type CubicBezier, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isCubicBezier(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Predicate returning true if the curve segment with the given index of the Curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document is of type CubicBezier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment.
+/// @return @c true if this curve segment is of type CubicBezier, false otherwise
+LIBSBML_NETWORKEDITOR_EXTERN bool isCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the start point of the the curve segment with the given index of the curve of this GraphicalObject object,
+/// or @c 0.0 if the object is @c NULL or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the start point of the the curve segment with the given index of the curve of this GraphicalObject object,
+/// or @c 0.0 if the object is @c NULL or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of the curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of the curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of the curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param curveSegmentIndex an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the start point of the curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the start point of the curve segment with the given index of the curve the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the start point of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "y" attribute of the start point of the curve segment with the given index of the curve the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the start point of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "y" attribute of the start point of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the start point of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the start point of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the start point of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the start point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Returns the value of the "x" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the end point of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the end point of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "x" attribute of the end point of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the end point of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the end point of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the end point of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the end point of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the end point of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "y" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the end point of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "y" attribute of the end point of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of curve segment with the given index of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the end point of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of curve segment with the given index of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the end point of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of curve segment with the given index of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the end point of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the end point of curve segment with the given index of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 1 of the curve segment with the given index of the curve of the the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 1 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the base point 1 of the curve segment with the given index of the curve of the the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 1 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of the of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of the of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of the of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of the of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 1 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "y" attribute of the base point 1 of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 1 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 1 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 2 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "x" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "x" attribute of the base point 2 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Sets the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param x a double value to use as the value of the "x" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 2 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve.
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Returns the value of the "y" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @return the "y" attribute of the base point 2 of the curve segment with the given index of the curve of this GraphicalObject object, or @c 0.0 if the object is @c NULL
+/// or does not have a curve.
+LIBSBML_NETWORKEDITOR_EXTERN const double getCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of the first GraphicalObject
+/// associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+/// @brief Sets the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of the GraphicalObject
+/// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param n an unsigned int representing the index of the curve segment to retrieve.
+/// @param y a double value to use as the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
+
+
+
+
+
 /// Returns the id of the compartment associated with the graphical object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL

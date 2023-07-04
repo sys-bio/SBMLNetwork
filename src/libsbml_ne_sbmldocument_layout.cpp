@@ -565,6 +565,269 @@ int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const s
     return setDimensionHeight(getLayout(document, layoutIndex), id, graphicalObjectIndex, height);
 }
 
+bool isSetCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetCurve(getLayout(document), id, graphicalObjectIndex);
+}
+
+bool isSetCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetCurve(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+Curve* getCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getCurve(getLayout(document), id, graphicalObjectIndex);
+}
+
+Curve* getCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getCurve(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+const unsigned int getNumCurveSegments(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getNumCurveSegments(getLayout(document), id, graphicalObjectIndex);
+}
+
+const unsigned int getNumCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getNumCurveSegments(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+LineSegment* getCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegment(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+LineSegment* getCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegment(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+LineSegment* createLineCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return createLineCurveSegment(getLayout(document), id, graphicalObjectIndex);
+}
+
+LineSegment* createLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return createLineCurveSegment(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+CubicBezier* createCubicBezierCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return createCubicBezierCurveSegment(getLayout(document), id, graphicalObjectIndex);
+}
+
+CubicBezier* createCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return createCubicBezierCurveSegment(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+int removeCurveSegment(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex) {
+    return removeCurveSegment(getLayout(document), id, curveSegmentIndex);
+}
+
+int removeCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex) {
+    return removeCurveSegment(getLayout(document, layoutIndex), id, curveSegmentIndex);
+}
+
+bool isCubicBezier(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return isCubicBezier(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+bool isCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return isCubicBezier(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentStartPointX(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentStartPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentStartPointX(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentStartPointX(getLayout(document, layoutIndex), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentStartPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentStartPointX(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+int setCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentStartPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+const double getCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentStartPointY(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentStartPointY(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentStartPointY(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentStartPointY(getLayout(document, layoutIndex), id, curveSegmentIndex, y);
+}
+
+int setCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentStartPointY(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+int setCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentStartPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+const double getCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentEndPointX(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentEndPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentEndPointX(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentEndPointX(getLayout(document, layoutIndex), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentEndPointX(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+int setCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentEndPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+const double getCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentEndPointY(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentEndPointY(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentEndPointY(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentEndPointY(getLayout(document, layoutIndex), id, curveSegmentIndex, y);
+}
+
+int setCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentEndPointY(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+int setCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentEndPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+const double getCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint1X(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint1X(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint1X(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint1X(getLayout(document, layoutIndex), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint1X(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint1X(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+const double getCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint1Y(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint1Y(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint1Y(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentBasePoint1Y(getLayout(document, layoutIndex), id, curveSegmentIndex, y);
+}
+
+int setCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentBasePoint1Y(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+int setCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentBasePoint1Y(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+const double getCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint2X(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint2X(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint2X(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint2X(getLayout(document, layoutIndex), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint2X(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint2X(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, x);
+}
+
+const double getCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint2Y(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+const double getCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return getCurveSegmentBasePoint2Y(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex);
+}
+
+int setCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
+    return setCurveSegmentBasePoint2Y(getLayout(document), id, curveSegmentIndex, x);
+}
+
+int setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentBasePoint2Y(getLayout(document, layoutIndex), id, curveSegmentIndex, y);
+}
+
+int setCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentBasePoint2Y(getLayout(document), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+int setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
+    return setCurveSegmentBasePoint2Y(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+}
+
+
+
+
+
+
+
+
 
 
 
