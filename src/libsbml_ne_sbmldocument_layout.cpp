@@ -177,6 +177,43 @@ bool isCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const 
     return isCompartmentGlyph(getLayout(document, layoutIndex), id);
 }
 
+std::string getCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getCompartmentId(document, getGraphicalObject(document, id, graphicalObjectIndex));
+}
+
+std::string getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getCompartmentId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+}
+
+std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    Compartment* compartment = getCompartment(document, graphicalObject);
+    if (compartment)
+        return compartment->getId();
+
+    return "";
+}
+
+Compartment* getCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getCompartment(document, getGraphicalObject(document, id, graphicalObjectIndex));
+}
+
+Compartment* getCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getCompartment(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+}
+
+Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    if (document && document->isSetModel()) {
+        if (isCompartmentGlyph(graphicalObject))
+            return findCompartmentGlyphCompartment(document->getModel(), (CompartmentGlyph*)graphicalObject);
+        else if (isSpeciesGlyph(graphicalObject))
+            return findSpeciesGlyphCompartment(document->getModel(), (SpeciesGlyph*)graphicalObject);
+        else if (isReactionGlyph(graphicalObject))
+            return findReactionGlyphCompartment(document->getModel(), (ReactionGlyph*)graphicalObject);
+    }
+
+    return NULL;
+}
+
 const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
     return getNumSpeciesGlyphs(getLayout(document, layoutIndex));
 }
@@ -819,38 +856,6 @@ int setCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& id, un
 
 int setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
     return setCurveSegmentBasePoint2Y(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
-Compartment* compartment = getCompartment(document, graphicalObject);
-if (compartment)
-    return compartment->getId();
-
-return "";
-}
-
-Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (document && document->isSetModel()) {
-        if (isCompartmentGlyph(graphicalObject))
-            return findCompartmentGlyphCompartment(document->getModel(), (CompartmentGlyph*)graphicalObject);
-        else if (isSpeciesGlyph(graphicalObject))
-            return findSpeciesGlyphCompartment(document->getModel(), (SpeciesGlyph*)graphicalObject);
-        else if (isReactionGlyph(graphicalObject))
-            return findReactionGlyphCompartment(document->getModel(), (ReactionGlyph*)graphicalObject);
-    }
-
-    return NULL;
 }
 
 }

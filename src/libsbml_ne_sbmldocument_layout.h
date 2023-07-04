@@ -220,6 +220,48 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isCompartmentGlyph(SBMLDocument* document, con
 /// @return @c true if this abstract GraphicalObject is of type CompartmentGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
 
+/// Returns the id of the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::string getCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// Returns the id of the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::string getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// Returns the id of the compartment associated with the graphical object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// Returns a pointer to the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// Returns a pointer to the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+
+/// Returns a pointer to the compartment associated with the GraphicalObject object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject);
+
 /// @brief Returns the number of SpeciesGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
@@ -1701,20 +1743,6 @@ LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(SBMLDocument* docume
 /// @param y a double value to use as the value of the "y" attribute of the base point 2 of curve segment with the given index of the curve of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y);
-
-
-
-
-
-/// Returns the id of the compartment associated with the graphical object.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject);
-
-/// Returns a pointer to the compartment associated with the graphical object.
-/// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject);
 
 }
 
