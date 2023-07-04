@@ -580,11 +580,11 @@ int setPositionX(BoundingBox* boundingBox, const double& x) {
 }
 
 const double getPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getPositionX(getGraphicalObject(layout, id, graphicalObjectIndex));
+    return getPositionY(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 const double getPositionY(GraphicalObject* graphicalObject) {
-    return getPositionX(getBoundingBox(graphicalObject));
+    return getPositionY(getBoundingBox(graphicalObject));
 }
 
 const double getPositionY(BoundingBox* boundingBox) {
