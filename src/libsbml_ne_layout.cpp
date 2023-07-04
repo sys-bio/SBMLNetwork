@@ -675,7 +675,7 @@ int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graph
 }
 
 int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
-    setDimensionHeight(getBoundingBox(graphicalObject), height);
+    return setDimensionHeight(getBoundingBox(graphicalObject), height);
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
