@@ -1,4 +1,6 @@
 #include "libsbml_ne_sbmldocument.h"
+#include "libsbml_ne_sbmldocument_layout.h"
+#include "libsbml_ne_sbmldocument_render.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -19,6 +21,13 @@ bool writeSBML(SBMLDocument* document, const std::string &fileName) {
 
 const std::string writeSBML(SBMLDocument* document) {
     return writeSBMLToString(document);
+}
+
+int createDefaultLayoutAndRenderFeatures(SBMLDocument* document) {
+    if (!createDefaultLayout(document) && !createDefaultRenderInformation(document))
+        return 0;
+
+    return -1;
 }
 
 bool isSetId(SBase* object) {
