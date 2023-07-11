@@ -70,6 +70,14 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
+      - name: Download Graphviz libs
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.49.0/stable_windows_10_msbuild_Release_Win32_graphviz-2.49.0-win32.zip > graphviz.zip
+          unzip -o graphviz.zip -d graphviz
+          echo $GITHUB_WORKSPACE"/graphviz/stable_windows_10_msbuild_Release_Win32_graphviz-2/" >> $GITHUB_PATH
+
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
