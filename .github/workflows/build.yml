@@ -135,7 +135,7 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DWITH_LIBXML=OFF \
+          -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
           -DENABLE_RENDER=${{matrix.render_package_option}} \
           ${R_BINDINGS} \
@@ -193,7 +193,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DWITH_LIBXML=OFF \
+          -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
           -DENABLE_RENDER=${{matrix.render_package_option}} \
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
