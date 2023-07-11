@@ -8,14 +8,13 @@ env:
 jobs:
   build:
     name:
-      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, strict includes ${{
+      ${{ matrix.platform }}, strict includes ${{
       matrix.strict }}, package option
       ${{ matrix.package_option}}, c++  standard ${{matrix.cpp_standard}}
     strategy:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
-        xml_parser_option: ["-DWITH_EXPAT"]
         strict: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
@@ -141,7 +140,6 @@ jobs:
           -DWITH_CHECK=True \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
-          ${{matrix.xml_parser_option}}=True \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           ${R_BINDINGS} \
@@ -155,14 +153,13 @@ jobs:
 
   manylinuxbuild:
     name:
-      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }}, strict includes ${{
+      ${{ matrix.container }}, strict includes ${{
       matrix.strict }}, package option
       ${{ matrix.package_option}}
     strategy:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
-        xml_parser_option: ["-DWITH_LIBXML"]
         strict: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98, 20]
@@ -205,7 +202,6 @@ jobs:
           -DWITH_CHECK=True \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
-          ${{matrix.xml_parser_option}}=True \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
