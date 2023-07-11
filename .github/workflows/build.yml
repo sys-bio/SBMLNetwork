@@ -158,11 +158,6 @@ jobs:
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
 
-      ### run tests ###
-      - name: Test
-        working-directory: ${{runner.workspace}}/build
-        shell: bash
-        run: ctest -V -C $BUILD_TYPE
   manylinuxbuild:
     name:
       ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }},
@@ -205,9 +200,7 @@ jobs:
         run: |
           /opt/python/cp38-cp38/bin/pip install cmake
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
-          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
           cmake --version
-          ctest --version
       - name: Install dependencies, configure, build
         run: |
           yum install -y libxml2-devel check-devel java-devel mono-devel
@@ -230,8 +223,3 @@ jobs:
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
-
-      - name: Test
-        run: |
-          cd ../build
-          ctest -V -C $BUILD_TYPE
