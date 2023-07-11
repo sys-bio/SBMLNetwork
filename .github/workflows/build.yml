@@ -9,17 +9,16 @@ jobs:
   build:
     name:
       ${{ matrix.platform }}, strict includes ${{
-      matrix.strict }}, package option
-      ${{ matrix.package_option}}, c++  standard ${{matrix.cpp_standard}}
+      matrix.strict }}, with Layout Package ${{ matrix.layout_package_option}} and
+      Render Package ${{ matrix.render_package_option}}, C++ standard ${{matrix.cpp_standard}}
     strategy:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
         strict: ["True"]
-        package_option: ["-DWITH_ALL_PACKAGES=ON"]
-        language_bindings:
-          [ "-DWITH_JAVA=True -DWITH_CSHARP=True"]
-        cpp_standard: [98, 20]
+        layout_package_option: ["ON"]
+        render_package_option: ["ON"]
+        cpp_standard: [20]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -140,8 +139,8 @@ jobs:
           -DWITH_CHECK=True \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
-          ${{matrix.package_option}} \
-          ${{matrix.language_bindings}} \
+          -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
+          -DENABLE_RENDER=${{matrix.render_package_option}} \
           ${R_BINDINGS} \
           ${RUNTIME_LINKING_OPTION} \
           ${PYTHON_LINKING_OPTION}
@@ -154,17 +153,16 @@ jobs:
   manylinuxbuild:
     name:
       ${{ matrix.container }}, strict includes ${{
-      matrix.strict }}, package option
-      ${{ matrix.package_option}}
+      matrix.strict }}, with Layout Package ${{ matrix.layout_package_option}} and
+      Render Package ${{ matrix.render_package_option}}
     strategy:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
         strict: ["True"]
-        package_option: ["-DWITH_STABLE_PACKAGES=ON"]
-        cpp_standard: [98, 20]
-        language_bindings:
-          ["-DWITH_JAVA=True -DWITH_PYTHON=True -DWITH_CSHARP=True"]
+        layout_package_option: [ "ON" ]
+        render_package_option: [ "ON" ]
+        cpp_standard: [20]
         container: ["quay.io/pypa/manylinux2010_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
@@ -202,8 +200,8 @@ jobs:
           -DWITH_CHECK=True \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
-          ${{matrix.package_option}} \
-          ${{matrix.language_bindings}} \
+          -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
+          -DENABLE_RENDER=${{matrix.render_package_option}} \
           -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
           -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
           -DWITH_STATIC_RUNTIME=ON \
