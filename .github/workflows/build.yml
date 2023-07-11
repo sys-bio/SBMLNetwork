@@ -74,8 +74,10 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
-          unzip -o swig.zip -d swig
+          curl https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
+          unzip -o graphviz.zip -d graphviz
+          echo $GITHUB_WORKSPACE"/graphviz/Graphviz/bin/" >> $GITHUB_PATH
+
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
