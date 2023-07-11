@@ -8,8 +8,7 @@ env:
 jobs:
   build:
     name:
-      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }},
-      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      ${{ matrix.platform }}, Parser option ${{ matrix.xml_parser_option }}, strict includes ${{
       matrix.strict }}, package option
       ${{ matrix.package_option}}, c++  standard ${{matrix.cpp_standard}}
     strategy:
@@ -17,7 +16,6 @@ jobs:
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
         xml_parser_option: ["-DWITH_EXPAT"]
-        with_namespace: ["True"]
         strict: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
@@ -141,7 +139,6 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
           ${{matrix.xml_parser_option}}=True \
@@ -158,8 +155,7 @@ jobs:
 
   manylinuxbuild:
     name:
-      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }},
-      with namespaces ${{ matrix.with_namespace}}, strict includes ${{
+      ${{ matrix.container }}, Parser option ${{ matrix.xml_parser_option }}, strict includes ${{
       matrix.strict }}, package option
       ${{ matrix.package_option}}
     strategy:
@@ -167,7 +163,6 @@ jobs:
       matrix:
         platform: [ubuntu-latest]
         xml_parser_option: ["-DWITH_LIBXML"]
-        with_namespace: ["True"]
         strict: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
         cpp_standard: [98, 20]
@@ -208,7 +203,6 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
           ${{matrix.xml_parser_option}}=True \
