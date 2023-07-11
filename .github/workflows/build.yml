@@ -8,14 +8,12 @@ env:
 jobs:
   build:
     name:
-      ${{ matrix.platform }}, strict includes ${{
-      matrix.strict }}, with Layout Package ${{ matrix.layout_package_option}} and
+      ${{ matrix.platform }}, with Layout Package ${{ matrix.layout_package_option}} and
       Render Package ${{ matrix.render_package_option}}, C++ standard ${{matrix.cpp_standard}}
     strategy:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
-        strict: ["True"]
         layout_package_option: ["ON"]
         render_package_option: ["ON"]
         cpp_standard: [20]
@@ -137,7 +135,6 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
           -DENABLE_RENDER=${{matrix.render_package_option}} \
@@ -152,14 +149,12 @@ jobs:
 
   manylinuxbuild:
     name:
-      ${{ matrix.container }}, strict includes ${{
-      matrix.strict }}, with Layout Package ${{ matrix.layout_package_option}} and
+      ${{ matrix.container }}, with Layout Package ${{ matrix.layout_package_option}} and
       Render Package ${{ matrix.render_package_option}}
     strategy:
       fail-fast: false
       matrix:
         platform: [ubuntu-latest]
-        strict: ["True"]
         layout_package_option: [ "ON" ]
         render_package_option: [ "ON" ]
         cpp_standard: [20]
@@ -198,7 +193,6 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
           -DWITH_LIBXML=OFF \
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
           -DENABLE_RENDER=${{matrix.render_package_option}} \
