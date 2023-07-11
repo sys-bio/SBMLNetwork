@@ -76,7 +76,7 @@ jobs:
         run: |
           curl https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.49.0/stable_windows_10_msbuild_Release_Win32_graphviz-2.49.0-win32.zip > graphviz.zip
           unzip -o graphviz.zip -d graphviz
-          echo $GITHUB_WORKSPACE"/graphviz/stable_windows_10_msbuild_Release_Win32_graphviz-2/" >> $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"/graphviz/Graphviz/bin/" >> $GITHUB_PATH
 
 
       - name: Install Ubuntu dependencies
