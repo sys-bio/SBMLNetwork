@@ -163,7 +163,7 @@ jobs:
     container: ${{ matrix.container}}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
         with:
           repository: sbmlteam/libsbml
       - name: install Swig 4 from source
