@@ -26,130 +26,140 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
-      if: matrix.platform == 'windows-latest'
-        - name: Add msbuild to PATH (Windows)
-          uses: ilammy/msvc-dev-cmd@v1.6.0
+      - name: Add msbuild to PATH (Windows)
+        if: matrix.platform == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1.6.0
 
-        ### configure the operating system ###
-        - name: Cache Windows dependencies and SWIG
-          # On Windows, the dependencies live inside the source folder, ie `.`.
-          # For the CI, we put SWIG there too, for simplicity.
-          id: cache-win-dependencies-static
-          uses: actions/cache@v2
-          with:
-            path: |
-              ./dependencies
-            key: ${{ runner.os }}-dependencies-static
+      ### configure the operating system ###
+      - name: Cache Windows dependencies and SWIG
+        # On Windows, the dependencies live inside the source folder, ie `.`.
+        # For the CI, we put SWIG there too, for simplicity.
+        if: matrix.platform == 'windows-latest'
+        id: cache-win-dependencies-static
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./dependencies
+          key: ${{ runner.os }}-dependencies-static
 
-        - name: Download pre-built Windows dependencies and SWIG
-          # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
-          # also gets SWIG, completing the set of dependencies needed for windows
-          if: steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
-          shell: bash
-          run: |
-            curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
-            unzip dependencies.zip
-            mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+      - name: Download pre-built Windows dependencies and SWIG
+        # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
+        # also gets SWIG, completing the set of dependencies needed for windows
+        if:
+          matrix.platform == 'windows-latest' &&
+          steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
 
-        - name: Download SWIG on Windows
-          shell: bash
-          run: |
-            curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
-            unzip -o swig.zip -d swig
-            echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
+      - name: Download SWIG on Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
+          unzip -o swig.zip -d swig
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
 
-        - name: setup Windows environment
-          # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
-          shell: bash
-          run: |
-            echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
-            echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
+      - name: setup Windows environment
+        # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
+          echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
-        - name: Install Graphviz for Windows
-          shell: bash
-          run: |
-            curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
-            7z e graphviz.zip -o"graphviz"
+      - name: Install Graphviz for Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
+          7z e graphviz.zip -o"graphviz"
 
-      if: matrix.platform == 'ubuntu-latest'
-        - name: Install Ubuntu dependencies
-          # ubuntu already has SWIG and libxml2 by default
-          shell: bash
-          run: |
-            sudo apt-get update
-            sudo apt-get install -y check ccache
-            echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
-            echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
-            git clone https://github.com/libexpat/libexpat
-            cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
-            cmake --build libexpat
-            cmake --install libexpat
+      - name: Install Ubuntu dependencies
+        # ubuntu already has SWIG and libxml2 by default
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y check ccache
+          echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo R_BINDINGS="-DWITH_R=True" >> "${GITHUB_ENV}"
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
 
-        - name: Install Graphviz for Ubuntu
-          shell: bash
-          run: |
-            sudo apt install graphviz
+      - name: Install Graphviz for Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          sudo apt install graphviz
 
-        - name: Install MacOS dependencies
-          # MacOS already has libxml2 by default
-          shell: bash
-          run: |
-            brew install check swig ccache
-            echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+      - name: Install MacOS dependencies
+        # MacOS already has libxml2 by default
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install check swig ccache
+          echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
-        - name: Install Graphviz for MacOS
-          shell: bash
-          run: |
-            brew install graphviz
+      - name: Install Graphviz for MacOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install graphviz
 
       ### setup ccache, not on Windows ###
-      if: matrix.platform != 'windows-latest'
-        - name: Prepare ccache timestamp
-          id: ccache_cache_timestamp
-          shell: cmake -P {0}
-          run: |
-            string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-            message("::set-output name=timestamp::${current_date}")
-        - name: Set ccache cache directory
-          shell: bash
-          run: |
-            echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
-            echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
-        - name: cache ccache files
-          uses: actions/cache@v2
-          with:
-            path: ${{runner.workspace}}/.ccache
-            key:
-              ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
-              }}
-            restore-keys: |
-              ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-              ${{ runner.os }}-
+      - name: Prepare ccache timestamp
+        if: matrix.platform != 'windows-latest'
+        id: ccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+      - name: Set ccache cache directory
+        if: matrix.platform != 'windows-latest'
+        shell: bash
+        run: |
+          echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
+          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+      - name: cache ccache files
+        if: matrix.platform != 'windows-latest'
+        uses: actions/cache@v2
+        with:
+          path: ${{runner.workspace}}/.ccache
+          key:
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
+            }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+            ${{ runner.os }}-
 
-      if: matrix.platform == 'windows-latest' || 'ubuntu-latest' || 'macos-latest'
-        ### build the project ###
-        - name: Create Build Environment
-          run: cmake -E make_directory ${{runner.workspace}}/build
+      ### build the project ###
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/build
 
-        - name: Configure CMake for the selected XML_parser
-          shell: bash
-          working-directory: ${{runner.workspace}}/build
-          run: |
-            cmake $GITHUB_WORKSPACE \
-            -G "Ninja" \
-            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-            -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-            -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-            -DWITH_CHECK=True \
-            -DWITH_LIBXML=ON \
-            -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
-            -DENABLE_RENDER=${{matrix.render_package_option}} \
-            ${R_BINDINGS} \
-            ${RUNTIME_LINKING_OPTION} \
-            ${PYTHON_LINKING_OPTION}
+      - name: Configure CMake for the selected XML_parser
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_LIBXML=ON \
+          -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
+          -DENABLE_RENDER=${{matrix.render_package_option}} \
+          ${R_BINDINGS} \
+          ${RUNTIME_LINKING_OPTION} \
+          ${PYTHON_LINKING_OPTION}
 
-        - name: Build
-          working-directory: ${{runner.workspace}}/build
-          shell: bash
-          run: cmake --build . --config $BUILD_TYPE
+      - name: Build
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
