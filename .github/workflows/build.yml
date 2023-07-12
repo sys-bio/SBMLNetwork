@@ -70,7 +70,7 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
-      - name: Download Graphviz libs
+      - name: Install Graphviz for Windows
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
@@ -91,6 +91,11 @@ jobs:
           cmake --build libexpat
           cmake --install libexpat
 
+      - name: Install Graphviz for Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          sudo apt install graphviz
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -99,6 +104,12 @@ jobs:
         run: |
           brew install check swig ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+
+      - name: Install Graphviz for MacOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install graphviz
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
