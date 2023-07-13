@@ -6,10 +6,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
 SBMLDocument* readSBML(const std::string& sbml) {
     SBMLDocument* document = readSBMLFromFile(sbml.c_str());
-    if (document)
+    if (document && document->isSetModel())
         return document;
     document = readSBMLFromString(sbml.c_str());
-    if (document)
+    if (document && document->isSetModel())
         return document;
 
     return NULL;
