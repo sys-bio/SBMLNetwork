@@ -76,6 +76,7 @@ jobs:
         run: |
           curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
           7z e graphviz.zip -o"graphviz"
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
@@ -95,6 +96,7 @@ jobs:
         shell: bash
         run: |
           sudo apt install graphviz
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -109,6 +111,7 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -177,7 +180,8 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake \
+          -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake
+          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_DIR}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
