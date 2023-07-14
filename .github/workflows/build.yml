@@ -136,13 +136,13 @@ jobs:
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
 
-      ### build the project ###
-      - name: Create Build Environment
-        run: cmake -E make_directory ${{runner.workspace}}/build
+      ### build libsbml ###
+      - name: Create libsbml Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
 
       - name: Configure CMake for the selected XML_parser
         shell: bash
-        working-directory: ${{runner.workspace}}/build
+        working-directory: ${{runner.workspace}}/build-libsbml
         run: |
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
@@ -158,6 +158,26 @@ jobs:
           ${PYTHON_LINKING_OPTION}
 
       - name: Build
-        working-directory: ${{runner.workspace}}/build
+        working-directory: ${{runner.workspace}}/build-libsbml
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
+
+      ### build the project ###
+      - name: Create libsbmlNetworkEditor Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
+
+      - name: Configure CMake for the selected XML_parser
+        shell: bash
+        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+        run: |
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+
+      - name: Build
+        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
