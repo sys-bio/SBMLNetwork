@@ -150,6 +150,7 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbml \
           -DWITH_CHECK=True \
           -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
@@ -160,7 +161,7 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbml
         shell: bash
-        run: cmake --build . --config $BUILD_TYPE
+        run: cmake --build . --target install --config $BUILD_TYPE
 
       ### build the project ###
       - name: Create libsbmlNetworkEditor Build Environment
@@ -176,6 +177,7 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake \
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
