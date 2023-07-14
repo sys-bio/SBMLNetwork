@@ -76,7 +76,7 @@ jobs:
         run: |
           curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
           7z e graphviz.zip -o"graphviz"
-          echo $GITHUB_WORKSPACE"/graphviz/" >> "${GITHUB_ENV}"
+          echo $GITHUB_WORKSPACE"/graphviz/" >> $GITHUB_PATH
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
@@ -96,7 +96,7 @@ jobs:
         shell: bash
         run: |
           sudo apt install graphviz
-          echo $GITHUB_WORKSPACE"/graphviz/" >> "${GITHUB_ENV}"
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -111,7 +111,7 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
-          echo $GITHUB_WORKSPACE"/graphviz/" >> "${GITHUB_ENV}"
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
