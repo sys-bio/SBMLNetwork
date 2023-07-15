@@ -171,6 +171,8 @@ jobs:
         with:
           repository: sbmlteam/libsbml
 
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
