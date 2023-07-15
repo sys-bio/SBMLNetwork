@@ -185,4 +185,4 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         shell: bash
-        run: cmake --build . --config $BUILD_TYPE
+        run: cmake --build . --target install --config $BUILD_TYPE
