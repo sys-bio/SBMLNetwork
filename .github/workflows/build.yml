@@ -20,12 +20,12 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - name: Clone libsbml source code
       - uses: actions/checkout@v3
         with:
           repository: sbmlteam/libsbml
 
       - uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Add msbuild to PATH (Windows)
         if: matrix.platform == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1.6.0
@@ -167,8 +167,9 @@ jobs:
         run: cmake --build . --target install --config $BUILD_TYPE
 
       ### build the project ###
-      - name: Clone libsbmlnetworkeditor source code
       - uses: actions/checkout@v3
+        with:
+          repository: sbmlteam/libsbml
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
