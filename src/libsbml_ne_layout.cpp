@@ -644,8 +644,10 @@ int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
 
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
     if (boundingBox) {
-        boundingBox->setWidth(width);
-        return 0;
+        if (width > 0.000) {
+            boundingBox->setWidth(width);
+            return 0;
+        }
     }
 
     return -1;
@@ -680,8 +682,10 @@ int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
     if (boundingBox) {
-        boundingBox->setHeight(height);
-        return 0;
+        if (height > 0.000) {
+            boundingBox->setHeight(height);
+            return 0;
+        }
     }
 
     return -1;
