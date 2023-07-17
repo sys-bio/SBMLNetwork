@@ -268,6 +268,20 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
     return textGlyphs;
 }
 
+GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId) {
+    CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(graphicalObjectId);
+    if (compartmentGlyph)
+        return compartmentGlyph;
+    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(graphicalObjectId);
+    if (speciesGlyph)
+        return speciesGlyph;
+    ReactionGlyph* reactionGlyph = layout->getReactionGlyph(graphicalObjectId);
+    if (reactionGlyph)
+        return reactionGlyph;
+
+    return NULL;
+}
+
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {
     CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(graphicalObject->getId());
     if (compartmentGlyph)

@@ -69,6 +69,8 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
+GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
+
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
 
 std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(Layout* layout, const std::string& compartmentId);
