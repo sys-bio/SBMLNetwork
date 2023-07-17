@@ -373,23 +373,36 @@ const unsigned int getNumTextGlyphs(Layout* layout, const std::string& id) {
     return getTextGlyphs(layout, id).size();
 }
 
+const unsigned int getNumTextGlyphs(Layout* layout, GraphicalObject* graphicalObject) {
+    return getTextGlyphs(layout, graphicalObject).size();
+}
+
 std::vector<TextGlyph*> getTextGlyphs(Layout* layout, const std::string& id) {
     std::vector<TextGlyph*> textGlyphs;
     std::vector<TextGlyph*> associatedtextGlyphs;
-    if (layout) {
-        std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
-        for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
-            associatedtextGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObjects.at(i));
-            textGlyphs.insert(textGlyphs.end(), associatedtextGlyphs.begin(), associatedtextGlyphs.end());
-        }
-
+    std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
+        associatedtextGlyphs = getTextGlyphs(layout, graphicalObjects.at(i));
+        textGlyphs.insert(textGlyphs.end(), associatedtextGlyphs.begin(), associatedtextGlyphs.end());
     }
 
     return textGlyphs;
 }
 
+std::vector<TextGlyph*> getTextGlyphs(Layout* layout, GraphicalObject* graphicalObject) {
+    return getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+}
+
 TextGlyph* getTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
     std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, id);
+    if (textGlyphIndex < textGlyphs.size())
+        return textGlyphs.at(textGlyphIndex);
+
+    return NULL;
+}
+
+TextGlyph* getTextGlyph(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, graphicalObject);
     if (textGlyphIndex < textGlyphs.size())
         return textGlyphs.at(textGlyphIndex);
 
