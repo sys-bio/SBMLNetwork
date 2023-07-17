@@ -186,22 +186,22 @@ std::string getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, c
 }
 
 std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Compartment* compartment = getCompartment(document, graphicalObject);
+    Compartment* compartment = getAssociatedCompartment(document, graphicalObject);
     if (compartment)
         return compartment->getId();
 
     return "";
 }
 
-Compartment* getCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getCompartment(document, getGraphicalObject(document, id, graphicalObjectIndex));
+Compartment* getAssociatedCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getAssociatedCompartment(document, getGraphicalObject(document, id, graphicalObjectIndex));
 }
 
-Compartment* getCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getCompartment(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+Compartment* getAssociatedCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getAssociatedCompartment(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
 }
 
-Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
+Compartment* getAssociatedCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
     if (document && document->isSetModel()) {
         if (isCompartmentGlyph(graphicalObject))
             return findCompartmentGlyphCompartment(document->getModel(), (CompartmentGlyph*)graphicalObject);

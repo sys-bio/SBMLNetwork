@@ -97,7 +97,7 @@ LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layou
 
 /// Returns the id of the compartment associated with the CompartmentGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the compartment the the CompartmentGlyph objects of which to be returned.
+/// @param id the id of the compartment the CompartmentGlyph objects of which to be returned.
 /// @param compartmentGlyphIndex the index of the CompartmentGlyph to return.
 /// @return the value of the "compartment" attribute of the CompartmentGlyph object with the given id, or @c "" if
 /// the CompartmentGlyph object does not exits or the object is @c NULL

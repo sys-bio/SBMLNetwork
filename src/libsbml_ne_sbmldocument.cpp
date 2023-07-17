@@ -99,4 +99,41 @@ int setMetaId(SBase* object, const std::string& metaid) {
     return -1;
 }
 
+Compartment* getCompartment(SBMLDocument* document, const std::string& id) {
+    if (document->isSetModel())
+        return document->getModel()->getCompartment(id);
+
+    return NULL;
+}
+
+Species* getSpecies(SBMLDocument* document, const std::string& id) {
+    if (document->isSetModel())
+        return document->getModel()->getSpecies(id);
+
+    return NULL;
+}
+
+Reaction* getReaction(SBMLDocument* document, const std::string& id) {
+    if (document->isSetModel())
+        return document->getModel()->getReaction(id);
+
+    return NULL;
+}
+
+SimpleSpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
+    if (document->isSetModel()) {
+        Reaction* reaction = getReaction(document, reactionId);
+        if (reaction) {
+            if (reaction->getModifier(speciesId))
+                return reaction->getModifier(speciesId);
+            if (reaction->getProduct(speciesId))
+                return reaction->getModifier(speciesId);
+            if (reaction->getReactant(speciesId))
+                return reaction->getReactant(speciesId);
+        }
+    }
+
+    return NULL;
+}
+
 }

@@ -85,6 +85,31 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getMetaId(SBase* object);
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setMetaId(SBase* object, const std::string& metaid);
 
+/// @brief Returns a pointer to the Compartment object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the Compartment object
+/// @return a pointer to the Compartment object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns a pointer to the Species object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the Species object.
+/// @return a pointer to the Species object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN Species* getSpecies(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns a pointer to the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the Reaction object.
+/// @return a pointer to the Reaction object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN Reaction* getReaction(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns a pointer to the SpeciesReference object associated with the give species id in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param speciesId the id of the Species object.
+/// @return a pointer to the SpeciesReference object, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN SimpleSpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
+
 }
 
 #endif
