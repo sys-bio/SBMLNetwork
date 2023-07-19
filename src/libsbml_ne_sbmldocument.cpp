@@ -127,7 +127,7 @@ SimpleSpeciesReference* getSpeciesReference(SBMLDocument* document, const std::s
             if (reaction->getModifier(speciesId))
                 return reaction->getModifier(speciesId);
             if (reaction->getProduct(speciesId))
-                return reaction->getModifier(speciesId);
+                return reaction->getProduct(speciesId);
             if (reaction->getReactant(speciesId))
                 return reaction->getReactant(speciesId);
         }
