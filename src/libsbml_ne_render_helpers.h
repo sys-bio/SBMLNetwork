@@ -149,7 +149,7 @@ const bool isValidBackgroundColorValue(backgroundColor);
 
 const bool isValidColorValue(value);
 
-const bool isValidSpredMethodValue(spreadMethod);
+const bool isValidSpreadMethodValue(spreadMethod);
 
 const bool isValidOffsetValue(offset);
 

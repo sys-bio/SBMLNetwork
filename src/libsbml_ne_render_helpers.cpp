@@ -592,4 +592,196 @@ void setDefaultImageShapeFeatures(Image* image) {
     image->setHeight(RelAbsVector(0.0, 100.0));
 }
 
+const bool isValidBackgroundColorValue(backgroundColor) {
+    return true;
+}
+
+const bool isValidColorValue(value) {
+    return true;
+}
+
+const bool isValidSpreadMethodValue(spreadMethod) {
+    return true;
+}
+
+const bool isValidOffsetValue(offset) {
+    return true;
+}
+
+const bool isValidStopColorValue(stopColor) {
+    return true;
+}
+
+const bool isValidGradientX1Value(x1) {
+    return true;
+}
+
+const bool isValidGradientX2Value(x2) {
+    return true;
+}
+
+const bool isValidGradientY1Value(y1) {
+    return true;
+}
+
+const bool isValidGradientY2Value(y2) {
+    return true;
+}
+
+const bool isValidGradientCxValue(cx) {
+    return true;
+}
+
+const bool isValidGradientCyValue(cy) {
+    return true;
+}
+
+const bool isValidGradientFxValue(fx) {
+    return true;
+}
+
+const bool isValidGradientFyValue(fy) {
+    return true;
+}
+
+const bool isValidGradientRValue(r) {
+    return true;
+}
+
+const bool isValidEnableRotationalMappingValue(enableRotationalMapping) {
+    return true;
+}
+
+const bool isValidStrokeColorValue(stroke) {
+    return true;
+}
+
+const bool isValidStrokeWidthValue(strokeWidth) {
+    return true;
+}
+
+const bool isValidStrokeDashArrayValue(strokeDashArray) {
+    return true;
+}
+
+const bool isValidStrokeDashValue(dash) {
+    return true;
+}
+
+const bool isValidFontColorValue(fontColor) {
+    return true;
+}
+
+const bool isValidFontFamilyValue(fontFamily) {
+    return true;
+}
+
+const bool isValidFontSizeValue(fontSize) {
+    return true;
+}
+
+const bool isValidFontWeightValue(fontWeight) {
+    return true;
+}
+
+const bool isValidFontStyleValue(fontStyle) {
+    return true;
+}
+
+const bool isValidTextAnchorValue(textAnchor) {
+    return true;
+}
+
+const bool isValidVTextAnchorValue(vtextAnchor) {
+    return true;
+}
+
+const bool isValidFillColorValue(fillColor) {
+    return true;
+}
+
+const bool isValidFillRuleValue(fillRule) {
+    return true;
+}
+
+const bool isValidStartHeadValue(startHead) {
+    return true;
+}
+
+const bool isValidEndHeadValue(endHead) {
+    return true;
+}
+
+const bool isValidGeometricShapeXValue(x) {
+    return true;
+}
+
+const bool isValidGeometricShapeYValue(y) {
+    return true;
+}
+
+const bool isValidGeometricShapeWidthValue(width) {
+    return true;
+}
+
+const bool isValidGeometricShapeHeightValue(height) {
+    return true;
+}
+
+const bool isValidGeometricShapeRatioValue(ratio) {
+    return true;
+}
+
+const bool isValidGeometricShapeCornerCurvatureRadiusX(rx) {
+    return true;
+}
+
+const bool isValidGeometricShapeCornerCurvatureRadiusY(ry) {
+    return true;
+}
+
+const bool isValidGeometricShapeCenterX(cx) {
+    return true;
+}
+
+const bool isValidGeometricShapeCenterY(cy) {
+    return true;
+}
+
+const bool isValidGeometricShapeRadiusX(rx) {
+    return true;
+}
+
+const bool isValidGeometricShapeRadiusY(ry) {
+    return true;
+}
+
+const bool isValidGeometricShapeElementX(x) {
+    return true;
+}
+
+const bool isValidGeometricShapeElementY(y) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint1X(x) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint1Y(y) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint1Y(y) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint2Y(y) {
+    return true;
+}
+
+const bool isValidGeometricShapeHref(href) {
+    return true;
+}
+
 }

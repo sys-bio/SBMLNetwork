@@ -181,7 +181,7 @@ int setSpreadMethod(RenderInformationBase* renderInformationBase, const std::str
 }
 
 int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod) {
-    if (gradientBase && isValidSpredMethodValue(spreadMethod)) {
+    if (gradientBase && isValidSpreadMethodValue(spreadMethod)) {
         gradientBase->setSpreadMethod(spreadMethod);
         return 0;
     }
