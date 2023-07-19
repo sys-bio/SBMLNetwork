@@ -145,6 +145,102 @@ void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
 
 void setDefaultImageShapeFeatures(Image* image);
 
+const bool isValidBackgroundColorValue(backgroundColor);
+
+const bool isValidColorValue(value);
+
+const bool isValidSpredMethodValue(spreadMethod);
+
+const bool isValidOffsetValue(offset);
+
+const bool isValidStopColorValue(stopColor);
+
+const bool isValidGradientX1Value(x1);
+
+const bool isValidGradientX2Value(x2);
+
+const bool isValidGradientY1Value(y1);
+
+const bool isValidGradientY2Value(y2);
+
+const bool isValidGradientCxValue(cx);
+
+const bool isValidGradientCyValue(cy);
+
+const bool isValidGradientFxValue(fx);
+
+const bool isValidGradientFyValue(fy);
+
+const bool isValidGradientRValue(r);
+
+const bool isValidEnableRotationalMappingValue(enableRotationalMapping);
+
+const bool isValidStrokeColorValue(stroke);
+
+const bool isValidStrokeWidthValue(strokeWidth);
+
+const bool isValidStrokeDashArrayValue(strokeDashArray);
+
+const bool isValidStrokeDashValue(dash);
+
+const bool isValidFontColorValue(fontColor);
+
+const bool isValidFontFamilyValue(fontFamily);
+
+const bool isValidFontSizeValue(fontSize);
+
+const bool isValidFontWeightValue(fontWeight);
+
+const bool isValidFontStyleValue(fontStyle);
+
+const bool isValidTextAnchorValue(textAnchor);
+
+const bool isValidVTextAnchorValue(vtextAnchor);
+
+const bool isValidFillColorValue(fillColor);
+
+const bool isValidFillRuleValue(fillRule);
+
+const bool isValidStartHeadValue(startHead);
+
+const bool isValidEndHeadValue(endHead);
+
+const bool isValidGeometricShapeXValue(x);
+
+const bool isValidGeometricShapeYValue(y);
+
+const bool isValidGeometricShapeWidthValue(width);
+
+const bool isValidGeometricShapeHeightValue(height);
+
+const bool isValidGeometricShapeRatioValue(ratio);
+
+const bool isValidGeometricShapeCornerCurvatureRadiusX(rx);
+
+const bool isValidGeometricShapeCornerCurvatureRadiusY(ry);
+
+const bool isValidGeometricShapeCenterX(cx);
+
+const bool isValidGeometricShapeCenterY(cy);
+
+const bool isValidGeometricShapeRadiusX(rx);
+
+const bool isValidGeometricShapeRadiusY(ry);
+
+const bool isValidGeometricShapeElementX(x);
+
+const bool isValidGeometricShapeElementY(y);
+
+const bool isValidGeometricShapeBasePoint1X(x);
+
+const bool isValidGeometricShapeBasePoint1Y(y);
+
+const bool isValidGeometricShapeBasePoint1Y(y);
+
+const bool isValidGeometricShapeBasePoint2Y(y);
+
+const bool isValidGeometricShapeHref(href);
+
 }
 
 #endif
