@@ -79,6 +79,36 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
 
+const bool isValidLayoutDimensionWidthValue(const double& width);
+
+const bool isValidLayoutDimensionHeightValue(const double& height);
+
+const bool isValidRoleValue(const std::string& role);
+
+const bool isValidBoundingBoxXValue(const double& x);
+
+const bool isValidBoundingBoxYValue(const double& y);
+
+const bool isValidBoundingBoxWidthValue(const double& width);
+
+const bool isValidBoundingBoxHeightValue(const double& height);
+
+const bool isValidCurveSegmentStartPointXValue(const double& x);
+
+const bool isValidCurveSegmentStartPointYValue(const double& y);
+
+const bool isValidCurveSegmentEndPointXValue(const double& x);
+
+const bool isValidCurveSegmentEndPointYValue(const double& y);
+
+const bool isValidCurveSegmentBasePoint1XValue(const double& x);
+
+const bool isValidCurveSegmentBasePoint1YValue(const double& y);
+
+const bool isValidCurveSegmentBasePoint2XValue(const double& x);
+
+const bool isValidCurveSegmentBasePoint2YValue(const double& y);
+
 }
 
 #endif

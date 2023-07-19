@@ -320,4 +320,56 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
     return speciesReferenceGlyphs;
 }
 
+const bool isValidRoleValue(const std::string& role) {
+    return true;
+}
+
+const bool isValidBoundingBoxXValue(const double& x) {
+    return true;
+}
+
+const bool isValidBoundingBoxYValue(const double& y) {
+    return true;
+}
+
+const bool isValidBoundingBoxWidthValue(const double& width) {
+    return true;
+}
+
+const bool isValidBoundingBoxHeightValue(const double& height) {
+    return true;
+}
+
+const bool isValidCurveSegmentStartPointXValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentStartPointYValue(const double& y) {
+    return true;
+}
+
+const bool isValidCurveSegmentEndPointXValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentEndPointYValue(const double& y) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint1XValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint1YValue(const double& y) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint2XValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint2YValue(const double& y) {
+    return true;
+}
+
 }
