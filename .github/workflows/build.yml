@@ -169,7 +169,7 @@ jobs:
       ### build the project ###
       - uses: actions/checkout@v3
         with:
-          repository: sbmlteam/libsbml
+          repository: adelhpour/libSBMLNetworkEditor
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
@@ -180,6 +180,8 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
+          ls
+          echo "$GITHUB_WORKSPACE"
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
