@@ -103,12 +103,19 @@ LIBSBML_NETWORKEDITOR_EXTERN Species* getSpecies(SBMLDocument* document, const s
 /// @return a pointer to the Reaction object with the given id, or @c "" if the object does not exists.
 LIBSBML_NETWORKEDITOR_EXTERN Reaction* getReaction(SBMLDocument* document, const std::string& id);
 
-/// @brief Returns a pointer to the SpeciesReference object associated with the give species id in the Reaction object with the given id.
+/// @brief Returns a pointer to the SpeciesReference object associated with the given reactant/product species id in the Reaction object with the given id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the Reaction object.
 /// @param speciesId the id of the Species object.
-/// @return a pointer to the SpeciesReference object, or @c "" if the object does not exists.
-LIBSBML_NETWORKEDITOR_EXTERN SimpleSpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
+/// @return a pointer to the SpeciesReference object, or @c NULL if the object does not exists or is not of type reactant/product.
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
+
+/// @brief Returns a pointer to the ModifierSpeciesReference object associated with the given modifier species id in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param speciesId the id of the Species object.
+/// @return a pointer to the ModifierSpeciesReference object, or @c NULL if the object does not exists or is not of type modifier.
+LIBSBML_NETWORKEDITOR_EXTERN ModifierSpeciesReference* getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
 
 }
 

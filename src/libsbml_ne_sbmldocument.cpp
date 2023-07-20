@@ -120,20 +120,39 @@ Reaction* getReaction(SBMLDocument* document, const std::string& id) {
     return NULL;
 }
 
-SimpleSpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
+SpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
     if (document->isSetModel()) {
         Reaction* reaction = getReaction(document, reactionId);
         if (reaction) {
-            if (reaction->getModifier(speciesId))
-                return reaction->getModifier(speciesId);
-            if (reaction->getProduct(speciesId))
-                return reaction->getProduct(speciesId);
             if (reaction->getReactant(speciesId))
                 return reaction->getReactant(speciesId);
+            else if (reaction->getProduct(speciesId))
+                return reaction->getProduct(speciesId);
         }
     }
 
     return NULL;
 }
+
+SpeciesReference* getReactantSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
+    if (document->isSetModel()) {
+        Reaction* reaction = getReaction(document, reactionId);
+        if (reaction)
+            reaction->getReactant(speciesId);
+    }
+
+    return NULL;
+}
+
+ModifierSpeciesReference* getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
+    if (document->isSetModel()) {
+        Reaction* reaction = getReaction(document, reactionId);
+        if (reaction)
+            reaction->getModifier(speciesId);
+    }
+
+    return NULL;
+}
+
 
 }
