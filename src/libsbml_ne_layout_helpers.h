@@ -109,7 +109,7 @@ const bool isValidCurveSegmentBasePoint2XValue(const double& x);
 
 const bool isValidCurveSegmentBasePoint2YValue(const double& y);
 
-const isValidDimensionValue(const double& dimensionValue);
+const bool isValidDimensionValue(const double& dimensionValue);
 
 }
 

@@ -685,7 +685,7 @@ int setEnableRotationalMapping(RenderInformationBase* renderInformationBase, con
     return setEnableRotationalMapping(getLineEnding(renderInformationBase, sid), enableRotationalMapping);
 }
 
-int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping) {
+int setEnableRotationalMapping(LineEnding* lineEnding, const bool& enableRotationalMapping) {
     if (lineEnding && isValidEnableRotationalMappingValue(enableRotationalMapping)) {
         lineEnding->setEnableRotationalMapping(enableRotationalMapping);
         return 0;
@@ -1710,7 +1710,7 @@ int setStartHead(Transformation2D* transformation2D, const std::string startHead
             ((RenderGroup*)transformation2D)->setStartHead(startHead);
             return 0;
         }
-        else if (isRenderCurve(transformation2D) {
+        else if (isRenderCurve(transformation2D)) {
             ((RenderCurve*)transformation2D)->setStartHead(startHead);
             return 0;
         }

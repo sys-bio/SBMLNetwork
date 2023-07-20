@@ -592,195 +592,195 @@ void setDefaultImageShapeFeatures(Image* image) {
     image->setHeight(RelAbsVector(0.0, 100.0));
 }
 
-const bool isValidBackgroundColorValue(backgroundColor) {
+const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
     return true;
 }
 
-const bool isValidColorValue(value) {
+const bool isValidColorValue(const std::string& value) {
     return true;
 }
 
-const bool isValidSpreadMethodValue(spreadMethod) {
+const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
     return true;
 }
 
-const bool isValidOffsetValue(offset) {
+const bool isValidOffsetValue(const RelAbsVector& offset) {
     return true;
 }
 
-const bool isValidStopColorValue(stopColor) {
+const bool isValidStopColorValue(const std::string& stopColor) {
     return true;
 }
 
-const bool isValidGradientX1Value(x1) {
+const bool isValidGradientX1Value(const RelAbsVector& x1) {
     return true;
 }
 
-const bool isValidGradientX2Value(x2) {
+const bool isValidGradientX2Value(const RelAbsVector& x2) {
     return true;
 }
 
-const bool isValidGradientY1Value(y1) {
+const bool isValidGradientY1Value(const RelAbsVector& y1) {
     return true;
 }
 
-const bool isValidGradientY2Value(y2) {
+const bool isValidGradientY2Value(const RelAbsVector& y2) {
     return true;
 }
 
-const bool isValidGradientCxValue(cx) {
+const bool isValidGradientCxValue(const RelAbsVector& cx) {
     return true;
 }
 
-const bool isValidGradientCyValue(cy) {
+const bool isValidGradientCyValue(const RelAbsVector& cy) {
     return true;
 }
 
-const bool isValidGradientFxValue(fx) {
+const bool isValidGradientFxValue(const RelAbsVector& fx) {
     return true;
 }
 
-const bool isValidGradientFyValue(fy) {
+const bool isValidGradientFyValue(const RelAbsVector& fy) {
     return true;
 }
 
-const bool isValidGradientRValue(r) {
+const bool isValidGradientRValue(const RelAbsVector& r) {
     return true;
 }
 
-const bool isValidEnableRotationalMappingValue(enableRotationalMapping) {
+const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping) {
     return true;
 }
 
-const bool isValidStrokeColorValue(stroke) {
+const bool isValidStrokeColorValue(const std::string& stroke) {
     return true;
 }
 
-const bool isValidStrokeWidthValue(strokeWidth) {
+const bool isValidStrokeWidthValue(const double& strokeWidth) {
     return true;
 }
 
-const bool isValidStrokeDashArrayValue(strokeDashArray) {
+const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray) {
     return true;
 }
 
-const bool isValidStrokeDashValue(dash) {
+const bool isValidStrokeDashValue(unsigned int dash) {
     return true;
 }
 
-const bool isValidFontColorValue(fontColor) {
+const bool isValidFontColorValue(const std::string& fontColor) {
     return true;
 }
 
-const bool isValidFontFamilyValue(fontFamily) {
+const bool isValidFontFamilyValue(const std::string& fontFamily) {
     return true;
 }
 
-const bool isValidFontSizeValue(fontSize) {
+const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
     return true;
 }
 
-const bool isValidFontWeightValue(fontWeight) {
+const bool isValidFontWeightValue(const std::string& fontWeight) {
     return true;
 }
 
-const bool isValidFontStyleValue(fontStyle) {
+const bool isValidFontStyleValue(const std::string& fontStyle) {
     return true;
 }
 
-const bool isValidTextAnchorValue(textAnchor) {
+const bool isValidTextAnchorValue(const std::string& textAnchor) {
     return true;
 }
 
-const bool isValidVTextAnchorValue(vtextAnchor) {
+const bool isValidVTextAnchorValue(const std::string& vtextAnchor) {
     return true;
 }
 
-const bool isValidFillColorValue(fillColor) {
+const bool isValidFillColorValue(const std::string& fillColor) {
     return true;
 }
 
-const bool isValidFillRuleValue(fillRule) {
+const bool isValidFillRuleValue(const std::string& fillRule) {
     return true;
 }
 
-const bool isValidStartHeadValue(startHead) {
+const bool isValidStartHeadValue(const std::string& startHead) {
     return true;
 }
 
-const bool isValidEndHeadValue(endHead) {
+const bool isValidEndHeadValue(const std::string& endHead) {
     return true;
 }
 
-const bool isValidGeometricShapeXValue(x) {
+const bool isValidGeometricShapeXValue(const RelAbsVector& x) {
     return true;
 }
 
-const bool isValidGeometricShapeYValue(y) {
+const bool isValidGeometricShapeYValue(const RelAbsVector& y) {
     return true;
 }
 
-const bool isValidGeometricShapeWidthValue(width) {
+const bool isValidGeometricShapeWidthValue(const RelAbsVector& width) {
     return true;
 }
 
-const bool isValidGeometricShapeHeightValue(height) {
+const bool isValidGeometricShapeHeightValue(const RelAbsVector& height) {
     return true;
 }
 
-const bool isValidGeometricShapeRatioValue(ratio) {
+const bool isValidGeometricShapeRatioValue(const double& ratio) {
     return true;
 }
 
-const bool isValidGeometricShapeCornerCurvatureRadiusX(rx) {
+const bool isValidGeometricShapeCornerCurvatureRadiusX(const RelAbsVector& rx) {
     return true;
 }
 
-const bool isValidGeometricShapeCornerCurvatureRadiusY(ry) {
+const bool isValidGeometricShapeCornerCurvatureRadiusY(const RelAbsVector& ry) {
     return true;
 }
 
-const bool isValidGeometricShapeCenterX(cx) {
+const bool isValidGeometricShapeCenterX(const RelAbsVector& cx) {
     return true;
 }
 
-const bool isValidGeometricShapeCenterY(cy) {
+const bool isValidGeometricShapeCenterY(const RelAbsVector& cy) {
     return true;
 }
 
-const bool isValidGeometricShapeRadiusX(rx) {
+const bool isValidGeometricShapeRadiusX(const RelAbsVector& rx) {
     return true;
 }
 
-const bool isValidGeometricShapeRadiusY(ry) {
+const bool isValidGeometricShapeRadiusY(const RelAbsVector& ry) {
     return true;
 }
 
-const bool isValidGeometricShapeElementX(x) {
+const bool isValidGeometricShapeElementX(const RelAbsVector& x) {
     return true;
 }
 
-const bool isValidGeometricShapeElementY(y) {
+const bool isValidGeometricShapeElementY(const RelAbsVector& y) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint1X(x) {
+const bool isValidGeometricShapeBasePoint1X(const RelAbsVector& x) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint1Y(y) {
+const bool isValidGeometricShapeBasePoint1Y(const RelAbsVector& y) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint1Y(y) {
+const bool isValidGeometricShapeBasePoint2X(const RelAbsVector& y) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint2Y(y) {
+const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y) {
     return true;
 }
 
-const bool isValidGeometricShapeHref(href) {
+const bool isValidGeometricShapeHref(const std::string& href) {
     return true;
 }
 

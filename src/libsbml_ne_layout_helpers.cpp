@@ -1,4 +1,5 @@
 #include "libsbml_ne_layout_helpers.h"
+#include "libsbml_ne_common.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -321,29 +322,29 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
 }
 
 const bool isValidLayoutDimensionWidthValue(const double& width) {
-    return isValidDimensionValue();
+    return isValidDimensionValue(width);
 }
 
 const bool isValidLayoutDimensionHeightValue(const double& height) {
-    return isValidDimensionValue();
+    return isValidDimensionValue(height);
 }
 
 const bool isValidRoleValue(const std::string& role) {
     if (stringCompare(role, "substrate"))
         return true;
-    else if (stringCompare(role, "sidesubstrate")))
+    else if (stringCompare(role, "sidesubstrate"))
         return true;
-    else if (stringCompare(role, "modifier")))
+    else if (stringCompare(role, "modifier"))
         return true;
-    else if (stringCompare(role, "inhibitor")))
+    else if (stringCompare(role, "inhibitor"))
         return true;
-    else if (stringCompare(role, "product")))
+    else if (stringCompare(role, "product"))
         return true;
-    else if (stringCompare(role, "sideproduct")))
+    else if (stringCompare(role, "sideproduct"))
         return true;
-    else if (stringCompare(role, "activator")))
+    else if (stringCompare(role, "activator"))
         return true;
-    else if (stringCompare(role, "undefined")))
+    else if (stringCompare(role, "undefined"))
         return true;
 
     return false;
@@ -358,11 +359,11 @@ const bool isValidBoundingBoxYValue(const double& y) {
 }
 
 const bool isValidBoundingBoxWidthValue(const double& width) {
-    return isValidDimensionValue();
+    return isValidDimensionValue(width);
 }
 
 const bool isValidBoundingBoxHeightValue(const double& height) {
-    return isValidDimensionValue();
+    return isValidDimensionValue(height);
 }
 
 const bool isValidCurveSegmentStartPointXValue(const double& x) {
@@ -397,7 +398,7 @@ const bool isValidCurveSegmentBasePoint2YValue(const double& y) {
     return true;
 }
 
-const isValidDimensionValue(const double& dimensionValue) {
+const bool isValidDimensionValue(const double& dimensionValue) {
     if (dimensionValue > 0.000)
         return true;
 
