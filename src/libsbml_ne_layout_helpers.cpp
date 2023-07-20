@@ -320,8 +320,33 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
     return speciesReferenceGlyphs;
 }
 
+const bool isValidLayoutDimensionWidthValue(const double& width) {
+    return isValidDimensionValue();
+}
+
+const bool isValidLayoutDimensionHeightValue(const double& height) {
+    return isValidDimensionValue();
+}
+
 const bool isValidRoleValue(const std::string& role) {
-    return true;
+    if (stringCompare(role, "substrate"))
+        return true;
+    else if (stringCompare(role, "sidesubstrate")))
+        return true;
+    else if (stringCompare(role, "modifier")))
+        return true;
+    else if (stringCompare(role, "inhibitor")))
+        return true;
+    else if (stringCompare(role, "product")))
+        return true;
+    else if (stringCompare(role, "sideproduct")))
+        return true;
+    else if (stringCompare(role, "activator")))
+        return true;
+    else if (stringCompare(role, "undefined")))
+        return true;
+
+    return false;
 }
 
 const bool isValidBoundingBoxXValue(const double& x) {
@@ -333,11 +358,11 @@ const bool isValidBoundingBoxYValue(const double& y) {
 }
 
 const bool isValidBoundingBoxWidthValue(const double& width) {
-    return true;
+    return isValidDimensionValue();
 }
 
 const bool isValidBoundingBoxHeightValue(const double& height) {
-    return true;
+    return isValidDimensionValue();
 }
 
 const bool isValidCurveSegmentStartPointXValue(const double& x) {
@@ -370,6 +395,13 @@ const bool isValidCurveSegmentBasePoint2XValue(const double& x) {
 
 const bool isValidCurveSegmentBasePoint2YValue(const double& y) {
     return true;
+}
+
+const isValidDimensionValue(const double& dimensionValue) {
+    if (dimensionValue > 0.000)
+        return true;
+
+    return false;
 }
 
 }
