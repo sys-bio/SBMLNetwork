@@ -593,7 +593,7 @@ void setDefaultImageShapeFeatures(Image* image) {
 }
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
-    return true;
+    return isValidColorValue();
 }
 
 const bool isValidColorValue(const std::string& value) {
@@ -601,7 +601,14 @@ const bool isValidColorValue(const std::string& value) {
 }
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
-    return true;
+    if (stringCompare(vtextAnchor, "pad"))
+        return true;
+    else if (stringCompare(vtextAnchor, "reflect"))
+        return true;
+    else if (stringCompare(vtextAnchor, "repeat"))
+        return true;
+
+    return false;
 }
 
 const bool isValidOffsetValue(const RelAbsVector& offset) {
@@ -609,7 +616,7 @@ const bool isValidOffsetValue(const RelAbsVector& offset) {
 }
 
 const bool isValidStopColorValue(const std::string& stopColor) {
-    return true;
+    return isValidColorValue();
 }
 
 const bool isValidGradientX1Value(const RelAbsVector& x1) {
@@ -653,7 +660,7 @@ const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMappi
 }
 
 const bool isValidStrokeColorValue(const std::string& stroke) {
-    return true;
+    return isValidColorValue();
 }
 
 const bool isValidStrokeWidthValue(const double& strokeWidth) {
@@ -669,11 +676,18 @@ const bool isValidStrokeDashValue(unsigned int dash) {
 }
 
 const bool isValidFontColorValue(const std::string& fontColor) {
-    return true;
+    return isValidColorValue();
 }
 
 const bool isValidFontFamilyValue(const std::string& fontFamily) {
-    return true;
+    if (stringCompare(vtextAnchor, "serif"))
+        return true;
+    else if (stringCompare(vtextAnchor, "sans-serif"))
+        return true;
+    else if (stringCompare(vtextAnchor, "monospace"))
+        return true;
+
+    return false;
 }
 
 const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
@@ -681,27 +695,58 @@ const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
 }
 
 const bool isValidFontWeightValue(const std::string& fontWeight) {
-    return true;
+    if (stringCompare(vtextAnchor, "bold"))
+        return true;
+    else if (stringCompare(vtextAnchor, "normal"))
+        return true;
+
+    return false;
 }
 
 const bool isValidFontStyleValue(const std::string& fontStyle) {
-    return true;
+    if (stringCompare(vtextAnchor, "italic"))
+        return true;
+    else if (stringCompare(vtextAnchor, "normal"))
+        return true;
+
+    return false;
 }
 
 const bool isValidTextAnchorValue(const std::string& textAnchor) {
-    return true;
+    if (stringCompare(vtextAnchor, "start"))
+        return true;
+    else if (stringCompare(vtextAnchor, "middle"))
+        return true;
+    else if (stringCompare(vtextAnchor, "end"))
+        return true;
+
+    return false;
 }
 
 const bool isValidVTextAnchorValue(const std::string& vtextAnchor) {
-    return true;
+    if (stringCompare(vtextAnchor, "top"))
+        return true;
+    else if (stringCompare(vtextAnchor, "middle"))
+        return true;
+    else if (stringCompare(vtextAnchor, "bottom"))
+        return true;
+    else if (stringCompare(vtextAnchor, "baseline"))
+        return true;
+
+    return false;
 }
 
 const bool isValidFillColorValue(const std::string& fillColor) {
-    return true;
+    return isValidColorValue();
 }
 
 const bool isValidFillRuleValue(const std::string& fillRule) {
-    return true;
+    if (stringCompare(vtextAnchor, "nonzero"))
+        return true;
+    else if (stringCompare(vtextAnchor, "evenodd"))
+        return true;
+
+    return false;
 }
 
 const bool isValidStartHeadValue(const std::string& startHead) {
