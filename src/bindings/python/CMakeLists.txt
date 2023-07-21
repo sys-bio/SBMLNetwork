@@ -42,7 +42,7 @@ target_include_directories(binding_python_lib PRIVATE
 
 target_link_libraries(binding_python_lib
         Python::Python
-        libsbmlnetworkeditor-static
+        sbmlnetworkeditor-static
         ${GRAPHVIZ_LIBS_FIRSTHAND})
 
 add_dependencies(binding_python_lib binding_python_swig)

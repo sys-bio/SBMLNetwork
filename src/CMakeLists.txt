@@ -27,28 +27,28 @@ set(HEADERS
 		libsbml_ne_sbmldocument_render.h)
 
 ### shared library
-add_library(libsbmlnetworkeditor SHARED ${SOURCES})
-target_include_directories(libsbmlnetworkeditor PRIVATE
+add_library(sbmlnetworkeditor SHARED ${SOURCES})
+target_include_directories(sbmlnetworkeditor PRIVATE
 	${GRAPHVIZ_INCLUDEDIR})
-target_link_libraries(libsbmlnetworkeditor ${GRAPHVIZ_LIBS_FIRSTHAND})
+target_link_libraries(sbmlnetworkeditor ${GRAPHVIZ_LIBS_FIRSTHAND})
 if (WIN32)
-	target_link_libraries(libsbmlnetworkeditor libsbml ${EXTRA_LIBS})
+	target_link_libraries(sbmlnetworkeditor libsbml ${EXTRA_LIBS})
 else ()
-	target_link_libraries(libsbmlnetworkeditor sbml)
+	target_link_libraries(sbmlnetworkeditor sbml)
 endif ()
 	
 # copy dependencies to the build directory
 if (APPLE)
 	set(DEPENDENCIES_DIR ${CMAKE_BINARY_DIR}/src/dependencies)
-	add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+	add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPENDENCIES_DIR}
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SBML_LIBS}
 		${DEPENDENCIES_DIR}
 		COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 		"libsbml.5.dylib"
-		"@rpath/libsbml.5.dylib" $<TARGET_FILE:libsbmlnetworkeditor>)
+		"@rpath/libsbml.5.dylib" $<TARGET_FILE:sbmlnetworkeditor>)
 
-	add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+	add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPENDENCIES_DIR}/graphviz
 			COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GRAPHVIZ_LIBS}
 			${DEPENDENCIES_DIR}
@@ -59,14 +59,14 @@ if (APPLE)
 
 	foreach(lib1fullpath IN LISTS GRAPHVIZ_LIBS)
 		get_filename_component(lib1name ${lib1fullpath} NAME)
-		add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+		add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 				COMMAND ${CMAKE_INSTALL_NAME_TOOL} -id
 				"@rpath/${lib1name}"
 				"${DEPENDENCIES_DIR}/${lib1name}")			
 
 		foreach(lib2fullpath IN LISTS GRAPHVIZ_LIBS)
 			get_filename_component(lib2name ${lib2fullpath} NAME)				
-			add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+			add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 				COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 				"${lib1fullpath}" "@rpath/${lib1name}"
 					"${DEPENDENCIES_DIR}/${lib2name}")
@@ -74,12 +74,12 @@ if (APPLE)
 
 		foreach(lib2fullpath IN LISTS GRAPHVIZ_APIS)
 			get_filename_component(lib2name ${lib2fullpath} NAME)
-			add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+			add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 				COMMAND ${CMAKE_INSTALL_NAME_TOOL} -id
 				"@rpath/${lib2name}"
 				"${DEPENDENCIES_DIR}/graphviz/${lib2name}")
 			
-			add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+			add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 				COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 				"${lib1fullpath}" "@rpath/${lib1name}"
 					"${DEPENDENCIES_DIR}/graphviz/${lib2name}")
@@ -89,34 +89,34 @@ if (APPLE)
 		#"${DEPENDENCIES_DIR}/${lib1name}")
 	endforeach()
 
-	add_custom_command(TARGET libsbmlnetworkeditor POST_BUILD
+	add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 			COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 			"/usr/local/opt/graphviz/lib/libgvc.6.dylib"
-			"@rpath/libgvc.6.dylib" $<TARGET_FILE:libsbmlnetworkeditor>
+			"@rpath/libgvc.6.dylib" $<TARGET_FILE:sbmlnetworkeditor>
 			COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 			"/usr/local/opt/graphviz/lib/libcgraph.6.dylib"
-			"@rpath/libcgraph.6.dylib" $<TARGET_FILE:libsbmlnetworkeditor>
+			"@rpath/libcgraph.6.dylib" $<TARGET_FILE:sbmlnetworkeditor>
 			COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 			"/usr/local/opt/graphviz/lib/libcdt.5.dylib"
-			"@rpath/libcdt.5.dylib" $<TARGET_FILE:libsbmlnetworkeditor>)
+			"@rpath/libcdt.5.dylib" $<TARGET_FILE:sbmlnetworkeditor>)
 endif(APPLE)
 
 ## set library dist
-install(TARGETS libsbmlnetworkeditor RUNTIME DESTINATION bin COMPONENT libsbmlnetworkeditor_api
+install(TARGETS sbmlnetworkeditor RUNTIME DESTINATION bin COMPONENT libsbmlnetworkeditor_api
 									LIBRARY DESTINATION lib COMPONENT libsbmlnetworkeditor_api
 									ARCHIVE DESTINATION lib COMPONENT libsbmlnetworkeditor_api)
 
 ### static library
 if (BUILD_STATIC_LIB)
-	add_library(libsbmlnetworkeditor-static STATIC ${SOURCES})
-	target_include_directories(libsbmlnetworkeditor-static PRIVATE ${GRAPHVIZ_INCLUDEDIR})
-	target_link_libraries(libsbmlnetworkeditor-static ${GRAPHVIZ_LIBS_FIRSTHAND})
+	add_library(sbmlnetworkeditor-static STATIC ${SOURCES})
+	target_include_directories(sbmlnetworkeditor-static PRIVATE ${GRAPHVIZ_INCLUDEDIR})
+	target_link_libraries(sbmlnetworkeditor-static ${GRAPHVIZ_LIBS_FIRSTHAND})
 	if (WIN32)
-		target_link_libraries(libsbmlnetworkeditor-static libsbml ${EXTRA_LIBS})
+		target_link_libraries(sbmlnetworkeditor-static libsbml ${EXTRA_LIBS})
 	else ()
-		target_link_libraries(libsbmlnetworkeditor-static sbml)
+		target_link_libraries(sbmlnetworkeditor-static sbml)
 	endif ()
-	install(TARGETS libsbmlnetworkeditor-static RUNTIME DESTINATION bin COMPONENT sbm_networkeditor_api
+	install(TARGETS sbmlnetworkeditor-static RUNTIME DESTINATION bin COMPONENT sbm_networkeditor_api
 												LIBRARY DESTINATION lib COMPONENT libsbmlnetworkeditor_api
 												ARCHIVE DESTINATION lib COMPONENT libsbmlnetworkeditor_api)
 endif()
