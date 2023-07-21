@@ -167,16 +167,6 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Install Graphviz for MacOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install graphviz
-          cd /usr/local/Cellar/graphviz
-          ls
-        env:
-          GRAPHVIZ_PATH: "/usr/local/Cellar/graphviz/8.1.0"
-
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
@@ -184,6 +174,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
+          brew install graphviz
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
