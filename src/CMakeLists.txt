@@ -28,6 +28,10 @@ set(HEADERS
 
 ### shared library
 add_library(sbmlnetworkeditor SHARED ${SOURCES})
+set_target_properties(sbmlnetworkeditor PROPERTIES
+		VERSION ${LIBSBML_NETWORKEDITOR_DOTTED_VERSION}
+		SOVERSION ${LIBSBML_NETWORKEDITOR_VERSION_MAJOR})
+
 target_include_directories(sbmlnetworkeditor PRIVATE
 	${GRAPHVIZ_INCLUDEDIR})
 target_link_libraries(sbmlnetworkeditor ${GRAPHVIZ_LIBS_FIRSTHAND})
