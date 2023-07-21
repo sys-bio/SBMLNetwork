@@ -96,10 +96,8 @@ jobs:
         shell: bash
         run: |
           sudo apt install graphviz
-          echo "checking the graphviz"
-          echo "graphviz_dir is : $GRAPHVIZ_DIR"
         env:
-          GRAPHVIZ_DIR: ${{runner.workspace}}"/graphviz"
+          GRAPHVIZ_PATH: ${{runner.workspace}}/graphviz
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -114,10 +112,8 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
-          echo "checking the graphviz"
-          echo "graphviz_dir is : $GRAPHVIZ_DIR"
         env:
-          GRAPHVIZ_DIR: "/usr/local/Cellar/graphviz/8.1.0"
+          GRAPHVIZ_PATH: "/usr/local/Cellar/graphviz/8.1.0"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -193,7 +189,7 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake
-          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_DIR}
+          -DGRAPHVIZ_PREFIX=GRAPHVIZ_PATH
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
