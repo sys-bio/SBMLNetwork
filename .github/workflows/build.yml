@@ -96,9 +96,10 @@ jobs:
         shell: bash
         run: |
           sudo apt install graphviz
-          echo ${{runner.workspace}}"/graphviz" > ${GRAPHVIZ_DIR}
-          echo "writing the graphviz"
-          echo "graphviz_dir is:"${GRAPHVIZ_DIR}
+          echo "checking the graphviz"
+          echo "graphviz_dir is : $GRAPHVIZ_DIR"
+        env:
+          GRAPHVIZ_DIR: ${{runner.workspace}}"/graphviz"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -113,9 +114,10 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
-          echo "/usr/local/Cellar/graphviz/8.1.0" > ${GRAPHVIZ_DIR}
-          echo "writing the graphviz"
-          echo "graphviz_dir is:"${GRAPHVIZ_DIR}
+          echo "checking the graphviz"
+          echo "graphviz_dir is : $GRAPHVIZ_DIR"
+        env:
+          GRAPHVIZ_DIR: "/usr/local/Cellar/graphviz/8.1.0"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
