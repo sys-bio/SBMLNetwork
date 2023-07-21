@@ -107,14 +107,6 @@ jobs:
           brew install check swig ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
-      - name: Install Graphviz for MacOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install graphviz
-        env:
-          GRAPHVIZ_PATH: "/usr/local/Cellar/graphviz/8.1.0"
-
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
         if: matrix.platform != 'windows-latest'
@@ -174,6 +166,14 @@ jobs:
           repository: adelhpour/libSBMLNetworkEditor
 
       - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Install Graphviz for MacOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install graphviz
+        env:
+          GRAPHVIZ_PATH: "/usr/local/Cellar/graphviz/8.1.0"
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
