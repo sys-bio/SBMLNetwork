@@ -96,8 +96,7 @@ jobs:
         shell: bash
         run: |
           sudo apt install graphviz
-        env:
-          GRAPHVIZ_PATH: ${{runner.workspace}}/graphviz
+          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -106,6 +105,13 @@ jobs:
         run: |
           brew install check swig ccache
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+
+      - name: Install Graphviz for MacOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install graphviz
+          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -167,13 +173,6 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Install Graphviz for MacOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install graphviz
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
-
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
@@ -181,8 +180,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo "graphviz is:"
-          echo ${GRAPHVIZ_PATH}
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
