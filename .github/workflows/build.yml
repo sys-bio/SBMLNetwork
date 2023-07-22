@@ -182,7 +182,8 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo "${GRAPHVIZ_PATH}"
+          echo "graphviz is:"
+          echo ${GRAPHVIZ_PATH}
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
