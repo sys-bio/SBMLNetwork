@@ -172,8 +172,7 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
-        env:
-          GRAPHVIZ_PATH: "/usr/local/Cellar/graphviz/8.1.0"
+          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
