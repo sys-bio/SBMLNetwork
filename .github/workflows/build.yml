@@ -189,6 +189,7 @@ jobs:
           -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor \
           -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH}
+          -DWITH_PYTHON=ON
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
