@@ -180,6 +180,8 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
+          echo "libsbml directory is:"
+          echo ${{runner.workspace}}/install-libsbml/lib/cmake
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
