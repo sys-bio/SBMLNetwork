@@ -3,6 +3,7 @@
 #include "libsbml_ne_layout_helpers.h"
 
 #include <cmath>
+#include <fstream>
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -593,21 +594,26 @@ void setDefaultImageShapeFeatures(Image* image) {
 }
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
-    return isValidColorValue();
+    return isValidColorValue(backgroundColor);
 }
 
 const bool isValidColorValue(const std::string& value) {
-    "html_name":['AliceBlue', 'AntiqueWhite', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque', 'Black', 'BlanchedAlmond', 'Blue', 'BlueViolet', 'Brown', 'BurlyWood', 'CadetBlue', 'Chartreuse', 'Chocolate', 'Coral', 'CornflowerBlue', 'Cornsilk', 'Crimson', 'Cyan', 'DarkBlue', 'DarkCyan', 'DarkGoldenrod', 'DarkGray', 'DarkGreen', 'DarkKhaki', 'DarkMagenta', 'DarkOliveGreen', 'DarkOrange', 'DarkOrchid', 'DarkRed', 'DarkSalmon', 'DarkSeaGreen', 'DarkSlateBlue', 'DarkSlateGray', 'DarkTurquoise', 'DarkViolet', 'DeepPink', 'DeepSkyBlue', 'DimGray', 'DodgerBlue', 'FireBrick', 'FloralWhite', 'ForestGreen', 'Fuchsia', 'Gainsboro', 'GhostWhite', 'Gold', 'Goldenrod', 'Gray', 'Green', 'GreenYellow', 'Honeydew', 'HotPink', 'IndianRed', 'Indigo', 'Ivory', 'Khaki', 'Lavender', 'LavenderBlush', 'LawnGreen', 'LemonChiffon', 'LightBlue', 'LightCoral', 'LightCyan', 'LightGoldenrodYellow', 'LightGreen', 'LightGrey', 'LightPink', 'LightSalmon', 'LightSeaGreen', 'LightSkyBlue', 'LightSlateGray', 'LightSteelBlue', 'LightYellow', 'Lime', 'LimeGreen', 'Linen', 'Magenta', 'Maroon', 'MediumAquamarine', 'MediumBlue', 'MediumOrchid', 'MediumPurple', 'MediumSeaGreen', 'MediumSlateBlue', 'MediumSpringGreen', 'MediumTurquoise', 'MediumVioletRed', 'MidnightBlue', 'MintCream', 'MistyRose', 'Moccasin', 'NavajoWhite', 'Navy', 'OldLace', 'Olive', 'OliveDrab', 'Orange', 'OrangeRed', 'Orchid', 'PaleGoldenrod', 'PaleGreen', 'PaleTurquoise', 'PaleVioletRed', 'PapayaWhip', 'PeachPuff', 'Peru', 'Pink', 'Plum', 'PowderBlue', 'Purple', 'Red', 'RosyBrown', 'RoyalBlue', 'SaddleBrown', 'Salmon', 'SandyBrown', 'SeaGreen', 'Seashell', 'Sienna', 'Silver', 'SkyBlue', 'SlateBlue', 'SlateGray', 'Snow', 'SpringGreen', 'SteelBlue', 'Tan', 'Teal', 'Thistle', 'Tomato', 'Turquoise', 'Violet', 'Wheat', 'White', 'WhiteSmoke', 'Yellow', 'YellowGreen']
+    isValidColor
+    std::string myText;
+    std::ifstream read_html_colors("/Users/home/Documents/Education/SystemsBiology/Projects/Made/libSBMLNetworkEditor/libSBMLNetworkEditor/src/resources/html_colors.txt");
+    while (std::getline (read_html_colors, myText))
+        std::cout << myText;
+    read_html_colors.close();
 
     return true;
 }
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
-    if (stringCompare(vtextAnchor, "pad"))
+    if (stringCompare(spreadMethod, "pad"))
         return true;
-    else if (stringCompare(vtextAnchor, "reflect"))
+    else if (stringCompare(spreadMethod, "reflect"))
         return true;
-    else if (stringCompare(vtextAnchor, "repeat"))
+    else if (stringCompare(spreadMethod, "repeat"))
         return true;
 
     return false;
@@ -618,7 +624,7 @@ const bool isValidOffsetValue(const RelAbsVector& offset) {
 }
 
 const bool isValidStopColorValue(const std::string& stopColor) {
-    return isValidColorValue();
+    return isValidColorValue(stopColor);
 }
 
 const bool isValidGradientX1Value(const RelAbsVector& x1) {
@@ -662,7 +668,7 @@ const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMappi
 }
 
 const bool isValidStrokeColorValue(const std::string& stroke) {
-    return isValidColorValue();
+    return isValidColorValue(stroke);
 }
 
 const bool isValidStrokeWidthValue(const double& strokeWidth) {
@@ -678,15 +684,15 @@ const bool isValidStrokeDashValue(unsigned int dash) {
 }
 
 const bool isValidFontColorValue(const std::string& fontColor) {
-    return isValidColorValue();
+    return isValidColorValue(fontColor);
 }
 
 const bool isValidFontFamilyValue(const std::string& fontFamily) {
-    if (stringCompare(vtextAnchor, "serif"))
+    if (stringCompare(fontFamily, "serif"))
         return true;
-    else if (stringCompare(vtextAnchor, "sans-serif"))
+    else if (stringCompare(fontFamily, "sans-serif"))
         return true;
-    else if (stringCompare(vtextAnchor, "monospace"))
+    else if (stringCompare(fontFamily, "monospace"))
         return true;
 
     return false;
@@ -697,29 +703,29 @@ const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
 }
 
 const bool isValidFontWeightValue(const std::string& fontWeight) {
-    if (stringCompare(vtextAnchor, "bold"))
+    if (stringCompare(fontWeight, "bold"))
         return true;
-    else if (stringCompare(vtextAnchor, "normal"))
+    else if (stringCompare(fontWeight, "normal"))
         return true;
 
     return false;
 }
 
 const bool isValidFontStyleValue(const std::string& fontStyle) {
-    if (stringCompare(vtextAnchor, "italic"))
+    if (stringCompare(fontStyle, "italic"))
         return true;
-    else if (stringCompare(vtextAnchor, "normal"))
+    else if (stringCompare(fontStyle, "normal"))
         return true;
 
     return false;
 }
 
 const bool isValidTextAnchorValue(const std::string& textAnchor) {
-    if (stringCompare(vtextAnchor, "start"))
+    if (stringCompare(textAnchor, "start"))
         return true;
-    else if (stringCompare(vtextAnchor, "middle"))
+    else if (stringCompare(textAnchor, "middle"))
         return true;
-    else if (stringCompare(vtextAnchor, "end"))
+    else if (stringCompare(textAnchor, "end"))
         return true;
 
     return false;
@@ -739,13 +745,13 @@ const bool isValidVTextAnchorValue(const std::string& vtextAnchor) {
 }
 
 const bool isValidFillColorValue(const std::string& fillColor) {
-    return isValidColorValue();
+    return isValidColorValue(fillColor);
 }
 
 const bool isValidFillRuleValue(const std::string& fillRule) {
-    if (stringCompare(vtextAnchor, "nonzero"))
+    if (stringCompare(fillRule, "nonzero"))
         return true;
-    else if (stringCompare(vtextAnchor, "evenodd"))
+    else if (stringCompare(fillRule, "evenodd"))
         return true;
 
     return false;
