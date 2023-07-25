@@ -166,7 +166,6 @@ jobs:
         shell: bash
         run: |
           cmake --build . --target install --config $BUILD_TYPE
-          echo "sbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake" >> "${GITHUB_ENV}"
 
       ### build the project ###
       - uses: actions/checkout@v3
