@@ -95,8 +95,8 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
-          sudo apt install -y graphviz-dev
-          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
+          sudo apt install graphviz
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -111,7 +111,7 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
+          echo "GRAPHVIZ_DIR=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -165,11 +165,12 @@ jobs:
         working-directory: ${{runner.workspace}}/build-libsbml
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
+        echo "sbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake" >> "${GITHUB_ENV}"
 
       ### build the project ###
       - uses: actions/checkout@v3
         with:
-          repository: adelhpour/libSBMLNetworkEditor
+          repository: sbmlteam/libsbml
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
@@ -180,19 +181,12 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo "libsbml directory is:"
-          echo ${{runner.workspace}}/install-libsbml/lib/cmake
-          ls /${{runner.workspace}}/install-libsbml/lib/cmake
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor \
-          -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake \
-          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
-          -DWITH_PYTHON=ON
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
