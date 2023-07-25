@@ -598,14 +598,20 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
 }
 
 const bool isValidColorValue(const std::string& value) {
-    isValidColor
-    std::string myText;
-    std::ifstream read_html_colors("/Users/home/Documents/Education/SystemsBiology/Projects/Made/libSBMLNetworkEditor/libSBMLNetworkEditor/src/resources/html_colors.txt");
-    while (std::getline (read_html_colors, myText))
-        std::cout << myText;
-    read_html_colors.close();
+    std::string line;
+    std::ifstream html_colors("/Users/home/Documents/Education/SystemsBiology/Projects/Made/libSBMLNetworkEditor/libSBMLNetworkEditor/src/resources/html_colors.txt");
+    if (html_colors.is_open()) {
+        while (!html_colors.eof()) {
+            std::getline(html_colors, line);
+            if (stringCompare(line, value)) {
+                html_colors.close();
+                return true;
+            }
+        }
+        html_colors.close();
+    }
 
-    return true;
+    return false;
 }
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
