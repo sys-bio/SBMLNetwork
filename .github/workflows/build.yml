@@ -186,7 +186,9 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}}
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \ 
+          -Dsbml_DIR=${{runner.workspace}}/install-libsbml/lib/cmake \
+          -DWITH_PYTHON=ON
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
