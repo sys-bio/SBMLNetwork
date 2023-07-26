@@ -166,7 +166,6 @@ jobs:
         shell: bash
         run: |
           cmake --build . --target install --config $BUILD_TYPE
-          ls ${{runner.workspace}}
 
       ### build the project ###
       - uses: actions/checkout@v3
@@ -183,6 +182,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
           echo "libsbml directory is:"
+          echo ${{runner.workspace}}
           echo ${{runner.workspace}}/install-libsbml/lib/cmake
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
