@@ -164,7 +164,9 @@ jobs:
       - name: Build libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
         shell: bash
-        run: cmake --build . --target install --config $BUILD_TYPE
+        run: |
+          cmake --build . --target install --config $BUILD_TYPE
+          ls ${{runner.workspace}}/install-libsbml/lib/cmake
 
       ### build the project ###
       - uses: actions/checkout@v3
@@ -182,7 +184,6 @@ jobs:
         run: |
           echo "libsbml directory is:"
           echo ${{runner.workspace}}/install-libsbml/lib/cmake
-          ls ${{runner.workspace}}/install-libsbml/lib/cmake
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
