@@ -166,7 +166,7 @@ jobs:
         shell: bash
         run: |
           cmake --build . --target install --config $BUILD_TYPE
-          ls D:alibSBMLNetworkEditor/install-libsbml/lib/cmake
+          ls ${{runner.workspace}}
 
       ### build the project ###
       - uses: actions/checkout@v3
