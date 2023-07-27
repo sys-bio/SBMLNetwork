@@ -82,7 +82,7 @@ jobs:
 
       - name: Install Zlib for Windows
         if: matrix.platform == 'windows-latest'
-        - uses: msys2/setup-msys2@v2
+        uses: msys2/setup-msys2@v2
           with:
             update: true
             install: zlib
