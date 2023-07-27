@@ -185,6 +185,7 @@ jobs:
         shell: bash
         run: |
           echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/build-libsbml/dependencies" >> $GITHUB_PATH
 
       ### build the project ###
       - uses: actions/checkout@v3
