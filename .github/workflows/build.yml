@@ -178,8 +178,8 @@ jobs:
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
       - name: Main
-          run: |
-            ls
+        run: |
+          ls
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
