@@ -179,7 +179,7 @@ jobs:
 
       - name: Main
         run: |
-          ls
+          ls ..
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
