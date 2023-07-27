@@ -178,7 +178,7 @@ jobs:
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
       - name: main
-        run: ls ../install-libsbml/lib/cmake
+        run: ls ../build-libsbml
 
       - name: Configure CMake for libsbmlNetworkEditor
         shell: bash
