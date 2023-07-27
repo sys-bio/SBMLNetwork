@@ -80,6 +80,13 @@ jobs:
           7z e graphviz.zip -o"graphviz"
           echo $GITHUB_WORKSPACE"/graphviz/" >> $GITHUB_PATH
 
+      - name: Install Zlib for Windows
+        if: matrix.platform == 'windows-latest'
+        - uses: msys2/setup-msys2@v2
+          with:
+            update: true
+            install: zlib
+
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
         if: matrix.platform == 'ubuntu-latest'
@@ -173,7 +180,7 @@ jobs:
         run: |
           cmake --build . --target install --config $BUILD_TYPE
 
-      - name: Build libsbml
+      - name: set libsbml environment variables
         working-directory: ${{runner.workspace}}/build-libsbml
         shell: bash
         run: |
