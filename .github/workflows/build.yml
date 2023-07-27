@@ -67,6 +67,8 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
+          echo LIBSBML_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=D:/a/libSBMLNetworkEditor/install-libsbml" >> "${GITHUB_ENV}"
+          echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=D:/a/libSBMLNetworkEditor/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
@@ -85,6 +87,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y check ccache
+          echo LIBSBML_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbml" >> "${GITHUB_ENV}"
+          echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
           git clone https://github.com/libexpat/libexpat
           cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
@@ -104,6 +108,8 @@ jobs:
         shell: bash
         run: |
           brew install check swig ccache
+          echo LIBSBML_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbml" >> "${GITHUB_ENV}"
+          echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
       - name: Install Graphviz for MacOS
@@ -153,7 +159,7 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DCMAKE_INSTALL_PREFIX=D:/a/libSBMLNetworkEditor/install-libsbml \
+          ${LIBSBML_INSTALL_PREFIX} \
           -DWITH_CHECK=True \
           -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
@@ -177,9 +183,6 @@ jobs:
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
-      - name: main
-        run: ls ../install-libsbml/lib/cmake
-
       - name: Configure CMake for libsbmlNetworkEditor
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
@@ -190,7 +193,7 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DCMAKE_INSTALL_PREFIX="D:/a/libSBMLNetworkEditor/install-libsbmlnetworkeditor" \
+          ${LIBSBMLNETWORKEDITOR_INSTALL_PREFIX} \
           -Dsbml_DIR="D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON=ON
