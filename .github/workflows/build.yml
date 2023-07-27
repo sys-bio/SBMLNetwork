@@ -83,9 +83,9 @@ jobs:
       - name: Install Zlib for Windows
         if: matrix.platform == 'windows-latest'
         uses: msys2/setup-msys2@v2
-          with:
-            update: true
-            install: zlib
+        with:
+          update: true
+          install: zlib
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
