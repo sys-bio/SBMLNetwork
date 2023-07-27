@@ -173,6 +173,12 @@ jobs:
         run: |
           cmake --build . --target install --config $BUILD_TYPE
 
+      - name: Build libsbml
+        working-directory: ${{runner.workspace}}/build-libsbml
+        shell: bash
+        run: |
+          echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
+
       ### build the project ###
       - uses: actions/checkout@v3
         with:
