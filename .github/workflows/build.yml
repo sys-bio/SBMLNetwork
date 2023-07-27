@@ -190,7 +190,7 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor \
+          -DCMAKE_INSTALL_PREFIX="D:/a/libSBMLNetworkEditor/install-libsbmlnetworkeditor" \
           -Dsbml_DIR="D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON=ON
