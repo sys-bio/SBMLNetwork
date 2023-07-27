@@ -3,7 +3,6 @@
 #include "libsbml_ne_layout_helpers.h"
 
 #include <cmath>
-#include <fstream>
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -598,17 +597,37 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
 }
 
 const bool isValidColorValue(const std::string& value) {
-    std::string line;
-    std::ifstream html_colors("/Users/home/Documents/Education/SystemsBiology/Projects/Made/libSBMLNetworkEditor/libSBMLNetworkEditor/src/resources/html_colors.txt");
-    if (html_colors.is_open()) {
-        while (!html_colors.eof()) {
-            std::getline(html_colors, line);
-            if (stringCompare(line, value)) {
-                html_colors.close();
-                return true;
-            }
-        }
-        html_colors.close();
+    std::vector<std::string> html_colors;
+    html_colors = {"AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure",
+                   "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue",
+                   "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse",
+                   "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson",
+                   "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenrod", "DarkGray",
+                   "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen",
+                   "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen",
+                   "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet",
+                   "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "FireBrick",
+                   "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite",
+                   "Gold", "Goldenrod", "Gray", "Green", "GreenYellow", "Honeydew",
+                   "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender",
+                   "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral",
+                   "LightCyan", "LightGoldenrodYellow", "LightGreen", "LightGrey",
+                   "LightPink","LightSalmon", "LightSeaGreen", "LightSkyBlue",
+                   "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen",
+                   "Linen", "Magenta", "Maroon", "MediumAquamarine", "MediumBlue",
+                   "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue",
+                   "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue",
+                   "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace",
+                   "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenrod",
+                   "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff",
+                   "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown",
+                   "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen","Seashell",
+                   "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow","SpringGreen",
+                   "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet",
+                   "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"};
+    for (int i = 0; i < html_colors.size(); i++) {
+        if (stringCompare(html_colors.at(i), value))
+            return true;
     }
 
     return false;
