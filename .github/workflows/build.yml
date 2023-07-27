@@ -178,19 +178,19 @@ jobs:
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
       - name: Configure CMake for libsbmlNetworkEditor
-          shell: bash
-          working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
-          run: |
-            cmake $GITHUB_WORKSPACE \
-            -G "Ninja" \
-            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-            -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-            -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-            -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor \
-            -Dsbml_DIR="D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" \
-            -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
-            -DWITH_PYTHON=ON
+        shell: bash
+        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+        run: |
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor \
+          -Dsbml_DIR="D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" \
+          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
+          -DWITH_PYTHON=ON
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
