@@ -597,8 +597,8 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
 }
 
 const bool isValidColorValue(const std::string& value) {
-    std::vector<std::string> html_colors;
-    html_colors = {"AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure",
+    std::vector<std::string> html_color_names;
+    html_color_names = {"AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure",
                    "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue",
                    "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse",
                    "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson",
@@ -625,8 +625,8 @@ const bool isValidColorValue(const std::string& value) {
                    "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow","SpringGreen",
                    "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet",
                    "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"};
-    for (int i = 0; i < html_colors.size(); i++) {
-        if (stringCompare(html_colors.at(i), value))
+    for (int i = 0; i < html_color_names.size(); i++) {
+        if (stringCompare(html_color_names.at(i), value))
             return true;
     }
 
