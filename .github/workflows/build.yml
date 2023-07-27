@@ -183,6 +183,7 @@ jobs:
         run: |
           echo "libsbml directory is:"
           echo ${{runner.workspace}}
+          ls
           echo ${{runner.workspace}}/install-libsbml/lib/cmake
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
