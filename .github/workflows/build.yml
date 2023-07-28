@@ -79,6 +79,7 @@ jobs:
         run: |
           curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
           7z e graphviz.zip -o"graphviz"
+          echo "GRAPHVIZ_PATH="${GITHUB_WORKSPACE}/graphviz/" >> "${GITHUB_ENV}"
           echo $GITHUB_WORKSPACE"/graphviz/" >> $GITHUB_PATH
 
       - name: Install Ubuntu dependencies
@@ -102,7 +103,7 @@ jobs:
         shell: bash
         run: |
           sudo apt install -y graphviz-dev
-          echo "${{runner.workspace}}/graphviz" >> $GITHUB_PATH
+          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -114,13 +115,14 @@ jobs:
           echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
+          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
       - name: Install Graphviz for MacOS
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
           brew install graphviz
-          echo "/usr/local/Cellar/graphviz/8.1.0" >> $GITHUB_PATH
+          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -197,6 +199,7 @@ jobs:
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           ${LIBSBMLNETWORKEDITOR_INSTALL_PREFIX} \
+          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           ${PYTHON_LINKING_OPTION}
 
       - name: Build
