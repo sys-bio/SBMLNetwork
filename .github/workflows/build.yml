@@ -102,7 +102,7 @@ jobs:
         shell: bash
         run: |
           sudo apt install -y graphviz-dev
-          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
+          echo "${{runner.workspace}}/graphviz" >> $GITHUB_PATH
 
       - name: Install MacOS dependencies
         # MacOS already has libxml2 by default
@@ -120,7 +120,7 @@ jobs:
         shell: bash
         run: |
           brew install graphviz
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
+          echo "/usr/local/Cellar/graphviz/8.1.0" >> $GITHUB_PATH
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
