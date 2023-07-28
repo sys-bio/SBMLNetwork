@@ -124,6 +124,12 @@ jobs:
           brew install graphviz
           echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
+      - name: Set up Python 3.10 for MacOS
+        if: matrix.platform == 'macos-latest'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
         if: matrix.platform != 'windows-latest'
