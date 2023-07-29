@@ -205,6 +205,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           ${LIBSBMLNETWORKEDITOR_INSTALL_PREFIX} \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
+          -D_PROJECT_DEPENDENCY_DIR="D:/a/libSBMLNetworkEditor/build-libsbml/dependencies" \
           ${PYTHON_LINKING_OPTION}
 
       - name: Build
