@@ -53,6 +53,7 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+          echo $GITHUB_WORKSPACE"/dependencies" >> $GITHUB_PATH
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
@@ -205,7 +206,6 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           ${LIBSBMLNETWORKEDITOR_INSTALL_PREFIX} \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
-          -D_PROJECT_DEPENDENCY_DIR="D:/a/libSBMLNetworkEditor/build-libsbml/dependencies" \
           ${PYTHON_LINKING_OPTION}
 
       - name: Build
