@@ -46,8 +46,7 @@ jobs:
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
         if:
-          matrix.platform == 'windows-latest' &&
-          steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
+          matrix.platform == 'windows-latest'
         shell: bash
         run: |
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
