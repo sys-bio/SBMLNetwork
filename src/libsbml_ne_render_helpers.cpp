@@ -671,7 +671,10 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
 }
 
 const bool isValidOffsetValue(const RelAbsVector& offset) {
-    return true;
+    if (offset.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidStopColorValue(const std::string& stopColor) {
@@ -679,39 +682,66 @@ const bool isValidStopColorValue(const std::string& stopColor) {
 }
 
 const bool isValidGradientX1Value(const RelAbsVector& x1) {
-    return true;
+    if (x1.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientX2Value(const RelAbsVector& x2) {
-    return true;
+    if (x2.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientY1Value(const RelAbsVector& y1) {
-    return true;
+    if (y1.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientY2Value(const RelAbsVector& y2) {
-    return true;
+    if (y2.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientCxValue(const RelAbsVector& cx) {
-    return true;
+    if (cx.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientCyValue(const RelAbsVector& cy) {
-    return true;
+    if (cy.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientFxValue(const RelAbsVector& fx) {
-    return true;
+    if (fx.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientFyValue(const RelAbsVector& fy) {
-    return true;
+    if (fy.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGradientRValue(const RelAbsVector& r) {
-    return true;
+    if (r.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping) {
@@ -723,7 +753,10 @@ const bool isValidStrokeColorValue(const std::string& stroke) {
 }
 
 const bool isValidStrokeWidthValue(const double& strokeWidth) {
-    return true;
+    if (strokeWidth > 0.0001)
+        return true;
+
+    return false;
 }
 
 const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray) {
