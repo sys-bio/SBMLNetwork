@@ -53,6 +53,7 @@ jobs:
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/"
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
@@ -61,7 +62,7 @@ jobs:
           curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
           unzip -o swig.zip -d swig
           echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
-          echo $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/"
 
       - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
@@ -198,7 +199,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo $GITHUB_PATH
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
