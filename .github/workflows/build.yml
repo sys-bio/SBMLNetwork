@@ -53,7 +53,7 @@ jobs:
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
-          echo $GITHUB_WORKSPACE"\libSBML-dependencies-1.0.1-x64-Release-static\" >> $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"\\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
