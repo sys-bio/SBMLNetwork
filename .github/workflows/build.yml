@@ -200,7 +200,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          ls D:\\a\\libSBMLNetworkEditor\\libsbml
+          ls D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor\\libsbml
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
