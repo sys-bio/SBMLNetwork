@@ -271,7 +271,7 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgName
 }
 
 void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    for (int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
         LocalStyle* localStyle = createLocalStyle(localRenderInformation, reactionGlyph->getSpeciesReferenceGlyph(i));
         setSpeciesReferenceGlyphRenderGroupFeatures(localStyle->createGroup(), reactionGlyph->getSpeciesReferenceGlyph(i)->getRole(), renderPkgNamespaces);
     }
@@ -625,7 +625,7 @@ const bool isValidColorValue(const std::string& value) {
                    "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow","SpringGreen",
                    "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet",
                    "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"};
-    for (int i = 0; i < html_color_names.size(); i++) {
+    for (unsigned int i = 0; i < html_color_names.size(); i++) {
         if (stringCompare(html_color_names.at(i), value))
             return true;
     }
@@ -651,7 +651,7 @@ const bool isValidColorValue(const std::string& value) {
                         "#2E8B57", "#FFF5EE", "#A0522D", "#C0C0C0", "#87CEEB", "#6A5ACD", "#708090",
                         "#FFFAFA", "#00FF7F", "#4682B4", "#D2B48C", "#008080", "#D8BFD8", "#FF6347",
                         "#40E0D0", "#EE82EE", "#F5DEB3", "#FFFFFF", "#F5F5F5", "#FFFF00", "#9ACD32"};
-    for (int i = 0; i < hex_color_codes.size(); i++) {
+    for (unsigned int i = 0; i < hex_color_codes.size(); i++) {
         if (stringCompare(hex_color_codes.at(i), value))
             return true;
     }
@@ -760,11 +760,19 @@ const bool isValidStrokeWidthValue(const double& strokeWidth) {
 }
 
 const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray) {
+    for (unsigned int i = 0; i < strokeDashArray.size(); i++) {
+        if (strokeDashArray.at(i) < 0.000)
+            return false;
+    }
+
     return true;
 }
 
 const bool isValidStrokeDashValue(unsigned int dash) {
-    return true;
+    if (dash > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidFontColorValue(const std::string& fontColor) {
@@ -783,7 +791,10 @@ const bool isValidFontFamilyValue(const std::string& fontFamily) {
 }
 
 const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
-    return true;
+    if (fontSize.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidFontWeightValue(const std::string& fontWeight) {
@@ -858,23 +869,38 @@ const bool isValidGeometricShapeYValue(const RelAbsVector& y) {
 }
 
 const bool isValidGeometricShapeWidthValue(const RelAbsVector& width) {
-    return true;
+    if (width.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeHeightValue(const RelAbsVector& height) {
-    return true;
+    if (height.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeRatioValue(const double& ratio) {
-    return true;
+    if (ratio > 0.0001)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeCornerCurvatureRadiusX(const RelAbsVector& rx) {
-    return true;
+    if (rx.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeCornerCurvatureRadiusY(const RelAbsVector& ry) {
-    return true;
+    if (ry.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeCenterX(const RelAbsVector& cx) {
@@ -886,11 +912,17 @@ const bool isValidGeometricShapeCenterY(const RelAbsVector& cy) {
 }
 
 const bool isValidGeometricShapeRadiusX(const RelAbsVector& rx) {
-    return true;
+    if (rx.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeRadiusY(const RelAbsVector& ry) {
-    return true;
+    if (ry.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
 }
 
 const bool isValidGeometricShapeElementX(const RelAbsVector& x) {
@@ -918,7 +950,10 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y) {
 }
 
 const bool isValidGeometricShapeHref(const std::string& href) {
-    return true;
+    if (!href.empty())
+        return true;
+
+    return false;
 }
 
 }
