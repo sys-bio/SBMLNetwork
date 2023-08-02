@@ -170,7 +170,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
-          cmake ${{runner.workspace}}/libSBMLNetworkEditor/libsbml \
+          cmake ${{runner.workspace}}\\libSBMLNetworkEditor\\libsbml \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
