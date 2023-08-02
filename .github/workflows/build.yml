@@ -52,8 +52,8 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
-          echo $GITHUB_WORKSPACE"\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
+        # echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
+        # echo $GITHUB_WORKSPACE"\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
@@ -192,6 +192,17 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
+      - name: Download pre-built Windows dependencies for libsbmlnetworkeditor
+        # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
+        # also gets SWIG, completing the set of dependencies needed for windows
+        if:
+          matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
@@ -199,11 +210,11 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo "D:\a\libSBMLNetworkEditor\libSBMLNetworkEditor\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
+        # echo "D:\a\libSBMLNetworkEditor\libSBMLNetworkEditor\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
+        # echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
+        # ls D:\\a\\libSBMLNetworkEditor
+        # ls D:\\a\\libsbml
           ls D:\\a\\libSBMLNetworkEditor
-          ls D:\\a\\libsbml
-          ls D:\\a\\libSBMLNetworkEditor\\libsbml
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
