@@ -50,9 +50,11 @@ jobs:
           matrix.platform == 'windows-latest'
         shell: bash
         run: |
+          ls
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+          ls
         # echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
         # echo $GITHUB_WORKSPACE"\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
 
@@ -166,7 +168,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
-          ls
           cmake ${{runner.workspace}}/libsbml \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
