@@ -241,6 +241,8 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y);
 
 const bool isValidGeometricShapeHref(const std::string& href);
 
+const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
+
 }
 
 #endif

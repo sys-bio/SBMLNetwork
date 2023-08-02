@@ -671,10 +671,7 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
 }
 
 const bool isValidOffsetValue(const RelAbsVector& offset) {
-    if (offset.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(offset);
 }
 
 const bool isValidStopColorValue(const std::string& stopColor) {
@@ -682,66 +679,39 @@ const bool isValidStopColorValue(const std::string& stopColor) {
 }
 
 const bool isValidGradientX1Value(const RelAbsVector& x1) {
-    if (x1.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(x1);
 }
 
 const bool isValidGradientX2Value(const RelAbsVector& x2) {
-    if (x2.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(x2);
 }
 
 const bool isValidGradientY1Value(const RelAbsVector& y1) {
-    if (y1.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(y1);
 }
 
 const bool isValidGradientY2Value(const RelAbsVector& y2) {
-    if (y2.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(y2);
 }
 
 const bool isValidGradientCxValue(const RelAbsVector& cx) {
-    if (cx.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(cx);
 }
 
 const bool isValidGradientCyValue(const RelAbsVector& cy) {
-    if (cy.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(cy);
 }
 
 const bool isValidGradientFxValue(const RelAbsVector& fx) {
-    if (fx.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(fx);
 }
 
 const bool isValidGradientFyValue(const RelAbsVector& fy) {
-    if (fy.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(fy);
 }
 
 const bool isValidGradientRValue(const RelAbsVector& r) {
-    if (r.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(r);
 }
 
 const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping) {
@@ -791,10 +761,7 @@ const bool isValidFontFamilyValue(const std::string& fontFamily) {
 }
 
 const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
-    if (fontSize.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(fontSize);
 }
 
 const bool isValidFontWeightValue(const std::string& fontWeight) {
@@ -869,17 +836,11 @@ const bool isValidGeometricShapeYValue(const RelAbsVector& y) {
 }
 
 const bool isValidGeometricShapeWidthValue(const RelAbsVector& width) {
-    if (width.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(width);
 }
 
 const bool isValidGeometricShapeHeightValue(const RelAbsVector& height) {
-    if (height.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(height);
 }
 
 const bool isValidGeometricShapeRatioValue(const double& ratio) {
@@ -890,17 +851,11 @@ const bool isValidGeometricShapeRatioValue(const double& ratio) {
 }
 
 const bool isValidGeometricShapeCornerCurvatureRadiusX(const RelAbsVector& rx) {
-    if (rx.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(rx);
 }
 
 const bool isValidGeometricShapeCornerCurvatureRadiusY(const RelAbsVector& ry) {
-    if (ry.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(ry);
 }
 
 const bool isValidGeometricShapeCenterX(const RelAbsVector& cx) {
@@ -912,17 +867,11 @@ const bool isValidGeometricShapeCenterY(const RelAbsVector& cy) {
 }
 
 const bool isValidGeometricShapeRadiusX(const RelAbsVector& rx) {
-    if (rx.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(rx);
 }
 
 const bool isValidGeometricShapeRadiusY(const RelAbsVector& ry) {
-    if (ry.getAbsoluteValue() > 0.000)
-        return true;
-
-    return false;
+    return isValidRelAbsVectorPositiveValue(ry);
 }
 
 const bool isValidGeometricShapeElementX(const RelAbsVector& x) {
@@ -951,6 +900,13 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y) {
 
 const bool isValidGeometricShapeHref(const std::string& href) {
     if (!href.empty())
+        return true;
+
+    return false;
+}
+
+const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue) {
+    if (relAbsVectorValue.getAbsoluteValue() > 0.000)
         return true;
 
     return false;
