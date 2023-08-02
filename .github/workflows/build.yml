@@ -201,7 +201,8 @@ jobs:
         run: |
           echo "D:\a\libSBMLNetworkEditor\libSBMLNetworkEditor\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
-          ls D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor\\libSBML-dependencies-1.0.1-x64-Release-static
+          ls D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor
+          ls D:\\a\\libSBMLNetworkEditor\\libsbml
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
