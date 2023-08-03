@@ -105,14 +105,13 @@ jobs:
           echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.0.5" >> "${GITHUB_ENV}"
 
       - name: Install Graphviz for MacOS
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
           brew install graphviz
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
+          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.0.5" >> "${GITHUB_ENV}"
 
       - name: Set up Python 3.10 for MacOS
         if: matrix.platform == 'macos-latest'
@@ -201,7 +200,7 @@ jobs:
           pwd
           ls
           ls D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz/" > "${GRAPHVIZ_PATH}"
+          echo "GRAPHVIZ_PATH=D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz" >> "${GITHUB_ENV}"
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
