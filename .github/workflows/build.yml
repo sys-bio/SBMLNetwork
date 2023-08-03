@@ -200,7 +200,7 @@ jobs:
           7z e graphviz.zip -o"graphviz"
           pwd
           ls
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz/" >> $GRAPHVIZ_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz/" > $GRAPHVIZ_PATH
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
