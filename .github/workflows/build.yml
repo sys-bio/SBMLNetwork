@@ -162,6 +162,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
+          cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
