@@ -198,7 +198,7 @@ jobs:
         run: |
           curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
           7z e graphviz.zip -o"graphviz"
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz/" > $GRAPHVIZ_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz/" > "${GRAPHVIZ_PATH}"
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
