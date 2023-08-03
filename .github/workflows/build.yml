@@ -198,7 +198,7 @@ jobs:
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           ls
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> "${GITHUB_ENV}"
+          echo "D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor\\dependencies" >> "${GITHUB_ENV}"
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
