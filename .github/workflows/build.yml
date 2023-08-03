@@ -201,6 +201,7 @@ jobs:
           echo "${{runner.workspace}}\dependencies" >> "${GITHUB_ENV}"
           echo "${{runner.workspace}}/dependencies" >> "${GITHUB_ENV}"
           echo "D:\a\libSBMLNetworkEditor\libSBMLNetworkEditor\dependencies" >> "${GITHUB_ENV}"
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> "${GITHUB_ENV}"
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
