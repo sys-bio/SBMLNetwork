@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: sbmlteam/libsbml
-          path: ../libsbml
+          path: libsbml
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
@@ -43,7 +43,7 @@ jobs:
             ./dependencies
           key: ${{ runner.os }}-dependencies-static
 
-      - name: Download pre-built Windows dependencies and SWIG
+      - name: Download pre-built Windows dependencies
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
         if:
@@ -52,9 +52,7 @@ jobs:
         run: |
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
-          mv libSBML-dependencies-1.0.1-x64-Release-static libsbml\\dependencies
-        # echo $GITHUB_WORKSPACE"/libSBML-dependencies-1.0.1-x64-Release-static/" >> $GITHUB_PATH
-        # echo $GITHUB_WORKSPACE"\libSBML-dependencies-1.0.1-x64-Release-static\\" >> $GITHUB_PATH
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
@@ -63,7 +61,6 @@ jobs:
           curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
           unzip -o swig.zip -d swig
           echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
-          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/"
 
       - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
@@ -82,7 +79,6 @@ jobs:
         run: |
           curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
           7z e graphviz.zip -o"graphviz"
-        # echo $GITHUB_WORKSPACE"/graphviz/" >> $GITHUB_PATH
 
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
@@ -166,7 +162,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
-          cmake D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor\\libsbml \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
@@ -193,6 +188,18 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
+      - name: Download pre-built Windows dependencies
+        if:
+          matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          echo ${{runner.workspace}}
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+          ls
+          echo "D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor\\dependencies" >> "${GITHUB_ENV}"
+
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
@@ -200,8 +207,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          ls D:\\a\\libSBMLNetworkEditor
-          ls D:\\a\\libSBMLNetworkEditor\\libSBMLNetworkEditor
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
