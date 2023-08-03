@@ -72,19 +72,6 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
-      - name: Install Graphviz for Windows
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
-          7z e graphviz.zip -o"graphviz"
-
-      - name: Set up Python 3.10 for Windows
-        if: matrix.platform == 'windows-latest'
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
       - name: Install Ubuntu dependencies
         # ubuntu already has SWIG and libxml2 by default
         if: matrix.platform == 'ubuntu-latest'
@@ -205,6 +192,14 @@ jobs:
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           ls
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> $GITHUB_PATH
+
+      - name: Install Graphviz for Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/windows_10_msbuild_Release_graphviz-8.1.0-win32.zip > graphviz.zip
+          7z e graphviz.zip -o"graphviz"
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz/" >> $GITHUB_PATH
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
