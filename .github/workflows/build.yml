@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: sbmlteam/libsbml
-          path: libsbml
+          path: ../libsbml
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
