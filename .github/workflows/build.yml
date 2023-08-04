@@ -195,9 +195,9 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/8.1.0/msys2_3.4.6.x86_64_Graphviz-8.1.0-win64.zip > graphviz.zip
+          curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/3.0.0/msys2_3.3.3-341.x86_64_Graphviz-3.0.0-win64.zip > graphviz.zip
           unzip graphviz.zip
-          mv Graphviz-8.1.0-win64 graphviz
+          mv Graphviz-3.0.0-win64 graphviz
           echo "GRAPHVIZ_PATH=D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz" >> "${GITHUB_ENV}"
 
       - name: Create libsbmlNetworkEditor Build Environment
