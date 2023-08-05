@@ -35,6 +35,7 @@ void setCompartmentTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgName
 void setSpeciesTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
 
 CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
+
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
 
 ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
