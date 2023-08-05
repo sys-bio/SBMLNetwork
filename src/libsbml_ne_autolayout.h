@@ -11,45 +11,45 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
 void locateGlyphs(Model* model, Layout* layout);
 
-Agraph_s* createGraph();
+Agraph_t* createGraph();
 
-void addGlyphsToGraph(Model* model, Layout* layout, Agraph_s* graph);
+void addGlyphsToGraph(Model* model, Layout* layout, Agraph_t* graph);
 
-void addCompartmentGlyphsToGraph(Model* model, Layout* layout, Agraph_s* graph);
+void addCompartmentGlyphsToGraph(Model* model, Layout* layout, Agraph_t* graph);
 
-void addSpeciesGlyphsToSubGraph(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph, Agraph_s* subgraph);
+void addSpeciesGlyphsToSubGraph(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph, Agraph_t* subgraph);
 
-void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_s* subgraph);
+void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_t* subgraph);
 
-void addReactionGlyphsToGraph(Layout* layout, Agraph_s* graph);
+void addReactionGlyphsToGraph(Layout* layout, Agraph_t* graph);
 
-void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph);
+void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph);
 
-void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph, Agnode_s* reactionNode);
+void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode);
 
-void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_s* graph, Agnode_s* reactionNode);
+void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode);
 
-void applyAutoLayoutOnGraph(Layout* layout, GVC_s* gvc, Agraph_s* graph);
+void applyAutoLayoutOnGraph(Layout* layout, GVC_t* gvc, Agraph_t* graph);
 
-void extractGlyphsFeaturesFromGraph(Model* model, Layout* layout, Agraph_s* graph);
+void extractGlyphsFeaturesFromGraph(Model* model, Layout* layout, Agraph_t* graph);
 
-void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_s* graph, double &minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment);
+void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_t* graph, double &minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment);
 
-void extractReactionGlyphsFromGraph(Layout* layout, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractReactionGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph, Agnode_s* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_s* graph, Agnode_s* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
+void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout);
 
-void updateBoundingBox(BoundingBox* box, Agnode_s* node);
+void updateBoundingBox(BoundingBox* box, Agnode_t* node);
 
 void updateBoundingBox(BoundingBox* box, const double minX, const double minY, const double maxX, const double maxY);
 
-void updateLineSegment(LineSegment* lineSegment, Agedge_s* edge);
+void updateLineSegment(LineSegment* lineSegment, Agedge_t* edge);
 
 void updateExtetns(double& minX, double& minY, double& maxX, double& maxY, BoundingBox* box);
 
@@ -59,7 +59,7 @@ void updateExtetns(double& minX, double& minY, double& maxX, double& maxY, const
 
 void updateDimensions(Layout* layout, const double minXLayout, const double minYLayout, const double maxXLayout, const double maxYLayout);
 
-void deleteGraph(GVC_s* gvc, Agraph_s* graph);
+void deleteGraph(GVC_t* gvc, Agraph_t* graph);
 
 }
 

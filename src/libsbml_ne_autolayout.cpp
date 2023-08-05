@@ -4,27 +4,27 @@
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
 void locateGlyphs(Model* model, Layout* layout) {
-    GVC_s* gvc = gvContext();
-    Agraph_s* graph = createGraph();
+    GVC_t* gvc = gvContext();
+    Agraph_t* graph = createGraph();
     addGlyphsToGraph(model, layout, graph);
     applyAutoLayoutOnGraph(layout, gvc, graph);
     extractGlyphsFeaturesFromGraph(model, layout, graph);
     deleteGraph(gvc, graph);
 }
 
-Agraph_s* createGraph() {
+Agraph_t* createGraph() {
     std::string value = "Graph";
     return agopen(&value[0], Agdirected, NULL);
 }
 
-void addGlyphsToGraph(Model* model, Layout* layout, Agraph_s* graph) {
+void addGlyphsToGraph(Model* model, Layout* layout, Agraph_t* graph) {
     addCompartmentGlyphsToGraph(model, layout, graph);
     addReactionGlyphsToGraph(layout, graph);
 }
 
-void addCompartmentGlyphsToGraph(Model* model, Layout* layout, Agraph_s* graph) {
+void addCompartmentGlyphsToGraph(Model* model, Layout* layout, Agraph_t* graph) {
     CompartmentGlyph* compartmentGlyph = NULL;
-    Agraph_s* subgraph = NULL;
+    Agraph_t* subgraph = NULL;
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         compartmentGlyph = layout->getCompartmentGlyph(i);
         std::string value = "clusterGraph" + std::to_string(i);
@@ -33,7 +33,7 @@ void addCompartmentGlyphsToGraph(Model* model, Layout* layout, Agraph_s* graph) 
     }
 }
 
-void addSpeciesGlyphsToSubGraph(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph, Agraph_s* subgraph) {
+void addSpeciesGlyphsToSubGraph(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph, Agraph_t* subgraph) {
     SpeciesGlyph* speciesGlyph = NULL;
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         speciesGlyph = layout->getSpeciesGlyph(i);
@@ -43,12 +43,12 @@ void addSpeciesGlyphsToSubGraph(Model* model, Layout* layout, CompartmentGlyph* 
     }
 }
 
-void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_s* subgraph) {
+void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_t* subgraph) {
     double maxSpeciesBoxWidth =  120.0;
     double minSpeciesBoxHeight = 36.0;
     int stringLength = speciesGlyph->getSpeciesId().length();
     std::string value = speciesGlyph->getSpeciesId();
-    Agnode_s* node = agnode(subgraph, &value[0], true);
+    Agnode_t* node = agnode(subgraph, &value[0], true);
     std::string attribute = "width";
     value = std::to_string((std::max(std::min(14.5 * (stringLength + 2), maxSpeciesBoxWidth), minSpeciesBoxHeight)) / 72.0);
     agsafeset(node, &attribute[0], &value[0], &value[0]);
@@ -63,7 +63,7 @@ void addSpeciesGlyphToSubGraph(SpeciesGlyph* speciesGlyph, Agraph_s* subgraph) {
     agsafeset(node, &attribute[0], &value[0], &value[0]);
 }
 
-void addReactionGlyphsToGraph(Layout* layout, Agraph_s* graph) {
+void addReactionGlyphsToGraph(Layout* layout, Agraph_t* graph) {
     ReactionGlyph* reactionGlyph = NULL;
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         reactionGlyph = layout->getReactionGlyph(i);
@@ -71,10 +71,10 @@ void addReactionGlyphsToGraph(Layout* layout, Agraph_s* graph) {
     }
 }
 
-void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph) {
+void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph) {
     double minReactionBoxHeight = 36.0;
     std::string value = reactionGlyph->getReactionId();
-    Agnode_s* node = agnode(graph, &value[0], true);
+    Agnode_t* node = agnode(graph, &value[0], true);
     std::string attribute = "width";
     value = std::to_string(0.8 * minReactionBoxHeight / 72.0);
     agsafeset(node, &attribute[0], &value[0], &value[0]);
@@ -90,7 +90,7 @@ void addReactinGlyphToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph
     addSpeciesReferenceGlyphsToGraph(layout, reactionGlyph, graph, node);
 }
 
-void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph, Agnode_s* reactionNode) {
+void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = NULL;
     for (int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
         speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(i);
@@ -98,11 +98,11 @@ void addSpeciesReferenceGlyphsToGraph(Layout* layout, ReactionGlyph* reactionGly
     }
 }
 
-void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_s* graph, Agnode_s* reactionNode) {
+void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode) {
     SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
     if (speciesGlyph) {
         std::string value = speciesGlyph->getSpeciesId();
-        Agnode_s* speciesNode = agnode(graph, &value[0], true);
+        Agnode_t* speciesNode = agnode(graph, &value[0], true);
         value = speciesReferenceGlyph->getId();
         if (speciesReferenceGlyph->getRole() == SPECIES_ROLE_PRODUCT)
             agedge(graph, reactionNode, speciesNode, &value[0], true);
@@ -111,14 +111,14 @@ void addSpeciesReferenceGlyphToGraph(Layout* layout, SpeciesReferenceGlyph* spec
     }
 }
 
-void applyAutoLayoutOnGraph(Layout* layout, GVC_s* gvc, Agraph_s* graph) {
+void applyAutoLayoutOnGraph(Layout* layout, GVC_t* gvc, Agraph_t* graph) {
     if (layout->getNumCompartmentGlyphs() == 1 && layout->getNumSpeciesGlyphs() < 20)
         gvLayout (gvc, graph, "circo");
     else
         gvLayout (gvc, graph, "twopi");
 }
 
-void extractGlyphsFeaturesFromGraph(Model* model, Layout* layout, Agraph_s* graph) {
+void extractGlyphsFeaturesFromGraph(Model* model, Layout* layout, Agraph_t* graph) {
     double minXLayout = INT_MAX;
     double minYLayout = INT_MAX;
     double maxXLayout = INT_MIN;
@@ -128,7 +128,7 @@ void extractGlyphsFeaturesFromGraph(Model* model, Layout* layout, Agraph_s* grap
     updateDimensions(layout, minXLayout, minYLayout, maxXLayout, maxYLayout);
 }
 
-void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
     double minXCompartment;
     double minYCompartment;
     double maxXCompartment;
@@ -148,15 +148,15 @@ void extractCompartmentGlyphsFromGraph(Model* model, Layout* layout, Agraph_s* g
             if (compartment && compartmentGlyphBelongs(compartmentGlyph, compartment))
                 extractSpeciesGlyphFromGraph(speciesGlyph, graph, minXLayout, minYLayout, maxXLayout, maxYLayout, minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
         }
-        
+
         if (containsSpecies(model, layout, compartmentGlyph))
             updateBoundingBox(compartmentGlyph->getBoundingBox(), minXCompartment, minYCompartment, maxXCompartment, maxYCompartment);
     }
 }
 
-void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment) {
+void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout, double& minXCompartment, double& minYCompartment, double& maxXCompartment, double& maxYCompartment) {
     std::string value = speciesGlyph->getSpeciesId();
-    Agnode_s* node = agnode(graph, &value[0], false);
+    Agnode_t* node = agnode(graph, &value[0], false);
     if (node) {
         updateBoundingBox(speciesGlyph->getBoundingBox(), node);
         updateExtetns(minXLayout, minYLayout, maxXLayout, maxYLayout, speciesGlyph->getBoundingBox());
@@ -164,7 +164,7 @@ void extractSpeciesGlyphFromGraph(SpeciesGlyph* speciesGlyph, Agraph_s* graph, d
     }
 }
 
-void extractReactionGlyphsFromGraph(Layout* layout, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+void extractReactionGlyphsFromGraph(Layout* layout, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
     ReactionGlyph* reactionGlyph = NULL;
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         reactionGlyph = layout->getReactionGlyph(i);
@@ -172,9 +172,9 @@ void extractReactionGlyphsFromGraph(Layout* layout, Agraph_s* graph, double& min
     }
 }
 
-void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
     std::string value = reactionGlyph->getReactionId();
-    Agnode_s* node = agnode(graph, &value[0], false);
+    Agnode_t* node = agnode(graph, &value[0], false);
     if (node) {
         updateBoundingBox(reactionGlyph->getBoundingBox(), node);
         updateExtetns(minXLayout, minYLayout, maxXLayout, maxYLayout, reactionGlyph->getBoundingBox());
@@ -182,7 +182,7 @@ void extractReactionGlyphFromGraph(Layout* layout, ReactionGlyph* reactionGlyph,
     }
 }
 
-void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_s* graph, Agnode_s* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* reactionGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = NULL;
     for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
         speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(i);
@@ -190,18 +190,18 @@ void extractSpeciesReferenceGlyphsFromGraph(Layout* layout, ReactionGlyph* react
     }
 }
 
-void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_s* graph, Agnode_s* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
+void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, Agraph_t* graph, Agnode_t* reactionNode, double& minXLayout, double& minYLayout, double& maxXLayout, double& maxYLayout) {
     SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
     if (speciesGlyph) {
         std::string value = speciesGlyph->getSpeciesId();
-        Agnode_s* speciesNode = agnode(graph, &value[0], false);
+        Agnode_t* speciesNode = agnode(graph, &value[0], false);
         value = speciesReferenceGlyph->getId();
-        Agedge_s* e = NULL;
+        Agedge_t* e = NULL;
         if (speciesReferenceGlyph->getRole() == SPECIES_ROLE_PRODUCT)
             e = agedge(graph, reactionNode, speciesNode, &value[0], true);
         else
             e = agedge(graph, speciesNode, reactionNode, &value[0], true);
-        
+
         if (e) {
             updateLineSegment(speciesReferenceGlyph->getCurve()->getCurveSegment(0), e);
             updateExtetns(minXLayout, minYLayout, maxXLayout, maxYLayout, speciesReferenceGlyph->getCurve()->getCurveSegment(0));
@@ -209,7 +209,7 @@ void extractSpeciesReferenceGlyphFromGraph(Layout* layout, SpeciesReferenceGlyph
     }
 }
 
-void updateBoundingBox(BoundingBox* box, Agnode_s* node) {
+void updateBoundingBox(BoundingBox* box, Agnode_t* node) {
     box->setX(ND_coord(node).x - 0.5 * ND_width(node) * 72.0);
     box->setY(ND_coord(node).y  - 0.5 * ND_height(node) * 72.0);
     box->setWidth(ND_width(node) * 72.0);
@@ -223,7 +223,7 @@ void updateBoundingBox(BoundingBox* box, const double minX, const double minY, c
     box->setHeight(1.2 * (maxY - minY));
 }
 
-void updateLineSegment(LineSegment* lineSegment, Agedge_s* edge) {
+void updateLineSegment(LineSegment* lineSegment, Agedge_t* edge) {
     for (unsigned int i = 3; i < ED_spl(edge)->list->size; i = i + 3) {
         lineSegment->getStart()->setX(ED_spl(edge)->list[0].list[i - 3].x);
         lineSegment->getStart()->setY(ED_spl(edge)->list[0].list[i - 3].y);
@@ -274,7 +274,7 @@ void updateDimensions(Layout* layout, const double minX, const double minY, cons
     layout->getDimensions()->setHeight(maxY - minY);
 }
 
-void deleteGraph(GVC_s* gvc, Agraph_s* graph) {
+void deleteGraph(GVC_t* gvc, Agraph_t* graph) {
     gvFreeLayout(gvc, graph);
     agclose(graph);
 }
