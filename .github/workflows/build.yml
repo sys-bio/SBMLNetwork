@@ -1,6 +1,9 @@
 name: CMake (rapid build on push)
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'develop'
 
 env:
   BUILD_TYPE: Release
