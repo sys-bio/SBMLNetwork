@@ -48,18 +48,21 @@ jobs:
           key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built dependencies for libsbml on Windows
-        # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
+        # Windows dependencies have to be in a sub-folder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip | unzip > dependencies
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download | unzip > swig
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
+          unzip -o swig.zip -d swig
           echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
 
       - name: setup Windows environment
@@ -88,13 +91,6 @@ jobs:
           cmake --build libexpat
           cmake --install libexpat
 
-      - name: Install Graphviz on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
-        shell: bash
-        run: |
-          sudo apt install -y graphviz-dev
-          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
-
       - name: Install dependencies on macOS
         if: matrix.platform == 'macos-latest'
         shell: bash
@@ -104,19 +100,6 @@ jobs:
           echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
-
-      - name: Install Graphviz on macOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install graphviz
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
-
-      - name: Set up Python 3.10 for MacOS
-        if: matrix.platform == 'macos-latest'
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
 
       ### setup ccache, not on Windows ###
       - name: Prepare ccache timestamp
@@ -163,8 +146,7 @@ jobs:
           -DENABLE_LAYOUT=${{matrix.layout_package_option}} \
           -DENABLE_RENDER=${{matrix.render_package_option}} \
           ${LIBSBML_INSTALL_PREFIX} \
-          ${RUNTIME_LINKING_OPTION} \
-          ${PYTHON_LINKING_OPTION}
+          ${RUNTIME_LINKING_OPTION}
 
       - name: Build libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
@@ -190,7 +172,7 @@ jobs:
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> $GITHUB_PATH
 
-      - name: Install Graphviz for Windows
+      - name: Install Graphviz on Windows
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
@@ -198,6 +180,26 @@ jobs:
           unzip graphviz.zip
           mv Graphviz-2.50.0-win64 graphviz
           echo "GRAPHVIZ_PATH=D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz" >> "${GITHUB_ENV}"
+
+      - name: Install Graphviz on Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          sudo apt install -y graphviz-dev
+          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
+
+      - name: Install Graphviz on macOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install graphviz
+          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
+
+      - name: Set up Python 3.10 for MacOS
+        if: matrix.platform == 'macos-latest'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
       - name: Create libsbmlNetworkEditor Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
