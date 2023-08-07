@@ -23,6 +23,7 @@ jobs:
         cpp_standard: [20]
     runs-on: ${{ matrix.platform }}
 
+    ### libsbml ###
     steps:
       - uses: actions/checkout@v3
         with:
@@ -43,7 +44,8 @@ jobs:
             ./dependencies
           key: ${{ runner.os }}-dependencies-static
 
-      - name: Download pre-built dependencies for libsbml on Windows
+      - name: Download pre-built dependencies for libsbml on Windows &&
+          steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
@@ -57,16 +59,7 @@ jobs:
         run: |
           curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
           unzip -o swig.zip -d swig
-          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
-
-      - name: setup environment on Windows
-        # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          echo LIBSBML_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=D:/a/libSBMLNetworkEditor/install-libsbml" >> "${GITHUB_ENV}"
-          echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=D:/a/libSBMLNetworkEditor/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
-          echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> "${$GITHUB_PATH}"
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
@@ -79,30 +72,13 @@ jobs:
           cmake --build libexpat
           cmake --install libexpat
 
-      - name: Setup environment on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
-        shell: bash
-        run: |
-          echo LIBSBML_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbml" >> "${GITHUB_ENV}"
-          echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
-
       - name: Install dependencies on macOS
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
           brew install check swig ccache
 
-      - name: Setup environment on macOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          echo LIBSBML_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbml" >> "${GITHUB_ENV}"
-          echo LIBSBMLNETWORKEDITOR_INSTALL_PREFIX="-DCMAKE_INSTALL_PREFIX=${{runner.workspace}}/install-libsbmlnetworkeditor" >> "${GITHUB_ENV}"
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
-
-      ### setup ccache, not on Windows ###
-      - name: Prepare ccache timestamp
+      - name: Prepare ccache timestamp on non-Windows
         if: matrix.platform != 'windows-latest'
         id: ccache_cache_timestamp
         shell: cmake -P {0}
@@ -127,7 +103,6 @@ jobs:
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
 
-      ### build libsbml ###
       - name: Create libsbml Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
 
@@ -145,7 +120,7 @@ jobs:
           -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT="ON" \
           -DENABLE_RENDER="ON" \
-          ${LIBSBML_INSTALL_PREFIX} \
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
 
       - name: Build libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
@@ -153,14 +128,14 @@ jobs:
         run: |
           cmake --build . --target install --config $BUILD_TYPE
 
-      ### build the project ###
+      ### libsbmlnetworkeditor ###
       - uses: actions/checkout@v3
         with:
           repository: adelhpour/libSBMLNetworkEditor
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Download pre-built Windows dependencies
+      - name: Download pre-built dependencies on Windows
         if:
           matrix.platform == 'windows-latest'
         shell: bash
@@ -169,7 +144,7 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${$GITHUB_PATH}"
 
       - name: Install Graphviz on Windows
         if: matrix.platform == 'windows-latest'
@@ -194,7 +169,7 @@ jobs:
           brew install graphviz
           echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
-      - name: Set up Python 3.10 for MacOS
+      - name: Setup Python 3.10 for MacOS
         if: matrix.platform == 'macos-latest'
         uses: actions/setup-python@v4
         with:
@@ -213,9 +188,10 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          ${LIBSBMLNETWORKEDITOR_INSTALL_PREFIX} \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
-          -DWITH_PYTHON="ON"
+          -DWITH_PYTHON="ON" \
+          -sbml_DIR="${{runner.workspace}}/install-libsbml/lib/cmake" \
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
       - name: Build
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
