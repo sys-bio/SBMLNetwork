@@ -59,7 +59,7 @@ jobs:
         run: |
           curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
           unzip -o swig.zip -d swig
-          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> "${$GITHUB_PATH}"
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> "${GITHUB_PATH}"
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
@@ -144,7 +144,7 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${$GITHUB_PATH}"
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${GITHUB_PATH}"
 
       - name: Install Graphviz on Windows
         if: matrix.platform == 'windows-latest'
