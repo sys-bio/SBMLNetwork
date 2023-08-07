@@ -55,7 +55,6 @@ jobs:
         shell: bash
         run: |
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip | unzip > dependencies
-          unzip dependencies.zip
 
       - name: Download SWIG on Windows
         if: matrix.platform == 'windows-latest'
