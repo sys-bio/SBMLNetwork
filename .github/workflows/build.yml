@@ -190,7 +190,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON="ON" \
-          -sbml_DIR="${{runner.workspace}}/install-libsbml/lib/cmake" \
+          -Dsbml_DIR="${{runner.workspace}}/install-libsbml/lib/cmake" \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
       - name: Build
