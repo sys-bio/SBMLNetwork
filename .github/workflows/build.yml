@@ -32,12 +32,11 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Add msbuild to PATH (Windows)
+      - name: Add msbuild to PATH on Windows
         if: matrix.platform == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1.6.0
 
-      ### configure the operating system ###
-      - name: Cache Windows dependencies and SWIG
+      - name: Cache dependencies and SWIG on Windows
         # On Windows, the dependencies live inside the source folder, ie `.`.
         # For the CI, we put SWIG there too, for simplicity.
         if: matrix.platform == 'windows-latest'
@@ -48,7 +47,7 @@ jobs:
             ./dependencies
           key: ${{ runner.os }}-dependencies-static
 
-      - name: Download pre-built Windows dependencies for libssbml
+      - name: Download pre-built dependencies for libsbml on Windows
         # Windows dependencies have to be in a subfolder called `dependencies`, directly under the git repository root.
         # also gets SWIG, completing the set of dependencies needed for windows
         if: matrix.platform == 'windows-latest'
@@ -60,8 +59,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
-          unzip -o swig.zip -d swig
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download | unzip > swig
           echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
 
       - name: setup Windows environment
@@ -75,8 +73,7 @@ jobs:
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
-      - name: Install Ubuntu dependencies
-        # ubuntu already has SWIG and libxml2 by default
+      - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
@@ -91,15 +88,14 @@ jobs:
           cmake --build libexpat
           cmake --install libexpat
 
-      - name: Install Graphviz for Ubuntu
+      - name: Install Graphviz on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
         run: |
           sudo apt install -y graphviz-dev
           echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
 
-      - name: Install MacOS dependencies
-        # MacOS already has libxml2 by default
+      - name: Install dependencies on macOS
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
@@ -109,7 +105,7 @@ jobs:
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
           echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON -DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
-      - name: Install Graphviz for MacOS
+      - name: Install Graphviz on macOS
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
