@@ -29,3 +29,99 @@ jobs:
         with:
           repository: sbmlteam/libsbml
 
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Add msbuild to PATH on Windows
+        if: matrix.platform == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1.6.0
+
+      - name: Cache dependencies and SWIG on Windows
+        if: matrix.platform == 'windows-latest'
+        id: cache-win-dependencies-static
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./dependencies
+          key: ${{ runner.os }}-dependencies-static
+
+      - name: Download pre-built dependencies for libsbml on Windows
+        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+          unzip dependencies.zip
+          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+
+      - name: Download SWIG on Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
+          unzip -o swig.zip -d swig
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> "${GITHUB_PATH}"
+
+      - name: Install dependencies on Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y check ccache
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
+      - name: Install dependencies on macOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install check swig ccache
+
+      - name: Prepare ccache timestamp on non-Windows
+        if: matrix.platform != 'windows-latest'
+        id: ccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: Set ccache cache directory on non-Windows
+        if: matrix.platform != 'windows-latest'
+        shell: bash
+        run: |
+          echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
+          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+
+      - name: Cache ccache files on non-Windows
+        if: matrix.platform != 'windows-latest'
+        uses: actions/cache@v2
+        with:
+          path: ${{runner.workspace}}/.ccache
+          key:
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
+            }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+            ${{ runner.os }}-
+
+      - name: Create libsbml build directory
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
+
+      - name: Configure CMake for libsbml
+        shell: bash
+        working-directory: ${{runner.workspace}}/build-libsbml
+        run: |
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_LIBXML=ON \
+          -DENABLE_LAYOUT="ON" \
+          -DENABLE_RENDER="ON" \
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
+
+      
