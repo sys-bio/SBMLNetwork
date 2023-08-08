@@ -172,13 +172,4 @@ jobs:
           brew install graphviz
           echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
-      - name: Setup Python 3.10 for macOS
-        if: matrix.platform == 'macos-latest'
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Create libsbmlNetworkEditor build directory
-        run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
-
-
+      
