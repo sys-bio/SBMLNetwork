@@ -135,6 +135,3 @@ jobs:
         with:
           repository: adelhpour/libSBMLNetworkEditor
 
-      - name: Setup Ninja
-      - uses: seanmiddleditch/gha-setup-ninja@master
-
