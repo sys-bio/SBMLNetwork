@@ -23,13 +23,14 @@ jobs:
         cpp_standard: [20]
     runs-on: ${{ matrix.platform }}
 
-    ### libsbml ###
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout libsbml
+        uses: actions/checkout@v3
         with:
           repository: sbmlteam/libsbml
 
-      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Add msbuild to PATH on Windows
         if: matrix.platform == 'windows-latest'
@@ -44,9 +45,8 @@ jobs:
             ./dependencies
           key: ${{ runner.os }}-dependencies-static
 
-      - name: Download pre-built dependencies for libsbml on Windows &&
-          steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
-        if: matrix.platform == 'windows-latest'
+      - name: Download pre-built dependencies for libsbml on Windows
+        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
         shell: bash
         run: |
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
@@ -85,13 +85,15 @@ jobs:
         run: |
           string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
           message("::set-output name=timestamp::${current_date}")
-      - name: Set ccache cache directory
+
+      - name: Set ccache cache directory on non-Windows
         if: matrix.platform != 'windows-latest'
         shell: bash
         run: |
           echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
-      - name: cache ccache files
+
+      - name: Cache ccache files on non-Windows
         if: matrix.platform != 'windows-latest'
         uses: actions/cache@v2
         with:
@@ -103,7 +105,7 @@ jobs:
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
 
-      - name: Create libsbml Build Environment
+      - name: Create libsbml build environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
 
       - name: Configure CMake for libsbml
@@ -122,17 +124,18 @@ jobs:
           -DENABLE_RENDER="ON" \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
 
-      - name: Build libsbml
+      - name: Build and Install libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
         shell: bash
         run: |
           cmake --build . --target install --config $BUILD_TYPE
 
-      ### libsbmlnetworkeditor ###
-      - uses: actions/checkout@v3
+      - name: Checkout libsbmlnetworkeditor
+        uses: actions/checkout@v3
         with:
           repository: adelhpour/libSBMLNetworkEditor
 
+      - name: Setup Ninja
       - uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Download pre-built dependencies on Windows
@@ -169,19 +172,24 @@ jobs:
           brew install graphviz
           echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
 
-      - name: Setup Python 3.10 for MacOS
+      - name: Setup Python 3.10 for macOS
         if: matrix.platform == 'macos-latest'
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Create libsbmlNetworkEditor Build Environment
+      - name: Create libsbmlNetworkEditor build environment
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
       - name: Configure CMake for libsbmlNetworkEditor
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
+          echo "${{runner.workspace}}"
+          ls "${{runner.workspace}}"
+          ls "${{runner.workspace}}/install-libsbml"
+          ls "${{runner.workspace}}/install-libsbml/lib"
+          ls "${{runner.workspace}}/install-libsbml/lib/cmake"
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
@@ -193,7 +201,7 @@ jobs:
           -Dsbml_DIR="${{runner.workspace}}/install-libsbml/lib/cmake" \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
-      - name: Build
+      - name: Build and Install libsbmlnetworkeditor
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
