@@ -61,6 +61,12 @@ jobs:
           unzip -o swig.zip -d swig
           echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> "${GITHUB_PATH}"
 
+      - name: Add libsbml install directory to path on Windows
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
+
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
@@ -72,11 +78,23 @@ jobs:
           cmake --build libexpat
           cmake --install libexpat
 
+      - name: Add libsbml install directory to path on Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
+
       - name: Install dependencies on macOS
         if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
           brew install check swig ccache
+
+      - name: Add libsbml install directory to path on macOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
       - name: Prepare ccache timestamp on non-Windows
         if: matrix.platform != 'windows-latest'
@@ -185,7 +203,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
