@@ -153,6 +153,9 @@ jobs:
         with:
           repository: adelhpour/libSBMLNetworkEditor
 
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
       - name: Download pre-built dependencies on Windows
         if:
           matrix.platform == 'windows-latest'
