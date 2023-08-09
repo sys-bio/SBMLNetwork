@@ -185,11 +185,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          echo "${{runner.workspace}}"
-          ls "${{runner.workspace}}"
-          ls "${{runner.workspace}}/install-libsbml"
-          ls "${{runner.workspace}}/install-libsbml/lib"
-          ls "${{runner.workspace}}/install-libsbml/lib/cmake"
+          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
