@@ -19,9 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-latest]
+        platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
         cpp_standard: [20]
-        python_version: [3.8, 3.9, 3.10, 3.11]
+        python_version: ["3.8", "3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -203,6 +203,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
+          python --version
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
