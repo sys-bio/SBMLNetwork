@@ -15,12 +15,13 @@ env:
 jobs:
   build:
     name:
-      Build on ${{ matrix.platform }}
+      Build on ${{ matrix.platform }} with Python${{ matrix.python_version }}
     strategy:
       fail-fast: false
       matrix:
         platform: [windows-latest, macos-latest, ubuntu-latest]
         cpp_standard: [20]
+        python_version: [3.8, 3.9, 3.10, 3.11]
     runs-on: ${{ matrix.platform }}
 
     steps:
