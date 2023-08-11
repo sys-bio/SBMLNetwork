@@ -1,7 +1,11 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 ## find python packages
-find_package(Python 3.8 COMPONENTS Interpreter Development)
+if (${Python_REQUIRED_VERSION})
+    find_package(Python ${Python_REQUIRED_VERSION} EXACT COMPONENTS Interpreter Development)
+else ()
+    find_package(Python COMPONENTS Interpreter Development)
+endif ()
 
 ## determine local dependencies, so as to re-swig if one of them changed
 file(GLOB SWIG_DEPENDENCIES
