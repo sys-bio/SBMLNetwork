@@ -220,25 +220,26 @@ jobs:
         run: cmake --build . --target install --config $BUILD_TYPE
 
   upload:
-    - name: Build on ${{ matrix.platform }} with Python${{ matrix.python_version }}
+    name:
+      Upload on
 
-      steps:
-        - name: Upload Windows binary archive
-          if: matrix.platform == 'windows-latest'
-          uses: actions/upload-artifact@v3
-          with:
-            name:
-              Windows
-            path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
-            retention-days: 1
-            if-no-files-found: error
+    steps:
+      - name: Upload Windows binary archive
+        if: matrix.platform == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name:
+            Windows
+          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
+          retention-days: 1
+          if-no-files-found: error
 
-        - name: Upload macOS binary archive
-          if: matrix.platform == 'macos-latest'
-          uses: actions/upload-artifact@v3
-          with:
-            name:
-              macOS
-            path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
-            retention-days: 1
-            if-no-files-found: error
+      - name: Upload macOS binary archive
+        if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name:
+            macOS
+          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
+          retention-days: 1
+          if-no-files-found: error
