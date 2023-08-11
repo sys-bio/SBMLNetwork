@@ -98,7 +98,6 @@ jobs:
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
       - name: Prepare ccache timestamp on non-Windows
-        if: matrix.platform != 'windows-latest'
         id: ccache_cache_timestamp
         shell: cmake -P {0}
         run: |
@@ -106,15 +105,13 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: Set ccache cache directory on non-Windows
-        if: matrix.platform != 'windows-latest'
         shell: bash
         run: |
           echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
 
       - name: Cache ccache files on non-Windows
-        if: matrix.platform != 'windows-latest'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{runner.workspace}}/.ccache
           key:
@@ -220,7 +217,7 @@ jobs:
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
-      - name: Upload binary archive
+      - name: Upload binary archivesf
         uses: actions/upload-artifact@v3
         with:
           name: binaries for ${{ matrix.platform }} with Python${{ matrix.python_version }}
