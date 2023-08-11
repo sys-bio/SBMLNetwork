@@ -219,14 +219,22 @@ jobs:
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
-
-  upload:
-    name:
-      Upload on
-
-    steps:
-      - name: Checkout libsbml
-        uses: actions/checkout@v3
+      - name: Upload Windows binary archive
+        if: matrix.platform == 'windows-latest'
+        uses: actions/upload-artifact@v3
         with:
-          repository: sbmlteam/libsbml
+          name:
+            Windows
+          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
+          retention-days: 1
+          if-no-files-found: error
 
+      - name: Upload macOS binary archive
+        if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name:
+            macOS
+          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
+          retention-days: 1
+          if-no-files-found: error
