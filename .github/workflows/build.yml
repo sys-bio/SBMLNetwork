@@ -223,3 +223,10 @@ jobs:
   upload:
     name:
       Upload on
+
+    steps:
+      - name: Checkout libsbml
+        uses: actions/checkout@v3
+        with:
+          repository: sbmlteam/libsbml
+
