@@ -219,22 +219,9 @@ jobs:
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
-      - name: Upload Windows binary archive
-        if: matrix.platform == 'windows-latest'
+      - name: Upload binary archive
         uses: actions/upload-artifact@v3
         with:
-          name:
-            Windows
-          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Upload macOS binary archive
-        if: matrix.platform == 'macos-latest'
-        uses: actions/upload-artifact@v3
-        with:
-          name:
-            macOS
           path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
           retention-days: 1
           if-no-files-found: error
