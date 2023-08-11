@@ -211,6 +211,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON="ON" \
+          -DPYTHON_INSTALL_WITH_SETUP="ON" \
           -DPython_REQUIRED_VERSION=${{matrix.python_version}} \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
@@ -222,6 +223,7 @@ jobs:
       - name: Upload binary archive
         uses: actions/upload-artifact@v3
         with:
+          name: binaries for ${{ matrix.platform }} with Python${{ matrix.python_version }}
           path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
           retention-days: 1
           if-no-files-found: error
