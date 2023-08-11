@@ -220,8 +220,7 @@ jobs:
         run: cmake --build . --target install --config $BUILD_TYPE
 
   upload:
-    - name:
-        Build on ${{ matrix.platform }} with Python${{ matrix.python_version }}
+    - name: Build on ${{ matrix.platform }} with Python${{ matrix.python_version }}
 
       steps:
         - name: Upload Windows binary archive
