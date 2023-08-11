@@ -203,7 +203,6 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          python --version
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
@@ -212,6 +211,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON="ON" \
+          -DPython_REQUIRED_VERSION=${{matrix.python_version}} \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
       - name: Build and Install libsbmlnetworkeditor
