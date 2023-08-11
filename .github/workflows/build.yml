@@ -37,10 +37,10 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1.6.0
 
-      - name: Cache dependencies and SWIG on Windows
+      - name: Cache dependencies on Windows
         if: matrix.platform == 'windows-latest'
         id: cache-win-dependencies-static
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ./dependencies
@@ -98,6 +98,7 @@ jobs:
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
       - name: Prepare ccache timestamp on non-Windows
+        if: matrix.platform != 'windows-latest'
         id: ccache_cache_timestamp
         shell: cmake -P {0}
         run: |
@@ -105,12 +106,14 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: Set ccache cache directory on non-Windows
+        if: matrix.platform != 'windows-latest'
         shell: bash
         run: |
           echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
 
       - name: Cache ccache files on non-Windows
+        if: matrix.platform != 'windows-latest'
         uses: actions/cache@v3
         with:
           path: ${{runner.workspace}}/.ccache
@@ -159,16 +162,31 @@ jobs:
         with:
           python-version: ${{matrix.python_version}}
 
-      - name: Download pre-built dependencies on Windows
-        if:
-          matrix.platform == 'windows-latest'
+      - name: Cache dependencies on Windows
+        if: matrix.platform == 'windows-latest'
+        id: cache-win-dependencies-static
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./dependencies
+          key: ${{ runner.os }}-dependencies-static
+
+      - name: Add Windows dependencies to PATH
+        if: matrix.platform == 'windows-latest'
         shell: bash
-        run: |
-          echo ${{runner.workspace}}
-          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
-          unzip dependencies.zip
-          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${GITHUB_PATH}"
+        run: echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${GITHUB_PATH}"
+
+
+      #- name: Download pre-built dependencies on Windows
+      #  if:
+      #    matrix.platform == 'windows-latest'
+      #  shell: bash
+      #  run: |
+      #    echo ${{runner.workspace}}
+      #    curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
+      #    unzip dependencies.zip
+      #    mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+      #    echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${GITHUB_PATH}"
 
       - name: Install Graphviz on Windows
         if: matrix.platform == 'windows-latest'
