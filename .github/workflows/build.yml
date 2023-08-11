@@ -39,7 +39,7 @@ jobs:
 
       - name: Cache dependencies on Windows
         if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies-static
+        id: cache-win-dependencies-static-for-libsbml
         uses: actions/cache@v3
         with:
           path: |
@@ -47,7 +47,7 @@ jobs:
           key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built dependencies for libsbml on Windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static.outputs.cache-hit != 'true'
+        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static-for-libsbml.outputs.cache-hit != 'true'
         shell: bash
         run: |
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
@@ -164,7 +164,7 @@ jobs:
 
       - name: Cache dependencies on Windows
         if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies-static
+        id: cache-win-dependencies-static-for-libsbmlnetworkeditor
         uses: actions/cache@v3
         with:
           path: |
