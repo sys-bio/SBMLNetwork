@@ -217,7 +217,7 @@ jobs:
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
-      - name: Upload binary archivesf
+      - name: Upload binary archives
         uses: actions/upload-artifact@v3
         with:
           name: binaries for ${{ matrix.platform }} with Python${{ matrix.python_version }}
