@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
-        cpp_standard: 20
+        cpp_standard: [ 20 ]
         python_version: ["3.8", "3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.platform }}
 
@@ -256,8 +256,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: "ubuntu-latest"
-        cpp_standard: 20
+        platform: ["ubuntu-latest"]
+        cpp_standard: [ 20 ]
         python_version: [ "3.8", "3.9", "3.10", "3.11" ]
         container: ["quay.io/pypa/manylinux2010_x86_64"]
     runs-on: ${{ matrix.platform }}
