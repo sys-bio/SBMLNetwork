@@ -13,18 +13,16 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  build on OSs:
     name:
       Build on ${{ matrix.platform }} with Python${{ matrix.python_version }}
     strategy:
       fail-fast: false
       matrix:
         platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
-        cpp_standard: [20]
+        cpp_standard: 20
         python_version: ["3.8", "3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.platform }}
-    if ${{ matrix.platform } == "ubuntu-latest":
-      container: "quay.io/pypa/manylinux2010_x86_64"
 
     steps:
       - name: Checkout libsbml
@@ -251,3 +249,94 @@ jobs:
           path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
           retention-days: 1
           if-no-files-found: error
+
+  build on ManyLinux:
+    name:
+      Build on ${{ matrix.container }} with Python${{ matrix.python_version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: "ubuntu-latest"
+        cpp_standard: 20
+        python_version: [ "3.8", "3.9", "3.10", "3.11" ]
+        container: ["quay.io/pypa/manylinux2010_x86_64"]
+    runs-on: ${{ matrix.platform }}
+    container: ${{ matrix.container}}
+
+    steps:
+      - name: Checkout libsbml
+        uses: actions/checkout@v3
+        with:
+          repository: sbmlteam/libsbml
+
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Install dependencies on Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y check ccache
+          git clone https://github.com/libexpat/libexpat
+          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
+          cmake --build libexpat
+          cmake --install libexpat
+
+      - name: Add libsbml install directory to path on Ubuntu
+        if: matrix.platform == 'ubuntu-latest'
+        shell: bash
+        run: |
+          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
+
+      - name: Prepare ccache timestamp on non-Windows
+        if: matrix.platform != 'windows-latest'
+        id: ccache_cache_timestamp
+        shell: cmake -P {0}
+        run: |
+          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
+          message("::set-output name=timestamp::${current_date}")
+
+      - name: Set ccache cache directory on non-Windows
+        if: matrix.platform != 'windows-latest'
+        shell: bash
+        run: |
+          echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
+          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+
+      - name: Cache ccache files on non-Windows
+        if: matrix.platform != 'windows-latest'
+        uses: actions/cache@v3
+        with:
+          path: ${{runner.workspace}}/.ccache
+          key:
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
+            }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+            ${{ runner.os }}-
+
+      - name: Create libsbml build directory
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
+
+      - name: Configure CMake for libsbml
+        shell: bash
+        working-directory: ${{runner.workspace}}/build-libsbml
+        run: |
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
+          -DWITH_LIBXML=ON \
+          -DENABLE_LAYOUT="ON" \
+          -DENABLE_RENDER="ON" \
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
+
+      - name: Build and Install libsbml
+        working-directory: ${{runner.workspace}}/build-libsbml
+        shell: bash
+        run: |
+          cmake --build . --target install --config $BUILD_TYPE
