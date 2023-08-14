@@ -24,7 +24,7 @@ jobs:
         python_version: ["3.8", "3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.platform }}
     if matrix.platform == "ubuntu-latest":
-      container: ${{ matrix.container}} = "quay.io/pypa/manylinux2010_x86_64"
+      container: "quay.io/pypa/manylinux2010_x86_64"
 
     steps:
       - name: Checkout libsbml
