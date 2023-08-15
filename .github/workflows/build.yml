@@ -273,31 +273,11 @@ jobs:
 
       - name: install CMake using pip
         run: |
-          python -m pip install cmake
+          /opt/python/cp38-cp38/bin/pip install cmake
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
           cmake --version
           ctest --version
-
-      - name: Install dependencies, configure, build
-        run: |
-          yum install -y libxml2-devel check-devel java-devel mono-devel
-          cmake ../libsbml \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_CHECK=True \
-          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
-          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
-          -DWITH_EXAMPLES=${{matrix.with_examples}} \
-          -DWITH_LIBXML=OFF \
-          ${{matrix.xml_parser_option}}=True \
-          ${{matrix.package_option}} \
-          ${{matrix.language_bindings}} \
-          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
-          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
-          -DWITH_STATIC_RUNTIME=ON \
-          -DPYTHON_USE_DYNAMIC_LOOKUP=ON
-          cmake --build . --config $BUILD_TYPE
 
       - name: Create libsbml build directory
         run: |
