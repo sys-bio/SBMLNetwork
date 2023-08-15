@@ -276,6 +276,9 @@ jobs:
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
 
+      - name: Install dependencies
+        run: yum install -y libxml2-devel check-devel java-devel mono-devel
+
       - name: Create libsbml build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbml
