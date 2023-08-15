@@ -269,25 +269,20 @@ jobs:
           make clean
           make -j 2
           make install
-          swig -version
 
       - name: install CMake using pip
         run: |
           /opt/python/cp38-cp38/bin/pip install cmake
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
-          cmake --version
-          ctest --version
 
       - name: Create libsbml build directory
-        run: |
-          cd ..
-          mkdir build
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
 
       - name: Configure CMake for libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
-          cd build \
+          cmake $GITHUB_WORKSPACE \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
@@ -305,5 +300,4 @@ jobs:
 
       - name: Build and Install libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
-        run: |
-          cmake --build . --config $BUILD_TYPE
+        run: cmake --build . --config $BUILD_TYPE
