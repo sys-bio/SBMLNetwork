@@ -272,8 +272,7 @@ jobs:
       - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Install dependencies on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
+      - name: Install dependencies
         shell: bash
         run: |
           apt-get update
@@ -283,29 +282,25 @@ jobs:
           cmake --build libexpat
           cmake --install libexpat
 
-      - name: Add libsbml install directory to path on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
+      - name: Add libsbml install directory to path
         shell: bash
         run: |
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
-      - name: Prepare ccache timestamp on non-Windows
-        if: matrix.platform != 'windows-latest'
+      - name: Prepare ccache timestamp
         id: ccache_cache_timestamp
         shell: cmake -P {0}
         run: |
           string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
           message("::set-output name=timestamp::${current_date}")
 
-      - name: Set ccache cache directory on non-Windows
-        if: matrix.platform != 'windows-latest'
+      - name: Set ccache cache directory
         shell: bash
         run: |
           echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
 
-      - name: Cache ccache files on non-Windows
-        if: matrix.platform != 'windows-latest'
+      - name: Cache ccache files
         uses: actions/cache@v3
         with:
           path: ${{runner.workspace}}/.ccache
