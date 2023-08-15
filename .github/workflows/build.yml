@@ -259,7 +259,7 @@ jobs:
         platform: ["ubuntu-latest"]
         cpp_standard: [ 20 ]
         python_version: [ "3.8", "3.9", "3.10", "3.11" ]
-        container: ["quay.io/pypa/manylinux2010_x86_64"]
+        container: ["quay.io/pypa/manylinux2014_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
 
