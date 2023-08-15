@@ -277,11 +277,16 @@ jobs:
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
 
       - name: Create libsbml build directory
-        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
+        run: |
+        cmake -E make_directory ${{runner.workspace}}/build-libsbml
+        pwd
+        echo ${{runner.workspace}}
 
       - name: Configure CMake for libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
+          pwd
+          echo ${{runner.workspace}}
           cmake $GITHUB_WORKSPACE \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
