@@ -269,69 +269,15 @@ jobs:
         with:
           repository: sbmlteam/libsbml
 
-      - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
-
-      - name: Install dependencies
-        shell: bash
-        run: |
-          apt-get update
-          apt-get install -y check ccache
-          git clone https://github.com/libexpat/libexpat
-          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
-          cmake --build libexpat
-          cmake --install libexpat
-
-      - name: Add libsbml install directory to path
-        shell: bash
-        run: |
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
-
-      - name: Prepare ccache timestamp
-        id: ccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: Set ccache cache directory
-        shell: bash
-        run: |
-          echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
-          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
-
-      - name: Cache ccache files
-        uses: actions/cache@v3
-        with:
-          path: ${{runner.workspace}}/.ccache
-          key:
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
-            }}
-          restore-keys: |
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-            ${{ runner.os }}-
-
-      - name: Create libsbml build directory
-        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
-
-      - name: Configure CMake for libsbml
-        shell: bash
-        working-directory: ${{runner.workspace}}/build-libsbml
-        run: |
-          cmake $GITHUB_WORKSPACE \
-          -G "Ninja" \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_CHECK=True \
-          -DWITH_LIBXML=ON \
-          -DENABLE_LAYOUT="ON" \
-          -DENABLE_RENDER="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
-
-      - name: Build and Install libsbml
-        working-directory: ${{runner.workspace}}/build-libsbml
-        shell: bash
-        run: |
-          cmake --build . --target install --config $BUILD_TYPE
+      - name: install Swig 4 from source
+          run: |
+            yum install -y pcre-devel
+            echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
+            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+            tar -zxvf swig.tar.gz
+            cd swig-4.0.2/
+            ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
+            make clean
+            make -j 2
+            make install
+            swig -version
