@@ -289,22 +289,17 @@ jobs:
       - name: Configure CMake for libsbml
         working-directory: build-libsbml
         run: |
-          echo $GITHUB_WORKSPACE
           cmake $GITHUB_WORKSPACE \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_CHECK=True \
-          -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
-          -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
-          -DWITH_EXAMPLES=${{matrix.with_examples}} \
-          -DWITH_LIBXML=OFF \
-          ${{matrix.xml_parser_option}}=True \
-          ${{matrix.package_option}} \
-          ${{matrix.language_bindings}} \
-          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
-          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
-          -DWITH_STATIC_RUNTIME=ON \
-          -DPYTHON_USE_DYNAMIC_LOOKUP=ON
+          -DWITH_LIBXML=ON \
+          -DENABLE_LAYOUT="ON" \
+          -DENABLE_RENDER="ON" \
+          -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/install-libsbml"
 
       - name: Build and Install libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
