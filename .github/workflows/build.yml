@@ -278,7 +278,7 @@ jobs:
 
       - name: Create libsbml build directory
         run: |
-          mkdir ${{runner.workspace}}/build-libsbml
+          mkdir $GITHUB_WORKSPACE/build-libsbml
           pwd
           echo ${{runner.workspace}}
 
