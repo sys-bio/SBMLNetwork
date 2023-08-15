@@ -284,7 +284,7 @@ jobs:
           echo ${{runner.workspace}}
 
       - name: Configure CMake for libsbml
-        working-directory: $GITHUB_WORKSPACE/build-libsbml
+        working-directory: build-libsbml
         run: |
           echo $GITHUB_WORKSPACE
           cmake $GITHUB_WORKSPACE \
