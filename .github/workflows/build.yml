@@ -270,14 +270,14 @@ jobs:
           repository: sbmlteam/libsbml
 
       - name: install Swig 4 from source
-          run: |
-            yum install -y pcre-devel
-            echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
-            curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
-            tar -zxvf swig.tar.gz
-            cd swig-4.0.2/
-            ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
-            make clean
-            make -j 2
-            make install
-            swig -version
+        run: |
+          yum install -y pcre-devel
+          echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
+          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+          tar -zxvf swig.tar.gz
+          cd swig-4.0.2/
+          ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
+          make clean
+          make -j 2
+          make install
+          swig -version
