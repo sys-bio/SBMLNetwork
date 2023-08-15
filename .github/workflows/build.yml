@@ -278,9 +278,9 @@ jobs:
 
       - name: Create libsbml build directory
         run: |
-        cmake -E make_directory ${{runner.workspace}}/build-libsbml
-        pwd
-        echo ${{runner.workspace}}
+          cmake -E make_directory ${{runner.workspace}}/build-libsbml
+          pwd
+          echo ${{runner.workspace}}
 
       - name: Configure CMake for libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
