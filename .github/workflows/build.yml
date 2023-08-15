@@ -269,7 +269,7 @@ jobs:
         with:
           repository: sbmlteam/libsbml
 
-      - name: install Swig 4 from source
+      - name: Build and install Swig from source
         run: |
           yum install -y pcre-devel
           echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
@@ -281,3 +281,11 @@ jobs:
           make -j 2
           make install
           swig -version
+
+      - name: install CMake using pip
+          run: |
+            python -m pip install cmake
+            ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
+            ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+            cmake --version
+            ctest --version
