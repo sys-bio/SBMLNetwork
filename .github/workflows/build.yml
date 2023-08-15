@@ -280,11 +280,13 @@ jobs:
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbml
           pwd
+          echo $GITHUB_WORKSPACE
           echo ${{runner.workspace}}
 
       - name: Configure CMake for libsbml
         working-directory: ${{runner.workspace}}/build-libsbml
         run: |
+          echo $GITHUB_WORKSPACE
           cmake $GITHUB_WORKSPACE \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
