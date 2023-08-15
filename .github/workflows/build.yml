@@ -302,5 +302,5 @@ jobs:
           -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/install-libsbml"
 
       - name: Build and Install libsbml
-        working-directory: ${{runner.workspace}}/build-libsbml
+        working-directory: build-libsbml
         run: cmake --build . --config $BUILD_TYPE
