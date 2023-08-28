@@ -307,5 +307,5 @@ jobs:
 
       - name: Install Graphviz
         run: |
-          sudo yum install graphviz-dev
+          yum install graphviz-dev
           echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
