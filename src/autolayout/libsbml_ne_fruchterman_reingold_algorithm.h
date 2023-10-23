@@ -8,11 +8,13 @@
 
 #include "libsbml_ne_autolayout_node.h"
 #include "libsbml_ne_autolayout_connection.h"
+#include "libsbml_ne_autolayout_point.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
 class FruthtermanReingoldAlgorithm {
-    public:
+
+public:
 
     FruthtermanReingoldAlgorithm();
 
@@ -46,7 +48,11 @@ class FruthtermanReingoldAlgorithm {
 
     void adjustCoordinates();
 
-    protected:
+protected:
+
+    void setNodes(Model *model, Layout* layout);
+
+    void setConnections(Model *model, Layout* layout);
 
     double _stiffness;
     double _gravity;
@@ -57,20 +63,24 @@ class FruthtermanReingoldAlgorithm {
     std::vector<AutoLayoutConnection*> _connections;
     std::vector<AutoLayoutNode*> _nodes;
 
-    int _maxits;
-    double _tempinit;
-    double _tempcurr;
+    int _maximumIterations;
+    double _initialTemperature;
+    double _currentTemperature;
     double _time;
     double _alpha;
-    double _timeinc;
+    double _timeIncrement;
     double _adjustk;
     int _its;
     double _d;
-    Point _delta;
+    AutoLayoutPoint _delta;
     double _width;
     double _length;
-    Point _barycenter;
+    AutoLayoutPoint _barycenter;
 };
+
+double euclideanDistance(AutoLayoutPoint point);
+
+double repulsionForce(const double& stiffness, const double& distance);
 
 }
 
