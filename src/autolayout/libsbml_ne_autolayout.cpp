@@ -134,11 +134,11 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
 
 void applyAutolayout(Model *model, Layout *layout) {
     FruthtermanReingoldAlgorithm * fruthtermanReingoldAlgorithm = new FruthtermanReingoldAlgorithm();
-    fruthtermanReingoldAlgorithm->setElements(model, layout);
+    fruthtermanReingoldAlgorithm->setElements(layout);
     fruthtermanReingoldAlgorithm->setStiffness(30.0);
     fruthtermanReingoldAlgorithm->setGravity(15.0);
-    fruthtermanReingoldAlgorithm->setUseMagnetism(false);
-    fruthtermanReingoldAlgorithm->setUseBoundary(false);
+    fruthtermanReingoldAlgorithm->setUseMagnetism(true);
+    fruthtermanReingoldAlgorithm->setUseBoundary(true);
     fruthtermanReingoldAlgorithm->setUseGrid(false);
     fruthtermanReingoldAlgorithm->apply();
 }
