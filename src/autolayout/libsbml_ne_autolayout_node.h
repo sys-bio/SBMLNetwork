@@ -1,33 +1,28 @@
 #ifndef __LIBSBML_NE_AUTOLAYOUT_NODE__H
 #define __LIBSBML_NE_AUTOLAYOUT_NODE__H
 
-#ifndef SWIG
-#include "sbml/SBMLTypes.h"
-#include "sbml/packages/layout/common/LayoutExtensionTypes.h"
-#endif
+#include "libsbml_ne_autolayout_object_base.h"
 
-class AutoLayoutNode {
+class AutoLayoutNodeBase : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutNode(GraphicalObject* graphicalObject);
+    AutoLayoutNodeBase(Layout* layout);
 
-    const std::string getId();
+    virtual const double getX() = 0;
 
-    const double getX();
+    virtual void setX(const double& x) = 0;
 
-    void setX(const double& x);
+    virtual const double getY() = 0;
 
-    const double getY();
+    virtual void setY(const double& y) = 0;
 
-    void setY(const double& y);
+    virtual const double getWidth() = 0;
 
-    const double getWidth();
+    virtual void setWidth(const double& width) = 0;
 
-    void setWidth(const double& width);
+    virtual const double getHeight() = 0;
 
-    const double getHeight();
-
-    void setHeight(const double& height);
+    virtual void setHeight(const double& height) = 0;
 
     const double getDisplacementX();
 
@@ -41,12 +36,69 @@ public:
 
     void setDegree(const int& degree);
 
+    const bool isLocked();
+
 protected:
 
-    GraphicalObject* _graphicalObject;
     double _displacementX;
     double _displacementY;
     int _degree;
+};
+
+class AutoLayoutNode : public AutoLayoutNodeBase {
+public:
+
+    AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph);
+
+    const std::string getId() override;
+
+    const double getX() override;
+
+    void setX(const double& x) override;
+
+    const double getY() override;
+
+    void setY(const double& y) override;
+
+    const double getWidth() override;
+
+    void setWidth(const double& width) override;
+
+    const double getHeight() override;
+
+    void setHeight(const double& height) override;
+
+protected:
+
+    SpeciesGlyph* _speciesGlyph;
+};
+
+class AutoLayoutCentroidNode : public AutoLayoutNodeBase {
+public:
+
+    AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* reactionGlyph);
+
+    const std::string getId() override;
+
+    const double getX() override;
+
+    void setX(const double& x) override;
+
+    const double getY() override;
+
+    void setY(const double& y) override;
+
+    const double getWidth() override;
+
+    void setWidth(const double& width) override;
+
+    const double getHeight() override;
+
+    void setHeight(const double& height) override;
+
+protected:
+
+    ReactionGlyph* _reactionGlyph;
 };
 
 #endif

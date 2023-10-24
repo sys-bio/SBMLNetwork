@@ -1,66 +1,128 @@
 #include "libsbml_ne_autolayout_node.h"
 
-AutoLayoutNode::AutoLayoutNode(GraphicalObject* graphicalObject) {
-    _graphicalObject = graphicalObject;
+// AutoLayoutNodeBase
+
+AutoLayoutNodeBase::AutoLayoutNodeBase(Layout* layout) : AutoLayoutObjectBase(layout) {
     _degree = 0;
 }
 
-const std::string AutoLayoutNode::getId() {
-    return _graphicalObject->getId();
-}
-
-const double AutoLayoutNode::getX() {
-    return _graphicalObject->getBoundingBox()->x();
-};
-
-void AutoLayoutNode::setX(const double& x) {
-    _graphicalObject->getBoundingBox()->setX(x);
-}
-
-const double AutoLayoutNode::getY() {
-    return _graphicalObject->getBoundingBox()->y();
-};
-
-void AutoLayoutNode::setY(const double& y) {
-    _graphicalObject->getBoundingBox()->setY(y);
-}
-
-const double AutoLayoutNode::getWidth() {
-    return _graphicalObject->getBoundingBox()->width();
-};
-
-void AutoLayoutNode::setWidth(const double& width) {
-    _graphicalObject->getBoundingBox()->setWidth(width);
-}
-
-const double AutoLayoutNode::getHeight() {
-    return _graphicalObject->getBoundingBox()->height();
-};
-
-void AutoLayoutNode::setHeight(const double& height) {
-    _graphicalObject->getBoundingBox()->setHeight(height);
-}
-
-const double AutoLayoutNode::getDisplacementX() {
+const double AutoLayoutNodeBase::getDisplacementX() {
     return _displacementX;
 }
 
-void AutoLayoutNode::setDisplacementX(const double& dx) {
+void AutoLayoutNodeBase::setDisplacementX(const double& dx) {
     _displacementX = dx;
 }
 
-const double AutoLayoutNode::getDisplacementY() {
+const double AutoLayoutNodeBase::getDisplacementY() {
     return _displacementY;
 }
 
-void AutoLayoutNode::setDisplacementY(const double& dy) {
+void AutoLayoutNodeBase::setDisplacementY(const double& dy) {
     _displacementY= dy;
 }
 
-const int AutoLayoutNode::getDegree() {
+const int AutoLayoutNodeBase::getDegree() {
     return _degree;
 }
 
-void AutoLayoutNode::setDegree(const int& degree) {
+void AutoLayoutNodeBase::setDegree(const int& degree) {
     _degree = degree;
 }
+
+const bool AutoLayoutNodeBase::isLocked() {
+    return false;
+}
+
+// AutoLayoutNode
+
+AutoLayoutNode::AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph) : AutoLayoutNodeBase(layout) {
+    _speciesGlyph = speciesGlyph;
+}
+
+const std::string AutoLayoutNode::getId() {
+    return _speciesGlyph->getId();
+}
+
+const double AutoLayoutNode::getX() {
+    return _speciesGlyph->getBoundingBox()->x();
+}
+
+void AutoLayoutNode::setX(const double& x) {
+    _speciesGlyph->getBoundingBox()->setX(x);
+}
+
+const double AutoLayoutNode::getY() {
+    return _speciesGlyph->getBoundingBox()->y();
+}
+
+void AutoLayoutNode::setY(const double& y) {
+    _speciesGlyph->getBoundingBox()->setY(y);
+}
+
+const double AutoLayoutNode::getWidth() {
+    return _speciesGlyph->getBoundingBox()->width();
+}
+
+void AutoLayoutNode::setWidth(const double& width) {
+    _speciesGlyph->getBoundingBox()->setWidth(width);
+}
+
+const double AutoLayoutNode::getHeight() {
+    return _speciesGlyph->getBoundingBox()->height();
+}
+
+void AutoLayoutNode::setHeight(const double& height) {
+    _speciesGlyph->getBoundingBox()->setHeight(height);
+}
+
+// AutoLayoutCentroidNode
+
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutNodeBase(layout) {
+    _reactionGlyph = reactionGlyph;
+}
+
+const std::string AutoLayoutCentroidNode::getId() {
+    return _reactionGlyph->getId();
+}
+
+const double AutoLayoutCentroidNode::getX() {
+    return 0.5 * (_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x() + _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x());
+}
+
+void AutoLayoutCentroidNode::setX(const double& x) {
+    _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(x);
+    _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(x);
+}
+
+const double AutoLayoutCentroidNode::getY() {
+    return 0.5 * (_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->y() + _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y());
+}
+
+void AutoLayoutCentroidNode::setY(const double& y) {
+    _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setY(y);
+    _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(y);
+}
+
+const double AutoLayoutCentroidNode::getWidth() {
+    return _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x() - _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x();
+}
+
+void AutoLayoutCentroidNode::setWidth(const double& width) {
+    if (std::abs(width - getWidth())) {
+        _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
+        _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(_reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
+    }
+}
+
+const double AutoLayoutCentroidNode::getHeight() {
+    return _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y() - _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->y();
+}
+
+void AutoLayoutCentroidNode::setHeight(const double& height) {
+    if (std::abs(height - getHeight())) {
+        _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setY(_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
+        _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(_reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
+    }
+}
+
