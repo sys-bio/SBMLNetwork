@@ -1,10 +1,28 @@
 #ifndef __LIBSBML_NE_AUTOLAYOUT_CONNECTION__H
 #define __LIBSBML_NE_AUTOLAYOUT_CONNECTION__H
 
-class AutoLayoutConnection {
+#include "libsbml_ne_autolayout_object_base.h"
+
+class AutoLayoutConnection : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutConnection();
+    AutoLayoutConnection(Layout* layout, ReactionGlyph* reactionGlyph);
+
+    const std::string getId() override;
+
+    void setCentroidNode();
+
+    AutoLayoutObjectBase* getCentroidNode();
+
+    void setCurves();
+
+    std::vector<AutoLayoutObjectBase*> getCurves();
+
+protected:
+
+    ReactionGlyph* _reactionGlyph;
+    AutoLayoutObjectBase* _centroidNode;
+    std::vector<AutoLayoutObjectBase*> _curves;
 };
 
 #endif
