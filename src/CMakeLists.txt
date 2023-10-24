@@ -14,8 +14,10 @@ set(SOURCES
 		libsbml_ne_sbmldocument_render.cpp
 		autolayout/libsbml_ne_autolayout.cpp
 		autolayout/libsbml_ne_fruchterman_reingold_algorithm.cpp
+        autolayout/libsbml_ne_autolayout_object_base.cpp
 		autolayout/libsbml_ne_autolayout_node.cpp
 		autolayout/libsbml_ne_autolayout_connection.cpp
+		autolayout/libsbml_ne_autolayout_curve.cpp
 		autolayout/libsbml_ne_autolayout_point.cpp)
 
 ## headers
@@ -32,8 +34,10 @@ set(HEADERS
 		libsbml_ne_sbmldocument_render.h
 		autolayout/libsbml_ne_autolayout.h
 		autolayout/libsbml_ne_fruchterman_reingold_algorithm.h
+		autolayout/libsbml_ne_autolayout_object_base.h
 		autolayout/libsbml_ne_autolayout_node.h
 		autolayout/libsbml_ne_autolayout_connection.h
+		autolayout/libsbml_ne_autolayout_curve.h
 		autolayout/libsbml_ne_autolayout_point.h)
 
 ### shared library
