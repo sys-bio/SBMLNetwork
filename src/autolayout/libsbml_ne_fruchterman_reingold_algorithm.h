@@ -6,8 +6,7 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
-#include "libsbml_ne_autolayout_node.h"
-#include "libsbml_ne_autolayout_connection.h"
+#include "libsbml_ne_autolayout_object_base.h"
 #include "libsbml_ne_autolayout_point.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
@@ -18,7 +17,7 @@ public:
 
     FruthtermanReingoldAlgorithm();
 
-    void setElements(Model* model, Layout* layout);
+    void setElements(Layout* layout);
 
     void setStiffness(const double& stiffness);
 
@@ -48,11 +47,15 @@ public:
 
     void adjustCoordinates();
 
+    void adjustWithinTheBoundary(AutoLayoutObjectBase* node);
+
+    void adjustOnTheGrids(AutoLayoutObjectBase* node);
+
 protected:
 
-    void setNodes(Model *model, Layout* layout);
+    void setNodes(Layout* layout);
 
-    void setConnections(Model *model, Layout* layout);
+    void setConnections(Layout* layout);
 
     double _stiffness;
     double _gravity;
@@ -60,8 +63,8 @@ protected:
     bool _useBoundary;
     bool _useGrid;
 
-    std::vector<AutoLayoutConnection*> _connections;
-    std::vector<AutoLayoutNode*> _nodes;
+    std::vector<AutoLayoutObjectBase*> _connections;
+    std::vector<AutoLayoutObjectBase*> _nodes;
 
     int _maximumIterations;
     double _initialTemperature;
@@ -74,13 +77,19 @@ protected:
     double _d;
     AutoLayoutPoint _delta;
     double _width;
-    double _length;
+    double _height;
     AutoLayoutPoint _barycenter;
 };
 
-double euclideanDistance(AutoLayoutPoint point);
+const double calculateEuclideanDistance(AutoLayoutPoint point);
 
-double repulsionForce(const double& stiffness, const double& distance);
+const double calculateStiffnessAdjustmentFactor(AutoLayoutObjectBase* vNode, AutoLayoutObjectBase* uNode);
+
+const double calculateRepulsionForce(const double& stiffness, const double& distance);
+
+const double calculateAttractionForce(const double& stiffness, const double& distance);
+
+AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId);
 
 }
 
