@@ -7,12 +7,12 @@ AutoLayoutNodeBase::AutoLayoutNodeBase(Layout* layout) : AutoLayoutObjectBase(la
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
-    setX(position.getX());
-    setY(position.getY());
+    setX(position.getX() - 0.5 * getWidth());
+    setY(position.getY() - 0.5 * getHeight());
 }
 
 const AutoLayoutPoint AutoLayoutNodeBase::getPosition() {
-    return AutoLayoutPoint(getX(), getY());
+    return AutoLayoutPoint(getX() + 0.5 * getWidth(), getY() + 0.5 * getHeight());
 }
 
 const double AutoLayoutNodeBase::getDisplacementX() {
@@ -110,7 +110,9 @@ const double AutoLayoutCentroidNode::getX() {
 
 void AutoLayoutCentroidNode::setX(const double& x) {
     _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(x);
+    ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(x);
     _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(x);
+    ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(x);
 }
 
 const double AutoLayoutCentroidNode::getY() {
@@ -119,7 +121,9 @@ const double AutoLayoutCentroidNode::getY() {
 
 void AutoLayoutCentroidNode::setY(const double& y) {
     _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setY(y);
+    ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(y);
     _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(y);
+    ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(y);
 }
 
 const double AutoLayoutCentroidNode::getWidth() {
@@ -129,7 +133,9 @@ const double AutoLayoutCentroidNode::getWidth() {
 void AutoLayoutCentroidNode::setWidth(const double& width) {
     if (std::abs(width - getWidth())) {
         _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
+        ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(width - getWidth()));
         _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(_reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
+        ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(width - getWidth()));
     }
 }
 
@@ -140,7 +146,9 @@ const double AutoLayoutCentroidNode::getHeight() {
 void AutoLayoutCentroidNode::setHeight(const double& height) {
     if (std::abs(height - getHeight())) {
         _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setY(_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
+        ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(height - getHeight()));
         _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(_reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
+        ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(height - getHeight()));
     }
 }
 
