@@ -47,15 +47,31 @@ public:
 
     void adjustCoordinates();
 
+    void adjustNodeCoordinates(AutoLayoutObjectBase* node);
+
     void adjustWithinTheBoundary(AutoLayoutObjectBase* node);
 
     void adjustOnTheGrids(AutoLayoutObjectBase* node);
+
+    void updateConnectionsControlPoints();
+
+    void updateConnectionControlPoints(AutoLayoutObjectBase* connection);
+
+    void calculateCenterControlPointOnTheSubstrateSide(AutoLayoutObjectBase* connection);
+
+    void adjustControlPointForUniUniReactions(AutoLayoutObjectBase* connection);
+
+    void adjustCurvesLengths(AutoLayoutObjectBase* connection);
+
+    void adjustCurvesNodeSidePoints(AutoLayoutObjectBase* connection);
 
 protected:
 
     void setNodes(Layout* layout);
 
     void setConnections(Layout* layout);
+
+    void setNodesDegrees();
 
     double _stiffness;
     double _gravity;
@@ -72,22 +88,37 @@ protected:
     double _time;
     double _alpha;
     double _timeIncrement;
-    double _adjustk;
-    int _its;
-    double _d;
-    AutoLayoutPoint _delta;
     double _width;
     double _height;
     AutoLayoutPoint _barycenter;
+    AutoLayoutPoint _centerControlPoint;
 };
 
+const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2);
+
 const double calculateEuclideanDistance(AutoLayoutPoint point);
+
+const double calculateEuclideanDistance(const double& distanceX, const double& distanceY);
 
 const double calculateStiffnessAdjustmentFactor(AutoLayoutObjectBase* vNode, AutoLayoutObjectBase* uNode);
 
 const double calculateRepulsionForce(const double& stiffness, const double& distance);
 
 const double calculateAttractionForce(const double& stiffness, const double& distance);
+
+AutoLayoutPoint adjustPointPosition(AutoLayoutPoint firstPoint, AutoLayoutPoint secondPoint, double degreesFactor, double distanceFactor, bool isRelativeDistance);
+
+AutoLayoutPoint calculateCurveNodeSidePoint(AutoLayoutPoint source, AutoLayoutObjectBase* target, double distance);
+
+AutoLayoutPoint calculateLeftSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target);
+
+AutoLayoutPoint calculateRightSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target);
+
+AutoLayoutPoint calculateTopSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target);
+
+AutoLayoutPoint calculateBottomSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target);
+
+AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p2, AutoLayoutPoint q1, AutoLayoutPoint q2);
 
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId);
 
