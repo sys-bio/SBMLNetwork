@@ -18,6 +18,8 @@ public:
 
     std::vector<AutoLayoutObjectBase*> getCurves();
 
+    const int getNumNonModifierCurves();
+
 protected:
 
     ReactionGlyph* _reactionGlyph;

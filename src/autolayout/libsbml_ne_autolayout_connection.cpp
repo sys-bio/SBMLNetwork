@@ -29,4 +29,18 @@ std::vector<AutoLayoutObjectBase*> AutoLayoutConnection::getCurves() {
     return _curves;
 }
 
+const int AutoLayoutConnection::getNumNonModifierCurves() {
+    int numNonModifierCurves = 0;
+    for (int curveIndex = 0; curveIndex < _curves.size(); curveIndex++) {
+        if (((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_PRODUCT ||
+                ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_SIDEPRODUCT ||
+                ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_SUBSTRATE ||
+                ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_SIDESUBSTRATE ||
+                ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_UNDEFINED)
+            numNonModifierCurves++;
+    }
+
+    return numNonModifierCurves;
+}
+
 
