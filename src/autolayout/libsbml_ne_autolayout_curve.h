@@ -2,6 +2,7 @@
 #define __LIBSBML_NE_AUTOLAYOUT_CURVE__H
 
 #include "libsbml_ne_autolayout_object_base.h"
+#include "libsbml_ne_autolayout_point.h"
 
 class AutoLayoutCurve : public AutoLayoutObjectBase {
 public:
@@ -12,11 +13,33 @@ public:
 
     const std::string getNodeId();
 
-    const std::string getRole();
+    const SpeciesReferenceRole_t getRole();
+
+    const std::string getRoleString();
+
+    const AutoLayoutPoint& getNodeSidePoint();
+
+    void setNodeSidePoint(const AutoLayoutPoint& nodeSidePoint);
+
+    const AutoLayoutPoint& getNodeSideControlPoint();
+
+    void setNodeSideControlPoint(const AutoLayoutPoint& nodeSideControlPoint);
+
+    const AutoLayoutPoint& getCentroidSidePoint();
+
+    void setCentroidSidePoint(const AutoLayoutPoint& centroidSidePoint);
+
+    const AutoLayoutPoint& getCentroidSideControlPoint();
+
+    void setCentroidSideControlPoint(const AutoLayoutPoint& centroidSideControlPoint);
 
 protected:
 
     SpeciesReferenceGlyph* _speciesReferenceGlyph;
+    AutoLayoutPoint _nodeSidePoint;
+    AutoLayoutPoint _nodeSideControlPoint;
+    AutoLayoutPoint _centroidSidePoint;
+    AutoLayoutPoint _centroidSideControlPoint;
 };
 
 #endif
