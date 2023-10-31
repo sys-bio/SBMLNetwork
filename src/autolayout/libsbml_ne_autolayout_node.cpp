@@ -6,6 +6,15 @@ AutoLayoutNodeBase::AutoLayoutNodeBase(Layout* layout) : AutoLayoutObjectBase(la
     _degree = 0;
 }
 
+void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
+    setX(position.getX());
+    setY(position.getY());
+}
+
+const AutoLayoutPoint AutoLayoutNodeBase::getPosition() {
+    return AutoLayoutPoint(getX(), getY());
+}
+
 const double AutoLayoutNodeBase::getDisplacementX() {
     return _displacementX;
 }
@@ -22,12 +31,21 @@ void AutoLayoutNodeBase::setDisplacementY(const double& dy) {
     _displacementY= dy;
 }
 
+void AutoLayoutNodeBase::setDisplacement(const AutoLayoutPoint displacement) {
+    setDisplacementX(displacement.getX());
+    setDisplacementY(displacement.getY());
+}
+
+const AutoLayoutPoint AutoLayoutNodeBase::getDisplacement() {
+    return AutoLayoutPoint(getDisplacementX(), getDisplacementY());
+}
+
 const int AutoLayoutNodeBase::getDegree() {
     return _degree;
 }
 
-void AutoLayoutNodeBase::setDegree(const int& degree) {
-    _degree = degree;
+void AutoLayoutNodeBase::incrementDegree() {
+    _degree++;
 }
 
 const bool AutoLayoutNodeBase::isLocked() {

@@ -2,6 +2,7 @@
 #define __LIBSBML_NE_AUTOLAYOUT_NODE__H
 
 #include "libsbml_ne_autolayout_object_base.h"
+#include "libsbml_ne_autolayout_point.h"
 
 class AutoLayoutNodeBase : public AutoLayoutObjectBase {
 public:
@@ -24,6 +25,10 @@ public:
 
     virtual void setHeight(const double& height) = 0;
 
+    void setPosition(const AutoLayoutPoint position);
+
+    const AutoLayoutPoint getPosition();
+
     const double getDisplacementX();
 
     void setDisplacementX(const double& dx);
@@ -32,9 +37,13 @@ public:
 
     void setDisplacementY(const double& dy);
 
+    void setDisplacement(const AutoLayoutPoint displacement);
+
+    const AutoLayoutPoint getDisplacement();
+
     const int getDegree();
 
-    void setDegree(const int& degree);
+    void incrementDegree();
 
     const bool isLocked();
 
