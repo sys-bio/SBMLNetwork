@@ -10,23 +10,25 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
 void locateGlyphs(Model* model, Layout* layout);
 
-void randomizeGlyphLocations(Model* model, Layout* layout);
+void randomizeGlyphLocations(Model* model, Layout* layout, const double &padding);
 
 void randomizeSpeciesGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
 
 void randomizeReactionGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
-
-void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
-
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
-
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve, const double& padding);
 
 void randomizeBoundingBoxValues(BoundingBox* boundingBox, const double& canvasWidth, const double& canvasHeight);
 
 void randomizeCurveCenterPoint(Curve* curve, const double& canvasWidth, const double& canvasHeight);
 
 void applyAutolayout(Model* model, Layout* layout);
+
+void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
+
+void updateCompartmentExtents(Model *model, Layout *layout, const double &padding);
+
+void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
+
+void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve, const double& padding);
 
 }
 
