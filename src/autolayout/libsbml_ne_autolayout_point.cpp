@@ -34,7 +34,7 @@ const AutoLayoutPoint AutoLayoutPoint::getPosition() {
 
 const bool AutoLayoutPoint::isEmpty() {
     if (std::abs(_x) > 0.000001 || std::abs(_y) > 0.000001)
-        return true;
+        return false;
 
-    return false;
+    return true;
 }
