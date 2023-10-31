@@ -57,13 +57,13 @@ public:
 
     void updateConnectionControlPoints(AutoLayoutObjectBase* connection);
 
-    void calculateCenterControlPointOnTheSubstrateSide(AutoLayoutObjectBase* connection);
+    void calculateCenterControlPoint(AutoLayoutObjectBase* connection);
 
-    void adjustControlPointForUniUniReactions(AutoLayoutObjectBase* connection);
+    void adjustCenterControlPoint(AutoLayoutObjectBase* connection);
 
-    void adjustCurvesLengths(AutoLayoutObjectBase* connection);
+    void setCurvePoints(AutoLayoutObjectBase* connection);
 
-    void adjustCurvesNodeSidePoints(AutoLayoutObjectBase* connection);
+    void adjustCurvePoints(AutoLayoutObjectBase* connection);
 
 protected:
 

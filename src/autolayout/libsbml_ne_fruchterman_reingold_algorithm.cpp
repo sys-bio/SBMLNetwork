@@ -254,13 +254,13 @@ void FruthtermanReingoldAlgorithm::updateConnectionsControlPoints() {
 }
 
 void FruthtermanReingoldAlgorithm::updateConnectionControlPoints(AutoLayoutObjectBase* connection) {
-    calculateCenterControlPointOnTheSubstrateSide(connection);
-    adjustControlPointForUniUniReactions(connection);
-    adjustCurvesLengths(connection);
-    adjustCurvesNodeSidePoints(connection);
+    calculateCenterControlPoint(connection);
+    adjustCenterControlPoint(connection);
+    setCurvePoints(connection);
+    adjustCurvePoints(connection);
 }
 
-void FruthtermanReingoldAlgorithm::calculateCenterControlPointOnTheSubstrateSide(AutoLayoutObjectBase* connection) {
+void FruthtermanReingoldAlgorithm::calculateCenterControlPoint(AutoLayoutObjectBase* connection) {
     int numberOfSubstrates = 0;
     bool isLooped = false;
     AutoLayoutPoint loopedPoint;
@@ -296,15 +296,14 @@ void FruthtermanReingoldAlgorithm::calculateCenterControlPointOnTheSubstrateSide
     }
 }
 
-void FruthtermanReingoldAlgorithm::adjustControlPointForUniUniReactions(AutoLayoutObjectBase* connection) {
+void FruthtermanReingoldAlgorithm::adjustCenterControlPoint(AutoLayoutObjectBase* connection) {
     if (((AutoLayoutConnection*)connection)->getNumNonModifierCurves() == 2) {
         AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)(((AutoLayoutConnection*)connection)->getCentroidNode());
         double dist = -calculateEuclideanDistance(centroidNode->getPosition(), _centerControlPoint);
-        double x1 = 0;
-        double x2 = 0;
-        double y1 = 0;
-        double y2 = 0;
-
+        double x1 = 0.0;
+        double x2 = 0.0;
+        double y1 = 0.0;
+        double y2 = 0.0;
         for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
             AutoLayoutCurve* curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
             AutoLayoutNodeBase* curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
@@ -319,14 +318,13 @@ void FruthtermanReingoldAlgorithm::adjustControlPointForUniUniReactions(AutoLayo
                 }
             }
         }
-
         _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
         _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
         _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, dist, false);
     }
 }
 
-void FruthtermanReingoldAlgorithm::adjustCurvesLengths(AutoLayoutObjectBase* connection) {
+void FruthtermanReingoldAlgorithm::setCurvePoints(AutoLayoutObjectBase* connection) {
     AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode();
     AutoLayoutCurve* curve = NULL;
     AutoLayoutNodeBase* curveNode = NULL;
@@ -334,6 +332,10 @@ void FruthtermanReingoldAlgorithm::adjustCurvesLengths(AutoLayoutObjectBase* con
     for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
         curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
         curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
+        curve->setNodeSidePoint(curveNode->getPosition());
+        curve->setNodeSideControlPoint(curveNode->getPosition());
+        curve->setCentroidSidePoint(centroidNode->getPosition());
+        curve->setCentroidSideControlPoint(centroidNode->getPosition());
         switch(curve->getRole()) {
             case SPECIES_ROLE_PRODUCT:
             case SPECIES_ROLE_SIDEPRODUCT:
@@ -346,7 +348,7 @@ void FruthtermanReingoldAlgorithm::adjustCurvesLengths(AutoLayoutObjectBase* con
             case SPECIES_ROLE_SIDESUBSTRATE:
                 curve->setCentroidSideControlPoint(_centerControlPoint);
                 curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                curve->setNodeSideControlPoint(adjustPointPosition(centroidNode->getPosition(), curveNode->getPosition(), 0, -20, false));
+                curve->setNodeSideControlPoint(adjustPointPosition(centroidNode->getPosition(), curve->getNodeSidePoint(), 0, -20, false));
                 break;
 
             case SPECIES_ROLE_ACTIVATOR:
@@ -359,8 +361,6 @@ void FruthtermanReingoldAlgorithm::adjustCurvesLengths(AutoLayoutObjectBase* con
                 break;
 
             default:
-                curve->setCentroidSideControlPoint(centroidNode->getPosition());
-                curve->setCentroidSidePoint(centroidNode->getPosition());
                 curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
                 curve->setNodeSideControlPoint(curve->getNodeSidePoint());
                 break;
@@ -368,7 +368,7 @@ void FruthtermanReingoldAlgorithm::adjustCurvesLengths(AutoLayoutObjectBase* con
     }
 }
 
-void FruthtermanReingoldAlgorithm::adjustCurvesNodeSidePoints(AutoLayoutObjectBase* connection) {
+void FruthtermanReingoldAlgorithm::adjustCurvePoints(AutoLayoutObjectBase* connection) {
     for (int firstCurveIndex = 0; firstCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); firstCurveIndex++) {
         AutoLayoutCurve* firstCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(firstCurveIndex));
         AutoLayoutNodeBase* firstCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
@@ -418,11 +418,11 @@ AutoLayoutPoint adjustPointPosition(AutoLayoutPoint firstPoint, AutoLayoutPoint 
         distanceX = 0.00000001;
     double degrees = std::atan(distanceY / distanceX);
     if (isRelativeDistance)
-        distance += (distance * distanceFactor);
+        distance += distance * distanceFactor;
     else
         distance += distanceFactor;
-    distanceX = distance * std::sin(degrees + (M_PI / 180.0) * degreesFactor);
-    distanceY = distance * std::cos(degrees + (M_PI / 180.0) * degreesFactor);
+    distanceX = distance * std::cos(degrees + (M_PI / 180.0) * degreesFactor);
+    distanceY = distance * std::sin(degrees + (M_PI / 180.0) * degreesFactor);
     if (secondPoint.getX() >= firstPoint.getX()) {
         adjustedPosition.setX(firstPoint.getX() + distanceX);
         adjustedPosition.setY(firstPoint.getY() + distanceY);
@@ -452,27 +452,27 @@ AutoLayoutPoint calculateCurveNodeSidePoint(AutoLayoutPoint source, AutoLayoutOb
 }
 
 AutoLayoutPoint calculateLeftSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
-    return calculateIntersectionPoint(((AutoLayoutNodeBase*)target)->getPosition(),
+    return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
-                                      source, ((AutoLayoutNodeBase*)target)->getPosition());
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
 }
 
 AutoLayoutPoint calculateRightSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
     return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
-                                      source, ((AutoLayoutNodeBase*)target)->getPosition());
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
 }
 
 AutoLayoutPoint calculateTopSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
-    return calculateIntersectionPoint(((AutoLayoutNodeBase*)target)->getPosition(),
+    return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY()),
-                                      source, ((AutoLayoutNodeBase*)target)->getPosition());
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
 }
 
 AutoLayoutPoint calculateBottomSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
     return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
-                                      source, ((AutoLayoutNodeBase*)target)->getPosition());
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
 }
 
 AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p2, AutoLayoutPoint q1, AutoLayoutPoint q2) {
@@ -481,10 +481,10 @@ AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p
         double ua = (((q2.getX() - q1.getX()) * (p1.getY() - q1.getY())) - ((q2.getY() - q1.getY()) * (p1.getX() - q1.getX()))) / denominator;
         double ub = (((p2.getX() - p1.getX()) * (p1.getY() - q1.getY())) - ((p2.getY() - p1.getY()) * (p1.getX() - q1.getX()))) / denominator;
         if (ua >= 0.000001 && ua <= 1.000000 && ub >= 0.000001 && ub <= 1.00000)
-            return AutoLayoutPoint((int)(p1.getX() + ua * (p2.getX() - p1.getX())), (int)(p1.getY()) + ua * (p2.getY() - p1.getY()));
+            return AutoLayoutPoint((int)(p1.getX() + ua * (p2.getX() - p1.getX())), (int)(p1.getY() + ua * (p2.getY() - p1.getY())));
     }
 
-    return AutoLayoutPoint(0.0, 0.0);
+    return AutoLayoutPoint(0.0000001, 0.0000001);
 }
 
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId) {
