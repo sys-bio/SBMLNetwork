@@ -17,29 +17,25 @@ public:
 
     const std::string getRoleString();
 
-    const AutoLayoutPoint& getNodeSidePoint();
+    const AutoLayoutPoint getNodeSidePoint();
 
     void setNodeSidePoint(const AutoLayoutPoint& nodeSidePoint);
 
-    const AutoLayoutPoint& getNodeSideControlPoint();
+    const AutoLayoutPoint getNodeSideControlPoint();
 
     void setNodeSideControlPoint(const AutoLayoutPoint& nodeSideControlPoint);
 
-    const AutoLayoutPoint& getCentroidSidePoint();
+    const AutoLayoutPoint getCentroidSidePoint();
 
     void setCentroidSidePoint(const AutoLayoutPoint& centroidSidePoint);
 
-    const AutoLayoutPoint& getCentroidSideControlPoint();
+    const AutoLayoutPoint getCentroidSideControlPoint();
 
     void setCentroidSideControlPoint(const AutoLayoutPoint& centroidSideControlPoint);
 
 protected:
 
     SpeciesReferenceGlyph* _speciesReferenceGlyph;
-    AutoLayoutPoint _nodeSidePoint;
-    AutoLayoutPoint _nodeSideControlPoint;
-    AutoLayoutPoint _centroidSidePoint;
-    AutoLayoutPoint _centroidSideControlPoint;
 };
 
 #endif
