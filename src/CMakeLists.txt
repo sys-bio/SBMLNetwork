@@ -83,8 +83,10 @@ if (BUILD_STATIC_LIB)
 endif()
 
 ### install
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/src
-		DESTINATION include COMPONENT libsbmlnetworkeditor_api FILES_MATCHING PATTERN "*.h")
+file(GLOB SOURCE_HEADERS "${CMAKE_SOURCE_DIR}/src/*.h")
+install(FILES ${SOURCE_HEADERS} DESTINATION include/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_api)
+file(GLOB AUTOLAYOUT_HEADERS "${CMAKE_SOURCE_DIR}/src/autolayout/*.h")
+install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/libsbmlnetworkeditor/autolayout COMPONENT libsbmlnetworkeditor_api)
 install(DIRECTORY "${SBML_INCLUDEDIR}"
 		DESTINATION include COMPONENT libsbmlnetworkeditor_api FILES_MATCHING PATTERN "*.h")
 if (WIN32)
@@ -95,8 +97,7 @@ elseif (APPLE)
 	install(DIRECTORY ${DEPENDENCIES_DIR}
 			DESTINATION lib COMPONENT libsbmlnetworkeditor_api)
 elseif(UNIX)
-	install(FILES ${SBML_LIBS}
-			DESTINATION lib/dependencies COMPONENT libsbmlnetworkeditor_api)
+	install(FILES ${SBML_LIBS} DESTINATION lib/dependencies COMPONENT libsbmlnetworkeditor_api)
 endif()
 
 ### build language bindings
