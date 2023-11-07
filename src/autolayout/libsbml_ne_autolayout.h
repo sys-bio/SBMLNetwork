@@ -8,19 +8,23 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-void locateGlyphs(Model* model, Layout* layout);
+void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
 
-void randomizeGlyphLocations(Model* model, Layout* layout, const double &padding);
+void randomizeGlyphsLocations(Model* model, Layout* layout, const double &padding);
 
 void randomizeSpeciesGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
 
 void randomizeReactionGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
 
-void randomizeBoundingBoxValues(BoundingBox* boundingBox, const double& canvasWidth, const double& canvasHeight);
+void randomizeBoundingBoxesPosition(BoundingBox* boundingBox, const double& canvasWidth, const double& canvasHeight);
 
 void randomizeCurveCenterPoint(Curve* curve, const double& canvasWidth, const double& canvasHeight);
 
-void applyAutolayout(Model* model, Layout* layout);
+void setGlyphsDimensions(Model *model, Layout *layout);
+
+void setSpeciesGlyphDimensions(SpeciesGlyph* speciesGlyph);
+
+void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
 
 void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
 

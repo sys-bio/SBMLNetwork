@@ -23,8 +23,8 @@ const std::string writeSBML(SBMLDocument* document) {
     return writeSBMLToString(document);
 }
 
-int createDefaultLayoutAndRenderFeatures(SBMLDocument* document) {
-    if (!createDefaultLayout(document) && !createDefaultRenderInformation(document))
+int createDefaultLayoutAndRenderFeatures(SBMLDocument* document, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
+    if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid) && !createDefaultRenderInformation(document))
         return 0;
 
     return -1;

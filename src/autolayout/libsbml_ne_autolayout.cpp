@@ -7,14 +7,15 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
-void locateGlyphs(Model *model, Layout *layout) {
+void locateGlyphs(Model *model, Layout *layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     double padding = 30.0;
-    randomizeGlyphLocations(model, layout, padding);
-    applyAutolayout(model, layout);
+    randomizeGlyphsLocations(model, layout, padding);
+    setGlyphsDimensions(model, layout);
+    applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
     updateCompartmentExtents(model, layout, padding);
 }
 
-void randomizeGlyphLocations(Model *model, Layout *layout, const double &padding) {
+void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding) {
     double canvasWidth = 400.0;
     double canvasHeight = 400.0;
     randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding);
@@ -25,7 +26,7 @@ void
 randomizeSpeciesGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight,
                                 const double &padding) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        randomizeBoundingBoxValues(layout->getSpeciesGlyph(i)->getBoundingBox(), canvasWidth, canvasHeight);
+        randomizeBoundingBoxesPosition(layout->getSpeciesGlyph(i)->getBoundingBox(), canvasWidth, canvasHeight);
 }
 
 void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth,
@@ -34,7 +35,7 @@ void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double
         randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
 }
 
-void randomizeBoundingBoxValues(BoundingBox *boundingBox, const double &canvasWidth, const double &canvasHeight) {
+void randomizeBoundingBoxesPosition(BoundingBox *boundingBox, const double &canvasWidth, const double &canvasHeight) {
     double offset = 30.0;
     double defaultBoundingBoxWidth = 60.0;
     double defaultBoundingBoxHeight = 36.0;
@@ -59,14 +60,26 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
     cubicBezier->getBasePoint2()->setY(randomPointY);
 }
 
-void applyAutolayout(Model *model, Layout *layout) {
+void setGlyphsDimensions(Model *model, Layout *layout) {
+    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        setSpeciesGlyphDimensions(layout->getSpeciesGlyph(i));
+}
+
+void setSpeciesGlyphDimensions(SpeciesGlyph* speciesGlyph) {
+    double defaultWidth = 60.0;
+    double defaultHeight = 36.0;
+    speciesGlyph->getBoundingBox()->setWidth(defaultWidth);
+    speciesGlyph->getBoundingBox()->setHeight(defaultHeight);
+}
+
+void applyAutolayout(Model *model, Layout *layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     FruthtermanReingoldAlgorithm * fruthtermanReingoldAlgorithm = new FruthtermanReingoldAlgorithm();
     fruthtermanReingoldAlgorithm->setElements(layout);
-    fruthtermanReingoldAlgorithm->setStiffness(30.0);
-    fruthtermanReingoldAlgorithm->setGravity(15.0);
-    fruthtermanReingoldAlgorithm->setUseMagnetism(true);
-    fruthtermanReingoldAlgorithm->setUseBoundary(true);
-    fruthtermanReingoldAlgorithm->setUseGrid(false);
+    fruthtermanReingoldAlgorithm->setStiffness(stiffness);
+    fruthtermanReingoldAlgorithm->setGravity(gravity);
+    fruthtermanReingoldAlgorithm->setUseMagnetism(useMagnetism);
+    fruthtermanReingoldAlgorithm->setUseBoundary(useBoundary);
+    fruthtermanReingoldAlgorithm->setUseGrid(useGrid);
     fruthtermanReingoldAlgorithm->apply();
 }
 

@@ -56,7 +56,7 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     if (document && layout) {
         LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
         layout->setId("libSBML_NetworkEditor_Layout");
@@ -76,10 +76,10 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document) {
+int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     if (!getNumLayouts(document)) {
         Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout);
+        return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
     }
 
     return -1;
