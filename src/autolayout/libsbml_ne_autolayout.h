@@ -22,7 +22,11 @@ void randomizeCurveCenterPoint(Curve* curve, const double& canvasWidth, const do
 
 void setGlyphsDimensions(Model *model, Layout *layout);
 
-void setSpeciesGlyphDimensions(SpeciesGlyph* speciesGlyph);
+void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph* speciesGlyph);
+
+const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph* speciesGlyph);
+
+const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph* speciesGlyph, const double& speciesWidth);
 
 void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
 

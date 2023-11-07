@@ -62,14 +62,28 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
 
 void setGlyphsDimensions(Model *model, Layout *layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        setSpeciesGlyphDimensions(layout->getSpeciesGlyph(i));
+        setSpeciesGlyphDimensions(model,layout->getSpeciesGlyph(i));
 }
 
-void setSpeciesGlyphDimensions(SpeciesGlyph* speciesGlyph) {
-    double defaultWidth = 60.0;
-    double defaultHeight = 36.0;
-    speciesGlyph->getBoundingBox()->setWidth(defaultWidth);
-    speciesGlyph->getBoundingBox()->setHeight(defaultHeight);
+void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph* speciesGlyph) {
+    double speciesWidth = calculateSpeciesGlyphDefaultWidth(model, speciesGlyph);
+    double speciesHeight = calculateSpeciesGlyphDefaultHeight(speciesGlyph, speciesWidth);
+    speciesGlyph->getBoundingBox()->setWidth(speciesWidth);
+    speciesGlyph->getBoundingBox()->setHeight(speciesHeight);
+}
+
+const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph* speciesGlyph) {
+    std::string displayedText = speciesGlyph->getSpeciesId();
+    Species* species = findSpeciesGlyphSpecies(model, speciesGlyph);
+    if (species && species->isSetName())
+        displayedText =  species->getName();
+
+    return std::max(60.0, displayedText.size() * 15.0);
+}
+
+const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph* speciesGlyph, const double& speciesWidth) {
+    const double dimensionRatio = 36.0 / 60.0;
+    return std::min(std::max(36.0, dimensionRatio * speciesWidth), 72.0);
 }
 
 void applyAutolayout(Model *model, Layout *layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
