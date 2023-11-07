@@ -224,12 +224,20 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     return NULL;
 }
 
+Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph) {
+    return model->getSpecies(speciesGlyph->getSpeciesId());
+}
+
 Compartment* findReactionGlyphCompartment(Model* model, ReactionGlyph* reactionGlyph) {
     Reaction* reaction = model->getReaction(reactionGlyph->getReactionId());
     if (reaction)
         return model->getCompartment(reaction->getCompartment());
 
     return NULL;
+}
+
+Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph) {
+    return model->getReaction(reactionGlyph->getReactionId());
 }
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph) {

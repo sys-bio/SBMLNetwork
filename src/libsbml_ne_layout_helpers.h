@@ -58,7 +58,11 @@ Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* com
 
 Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph);
 
+Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph);
+
 Compartment* findReactionGlyphCompartment(Model* model, ReactionGlyph* reactionGlyph);
+
+Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph);
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 
