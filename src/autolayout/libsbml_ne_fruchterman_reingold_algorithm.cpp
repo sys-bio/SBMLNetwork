@@ -77,7 +77,7 @@ void FruthtermanReingoldAlgorithm::initialize() {
     _time = 0.0;
     _alpha = std::log(_initialTemperature) - std::log(0.25);
     _timeIncrement = 1.0 / _maximumIterations;
-    _width = std::sqrt(_nodes.size()) * _stiffness * 5;
+    _width = std::sqrt(_nodes.size()) * _stiffness * 10;
     _height = _width;
 }
 
@@ -437,16 +437,15 @@ AutoLayoutPoint adjustPointPosition(AutoLayoutPoint firstPoint, AutoLayoutPoint 
 
 AutoLayoutPoint calculateCurveNodeSidePoint(AutoLayoutPoint source, AutoLayoutObjectBase* target, double distance) {
     AutoLayoutPoint intersectionPoint = calculateLeftSideIntersectionPoint(source, target);
-    if (intersectionPoint.isEmpty())
-        intersectionPoint = calculateRightSideIntersectionPoint(source, target);
-    if (intersectionPoint.isEmpty())
-        intersectionPoint = calculateTopSideIntersectionPoint(source, target);
-    if (intersectionPoint.isEmpty())
-        intersectionPoint = calculateBottomSideIntersectionPoint(source, target);
-    if (intersectionPoint.isEmpty()) {
-        intersectionPoint.setX(((AutoLayoutNodeBase *) target)->getX());
-        intersectionPoint.setY(((AutoLayoutNodeBase *) target)->getY());
-    }
+    AutoLayoutPoint possibleIntersectionPoint = calculateRightSideIntersectionPoint(source, target);
+    if (!possibleIntersectionPoint.isEmpty() && calculateEuclideanDistance(intersectionPoint, source) > calculateEuclideanDistance(possibleIntersectionPoint, source))
+        intersectionPoint = possibleIntersectionPoint;
+    possibleIntersectionPoint = calculateTopSideIntersectionPoint(source, target);
+    if (!possibleIntersectionPoint.isEmpty() && calculateEuclideanDistance(intersectionPoint, source) > calculateEuclideanDistance(possibleIntersectionPoint, source))
+        intersectionPoint = possibleIntersectionPoint;
+    possibleIntersectionPoint = calculateBottomSideIntersectionPoint(source, target);
+    if (!possibleIntersectionPoint.isEmpty() && calculateEuclideanDistance(intersectionPoint, source) > calculateEuclideanDistance(possibleIntersectionPoint, source))
+        intersectionPoint = possibleIntersectionPoint;
 
     return adjustPointPosition(source, intersectionPoint, 0, -distance, false);
 }
@@ -454,25 +453,25 @@ AutoLayoutPoint calculateCurveNodeSidePoint(AutoLayoutPoint source, AutoLayoutOb
 AutoLayoutPoint calculateLeftSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
     return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
-                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY() + 0.5 * ((AutoLayoutNodeBase*)target)->getHeight()));
 }
 
 AutoLayoutPoint calculateRightSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
     return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
-                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY() + 0.5 * ((AutoLayoutNodeBase*)target)->getHeight()));
 }
 
 AutoLayoutPoint calculateTopSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
     return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY()),
-                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + 0.5 * ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY()));
 }
 
 AutoLayoutPoint calculateBottomSideIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target) {
     return calculateIntersectionPoint(AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
                                       AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()),
-                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX(), ((AutoLayoutNodeBase*)target)->getY()));
+                                      source, AutoLayoutPoint(((AutoLayoutNodeBase*)target)->getX() + 0.5 * ((AutoLayoutNodeBase*)target)->getWidth(), ((AutoLayoutNodeBase*)target)->getY() + ((AutoLayoutNodeBase*)target)->getHeight()));
 }
 
 AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p2, AutoLayoutPoint q1, AutoLayoutPoint q2) {
