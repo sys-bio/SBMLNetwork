@@ -32,7 +32,7 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string writeSBML(SBMLDocument* document)
 /// to the the SBML document, and set all the necessary features for them.
 /// @param document a pointer to the SBMLDocument object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayoutAndRenderFeatures(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
+LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
 
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.
