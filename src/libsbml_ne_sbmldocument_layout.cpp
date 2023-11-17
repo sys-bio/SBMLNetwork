@@ -66,7 +66,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
             setCompartmentGlyphs(model, layout, layoutPkgNamespaces);
             setSpeciesGlyphs(model, layout, layoutPkgNamespaces);
             setReactionGlyphs(model, layout, layoutPkgNamespaces);
-            locateGlyphs(model, layout);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
             setCompartmentTextGlyphs(layout, layoutPkgNamespaces);
             setSpeciesTextGlyphs(layout, layoutPkgNamespaces);
             return 0;
