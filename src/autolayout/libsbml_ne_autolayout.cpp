@@ -9,6 +9,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
 void locateGlyphs(Model *model, Layout *layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     double padding = 30.0;
+    std::srand(time(0));
     randomizeGlyphsLocations(model, layout, padding);
     setGlyphsDimensions(model, layout);
     applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
