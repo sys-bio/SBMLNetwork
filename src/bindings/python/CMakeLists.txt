@@ -115,10 +115,3 @@ if (PYTHON_INSTALL_WITH_SETUP)
         install(DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/dependencies DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
     endif ()
 endif()
-
-## install using setup.py with the wrapper
-cmake_dependent_option(PYTHON_INSTALL_WITH_SETUP_WITH_WRAPPER_CLASS "Use the setup.py to install the compiled python binaries with the wrapper class." OFF
-        "NOT ${PYTHON_INSTALL_IN_PREFIX}; NOT ${PYTHON_INSTALL_WITH_SETUP}" OFF)
-if (PYTHON_INSTALL_WITH_SETUP_WITH_WRAPPER_CLASS)
-    add_subdirectory(python_wrapper_class)
-endif()
