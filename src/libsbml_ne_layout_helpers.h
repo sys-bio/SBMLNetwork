@@ -48,13 +48,21 @@ void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject, LayoutPkgNa
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces);
 
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+
+void setCurveCubicBezier(Curve* curve, LayoutPkgNamespaces* layoutPkgNamespaces);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);
 
 Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph);
 
+Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph);
+
 Compartment* findReactionGlyphCompartment(Model* model, ReactionGlyph* reactionGlyph);
+
+Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph);
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 

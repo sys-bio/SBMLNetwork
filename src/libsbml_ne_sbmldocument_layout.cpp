@@ -1,7 +1,7 @@
 #include "libsbml_ne_sbmldocument_layout.h"
 #include "libsbml_ne_layout.h"
 #include "libsbml_ne_layout_helpers.h"
-#include "libsbml_ne_autolayout.h"
+#include "autolayout/libsbml_ne_autolayout.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -56,7 +56,7 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     if (document && layout) {
         LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
         layout->setId("libSBML_NetworkEditor_Layout");
@@ -66,7 +66,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
             setCompartmentGlyphs(model, layout, layoutPkgNamespaces);
             setSpeciesGlyphs(model, layout, layoutPkgNamespaces);
             setReactionGlyphs(model, layout, layoutPkgNamespaces);
-            locateGlyphs(model, layout);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
             setCompartmentTextGlyphs(layout, layoutPkgNamespaces);
             setSpeciesTextGlyphs(layout, layoutPkgNamespaces);
             return 0;
@@ -76,10 +76,10 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document) {
+int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
     if (!getNumLayouts(document)) {
         Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout);
+        return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
     }
 
     return -1;

@@ -1,3 +1,4 @@
+include(CMakeDependentOption)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 ## find python packages
@@ -41,13 +42,11 @@ add_library(binding_python_lib SHARED libsbmlnetworkeditor_wrap.cpp)
 target_include_directories(binding_python_lib PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/../swig
-        ${GRAPHVIZ_INCLUDEDIR})
+        ${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 
 target_link_libraries(binding_python_lib
         Python::Python
-        sbmlnetworkeditor-static
-        ${GRAPHVIZ_LIBS_FIRSTHAND})
+        sbmlnetworkeditor-static)
 
 add_dependencies(binding_python_lib binding_python_swig)
 set_target_properties(binding_python_lib PROPERTIES OUTPUT_NAME "_libsbmlnetworkeditor")
@@ -68,16 +67,7 @@ if (APPLE)
     add_custom_command(TARGET binding_python_lib POST_BUILD
             COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
             "libsbml.5.dylib" "@rpath/libsbml.5.dylib"
-            $<TARGET_FILE:binding_python_lib>
-            COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
-            "/usr/local/opt/graphviz/lib/libgvc.6.dylib"
-            "@rpath/libgvc.6.dylib" $<TARGET_FILE:binding_python_lib>
-            COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
-            "/usr/local/opt/graphviz/lib/libcgraph.6.dylib"
-            "@rpath/libcgraph.6.dylib" $<TARGET_FILE:binding_python_lib>
-            COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
-            "/usr/local/opt/graphviz/lib/libcdt.5.dylib"
-            "@rpath/libcdt.5.dylib" $<TARGET_FILE:binding_python_lib>)
+            $<TARGET_FILE:binding_python_lib>)
 endif()
 
 ## determine the python installation directory
@@ -88,7 +78,8 @@ if (UNIX OR CYGWIN)
 endif()
 
 ## install using the configured install prefix
-option (PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." ON)
+cmake_dependent_option(PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." OFF
+        "NOT ${PYTHON_INSTALL_WITH_SETUP}; NOT ${PYTHON_INSTALL_WITH_SETUP_WITH_WRAPPER_CLASS}" OFF)
 if (PYTHON_INSTALL_IN_PREFIX)
     install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor 	COMPONENT libsbmlnetworkeditor_python_bindings)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbmlnetworkeditor_python_bindings)
@@ -96,25 +87,31 @@ if (PYTHON_INSTALL_IN_PREFIX)
     if (WIN32)
         include(InstallRequiredSystemLibraries)
         install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
-        install(FILES ${LIBSBML_DLLS} ${GRAPHVIZ_DLLS} ${GRAPHVIZ_API_CONFIG} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
-    endif(WIN32)
+        install(FILES ${LIBSBML_DLLS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+    elseif (UNIX)
+        install(DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/dependencies DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+    endif ()
 endif()
 
 ## install using setup.py
-option (PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." OFF)
+cmake_dependent_option(PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." OFF
+        "NOT ${PYTHON_INSTALL_WITH_SETUP_WITH_WRAPPER_CLASS}; NOT ${PYTHON_INSTALL_IN_PREFIX}" OFF)
 if (PYTHON_INSTALL_WITH_SETUP)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/setup.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbmlnetworkeditor_python_bindings)
+    install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor 	COMPONENT libsbmlnetworkeditor_python_bindings)
     if (NOT EXISTS ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor.py)
         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbmlnetworkeditor_python_bindings)
     endif()
     ## __init__.py
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor RENAME __init__.py COMPONENT python_extra)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor/__init__.py DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
-
     install(CODE "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E chdir ${PYTHON_PACKAGE_INSTALL_DIR} pip install .)" COMPONENT python_extra)
-    if (UNIX)
-        install(FILES ${SBML_LIBS} ${GRAPHVIZ_LIBS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor/dependencies COMPONENT libsbmlnetworkeditor_python_bindings)
-        install(FILES ${GRAPHVIZ_APIS} ${GRAPHVIZ_API_CONFIG} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor/dependencies/graphviz COMPONENT libsbmlnetworkeditor_python_bindings)
-    endif()
+    if (WIN32)
+        include(InstallRequiredSystemLibraries)
+        install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+        install(FILES ${LIBSBML_DLLS} DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+    elseif (UNIX)
+        install(DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/dependencies DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+    endif ()
 endif()

@@ -70,7 +70,7 @@ void setReactionGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layout
     for (unsigned int i = 0; i < model->getNumReactions(); i++) {
         Reaction* reaction = model->getReaction(i);
         ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reaction);
-        setGraphicalObjectBoundingBox(reactionGlyph, layoutPkgNamespaces);
+        setReactionGlyphCurve(reactionGlyph, layoutPkgNamespaces);
         setReactantGlyphs(layout, reaction, reactionGlyph, layoutPkgNamespaces);
         setProductGlyphs(layout, reaction, reactionGlyph, layoutPkgNamespaces);
         setModifierGlyphs(layout, reaction, reactionGlyph, layoutPkgNamespaces);
@@ -194,15 +194,22 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
     textGlyph->setBoundingBox(new BoundingBox(layoutPkgNamespaces, textGlyph->getId() + "_bb", box->x(), box->y(), box->width(), box->height()));
 }
 
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
+    if (!reactionGlyph->isSetCurve())
+        setCurveCubicBezier(reactionGlyph->getCurve(), layoutPkgNamespaces);
+}
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
-    if (!speciesReferenceGlyph->isSetCurve()) {
-        Curve* curve = speciesReferenceGlyph->getCurve();
-        CubicBezier* cubicBezier = curve->createCubicBezier();
-        cubicBezier->setStart(new Point(layoutPkgNamespaces, 0, 0));
-        cubicBezier->setBasePoint1(new Point(layoutPkgNamespaces, 0, 0));
-        cubicBezier->setBasePoint2(new Point(layoutPkgNamespaces, 0, 0));
-        cubicBezier->setEnd(new Point(layoutPkgNamespaces, 0, 0));
-    }
+    if (!speciesReferenceGlyph->isSetCurve())
+        setCurveCubicBezier(speciesReferenceGlyph->getCurve(), layoutPkgNamespaces);
+}
+
+void setCurveCubicBezier(Curve* curve, LayoutPkgNamespaces* layoutPkgNamespaces) {
+    CubicBezier* cubicBezier = curve->createCubicBezier();
+    cubicBezier->setStart(new Point(layoutPkgNamespaces, 0, 0));
+    cubicBezier->setBasePoint1(new Point(layoutPkgNamespaces, 0, 0));
+    cubicBezier->setBasePoint2(new Point(layoutPkgNamespaces, 0, 0));
+    cubicBezier->setEnd(new Point(layoutPkgNamespaces, 0, 0));
 }
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph) {
@@ -217,12 +224,20 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     return NULL;
 }
 
+Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph) {
+    return model->getSpecies(speciesGlyph->getSpeciesId());
+}
+
 Compartment* findReactionGlyphCompartment(Model* model, ReactionGlyph* reactionGlyph) {
     Reaction* reaction = model->getReaction(reactionGlyph->getReactionId());
     if (reaction)
         return model->getCompartment(reaction->getCompartment());
 
     return NULL;
+}
+
+Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph) {
+    return model->getReaction(reactionGlyph->getReactionId());
 }
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph) {

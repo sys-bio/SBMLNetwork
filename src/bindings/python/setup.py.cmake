@@ -16,9 +16,9 @@ class BinaryDistribution(Distribution):
 
 deps = []
 if platform.system() == "Windows":
-    deps = ['*.dll', '*.pyd', 'config6']
+    deps = ['*.dll', '*.pyd']
 elif platform.system() == "Darwin" or platform.system() == "Linux":
-    deps = ['*.so', '*.dylib', './dependencies/*', './dependencies/graphviz/*']
+    deps = ['*.so', '*.dylib', './dependencies/*']
 
 setup(
     name = "libsbmlnetworkeditor",
@@ -39,7 +39,7 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Unix"
     ],
-    keywords= ["SBML", "Layout", "Render", "Graphviz"],
+    keywords= ["SBML", "Layout", "Render"],
     package_dir={"": "."},
     packages=find_packages(),
     package_data={"": deps},

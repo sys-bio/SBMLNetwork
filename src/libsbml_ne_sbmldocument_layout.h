@@ -46,13 +46,18 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param layout a pointer to the Layout object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout);
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
 /// set all the necessary features for it
 /// @param document a pointer to the SBMLDocument object.
+/// @param stiffness the stiffness value used in the autolayout algorithm.
+/// @param gravity the gravity value used in the autolayout algorithm.
+/// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
+/// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
+/// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayout(SBMLDocument* document);
+LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
 
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
