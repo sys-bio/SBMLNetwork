@@ -79,7 +79,7 @@ endif()
 
 ## install using the configured install prefix
 cmake_dependent_option(PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." OFF
-        "NOT ${PYTHON_INSTALL_WITH_SETUP}; NOT ${PYTHON_INSTALL_WITH_SETUP_WITH_WRAPPER_CLASS}" OFF)
+        "NOT ${PYTHON_INSTALL_WITH_SETUP}" OFF)
 if (PYTHON_INSTALL_IN_PREFIX)
     install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor 	COMPONENT libsbmlnetworkeditor_python_bindings)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbmlnetworkeditor_python_bindings)
@@ -95,7 +95,7 @@ endif()
 
 ## install using setup.py
 cmake_dependent_option(PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." OFF
-        "NOT ${PYTHON_INSTALL_WITH_SETUP_WITH_WRAPPER_CLASS}; NOT ${PYTHON_INSTALL_IN_PREFIX}" OFF)
+        "NOT ${PYTHON_INSTALL_IN_PREFIX}" OFF)
 if (PYTHON_INSTALL_WITH_SETUP)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/setup.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR} COMPONENT libsbmlnetworkeditor_python_bindings)
