@@ -29,6 +29,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: sbmlteam/libsbml
+          ref: v5.20.1
 
       - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
@@ -184,29 +185,6 @@ jobs:
         shell: bash
         run: echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${GITHUB_PATH}"
 
-      - name: Install Graphviz on Windows
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          curl -L https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.50.0/msys2_3.3.3-341.x86_64_Graphviz-2.50.0-win64.zip > graphviz.zip
-          unzip graphviz.zip
-          mv Graphviz-2.50.0-win64 graphviz
-          echo "GRAPHVIZ_PATH=D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/graphviz" >> "${GITHUB_ENV}"
-
-      - name: Install Graphviz on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
-        shell: bash
-        run: |
-          sudo apt install -y graphviz-dev
-          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
-
-      - name: Install Graphviz on macOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install graphviz
-          echo "GRAPHVIZ_PATH=/usr/local/Cellar/graphviz/8.1.0" >> "${GITHUB_ENV}"
-
       - name: Create libsbmlNetworkEditor build directory
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
 
@@ -257,6 +235,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: sbmlteam/libsbml
+          ref: v5.20.1
 
       - name: Build and install Swig from source
         run: |
@@ -304,8 +283,3 @@ jobs:
       - name: Build and Install libsbml
         working-directory: build-libsbml
         run: cmake --build . --config $BUILD_TYPE
-
-      - name: Install Graphviz
-        run: |
-          y | yum install graphviz-devel
-          echo "GRAPHVIZ_PATH=${{runner.workspace}}/graphviz" >> "${GITHUB_ENV}"
