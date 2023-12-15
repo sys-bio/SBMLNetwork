@@ -100,7 +100,4 @@ elseif(UNIX)
 	install(FILES ${SBML_LIBS} DESTINATION lib/dependencies COMPONENT libsbmlnetworkeditor_api)
 endif()
 
-### build language bindings
-if (WITH_SWIG)
-	add_subdirectory(bindings)
-endif()
+add_subdirectory(bindings)
