@@ -3,16 +3,11 @@ from setuptools import find_packages
 from setuptools.dist import Distribution
 import platform
 
-import os.path, sys
-if not os.path.isfile('libsbmlnetworkeditor.py'):
-      print("First build the libsbmlnetworkeditor and then run this script.")
-      sys.exit(1)
 
 class BinaryDistribution(Distribution):
 
     def has_ext_modules(foo):
         return True
-
 
 deps = []
 if platform.system() == "Windows":

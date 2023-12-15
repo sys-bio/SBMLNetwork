@@ -1,1 +1,0 @@
-%include "../swig/libsbmlnetworkeditor.i"
