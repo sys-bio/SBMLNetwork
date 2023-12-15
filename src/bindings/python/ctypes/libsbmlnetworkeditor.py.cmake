@@ -66,7 +66,7 @@ class LibSBMLNetworkEditor:
         if file_name:
             return lib.writeSBML(self.sbml_object, str(file_name).encode())
         else:
-            return lib.writeSBMLToString(self.sbml_object)
+            return lib.writeSBMLToString(self.sbml_object).decode()
         
     def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False):
         """
