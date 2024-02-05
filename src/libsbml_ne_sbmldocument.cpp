@@ -13,9 +13,15 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return -1;
     }
 
-    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const bool useMagnetism,
-                   const bool useBoundary, const bool useGrid) {
-        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid) && !createDefaultRenderInformation(document))
+    int autolayout(SBMLDocument* document, const double stiffness, const double gravity,
+                   const bool useMagnetism, const bool useBoundary, const bool useGrid,
+                   const char** lockedNodeIds) {
+        std::vector<std::string> lockedNodeIdsVector = std::vector<std::string>();
+        if (lockedNodeIds) {
+            for (int i = 0; lockedNodeIds[i] != nullptr; i++)
+                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
+        }
+        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector) && !createDefaultRenderInformation(document))
             return 0;
 
         return -1;

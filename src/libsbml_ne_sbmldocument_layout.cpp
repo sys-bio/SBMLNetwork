@@ -56,7 +56,9 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity,
+                             const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                             const std::vector<std::string>& lockedNodeIds) {
     if (document && layout) {
         LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
         layout->setId("libSBML_NetworkEditor_Layout");
@@ -66,7 +68,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
             setCompartmentGlyphs(model, layout, layoutPkgNamespaces);
             setSpeciesGlyphs(model, layout, layoutPkgNamespaces);
             setReactionGlyphs(model, layout, layoutPkgNamespaces);
-            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
             setCompartmentTextGlyphs(layout, layoutPkgNamespaces);
             setSpeciesTextGlyphs(layout, layoutPkgNamespaces);
             return 0;
@@ -76,10 +78,12 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
+int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
+                        const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                        const std::vector<std::string>& lockedNodeIds) {
     if (!getNumLayouts(document)) {
         Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
+        return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
     }
 
     return -1;

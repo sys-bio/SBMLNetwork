@@ -4,6 +4,7 @@
 
 AutoLayoutNodeBase::AutoLayoutNodeBase(Layout* layout) : AutoLayoutObjectBase(layout) {
     _degree = 0;
+    _locked = false;
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -48,8 +49,12 @@ void AutoLayoutNodeBase::incrementDegree() {
     _degree++;
 }
 
+void AutoLayoutNodeBase::setLocked(const bool& locked) {
+    _locked = locked;
+}
+
 const bool AutoLayoutNodeBase::isLocked() {
-    return false;
+    return _locked;
 }
 
 // AutoLayoutNode
@@ -60,6 +65,10 @@ AutoLayoutNode::AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph) : Aut
 
 const std::string AutoLayoutNode::getId() {
     return _speciesGlyph->getId();
+}
+
+GraphicalObject* AutoLayoutNode::getGraphicalObject() {
+    return _speciesGlyph;
 }
 
 const double AutoLayoutNode::getX() {
@@ -102,6 +111,10 @@ AutoLayoutCentroidNode::AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* re
 
 const std::string AutoLayoutCentroidNode::getId() {
     return _reactionGlyph->getId();
+}
+
+GraphicalObject* AutoLayoutCentroidNode::getGraphicalObject() {
+    return _reactionGlyph;
 }
 
 const double AutoLayoutCentroidNode::getX() {

@@ -2,6 +2,7 @@
 #include "libsbml_ne_autolayout_node.h"
 #include "libsbml_ne_autolayout_connection.h"
 #include "libsbml_ne_autolayout_curve.h"
+#include "../libsbml_ne_layout_helpers.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -66,6 +67,13 @@ void FruthtermanReingoldAlgorithm::setUseBoundary(const bool &useBoundary) {
 
 void FruthtermanReingoldAlgorithm::setUseGrid(const bool &useGrid) {
     _useGrid = useGrid;
+}
+
+void FruthtermanReingoldAlgorithm::setNodesLockedStatus(Layout *layout, const std::vector<std::string> &lockedNodeIds) {
+    for (int i = 0; i < _nodes.size(); i++) {
+        if (whetherGraphicalObjectIsLocked(layout, ((AutoLayoutNodeBase*)_nodes.at(0))->getGraphicalObject(), lockedNodeIds))
+            ((AutoLayoutNodeBase*)_nodes.at(i))->setLocked(true);
+    }
 }
 
 void FruthtermanReingoldAlgorithm::apply() {
@@ -497,6 +505,15 @@ AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, con
     }
 
     return NULL;
+}
+
+const bool whetherGraphicalObjectIsLocked(Layout* layout, GraphicalObject *graphicalObject, const std::vector <std::string> &lockedNodeIds) {
+    for (int i = 0; i < lockedNodeIds.size(); i++) {
+        if (graphicalObject->getId() == lockedNodeIds[i] || getEntityId(layout, graphicalObject) == lockedNodeIds[i])
+            return true;
+    }
+    return false;
+
 }
 
 }

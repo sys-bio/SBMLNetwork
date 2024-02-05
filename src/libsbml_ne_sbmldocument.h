@@ -29,10 +29,11 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+/// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int
-    autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const bool useMagnetism = false,
-               const bool useBoundary = false, const bool useGrid = false);
+    LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
+               const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
+               const char** lockedNodeIds = NULL);
 
 /// @brief Returns a pointer to the Compartment object with the given id.
 /// @param document a pointer to the SBMLDocument object.

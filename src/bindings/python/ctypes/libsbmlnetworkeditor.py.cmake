@@ -46,7 +46,7 @@ class LibSBMLNetworkEditor:
 
             SBMLDocument: a pointer to the SBMLDocument structure created from the SBML content in the given file name or from the SBML content in the given text string
         """
-    
+
         self.sbml_object = lib.readSBML(str(sbml).encode())
 
     def export(self, file_name=""):
@@ -68,7 +68,7 @@ class LibSBMLNetworkEditor:
         else:
             return lib.writeSBMLToString(self.sbml_object).decode()
         
-    def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False):
+    def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
@@ -79,9 +79,17 @@ class LibSBMLNetworkEditor:
             - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
             - use_boundary (boolean, optional): a boolean (default: False) that determines whether to use boundary restriction in the autolayout algorithm.
             - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
+            - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
 
             true on success and false if autolayout algorithm was not applied successfully
         """
-        return lib.autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid)
+
+        locked_nodes_ptr = None
+        if locked_nodes is not None:
+            locked_nodes_ptr = (ctypes.c_char_p * len(locked_nodes))()
+            for i, id in enumerate(locked_nodes):
+                locked_nodes_ptr[i] = ctypes.c_char_p(id.encode())
+
+        return lib.autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr)
