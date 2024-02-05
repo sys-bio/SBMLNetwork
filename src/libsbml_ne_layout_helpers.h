@@ -18,21 +18,27 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-void setCompartmentGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+LayoutPkgNamespaces* getLayoutPkgNamespaces(Layout* layout);
 
-void setSpeciesGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setDefaultLayoutId(Layout* layout);
 
-void setReactionGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setDefaultLayoutDimensions(Layout* layout);
 
-void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setCompartmentGlyphs(Model* model, Layout* layout);
 
-void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setSpeciesGlyphs(Model* model, Layout* layout);
 
-void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setReactionGlyphs(Model* model, Layout* layout);
 
-void setCompartmentTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
-void setSpeciesTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+
+void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+
+void setCompartmentTextGlyphs(Layout* layout);
+
+void setSpeciesTextGlyphs(Layout* layout);
 
 CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
 
@@ -44,15 +50,15 @@ SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reacti
 
 TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
-void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
-void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-void setCurveCubicBezier(Curve* curve, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setCurveCubicBezier(Curve* curve);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);
 
