@@ -60,16 +60,17 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
                              const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
                              const std::vector<std::string>& lockedNodeIds) {
     if (document && layout) {
-        setDefaultLayoutId(layout);
-        setDefaultLayoutDimensions(layout);
+        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
+        layout->setId("libSBML_NetworkEditor_Layout");
+        layout->setDimensions(new Dimensions(layoutPkgNamespaces, 1024.0, 1024.0));
         Model* model = document->getModel();
         if (model) {
-            setCompartmentGlyphs(model, layout);
-            setSpeciesGlyphs(model, layout);
-            setReactionGlyphs(model, layout);
+            setCompartmentGlyphs(model, layout, layoutPkgNamespaces);
+            setSpeciesGlyphs(model, layout, layoutPkgNamespaces);
+            setReactionGlyphs(model, layout, layoutPkgNamespaces);
             locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
-            setCompartmentTextGlyphs(layout);
-            setSpeciesTextGlyphs(layout);
+            setCompartmentTextGlyphs(layout, layoutPkgNamespaces);
+            setSpeciesTextGlyphs(layout, layoutPkgNamespaces);
             return 0;
         }
     }

@@ -50,86 +50,71 @@ void enableLayoutPlugin(SBMLDocument* document) {
     document->setPackageRequired("layout", false);
 }
 
-void setDefaultLayoutId(Layout* layout) {
-    if (!layout->isSetId())
-        layout->setId("libSBML_NetworkEditor_Layout");
-}
-
-void setDefaultLayoutDimensions(Layout* layout) {
-    Dimensions* dimensions = layout->getDimensions();
-    if (!dimensions)
-        dimensions = new Dimensions(layout->getLevel(), layout->getVersion(), layout->getPackageVersion());
-    if (dimensions->getWidth() < 0.0001)
-        dimensions->setWidth(1024.0);
-    if (dimensions->getHeight() < 0.0001)
-        dimensions->setHeight(1024.0);
-}
-
-void setCompartmentGlyphs(Model* model, Layout* layout) {
+void setCompartmentGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
         Compartment* compartment = model->getCompartment(i);
         CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(layout, compartment);
-        setGraphicalObjectBoundingBox(compartmentGlyph);
+        setGraphicalObjectBoundingBox(compartmentGlyph, layoutPkgNamespaces);
     }
 }
 
-void setSpeciesGlyphs(Model* model, Layout* layout) {
+void setSpeciesGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < model->getNumSpecies(); i++) {
         Species* species = model->getSpecies(i);
         SpeciesGlyph* speciesGlyph = getSpeciesGlyph(layout, species);
-        setGraphicalObjectBoundingBox(speciesGlyph);
+        setGraphicalObjectBoundingBox(speciesGlyph, layoutPkgNamespaces);
     }
 }
 
-void setReactionGlyphs(Model* model, Layout* layout) {
+void setReactionGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < model->getNumReactions(); i++) {
         Reaction* reaction = model->getReaction(i);
         ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reaction);
-        setReactionGlyphCurve(reactionGlyph);
-        setReactantGlyphs(layout, reaction, reactionGlyph);
-        setProductGlyphs(layout, reaction, reactionGlyph);
-        setModifierGlyphs(layout, reaction, reactionGlyph);
+        setReactionGlyphCurve(reactionGlyph, layoutPkgNamespaces);
+        setReactantGlyphs(layout, reaction, reactionGlyph, layoutPkgNamespaces);
+        setProductGlyphs(layout, reaction, reactionGlyph, layoutPkgNamespaces);
+        setModifierGlyphs(layout, reaction, reactionGlyph, layoutPkgNamespaces);
     }
 }
 
-void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
+void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
         SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph, layoutPkgNamespaces);
     }
 }
 
-void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
+void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
         SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
-        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph, layoutPkgNamespaces);
     }
 }
 
-void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
+void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
         SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
-        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph, layoutPkgNamespaces);
     }
 }
 
-void setCompartmentTextGlyphs(Layout* layout) {
+void setCompartmentTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getCompartmentGlyph(i));
-        setTextGlyphBoundingBox(textGlyph, layout->getCompartmentGlyph(i));
+        setTextGlyphBoundingBox(textGlyph, layout->getCompartmentGlyph(i), layoutPkgNamespaces);
     }
 }
 
-void setSpeciesTextGlyphs(Layout* layout) {
+void setSpeciesTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getSpeciesGlyph(i));
-        setTextGlyphBoundingBox(textGlyph, layout->getSpeciesGlyph(i));
+        setTextGlyphBoundingBox(textGlyph, layout->getSpeciesGlyph(i), layoutPkgNamespaces);
     }
 }
 
@@ -200,37 +185,31 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
 }
 
 
-void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
-    graphicalObject->setBoundingBox(new BoundingBox(graphicalObject->getLevel(), graphicalObject->getVersion(), graphicalObject->getPackageVersion()));
-    graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
+void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces) {
+    graphicalObject->setBoundingBox(new BoundingBox(layoutPkgNamespaces, graphicalObject->getId() + "_bb", 0, 0, 0, 0));
 }
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces) {
     BoundingBox* box = graphicalObject->getBoundingBox();
-    textGlyph->setBoundingBox(new BoundingBox(textGlyph->getLevel(), textGlyph->getVersion(), textGlyph->getPackageVersion()));
-    graphicalObject->setId(textGlyph->getId() + "_bb");
-    graphicalObject->getBoundingBox()->setX(box->x());
-    graphicalObject->getBoundingBox()->setY(box->y());
-    graphicalObject->getBoundingBox()->setWidth(box->width());
-    graphicalObject->getBoundingBox()->setHeight(box->height());
+    textGlyph->setBoundingBox(new BoundingBox(layoutPkgNamespaces, textGlyph->getId() + "_bb", box->x(), box->y(), box->width(), box->height()));
 }
 
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
     if (!reactionGlyph->isSetCurve())
-        setCurveCubicBezier(reactionGlyph->getCurve());
+        setCurveCubicBezier(reactionGlyph->getCurve(), layoutPkgNamespaces);
 }
 
-void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph) {
+void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, LayoutPkgNamespaces* layoutPkgNamespaces) {
     if (!speciesReferenceGlyph->isSetCurve())
-        setCurveCubicBezier(speciesReferenceGlyph->getCurve());
+        setCurveCubicBezier(speciesReferenceGlyph->getCurve(), layoutPkgNamespaces);
 }
 
-void setCurveCubicBezier(Curve* curve) {
+void setCurveCubicBezier(Curve* curve, LayoutPkgNamespaces* layoutPkgNamespaces) {
     CubicBezier* cubicBezier = curve->createCubicBezier();
-    cubicBezier->setStart(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
-    cubicBezier->setBasePoint1(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
-    cubicBezier->setBasePoint2(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
-    cubicBezier->setEnd(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
+    cubicBezier->setStart(new Point(layoutPkgNamespaces, 0, 0));
+    cubicBezier->setBasePoint1(new Point(layoutPkgNamespaces, 0, 0));
+    cubicBezier->setBasePoint2(new Point(layoutPkgNamespaces, 0, 0));
+    cubicBezier->setEnd(new Point(layoutPkgNamespaces, 0, 0));
 }
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph) {
