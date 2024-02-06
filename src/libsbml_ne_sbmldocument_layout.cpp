@@ -80,12 +80,11 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
 int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                         const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
                         const std::vector<std::string>& lockedNodeIds) {
-    if (!getNumLayouts(document)) {
-        Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
-    }
+    Layout* layout = getLayout(document);
+    if (!layout)
+        layout = createLayout(document);
 
-    return -1;
+    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {

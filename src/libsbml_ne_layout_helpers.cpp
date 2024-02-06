@@ -201,14 +201,12 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
 
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
-    graphicalObject->setBoundingBox(new BoundingBox(graphicalObject->getLevel(), graphicalObject->getVersion(), graphicalObject->getPackageVersion()));
     graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     BoundingBox* box = graphicalObject->getBoundingBox();
-    textGlyph->setBoundingBox(new BoundingBox(textGlyph->getLevel(), textGlyph->getVersion(), textGlyph->getPackageVersion()));
-    graphicalObject->setId(textGlyph->getId() + "_bb");
+    graphicalObject->getBoundingBox()->setId(textGlyph->getId() + "_bb");
     graphicalObject->getBoundingBox()->setX(box->x());
     graphicalObject->getBoundingBox()->setY(box->y());
     graphicalObject->getBoundingBox()->setWidth(box->width());
@@ -227,10 +225,6 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph)
 
 void setCurveCubicBezier(Curve* curve) {
     CubicBezier* cubicBezier = curve->createCubicBezier();
-    cubicBezier->setStart(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
-    cubicBezier->setBasePoint1(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
-    cubicBezier->setBasePoint2(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
-    cubicBezier->setEnd(new Point(curve->getLevel(), curve->getVersion(), curve->getPackageVersion()));
 }
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph) {
