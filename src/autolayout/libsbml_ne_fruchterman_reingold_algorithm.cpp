@@ -71,7 +71,7 @@ void FruthtermanReingoldAlgorithm::setUseGrid(const bool &useGrid) {
 
 void FruthtermanReingoldAlgorithm::setNodesLockedStatus(Layout *layout, const std::vector<std::string> &lockedNodeIds) {
     for (int i = 0; i < _nodes.size(); i++) {
-        if (whetherGraphicalObjectIsLocked(layout, ((AutoLayoutNodeBase*)_nodes.at(0))->getGraphicalObject(), lockedNodeIds))
+        if (whetherGraphicalObjectIsLocked(layout, ((AutoLayoutNodeBase*)_nodes.at(i))->getGraphicalObject(), lockedNodeIds))
             ((AutoLayoutNodeBase*)_nodes.at(i))->setLocked(true);
     }
 }
@@ -129,15 +129,21 @@ void FruthtermanReingoldAlgorithm::computeRepulsiveForces() {
                 double distanceY = vNode->getY() - uNode->getY();
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                 if (distance < 0.000001)  {
-                    vNode->setX(vNode->getX() + std::rand() % int(_stiffness));
-                    vNode->setY(vNode->getY() + std::rand() % int(_stiffness));
+                    if (!vNode->isLocked()) {
+                        vNode->setX(vNode->getX() + std::rand() % int(_stiffness));
+                        vNode->setY(vNode->getY() + std::rand() % int(_stiffness));
+                    }
                 }
                 else {
                     double repulsionForce = calculateRepulsionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                    vNode->setDisplacementX(vNode->getDisplacementX() + (distanceX / distance * repulsionForce));
-                    vNode->setDisplacementY(vNode->getDisplacementY() + (distanceY /distance * repulsionForce));
-                    uNode->setDisplacementX(uNode->getDisplacementX() - (distanceX / distance * repulsionForce));
-                    uNode->setDisplacementY(uNode->getDisplacementY() - (distanceY / distance * repulsionForce));
+                    if (!vNode->isLocked()) {
+                        vNode->setDisplacementX(vNode->getDisplacementX() + (distanceX / distance * repulsionForce));
+                        vNode->setDisplacementY(vNode->getDisplacementY() + (distanceY /distance * repulsionForce));
+                    }
+                    if (!uNode->isLocked()) {
+                        uNode->setDisplacementX(uNode->getDisplacementX() - (distanceX / distance * repulsionForce));
+                        uNode->setDisplacementY(uNode->getDisplacementY() - (distanceY / distance * repulsionForce));
+                    }
                 }
             }
         }
@@ -159,10 +165,14 @@ void FruthtermanReingoldAlgorithm::computeAttractiveForces() {
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                 if (distance > 0.000001) {
                     double attractionForce = calculateAttractionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                    vNode->setDisplacementX(vNode->getDisplacementX() - (distanceX / distance * attractionForce));
-                    vNode->setDisplacementY(vNode->getDisplacementY() - (distanceY /distance * attractionForce));
-                    uNode->setDisplacementX(uNode->getDisplacementX() + (distanceX / distance * attractionForce));
-                    uNode->setDisplacementY(uNode->getDisplacementY() + (distanceY /distance * attractionForce));
+                    if (!vNode->isLocked()) {
+                        vNode->setDisplacementX(vNode->getDisplacementX() - (distanceX / distance * attractionForce));
+                        vNode->setDisplacementY(vNode->getDisplacementY() - (distanceY /distance * attractionForce));
+                    }
+                    if (!uNode->isLocked()) {
+                        uNode->setDisplacementX(uNode->getDisplacementX() + (distanceX / distance * attractionForce));
+                        uNode->setDisplacementY(uNode->getDisplacementY() + (distanceY /distance * attractionForce));
+                    }
                 }
             }
         }
@@ -189,10 +199,14 @@ void FruthtermanReingoldAlgorithm::applyMagnetism() {
                             double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                             if (distance > 0.000001) {
                                 double attractionForce = calculateAttractionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                                vNode->setDisplacementX(vNode->getDisplacementX() - 0.25 * (distanceX / distance * attractionForce));
-                                vNode->setDisplacementY(vNode->getDisplacementY() - 0.25 * (distanceY /distance * attractionForce));
-                                uNode->setDisplacementX(uNode->getDisplacementX() + 0.25 * (distanceX / distance * attractionForce));
-                                uNode->setDisplacementY(uNode->getDisplacementY() + 0.25 * (distanceY /distance * attractionForce));
+                                if (!vNode->isLocked()) {
+                                    vNode->setDisplacementX(vNode->getDisplacementX() - 0.25 * (distanceX / distance * attractionForce));
+                                    vNode->setDisplacementY(vNode->getDisplacementY() - 0.25 * (distanceY /distance * attractionForce));
+                                }
+                                if (!uNode->isLocked()) {
+                                    uNode->setDisplacementX(uNode->getDisplacementX() + 0.25 * (distanceX / distance * attractionForce));
+                                    uNode->setDisplacementY(uNode->getDisplacementY() + 0.25 * (distanceY /distance * attractionForce));
+                                }
                             }
                         }
                     }
