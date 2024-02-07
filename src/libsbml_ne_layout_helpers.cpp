@@ -205,12 +205,11 @@ void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
 }
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
-    BoundingBox* box = graphicalObject->getBoundingBox();
-    graphicalObject->getBoundingBox()->setId(textGlyph->getId() + "_bb");
-    graphicalObject->getBoundingBox()->setX(box->x());
-    graphicalObject->getBoundingBox()->setY(box->y());
-    graphicalObject->getBoundingBox()->setWidth(box->width());
-    graphicalObject->getBoundingBox()->setHeight(box->height());
+    textGlyph->getBoundingBox()->setId(textGlyph->getId() + "_bb");
+    textGlyph->getBoundingBox()->setX(graphicalObject->getBoundingBox()->x());
+    textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y());
+    textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
+    textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
 }
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
