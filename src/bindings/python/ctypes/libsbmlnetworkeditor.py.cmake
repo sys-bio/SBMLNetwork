@@ -89,7 +89,7 @@ class LibSBMLNetworkEditor:
         locked_nodes_ptr = None
         if locked_nodes is not None:
             locked_nodes_ptr = (ctypes.c_char_p * len(locked_nodes))()
-            for i, id in enumerate(locked_nodes):
-                locked_nodes_ptr[i] = ctypes.c_char_p(id.encode())
+            for i in range(len(locked_nodes)):
+                locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
         return lib.autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr)
