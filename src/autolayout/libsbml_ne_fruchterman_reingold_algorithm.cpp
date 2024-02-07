@@ -83,13 +83,13 @@ void FruthtermanReingoldAlgorithm::apply() {
 }
 
 void FruthtermanReingoldAlgorithm::initialize() {
-    _maximumIterations = 100 * std::log(_nodes.size() + 2);
+    _maximumIterations = int(100 * std::log(_nodes.size() + 2));
     _initialTemperature = 1000 * std::log(_nodes.size() + 2);
     _currentTemperature = _initialTemperature;
     _time = 0.0;
     _alpha = std::log(_initialTemperature) - std::log(0.25);
-    _timeIncrement = 1.0 / _maximumIterations;
-    _width = std::sqrt(_nodes.size()) * _stiffness * 10;
+    _timeIncrement = 1.0 / double(_maximumIterations);
+    _width = std::sqrt(_nodes.size()) * _stiffness * 5;
     _height = _width;
 }
 
@@ -344,8 +344,8 @@ void FruthtermanReingoldAlgorithm::adjustCenterControlPoint(AutoLayoutObjectBase
                 }
             }
         }
-        _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
         _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
+        _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
         _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, dist, false);
     }
 }
@@ -367,7 +367,7 @@ void FruthtermanReingoldAlgorithm::setCurvePoints(AutoLayoutObjectBase* connecti
             case SPECIES_ROLE_SIDEPRODUCT:
                 curve->setCentroidSideControlPoint(adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, 1, true));
                 curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                curve->setNodeSideControlPoint(adjustPointPosition(centroidNode->getPosition(), curve->getNodeSidePoint(), 0, -20, false));
+                curve->setNodeSideControlPoint(adjustPointPosition(curve->getCentroidSideControlPoint(), curve->getNodeSidePoint(), 0, -20, false));
                 break;
 
             case SPECIES_ROLE_SUBSTRATE:
