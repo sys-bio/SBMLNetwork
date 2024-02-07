@@ -20,8 +20,8 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
 
 void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding,
                               const std::vector <std::string> &lockedNodeIds) {
-    double canvasWidth = 400.0;
-    double canvasHeight = 400.0;
+    double canvasWidth = layout->getDimensions()->width() > 0.0001 ? layout->getDimensions()->width() : 400.0;
+    double canvasHeight = layout->getDimensions()->height() > 0.0001 ? layout->getDimensions()->height() : 400.0;
     randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding, lockedNodeIds);
     randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding, lockedNodeIds);
 }
