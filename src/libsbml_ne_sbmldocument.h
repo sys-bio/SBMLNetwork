@@ -68,11 +68,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 /// @return a pointer to the ModifierSpeciesReference object, or @c NULL if the object does not exists or is not of type modifier.
     LIBSBML_NETWORKEDITOR_EXTERN ModifierSpeciesReference *
     getModifierSpeciesReference(SBMLDocument *document, const char* reactionId, const char* speciesId);
+}
 
 #ifdef __cplusplus
 }
 #endif
-
-}
 
 #endif
