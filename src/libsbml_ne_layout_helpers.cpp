@@ -298,16 +298,19 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
 }
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {
-    CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(graphicalObject->getId());
-    if (compartmentGlyph)
-        return compartmentGlyph->getCompartmentId();
-    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(graphicalObject->getId());
-    if (speciesGlyph)
-        return speciesGlyph->getSpeciesId();
-    ReactionGlyph* reactionGlyph = layout->getReactionGlyph(graphicalObject->getId());
-    if (reactionGlyph)
-        return reactionGlyph->getReactionId();
-    
+    GraphicalObject* castedGraphicalObject = dynamic_cast<CompartmentGlyph*>(graphicalObject);
+    if (castedGraphicalObject)
+        return ((CompartmentGlyph*)castedGraphicalObject)->getCompartmentId();
+    castedGraphicalObject = dynamic_cast<SpeciesGlyph*>(graphicalObject);
+    if (castedGraphicalObject)
+        return ((SpeciesGlyph*)castedGraphicalObject)->getSpeciesId();
+    castedGraphicalObject = dynamic_cast<ReactionGlyph*>(graphicalObject);
+    if (castedGraphicalObject)
+        return ((ReactionGlyph*)castedGraphicalObject)->getReactionId();
+    castedGraphicalObject = dynamic_cast<SpeciesReferenceGlyph*>(graphicalObject);
+    if (castedGraphicalObject)
+        return ((SpeciesReferenceGlyph*)castedGraphicalObject)->getSpeciesReferenceId();
+
     return "";
 }
 
