@@ -2,56 +2,129 @@
 #include "libsbml_ne_sbmldocument_layout.h"
 #include "libsbml_ne_sbmldocument_render.h"
 
-extern "C" {
+namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
+    SBMLDocument* readSBML(const std::string& sbml) {
+        SBMLDocument* document = readSBMLFromFile(sbml.c_str());
+        if (document && document->isSetModel())
+            return document;
+        document = readSBMLFromString(sbml.c_str());
+        if (document && document->isSetModel())
+            return document;
 
-    int autolayoutWithDefaultParameters(SBMLDocument* document) {
-        if (!createDefaultLayout(document, 10.0, 15.0, false, false, false) && !createDefaultRenderInformation(document))
+        return NULL;
+    }
+
+    bool writeSBML(SBMLDocument* document, const std::string &fileName) {
+        return writeSBMLToFile(document, fileName.c_str());
+    }
+
+    const std::string writeSBML(SBMLDocument* document) {
+        return writeSBMLToString(document);
+    }
+
+    int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
+                   const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                   std::vector <std::string> lockedNodeIds) {
+        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid) && !createDefaultRenderInformation(document))
             return 0;
 
         return -1;
     }
 
-    int autolayout(SBMLDocument* document, const double stiffness, const double gravity,
-                   const bool useMagnetism, const bool useBoundary, const bool useGrid,
-                   const char** lockedNodeIds) {
-        std::vector<std::string> lockedNodeIdsVector = std::vector<std::string>();
-        if (lockedNodeIds) {
-            for (int i = 0; lockedNodeIds[i] != nullptr; i++)
-                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
+    bool isSetId(SBase* object) {
+        if (object)
+            return object->isSetId();
+
+        return false;
+    }
+
+    const std::string getId(SBase* object) {
+        if (object)
+            return object->getId();
+
+        return "";
+    }
+
+    int setId(SBase* object, const std::string& sid) {
+        if (object) {
+            object->setId(sid);
+            return 0;
         }
-        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector) && !createDefaultRenderInformation(document))
-            return 0;
 
         return -1;
     }
 
-    Compartment *getCompartment(SBMLDocument *document, const char* id) {
+    bool isSetName(SBase* object) {
+        if (object)
+            object->isSetName();
+
+        return false;
+    }
+
+    const std::string getName(SBase* object) {
+        if (object)
+            return object->getName();
+
+        return "";
+    }
+
+    int setName(SBase* object, const std::string& name) {
+        if (object) {
+            object->setName(name);
+            return 0;
+        }
+
+        return -1;
+    }
+
+    bool isSetMetaId(SBase* object) {
+        if (object)
+            return object->isSetMetaId();
+
+        return false;
+    }
+
+    const std::string getMetaId(SBase* object) {
+        if (object)
+            return object->getMetaId();
+
+        return "";
+    }
+
+    int setMetaId(SBase* object, const std::string& metaid) {
+        if (object) {
+            object->setMetaId(metaid);
+            return 0;
+        }
+
+        return -1;
+    }
+
+    Compartment* getCompartment(SBMLDocument* document, const std::string& id) {
         if (document->isSetModel())
             return document->getModel()->getCompartment(id);
 
         return NULL;
     }
 
-    Species *getSpecies(SBMLDocument *document, const char* id) {
+    Species* getSpecies(SBMLDocument* document, const std::string& id) {
         if (document->isSetModel())
             return document->getModel()->getSpecies(id);
 
         return NULL;
     }
 
-    Reaction *getReaction(SBMLDocument *document, const char* id) {
+    Reaction* getReaction(SBMLDocument* document, const std::string& id) {
         if (document->isSetModel())
             return document->getModel()->getReaction(id);
 
         return NULL;
     }
 
-    SpeciesReference *
-    getSpeciesReference(SBMLDocument *document, const char* reactionId, const char* speciesId) {
+    SpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
         if (document->isSetModel()) {
-            Reaction *reaction = getReaction(document, reactionId);
+            Reaction* reaction = getReaction(document, reactionId);
             if (reaction) {
                 if (reaction->getReactant(speciesId))
                     return reaction->getReactant(speciesId);
@@ -63,10 +136,9 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return NULL;
     }
 
-    SpeciesReference *
-    getReactantSpeciesReference(SBMLDocument *document, const char* reactionId, const char* speciesId) {
+    SpeciesReference* getReactantSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
         if (document->isSetModel()) {
-            Reaction *reaction = getReaction(document, reactionId);
+            Reaction* reaction = getReaction(document, reactionId);
             if (reaction)
                 reaction->getReactant(speciesId);
         }
@@ -74,16 +146,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return NULL;
     }
 
-    ModifierSpeciesReference *
-    getModifierSpeciesReference(SBMLDocument *document, const char* reactionId, const char* speciesId) {
+    ModifierSpeciesReference* getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
         if (document->isSetModel()) {
-            Reaction *reaction = getReaction(document, reactionId);
+            Reaction* reaction = getReaction(document, reactionId);
             if (reaction)
                 reaction->getModifier(speciesId);
         }
 
         return NULL;
     }
-}
-
 }
