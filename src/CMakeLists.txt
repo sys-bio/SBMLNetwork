@@ -18,7 +18,8 @@ set(SOURCES
 		autolayout/libsbml_ne_autolayout_node.cpp
 		autolayout/libsbml_ne_autolayout_connection.cpp
 		autolayout/libsbml_ne_autolayout_curve.cpp
-		autolayout/libsbml_ne_autolayout_point.cpp)
+		autolayout/libsbml_ne_autolayout_point.cpp
+		c_api/libsbml_ne_c_api.cpp)
 
 ## headers
 set(HEADERS 
@@ -38,7 +39,8 @@ set(HEADERS
 		autolayout/libsbml_ne_autolayout_node.h
 		autolayout/libsbml_ne_autolayout_connection.h
 		autolayout/libsbml_ne_autolayout_curve.h
-		autolayout/libsbml_ne_autolayout_point.h)
+		autolayout/libsbml_ne_autolayout_point.h
+		c_api/libsbml_ne_c_api.h)
 
 ### shared library
 add_library(sbmlnetworkeditor SHARED ${SOURCES})
