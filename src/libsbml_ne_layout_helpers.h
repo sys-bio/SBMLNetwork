@@ -40,7 +40,11 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
 
 ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
 
-SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+
+const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const std::string& speciesId);
+
+const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
 
 TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
@@ -72,7 +76,7 @@ bool speciesGlyphBelongs(SpeciesGlyph* speciesGlyph, Species* species);
 
 bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction);
 
-bool speciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
+bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
