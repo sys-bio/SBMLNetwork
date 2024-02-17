@@ -2,8 +2,9 @@
 #include "libsbml_ne_autolayout_node.h"
 #include "../libsbml_ne_layout_helpers.h"
 
-AutoLayoutCurve::AutoLayoutCurve(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) : AutoLayoutObjectBase(layout) {
-    _speciesReferenceGlyph = speciesReferenceGlyph;
+AutoLayoutCurve::AutoLayoutCurve(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* speciesReferenceGlyph) : AutoLayoutObjectBase(layout) {
+   _reactionGlyph = reactionGlyph;
+   _speciesReferenceGlyph = speciesReferenceGlyph;
 }
 
 const std::string AutoLayoutCurve::getId() {
@@ -12,6 +13,10 @@ const std::string AutoLayoutCurve::getId() {
 
 const std::string AutoLayoutCurve::getNodeId() {
     return _speciesReferenceGlyph->getSpeciesGlyphId();
+}
+
+const std::string AutoLayoutCurve::getCentroidNodeId() {
+    return _reactionGlyph->getId();
 }
 
 const SpeciesReferenceRole_t AutoLayoutCurve::getRole() {
