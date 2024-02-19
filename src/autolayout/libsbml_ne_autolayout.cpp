@@ -128,9 +128,9 @@ void updateCompartmentExtents(Model *model, Layout *layout, const double &paddin
         }
     }
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        Compartment *compartment = findReactionGlyphCompartment(model, layout->getReactionGlyph(i));
-        if (compartment && getCompartmentGlyph(layout, compartment))
-            updateCompartmentExtents(getCompartmentGlyph(layout, compartment)->getBoundingBox(),
+        CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout ,layout->getReactionGlyph(i));
+        if (compartmentGlyph)
+            updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
                                      layout->getReactionGlyph(i)->getCurve(), padding);
     }
 }
@@ -169,20 +169,36 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Bounding
 }
 
 void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve, const double &padding) {
-    Point reactionCenter = Point(0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() +
-                                        reactionCurve->getCurveSegment(0)->getEnd()->x()),
-                                 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() +
-                                        reactionCurve->getCurveSegment(0)->getEnd()->y()));
-    if (reactionCenter.x() - padding < compartmentGlyphBoundingBox->x()) {
+    double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() + reactionCurve->getCurveSegment(0)->getEnd()->x());
+    double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() + reactionCurve->getCurveSegment(0)->getEnd()->y());
+    if (reactionCenterX - padding < compartmentGlyphBoundingBox->x()) {
         compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
-                                              (compartmentGlyphBoundingBox->x() - (reactionCenter.x() - padding)));
-        compartmentGlyphBoundingBox->setX(reactionCenter.x() - padding);
+                                              (compartmentGlyphBoundingBox->x() - (reactionCenterX - padding)));
+        compartmentGlyphBoundingBox->setX(reactionCenterX - padding);
     }
-    if (reactionCenter.y() - padding < compartmentGlyphBoundingBox->y()) {
+    if (reactionCenterY - padding < compartmentGlyphBoundingBox->y()) {
         compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->height() +
-                                              (compartmentGlyphBoundingBox->y() - (reactionCenter.y() - padding)));
-        compartmentGlyphBoundingBox->setY(reactionCenter.y() - padding);
+                                              (compartmentGlyphBoundingBox->y() - (reactionCenterY - padding)));
+        compartmentGlyphBoundingBox->setY(reactionCenterY - padding);
     }
+}
+
+CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    Compartment* compartment = findReactionGlyphCompartment(model, reactionGlyph);
+    if (compartment) {
+        CompartmentGlyph* compartmentGlyph =  getCompartmentGlyph(layout, compartment);
+        if (compartmentGlyph)
+            return compartmentGlyph;
+    }
+
+    return getDefaultCompartmentGlyph(layout);
+}
+
+CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
+    if (layout->getNumCompartmentGlyphs() == 1 && layout->getCompartmentGlyph(0)->getCompartmentId() == "default_compartment")
+        return layout->getCompartmentGlyph(0);
+
+    return NULL;
 }
 
 }

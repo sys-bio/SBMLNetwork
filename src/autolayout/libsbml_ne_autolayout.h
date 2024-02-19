@@ -42,6 +42,10 @@ void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Bounding
 
 void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve, const double& padding);
 
+CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+
+CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
+
 }
 
 #endif
