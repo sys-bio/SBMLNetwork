@@ -10,7 +10,9 @@ public:
 
     const std::string getId() override;
 
-    const std::string getCentroidNodeId();
+    void setCentroidNode();
+
+    AutoLayoutObjectBase* getCentroidNode();
 
     void setCurves();
 
@@ -21,6 +23,7 @@ public:
 protected:
 
     ReactionGlyph* _reactionGlyph;
+    AutoLayoutObjectBase* _centroidNode;
     std::vector<AutoLayoutObjectBase*> _curves;
 };
 
