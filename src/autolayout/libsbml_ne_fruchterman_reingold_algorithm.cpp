@@ -17,16 +17,16 @@ FruthtermanReingoldAlgorithm::FruthtermanReingoldAlgorithm() {
 }
 
 void FruthtermanReingoldAlgorithm::setElements(Layout* layout) {
-    setNodes(layout);
     setConnections(layout);
+    setNodes(layout);
     setNodesDegrees();
 }
 
 void FruthtermanReingoldAlgorithm::setNodes(Layout* layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         _nodes.push_back(new AutoLayoutNode(layout, layout->getSpeciesGlyph(i)));
-    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        _nodes.push_back(new AutoLayoutCentroidNode(layout, layout->getReactionGlyph(i)));
+    for (int i = 0; i < _connections.size(); i++)
+        _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }
 
 void FruthtermanReingoldAlgorithm::setConnections(Layout* layout) {
@@ -42,7 +42,7 @@ void FruthtermanReingoldAlgorithm::setNodesDegrees() {
         for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().size(); curveIndex++) {
             curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().at(curveIndex));
             vNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
-            uNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getCentroidNodeId());
+            uNode = (AutoLayoutNodeBase*)((AutoLayoutConnection*)_connections.at(connectionIndex))->getCentroidNode();
             if (vNode && uNode) {
                 vNode->incrementDegree();
                 uNode->incrementDegree();
@@ -113,6 +113,10 @@ void FruthtermanReingoldAlgorithm::clearDisplacements() {
         ((AutoLayoutNodeBase*)_nodes.at(i))->setDisplacementX(0.0);
         ((AutoLayoutNodeBase*)_nodes.at(i))->setDisplacementY(0.0);
     }
+    for (int connectionIndex = 0; connectionIndex < _connections.size(); connectionIndex++) {
+        ((AutoLayoutNodeBase*)((AutoLayoutConnection*)(_connections.at(connectionIndex)))->getCentroidNode())->setDisplacementX(0.0);
+        ((AutoLayoutNodeBase*)((AutoLayoutConnection*)(_connections.at(connectionIndex)))->getCentroidNode())->setDisplacementY(0.0);
+    }
 }
 
 void FruthtermanReingoldAlgorithm::computeRepulsiveForces() {
@@ -156,8 +160,8 @@ void FruthtermanReingoldAlgorithm::computeAttractiveForces() {
         for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().size(); curveIndex++) {
             curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().at(curveIndex));
             vNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
-            uNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getCentroidNodeId());
-            if (vNode && uNode) {
+            if (vNode) {
+                uNode = (AutoLayoutNodeBase*)(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCentroidNode());
                 double distanceX = vNode->getX() - uNode->getX();
                 double distanceY = vNode->getY() - uNode->getY();
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
@@ -236,6 +240,8 @@ void FruthtermanReingoldAlgorithm::applyGravity() {
 void FruthtermanReingoldAlgorithm::adjustCoordinates() {
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++)
         adjustNodeCoordinates(_nodes.at(nodeIndex));
+    for (int connectionIndex = 0; connectionIndex < _connections.size(); connectionIndex++)
+        adjustNodeCoordinates(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCentroidNode());
 }
 
 void FruthtermanReingoldAlgorithm::adjustNodeCoordinates(AutoLayoutObjectBase* node) {
@@ -287,114 +293,106 @@ void FruthtermanReingoldAlgorithm::calculateCenterControlPoint(AutoLayoutObjectB
     int numberOfSubstrates = 0;
     bool isLooped = false;
     AutoLayoutPoint loopedPoint;
+    AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)(((AutoLayoutConnection*)connection)->getCentroidNode());
     AutoLayoutCurve* firstCurve = NULL;
     AutoLayoutNodeBase* firstCurveNode = NULL;
     AutoLayoutCurve* secondCurve = NULL;
     AutoLayoutNodeBase* secondCurveNode = NULL;
-    AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)findObject(_nodes, ((AutoLayoutConnection*)connection)->getCentroidNodeId());
-    if (centroidNode) {
-        for (int firstCurveIndex = 0; firstCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); firstCurveIndex++) {
-            firstCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(firstCurveIndex));
-            firstCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
-            if (firstCurve->getRole() == SPECIES_ROLE_SUBSTRATE) {
-                _centerControlPoint.setX(_centerControlPoint.getX() + firstCurveNode->getX());
-                _centerControlPoint.setY(_centerControlPoint.getY() + firstCurveNode->getY());
-                numberOfSubstrates++;
-            }
-            for (int secondCurveIndex = 0; secondCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); secondCurveIndex++) {
-                secondCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(secondCurveIndex));
-                secondCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, secondCurve->getNodeId());
-                if (firstCurveNode == secondCurveNode && firstCurve->getRole() != secondCurve->getRole()) {
-                    isLooped = true;
-                    loopedPoint.setPosition(firstCurveNode->getPosition());
-                }
+    for (int firstCurveIndex = 0; firstCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); firstCurveIndex++) {
+        firstCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(firstCurveIndex));
+        firstCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
+        if (firstCurve->getRole() == SPECIES_ROLE_SUBSTRATE) {
+            _centerControlPoint.setX(_centerControlPoint.getX() + firstCurveNode->getX());
+            _centerControlPoint.setY(_centerControlPoint.getY() + firstCurveNode->getY());
+            numberOfSubstrates++;
+        }
+        for (int secondCurveIndex = 0; secondCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); secondCurveIndex++) {
+            secondCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(secondCurveIndex));
+            secondCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, secondCurve->getNodeId());
+            if (firstCurveNode == secondCurveNode && firstCurve->getRole() != secondCurve->getRole()) {
+                isLooped = true;
+                loopedPoint.setPosition(firstCurveNode->getPosition());
             }
         }
-        _centerControlPoint.setX((_centerControlPoint.getX() + centroidNode->getX()) / (numberOfSubstrates + 1));
-        _centerControlPoint.setY((_centerControlPoint.getY() + centroidNode->getY())  / (numberOfSubstrates + 1));
-        _centerControlPoint.setX(centroidNode->getX());
-        _centerControlPoint.setY(centroidNode->getY());
-        if (isLooped) {
-            _centerControlPoint.setY(centroidNode->getY() + (centroidNode->getY() - loopedPoint.getX()));
-            _centerControlPoint.setX(centroidNode->getX() + (centroidNode->getX() - loopedPoint.getY()));
-            _centerControlPoint = adjustPointPosition(loopedPoint, centroidNode->getPosition(), 0, -25, false);
-            _centerControlPoint = adjustPointPosition(centroidNode->getPosition(), _centerControlPoint, -90, 0, false);
-        }
+    }
+    _centerControlPoint.setX((_centerControlPoint.getX() + centroidNode->getX()) / (numberOfSubstrates + 1));
+    _centerControlPoint.setY((_centerControlPoint.getY() + centroidNode->getY())  / (numberOfSubstrates + 1));
+    if (isLooped) {
+        _centerControlPoint.setY(centroidNode->getY() + (centroidNode->getY() - loopedPoint.getX()));
+        _centerControlPoint.setX(centroidNode->getX() + (centroidNode->getX() - loopedPoint.getY()));
+        _centerControlPoint = adjustPointPosition(loopedPoint, centroidNode->getPosition(), 0, -25, false);
+        _centerControlPoint = adjustPointPosition(centroidNode->getPosition(), _centerControlPoint, -90, 0, false);
     }
 }
 
 void FruthtermanReingoldAlgorithm::adjustCenterControlPoint(AutoLayoutObjectBase* connection) {
     if (((AutoLayoutConnection*)connection)->getNumNonModifierCurves() == 2) {
-        AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)findObject(_nodes, ((AutoLayoutConnection*)connection)->getCentroidNodeId());
-        if (centroidNode) {
-            double dist = -calculateEuclideanDistance(centroidNode->getPosition(), _centerControlPoint);
-            double x1 = 0.0;
-            double x2 = 0.0;
-            double y1 = 0.0;
-            double y2 = 0.0;
-            for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
-                AutoLayoutCurve* curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
-                AutoLayoutNodeBase* curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
-                if (curveNode) {
-                    if (curve->getRole() == SPECIES_ROLE_PRODUCT || curve->getRole() == SPECIES_ROLE_SIDEPRODUCT) {
-                        x1 = curveNode->getX();
-                        y1 = curveNode->getY();
-                    }
-                    else if (curve->getRole() == SPECIES_ROLE_SUBSTRATE || curve->getRole() == SPECIES_ROLE_SIDESUBSTRATE) {
-                        x2 = curveNode->getX();
-                        y2 = curveNode->getY();
-                    }
+        AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)(((AutoLayoutConnection*)connection)->getCentroidNode());
+        double dist = -calculateEuclideanDistance(centroidNode->getPosition(), _centerControlPoint);
+        double x1 = 0.0;
+        double x2 = 0.0;
+        double y1 = 0.0;
+        double y2 = 0.0;
+        for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
+            AutoLayoutCurve* curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
+            AutoLayoutNodeBase* curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
+            if (curveNode) {
+                if (curve->getRole() == SPECIES_ROLE_PRODUCT || curve->getRole() == SPECIES_ROLE_SIDEPRODUCT) {
+                    x1 = curveNode->getX();
+                    y1 = curveNode->getY();
+                }
+                else if (curve->getRole() == SPECIES_ROLE_SUBSTRATE || curve->getRole() == SPECIES_ROLE_SIDESUBSTRATE) {
+                    x2 = curveNode->getX();
+                    y2 = curveNode->getY();
                 }
             }
-            _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
-            _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
-            _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, dist, false);
         }
+        _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
+        _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
+        _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, dist, false);
     }
 }
 
 void FruthtermanReingoldAlgorithm::setCurvePoints(AutoLayoutObjectBase* connection) {
-    AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)findObject(_nodes, ((AutoLayoutConnection*)connection)->getCentroidNodeId());
-    if (centroidNode) {
-        AutoLayoutCurve* curve = NULL;
-        AutoLayoutNodeBase* curveNode = NULL;
-        _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, -25, false);
-        for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
-            curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
-            curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
-            curve->setNodeSidePoint(curveNode->getPosition());
-            curve->setNodeSideControlPoint(curveNode->getPosition());
-            curve->setCentroidSidePoint(centroidNode->getPosition());
-            curve->setCentroidSideControlPoint(centroidNode->getPosition());
-            switch(curve->getRole()) {
-                case SPECIES_ROLE_PRODUCT:
-                case SPECIES_ROLE_SIDEPRODUCT:
-                    curve->setCentroidSideControlPoint(adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, 1, true));
-                    curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(adjustPointPosition(curve->getCentroidSideControlPoint(), curve->getNodeSidePoint(), 0, -20, false));
-                    break;
+    AutoLayoutNodeBase* centroidNode = (AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode();
+    AutoLayoutCurve* curve = NULL;
+    AutoLayoutNodeBase* curveNode = NULL;
+    _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, -25, false);
+    for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
+        curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
+        curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
+        curve->setNodeSidePoint(curveNode->getPosition());
+        curve->setNodeSideControlPoint(curveNode->getPosition());
+        curve->setCentroidSidePoint(centroidNode->getPosition());
+        curve->setCentroidSideControlPoint(centroidNode->getPosition());
+        switch(curve->getRole()) {
+            case SPECIES_ROLE_PRODUCT:
+            case SPECIES_ROLE_SIDEPRODUCT:
+                curve->setCentroidSideControlPoint(adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, 1, true));
+                curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
+                curve->setNodeSideControlPoint(adjustPointPosition(curve->getCentroidSideControlPoint(), curve->getNodeSidePoint(), 0, -20, false));
+                break;
 
-                case SPECIES_ROLE_SUBSTRATE:
-                case SPECIES_ROLE_SIDESUBSTRATE:
-                    curve->setCentroidSideControlPoint(_centerControlPoint);
-                    curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(adjustPointPosition(centroidNode->getPosition(), curve->getNodeSidePoint(), 0, -20, false));
-                    break;
+            case SPECIES_ROLE_SUBSTRATE:
+            case SPECIES_ROLE_SIDESUBSTRATE:
+                curve->setCentroidSideControlPoint(_centerControlPoint);
+                curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
+                curve->setNodeSideControlPoint(adjustPointPosition(centroidNode->getPosition(), curve->getNodeSidePoint(), 0, -20, false));
+                break;
 
-                case SPECIES_ROLE_ACTIVATOR:
-                case SPECIES_ROLE_INHIBITOR:
-                case SPECIES_ROLE_MODIFIER:
-                    curve->setCentroidSidePoint(adjustPointPosition(curveNode->getPosition(), centroidNode->getPosition(), 0, -15, false));
-                    curve->setCentroidSideControlPoint(adjustPointPosition(curveNode->getPosition(), centroidNode->getPosition(), 0, -20, false));
-                    curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(curve->getNodeSidePoint());
-                    break;
+            case SPECIES_ROLE_ACTIVATOR:
+            case SPECIES_ROLE_INHIBITOR:
+            case SPECIES_ROLE_MODIFIER:
+                curve->setCentroidSidePoint(adjustPointPosition(curveNode->getPosition(), centroidNode->getPosition(), 0, -15, false));
+                curve->setCentroidSideControlPoint(adjustPointPosition(curveNode->getPosition(), centroidNode->getPosition(), 0, -20, false));
+                curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
+                curve->setNodeSideControlPoint(curve->getNodeSidePoint());
+                break;
 
-                default:
-                    curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(curve->getNodeSidePoint());
-                    break;
-            }
+            default:
+                curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
+                curve->setNodeSideControlPoint(curve->getNodeSidePoint());
+                break;
         }
     }
 }
@@ -433,6 +431,7 @@ const double calculateStiffnessAdjustmentFactor(AutoLayoutObjectBase* vNode, Aut
     double uNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)vNode)->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()), minimumDimension);
     double vNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()), minimumDimension);
     return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (uNodeDimension + vNodeDimension);
+    //return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (std::max(((AutoLayoutNodeBase*)((AutoLayoutNodeBase*)vNode))->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()) + std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()));
 }
 
 const double calculateRepulsionForce(const double& stiffness, const double& distance) {
