@@ -17,14 +17,16 @@ FruthtermanReingoldAlgorithm::FruthtermanReingoldAlgorithm() {
 }
 
 void FruthtermanReingoldAlgorithm::setElements(Layout* layout) {
-    setNodes(layout);
     setConnections(layout);
+    setNodes(layout);
     setNodesDegrees();
 }
 
 void FruthtermanReingoldAlgorithm::setNodes(Layout* layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         _nodes.push_back(new AutoLayoutNode(layout, layout->getSpeciesGlyph(i)));
+    for (int i = 0; i < _connections.size(); i++)
+        _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }
 
 void FruthtermanReingoldAlgorithm::setConnections(Layout* layout) {
@@ -287,6 +289,7 @@ void FruthtermanReingoldAlgorithm::updateConnectionControlPoints(AutoLayoutObjec
 }
 
 void FruthtermanReingoldAlgorithm::calculateCenterControlPoint(AutoLayoutObjectBase* connection) {
+    _centerControlPoint = AutoLayoutPoint(0.0, 0.0);
     int numberOfSubstrates = 0;
     bool isLooped = false;
     AutoLayoutPoint loopedPoint;
@@ -424,7 +427,11 @@ const double calculateEuclideanDistance(const double& distanceX, const double& d
 }
 
 const double calculateStiffnessAdjustmentFactor(AutoLayoutObjectBase* vNode, AutoLayoutObjectBase* uNode) {
-    return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (std::max(((AutoLayoutNodeBase*)((AutoLayoutNodeBase*)vNode))->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()) + std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()));
+    double minimumDimension = 15.0;
+    double uNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)vNode)->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()), minimumDimension);
+    double vNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()), minimumDimension);
+    return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (uNodeDimension + vNodeDimension);
+    //return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (std::max(((AutoLayoutNodeBase*)((AutoLayoutNodeBase*)vNode))->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()) + std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()));
 }
 
 const double calculateRepulsionForce(const double& stiffness, const double& distance) {
