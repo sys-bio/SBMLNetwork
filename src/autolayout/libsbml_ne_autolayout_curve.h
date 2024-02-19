@@ -7,13 +7,11 @@
 class AutoLayoutCurve : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutCurve(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* speciesReferenceGlyph);
+    AutoLayoutCurve(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
     const std::string getId() override;
 
     const std::string getNodeId();
-
-    const std::string getCentroidNodeId();
 
     const SpeciesReferenceRole_t getRole();
 
@@ -37,7 +35,6 @@ public:
 
 protected:
 
-    ReactionGlyph* _reactionGlyph;
     SpeciesReferenceGlyph* _speciesReferenceGlyph;
 };
 
