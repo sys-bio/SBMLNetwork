@@ -4,6 +4,7 @@ project(libsbmlnetworkeditor)
 add_definitions(-DLIBSBML_NETWORKEDITOR_EXPORTS=true)
 
 include(GNUInstallDirs)
+include(CMakeDependentOption)
 
 ## Determine the version
 set(LIBSBML_NETWORKEDITOR_VERSION_MAJOR)
@@ -62,44 +63,7 @@ elseif(UNIX)
 	set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
-option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG."  ON)
-
-if(WITH_SWIG)
-	find_program(SWIG_EXECUTABLE
-			NAMES swig
-			PATHS
-			c:/swigwin-3.0.10
-			c:/swigwin-3.0.9
-			c:/swigwin-3.0.8
-			c:/swigwin-3.0.7
-			c:/swigwin-3.0.6
-			c:/swigwin-3.0.5
-			c:/swigwin-3.0.4
-			c:/swigwin-3.0.3
-			c:/swigwin-3.0.2
-			c:/swigwin-3.0.1
-			c:/swigwin-2.0.12
-			c:/swigwin-2.0.11
-			c:/swigwin-2.0.10
-			c:/swigwin-2.0.9
-			c:/swigwin-2.0.8
-			c:/swigwin-2.0.7
-			c:/swigwin-2.0.6
-			c:/swigwin-2.0.5
-			c:/swigwin-2.0.4
-			c:/swigwin-2.0.3
-			c:/swigwin-2.0.2
-			c:/swigwin-2.0.1
-			c:/swigwin-2.0.0
-			/usr/local/bin
-			/opt/local/bin
-			/usr/bin
-			"C:/Program Files (x86)/Swig"
-			"C:/Program Files/Swig"
-			DOC "The file name of the SWIG executable.")
-	find_package(SWIG)
-endif(WITH_SWIG)
-
 option(WITH_PYTHON "Generate the Python language interface for libsbmlnetworkeditor." OFF)
+cmake_dependent_option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG." OFF "${WITH_PYTHON}" OFF)
 
 add_subdirectory(src)

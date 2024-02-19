@@ -2,6 +2,7 @@
 #include "libsbml_ne_autolayout_node.h"
 #include "libsbml_ne_autolayout_connection.h"
 #include "libsbml_ne_autolayout_curve.h"
+#include "../libsbml_ne_layout_helpers.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -16,14 +17,16 @@ FruthtermanReingoldAlgorithm::FruthtermanReingoldAlgorithm() {
 }
 
 void FruthtermanReingoldAlgorithm::setElements(Layout* layout) {
-    setNodes(layout);
     setConnections(layout);
+    setNodes(layout);
     setNodesDegrees();
 }
 
 void FruthtermanReingoldAlgorithm::setNodes(Layout* layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         _nodes.push_back(new AutoLayoutNode(layout, layout->getSpeciesGlyph(i)));
+    for (int i = 0; i < _connections.size(); i++)
+        _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }
 
 void FruthtermanReingoldAlgorithm::setConnections(Layout* layout) {
@@ -68,6 +71,13 @@ void FruthtermanReingoldAlgorithm::setUseGrid(const bool &useGrid) {
     _useGrid = useGrid;
 }
 
+void FruthtermanReingoldAlgorithm::setNodesLockedStatus(Layout *layout, const std::vector<std::string> &lockedNodeIds) {
+    for (int i = 0; i < _nodes.size(); i++) {
+        if (whetherGraphicalObjectIsLocked(layout, ((AutoLayoutNodeBase*)_nodes.at(i))->getGraphicalObject(), lockedNodeIds))
+            ((AutoLayoutNodeBase*)_nodes.at(i))->setLocked(true);
+    }
+}
+
 void FruthtermanReingoldAlgorithm::apply() {
     initialize();
     iterate();
@@ -75,13 +85,13 @@ void FruthtermanReingoldAlgorithm::apply() {
 }
 
 void FruthtermanReingoldAlgorithm::initialize() {
-    _maximumIterations = 100 * std::log(_nodes.size() + 2);
+    _maximumIterations = int(100 * std::log(_nodes.size() + 2));
     _initialTemperature = 1000 * std::log(_nodes.size() + 2);
     _currentTemperature = _initialTemperature;
     _time = 0.0;
     _alpha = std::log(_initialTemperature) - std::log(0.25);
-    _timeIncrement = 1.0 / _maximumIterations;
-    _width = std::sqrt(_nodes.size()) * _stiffness * 10;
+    _timeIncrement = 1.0 / double(_maximumIterations);
+    _width = std::sqrt(_nodes.size()) * _stiffness * 5;
     _height = _width;
 }
 
@@ -121,15 +131,21 @@ void FruthtermanReingoldAlgorithm::computeRepulsiveForces() {
                 double distanceY = vNode->getY() - uNode->getY();
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                 if (distance < 0.000001)  {
-                    vNode->setX(vNode->getX() + std::rand() % int(_stiffness));
-                    vNode->setY(vNode->getY() + std::rand() % int(_stiffness));
+                    if (!vNode->isLocked()) {
+                        vNode->setX(vNode->getX() + std::rand() % int(_stiffness));
+                        vNode->setY(vNode->getY() + std::rand() % int(_stiffness));
+                    }
                 }
                 else {
                     double repulsionForce = calculateRepulsionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                    vNode->setDisplacementX(vNode->getDisplacementX() + (distanceX / distance * repulsionForce));
-                    vNode->setDisplacementY(vNode->getDisplacementY() + (distanceY /distance * repulsionForce));
-                    uNode->setDisplacementX(uNode->getDisplacementX() - (distanceX / distance * repulsionForce));
-                    uNode->setDisplacementY(uNode->getDisplacementY() - (distanceY / distance * repulsionForce));
+                    if (!vNode->isLocked()) {
+                        vNode->setDisplacementX(vNode->getDisplacementX() + (distanceX / distance * repulsionForce));
+                        vNode->setDisplacementY(vNode->getDisplacementY() + (distanceY /distance * repulsionForce));
+                    }
+                    if (!uNode->isLocked()) {
+                        uNode->setDisplacementX(uNode->getDisplacementX() - (distanceX / distance * repulsionForce));
+                        uNode->setDisplacementY(uNode->getDisplacementY() - (distanceY / distance * repulsionForce));
+                    }
                 }
             }
         }
@@ -151,10 +167,14 @@ void FruthtermanReingoldAlgorithm::computeAttractiveForces() {
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                 if (distance > 0.000001) {
                     double attractionForce = calculateAttractionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                    vNode->setDisplacementX(vNode->getDisplacementX() - (distanceX / distance * attractionForce));
-                    vNode->setDisplacementY(vNode->getDisplacementY() - (distanceY /distance * attractionForce));
-                    uNode->setDisplacementX(uNode->getDisplacementX() + (distanceX / distance * attractionForce));
-                    uNode->setDisplacementY(uNode->getDisplacementY() + (distanceY /distance * attractionForce));
+                    if (!vNode->isLocked()) {
+                        vNode->setDisplacementX(vNode->getDisplacementX() - (distanceX / distance * attractionForce));
+                        vNode->setDisplacementY(vNode->getDisplacementY() - (distanceY /distance * attractionForce));
+                    }
+                    if (!uNode->isLocked()) {
+                        uNode->setDisplacementX(uNode->getDisplacementX() + (distanceX / distance * attractionForce));
+                        uNode->setDisplacementY(uNode->getDisplacementY() + (distanceY /distance * attractionForce));
+                    }
                 }
             }
         }
@@ -181,10 +201,14 @@ void FruthtermanReingoldAlgorithm::applyMagnetism() {
                             double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                             if (distance > 0.000001) {
                                 double attractionForce = calculateAttractionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                                vNode->setDisplacementX(vNode->getDisplacementX() - 0.25 * (distanceX / distance * attractionForce));
-                                vNode->setDisplacementY(vNode->getDisplacementY() - 0.25 * (distanceY /distance * attractionForce));
-                                uNode->setDisplacementX(uNode->getDisplacementX() + 0.25 * (distanceX / distance * attractionForce));
-                                uNode->setDisplacementY(uNode->getDisplacementY() + 0.25 * (distanceY /distance * attractionForce));
+                                if (!vNode->isLocked()) {
+                                    vNode->setDisplacementX(vNode->getDisplacementX() - 0.25 * (distanceX / distance * attractionForce));
+                                    vNode->setDisplacementY(vNode->getDisplacementY() - 0.25 * (distanceY /distance * attractionForce));
+                                }
+                                if (!uNode->isLocked()) {
+                                    uNode->setDisplacementX(uNode->getDisplacementX() + 0.25 * (distanceX / distance * attractionForce));
+                                    uNode->setDisplacementY(uNode->getDisplacementY() + 0.25 * (distanceY /distance * attractionForce));
+                                }
                             }
                         }
                     }
@@ -265,6 +289,7 @@ void FruthtermanReingoldAlgorithm::updateConnectionControlPoints(AutoLayoutObjec
 }
 
 void FruthtermanReingoldAlgorithm::calculateCenterControlPoint(AutoLayoutObjectBase* connection) {
+    _centerControlPoint = AutoLayoutPoint(0.0, 0.0);
     int numberOfSubstrates = 0;
     bool isLooped = false;
     AutoLayoutPoint loopedPoint;
@@ -322,8 +347,8 @@ void FruthtermanReingoldAlgorithm::adjustCenterControlPoint(AutoLayoutObjectBase
                 }
             }
         }
-        _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
         _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
+        _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
         _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, dist, false);
     }
 }
@@ -345,7 +370,7 @@ void FruthtermanReingoldAlgorithm::setCurvePoints(AutoLayoutObjectBase* connecti
             case SPECIES_ROLE_SIDEPRODUCT:
                 curve->setCentroidSideControlPoint(adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, 1, true));
                 curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                curve->setNodeSideControlPoint(adjustPointPosition(centroidNode->getPosition(), curve->getNodeSidePoint(), 0, -20, false));
+                curve->setNodeSideControlPoint(adjustPointPosition(curve->getCentroidSideControlPoint(), curve->getNodeSidePoint(), 0, -20, false));
                 break;
 
             case SPECIES_ROLE_SUBSTRATE:
@@ -402,7 +427,11 @@ const double calculateEuclideanDistance(const double& distanceX, const double& d
 }
 
 const double calculateStiffnessAdjustmentFactor(AutoLayoutObjectBase* vNode, AutoLayoutObjectBase* uNode) {
-    return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (std::max(((AutoLayoutNodeBase*)((AutoLayoutNodeBase*)vNode))->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()) + std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()));
+    double minimumDimension = 15.0;
+    double uNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)vNode)->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()), minimumDimension);
+    double vNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()), minimumDimension);
+    return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (uNodeDimension + vNodeDimension);
+    //return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (std::max(((AutoLayoutNodeBase*)((AutoLayoutNodeBase*)vNode))->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()) + std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()));
 }
 
 const double calculateRepulsionForce(const double& stiffness, const double& distance) {
@@ -497,6 +526,15 @@ AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, con
     }
 
     return NULL;
+}
+
+const bool whetherGraphicalObjectIsLocked(Layout* layout, GraphicalObject *graphicalObject, const std::vector <std::string> &lockedNodeIds) {
+    for (int i = 0; i < lockedNodeIds.size(); i++) {
+        if (graphicalObject->getId() == lockedNodeIds[i] || getEntityId(layout, graphicalObject) == lockedNodeIds[i])
+            return true;
+    }
+    return false;
+
 }
 
 }

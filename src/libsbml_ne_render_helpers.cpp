@@ -271,10 +271,8 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgName
 }
 
 void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    for (int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
-        LocalStyle* localStyle = createLocalStyle(localRenderInformation, reactionGlyph->getSpeciesReferenceGlyph(i));
-        setSpeciesReferenceGlyphRenderGroupFeatures(localStyle->createGroup(), reactionGlyph->getSpeciesReferenceGlyph(i)->getRole(), renderPkgNamespaces);
-    }
+    for (int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
+        addSpeciesReferenceGlyphStyle(reactionGlyph->getSpeciesReferenceGlyph(i), localRenderInformation, renderPkgNamespaces);
 }
 
 void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {

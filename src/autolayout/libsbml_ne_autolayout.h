@@ -8,13 +8,15 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
-void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
+void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
+                  const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
+                  const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
 
-void randomizeGlyphsLocations(Model* model, Layout* layout, const double &padding);
+void randomizeGlyphsLocations(Model* model, Layout* layout, const double &padding, const std::vector<std::string>& lockedNodeIds);
 
-void randomizeSpeciesGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
+void randomizeSpeciesGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding, const std::vector<std::string>& lockedNodeIds);
 
-void randomizeReactionGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
+void randomizeReactionGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding, const std::vector<std::string>& lockedNodeIds);
 
 void randomizeBoundingBoxesPosition(BoundingBox* boundingBox, const double& canvasWidth, const double& canvasHeight);
 
@@ -28,7 +30,9 @@ const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph* speci
 
 const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph* speciesGlyph, const double& speciesWidth);
 
-void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false);
+void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
+                     const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
+                     const std::vector <std::string> &lockedNodeIds = std::vector<std::string>());
 
 void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
 

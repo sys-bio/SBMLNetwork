@@ -29,6 +29,8 @@ public:
 
     void setUseGrid(const bool& useGrid);
 
+    void setNodesLockedStatus(Layout *layout, const std::vector<std::string>& lockedNodeIds);
+
     void apply();
 
     void initialize();
@@ -122,6 +124,9 @@ AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p
 
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId);
 
+const bool whetherGraphicalObjectIsLocked(Layout* layout, GraphicalObject* graphicalObject, const std::vector<std::string>& lockedNodeIds);
+
 }
+
 
 #endif

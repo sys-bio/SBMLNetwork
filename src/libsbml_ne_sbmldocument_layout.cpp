@@ -56,19 +56,20 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity,
+                             const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                             const std::vector<std::string>& lockedNodeIds) {
     if (document && layout) {
-        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
-        layout->setId("libSBML_NetworkEditor_Layout");
-        layout->setDimensions(new Dimensions(layoutPkgNamespaces, 1024.0, 1024.0));
+        setDefaultLayoutId(layout);
+        setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            setCompartmentGlyphs(model, layout, layoutPkgNamespaces);
-            setSpeciesGlyphs(model, layout, layoutPkgNamespaces);
-            setReactionGlyphs(model, layout, layoutPkgNamespaces);
-            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
-            setCompartmentTextGlyphs(layout, layoutPkgNamespaces);
-            setSpeciesTextGlyphs(layout, layoutPkgNamespaces);
+            setCompartmentGlyphs(model, layout);
+            setSpeciesGlyphs(model, layout);
+            setReactionGlyphs(model, layout);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+            setCompartmentTextGlyphs(layout);
+            setSpeciesTextGlyphs(layout);
             return 0;
         }
     }
@@ -76,13 +77,14 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity, const bool& useMagnetism, const bool& useBoundary, const bool& useGrid) {
-    if (!getNumLayouts(document)) {
-        Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid);
-    }
+int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
+                        const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                        const std::vector<std::string>& lockedNodeIds) {
+    Layout* layout = getLayout(document);
+    if (!layout)
+        layout = createLayout(document);
 
-    return -1;
+    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {

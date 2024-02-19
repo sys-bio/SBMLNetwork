@@ -9,6 +9,8 @@ public:
 
     AutoLayoutNodeBase(Layout* layout);
 
+    virtual GraphicalObject* getGraphicalObject() = 0;
+
     virtual const double getX() = 0;
 
     virtual void setX(const double& x) = 0;
@@ -45,6 +47,8 @@ public:
 
     void incrementDegree();
 
+    void setLocked(const bool& locked);
+
     const bool isLocked();
 
 protected:
@@ -52,6 +56,7 @@ protected:
     double _displacementX;
     double _displacementY;
     int _degree;
+    bool _locked;
 };
 
 class AutoLayoutNode : public AutoLayoutNodeBase {
@@ -60,6 +65,8 @@ public:
     AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph);
 
     const std::string getId() override;
+
+    GraphicalObject* getGraphicalObject() override;
 
     const double getX() override;
 
@@ -88,6 +95,8 @@ public:
     AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* reactionGlyph);
 
     const std::string getId() override;
+
+    GraphicalObject* getGraphicalObject() override;
 
     const double getX() override;
 
