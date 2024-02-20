@@ -85,13 +85,13 @@ void FruthtermanReingoldAlgorithm::apply() {
 }
 
 void FruthtermanReingoldAlgorithm::initialize() {
-    _maximumIterations = int(100 * std::log(_nodes.size() + 2));
-    _initialTemperature = 1000 * std::log(_nodes.size() + 2);
+    _maximumIterations = int(100 * std::log(_nodes.size() - _connections.size() + 2));
+    _initialTemperature = 1000 * std::log(_nodes.size() - _connections.size() + 2);
     _currentTemperature = _initialTemperature;
     _time = 0.0;
     _alpha = std::log(_initialTemperature) - std::log(0.25);
     _timeIncrement = 1.0 / double(_maximumIterations);
-    _width = std::sqrt(_nodes.size()) * _stiffness * 5;
+    _width = std::sqrt(_nodes.size() - _connections.size()) * _stiffness * 5;
     _height = _width;
 }
 
