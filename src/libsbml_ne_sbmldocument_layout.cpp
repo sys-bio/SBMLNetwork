@@ -713,7 +713,7 @@ int setCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, un
 }
 
 int setCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+    return setCurveSegmentStartPointY(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
 }
 
 const double getCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
@@ -761,7 +761,7 @@ int setCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsi
 }
 
 int setCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+    return setCurveSegmentEndPointY(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
 }
 
 const double getCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {

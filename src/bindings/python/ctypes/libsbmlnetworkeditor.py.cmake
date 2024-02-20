@@ -115,7 +115,7 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_removeAllLayouts(self.sbml_object)
 
-    def getWidth(self, layout_index=0):
+    def getCanvasWidth(self, layout_index=0):
         """
         Returns the width of the canvas of the Layout object with the given index in the given SBMLDocument
 
@@ -127,10 +127,10 @@ class LibSBMLNetworkEditor:
 
             a float that determines the width of the canvas of the the Layout object with the given index in the given SBMLDocument
         """
-        lib.c_api_getWidth.restype = ctypes.c_double
-        return lib.c_api_getWidth(self.sbml_object, layout_index)
+        lib.c_api_getCanvasWidth.restype = ctypes.c_double
+        return lib.c_api_getCanvasWidth(self.sbml_object, layout_index)
 
-    def setWidth(self, width, layout_index=0):
+    def setCanvasWidth(self, width, layout_index=0):
         """
         Sets the width of the canvas of the Layout object with the given index in the given SBMLDocument
 
@@ -143,9 +143,9 @@ class LibSBMLNetworkEditor:
 
             true on success and false if the width of the canvas could not be set
         """
-        return lib.c_api_setWidth(self.sbml_object, ctypes.c_double(width), layout_index)
+        return lib.c_api_setCanvasWidth(self.sbml_object, ctypes.c_double(width), layout_index)
 
-    def getHeight(self, layout_index=0):
+    def getCanvasHeight(self, layout_index=0):
         """
         Returns the height of the canvas of the Layout object with the given index in the given SBMLDocument
 
@@ -157,10 +157,10 @@ class LibSBMLNetworkEditor:
 
             a float that determines the height of the canvas of the Layout object with the given index in the given SBMLDocument
         """
-        lib.c_api_getHeight.restype = ctypes.c_double
-        return lib.c_api_getHeight(self.sbml_object, layout_index)
+        lib.c_api_getCanvasHeight.restype = ctypes.c_double
+        return lib.c_api_getCanvasHeight(self.sbml_object, layout_index)
 
-    def setHeight(self, height, layout_index=0):
+    def setCanvasHeight(self, height, layout_index=0):
         """
 
         Sets the height of the canvas of the Layout object with the given index in the given SBMLDocument
@@ -174,7 +174,7 @@ class LibSBMLNetworkEditor:
 
             true on success and false if the height of the canvas could not be set
         """
-        return lib.c_api_setHeight(self.sbml_object, ctypes.c_double(height), layout_index)
+        return lib.c_api_setCanvasHeight(self.sbml_object, ctypes.c_double(height), layout_index)
 
     def getNumAllGraphicalObjects(self, layout_index=0):
         """
@@ -407,3 +407,532 @@ class LibSBMLNetworkEditor:
             true on success and false if the role of the SpeciesReferenceGlyph could not be set
             """
         return lib.c_api_setRole(self.sbml_object, str(reaction_id).encode(), str(role).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+
+    def getNumAllTextGlyphs(self, layout_index=0):
+        """
+        Returns the number of TextGlyphs in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of TextGlyphs in the Layout object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumAllTextGlyphs(self.sbml_object, layout_index)
+
+    def getNumTextGlyphs(self, id, layout_index=0):
+        """
+        Returns the number of TextGlyphs associated with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                an integer that determines the number of TextGlyphs associated with the given id in the Layout object with the given index in the given SBMLDocument
+            """
+        return lib.c_api_getNumTextGlyphs(self.sbml_object, str(id).encode(), layout_index)
+
+    def getText(self, id, text_glyph_index=0, layout_index=0):
+        """
+
+        Returns the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getText.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getText(self.sbml_object, str(id).encode(), text_glyph_index, layout_index)).value.decode()
+
+    def setText(self, id, text, text_glyph_index=0, layout_index=0):
+        """
+        Sets the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text (string): a string that determines the text of the TextGlyph
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the text of the TextGlyph could not be set
+        """
+        return lib.c_api_setText(self.sbml_object, str(id).encode(), str(text).encode(), text_glyph_index, layout_index)
+
+    def getX(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the x-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getX.restype = ctypes.c_double
+        return lib.c_api_getX(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def setX(self, id, x, graphical_object_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the GraphicalObject could not be set
+        """
+        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index)
+
+    def getY(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the y-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getY.restype = ctypes.c_double
+        return lib.c_api_getY(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def setY(self, id, y, graphical_object_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - y (float): a float that determines the y-coordinate of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the GraphicalObject could not be set
+        """
+        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index)
+
+    def getWidth(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the width of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the width of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getWidth.restype = ctypes.c_double
+        return lib.c_api_getWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def setWidth(self, id, width, graphical_object_index=0, layout_index=0):
+        """
+        Sets the width of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - width (float): a float that determines the width of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the GraphicalObject could not be set
+        """
+        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index)
+
+    def getHeight(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the height of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the height of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getHeight.restype = ctypes.c_double
+        return lib.c_api_getHeight(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def setHeight(self, id, height, graphical_object_index=0, layout_index=0):
+        """
+        Sets the height of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - height (float): a float that determines the height of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the GraphicalObject could not be set
+        """
+        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
+
+    def isSetCurve(self, reaction_id, reaction_glyph_index=0, layout_index=0):
+        """
+        Returns whether the curve of the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the curve of the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetCurve(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
+
+    def getNumCurveSegments(self, reaction_id, reaction_glyph_index=0, layout_index=0):
+        """
+        Returns the number of CurveSegments associated with the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of CurveSegments associated with the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument
+        """
+        return lib.c_api_getNumCurveSegments(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
+
+    def getCurveStartPointX(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the x-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveStartPointX.restype = ctypes.c_double
+        return lib.c_api_getCurveStartPointX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveStartPointX(self, reaction_id, x, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - x (float): a float that determines the x-coordinate of the start point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the start point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveStartPointX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveStartPointY(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the y-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveStartPointY.restype = ctypes.c_double
+        return lib.c_api_getCurveStartPointY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveStartPointY(self, reaction_id, y, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the start point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - y (float): a float that determines the y-coordinate of the start point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the start point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveStartPointY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveEndPointX(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the x-coordinate of the end point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the end point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveEndPointX.restype = ctypes.c_double
+        return lib.c_api_getCurveEndPointX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveEndPointX(self, reaction_id, x, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the end point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - x (float): a float that determines the x-coordinate of the end point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the end point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveEndPointX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveEndPointY(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the y-coordinate of the end point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the end point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveEndPointY.restype = ctypes.c_double
+        return lib.c_api_getCurveEndPointY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveEndPointY(self, reaction_id, y, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the end point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - y (float): a float that determines the y-coordinate of the end point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the end point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveEndPointY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveBasePoint1X(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the x-coordinate of the first base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the first base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveBasePoint1X.restype = ctypes.c_double
+        return lib.c_api_getCurveBasePoint1X(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveBasePoint1X(self, reaction_id, x, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the first base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - x (float): a float that determines the x-coordinate of the first base point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the first base point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveBasePoint1X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveBasePoint1Y(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the y-coordinate of the first base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the first base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveBasePoint1Y.restype = ctypes.c_double
+        return lib.c_api_getCurveBasePoint1Y(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveBasePoint1Y(self, reaction_id, y, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the first base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - y (float): a float that determines the y-coordinate of the first base point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the first base point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveBasePoint1Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveBasePoint2X(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the x-coordinate of the second base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the second base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveBasePoint2X.restype = ctypes.c_double
+        return lib.c_api_getCurveBasePoint2X(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveBasePoint2X(self, reaction_id, x, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the second base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - x (float): a float that determines the x-coordinate of the second base point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the second base point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveBasePoint2X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def getCurveBasePoint2Y(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Returns the y-coordinate of the second base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the second base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getCurveBasePoint2Y.restype = ctypes.c_double
+        return lib.c_api_getCurveBasePoint2Y(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
+    def setCurveBasePoint2Y(self, reaction_id, y, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the second base point of the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - y (float): a float that determines the y-coordinate of the second base point of the CurveSegment
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+            true on success and false if the y-coordinate of the second base point of the CurveSegment could not be set
+        """
+        return lib.c_api_setCurveBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, curve_segment_index, layout_index)
+
+
+
+
+
+
+
+
+
+
