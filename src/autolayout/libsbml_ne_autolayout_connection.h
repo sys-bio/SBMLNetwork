@@ -20,6 +20,8 @@ public:
 
     const int getNumNonModifierCurves();
 
+    std::vector<std::string> getNodeIds();
+
 protected:
 
     ReactionGlyph* _reactionGlyph;

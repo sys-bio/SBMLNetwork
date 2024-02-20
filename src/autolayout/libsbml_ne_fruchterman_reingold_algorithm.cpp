@@ -113,10 +113,6 @@ void FruthtermanReingoldAlgorithm::clearDisplacements() {
         ((AutoLayoutNodeBase*)_nodes.at(i))->setDisplacementX(0.0);
         ((AutoLayoutNodeBase*)_nodes.at(i))->setDisplacementY(0.0);
     }
-    for (int connectionIndex = 0; connectionIndex < _connections.size(); connectionIndex++) {
-        ((AutoLayoutNodeBase*)((AutoLayoutConnection*)(_connections.at(connectionIndex)))->getCentroidNode())->setDisplacementX(0.0);
-        ((AutoLayoutNodeBase*)((AutoLayoutConnection*)(_connections.at(connectionIndex)))->getCentroidNode())->setDisplacementY(0.0);
-    }
 }
 
 void FruthtermanReingoldAlgorithm::computeRepulsiveForces() {
@@ -240,8 +236,6 @@ void FruthtermanReingoldAlgorithm::applyGravity() {
 void FruthtermanReingoldAlgorithm::adjustCoordinates() {
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++)
         adjustNodeCoordinates(_nodes.at(nodeIndex));
-    for (int connectionIndex = 0; connectionIndex < _connections.size(); connectionIndex++)
-        adjustNodeCoordinates(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCentroidNode());
 }
 
 void FruthtermanReingoldAlgorithm::adjustNodeCoordinates(AutoLayoutObjectBase* node) {
@@ -346,6 +340,10 @@ void FruthtermanReingoldAlgorithm::adjustCenterControlPoint(AutoLayoutObjectBase
                     y2 = curveNode->getY();
                 }
             }
+        }
+        if (numConnectionsBetweenTheSameNodes(_connections, ((AutoLayoutConnection*)connection)->getNodeIds()) == 1) {
+            centroidNode->setX(0.5 * (x2 + x1));
+            centroidNode->setY(0.5 * (y2 + y1));
         }
         _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
         _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
@@ -525,6 +523,27 @@ AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, con
     }
 
     return NULL;
+}
+
+const int numConnectionsBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> connections, std::vector<std::string> connectionNodeIds) {
+    int numConnections = 0;
+    for (int connectionIndex = 0; connectionIndex < connections.size(); connectionIndex++) {
+        if (compare(((AutoLayoutConnection*)connections.at(connectionIndex))->getNodeIds(), connectionNodeIds))
+            numConnections++;
+    }
+
+    return numConnections;
+}
+
+const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2) {
+    if (strings1.size() != strings2.size())
+        return false;
+    for (int i = 0; i < strings1.size(); i++) {
+        if (std::find(strings2.begin(), strings2.end(), strings1[i]) == strings2.end())
+            return false;
+    }
+
+    return true;
 }
 
 const bool whetherGraphicalObjectIsLocked(Layout* layout, GraphicalObject *graphicalObject, const std::vector <std::string> &lockedNodeIds) {

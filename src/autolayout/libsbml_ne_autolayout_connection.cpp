@@ -43,3 +43,13 @@ const int AutoLayoutConnection::getNumNonModifierCurves() {
     return numNonModifierCurves;
 }
 
+std::vector<std::string> AutoLayoutConnection::getNodeIds() {
+    std::vector<std::string> nodeIds;
+    for (int curveIndex = 0; curveIndex < _curves.size(); curveIndex++) {
+        if (std::find(nodeIds.begin(), nodeIds.end(), ((AutoLayoutCurve*)_curves.at(curveIndex))->getNodeId()) == nodeIds.end())
+            nodeIds.push_back(((AutoLayoutCurve*)_curves.at(curveIndex))->getNodeId());
+    }
+
+    return nodeIds;
+}
+
