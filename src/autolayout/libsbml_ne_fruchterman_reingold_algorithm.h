@@ -124,6 +124,10 @@ AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p
 
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId);
 
+const int numConnectionsBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> connections, std::vector<std::string> connectionNodeIds);
+
+const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
+
 const bool whetherGraphicalObjectIsLocked(Layout* layout, GraphicalObject* graphicalObject, const std::vector<std::string>& lockedNodeIds);
 
 }
