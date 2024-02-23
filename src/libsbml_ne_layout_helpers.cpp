@@ -1,4 +1,5 @@
 #include "libsbml_ne_layout_helpers.h"
+#include "libsbml_ne_common.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -430,6 +431,90 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
         speciesReferenceGlyphs.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
 
     return speciesReferenceGlyphs;
+}
+
+const bool isValidLayoutDimensionWidthValue(const double& width) {
+    return isValidDimensionValue(width);
+}
+
+const bool isValidLayoutDimensionHeightValue(const double& height) {
+    return isValidDimensionValue(height);
+}
+
+const bool isValidRoleValue(const std::string& role) {
+    if (stringCompare(role, "substrate"))
+        return true;
+    else if (stringCompare(role, "sidesubstrate"))
+        return true;
+    else if (stringCompare(role, "modifier"))
+        return true;
+    else if (stringCompare(role, "inhibitor"))
+        return true;
+    else if (stringCompare(role, "product"))
+        return true;
+    else if (stringCompare(role, "sideproduct"))
+        return true;
+    else if (stringCompare(role, "activator"))
+        return true;
+    else if (stringCompare(role, "undefined"))
+        return true;
+
+    return false;
+}
+
+const bool isValidBoundingBoxXValue(const double& x) {
+    return true;
+}
+
+const bool isValidBoundingBoxYValue(const double& y) {
+    return true;
+}
+
+const bool isValidBoundingBoxWidthValue(const double& width) {
+    return isValidDimensionValue(width);
+}
+
+const bool isValidBoundingBoxHeightValue(const double& height) {
+    return isValidDimensionValue(height);
+}
+
+const bool isValidCurveSegmentStartPointXValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentStartPointYValue(const double& y) {
+    return true;
+}
+
+const bool isValidCurveSegmentEndPointXValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentEndPointYValue(const double& y) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint1XValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint1YValue(const double& y) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint2XValue(const double& x) {
+    return true;
+}
+
+const bool isValidCurveSegmentBasePoint2YValue(const double& y) {
+    return true;
+}
+
+const bool isValidDimensionValue(const double& dimensionValue) {
+    if (dimensionValue > 0.000)
+        return true;
+
+    return false;
 }
 
 }

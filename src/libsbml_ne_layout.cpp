@@ -33,10 +33,12 @@ double getDimensionWidth(Layout* layout) {
 }
 
 int setDimensionWidth(Layout* layout, const double& width) {
-    Dimensions* dimensions = getDimensions(layout);
-    if (dimensions) {
-        dimensions->setWidth(width);
-        return 0;
+    if (isValidLayoutDimensionWidthValue(width)) {
+        Dimensions* dimensions = getDimensions(layout);
+        if (dimensions) {
+            dimensions->setWidth(width);
+            return 0;
+        }
     }
 
     return -1;
@@ -51,10 +53,12 @@ double getDimensionHeight(Layout* layout) {
 }
 
 int setDimensionHeight(Layout* layout, const double& height) {
-    Dimensions* dimensions = getDimensions(layout);
-    if (dimensions) {
-        dimensions->setHeight(height);
-        return 0;
+    if (isValidLayoutDimensionHeightValue(height)) {
+        Dimensions* dimensions = getDimensions(layout);
+        if (dimensions) {
+            dimensions->setHeight(height);
+            return 0;
+        }
     }
 
     return -1;
@@ -352,7 +356,10 @@ const std::string getRole(GraphicalObject* speciesReferenceGlyph) {
 }
 
 int setRole(Layout* layout, const std::string& id, const std::string& role) {
-    return setRole(getSpeciesReferenceGlyph(layout, id), role);
+    if (isValidRoleValue(role))
+        return setRole(getSpeciesReferenceGlyph(layout, id), role);
+
+    return -1;
 }
 
 int setRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, const std::string& role) {
@@ -612,7 +619,7 @@ int setPositionX(GraphicalObject* graphicalObject, const double& x) {
 }
 
 int setPositionX(BoundingBox* boundingBox, const double& x) {
-    if (boundingBox) {
+    if (boundingBox && isValidBoundingBoxXValue(x)) {
         boundingBox->setX(x);
         return 0;
     }
@@ -648,7 +655,7 @@ int setPositionY(GraphicalObject* graphicalObject, const double& y) {
 }
 
 int setPositionY(BoundingBox* boundingBox, const double& y) {
-    if (boundingBox) {
+    if (boundingBox && isValidBoundingBoxXValue(y)) {
         boundingBox->setY(y);
         return 0;
     }
@@ -684,7 +691,7 @@ int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
 }
 
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
-    if (boundingBox) {
+    if (boundingBox && isValidBoundingBoxWidthValue(width)) {
         boundingBox->setWidth(width);
         return 0;
     }
@@ -720,7 +727,7 @@ int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
-    if (boundingBox) {
+    if (boundingBox && isValidBoundingBoxHeightValue(height)) {
         boundingBox->setHeight(height);
         return 0;
     }
@@ -886,10 +893,12 @@ int setCurveSegmentStartPointX(GraphicalObject* graphicalObject, unsigned int cu
 }
 
 int setCurveSegmentStartPointX(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment) {
-        lineSegment->getStart()->setX(x);
-        return  0;
+    if (isValidCurveSegmentStartPointXValue(x)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment) {
+            lineSegment->getStart()->setX(x);
+            return  0;
+        }
     }
 
     return  -1;
@@ -924,10 +933,12 @@ int setCurveSegmentStartPointY(GraphicalObject* graphicalObject, unsigned int cu
 }
 
 int setCurveSegmentStartPointY(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment) {
-        lineSegment->getStart()->setY(y);
-        return 0;
+    if (isValidCurveSegmentStartPointYValue(y)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment) {
+            lineSegment->getStart()->setY(y);
+            return 0;
+        }
     }
 
     return -1;
@@ -962,10 +973,12 @@ int setCurveSegmentEndPointX(GraphicalObject* graphicalObject, unsigned int curv
 }
 
 int setCurveSegmentEndPointX(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment) {
-        lineSegment->getEnd()->setX(x);
-        return  0;
+    if (isValidCurveSegmentEndPointXValue(x)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment) {
+            lineSegment->getEnd()->setX(x);
+            return  0;
+        }
     }
 
     return  -1;
@@ -1000,10 +1013,12 @@ int setCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned int curv
 }
 
 int setCurveSegmentEndPointY(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment) {
-        lineSegment->getEnd()->setY(y);
-        return 0;
+    if (isValidCurveSegmentEndPointYValue(y)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment) {
+            lineSegment->getEnd()->setY(y);
+            return 0;
+        }
     }
 
     return -1;
@@ -1038,10 +1053,12 @@ int setCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int cu
 }
 
 int setCurveSegmentBasePoint1X(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment && isCubicBezier(lineSegment)) {
-        ((CubicBezier*)lineSegment)->getBasePoint1()->setX(x);
-        return 0;
+    if (isValidCurveSegmentBasePoint1XValue(x)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment && isCubicBezier(lineSegment)) {
+            ((CubicBezier*)lineSegment)->getBasePoint1()->setX(x);
+            return 0;
+        }
     }
 
     return  -1;
@@ -1076,10 +1093,12 @@ int setCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int cu
 }
 
 int setCurveSegmentBasePoint1Y(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment && isCubicBezier(lineSegment)) {
-        ((CubicBezier*)lineSegment)->getBasePoint1()->setY(y);
-        return 0;
+    if (isValidCurveSegmentBasePoint1YValue(y)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment && isCubicBezier(lineSegment)) {
+            ((CubicBezier*)lineSegment)->getBasePoint1()->setY(y);
+            return 0;
+        }
     }
 
     return  -1;
@@ -1114,10 +1133,12 @@ int setCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int cu
 }
 
 int setCurveSegmentBasePoint2X(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment && isCubicBezier(lineSegment)) {
-        ((CubicBezier*)lineSegment)->getBasePoint2()->setX(x);
-        return 0;
+    if (isValidCurveSegmentBasePoint2XValue(x)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment && isCubicBezier(lineSegment)) {
+            ((CubicBezier*)lineSegment)->getBasePoint2()->setX(x);
+            return 0;
+        }
     }
 
     return  -1;
@@ -1152,10 +1173,12 @@ int setCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int cu
 }
 
 int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
-    if (lineSegment && isCubicBezier(lineSegment)) {
-        ((CubicBezier*)lineSegment)->getBasePoint2()->setY(y);
-        return 0;
+    if (isValidCurveSegmentBasePoint2YValue(y)) {
+        LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
+        if (lineSegment && isCubicBezier(lineSegment)) {
+            ((CubicBezier*)lineSegment)->getBasePoint2()->setY(y);
+            return 0;
+        }
     }
 
     return  -1;

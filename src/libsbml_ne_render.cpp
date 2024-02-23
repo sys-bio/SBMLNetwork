@@ -47,7 +47,7 @@ const std::string getBackgroundColor(RenderInformationBase* renderInformationBas
 }
 
 int setBackgroundColor(RenderInformationBase* renderInformationBase, const std::string& backgroundColor) {
-    if (renderInformationBase) {
+    if (renderInformationBase && isValidBackgroundColorValue(backgroundColor)) {
         renderInformationBase->setBackgroundColor(backgroundColor);
         return 0;
     }
@@ -103,7 +103,7 @@ int setValue(RenderInformationBase* renderInformationBase, const std::string& si
 }
 
 int setValue(ColorDefinition* colorDefinition, const std::string& value) {
-    if (colorDefinition) {
+    if (colorDefinition && isValidColorValue(value)) {
         colorDefinition->setValue(value);
         return 0;
     }
@@ -181,7 +181,7 @@ int setSpreadMethod(RenderInformationBase* renderInformationBase, const std::str
 }
 
 int setSpreadMethod(GradientBase* gradientBase, const std::string& spreadMethod) {
-    if (gradientBase) {
+    if (gradientBase && isValidSpreadMethodValue(spreadMethod)) {
         gradientBase->setSpreadMethod(spreadMethod);
         return 0;
     }
@@ -258,7 +258,7 @@ int setOffset(GradientBase* gradientBase, unsigned int gradientStopIndex, const 
 }
 
 int setOffset(GradientStop* gradientStop, const RelAbsVector& offset) {
-    if (gradientStop) {
+    if (gradientStop && isValidOffsetValue(offset)) {
         gradientStop->setOffset(offset);
         return 0;
     }
@@ -313,7 +313,7 @@ int setStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex, con
 }
 
 int setStopColor(GradientStop* gradientStop, const std::string& stopColor) {
-    if (gradientStop) {
+    if (gradientStop && isValidStopColorValue(stopColor)) {
         gradientStop->setStopColor(stopColor);
         return 0;
     }
@@ -348,7 +348,7 @@ int setLinearGradientX1(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setLinearGradientX1(GradientBase* gradientBase, const RelAbsVector& x1) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientX1Value(x1)) {
         ((LinearGradient *) gradientBase)->setX1(x1);
         return 0;
     }
@@ -383,7 +383,7 @@ int setLinearGradientX2(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setLinearGradientX2(GradientBase* gradientBase, const RelAbsVector& x2) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientX2Value(x2)) {
         ((LinearGradient *) gradientBase)->setX2(x2);
         return 0;
     }
@@ -418,7 +418,7 @@ int setLinearGradientY1(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setLinearGradientY1(GradientBase* gradientBase, const RelAbsVector& y1) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientY1Value(y1)) {
         ((LinearGradient*) gradientBase)->setY1(y1);
         return 0;
     }
@@ -453,7 +453,7 @@ int setLinearGradientY2(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setLinearGradientY2(GradientBase* gradientBase, const RelAbsVector& y2) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientY2Value(y2)) {
         ((LinearGradient*) gradientBase)->setY2(y2);
         return 0;
     }
@@ -488,7 +488,7 @@ int setRadialGradientCx(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientCxValue(cx)) {
         ((RadialGradient*) gradientBase)->setCx(cx);
         return 0;
     }
@@ -523,7 +523,7 @@ int setRadialGradientCy(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientCyValue(cy)) {
         ((RadialGradient*)gradientBase)->setCy(cy);
         return 0;
     }
@@ -558,7 +558,7 @@ int setRadialGradientFx(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientFxValue(fx)) {
         ((RadialGradient*)gradientBase)->setFx(fx);
         return 0;
     }
@@ -593,7 +593,7 @@ int setRadialGradientFy(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientFyValue(fy)) {
         ((RadialGradient*)gradientBase)->setFy(fy);
         return 0;
     }
@@ -628,7 +628,7 @@ int setRadialGradientR(RenderInformationBase* renderInformationBase, const std::
 }
 
 int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
-    if (isLinearGradient(gradientBase)) {
+    if (isLinearGradient(gradientBase) && isValidGradientRValue(r)) {
         ((RadialGradient*)gradientBase)->setR(r);
         return 0;
     }
@@ -685,12 +685,13 @@ int setEnableRotationalMapping(RenderInformationBase* renderInformationBase, con
     return setEnableRotationalMapping(getLineEnding(renderInformationBase, sid), enableRotationalMapping);
 }
 
-int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping) {
-    if (lineEnding) {
+int setEnableRotationalMapping(LineEnding* lineEnding, const bool& enableRotationalMapping) {
+    if (lineEnding && isValidEnableRotationalMappingValue(enableRotationalMapping)) {
         lineEnding->setEnableRotationalMapping(enableRotationalMapping);
+        return 0;
     }
 
-    return false;
+    return -1;
 }
 
 BoundingBox* getBoundingBoxOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
@@ -868,7 +869,7 @@ int setStrokeColor(Style* style, const std::string& stroke) {
 }
 
 int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke) {
-    if (isGraphicalPrimitive1D(transformation2D)) {
+    if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeColorValue(stroke)) {
         ((GraphicalPrimitive1D*)transformation2D)->setStroke(stroke);
         return 0;
     }
@@ -927,7 +928,7 @@ int setStrokeWidth(Style* style, const double& strokeWidth) {
 }
 
 int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth) {
-    if (isGraphicalPrimitive1D(transformation2D)) {
+    if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeWidthValue(strokeWidth)) {
         ((GraphicalPrimitive1D*)transformation2D)->setStrokeWidth(strokeWidth);
         return 0;
     }
@@ -986,7 +987,7 @@ int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDash
 }
 
 int setStrokeDashArray(Transformation2D* transformation2D, const std::vector<unsigned int>& strokeDashArray) {
-    if (isGraphicalPrimitive1D(transformation2D)) {
+    if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeDashArrayValue(strokeDashArray)) {
         ((GraphicalPrimitive1D*)transformation2D)->setStrokeDashArray(strokeDashArray);
         return 0;
     }
@@ -1058,7 +1059,7 @@ unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int dash
 }
 
 unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash) {
-    if (isGraphicalPrimitive1D(transformation2D)) {
+    if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeDashValue(dash)) {
         ((GraphicalPrimitive1D*)transformation2D)->setDashByIndex(strokeDashIndex, dash);
         return 0;
     }
@@ -1111,7 +1112,10 @@ int setFontColor(Style* style, const std::string& fontColor) {
 }
 
 int setFontColor(Transformation2D* transformation2D, const std::string& fontColor) {
-    return setStrokeColor(transformation2D, fontColor);
+    if (isValidFontColorValue(fontColor))
+        return setStrokeColor(transformation2D, fontColor);
+
+    return -1;
 }
 
 bool isSetFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1169,13 +1173,15 @@ int setFontFamily(Style* style, const std::string& fontFamily) {
 }
 
 int setFontFamily(Transformation2D* transformation2D, const std::string& fontFamily) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setFontFamily(fontFamily);
-        return 0;
-    }
-    else if (isText(transformation2D)) {
-        ((Text*)transformation2D)->setFontFamily(fontFamily);
-        return 0;
+    if (isValidFontFamilyValue(fontFamily)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setFontFamily(fontFamily);
+            return 0;
+        }
+        else if (isText(transformation2D)) {
+            ((Text*)transformation2D)->setFontFamily(fontFamily);
+            return 0;
+        }
     }
 
     return -1;
@@ -1236,13 +1242,15 @@ int setFontSize(Style* style, const RelAbsVector& fontSize) {
 }
 
 int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setFontSize(fontSize);
-        return 0;
-    }
-    else if (isText(transformation2D)) {
-        ((Text*)transformation2D)->setFontSize(fontSize);
-        return 0;
+    if (isValidFontSizeValue(fontSize)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setFontSize(fontSize);
+            return 0;
+        }
+        else if (isText(transformation2D)) {
+            ((Text*)transformation2D)->setFontSize(fontSize);
+            return 0;
+        }
     }
 
     return -1;
@@ -1303,13 +1311,15 @@ int setFontWeight(Style* style, const std::string& fontWeight) {
 }
 
 int setFontWeight(Transformation2D* transformation2D, const std::string& fontWeight) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setFontWeight(fontWeight);
-        return 0;
-    }
-    else if (isText(transformation2D)) {
-        ((Text*)transformation2D)->setFontWeight(fontWeight);
-        return 0;
+    if (isValidFontWeightValue(fontWeight)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setFontWeight(fontWeight);
+            return 0;
+        }
+        else if (isText(transformation2D)) {
+            ((Text*)transformation2D)->setFontWeight(fontWeight);
+            return 0;
+        }
     }
 
     return -1;
@@ -1370,13 +1380,15 @@ int setFontStyle(Style* style, const std::string& fontStyle) {
 }
 
 int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyle) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setFontStyle(fontStyle);
-        return 0;
-    }
-    else if (isText(transformation2D)) {
-        ((Text*)transformation2D)->setFontStyle(fontStyle);
-        return 0;
+    if (isValidFontStyleValue(fontStyle)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setFontStyle(fontStyle);
+            return 0;
+        }
+        else if (isText(transformation2D)) {
+            ((Text*)transformation2D)->setFontStyle(fontStyle);
+            return 0;
+        }
     }
 
     return -1;
@@ -1437,13 +1449,15 @@ int setTextAnchor(Style* style, const std::string& textAnchor) {
 }
 
 int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnchor) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setTextAnchor(textAnchor);
-        return 0;
-    }
-    else if (isText(transformation2D)) {
-        ((Text*)transformation2D)->setTextAnchor(textAnchor);
-        return 0;
+    if (isValidTextAnchorValue(textAnchor)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setTextAnchor(textAnchor);
+            return 0;
+        }
+        else if (isText(transformation2D)) {
+            ((Text*)transformation2D)->setTextAnchor(textAnchor);
+            return 0;
+        }
     }
 
     return -1;
@@ -1504,13 +1518,15 @@ int setVTextAnchor(Style* style, const std::string& vtextAnchor) {
 }
 
 int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setVTextAnchor(vtextAnchor);
-        return 0;
-    }
-    else if (isText(transformation2D)) {
-        ((Text*)transformation2D)->setVTextAnchor(vtextAnchor);
-        return 0;
+    if (isValidVTextAnchorValue(vtextAnchor)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setVTextAnchor(vtextAnchor);
+            return 0;
+        }
+        else if (isText(transformation2D)) {
+            ((Text*)transformation2D)->setVTextAnchor(vtextAnchor);
+            return 0;
+        }
     }
     
     return -1;
@@ -1567,7 +1583,7 @@ int setFillColor(Style* style, const std::string& fillColor) {
 }
 
 int setFillColor(Transformation2D* transformation2D, const std::string& fillColor) {
-    if (isGraphicalPrimitive2D(transformation2D)) {
+    if (isGraphicalPrimitive2D(transformation2D) && isValidFillColorValue(fillColor)) {
         ((GraphicalPrimitive2D*)transformation2D)->setFill(fillColor);
         return 0;
     }
@@ -1626,7 +1642,7 @@ int setFillRule(Style* style, const std::string& fillRule) {
 }
 
 int setFillRule(Transformation2D* transformation2D, const std::string& fillRule) {
-    if (isGraphicalPrimitive2D(transformation2D)) {
+    if (isGraphicalPrimitive2D(transformation2D) && isValidFillRuleValue(fillRule)) {
         ((GraphicalPrimitive2D*)transformation2D)->setFillRule(fillRule);
         return 0;
     }
@@ -1689,13 +1705,15 @@ int setStartHead(Style* style, const std::string& startHead) {
 }
 
 int setStartHead(Transformation2D* transformation2D, const std::string startHead) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setStartHead(startHead);
-        return 0;
-    }
-    else if (isRenderCurve(transformation2D)) {
-        ((RenderCurve*)transformation2D)->setStartHead(startHead);
-        return 0;
+    if (isValidStartHeadValue(startHead)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setStartHead(startHead);
+            return 0;
+        }
+        else if (isRenderCurve(transformation2D)) {
+            ((RenderCurve*)transformation2D)->setStartHead(startHead);
+            return 0;
+        }
     }
 
     return -1;
@@ -1756,13 +1774,15 @@ int setEndHead(Style* style, const std::string& endHead) {
 }
 
 int setEndHead(Transformation2D* transformation2D, const std::string endHead) {
-    if (isRenderGroup(transformation2D)) {
-        ((RenderGroup*)transformation2D)->setEndHead(endHead);
-        return 0;
-    }
-    else if (isRenderCurve(transformation2D)) {
-        ((RenderCurve*)transformation2D)->setEndHead(endHead);
-        return 0;
+    if (isValidEndHeadValue(endHead)) {
+        if (isRenderGroup(transformation2D)) {
+            ((RenderGroup*)transformation2D)->setEndHead(endHead);
+            return 0;
+        }
+        else if (isRenderCurve(transformation2D)) {
+            ((RenderCurve*)transformation2D)->setEndHead(endHead);
+            return 0;
+        }
     }
 
     return -1;
@@ -2114,17 +2134,19 @@ int setGeometricShapeX(RenderGroup* renderGroup, unsigned int geometricShapeInde
 }
 
 int setGeometricShapeX(Transformation2D* shape, const RelAbsVector& x) {
-    if (isRectangle(shape)) {
-        ((Rectangle*)shape)->setX(x);
-        return 0;
-    }
-    else if (isImage(shape)) {
-        ((Image*)shape)->setX(x);
-        return 0;
-    }
-    else if (isText(shape)) {
-        ((Text*)shape)->setX(x);
-        return 0;
+    if (isValidGeometricShapeXValue(x)) {
+        if (isRectangle(shape)) {
+            ((Rectangle*)shape)->setX(x);
+            return 0;
+        }
+        else if (isImage(shape)) {
+            ((Image*)shape)->setX(x);
+            return 0;
+        }
+        else if (isText(shape)) {
+            ((Text*)shape)->setX(x);
+            return 0;
+        }
     }
 
     return -1;
@@ -2217,17 +2239,19 @@ int setGeometricShapeY(RenderGroup* renderGroup, unsigned int geometricShapeInde
 }
 
 int setGeometricShapeY(Transformation2D* shape, const RelAbsVector& y) {
-    if (isRectangle(shape)) {
-        ((Rectangle*)shape)->setY(y);
-        return 0;
-    }
-    else if (isImage(shape)) {
-        ((Image*)shape)->setY(y);
-        return 0;
-    }
-    else if (isText(shape)) {
-        ((Text*)shape)->setY(y);
-        return 0;
+    if (isValidGeometricShapeYValue(y)) {
+        if (isRectangle(shape)) {
+            ((Rectangle*)shape)->setY(y);
+            return 0;
+        }
+        else if (isImage(shape)) {
+            ((Image*)shape)->setY(y);
+            return 0;
+        }
+        else if (isText(shape)) {
+            ((Text*)shape)->setY(y);
+            return 0;
+        }
     }
 
     return -1;
@@ -2316,13 +2340,15 @@ int setGeometricShapeWidth(RenderGroup* renderGroup, unsigned int geometricShape
 }
 
 int setGeometricShapeWidth(Transformation2D* shape, const RelAbsVector& width) {
-    if (isRectangle(shape)) {
-        ((Rectangle*)shape)->setWidth(width);
-        return 0;
-    }
-    else if (isImage(shape)) {
-        ((Image*)shape)->setWidth(width);
-        return 0;
+    if (isValidGeometricShapeWidthValue(width)) {
+        if (isRectangle(shape)) {
+            ((Rectangle*)shape)->setWidth(width);
+            return 0;
+        }
+        else if (isImage(shape)) {
+            ((Image*)shape)->setWidth(width);
+            return 0;
+        }
     }
 
     return -1;
@@ -2411,13 +2437,15 @@ int setGeometricShapeHeight(RenderGroup* renderGroup, unsigned int geometricShap
 }
 
 int setGeometricShapeHeight(Transformation2D* shape, const RelAbsVector& height) {
-    if (isRectangle(shape)) {
-        ((Rectangle*)shape)->setHeight(height);
-        return 0;
-    }
-    else if (isImage(shape)) {
-        ((Image*)shape)->setHeight(height);
-        return 0;
+    if (isValidGeometricShapeHeightValue(height)) {
+        if (isRectangle(shape)) {
+            ((Rectangle*)shape)->setHeight(height);
+            return 0;
+        }
+        else if (isImage(shape)) {
+            ((Image*)shape)->setHeight(height);
+            return 0;
+        }
     }
 
     return -1;
@@ -2506,13 +2534,15 @@ int setGeometricShapeRatio(RenderGroup* renderGroup, unsigned int geometricShape
 }
 
 int setGeometricShapeRatio(Transformation2D* shape, const double& ratio) {
-    if (isRectangle(shape)) {
-        ((Rectangle*)shape)->setRatio(ratio);
-        return 0;
-    }
-    else if (isEllipse(shape)) {
-        ((Ellipse*)shape)->setRatio(ratio);
-        return 0;
+    if (isValidGeometricShapeRatioValue(ratio)) {
+        if (isRectangle(shape)) {
+            ((Rectangle*)shape)->setRatio(ratio);
+            return 0;
+        }
+        else if (isEllipse(shape)) {
+            ((Ellipse*)shape)->setRatio(ratio);
+            return 0;
+        }
     }
 
     return -1;
@@ -2597,7 +2627,7 @@ int setGeometricShapeCornerCurvatureRadiusX(RenderGroup* renderGroup, unsigned i
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape, const RelAbsVector& rx) {
-    if (isRectangle(shape)) {
+    if (isRectangle(shape) && isValidGeometricShapeCornerCurvatureRadiusX(rx)) {
         ((Rectangle*)shape)->setRX(rx);
         return 0;
     }
@@ -2684,7 +2714,7 @@ int setGeometricShapeCornerCurvatureRadiusY(RenderGroup* renderGroup, unsigned i
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAbsVector& ry) {
-    if (isRectangle(shape)) {
+    if (isRectangle(shape) && isValidGeometricShapeCornerCurvatureRadiusY(ry)) {
         return ((Rectangle*)shape)->setRY(ry);
         return 0;
     }
@@ -2771,7 +2801,7 @@ int setGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int geometricSha
 }
 
 int setGeometricShapeCenterX(Transformation2D* shape, const RelAbsVector& cx) {
-    if (isEllipse(shape)) {
+    if (isEllipse(shape) && isValidGeometricShapeCenterX(cx)) {
         ((Ellipse*)shape)->setCX(cx);
         return 0;
     }
@@ -2858,7 +2888,7 @@ int setGeometricShapeCenterY(RenderGroup* renderGroup, unsigned int geometricSha
 }
 
 int setGeometricShapeCenterY(Transformation2D* shape, const RelAbsVector& cy) {
-    if (isEllipse(shape)) {
+    if (isEllipse(shape) && isValidGeometricShapeCenterY(cy)) {
         ((Ellipse*)shape)->setCY(cy);
         return 0;
     }
@@ -2945,7 +2975,7 @@ int setGeometricShapeRadiusX(RenderGroup* renderGroup, unsigned int geometricSha
 }
 
 int setGeometricShapeRadiusX(Transformation2D* shape, const RelAbsVector& rx) {
-    if (isEllipse(shape)) {
+    if (isEllipse(shape) && isValidGeometricShapeRadiusX(rx)) {
         ((Ellipse*)shape)->setRX(rx);
         return 0;
     }
@@ -3032,7 +3062,7 @@ int setGeometricShapeRadiusY(RenderGroup* renderGroup, unsigned int geometricSha
 }
 
 int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry) {
-    if (isEllipse(shape)) {
+    if (isEllipse(shape) && isValidGeometricShapeRadiusY(ry)) {
         ((Ellipse*)shape)->setRY(ry);
         return 0;
     }
@@ -3147,15 +3177,17 @@ int setGeometricShapeElementX(Transformation2D* shape, const RelAbsVector& x) {
 }
 
 int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x) {
-    RenderPoint* element = NULL;
-    if (isPolygon(shape))
-        element = ((Polygon*)shape)->getElement(elementIndex);
-    else if (isRenderCurve(shape))
-        element = ((RenderCurve*)shape)->getElement(elementIndex);
+    if (isValidGeometricShapeElementX(x)) {
+        RenderPoint* element = NULL;
+        if (isPolygon(shape))
+            element = ((Polygon*)shape)->getElement(elementIndex);
+        else if (isRenderCurve(shape))
+            element = ((RenderCurve*)shape)->getElement(elementIndex);
 
-    if (element) {
-        element->setX(x);
-        return 0;
+        if (element) {
+            element->setX(x);
+            return 0;
+        }
     }
 
     return -1;
@@ -3243,15 +3275,17 @@ int setGeometricShapeElementY(Transformation2D* shape, const RelAbsVector& y) {
 }
 
 int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y) {
-    RenderPoint* element = NULL;
-    if (isPolygon(shape))
-        element = ((Polygon*)shape)->getElement(elementIndex);
-    else if (isRenderCurve(shape))
-        element = ((RenderCurve*)shape)->getElement(elementIndex);
+    if (isValidGeometricShapeElementY(y)) {
+        RenderPoint* element = NULL;
+        if (isPolygon(shape))
+            element = ((Polygon*)shape)->getElement(elementIndex);
+        else if (isRenderCurve(shape))
+            element = ((RenderCurve*)shape)->getElement(elementIndex);
 
-    if (element) {
-        element->setY(y);
-        return 0;
+        if (element) {
+            element->setY(y);
+            return 0;
+        }
     }
 
     return -1;
@@ -3339,15 +3373,17 @@ int setGeometricShapeBasePoint1X(Transformation2D* shape, const RelAbsVector& x)
 }
 
 int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x) {
-    RenderPoint* element = NULL;
-    if (isPolygon(shape))
-        element = ((Polygon*)shape)->getElement(elementIndex);
-    else if (isRenderCurve(shape))
-        element = ((RenderCurve*)shape)->getElement(elementIndex);
+    if (isValidGeometricShapeBasePoint1X(x)) {
+        RenderPoint* element = NULL;
+        if (isPolygon(shape))
+            element = ((Polygon*)shape)->getElement(elementIndex);
+        else if (isRenderCurve(shape))
+            element = ((RenderCurve*)shape)->getElement(elementIndex);
 
-    if (isRenderCubicBezier(element)) {
-        ((RenderCubicBezier*)element)->setBasePoint1_x(x);
-        return 0;
+        if (isRenderCubicBezier(element)) {
+            ((RenderCubicBezier*)element)->setBasePoint1_x(x);
+            return 0;
+        }
     }
 
     return -1;
@@ -3435,15 +3471,17 @@ int setGeometricShapeBasePoint1Y(Transformation2D* shape, const RelAbsVector& y)
 }
 
 int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y) {
-    RenderPoint* element = NULL;
-    if (isPolygon(shape))
-        element = ((Polygon*)shape)->getElement(elementIndex);
-    else if (isRenderCurve(shape))
-        element = ((RenderCurve*)shape)->getElement(elementIndex);
+    if (isValidGeometricShapeBasePoint1Y(y)) {
+        RenderPoint* element = NULL;
+        if (isPolygon(shape))
+            element = ((Polygon*)shape)->getElement(elementIndex);
+        else if (isRenderCurve(shape))
+            element = ((RenderCurve*)shape)->getElement(elementIndex);
 
-    if (isRenderCubicBezier(element)) {
-        ((RenderCubicBezier*)element)->setBasePoint1_y(y);
-        return 0;
+        if (isRenderCubicBezier(element)) {
+            ((RenderCubicBezier*)element)->setBasePoint1_y(y);
+            return 0;
+        }
     }
 
     return -1;
@@ -3531,15 +3569,17 @@ int setGeometricShapeBasePoint2X(Transformation2D* shape, const RelAbsVector& x)
 }
 
 int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x) {
-    RenderPoint* element = NULL;
-    if (isPolygon(shape))
-        element = ((Polygon*)shape)->getElement(elementIndex);
-    else if (isRenderCurve(shape))
-        element = ((RenderCurve*)shape)->getElement(elementIndex);
+    if (isValidGeometricShapeBasePoint2X(x)) {
+        RenderPoint* element = NULL;
+        if (isPolygon(shape))
+            element = ((Polygon*)shape)->getElement(elementIndex);
+        else if (isRenderCurve(shape))
+            element = ((RenderCurve*)shape)->getElement(elementIndex);
 
-    if (isRenderCubicBezier(element)) {
-        ((RenderCubicBezier*)element)->setBasePoint2_x(x);
-        return 0;
+        if (isRenderCubicBezier(element)) {
+            ((RenderCubicBezier*)element)->setBasePoint2_x(x);
+            return 0;
+        }
     }
 
     return -1;
@@ -3627,15 +3667,17 @@ int setGeometricShapeBasePoint2Y(Transformation2D* shape, const RelAbsVector& y)
 }
 
 int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y) {
-    RenderPoint* element = NULL;
-    if (isPolygon(shape))
-        element = ((Polygon*)shape)->getElement(elementIndex);
-    else if (isRenderCurve(shape))
-        element = ((RenderCurve*)shape)->getElement(elementIndex);
+    if (isValidGeometricShapeBasePoint2Y(y)) {
+        RenderPoint* element = NULL;
+        if (isPolygon(shape))
+            element = ((Polygon*)shape)->getElement(elementIndex);
+        else if (isRenderCurve(shape))
+            element = ((RenderCurve*)shape)->getElement(elementIndex);
 
-    if (isRenderCubicBezier(element)) {
-        ((RenderCubicBezier*)element)->setBasePoint2_y(y);
-        return 0;
+        if (isRenderCubicBezier(element)) {
+            ((RenderCubicBezier*)element)->setBasePoint2_y(y);
+            return 0;
+        }
     }
 
     return -1;
@@ -3827,7 +3869,7 @@ int setGeometricShapeHref(RenderGroup* renderGroup, unsigned int geometricShapeI
 }
 
 int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
-    if (isImage(shape)) {
+    if (isImage(shape) && isValidGeometricShapeHref(href)) {
         ((Image*)shape)->setHref(href);
         return 0;
     }

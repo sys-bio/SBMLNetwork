@@ -590,4 +590,321 @@ void setDefaultImageShapeFeatures(Image* image) {
     image->setHeight(RelAbsVector(0.0, 100.0));
 }
 
+const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
+    return isValidColorValue(backgroundColor);
+}
+
+const bool isValidColorValue(const std::string& value) {
+    std::vector<std::string> html_color_names;
+    html_color_names = {"aliceblue", "antiquewhite", "aqua", "aquamarine", "azure",
+                        "beige", "bisque", "black", "blanchedalmond", "blue",
+                        "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
+                        "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson",
+                        "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
+                        "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
+                        "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
+                        "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
+                        "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
+                        "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
+                        "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew",
+                        "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
+                        "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
+                        "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey",
+                        "lightpink","lightsalmon", "lightseagreen", "lightskyblue",
+                        "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen",
+                        "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue",
+                        "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
+                        "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue",
+                        "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace",
+                        "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
+                        "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff",
+                        "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown",
+                        "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen","seashell",
+                        "sienna", "silver", "skyblue", "slateblue", "slategray", "snow","springgreen",
+                        "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
+                        "wheat", "white", "whitesmoke", "yellow", "yellowgreen"};
+    for (unsigned int i = 0; i < html_color_names.size(); i++) {
+        if (stringCompare(html_color_names.at(i), std::to_lower(value)))
+            return true;
+    }
+
+    std::vector<std::string> hex_color_codes;
+    hex_color_codes = {"#F0F8FF", "#FAEBD7", "#00FFFF", "#7FFFD4", "#F0FFFF", "#F5F5DC", "#FFE4C4",
+                        "#000000", "#FFEBCD", "#0000FF", "#8A2BE2", "#A52A2A", "#DEB887", "#5F9EA0",
+                        "#7FFF00", "#D2691E", "#FF7F50", "#6495ED", "#FFF8DC", "#DC143C", "#00FFFF",
+                        "#00008B", "#008B8B", "#B8860B", "#A9A9A9", "#006400", "#BDB76B", "#8B008B",
+                        "#556B2F", "#FF8C00", "#9932CC", "#8B0000", "#E9967A", "#8FBC8F", "#483D8B",
+                        "#2F4F4F", "#00CED1", "#9400D3", "#FF1493", "#00BFFF", "#696969", "#1E90FF",
+                        "#B22222", "#FFFAF0", "#228B22", "#FF00FF", "#DCDCDC", "#F8F8FF", "#FFD700",
+                        "#DAA520", "#808080", "#008000", "#ADFF2F", "#F0FFF0", "#FF69B4", "#CD5C5C",
+                        "#4B0082", "#FFFFF0", "#F0E68C", "#E6E6FA", "#FFF0F5", "#7CFC00", "#FFFACD",
+                        "#ADD8E6", "#F08080", "#E0FFFF", "#FAFAD2", "#90EE90", "#D3D3D3", "#FFB6C1",
+                        "#FFA07A", "#20B2AA", "#87CEFA", "#778899", "#B0C4DE", "#FFFFE0", "#00FF00",
+                        "#32CD32", "#FAF0E6", "#FF00FF", "#800000", "#66CDAA", "#0000CD", "#BA55D3",
+                        "#9370DB", "#3CB371", "#7B68EE", "#00FA9A", "#48D1CC", "#C71585", "#191970",
+                        "#F5FFFA", "#FFE4E1", "#FFE4B5", "#FFDEAD", "#000080", "#FDF5E6", "#808000",
+                        "#6B8E23", "#FFA500", "#FF4500", "#DA70D6", "#EEE8AA", "#98FB98", "#AFEEEE",
+                        "#DB7093", "#FFEFD5", "#FFDAB9", "#CD853F", "#FFC0CB", "#DDA0DD", "#B0E0E6",
+                        "#800080", "#FF0000", "#BC8F8F", "#4169E1", "#8B4513", "#FA8072", "#F4A460",
+                        "#2E8B57", "#FFF5EE", "#A0522D", "#C0C0C0", "#87CEEB", "#6A5ACD", "#708090",
+                        "#FFFAFA", "#00FF7F", "#4682B4", "#D2B48C", "#008080", "#D8BFD8", "#FF6347",
+                        "#40E0D0", "#EE82EE", "#F5DEB3", "#FFFFFF", "#F5F5F5", "#FFFF00", "#9ACD32"};
+    for (unsigned int i = 0; i < hex_color_codes.size(); i++) {
+        if (stringCompare(hex_color_codes.at(i), value))
+            return true;
+    }
+
+    return false;
+}
+
+const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
+    if (stringCompare(spreadMethod, "pad"))
+        return true;
+    else if (stringCompare(spreadMethod, "reflect"))
+        return true;
+    else if (stringCompare(spreadMethod, "repeat"))
+        return true;
+
+    return false;
+}
+
+const bool isValidOffsetValue(const RelAbsVector& offset) {
+    return isValidRelAbsVectorPositiveValue(offset);
+}
+
+const bool isValidStopColorValue(const std::string& stopColor) {
+    return isValidColorValue(stopColor);
+}
+
+const bool isValidGradientX1Value(const RelAbsVector& x1) {
+    return isValidRelAbsVectorPositiveValue(x1);
+}
+
+const bool isValidGradientX2Value(const RelAbsVector& x2) {
+    return isValidRelAbsVectorPositiveValue(x2);
+}
+
+const bool isValidGradientY1Value(const RelAbsVector& y1) {
+    return isValidRelAbsVectorPositiveValue(y1);
+}
+
+const bool isValidGradientY2Value(const RelAbsVector& y2) {
+    return isValidRelAbsVectorPositiveValue(y2);
+}
+
+const bool isValidGradientCxValue(const RelAbsVector& cx) {
+    return isValidRelAbsVectorPositiveValue(cx);
+}
+
+const bool isValidGradientCyValue(const RelAbsVector& cy) {
+    return isValidRelAbsVectorPositiveValue(cy);
+}
+
+const bool isValidGradientFxValue(const RelAbsVector& fx) {
+    return isValidRelAbsVectorPositiveValue(fx);
+}
+
+const bool isValidGradientFyValue(const RelAbsVector& fy) {
+    return isValidRelAbsVectorPositiveValue(fy);
+}
+
+const bool isValidGradientRValue(const RelAbsVector& r) {
+    return isValidRelAbsVectorPositiveValue(r);
+}
+
+const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping) {
+    return true;
+}
+
+const bool isValidStrokeColorValue(const std::string& stroke) {
+    return isValidColorValue(stroke);
+}
+
+const bool isValidStrokeWidthValue(const double& strokeWidth) {
+    if (strokeWidth > 0.0001)
+        return true;
+
+    return false;
+}
+
+const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray) {
+    for (unsigned int i = 0; i < strokeDashArray.size(); i++) {
+        if (!isValidStrokeDashValue(strokeDashArray.at(i)))
+            return false;
+    }
+
+    return true;
+}
+
+const bool isValidStrokeDashValue(unsigned int dash) {
+    if (dash > 0.000)
+        return true;
+
+    return false;
+}
+
+const bool isValidFontColorValue(const std::string& fontColor) {
+    return isValidColorValue(fontColor);
+}
+
+const bool isValidFontFamilyValue(const std::string& fontFamily) {
+    if (stringCompare(fontFamily, "serif"))
+        return true;
+    else if (stringCompare(fontFamily, "sans-serif"))
+        return true;
+    else if (stringCompare(fontFamily, "monospace"))
+        return true;
+
+    return false;
+}
+
+const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
+    return isValidRelAbsVectorPositiveValue(fontSize);
+}
+
+const bool isValidFontWeightValue(const std::string& fontWeight) {
+    if (stringCompare(fontWeight, "bold"))
+        return true;
+    else if (stringCompare(fontWeight, "normal"))
+        return true;
+
+    return false;
+}
+
+const bool isValidFontStyleValue(const std::string& fontStyle) {
+    if (stringCompare(fontStyle, "italic"))
+        return true;
+    else if (stringCompare(fontStyle, "normal"))
+        return true;
+
+    return false;
+}
+
+const bool isValidTextAnchorValue(const std::string& textAnchor) {
+    if (stringCompare(textAnchor, "start"))
+        return true;
+    else if (stringCompare(textAnchor, "middle"))
+        return true;
+    else if (stringCompare(textAnchor, "end"))
+        return true;
+
+    return false;
+}
+
+const bool isValidVTextAnchorValue(const std::string& vtextAnchor) {
+    if (stringCompare(vtextAnchor, "top"))
+        return true;
+    else if (stringCompare(vtextAnchor, "middle"))
+        return true;
+    else if (stringCompare(vtextAnchor, "bottom"))
+        return true;
+    else if (stringCompare(vtextAnchor, "baseline"))
+        return true;
+
+    return false;
+}
+
+const bool isValidFillColorValue(const std::string& fillColor) {
+    return isValidColorValue(fillColor);
+}
+
+const bool isValidFillRuleValue(const std::string& fillRule) {
+    if (stringCompare(fillRule, "nonzero"))
+        return true;
+    else if (stringCompare(fillRule, "evenodd"))
+        return true;
+
+    return false;
+}
+
+const bool isValidStartHeadValue(const std::string& startHead) {
+    return true;
+}
+
+const bool isValidEndHeadValue(const std::string& endHead) {
+    return true;
+}
+
+const bool isValidGeometricShapeXValue(const RelAbsVector& x) {
+    return true;
+}
+
+const bool isValidGeometricShapeYValue(const RelAbsVector& y) {
+    return true;
+}
+
+const bool isValidGeometricShapeWidthValue(const RelAbsVector& width) {
+    return isValidRelAbsVectorPositiveValue(width);
+}
+
+const bool isValidGeometricShapeHeightValue(const RelAbsVector& height) {
+    return isValidRelAbsVectorPositiveValue(height);
+}
+
+const bool isValidGeometricShapeRatioValue(const double& ratio) {
+    if (ratio > 0.0001)
+        return true;
+
+    return false;
+}
+
+const bool isValidGeometricShapeCornerCurvatureRadiusX(const RelAbsVector& rx) {
+    return isValidRelAbsVectorPositiveValue(rx);
+}
+
+const bool isValidGeometricShapeCornerCurvatureRadiusY(const RelAbsVector& ry) {
+    return isValidRelAbsVectorPositiveValue(ry);
+}
+
+const bool isValidGeometricShapeCenterX(const RelAbsVector& cx) {
+    return true;
+}
+
+const bool isValidGeometricShapeCenterY(const RelAbsVector& cy) {
+    return true;
+}
+
+const bool isValidGeometricShapeRadiusX(const RelAbsVector& rx) {
+    return isValidRelAbsVectorPositiveValue(rx);
+}
+
+const bool isValidGeometricShapeRadiusY(const RelAbsVector& ry) {
+    return isValidRelAbsVectorPositiveValue(ry);
+}
+
+const bool isValidGeometricShapeElementX(const RelAbsVector& x) {
+    return true;
+}
+
+const bool isValidGeometricShapeElementY(const RelAbsVector& y) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint1X(const RelAbsVector& x) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint1Y(const RelAbsVector& y) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint2X(const RelAbsVector& y) {
+    return true;
+}
+
+const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y) {
+    return true;
+}
+
+const bool isValidGeometricShapeHref(const std::string& href) {
+    return true;
+}
+
+const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue) {
+    if (relAbsVectorValue.getAbsoluteValue() > 0.000)
+        return true;
+
+    return false;
+}
+
 }
