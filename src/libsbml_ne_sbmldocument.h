@@ -1,5 +1,5 @@
-#ifndef __LIBSBML_NE_UTIL_H_
-#define __LIBSBML_NE_UTIL_H_
+#ifndef __LIBSBML_NE_SBML_DOCUMENT_H_
+#define __LIBSBML_NE_SBML_DOCUMENT_H_
 
 #include "libsbml_ne_common.h"
 
@@ -28,11 +28,18 @@ LIBSBML_NETWORKEDITOR_EXTERN bool writeSBML(SBMLDocument* document, const std::s
 /// @return the string on success and empty string if one of the underlying parser components fail.
 LIBSBML_NETWORKEDITOR_EXTERN const std::string writeSBML(SBMLDocument* document);
 
-/// @brief Create a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object, add them
+/// @brief Create a Layout object, a GlobalRenderInformation object, and LocalRenderInformation resume object, add them
 /// to the the SBML document, and set all the necessary features for them.
 /// @param document a pointer to the SBMLDocument object.
+/// @param stiffness the stiffness value used in the autolayout algorithm.
+/// @param gravity the gravity value used in the autolayout algorithm.
+/// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
+/// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
+/// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayoutAndRenderFeatures(SBMLDocument* document);
+LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
+                                                const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
+                                                std::vector <std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.
@@ -84,6 +91,116 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string getMetaId(SBase* object);
 /// @param metaid a string value to be set as "metaid" attribute of the SBML object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setMetaId(SBase* object, const std::string& metaid);
+
+/// @brief Returns the number of Compartment objects in the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the number of Compartment objects in the given SBML document.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumCompartments(SBMLDocument* document);
+
+/// @brief Returns the id of the nth Compartment object in the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param index the index of the Compartment object.
+/// @return the id of the nth Compartment object in the given SBML document, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthCompartmentId(SBMLDocument* document, const unsigned int& index);
+
+/// @brief Returns a pointer to the Compartment object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the Compartment object
+/// @return a pointer to the Compartment object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the number of Species objects in the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the number of Species objects in the given SBML document.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpecies(SBMLDocument* document);
+
+/// @brief Returns the id of the nth Species object in the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param index the index of the Species object.
+/// @return the id of the nth Species object in the given SBML document, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthSpeciesId(SBMLDocument* document, const unsigned int& index);
+
+/// @brief Returns a pointer to the Species object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the Species object.
+/// @return a pointer to the Species object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN Species* getSpecies(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the number of Reaction objects in the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the number of Reaction objects in the given SBML document.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactions(SBMLDocument* document);
+
+/// @brief Returns the id of the nth Reaction object in the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param index the index of the Reaction object.
+/// @return the id of the nth Reaction object in the given SBML document, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthReactionId(SBMLDocument* document, const unsigned int& index);
+
+/// @brief Returns a pointer to the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the Reaction object.
+/// @return a pointer to the Reaction object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN Reaction* getReaction(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the number of SpeciesReference objects in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @return the number of SpeciesReference objects in the Reaction object with the given id.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId);
+
+/// @brief Returns the number of Reactant objects in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @return the number of Reactant objects in the Reaction object with the given id.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumReactants(SBMLDocument* document, const std::string& reactionId);
+
+/// @brief Returns the number of Product objects in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @return the number of Product objects in the Reaction object with the given id.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumProducts(SBMLDocument* document, const std::string& reactionId);
+
+/// @brief Returns the number of Modifier objects in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @return the number of Modifier objects in the Reaction object with the given id.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumModifiers(SBMLDocument* document, const std::string& reactionId);
+
+/// @brief Returns the id of the nth reactant species in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param index the index of the reactant species.
+/// @return the id of the nth reactant species in the Reaction object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthReactantId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index);
+
+/// @brief Returns the id of the nth product species in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param index the index of the product species.
+/// @return the id of the nth product species in the Reaction object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthProductId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index);
+
+/// @brief Returns the id of the nth modifier species in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param index the index of the modifier species.
+/// @return the id of the nth modifier species in the Reaction object with the given id, or @c "" if the object does not exists.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthModifierId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index);
+
+/// @brief Returns a pointer to the SpeciesReference object associated with the given reactant/product species id in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param speciesId the id of the Species object.
+/// @return a pointer to the SpeciesReference object, or @c NULL if the object does not exists or is not of type reactant/product.
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
+
+/// @brief Returns a pointer to the ModifierSpeciesReference object associated with the given modifier species id in the Reaction object with the given id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the Reaction object.
+/// @param speciesId the id of the Species object.
+/// @return a pointer to the ModifierSpeciesReference object, or @c NULL if the object does not exists or is not of type modifier.
+LIBSBML_NETWORKEDITOR_EXTERN ModifierSpeciesReference* getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
 
 }
 

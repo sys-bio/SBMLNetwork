@@ -1,7 +1,7 @@
 #include "libsbml_ne_sbmldocument_layout.h"
 #include "libsbml_ne_layout.h"
 #include "libsbml_ne_layout_helpers.h"
-#include "libsbml_ne_autolayout.h"
+#include "autolayout/libsbml_ne_autolayout.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -56,19 +56,20 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity,
+                             const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                             const std::vector<std::string>& lockedNodeIds) {
     if (document && layout) {
-        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
-        layout->setId("libSBML_NetworkEditor_Layout");
-        layout->setDimensions(new Dimensions(layoutPkgNamespaces, 1024.0, 1024.0));
+        setDefaultLayoutId(layout);
+        setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            setCompartmentGlyphs(model, layout, layoutPkgNamespaces);
-            setSpeciesGlyphs(model, layout, layoutPkgNamespaces);
-            setReactionGlyphs(model, layout, layoutPkgNamespaces);
-            locateGlyphs(model, layout);
-            setCompartmentTextGlyphs(layout, layoutPkgNamespaces);
-            setSpeciesTextGlyphs(layout, layoutPkgNamespaces);
+            setCompartmentGlyphs(model, layout);
+            setSpeciesGlyphs(model, layout);
+            setReactionGlyphs(model, layout);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+            setCompartmentTextGlyphs(layout);
+            setSpeciesTextGlyphs(layout);
             return 0;
         }
     }
@@ -76,13 +77,14 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document) {
-    if (!getNumLayouts(document)) {
-        Layout* layout = createLayout(document);
-        return setDefaultLayoutFeatures(document, layout);
-    }
+int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
+                        const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
+                        const std::vector<std::string>& lockedNodeIds) {
+    Layout* layout = getLayout(document);
+    if (!layout)
+        layout = createLayout(document);
 
-    return -1;
+    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
@@ -186,22 +188,22 @@ std::string getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, c
 }
 
 std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Compartment* compartment = getCompartment(document, graphicalObject);
+    Compartment* compartment = getAssociatedCompartment(document, graphicalObject);
     if (compartment)
         return compartment->getId();
 
     return "";
 }
 
-Compartment* getCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getCompartment(document, getGraphicalObject(document, id, graphicalObjectIndex));
+Compartment* getAssociatedCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getAssociatedCompartment(document, getGraphicalObject(document, id, graphicalObjectIndex));
 }
 
-Compartment* getCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getCompartment(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+Compartment* getAssociatedCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getAssociatedCompartment(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
 }
 
-Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
+Compartment* getAssociatedCompartment(SBMLDocument* document, GraphicalObject* graphicalObject) {
     if (document && document->isSetModel()) {
         if (isCompartmentGlyph(graphicalObject))
             return findCompartmentGlyphCompartment(document->getModel(), (CompartmentGlyph*)graphicalObject);
@@ -390,8 +392,16 @@ TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id, unsigned 
     return getTextGlyph(getLayout(document), id, textGlyphIndex);
 }
 
+TextGlyph* getTextGlyph(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    return getTextGlyph(getLayout(document), graphicalObject, textGlyphIndex);
+}
+
 TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
     return getTextGlyph(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    return getTextGlyph(getLayout(document, layoutIndex), graphicalObject, textGlyphIndex);
 }
 
 bool isSetText(SBMLDocument* document, const std::string& id) {
@@ -711,7 +721,7 @@ int setCurveSegmentStartPointY(SBMLDocument* document, const std::string& id, un
 }
 
 int setCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+    return setCurveSegmentStartPointY(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
 }
 
 const double getCurveSegmentEndPointX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
@@ -759,7 +769,7 @@ int setCurveSegmentEndPointY(SBMLDocument* document, const std::string& id, unsi
 }
 
 int setCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointX(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
+    return setCurveSegmentEndPointY(getLayout(document, layoutIndex), id, graphicalObjectIndex, curveSegmentIndex, y);
 }
 
 const double getCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {

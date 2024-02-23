@@ -46,13 +46,22 @@ LIBSBML_NETWORKEDITOR_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param layout a pointer to the Layout object.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout);
+LIBSBML_NETWORKEDITOR_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
+                                                          const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
+                                                          const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
 /// set all the necessary features for it
 /// @param document a pointer to the SBMLDocument object.
+/// @param stiffness the stiffness value used in the autolayout algorithm.
+/// @param gravity the gravity value used in the autolayout algorithm.
+/// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
+/// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
+/// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayout(SBMLDocument* document);
+LIBSBML_NETWORKEDITOR_EXTERN int createDefaultLayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
+                                                     const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
+                                                     const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
 
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -246,7 +255,7 @@ LIBSBML_NETWORKEDITOR_EXTERN std::string getCompartmentId(SBMLDocument* document
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getAssociatedCompartment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// Returns a pointer to the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -254,13 +263,13 @@ LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document,
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getAssociatedCompartment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// Returns a pointer to the compartment associated with the GraphicalObject object.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN Compartment* getCompartment(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBML_NETWORKEDITOR_EXTERN Compartment* getAssociatedCompartment(SBMLDocument* document, GraphicalObject* graphicalObject);
 
 /// @brief Returns the number of SpeciesGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -637,6 +646,14 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(SBMLDocument*
 /// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
 
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id of the Layout object in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
 /// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -645,6 +662,15 @@ LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, con
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given index associated with the given id in
 /// the first Layout object of the SBML document is set.

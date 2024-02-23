@@ -4,6 +4,7 @@ project(libsbmlnetworkeditor)
 add_definitions(-DLIBSBML_NETWORKEDITOR_EXPORTS=true)
 
 include(GNUInstallDirs)
+include(CMakeDependentOption)
 
 ## Determine the version
 set(LIBSBML_NETWORKEDITOR_VERSION_MAJOR)
@@ -34,33 +35,6 @@ else()
 	set(SBML_INCLUDEDIR "${sbml_DIR}/../../include/sbml")
 endif()
 
-if(WIN32)
-		set(GRAPHVIZ_PREFIX "GRAPHVIZ_DIR-NOTFOUND" CACHE PATH "graphviz root directory containing lib, include, etc.")
-		set(GRAPHVIZ_INCLUDEDIR ${GRAPHVIZ_PREFIX}/include)
-		set(GRAPHVIZ_LIBDIR ${GRAPHVIZ_PREFIX}/lib)
-		file(GLOB GRAPHVIZ_LIBS_FIRSTHAND "${GRAPHVIZ_LIBDIR}/gvc.*" "${GRAPHVIZ_LIBDIR}/cgraph.*" "${GRAPHVIZ_LIBDIR}/cdt.*")
-		set(GRAPHVIZ_DLLS "${GRAPHVIZ_PREFIX}/bin/gvc.dll;${GRAPHVIZ_PREFIX}/bin/cgraph.dll;${GRAPHVIZ_PREFIX}/bin/cdt.dll;${GRAPHVIZ_PREFIX}/bin/pathplan.dll;${GRAPHVIZ_PREFIX}/bin/xdot.dll;${GRAPHVIZ_PREFIX}/bin/expat.dll;${GRAPHVIZ_PREFIX}/bin/gvplugin_neato_layout.dll;${GRAPHVIZ_PREFIX}/bin/gvplugin_pango.dll")
-		set(GRAPHVIZ_API_CONFIG "${GRAPHVIZ_PREFIX}/bin/config6")
-elseif(UNIX)
-	if(APPLE)
-		set(GRAPHVIZ_PREFIX "GRAPHVIZ_DIR-NOTFOUND" CACHE PATH "graphviz root directory containing lib, include, etc.")
-		set(GRAPHVIZ_INCLUDEDIR ${GRAPHVIZ_PREFIX}/include)
-		set(GRAPHVIZ_LIBDIR ${GRAPHVIZ_PREFIX}/lib)
-		set(GRAPHVIZ_API_CONFIG "${GRAPHVIZ_LIBDIR}/graphviz/config6")
-		file(GLOB GRAPHVIZ_LIBS_FIRSTHAND "${GRAPHVIZ_LIBDIR}/libgvc.*" "${GRAPHVIZ_LIBDIR}/libcgraph.*" "${GRAPHVIZ_LIBDIR}/libcdt.*")
-		file(GLOB GRAPHVIZ_LIBS "${GRAPHVIZ_LIBDIR}/libxdot.*" "${GRAPHVIZ_LIBDIR}/libpathplan.*")
-		file(GLOB GRAPHVIZ_APIS "${GRAPHVIZ_LIBDIR}/graphviz/libgvplugin_neato_layout.*" "${GRAPHVIZ_LIBDIR}/graphviz/libgvplugin_pango.*")
-	else()
-		set(GRAPHVIZ_INCLUDEDIR /usr/include)
-		set(GRAPHVIZ_LIBDIR /usr/lib/x86_64-linux-gnu)
-		set(GRAPHVIZ_API_CONFIG "${GRAPHVIZ_LIBDIR}/graphviz/config6a")
-		file(GLOB GRAPHVIZ_LIBS_FIRSTHAND "${GRAPHVIZ_LIBDIR}/libgvc.*" "${GRAPHVIZ_LIBDIR}/libcgraph.*" "${GRAPHVIZ_LIBDIR}/libcdt.*" "${GRAPHVIZ_LIBDIR}/libexpat.so*")
-		file(GLOB GRAPHVIZ_LIBS "${GRAPHVIZ_LIBDIR}/libxdot.*" "${GRAPHVIZ_LIBDIR}/libpathplan.*")
-		file(GLOB GRAPHVIZ_APIS "${GRAPHVIZ_LIBDIR}/graphviz/libgvplugin_neato_layout.*" "${GRAPHVIZ_LIBDIR}/graphviz/libgvplugin_pango.*")
-	endif()
-	set(GRAPHVIZ_LIBS ${GRAPHVIZ_LIBS} ${GRAPHVIZ_LIBS_FIRSTHAND})
-endif()
-
 ## whether to build the static version of the library
 set(BUILD_STATIC_LIB ON CACHE BOOL "Build the static version of the library")
 
@@ -89,44 +63,7 @@ elseif(UNIX)
 	set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
-option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG."  ON)
-
-if(WITH_SWIG)
-	find_program(SWIG_EXECUTABLE
-			NAMES swig
-			PATHS
-			c:/swigwin-3.0.10
-			c:/swigwin-3.0.9
-			c:/swigwin-3.0.8
-			c:/swigwin-3.0.7
-			c:/swigwin-3.0.6
-			c:/swigwin-3.0.5
-			c:/swigwin-3.0.4
-			c:/swigwin-3.0.3
-			c:/swigwin-3.0.2
-			c:/swigwin-3.0.1
-			c:/swigwin-2.0.12
-			c:/swigwin-2.0.11
-			c:/swigwin-2.0.10
-			c:/swigwin-2.0.9
-			c:/swigwin-2.0.8
-			c:/swigwin-2.0.7
-			c:/swigwin-2.0.6
-			c:/swigwin-2.0.5
-			c:/swigwin-2.0.4
-			c:/swigwin-2.0.3
-			c:/swigwin-2.0.2
-			c:/swigwin-2.0.1
-			c:/swigwin-2.0.0
-			/usr/local/bin
-			/opt/local/bin
-			/usr/bin
-			"C:/Program Files (x86)/Swig"
-			"C:/Program Files/Swig"
-			DOC "The file name of the SWIG executable.")
-	find_package(SWIG)
-endif(WITH_SWIG)
-
 option(WITH_PYTHON "Generate the Python language interface for libsbmlnetworkeditor." OFF)
+cmake_dependent_option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG." OFF "${WITH_PYTHON}" OFF)
 
 add_subdirectory(src)

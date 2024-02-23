@@ -95,9 +95,15 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs
 /// @return a pointer to the CompartmentGlyph object with the given index associated with the entered id, or NULL is CompartmentGlyph object does not exist or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layout, const std::string& id, const unsigned int compartmentGlyphIndex = 0);
 
+/// @brief Returns the CompartmentGlyph object with the given index associated of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param compartmentGlyphIndex the index of the CompartmentGlyph to return.
+/// @return a pointer to the CompartmentGlyph object with the given index, or NULL is CompartmentGlyph object does not exist or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN CompartmentGlyph* getCompartmentGlyph(Layout* layout, const unsigned int compartmentGlyphIndex = 0);
+
 /// Returns the id of the compartment associated with the CompartmentGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
-/// @param id the id of the compartment the the CompartmentGlyph objects of which to be returned.
+/// @param id the id of the compartment the CompartmentGlyph objects of which to be returned.
 /// @param compartmentGlyphIndex the index of the CompartmentGlyph to return.
 /// @return the value of the "compartment" attribute of the CompartmentGlyph object with the given id, or @c "" if
 /// the CompartmentGlyph object does not exits or the object is @c NULL
@@ -143,6 +149,12 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<SpeciesGlyph*> getSpeciesGlyphs(Layout*
 /// @param speciesGlyphIndex the index of the SpeciesGlyph to return.
 /// @return a pointer to the SpeciesGlyph object with the given index associated with the entered id, or NULL is SpeciesGlyph object does not exist or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& id, const unsigned int speciesGlyphIndex = 0);
+
+/// @brief Returns the SpeciesGlyph object with the given index associated of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph to return.
+/// @return a pointer to the SpeciesGlyph object with the given index, or NULL is SpeciesGlyph object does not exist or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN SpeciesGlyph* getSpeciesGlyph(Layout* layout, const unsigned int speciesGlyphIndex = 0);
 
 /// Returns the id of the species associated with the SpeciesGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -192,6 +204,12 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(Layou
 /// @param reactionGlyphIndex the index of the ReactionGlyph to return.
 /// @return a pointer to the ReactionGlyph object with the given index associated with the entered id, or NULL is ReactionGlyph object does not exist or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(Layout* layout, const std::string& id, const unsigned int reactionGlyphIndex = 0);
+
+/// @brief Returns the ReactionGlyph object with the given index associated of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param reactionGlyphIndex the index of the ReactionGlyph to return.
+/// @return a pointer to the ReactionGlyph object with the given index, or NULL is ReactionGlyph object does not exist or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN ReactionGlyph* getReactionGlyph(Layout* layout, const unsigned int reactionGlyphIndex = 0);
 
 /// Returns the id of the reaction associated with the ReactionGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -394,11 +412,23 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(Layout* layout)
 /// @return the number of the TextGlyph objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(Layout* layout, const std::string& id);
 
+/// @brief Returns the number of TextGlyph objects associated with the GraphicalObject object.
+/// @param layout a pointer to the Layout object
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the number of the GraphicalObject objects associated the GraphicalObject object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumTextGlyphs(Layout* layout, GraphicalObject* graphicalObject);
+
 /// @brief Returns the TextGlyph objects associated with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
-/// @return the TextGlyph object with the given id, or an empty vector if TextGlyph objects does not exist or the object is @c NULL
+/// @return the TextGlyph objects with the given id, or an empty vector if TextGlyph objects does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(Layout* layout, const std::string& id);
+
+/// @brief Returns the TextGlyph objects associated with the GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return the TextGlyph objects of the GraphicalObject object, or an empty vector if TextGlyph objects does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(Layout* layout, GraphicalObject* graphicalObject);
 
 /// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -406,6 +436,13 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(Layout* layou
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given index associated with the given id is set.
 /// @param Layout a pointer to the Layout object.
@@ -552,6 +589,12 @@ LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(Layout* layout, const std:
 /// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setGraphicalObjectId(GraphicalObject* textGlyph, const std::string& graphicalObjectId);
+
+/// @brief Returns a pointer to the GraphicalObject the id of which is set to "graphicalObjectId" attribute.
+/// @param Layout a pointer to the Layout object.
+/// @return A pointer to the associated graphical object of this TextGlyph object or @c NULL if either the "graphicalObjectId"
+/// attribute is not set, or the object is not of type TextGlyph or is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, GraphicalObject* textGlyph);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given index associated with the given id is of type TextGlyph.
 /// @param Layout a pointer to the Layout object.

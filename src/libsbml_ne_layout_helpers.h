@@ -18,42 +18,61 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-void setCompartmentGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+LayoutPkgNamespaces* getLayoutPkgNamespaces(Layout* layout);
 
-void setSpeciesGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setDefaultLayoutId(Layout* layout);
 
-void setReactionGlyphs(Model* model, Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setDefaultLayoutDimensions(Layout* layout);
 
-void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setCompartmentGlyphs(Model* model, Layout* layout);
 
-void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setSpeciesGlyphs(Model* model, Layout* layout);
 
-void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setReactionGlyphs(Model* model, Layout* layout);
 
-void setCompartmentTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
-void setSpeciesTextGlyphs(Layout* layout, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+
+void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+
+void setCompartmentTextGlyphs(Layout* layout);
+
+void setSpeciesTextGlyphs(Layout* layout);
 
 CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
+
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
 
 ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
 
-SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+
+const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const std::string& speciesId);
+
+const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
 
 TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
-void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
-void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+
+void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+void setCurveCubicBezier(Curve* curve);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);
 
 Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyph);
 
+Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph);
+
 Compartment* findReactionGlyphCompartment(Model* model, ReactionGlyph* reactionGlyph);
+
+Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph);
 
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 
@@ -63,19 +82,29 @@ bool speciesGlyphBelongs(SpeciesGlyph* speciesGlyph, Species* species);
 
 bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction);
 
-bool speciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
+bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
+GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
+
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
+
+std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);
 
 std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(Layout* layout, const std::string& compartmentId);
 
+std::vector<SpeciesGlyph*> getSpeciesGlyphs(Layout* layout);
+
 std::vector<SpeciesGlyph*> getAssociatedSpeciesGlyphsWithSpeciesId(Layout* layout, const std::string& speciesId);
 
+std::vector<ReactionGlyph*> getReactionGlyphs(Layout* layout);
+
 std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* layout, const std::string& reactionId);
+
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
 
