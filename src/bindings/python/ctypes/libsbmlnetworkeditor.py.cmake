@@ -205,6 +205,22 @@ class LibSBMLNetworkEditor:
             """
         return lib.c_api_getNumGraphicalObjects(self.sbml_object, str(id).encode(), layout_index)
 
+    def getListOfCompartmentIds(self):
+        """
+        Returns the list of CompartmentGlyph ids in the Layout object with the given index in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the list of Compartment ids in the given SBMLDocument
+        """
+        lib.c_api_getNthCompartmentId.restype = ctypes.c_char_p
+        list_of_compartment_ids = []
+        for n in range(lib.c_api_getNumCompartments(self.sbml_object)):
+            list_of_compartment_ids.append(ctypes.c_char_p(lib.c_api_getNthCompartmentId(self.sbml_object, n)).value.decode())
+
+        return list_of_compartment_ids
+
+
     def getNumAllCompartmentGlyphs(self, layout_index=0):
         """
         Returns the number of CompartmentGlyphs in the Layout object with the given index in the given SBMLDocument
@@ -249,6 +265,21 @@ class LibSBMLNetworkEditor:
             """
         return lib.c_api_isCompartmentGlyph(self.sbml_object, str(compartment_id).encode(), layout_index)
 
+    def getListOfSpeciesIds(self):
+        """
+        Returns the list of SpeciesGlyph ids in the Layout object with the given index in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the list of Species ids in the given SBMLDocument
+        """
+        lib.c_api_getNthSpeciesId.restype = ctypes.c_char_p
+        list_of_species_ids = []
+        for n in range(lib.c_api_getNumSpecies(self.sbml_object)):
+            list_of_species_ids.append(ctypes.c_char_p(lib.c_api_getNthSpeciesId(self.sbml_object, n)).value.decode())
+
+        return list_of_species_ids
+
     def getNumAllSpeciesGlyphs(self, layout_index=0):
         """
         Returns the number of SpeciesGlyphs in the Layout object with the given index in the given SBMLDocument
@@ -292,6 +323,21 @@ class LibSBMLNetworkEditor:
             true if the given species_id is associated with a SpeciesGlyph in the Layout object with the given index in the given SBMLDocument and false otherwise
             """
         return lib.c_api_isSpeciesGlyph(self.sbml_object, str(species_id).encode(), layout_index)
+
+    def getListOfReactionIds(self):
+        """
+        Returns the list of ReactionGlyph ids in the Layout object with the given index in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the list of Reaction ids in the given SBMLDocument
+        """
+        lib.c_api_getNthReactionId.restype = ctypes.c_char_p
+        list_of_reaction_ids = []
+        for n in range(lib.c_api_getNumReactions(self.sbml_object)):
+            list_of_reaction_ids.append(ctypes.c_char_p(lib.c_api_getNthReactionId(self.sbml_object, n)).value.decode())
+
+        return list_of_reaction_ids
 
     def getNumAllReactionGlyphs(self, layout_index=0):
         """

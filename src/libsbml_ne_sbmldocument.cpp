@@ -101,29 +101,141 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return -1;
     }
 
+    const unsigned int getNumCompartments(SBMLDocument* document) {
+        if (document && document->isSetModel())
+            return document->getModel()->getNumCompartments();
+
+        return 0;
+    }
+
+    const std::string getNthCompartmentId(SBMLDocument* document, const unsigned int& index) {
+        if (document && document->isSetModel())
+            return document->getModel()->getCompartment(index)->getId();
+
+        return "";
+    }
+
     Compartment* getCompartment(SBMLDocument* document, const std::string& id) {
-        if (document->isSetModel())
+        if (document && document->isSetModel())
             return document->getModel()->getCompartment(id);
 
         return NULL;
     }
 
+    const unsigned int getNumSpecies(SBMLDocument* document) {
+        if (document && document->isSetModel())
+            return document->getModel()->getNumSpecies();
+
+        return 0;
+    }
+
+    const std::string getNthSpeciesId(SBMLDocument* document, const unsigned int& index) {
+        if (document && document->isSetModel())
+            return document->getModel()->getSpecies(index)->getId();
+
+        return "";
+    }
+
     Species* getSpecies(SBMLDocument* document, const std::string& id) {
-        if (document->isSetModel())
+        if (document && document->isSetModel())
             return document->getModel()->getSpecies(id);
 
         return NULL;
     }
 
+    const unsigned int getNumReactions(SBMLDocument* document) {
+        if (document && document->isSetModel())
+            return document->getModel()->getNumReactions();
+
+        return 0;
+    }
+
+    const std::string getNthReactionId(SBMLDocument* document, const unsigned int& index) {
+        if (document && document->isSetModel())
+            return document->getModel()->getReaction(index)->getId();
+
+        return "";
+    }
+
     Reaction* getReaction(SBMLDocument* document, const std::string& id) {
-        if (document->isSetModel())
+        if (document && document->isSetModel())
             return document->getModel()->getReaction(id);
 
         return NULL;
     }
 
+    const unsigned int getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getNumReactants() + reaction->getNumProducts() + reaction->getNumModifiers();
+        }
+
+        return 0;
+    }
+
+    const unsigned int getNumReactants(SBMLDocument* document, const std::string& reactionId) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getNumReactants();
+        }
+
+        return 0;
+    }
+
+    const unsigned int getNumProducts(SBMLDocument* document, const std::string& reactionId) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getNumProducts();
+        }
+
+        return 0;
+    }
+
+    const unsigned int getNumModifiers(SBMLDocument* document, const std::string& reactionId) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getNumModifiers();
+        }
+
+        return 0;
+    }
+
+    const std::string getNthReactantId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getReactant(index)->getId();
+        }
+
+        return "";
+    }
+
+    const std::string getNthProductId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getProduct(index)->getId();
+        }
+
+        return "";
+    }
+
+    const std::string getNthModifierId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index) {
+        if (document && document->isSetModel()) {
+            Reaction* reaction = getReaction(document, reactionId);
+            if (reaction)
+                return reaction->getModifier(index)->getId();
+        }
+
+        return "";
+    }
+
     SpeciesReference* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
-        if (document->isSetModel()) {
+        if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);
             if (reaction) {
                 if (reaction->getReactant(speciesId))
@@ -137,7 +249,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
     }
 
     SpeciesReference* getReactantSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
-        if (document->isSetModel()) {
+        if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);
             if (reaction)
                 reaction->getReactant(speciesId);
@@ -147,7 +259,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
     }
 
     ModifierSpeciesReference* getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId) {
-        if (document->isSetModel()) {
+        if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);
             if (reaction)
                 reaction->getModifier(speciesId);

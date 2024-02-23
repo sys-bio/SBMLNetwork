@@ -94,11 +94,29 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated GraphicalObject objects
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGraphicalObjects(SBMLDocument* document, const char* id, int layoutIndex = 0);
 
+    /// @brief Returns the number of Compartment objects in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the number of Compartment objects in the given SBML document.
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumCompartments(SBMLDocument* document);
+
+    /// @brief Returns the id of the nth Compartment object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param index the index of the Compartment object.
+    /// @return the id of the nth Compartment object in the given SBML document, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthCompartmentId(SBMLDocument* document, int index);
+
     /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of CompartmentGlyphs of this Layout object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumAllCompartmentGlyphs(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Returns a list of the ids of the CompartmentGlyph objects of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return a list of the ids of the CompartmentGlyph objects of this Layout object, or an empty list if the object is @c NULL or contains
+    /// no CompartmentGlyph objects
+    LIBSBML_NETWORKEDITOR_EXTERN char** c_api_getListOfCompartmentGlyphIds(SBMLDocument* document, int layoutIndex = 0);
 
     /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document
     /// associated with the entered compartment id.
@@ -115,6 +133,17 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param id the id of the GraphicalObject.
     /// @return @c true if this abstract GraphicalObject is of type CompartmentGlyph, false otherwise
     LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isCompartmentGlyph(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0);
+
+    /// @brief Returns the number of Species objects in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the number of Species objects in the given SBML document.
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumSpecies(SBMLDocument* document);
+
+    /// @brief Returns the id of the nth Species object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param index the index of the Species object.
+    /// @return the id of the nth Species object in the given SBML document, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthSpeciesId(SBMLDocument* document, int index);
 
     /// @brief Returns the number of SpeciesGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -138,6 +167,17 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
     LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSpeciesGlyph(SBMLDocument* document, const char* speciesId, int layoutIndex = 0);
 
+    /// @brief Returns the number of Reaction objects in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the number of Reaction objects in the given SBML document.
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumReactions(SBMLDocument* document);
+
+    /// @brief Returns the id of the nth Reaction object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param index the index of the Reaction object.
+    /// @return the id of the nth Reaction object in the given SBML document, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactionId(SBMLDocument* document, int index);
+
     /// @brief Returns the number of ReactionGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
@@ -159,6 +199,51 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param id the id of the GraphicalObject.
     /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
     LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex = 0);
+
+    /// @brief Returns the number of SpeciesReferences of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReference objects associated with it is going to be returned.
+    /// @return the number of SpeciesReference objects of the Reaction object with the given id, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumSpeciesReferences(SBMLDocument* document, const char* reactionId);
+
+    /// @brief Returns the number of Reactants of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of Reactant objects associated with it is going to be returned.
+    /// @return the number of Reactant objects of the Reaction object with the given id, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumReactants(SBMLDocument* document, const char* reactionId);
+
+    /// @brief Returns the number of Products of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of Product objects associated with it is going to be returned.
+    /// @return the number of Product objects of the Reaction object with the given id, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumProducts(SBMLDocument* document, const char* reactionId);
+
+    /// @brief Returns the number of Modifiers of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of Modifier objects associated with it is going to be returned.
+    /// @return the number of Modifier objects of the Reaction object with the given id, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumModifiers(SBMLDocument* document, const char* reactionId);
+
+    /// @brief Returns the id of nth Reactant of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the id of the nth Reactant object associated with it is going to be returned.
+    /// @param index the index of the Reactant object.
+    /// @return the id of the nth Reactant object of the Reaction object with the given id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactantId(SBMLDocument* document, const char* reactionId, int index);
+
+    /// @brief Returns the id of nth Product of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the id of the nth Product object associated with it is going to be returned.
+    /// @param index the index of the Product object.
+    /// @return the id of the nth Product object of the Reaction object with the given id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthProductId(SBMLDocument* document, const char* reactionId, int index);
+
+    /// @brief Returns the id of nth Modifier of the Reaction object with the given id in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the id of the nth Modifier object associated with it is going to be returned.
+    /// @param index the index of the Modifier object.
+    /// @return the id of the nth Modifier object of the Reaction object with the given id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthModifierId(SBMLDocument* document, const char* reactionId, int index);
 
     /// @brief Returns the number of SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.

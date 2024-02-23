@@ -1,4 +1,5 @@
 #include "libsbml_ne_c_api.h"
+#include "libsbml_ne_layout_helpers.h"
 
 extern "C" {
 
@@ -59,6 +60,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumGraphicalObjects(document, layoutIndex, id);
     }
 
+    const int c_api_getNumCompartments(SBMLDocument* document) {
+        return getNumCompartments(document);
+    }
+
+    const char* c_api_getNthCompartmentId(SBMLDocument* document, int compartmentIndex) {
+        return strdup(getNthCompartmentId(document, compartmentIndex).c_str());
+    }
+
     const int c_api_getNumAllCompartmentGlyphs(SBMLDocument* document, int layoutIndex) {
         return getNumCompartmentGlyphs(document, layoutIndex);
     }
@@ -69,6 +78,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     bool c_api_isCompartmentGlyph(SBMLDocument* document, const char* compartmentId, int layoutIndex) {
         return isCompartmentGlyph(document, layoutIndex, compartmentId);
+    }
+
+    const int c_api_getNumSpecies(SBMLDocument* document) {
+        return getNumSpecies(document);
+    }
+
+    const char* c_api_getNthSpeciesId(SBMLDocument* document, int speciesIndex) {
+        return strdup(getNthSpeciesId(document, speciesIndex).c_str());
     }
 
     const int c_api_getNumAllSpeciesGlyphs(SBMLDocument* document, int layoutIndex) {
@@ -83,6 +100,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return isSpeciesGlyph(document, layoutIndex, speciesId);
     }
 
+    const int c_api_getNumReactions(SBMLDocument* document) {
+        return getNumReactions(document);
+    }
+
+    const char* c_api_getNthReactionId(SBMLDocument* document, int reactionIndex) {
+        return strdup(getNthReactionId(document, reactionIndex).c_str());
+    }
+
     const int c_api_getNumAllReactionGlyphs(SBMLDocument* document, int layoutIndex) {
         return getNumReactionGlyphs(document, layoutIndex);
     }
@@ -93,6 +118,34 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     bool c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex) {
         return isReactionGlyph(document, layoutIndex, reactionId);
+    }
+
+    const int c_api_getNumSpeciesReferences(SBMLDocument* document, const char* reactionId) {
+        return getNumSpeciesReferences(document, reactionId);
+    }
+
+    const int c_api_getNumReactants(SBMLDocument* document, const char* reactionId) {
+        return getNumReactants(document, reactionId);
+    }
+
+    const int c_api_getNumProducts(SBMLDocument* document, const char* reactionId) {
+        return getNumProducts(document, reactionId);
+    }
+
+    const int c_api_getNumModifiers(SBMLDocument* document, const char* reactionId) {
+        return getNumModifiers(document, reactionId);
+    }
+
+    const char* c_api_getNthReactantId(SBMLDocument* document, const char* reactionId, int reactantIndex) {
+        return strdup(getNthReactantId(document, reactionId, reactantIndex).c_str());
+    }
+
+    const char* c_api_getNthProductId(SBMLDocument* document, const char* reactionId, int productIndex) {
+        return strdup(getNthProductId(document, reactionId, productIndex).c_str());
+    }
+
+    const char* c_api_getNthModifierId(SBMLDocument* document, const char* reactionId, int modifierIndex) {
+        return strdup(getNthModifierId(document, reactionId, modifierIndex).c_str());
     }
 
     const int c_api_getNumSpeciesReferenceGlyphs(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
