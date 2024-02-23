@@ -598,35 +598,35 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
 
 const bool isValidColorValue(const std::string& value) {
     std::vector<std::string> html_color_names;
-    html_color_names = {"AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure",
-                   "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue",
-                   "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse",
-                   "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson",
-                   "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenrod", "DarkGray",
-                   "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen",
-                   "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen",
-                   "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet",
-                   "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "FireBrick",
-                   "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite",
-                   "Gold", "Goldenrod", "Gray", "Green", "GreenYellow", "Honeydew",
-                   "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender",
-                   "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral",
-                   "LightCyan", "LightGoldenrodYellow", "LightGreen", "LightGrey",
-                   "LightPink","LightSalmon", "LightSeaGreen", "LightSkyBlue",
-                   "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen",
-                   "Linen", "Magenta", "Maroon", "MediumAquamarine", "MediumBlue",
-                   "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue",
-                   "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue",
-                   "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace",
-                   "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenrod",
-                   "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff",
-                   "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown",
-                   "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen","Seashell",
-                   "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow","SpringGreen",
-                   "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet",
-                   "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"};
+    html_color_names = {"aliceblue", "antiquewhite", "aqua", "aquamarine", "azure",
+                        "beige", "bisque", "black", "blanchedalmond", "blue",
+                        "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
+                        "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson",
+                        "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
+                        "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
+                        "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
+                        "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
+                        "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
+                        "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
+                        "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew",
+                        "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
+                        "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
+                        "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey",
+                        "lightpink","lightsalmon", "lightseagreen", "lightskyblue",
+                        "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen",
+                        "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue",
+                        "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
+                        "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue",
+                        "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace",
+                        "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
+                        "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff",
+                        "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown",
+                        "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen","seashell",
+                        "sienna", "silver", "skyblue", "slateblue", "slategray", "snow","springgreen",
+                        "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
+                        "wheat", "white", "whitesmoke", "yellow", "yellowgreen"};
     for (unsigned int i = 0; i < html_color_names.size(); i++) {
-        if (stringCompare(html_color_names.at(i), value))
+        if (stringCompare(html_color_names.at(i), std::to_lower(value)))
             return true;
     }
 
@@ -731,7 +731,7 @@ const bool isValidStrokeWidthValue(const double& strokeWidth) {
 
 const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray) {
     for (unsigned int i = 0; i < strokeDashArray.size(); i++) {
-        if (strokeDashArray.at(i) < 0.000)
+        if (!isValidStrokeDashValue(strokeDashArray.at(i)))
             return false;
     }
 
@@ -899,10 +899,7 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y) {
 }
 
 const bool isValidGeometricShapeHref(const std::string& href) {
-    if (!href.empty())
-        return true;
-
-    return false;
+    return true;
 }
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue) {
