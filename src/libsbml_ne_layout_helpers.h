@@ -92,11 +92,19 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
 
+std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);
+
 std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(Layout* layout, const std::string& compartmentId);
+
+std::vector<SpeciesGlyph*> getSpeciesGlyphs(Layout* layout);
 
 std::vector<SpeciesGlyph*> getAssociatedSpeciesGlyphsWithSpeciesId(Layout* layout, const std::string& speciesId);
 
+std::vector<ReactionGlyph*> getReactionGlyphs(Layout* layout);
+
 std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* layout, const std::string& reactionId);
+
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
 

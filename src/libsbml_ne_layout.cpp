@@ -696,8 +696,8 @@ const double getDimensionHeight(Layout* layout, const std::string& id, unsigned 
     return getDimensionHeight(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
-const double getDimensionHeight(GraphicalObject* graphicalObject) {
-    return getDimensionWidth(getBoundingBox(graphicalObject));
+const double getDimensionHeight(GraphicalObject* graphicalObject) {;
+    return getDimensionHeight(getBoundingBox(graphicalObject));
 }
 
 const double getDimensionHeight(BoundingBox* boundingBox) {

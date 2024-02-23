@@ -362,6 +362,14 @@ const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) 
     return "";
 }
 
+std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout) {
+    std::vector<CompartmentGlyph*> compartmentGlyphs;
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
+            compartmentGlyphs.push_back(layout->getCompartmentGlyph(i));
+
+    return compartmentGlyphs;
+}
+
 std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(Layout* layout, const std::string& compartmentId) {
     std::vector<CompartmentGlyph*> compartmentGlyphs;
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
@@ -370,6 +378,14 @@ std::vector<CompartmentGlyph*> getAssociatedCompartmentGlyphsWithCompartmentId(L
     }
 
     return compartmentGlyphs;
+}
+
+std::vector<SpeciesGlyph*> getSpeciesGlyphs(Layout* layout) {
+    std::vector<SpeciesGlyph*> speciesGlyphs;
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        speciesGlyphs.push_back(layout->getSpeciesGlyph(i));
+
+    return speciesGlyphs;
 }
 
 std::vector<SpeciesGlyph*> getAssociatedSpeciesGlyphsWithSpeciesId(Layout* layout, const std::string& speciesId) {
@@ -382,6 +398,14 @@ std::vector<SpeciesGlyph*> getAssociatedSpeciesGlyphsWithSpeciesId(Layout* layou
     return speciesGlyphs;
 }
 
+std::vector<ReactionGlyph*> getReactionGlyphs(Layout* layout) {
+    std::vector<ReactionGlyph*> reactionGlyphs;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++)
+        reactionGlyphs.push_back(layout->getReactionGlyph(i));
+
+    return reactionGlyphs;
+}
+
 std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* layout, const std::string& reactionId) {
     std::vector<ReactionGlyph*> reactionGlyphs;
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
@@ -390,6 +414,14 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
     }
 
     return reactionGlyphs;
+}
+
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    std::vector<SpeciesReferenceGlyph*> speceisReferenceGlyphs;
+    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
+        speceisReferenceGlyphs.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
+
+    return speceisReferenceGlyphs;
 }
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph) {
