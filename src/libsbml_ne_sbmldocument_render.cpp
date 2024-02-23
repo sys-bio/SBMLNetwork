@@ -987,7 +987,9 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
 }
 
 bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
         return isSetFontColor(getGeometricShape(style));
 
@@ -995,328 +997,410 @@ bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
 }
 
 bool isSetFontColor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontColor(getGeometricShape(style));
 
     return isSetFontColor(style);
 }
 
 const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontColor(getGeometricShape(style));
 
     return getFontColor(style);
 }
 
 const std::string getFontColor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontColor(getGeometricShape(style));
 
     return getFontColor(style);
 }
 
 int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontColor) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontColor(getGeometricShape(style), fontColor);
 
     return setFontColor(style, fontColor);
 }
 
 int setFontColor(SBMLDocument* document, const std::string& attribute, const std::string& fontColor) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontColor(getGeometricShape(style), fontColor);
 
     return setFontColor(style, fontColor);
 }
 
 bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontFamily(getGeometricShape(style));
 
     return isSetFontFamily(style);
 }
 
 bool isSetFontFamily(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontFamily(getGeometricShape(style));
 
     return isSetFontFamily(style);
 }
 
 const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontFamily(getGeometricShape(style));
 
     return getFontFamily(style);
 }
 
 const std::string getFontFamily(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontFamily(getGeometricShape(style));
 
     return getFontFamily(style);
 }
 
 int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontFamily) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontFamily(getGeometricShape(style), fontFamily);
 
     return setFontFamily(style, fontFamily);
 }
 
 int setFontFamily(SBMLDocument* document, const std::string& attribute, const std::string& fontFamily) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontFamily(getGeometricShape(style), fontFamily);
 
     return setFontFamily(style, fontFamily);
 }
 
 bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontSize(getGeometricShape(style));
 
     return isSetFontSize(style);
 }
 
 bool isSetFontSize(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontSize(getGeometricShape(style));
 
     return isSetFontSize(style);
 }
 
 const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontSize(getGeometricShape(style));
 
     return getFontSize(style);
 }
 
 const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontSize(getGeometricShape(style));
 
     return getFontSize(style);
 }
 
 int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& fontSize) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontSize(getGeometricShape(style), fontSize);
 
     return setFontSize(style, fontSize);
 }
 
 int setFontSize(SBMLDocument* document, const std::string& attribute, const RelAbsVector& fontSize) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontSize(getGeometricShape(style), fontSize);
 
     return setFontSize(style, fontSize);
 }
 
 bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontWeight(getGeometricShape(style));
 
     return isSetFontWeight(style);
 }
 
 bool isSetFontWeight(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontWeight(getGeometricShape(style));
 
     return isSetFontWeight(style);
 }
 
 const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontWeight(getGeometricShape(style));
 
     return getFontWeight(style);
 }
 
 const std::string getFontWeight(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontWeight(getGeometricShape(style));
 
     return getFontWeight(style);
 }
 
 int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontWeight) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontWeight(getGeometricShape(style), fontWeight);
 
     return setFontWeight(style, fontWeight);
 }
 
 int setFontWeight(SBMLDocument* document, const std::string& attribute, const std::string& fontWeight) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontWeight(getGeometricShape(style), fontWeight);
 
     return setFontWeight(style, fontWeight);
 }
 
 bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontStyle(getGeometricShape(style));
 
     return isSetFontStyle(style);
 }
 
 bool isSetFontStyle(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontStyle(getGeometricShape(style));
 
     return isSetFontStyle(style);
 }
 
 const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontStyle(getGeometricShape(style));
 
     return getFontStyle(style);
 }
 
 const std::string getFontStyle(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getFontStyle(getGeometricShape(style));
 
     return getFontStyle(style);
 }
 
 int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontStyle) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontStyle(getGeometricShape(style), fontStyle);
 
     return setFontStyle(style, fontStyle);
 }
 
 int setFontStyle(SBMLDocument* document, const std::string& attribute, const std::string& fontStyle) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontStyle(getGeometricShape(style), fontStyle);
 
     return setFontStyle(style, fontStyle);
 }
 
 bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetTextAnchor(getGeometricShape(style));
 
     return isSetTextAnchor(style);
 }
 
 bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetTextAnchor(getGeometricShape(style));
 
     return isSetTextAnchor(style);
 }
 
 const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getTextAnchor(getGeometricShape(style));
 
     return getTextAnchor(style);
 }
 
 const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getTextAnchor(getGeometricShape(style));
 
     return getTextAnchor(style);
 }
 
 int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& textAnchor) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setTextAnchor(getGeometricShape(style), textAnchor);
 
     return setTextAnchor(style, textAnchor);
 }
 
 int setTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& textAnchor) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setTextAnchor(getGeometricShape(style), textAnchor);
 
     return setTextAnchor(style, textAnchor);
 }
 
 bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetVTextAnchor(getGeometricShape(style));
 
     return isSetVTextAnchor(style);
 }
 
 bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetVTextAnchor(getGeometricShape(style));
 
     return isSetVTextAnchor(style);
 }
 
 const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getVTextAnchor(getGeometricShape(style));
 
     return getVTextAnchor(style);
 }
 
 const std::string getVTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getVTextAnchor(getGeometricShape(style));
 
     return getVTextAnchor(style);
 }
 
 int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& vtextAnchor) {
-    Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    if (!style)
+        style = getStyle(document, graphicalObject);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
     return setVTextAnchor(style, vtextAnchor);
 }
 
 int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& vtextAnchor) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    if (!style)
+        style = getStyle(document, attribute);
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
     return setVTextAnchor(style, vtextAnchor);
@@ -1372,7 +1456,7 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
 
 bool isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return isSetFillRule(getGeometricShape(style));
 
     return isSetFillRule(style);
@@ -1380,7 +1464,7 @@ bool isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
 
 bool isSetFillRule(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return isSetFillRule(getGeometricShape(style));
 
     return isSetFillRule(style);
@@ -1388,7 +1472,7 @@ bool isSetFillRule(SBMLDocument* document, const std::string& attribute) {
 
 const std::string getFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return getFillRule(getGeometricShape(style));
 
     return getFillRule(style);
@@ -1396,7 +1480,7 @@ const std::string getFillRule(SBMLDocument* document, GraphicalObject* graphical
 
 const std::string getFillRule(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return getFillRule(getGeometricShape(style));
 
     return getFillRule(style);
@@ -1404,7 +1488,7 @@ const std::string getFillRule(SBMLDocument* document, const std::string& attribu
 
 int setFillRule(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillRule) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return setFillRule(getGeometricShape(style), fillRule);
 
     return setFillRule(style, fillRule);
@@ -1412,7 +1496,7 @@ int setFillRule(SBMLDocument* document, GraphicalObject* graphicalObject, const 
 
 int setFillRule(SBMLDocument* document, const std::string& attribute, const std::string& fillRule) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return setFillRule(getGeometricShape(style), fillRule);
 
     return setFillRule(style, fillRule);
@@ -1420,7 +1504,7 @@ int setFillRule(SBMLDocument* document, const std::string& attribute, const std:
 
 bool isSetStartHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return isSetStartHead(getGeometricShape(style));
 
     return isSetStartHead(style);
@@ -1428,7 +1512,7 @@ bool isSetStartHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
 
 bool isSetStartHead(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return isSetStartHead(getGeometricShape(style));
 
     return isSetStartHead(style);
@@ -1436,7 +1520,7 @@ bool isSetStartHead(SBMLDocument* document, const std::string& attribute) {
 
 const std::string getStartHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return getStartHead(getGeometricShape(style));
 
     return getStartHead(style);
@@ -1444,7 +1528,7 @@ const std::string getStartHead(SBMLDocument* document, GraphicalObject* graphica
 
 const std::string getStartHead(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return getStartHead(getGeometricShape(style));
 
     return getStartHead(style);
@@ -1452,7 +1536,7 @@ const std::string getStartHead(SBMLDocument* document, const std::string& attrib
 
 int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& startHead) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setStartHead(getGeometricShape(style), startHead);
 
     return setStartHead(style, startHead);
@@ -1460,7 +1544,7 @@ int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, const
 
 int setStartHead(SBMLDocument* document, const std::string& attribute, const std::string& startHead) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setStartHead(getGeometricShape(style), startHead);
 
     return setStartHead(style, startHead);
@@ -1468,7 +1552,7 @@ int setStartHead(SBMLDocument* document, const std::string& attribute, const std
 
 bool isSetEndHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return isSetEndHead(getGeometricShape(style));
 
     return isSetEndHead(style);
@@ -1476,7 +1560,7 @@ bool isSetEndHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
 
 bool isSetEndHead(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return isSetEndHead(getGeometricShape(style));
 
     return isSetEndHead(style);
@@ -1484,7 +1568,7 @@ bool isSetEndHead(SBMLDocument* document, const std::string& attribute) {
 
 const std::string getEndHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return getEndHead(getGeometricShape(style));
 
     return getEndHead(style);
@@ -1492,7 +1576,7 @@ const std::string getEndHead(SBMLDocument* document, GraphicalObject* graphicalO
 
 const std::string getEndHead(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return getEndHead(getGeometricShape(style));
 
     return getEndHead(style);
@@ -1500,7 +1584,7 @@ const std::string getEndHead(SBMLDocument* document, const std::string& attribut
 
 int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& endHead) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setEndHead(getGeometricShape(style), endHead);
 
     return setEndHead(style, endHead);
@@ -1508,7 +1592,7 @@ int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, const s
 
 int setEndHead(SBMLDocument* document, const std::string& attribute, const std::string& endHead) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setEndHead(getGeometricShape(style), endHead);
 
     return setEndHead(style, endHead);

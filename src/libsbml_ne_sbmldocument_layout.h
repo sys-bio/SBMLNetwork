@@ -646,6 +646,14 @@ LIBSBML_NETWORKEDITOR_EXTERN std::vector<TextGlyph*> getTextGlyphs(SBMLDocument*
 /// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
 
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id of the Layout object in
+/// the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
 /// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -654,6 +662,15 @@ LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, con
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
+
+/// @brief Returns a pointer to the TextGlyph object with the given index associated with the given id in
+/// the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return the TextGlyph object with the given index, or NULL if TextGlyph does not exist or the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "text" attribute of TextGlyph object with the given index associated with the given id in
 /// the first Layout object of the SBML document is set.

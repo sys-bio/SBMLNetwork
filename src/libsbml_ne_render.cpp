@@ -34,7 +34,7 @@ LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* 
 
 bool isSetBackgroundColor(RenderInformationBase* renderInformationBase) {
     if (renderInformationBase)
-        renderInformationBase->isSetBackgroundColor();
+        return renderInformationBase->isSetBackgroundColor();
 
     return false;
 }

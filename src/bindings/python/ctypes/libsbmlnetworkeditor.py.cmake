@@ -927,10 +927,1453 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setCurveBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, curve_segment_index, layout_index)
 
+    def getNumGlobalRenderInformation(self):
+        """
+        Returns the number of GlobalRenderInformation objects in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of GlobalRenderInformation objects in the given SBMLDocument
+        """
+        return lib.c_api_getNumGlobalRenderInformation(self.sbml_object)
+
+    def getNumLocalRenderInformation(self, layout_index=0):
+        """
+        Returns the number of LocalRenderInformation objects in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of LocalRenderInformation objects in the Layout object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumLocalRenderInformation(self.sbml_object, layout_index)
+
+    def removeRenderInformation(self):
+        """
+        Removes all the RenderInformation objects from the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the RenderInformation objects could not be removed
+        """
+        return lib.c_api_removeRenderInformation(self.sbml_object)
+
+    def removeGlobalRenderInformation(self):
+        """
+        Removes all the GlobalRenderInformation object from the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GlobalRenderInformation object could not be removed
+        """
+        return lib.c_api_removeGlobalRenderInformation(self.sbml_object)
+
+    def removeLocalRenderInformation(self, layout_index=0):
+        """
+        Removes all the LocalRenderInformation objects from the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the LocalRenderInformation objects could not be removed
+        """
+        return lib.c_api_removeLocalRenderInformation(self.sbml_object, layout_index)
+
+    def isSetBackgroundColor(self, render_index=0):
+        """
+        Returns whether the background color of the RenderInformation object with the given index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the background color of the RenderInformation object with the given index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetBackgroundColor(self.sbml_object, render_index)
+
+    def getBackgroundColor(self, render_index=0):
+        """
+        Returns the background color of the RenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the background color of the RenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getBackgroundColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getBackgroundColor(self.sbml_object, render_index)).value.decode()
+
+    def setBackgroundColor(self, color, render_index=0):
+        """
+        Sets the background color of the RenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - color (string): a string that determines the background color of the RenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the background color of the RenderInformation object could not be set
+        """
+        return lib.c_api_setBackgroundColor(self.sbml_object, str(color).encode(), render_index)
+
+    def isSetColorValue(self, color_id, render_index=0):
+        """
+        Returns whether the color value of the ColorDefinition object with the given color_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - color_id (string): a string that determines the id of the ColorDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the color value of the ColorDefinition object with the given color_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetColorValue(self.sbml_object, str(color_id).encode(), render_index)
+
+    def getColorValue(self, color_id, render_index=0):
+        """
+        Returns the color value of the ColorDefinition object with the given color_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - color_id (string): a string that determines the id of the ColorDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the color value of the ColorDefinition object with the given color_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getColorValue.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getColorValue(self.sbml_object, str(color_id).encode(), render_index)).value.decode()
+
+    def setColorValue(self, color_id, color, render_index=0):
+        """
+        Sets the color value of the ColorDefinition object with the given color_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - color_id (string): a string that determines the id of the ColorDefinition object
+            - color (string): a string that determines the color value of the ColorDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the color value of the ColorDefinition object could not be set
+        """
+        return lib.c_api_setColorValue(self.sbml_object, str(color_id).encode(), str(color).encode(), render_index)
+
+    def isSetBorderColor(self, id):
+        """
+        Returns whether the border color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the border color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetBorderColor(self.sbml_object, str(id).encode())
+
+    def getBorderColor(self, id):
+        """
+        Returns the border color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the border color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getBorderColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getBorderColor(self.sbml_object, str(id).encode())).value.decode()
+
+    def setBorderColor(self, id, border_color):
+        """
+        Sets the border color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - border_color (string): a string that determines the border color of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the border color of the GraphicalObject could not be set
+        """
+        return lib.c_api_setBorderColor(self.sbml_object, str(id).encode(), str(border_color).encode())
+
+    def isSetBorderWidth(self, id):
+        """
+        Returns whether the border width of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the border width of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetBorderWidth(self.sbml_object, str(id).encode())
+
+    def getBorderWidth(self, id):
+        """
+        Returns the border width of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+                a float that determines the border width of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+            """
+        lib.c_api_getBorderWidth.restype = ctypes.c_double
+        return lib.c_api_getBorderWidth(self.sbml_object, str(id).encode())
+
+    def setBorderWidth(self, id, border_width):
+        """
+        Sets the border width of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - border_width (float): a float that determines the border width of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the border width of the GraphicalObject could not be set
+        """
+        return lib.c_api_setBorderWidth(self.sbml_object, str(id).encode(), ctypes.c_double(border_width))
+
+    def isSetFillColor(self, id):
+        """
+        Returns whether the fill color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the fill color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFillColor(self.sbml_object, str(id).encode())
+
+    def getFillColor(self, id):
+        """
+        Returns the fill color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the fill color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFillColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getFillColor(self.sbml_object, str(id).encode())).value.decode()
+
+    def setFillColor(self, id, fill_color):
+        """
+
+        Sets the fill color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - fill_color (string): a string that determines the fill color of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the fill color of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFillColor(self.sbml_object, str(id).encode(), str(fill_color).encode())
+
+    def isSetFillRule(self, id):
+        """
+        Returns whether the fill rule of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the fill rule of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFillRule(self.sbml_object, str(id).encode())
+
+    def getFillRule(self, id):
+        """
+        Returns the fill rule of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the fill rule of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFillRule.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getFillRule(self.sbml_object, str(id).encode())).value.decode()
+
+    def setFillRule(self, id, fill_rule):
+        """
+        Sets the fill rule of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - fill_rule (string): a string that determines the fill rule of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the fill rule of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFillRule(self.sbml_object, str(id).encode(), str(fill_rule).encode())
+
+    def isSetFontColor(self, id):
+        """
+        Returns whether the font color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the font color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFontColor(self.sbml_object, str(id).encode())
+
+    def getFontColor(self, id):
+        """
+        Returns the font color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the font color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFontColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getFontColor(self.sbml_object, str(id).encode())).value.decode()
+
+    def setFontColor(self, id, font_color):
+        """
+
+        Sets the font color of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - font_color (string): a string that determines the font color of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the font color of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFontColor(self.sbml_object, str(id).encode(), str(font_color).encode())
+
+    def isSetFontFamily(self, id):
+        """
+        Returns whether the font family of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the font family of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFontFamily(self.sbml_object, str(id).encode())
+
+    def getFontFamily(self, id):
+        """
+        Returns the font family of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the font family of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFontFamily.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getFontFamily(self.sbml_object, str(id).encode())).value.decode()
+
+    def setFontFamily(self, id, font_family):
+        """
+
+        Sets the font family of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - font_family (string): a string that determines the font family of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the font family of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFontFamily(self.sbml_object, str(id).encode(), str(font_family).encode())
+
+    def isSetFontSize(self, id):
+        """
+        Returns whether the font size of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the font size of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFontSize(self.sbml_object, str(id).encode())
+
+    def getFontSize(self, id):
+        """
+
+        Returns the font size of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a float that determines the font size of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFontSize.restype = ctypes.c_double
+        return lib.c_api_getFontSize(self.sbml_object, str(id).encode())
+
+    def setFontSize(self, id, font_size):
+        """
+        Sets the font size of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - font_size (float): a float that determines the font size of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the font size of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFontSize(self.sbml_object, str(id).encode(), ctypes.c_double(font_size))
+
+    def isSetFontWeight(self, id):
+        """
+        Returns whether the font weight of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the font weight of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFontWeight(self.sbml_object, str(id).encode())
+
+    def getFontWeight(self, id):
+        """
+        Returns the font weight of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the font weight of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFontWeight.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getFontWeight(self.sbml_object, str(id).encode())).value.decode()
+
+    def setFontWeight(self, id, font_weight):
+        """
+        Sets the font weight of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - font_weight (string): a string that determines the font weight of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the font weight of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFontWeight(self.sbml_object, str(id).encode(), str(font_weight).encode())
+
+    def isSetFontStyle(self, id):
+        """
+        Returns whether the font style of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the font style of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetFontStyle(self.sbml_object, str(id).encode())
 
 
+    def getFontStyle(self, id):
+        """
+        Returns the font style of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the font style of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getFontStyle.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getFontStyle(self.sbml_object, str(id).encode())).value.decode()
+
+    def setFontStyle(self, id, font_style):
+        """
+        Sets the font style of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - font_style (string): a string that determines the font style of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the font style of the GraphicalObject could not be set
+        """
+        return lib.c_api_setFontStyle(self.sbml_object, str(id).encode(), str(font_style).encode())
+
+    def isSetTextHorizontalAlignment(self, id):
+        """
+        Returns whether the text horizontal alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the text horizontal alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetTextHorizontalAlignment(self.sbml_object, str(id).encode())
+
+    def getTextHorizontalAlignment(self, id):
+        """
+        Returns the text horizontal alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the text horizontal alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getTextHorizontalAlignment.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getTextHorizontalAlignment(self.sbml_object, str(id).encode())).value.decode()
+
+    def setTextHorizontalAlignment(self, id, text_horizontal_alignment):
+        """
+        Sets the text horizontal alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text_horizontal_alignment (string): a string that determines the text horizontal alignment of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the text horizontal alignment of the GraphicalObject could not be set
+        """
+        return lib.c_api_setTextHorizontalAlignment(self.sbml_object, str(id).encode(), str(text_horizontal_alignment).encode())
+
+    def isSetTextVerticalAlignment(self, id):
+        """
+        Returns whether the text vertical alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the text vertical alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetTextVerticalAlignment(self.sbml_object, str(id).encode())
+
+    def getTextVerticalAlignment(self, id):
+        """
+        Returns the text vertical alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the text vertical alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getTextVerticalAlignment.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getTextVerticalAlignment(self.sbml_object, str(id).encode())).value.decode()
+
+    def setTextVerticalAlignment(self, id, text_vertical_alignment):
+        """
+        Sets the text vertical alignment of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text_vertical_alignment (string): a string that determines the text vertical alignment of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the text vertical alignment of the GraphicalObject could not be set
+        """
+        return lib.c_api_setTextVerticalAlignment(self.sbml_object, str(id).encode(), str(text_vertical_alignment).encode())
+
+    def isSetStartHead(self, id):
+        """
+        Returns whether the start head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the start head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetStartHead(self.sbml_object, str(id).encode())
+
+    def getStartHead(self, id):
+        """
+        Returns the start head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the start head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getStartHead.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getStartHead(self.sbml_object, str(id).encode())).value.decode()
+
+    def setStartHead(self, id, start_head):
+        """
+        Sets the start head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - start_head (string): a string that determines the start head of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the start head of the GraphicalObject could not be set
+        """
+        return lib.c_api_setStartHead(self.sbml_object, str(id).encode(), str(start_head).encode())
+
+    def isSetEndHead(self, id):
+        """
+        Returns whether the end head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            true if the end head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetEndHead(self.sbml_object, str(id).encode())
+
+    def getEndHead(self, id):
+        """
+        Returns the end head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            a string that determines the end head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getEndHead.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getEndHead(self.sbml_object, str(id).encode())).value.decode()
+
+    def setEndHead(self, id, end_head):
+        """
+        Sets the end head of the GraphicalObject associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - end_head (string): a string that determines the end head of the GraphicalObject
+
+        :Returns:
+
+            true on success and false if the end head of the GraphicalObject could not be set
+        """
+        return lib.c_api_setEndHead(self.sbml_object, str(id).encode(), str(end_head).encode())
+
+    def getNumGeometricShapes(self, id):
+        """
+        Returns the number of GeometricShape objects associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+
+        :Returns:
+
+            an integer that determines the number of GeometricShape objects associated with the model entity with the given id in the given SBMLDocument
+        """
+        return lib.c_api_getNumGeometricShapes(self.sbml_object, str(id).encode())
+
+    def isRectangle(self, id, index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Rectangle object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Rectangle object and false otherwise
+        """
+        return lib.c_api_isRectangle(self.sbml_object, str(id).encode(),  index)
+
+    def isEllipse(self, id, index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Ellipse object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Ellipse object and false otherwise
+        """
+        return lib.c_api_isEllipse(self.sbml_object, str(id).encode(), index)
+
+    def isPolygon(self, id, index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Polygon object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Polygon object and false otherwise
+        """
+        return lib.c_api_isPolygon(self.sbml_object, str(id).encode(), index)
+
+    def isImage(self, id, index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Image object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Image object and false otherwise
+        """
+        return lib.c_api_isImage(self.sbml_object, str(id).encode(), index)
+
+    def isRenderCurve(self, id, index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a RenderCurve object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a RenderCurve object and false otherwise
+        """
+        return lib.c_api_isRenderCurve(self.sbml_object, str(id).encode(), index)
+
+    def isText(self, id, index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Text object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Text object and false otherwise
+        """
+        return lib.c_api_isText(self.sbml_object, str(id).encode(), index)
+
+    def getGeometricShapeX(self, id, index=0):
+        """
+        Returns the x-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeX.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeX(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeX(self, id, x, index=0):
+        """
+        Sets the x-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeX(self.sbml_object, str(id).encode(), ctypes.c_double(x), index)
+
+    def getGeometricShapeY(self, id, index=0):
+        """
+        Returns the y-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeY.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeY(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeY(self, id, y, index=0):
+        """
+        Sets the y-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - y (float): a float that determines the y-coordinate of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeY(self.sbml_object, str(id).encode(), ctypes.c_double(y), index)
+
+    def getGeometricShapeWidth(self, id, index=0):
+        """
+        Returns the width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeWidth.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeWidth(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeWidth(self, id, width, index=0):
+        """
+        Sets the width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - width (float): a float that determines the width of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), index)
+
+    def getGeometricShapeHeight(self, id, index=0):
+        """
+        Returns the height of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the height of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeHeight.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeHeight(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeHeight(self, id, height, index=0):
+        """
+        Sets the height of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - height (float): a float that determines the height of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), index)
+
+    def getGeometricShapeRatio(self, id, index=0):
+        """
+        Returns the ratio of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the ratio of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeRatio.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeRatio(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeRatio(self, id, ratio, index=0):
+        """
+        Sets the ratio of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - ratio (float): a float that determines the ratio of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ratio of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeRatio(self.sbml_object, str(id).encode(), ctypes.c_double(ratio), index)
+
+    def getGeometricShapeBorderRadiusX(self, id, index=0):
+        """
+        Returns the x-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeBorderRadiusX.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeBorderRadiusX(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeBorderRadiusX(self, id, border_radius_x, index=0):
+        """
+        Sets the x-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - border_radius_x (float): a float that determines the x-radius of the border of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of the border of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeBorderRadiusX(self.sbml_object, str(id).encode(), ctypes.c_double(border_radius_x), index)
+
+    def getGeometricShapeBorderRadiusY(self, id, index=0):
+        """
+        Returns the y-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeBorderRadiusY.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeBorderRadiusY(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeBorderRadiusY(self, id, border_radius_y, index=0):
+        """
+        Sets the y-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - border_radius_y (float): a float that determines the y-radius of the border of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of the border of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeBorderRadiusY(self.sbml_object, str(id).encode(), ctypes.c_double(border_radius_y), index)
+
+    def getGeometricShapeCenterX(self, id, index=0):
+        """
+        Returns the x-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeCenterX.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeCenterX(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeCenterX(self, id, center_x, index=0):
+        """
+        Sets the x-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - center_x (float): a float that determines the x-coordinate of the center of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the center of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeCenterX(self.sbml_object, str(id).encode(), ctypes.c_double(center_x), index)
+
+    def getGeometricShapeCenterY(self, id, index=0):
+        """
+        Returns the y-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeCenterY.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeCenterY(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeCenterY(self, id, center_y, index=0):
+        """
+        Sets the y-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - center_y (float): a float that determines the y-coordinate of the center of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the center of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeCenterY(self.sbml_object, str(id).encode(), ctypes.c_double(center_y), index)
+
+    def getGeometricShapeRadiusX(self, id, index=0):
+        """
+        Returns the x-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeRadiusX.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeRadiusX(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeRadiusX(self, id, radius_x, index=0):
+        """
+        Sets the x-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - radius_x (float): a float that determines the x-radius of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeRadiusX(self.sbml_object, str(id).encode(), ctypes.c_double(radius_x), index)
+
+    def getGeometricShapeRadiusY(self, id, index=0):
+        """
+        Returns the y-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeRadiusY.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeRadiusY(self.sbml_object, str(id).encode(), index)
+
+    def setGeometricShapeRadiusY(self, id, radius_y, index=0):
+        """
+        Sets the y-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - radius_y (float): a float that determines the y-radius of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeRadiusY(self.sbml_object, str(id).encode(), ctypes.c_double(radius_y), index)
 
 
+    def getGeometricShapeNumSegments(self, id, index=0):
+        """
+        Returns the number of segments of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of segments of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        return lib.c_api_getGeometricShapeNumSegments(self.sbml_object, str(id).encode(), index)
+
+    def getGeometricShapeSegmentX(self, id, index=0, segment_index=0):
+        """
+        Returns the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            a float that determines the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeSegmentX.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeSegmentX(self.sbml_object, str(id).encode(), index, segment_index)
+
+    def setGeometricShapeSegmentX(self, id, x, index=0, segment_index=0):
+        """
+        Sets the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the segment of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the segment of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentX(self.sbml_object, str(id).encode(), ctypes.c_double(x), index, segment_index)
+
+    def getGeometricShapeSegmentY(self, id, index=0, segment_index=0):
+        """
+        Returns the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            a float that determines the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeSegmentY.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeSegmentY(self.sbml_object, str(id).encode(), index, segment_index)
+
+    def setGeometricShapeSegmentY(self, id, y, index=0, segment_index=0):
+        """
+        Sets the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - y (float): a float that determines the y-coordinate of the segment of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the segment of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentY(self.sbml_object, str(id).encode(), ctypes.c_double(y), index, segment_index)
+
+    def getGeometricShapeSegmentBasePoint1X(self, id, index=0, segment_index=0):
+        """
+        Returns the x-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            a float that determines the x-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeSegmentBasePoint1X.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeSegmentBasePoint1X(self.sbml_object, str(id).encode(), index, segment_index)
+
+    def setGeometricShapeSegmentBasePoint1X(self, id, x, index=0, segment_index=0):
+        """
+        Sets the x-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the base point 1 of the segment of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 1 of the segment of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint1X(self.sbml_object, str(id).encode(), ctypes.c_double(x), index, segment_index)
+
+    def getGeometricShapeSegmentBasePoint1Y(self, id, index=0, segment_index=0):
+        """
+        Returns the y-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            a float that determines the y-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeSegmentBasePoint1Y.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeSegmentBasePoint1Y(self.sbml_object, str(id).encode(), index, segment_index)
+
+    def setGeometricShapeSegmentBasePoint1Y(self, id, y, index=0, segment_index=0):
+        """
+        Sets the y-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - y (float): a float that determines the y-coordinate of the base point 1 of the segment of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 1 of the segment of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint1Y(self.sbml_object, str(id).encode(), ctypes.c_double(y), index, segment_index)
+
+    def getGeometricShapeSegmentBasePoint2X(self, id, index=0, segment_index=0):
+        """
+        Returns the x-coordinate of the base point 2 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            a float that determines the x-coordinate of the base point 2 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeSegmentBasePoint2X.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeSegmentBasePoint2X(self.sbml_object, str(id).encode(), index, segment_index)
+
+    def setGeometricShapeSegmentBasePoint2X(self, id, x, index=0, segment_index=0):
+        """
+        Sets the x-coordinate of the base point 2 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the base point 2 of the segment of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 2 of the segment of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint2X(self.sbml_object, str(id).encode(), ctypes.c_double(x), index, segment_index)
+
+    def getGeometricShapeSegmentBasePoint2Y(self, id, index=0, segment_index=0):
+        """
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            a float that determines the y-coordinate of the base point 2 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeSegmentBasePoint2Y.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeSegmentBasePoint2Y(self.sbml_object, str(id).encode(), index, segment_index)
+
+    def setGeometricShapeSegmentBasePoint2Y(self, id, y, index=0, segment_index=0):
+        """
+        Sets the y-coordinate of the base point 2 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - y (float): a float that determines the y-coordinate of the base point 2 of the segment of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - segment_index (int): an integer that determines the index of the segment of the GeometricShape object
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 2 of the segment of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint2Y(self.sbml_object, str(id).encode(), ctypes.c_double(y), index, segment_index)
+
+    def isSetGeometricShapeHref(self, id, index=0):
+        """
+        Returns whether the href of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true if the href of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetGeometricShapeHref(self.sbml_object, str(id).encode(), index)
+
+    def getGeometricShapeHref(self, id, index=0):
+        """
+        Returns the href of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the href of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeHref.restype = ctypes.c_char_p
+        return lib.c_api_getGeometricShapeHref(self.sbml_object, str(id).encode(), index).decode('utf-8')
+
+    def setGeometricShapeHref(self, id, href, index=0):
+        """
+        Sets the href of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - href (string): a string that determines the href of the GeometricShape object
+            - index (int): an integer that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the href of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeHref(self.sbml_object, str(id).encode(), str(href).encode(), index)
 
 
 

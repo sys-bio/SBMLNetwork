@@ -243,6 +243,444 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     int c_api_setCurveBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentBasePoint2Y(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, y);
     }
+
+    const int c_api_getNumGlobalRenderInformation(SBMLDocument* document) {
+        return getNumGlobalRenderInformation(document);
+    }
+
+    const int c_api_getNumLocalRenderInformation(SBMLDocument* document, int layoutIndex) {
+        return getNumLocalRenderInformation(document, layoutIndex);
+    }
+
+    int c_api_removeRenderInformation(SBMLDocument* document) {
+        if (removeAllGlobalRenderInformation(document), removeAllLocalRenderInformation(document))
+        return 0;
+
+        return 0;
+    }
+
+    int c_api_removeGlobalRenderInformation(SBMLDocument* document) {
+        return removeAllGlobalRenderInformation(document);
+    }
+
+    int c_api_removeLocalRenderInformation(SBMLDocument* document, int layoutIndex) {
+        return removeAllLocalRenderInformation(document, layoutIndex);
+    }
+
+    bool c_api_isSetBackgroundColor(SBMLDocument* document, int renderIndex) {
+        return isSetBackgroundColor(document, renderIndex);
+    }
+
+    const char* c_api_getBackgroundColor(SBMLDocument* document, int renderIndex) {
+        return strdup(getBackgroundColor(document, renderIndex).c_str());
+    }
+
+    int c_api_setBackgroundColor(SBMLDocument* document, const char* backgroundColor, int renderIndex) {
+        return setBackgroundColor(document, renderIndex, backgroundColor);
+    }
+
+    const int c_api_getNumColors(SBMLDocument* document, int renderIndex) {
+        return getNumColorDefinitions(document, renderIndex);
+    }
+
+    bool c_api_isSetColorValue(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetValue(document, renderIndex, id);
+    }
+
+    const char* c_api_getColorValue(SBMLDocument* document, const char* id, int renderIndex) {
+        return strdup(getValue(document, renderIndex, id).c_str());
+    }
+
+    int c_api_setColorValue(SBMLDocument* document, const char* id, const char* value, int renderIndex) {
+        return setValue(document, renderIndex, id, value);
+    }
+
+    bool c_api_isSetBorderColor(SBMLDocument* document, const char* id) {
+        return isSetStrokeColor(document, id);
+    }
+
+    const char* c_api_getBorderColor(SBMLDocument* document, const char* id) {
+        return strdup(getStrokeColor(document, id).c_str());
+    }
+
+    int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor) {
+        return setStrokeColor(document, id, borderColor);
+    }
+
+    bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id) {
+        return isSetStrokeWidth(document, id);
+    }
+
+    const double c_api_getBorderWidth(SBMLDocument* document, const char* id) {
+        return getStrokeWidth(document, id);
+    }
+
+    int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth) {
+        return setStrokeWidth(document, id, borderWidth);
+    }
+
+    bool c_api_isSetFillColor(SBMLDocument* document, const char* id) {
+        return isSetFillColor(document, id);
+    }
+
+    const char* c_api_getFillColor(SBMLDocument* document, const char* id) {
+        return strdup(getFillColor(document, id).c_str());
+    }
+
+    int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor) {
+        return setFillColor(document, id, fillColor);
+    }
+
+    bool c_api_isSetFillRule(SBMLDocument* document, const char* id) {
+        return isSetFillRule(document, id);
+    }
+
+    const char* c_api_getFillRule(SBMLDocument* document, const char* id) {
+        return strdup(getFillRule(document, id).c_str());
+    }
+
+    int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule) {
+        return setFillRule(document, id, fillRule);
+    }
+
+    bool c_api_isSetFontColor(SBMLDocument* document, const char* id) {
+        return isSetFontColor(document, id);
+    }
+
+    const char* c_api_getFontColor(SBMLDocument* document, const char* id) {
+        return strdup(getFontColor(document, id).c_str());
+    }
+
+    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor) {
+        return setFontColor(document, id, fontColor);
+    }
+
+    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id) {
+        return isSetFontFamily(document, id);
+    }
+
+    const char* c_api_getFontFamily(SBMLDocument* document, const char* id) {
+        return strdup(getFontFamily(document, id).c_str());
+    }
+
+    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily) {
+        return setFontFamily(document, id, fontFamily);
+    }
+
+    bool c_api_isSetFontSize(SBMLDocument* document, const char* id) {
+        return isSetFontSize(document, id);
+    }
+
+    const double c_api_getFontSize(SBMLDocument* document, const char* id) {
+        RelAbsVector fontSizeVector = getFontSize(document, id);
+        return fontSizeVector.getAbsoluteValue() + 0.5 * (c_api_getWidth(document, id) + c_api_getHeight(document, id)) * fontSizeVector.getRelativeValue();
+    }
+
+    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize) {
+        RelAbsVector fontSizeVector;
+        fontSizeVector.setAbsoluteValue(fontSize);
+        return setFontSize(document, id, fontSizeVector);
+    }
+
+    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id) {
+        return isSetFontWeight(document, id);
+    }
+
+    const char* c_api_getFontWeight(SBMLDocument* document, const char* id) {
+        return strdup(getFontWeight(document, id).c_str());
+    }
+
+    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight) {
+        return setFontWeight(document, id, fontWeight);
+    }
+
+    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id) {
+        return isSetFontStyle(document, id);
+    }
+
+    const char* c_api_getFontStyle(SBMLDocument* document, const char* id) {
+        return strdup(getFontStyle(document, id).c_str());
+    }
+
+    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle) {
+        return setFontStyle(document, id, fontStyle);
+    }
+
+    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id) {
+        return isSetTextAnchor(document, id);
+    }
+
+    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id) {
+        return strdup(getTextAnchor(document, id).c_str());
+    }
+
+    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment) {
+        return setTextAnchor(document, id, textHorizontalAlignment);
+    }
+
+    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id) {
+        return isSetVTextAnchor(document, id);
+    }
+
+    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id) {
+        return strdup(getVTextAnchor(document, id).c_str());
+    }
+
+    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment) {
+        return setVTextAnchor(document, id, textVerticalAlignment);
+    }
+
+    bool c_api_isSetStartHead(SBMLDocument* document, const char* id) {
+        return isSetStartHead(document, id);
+    }
+
+    const char* c_api_getStartHead(SBMLDocument* document, const char* id) {
+        return strdup(getStartHead(document, id).c_str());
+    }
+
+    int c_api_setStartHead(SBMLDocument* document, const char* id, const char* startHead) {
+        return setStartHead(document, id, startHead);
+    }
+
+    bool c_api_isSetEndHead(SBMLDocument* document, const char* id) {
+        return isSetEndHead(document, id);
+    }
+
+    const char* c_api_getEndHead(SBMLDocument* document, const char* id) {
+        return strdup(getEndHead(document, id).c_str());
+    }
+
+    int c_api_setEndHead(SBMLDocument* document, const char* id, const char* endHead) {
+        return setEndHead(document, id, endHead);
+    }
+
+    int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id) {
+        return getNumGeometricShapes(document, id);
+    }
+
+    bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex) {
+        return isRectangle(document, id, geometricShapeIndex);
+    }
+
+    bool c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex) {
+        return isEllipse(document, id, geometricShapeIndex);
+    }
+
+    bool c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex) {
+        return isPolygon(document, id, geometricShapeIndex);
+    }
+
+    bool c_api_isImage(SBMLDocument* document, const char* id, int geometricShapeIndex) {
+        return isImage(document, id, geometricShapeIndex);
+    }
+
+    bool c_api_isRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex) {
+        return isRenderCurve(document, id, geometricShapeIndex);
+    }
+
+    bool c_api_isText(SBMLDocument* document, const char* id, int geometricShapeIndex) {
+        return isText(document, id, geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector xVector = getGeometricShapeX(document, id, geometricShapeIndex);
+        return xVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * xVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, unsigned int geometricShapeIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setGeometricShapeX(document, id, geometricShapeIndex, xVector);
+    }
+
+    const double c_api_getGeometricShapeY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector yVector = getGeometricShapeY(document, id, geometricShapeIndex);
+        return yVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * yVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, unsigned int geometricShapeIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setGeometricShapeY(document, id, geometricShapeIndex, yVector);
+    }
+
+    const double c_api_getGeometricShapeWidth(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector widthVector = getGeometricShapeWidth(document, id, geometricShapeIndex);
+        return widthVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * widthVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, unsigned int geometricShapeIndex) {
+        RelAbsVector widthVector;
+        widthVector.setAbsoluteValue(width);
+        return setGeometricShapeWidth(document, id, geometricShapeIndex, widthVector);
+    }
+
+    const double c_api_getGeometricShapeHeight(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector heightVector = getGeometricShapeHeight(document, id, geometricShapeIndex);
+        return heightVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * heightVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, unsigned int geometricShapeIndex) {
+        RelAbsVector heightVector;
+        heightVector.setAbsoluteValue(height);
+        return setGeometricShapeHeight(document, id, geometricShapeIndex, heightVector);
+    }
+
+    const double c_api_getGeometricShapeRatio(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        return getGeometricShapeRatio(document, id, geometricShapeIndex);
+    }
+
+    int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, unsigned int geometricShapeIndex) {
+        return setGeometricShapeRatio(document, id, geometricShapeIndex, ratio);
+    }
+
+    const double c_api_getGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector borderRadiusXVector = getGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex);
+        return borderRadiusXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * borderRadiusXVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, unsigned int geometricShapeIndex) {
+        RelAbsVector borderRadiusXVector;
+        borderRadiusXVector.setAbsoluteValue(borderRadiusX);
+        return setGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex, borderRadiusXVector);
+    }
+
+    const double c_api_getGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector borderRadiusYVector = getGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex);
+        return borderRadiusYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * borderRadiusYVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, unsigned int geometricShapeIndex) {
+        RelAbsVector borderRadiusYVector;
+        borderRadiusYVector.setAbsoluteValue(borderRadiusY);
+        return setGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex, borderRadiusYVector);
+    }
+
+    const double c_api_getGeometricShapeCenterX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector centerXVector = getGeometricShapeCenterX(document, id, geometricShapeIndex);
+        return centerXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * centerXVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, unsigned int geometricShapeIndex) {
+        RelAbsVector centerXVector;
+        centerXVector.setAbsoluteValue(centerX);
+        return setGeometricShapeCenterX(document, id, geometricShapeIndex, centerXVector);
+    }
+
+    const double c_api_getGeometricShapeCenterY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector centerYVector = getGeometricShapeCenterY(document, id, geometricShapeIndex);
+        return centerYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * centerYVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, unsigned int geometricShapeIndex) {
+        RelAbsVector centerYVector;
+        centerYVector.setAbsoluteValue(centerY);
+        return setGeometricShapeCenterY(document, id, geometricShapeIndex, centerYVector);
+    }
+
+    const double c_api_getGeometricShapeRadiusX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector radiusXVector = getGeometricShapeRadiusX(document, id, geometricShapeIndex);
+        return radiusXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * radiusXVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, unsigned int geometricShapeIndex) {
+        RelAbsVector radiusXVector;
+        radiusXVector.setAbsoluteValue(radiusX);
+        return setGeometricShapeRadiusX(document, id, geometricShapeIndex, radiusXVector);
+    }
+
+    const double c_api_getGeometricShapeRadiusY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        RelAbsVector radiusYVector = getGeometricShapeRadiusY(document, id, geometricShapeIndex);
+        return radiusYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * radiusYVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, unsigned int geometricShapeIndex) {
+        RelAbsVector radiusYVector;
+        radiusYVector.setAbsoluteValue(radiusY);
+        return setGeometricShapeRadiusY(document, id, geometricShapeIndex, radiusYVector);
+    }
+
+    const unsigned int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        return getGeometricShapeNumElements(document, id, geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeSegmentX(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentXVector = getGeometricShapeElementX(document, id, geometricShapeIndex, segmentIndex);
+        return segmentXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentXVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentXVector;
+        segmentXVector.setAbsoluteValue(x);
+        return setGeometricShapeElementX(document, id, geometricShapeIndex, segmentIndex, segmentXVector);
+    }
+
+    const double c_api_getGeometricShapeSegmentY(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentYVector = getGeometricShapeElementY(document, id, geometricShapeIndex, segmentIndex);
+        return segmentYVector.getAbsoluteValue() + 0.5 * 0.01 * c_api_getHeight(document, id) * segmentYVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentYVector;
+        segmentYVector.setAbsoluteValue(y);
+        return setGeometricShapeElementY(document, id, geometricShapeIndex, segmentIndex, segmentYVector);
+    }
+
+    const double c_api_getGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentStartXVector = getGeometricShapeBasePoint1X(document, id, geometricShapeIndex, segmentIndex);
+        return segmentStartXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentStartXVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentStartXVector;
+        segmentStartXVector.setAbsoluteValue(x);
+        return setGeometricShapeBasePoint1X(document, id, geometricShapeIndex, segmentIndex, segmentStartXVector);
+    }
+
+    const double c_api_getGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentStartYVector = getGeometricShapeBasePoint1Y(document, id, geometricShapeIndex, segmentIndex);
+        return segmentStartYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentStartYVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentStartYVector;
+        segmentStartYVector.setAbsoluteValue(y);
+        return setGeometricShapeBasePoint1Y(document, id, geometricShapeIndex, segmentIndex, segmentStartYVector);
+    }
+
+    const double c_api_getGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentBasePoint2XVector = getGeometricShapeBasePoint2X(document, id, geometricShapeIndex, segmentIndex);
+        return segmentBasePoint2XVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentBasePoint2XVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentBasePoint2XVector;
+        segmentBasePoint2XVector.setAbsoluteValue(x);
+        return setGeometricShapeBasePoint2X(document, id, geometricShapeIndex, segmentIndex, segmentBasePoint2XVector);
+    }
+
+    const double c_api_getGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentBasePoint2YVector = getGeometricShapeBasePoint2Y(document, id, geometricShapeIndex, segmentIndex);
+        return segmentBasePoint2YVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentBasePoint2YVector.getRelativeValue();
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+        RelAbsVector segmentBasePoint2YVector;
+        segmentBasePoint2YVector.setAbsoluteValue(y);
+        return setGeometricShapeBasePoint2Y(document, id, geometricShapeIndex, segmentIndex, segmentBasePoint2YVector);
+    }
+
+    bool c_api_isSetGeometricShapeHref(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        return isSetGeometricShapeHref(document, id, geometricShapeIndex);
+    }
+
+    const char* c_api_getGeometricShapeHref(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
+        return strdup(getGeometricShapeHref(document, id, geometricShapeIndex).c_str());
+    }
+
+    int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, unsigned int geometricShapeIndex) {
+        return setGeometricShapeHref(document, id, geometricShapeIndex, href);
+    }
 }
 
 }

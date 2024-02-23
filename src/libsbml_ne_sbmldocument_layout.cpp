@@ -392,8 +392,16 @@ TextGlyph* getTextGlyph(SBMLDocument* document, const std::string& id, unsigned 
     return getTextGlyph(getLayout(document), id, textGlyphIndex);
 }
 
+TextGlyph* getTextGlyph(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    return getTextGlyph(getLayout(document), graphicalObject, textGlyphIndex);
+}
+
 TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
     return getTextGlyph(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+TextGlyph* getTextGlyph(SBMLDocument* document, unsigned int layoutIndex, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    return getTextGlyph(getLayout(document, layoutIndex), graphicalObject, textGlyphIndex);
 }
 
 bool isSetText(SBMLDocument* document, const std::string& id) {
