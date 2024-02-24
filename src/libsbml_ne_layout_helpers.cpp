@@ -28,7 +28,7 @@ SBasePlugin* getLayoutPlugin(SBMLDocument* document) {
     if (model)
         return model->getPlugin("layout");
     else
-        std::cerr << "Failed to load model\n";
+        std::cerr << "error: Failed to load model\n";
     
     return NULL;
 }
@@ -38,7 +38,7 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase) {
     try {
         layoutModelPlugin = dynamic_cast<LayoutModelPlugin*>(layoutBase); }
     catch(std::bad_cast) {
-        std::cerr << "Unable to get layout information\n"; }
+        std::cerr << "error: Unable to get layout information\n"; }
     
     return layoutModelPlugin;
 }
@@ -459,6 +459,7 @@ const bool isValidRoleValue(const std::string& role) {
     else if (stringCompare(role, "undefined"))
         return true;
 
+    std::cerr << "error: role must be one of the following: substrate, sidesubstrate, modifier, inhibitor, product, sideproduct, activator, undefined" << std::endl;
     return false;
 }
 
@@ -514,6 +515,7 @@ const bool isValidDimensionValue(const double& dimensionValue) {
     if (dimensionValue > 0.000)
         return true;
 
+    std::cerr << "error: A dimension value must be greater than 0" << std::endl;
     return false;
 }
 

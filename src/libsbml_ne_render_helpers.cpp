@@ -39,7 +39,7 @@ RenderListOfLayoutsPlugin* getRenderListOfLayoutsPlugin(SBasePlugin* renderBase)
     try {
         renderListOfLayoutsPlugin = dynamic_cast<RenderListOfLayoutsPlugin*>(renderBase); }
     catch(std::bad_cast) {
-        std::cerr << "Unable to get global render information\n";
+        std::cerr << "error: Unable to get global render information\n";
     }
     
     return renderListOfLayoutsPlugin;
@@ -50,7 +50,7 @@ RenderLayoutPlugin* getRenderLayoutPlugin(SBasePlugin* renderBase) {
     try {
         renderLayoutPlugin = dynamic_cast<RenderLayoutPlugin*>(renderBase); }
     catch(std::bad_cast) {
-        std::cerr << "Unable to get local render information\n";
+        std::cerr << "error: Unable to get local render information\n";
     }
     
     return renderLayoutPlugin;
@@ -594,69 +594,6 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
     return isValidColorValue(backgroundColor);
 }
 
-const bool isValidColorValue(const std::string& value) {
-    std::vector<std::string> html_color_names;
-    html_color_names = {"aliceblue", "antiquewhite", "aqua", "aquamarine", "azure",
-                        "beige", "bisque", "black", "blanchedalmond", "blue",
-                        "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
-                        "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson",
-                        "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
-                        "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
-                        "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
-                        "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
-                        "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
-                        "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
-                        "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew",
-                        "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
-                        "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
-                        "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey",
-                        "lightpink","lightsalmon", "lightseagreen", "lightskyblue",
-                        "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen",
-                        "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue",
-                        "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
-                        "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue",
-                        "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace",
-                        "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
-                        "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff",
-                        "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown",
-                        "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen","seashell",
-                        "sienna", "silver", "skyblue", "slateblue", "slategray", "snow","springgreen",
-                        "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
-                        "wheat", "white", "whitesmoke", "yellow", "yellowgreen"};
-    for (unsigned int i = 0; i < html_color_names.size(); i++) {
-        if (stringCompare(html_color_names.at(i), std::to_lower(value)))
-            return true;
-    }
-
-    std::vector<std::string> hex_color_codes;
-    hex_color_codes = {"#F0F8FF", "#FAEBD7", "#00FFFF", "#7FFFD4", "#F0FFFF", "#F5F5DC", "#FFE4C4",
-                        "#000000", "#FFEBCD", "#0000FF", "#8A2BE2", "#A52A2A", "#DEB887", "#5F9EA0",
-                        "#7FFF00", "#D2691E", "#FF7F50", "#6495ED", "#FFF8DC", "#DC143C", "#00FFFF",
-                        "#00008B", "#008B8B", "#B8860B", "#A9A9A9", "#006400", "#BDB76B", "#8B008B",
-                        "#556B2F", "#FF8C00", "#9932CC", "#8B0000", "#E9967A", "#8FBC8F", "#483D8B",
-                        "#2F4F4F", "#00CED1", "#9400D3", "#FF1493", "#00BFFF", "#696969", "#1E90FF",
-                        "#B22222", "#FFFAF0", "#228B22", "#FF00FF", "#DCDCDC", "#F8F8FF", "#FFD700",
-                        "#DAA520", "#808080", "#008000", "#ADFF2F", "#F0FFF0", "#FF69B4", "#CD5C5C",
-                        "#4B0082", "#FFFFF0", "#F0E68C", "#E6E6FA", "#FFF0F5", "#7CFC00", "#FFFACD",
-                        "#ADD8E6", "#F08080", "#E0FFFF", "#FAFAD2", "#90EE90", "#D3D3D3", "#FFB6C1",
-                        "#FFA07A", "#20B2AA", "#87CEFA", "#778899", "#B0C4DE", "#FFFFE0", "#00FF00",
-                        "#32CD32", "#FAF0E6", "#FF00FF", "#800000", "#66CDAA", "#0000CD", "#BA55D3",
-                        "#9370DB", "#3CB371", "#7B68EE", "#00FA9A", "#48D1CC", "#C71585", "#191970",
-                        "#F5FFFA", "#FFE4E1", "#FFE4B5", "#FFDEAD", "#000080", "#FDF5E6", "#808000",
-                        "#6B8E23", "#FFA500", "#FF4500", "#DA70D6", "#EEE8AA", "#98FB98", "#AFEEEE",
-                        "#DB7093", "#FFEFD5", "#FFDAB9", "#CD853F", "#FFC0CB", "#DDA0DD", "#B0E0E6",
-                        "#800080", "#FF0000", "#BC8F8F", "#4169E1", "#8B4513", "#FA8072", "#F4A460",
-                        "#2E8B57", "#FFF5EE", "#A0522D", "#C0C0C0", "#87CEEB", "#6A5ACD", "#708090",
-                        "#FFFAFA", "#00FF7F", "#4682B4", "#D2B48C", "#008080", "#D8BFD8", "#FF6347",
-                        "#40E0D0", "#EE82EE", "#F5DEB3", "#FFFFFF", "#F5F5F5", "#FFFF00", "#9ACD32"};
-    for (unsigned int i = 0; i < hex_color_codes.size(); i++) {
-        if (stringCompare(hex_color_codes.at(i), value))
-            return true;
-    }
-
-    return false;
-}
-
 const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
     if (stringCompare(spreadMethod, "pad"))
         return true;
@@ -665,6 +602,7 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
     else if (stringCompare(spreadMethod, "repeat"))
         return true;
 
+    std::cerr << "error: spread method must be either 'pad', 'reflect', or 'repeat'" << std::endl;
     return false;
 }
 
@@ -724,6 +662,7 @@ const bool isValidStrokeWidthValue(const double& strokeWidth) {
     if (strokeWidth > 0.0001)
         return true;
 
+    std::cerr << "error: stroke width must be greater than 0" << std::endl;
     return false;
 }
 
@@ -740,6 +679,7 @@ const bool isValidStrokeDashValue(unsigned int dash) {
     if (dash > 0.000)
         return true;
 
+    std::cerr << "error: stroke dash value must be greater than 0" << std::endl;
     return false;
 }
 
@@ -755,6 +695,7 @@ const bool isValidFontFamilyValue(const std::string& fontFamily) {
     else if (stringCompare(fontFamily, "monospace"))
         return true;
 
+    std::cerr << "error: font family must be either 'serif', 'sans-serif', or 'monospace'" << std::endl;
     return false;
 }
 
@@ -768,6 +709,7 @@ const bool isValidFontWeightValue(const std::string& fontWeight) {
     else if (stringCompare(fontWeight, "normal"))
         return true;
 
+    std::cerr << "error: font weight must be either 'bold' or 'normal'" << std::endl;
     return false;
 }
 
@@ -777,6 +719,7 @@ const bool isValidFontStyleValue(const std::string& fontStyle) {
     else if (stringCompare(fontStyle, "normal"))
         return true;
 
+    std::cerr << "error: font style must be either 'italic' or 'normal'" << std::endl;
     return false;
 }
 
@@ -788,6 +731,7 @@ const bool isValidTextAnchorValue(const std::string& textAnchor) {
     else if (stringCompare(textAnchor, "end"))
         return true;
 
+    std::cerr << "error: horizontal text alignment must be either 'start', 'middle', or 'end'" << std::endl;
     return false;
 }
 
@@ -801,6 +745,7 @@ const bool isValidVTextAnchorValue(const std::string& vtextAnchor) {
     else if (stringCompare(vtextAnchor, "baseline"))
         return true;
 
+    std::cerr << "error: vertical text alignment must be either 'top', 'middle', 'bottom', or 'baseline'" << std::endl;
     return false;
 }
 
@@ -814,6 +759,7 @@ const bool isValidFillRuleValue(const std::string& fillRule) {
     else if (stringCompare(fillRule, "evenodd"))
         return true;
 
+    std::cerr << "error: error: fillRule must be either 'nonzero' or 'evenodd'" << std::endl;
     return false;
 }
 
@@ -845,6 +791,7 @@ const bool isValidGeometricShapeRatioValue(const double& ratio) {
     if (ratio > 0.0001)
         return true;
 
+    std::cerr << "error: geometric shape ratio must be greater than 0" << std::endl;
     return false;
 }
 
@@ -903,8 +850,77 @@ const bool isValidGeometricShapeHref(const std::string& href) {
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue) {
     if (relAbsVectorValue.getAbsoluteValue() > 0.000)
         return true;
-
+    std::cerr << "error: the absolute value of the entered value must be greater than 0" << std::endl;
     return false;
+}
+
+const bool isValidColorValue(const std::string& value) {
+    std::vector<std::string> htmlColorNames = getHtmlColorNames();
+    for (unsigned int i = 0; i < htmlColorNames.size(); i++) {
+        if (stringCompare(htmlColorNames.at(i), value))
+            return true;
+    }
+
+    std::vector<std::string> hexColorCodes = getHexColorCodes();
+    for (unsigned int i = 0; i < hexColorCodes.size(); i++) {
+        if (stringCompare(hexColorCodes.at(i), value))
+            return true;
+    }
+    std::cerr << "error: entered value (" << value << ") is not a valid color value" << std::endl;
+    return false;
+}
+
+std::vector<std::string> getHtmlColorNames() {
+    return std::vector<std::string>({"aliceblue", "antiquewhite", "aqua", "aquamarine", "azure",
+                                     "beige", "bisque", "black", "blanchedalmond", "blue",
+                                     "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
+                                     "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson",
+                                     "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
+                                     "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
+                                     "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
+                                     "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
+                                     "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
+                                     "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
+                                     "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew",
+                                     "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
+                                     "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
+                                     "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey",
+                                     "lightpink","lightsalmon", "lightseagreen", "lightskyblue",
+                                     "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen",
+                                     "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue",
+                                     "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
+                                     "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue",
+                                     "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace",
+                                     "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
+                                     "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff",
+                                     "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown",
+                                     "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen","seashell",
+                                     "sienna", "silver", "skyblue", "slateblue", "slategray", "snow","springgreen",
+                                     "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
+                                     "wheat", "white", "whitesmoke", "yellow", "yellowgreen"});
+}
+
+std::vector<std::string> getHexColorCodes() {
+    return std::vector<std::string>({"#F0F8FF", "#FAEBD7", "#00FFFF", "#7FFFD4", "#F0FFFF", "#F5F5DC", "#FFE4C4",
+                                     "#000000", "#FFEBCD", "#0000FF", "#8A2BE2", "#A52A2A", "#DEB887", "#5F9EA0",
+                                     "#7FFF00", "#D2691E", "#FF7F50", "#6495ED", "#FFF8DC", "#DC143C", "#00FFFF",
+                                     "#00008B", "#008B8B", "#B8860B", "#A9A9A9", "#006400", "#BDB76B", "#8B008B",
+                                     "#556B2F", "#FF8C00", "#9932CC", "#8B0000", "#E9967A", "#8FBC8F", "#483D8B",
+                                     "#2F4F4F", "#00CED1", "#9400D3", "#FF1493", "#00BFFF", "#696969", "#1E90FF",
+                                     "#B22222", "#FFFAF0", "#228B22", "#FF00FF", "#DCDCDC", "#F8F8FF", "#FFD700",
+                                     "#DAA520", "#808080", "#008000", "#ADFF2F", "#F0FFF0", "#FF69B4", "#CD5C5C",
+                                     "#4B0082", "#FFFFF0", "#F0E68C", "#E6E6FA", "#FFF0F5", "#7CFC00", "#FFFACD",
+                                     "#ADD8E6", "#F08080", "#E0FFFF", "#FAFAD2", "#90EE90", "#D3D3D3", "#FFB6C1",
+                                     "#FFA07A", "#20B2AA", "#87CEFA", "#778899", "#B0C4DE", "#FFFFE0", "#00FF00",
+                                     "#32CD32", "#FAF0E6", "#FF00FF", "#800000", "#66CDAA", "#0000CD", "#BA55D3",
+                                     "#9370DB", "#3CB371", "#7B68EE", "#00FA9A", "#48D1CC", "#C71585", "#191970",
+                                     "#F5FFFA", "#FFE4E1", "#FFE4B5", "#FFDEAD", "#000080", "#FDF5E6", "#808000",
+                                     "#6B8E23", "#FFA500", "#FF4500", "#DA70D6", "#EEE8AA", "#98FB98", "#AFEEEE",
+                                     "#DB7093", "#FFEFD5", "#FFDAB9", "#CD853F", "#FFC0CB", "#DDA0DD", "#B0E0E6",
+                                     "#800080", "#FF0000", "#BC8F8F", "#4169E1", "#8B4513", "#FA8072", "#F4A460",
+                                     "#2E8B57", "#FFF5EE", "#A0522D", "#C0C0C0", "#87CEEB", "#6A5ACD", "#708090",
+                                     "#FFFAFA", "#00FF7F", "#4682B4", "#D2B48C", "#008080", "#D8BFD8", "#FF6347",
+                                     "#40E0D0", "#EE82EE", "#F5DEB3", "#FFFFFF", "#F5F5F5", "#FFFF00", "#9ACD32"});
 }
 
 }

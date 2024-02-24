@@ -243,6 +243,10 @@ const bool isValidGeometricShapeHref(const std::string& href);
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
 
+std::vector<std::string> getHtmlColorNames();
+
+std::vector<std::string> getHexColorCodes();
+
 }
 
 #endif
