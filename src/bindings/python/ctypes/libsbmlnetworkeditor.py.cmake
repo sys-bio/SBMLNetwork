@@ -1,20 +1,23 @@
 import ctypes
+import os
 import platform
 
+lib_path = os.path.dirname(os.path.abspath(__file__))
+shared_lib = lib_path
 current_platform = platform.system()
 if current_platform == 'Windows':
-    lib_path = "./libsbmlnetworkeditor.dll"
+    shared_lib = os.path.join(lib_path, "libsbmlnetworkeditor.dll")
 elif current_platform == 'Linux':
-    lib_path = "./libsbmlnetworkeditor.so"
+    shared_lib = os.path.join(lib_path, "libsbmlnetworkeditor.so")
 elif current_platform == 'Darwin':
-    lib_path = "./libsbmlnetworkeditor." + "${LIBSBML_NETWORKEDITOR_DOTTED_VERSION}" + ".dylib"
+    shared_lib = os.path.join(lib_path, "libsbmlnetworkeditor." + "${LIBSBML_NETWORKEDITOR_DOTTED_VERSION}" + ".dylib")
 else:
     raise Exception(f"Unsupported platform: {current_platform}")
     
 class SBMLDocument(ctypes.Structure):
     pass
 
-lib = ctypes.CDLL(lib_path)
+lib = ctypes.CDLL(shared_lib)
 
 class LibSBMLNetworkEditor:
     """

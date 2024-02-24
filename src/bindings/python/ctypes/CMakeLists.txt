@@ -1,5 +1,5 @@
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libsbmlnetworkeditor.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py)
-file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/__init__.py)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/__init__.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/__init__.py)
 
 install(TARGETS sbmlnetworkeditor DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
 
