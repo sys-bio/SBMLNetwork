@@ -694,18 +694,18 @@ int setEnableRotationalMapping(LineEnding* lineEnding, const bool& enableRotatio
     return -1;
 }
 
-BoundingBox* getBoundingBoxOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
-    return getBoundingBoxOfLineEnding(getLineEnding(renderInformationBase, sid));
+BoundingBox* getLineEndingBoundingBox(RenderInformationBase* renderInformationBase, const std::string& sid) {
+    return getLineEndingBoundingBox(getLineEnding(renderInformationBase, sid));
 }
 
-BoundingBox* getBoundingBoxOfLineEnding(LineEnding* lineEnding) {
+BoundingBox* getLineEndingBoundingBox(LineEnding* lineEnding) {
     if (lineEnding)
         return lineEnding->getBoundingBox();
 
     return NULL;
 }
 
-RenderGroup* getRenderGroupOfLineEnding(RenderInformationBase* renderInformationBase, const std::string& sid) {
+RenderGroup* getLineEndingRenderGroup(RenderInformationBase* renderInformationBase, const std::string& sid) {
     return getRenderGroup(getLineEnding(renderInformationBase, sid));
 }
 
@@ -2723,19 +2723,19 @@ int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAb
 }
 
 bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
-    return isSetGeometricShapeX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+    return isSetGeometricShapeCenterX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
 
 bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
-    return isSetGeometricShapeX(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+    return isSetGeometricShapeCenterX(getStyle(renderInformationBase, attribute), geometricShapeIndex);
 }
 
 bool isSetGeometricShapeCenterX(Style* style, unsigned int geometricShapeIndex) {
-    return isSetGeometricShapeX(getRenderGroup(style), geometricShapeIndex);
+    return isSetGeometricShapeCenterX(getRenderGroup(style), geometricShapeIndex);
 }
 
 bool isSetGeometricShapeCenterX(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
-    return isSetGeometricShapeX(getGeometricShape(renderGroup, geometricShapeIndex));
+    return isSetGeometricShapeCenterX(getGeometricShape(renderGroup, geometricShapeIndex));
 }
 
 bool isSetGeometricShapeCenterX(Transformation2D* shape) {
@@ -3198,11 +3198,11 @@ const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInform
 }
 
 const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
-    return getGeometricShapeElementX(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex);
+    return getGeometricShapeElementY(getStyle(renderInformationBase, attribute), geometricShapeIndex, elementIndex);
 }
 
 const RelAbsVector getGeometricShapeElementY(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex) {
-    return getGeometricShapeElementX(getRenderGroup(style), geometricShapeIndex, elementIndex);
+    return getGeometricShapeElementY(getRenderGroup(style), geometricShapeIndex, elementIndex);
 }
 
 const RelAbsVector getGeometricShapeElementY(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex) {

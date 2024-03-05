@@ -1,6 +1,7 @@
 #include "libsbml_ne_sbmldocument_render.h"
 #include "libsbml_ne_sbmldocument_layout.h"
 #include "libsbml_ne_layout_render.h"
+#include "libsbml_ne_layout.h"
 #include "libsbml_ne_render.h"
 #include "libsbml_ne_render_helpers.h"
 
@@ -157,6 +158,17 @@ const unsigned int getNumColorDefinitions(SBMLDocument* document, unsigned int r
     return getNumColorDefinitions(getLocalRenderInformation(document, 0, renderIndex));
 }
 
+const std::string getNthColorDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int colorIndex) {
+    ColorDefinition* colorDefinition = getColorDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex);
+    if (colorDefinition)
+        return colorDefinition->getId();
+    colorDefinition = getColorDefinition(getLocalRenderInformation(document, 0, renderIndex), colorIndex);
+    if (colorDefinition)
+        return colorDefinition->getId();
+
+    return "";
+}
+
 ColorDefinition* getColorDefinition(SBMLDocument* document, const std::string& sid) {
     for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
         if (getColorDefinition(getGlobalRenderInformation(document, i), sid))
@@ -213,6 +225,17 @@ const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned in
         return getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex));
 
     return getNumGradientDefinitions(getLocalRenderInformation(document, 0, renderIndex));
+}
+
+const std::string getNthGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
+    GradientBase* gradientDefinition = getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex);
+    if (gradientDefinition)
+        return gradientDefinition->getId();
+    gradientDefinition = getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), gradientIndex);
+    if (gradientDefinition)
+        return gradientDefinition->getId();
+
+    return "";
 }
 
 GradientBase* getGradientDefinition(SBMLDocument* document, const std::string& sid) {
@@ -585,6 +608,17 @@ const unsigned int getNumLineEndings(SBMLDocument* document, unsigned int render
     return getNumLineEndings(getLocalRenderInformation(document, 0, renderIndex));
 }
 
+const std::string getNthLineEndingId(SBMLDocument* document, unsigned int renderIndex, unsigned int lineEndingIndex) {
+    LineEnding* lineEnding = getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex);
+    if (lineEnding)
+        return lineEnding->getId();
+    lineEnding = getLineEnding(getLocalRenderInformation(document, 0, renderIndex), lineEndingIndex);
+    if (lineEnding)
+        return lineEnding->getId();
+
+    return "";
+}
+
 LineEnding* getLineEnding(SBMLDocument* document, const std::string& sid) {
     for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
         if (getLineEnding(getGlobalRenderInformation(document, i), sid))
@@ -636,21 +670,806 @@ int setEnableRotationalMapping(SBMLDocument* document, unsigned int renderIndex,
     return setEnableRotationalMapping(getLineEnding(document, renderIndex, sid), enableRotationalMapping);
 }
 
-BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, const std::string& sid) {
-    return getBoundingBoxOfLineEnding(getLineEnding(document, sid));
+BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, const std::string& sid) {
+    return getLineEndingBoundingBox(getLineEnding(document, sid));
 }
 
-BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
-    return getBoundingBoxOfLineEnding(getLineEnding(document, renderIndex, sid));
+BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getLineEndingBoundingBox(getLineEnding(document, renderIndex, sid));
 }
 
-RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, const std::string& sid) {
+const double getLineEndingBoundingBoxX(SBMLDocument* document, const std::string& sid) {
+    return getPositionX(getLineEndingBoundingBox(document, sid));
+}
+
+const double getLineEndingBoundingBoxX(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getPositionX(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+int setLineEndingBoundingBoxX(SBMLDocument* document, const std::string& sid, double x) {
+    return setPositionX(getLineEndingBoundingBox(document, sid), x);
+}
+
+int setLineEndingBoundingBoxX(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double x) {
+    return setPositionX(getLineEndingBoundingBox(document, renderIndex, sid), x);
+}
+
+const double getLineEndingBoundingBoxY(SBMLDocument* document, const std::string& sid) {
+    return getPositionY(getLineEndingBoundingBox(document, sid));
+}
+
+const double getLineEndingBoundingBoxY(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getPositionY(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+int setLineEndingBoundingBoxY(SBMLDocument* document, const std::string& sid, double y) {
+    return setPositionY(getLineEndingBoundingBox(document, sid), y);
+}
+
+int setLineEndingBoundingBoxY(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double y) {
+    return setPositionY(getLineEndingBoundingBox(document, renderIndex, sid), y);
+}
+
+const double getLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& sid) {
+    return getDimensionWidth(getLineEndingBoundingBox(document, sid));
+}
+
+const double getLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+int setLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& sid, double width) {
+    return setDimensionWidth(getLineEndingBoundingBox(document, sid), width);
+}
+
+int setLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double width) {
+    return setDimensionWidth(getLineEndingBoundingBox(document, renderIndex, sid), width);
+}
+
+const double getLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& sid) {
+    return getDimensionHeight(getLineEndingBoundingBox(document, sid));
+}
+
+const double getLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+    return getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+int setLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& sid, double height) {
+    return setDimensionHeight(getLineEndingBoundingBox(document, sid), height);
+}
+
+int setLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double height) {
+    return setDimensionHeight(getLineEndingBoundingBox(document, renderIndex, sid), height);
+}
+
+RenderGroup* getLineEndingRenderGroup(SBMLDocument* document, const std::string& sid) {
     return getRenderGroup(getLineEnding(document, sid));
 }
 
-RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
+RenderGroup* getLineEndingRenderGroup(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
     return getRenderGroup(getLineEnding(document, renderIndex, sid));
 }
+
+bool isSetLineEndingStrokeColor(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id))))
+        return isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return isSetStrokeColor(getLineEndingRenderGroup(document, id));
+}
+
+bool isSetLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
+       return isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return isSetStrokeColor(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+const std::string getLineEndingStrokeColor(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
+        return getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return getStrokeColor(getLineEndingRenderGroup(document, id));
+}
+
+const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
+        return getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return getStrokeColor(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& strokeColor) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeColor);
+
+    return setStrokeColor(getLineEndingRenderGroup(document, id), strokeColor);
+}
+
+int setLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& strokeColor) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeColor);
+
+    return setStrokeColor(getLineEndingRenderGroup(document, renderIndex, id), strokeColor);
+}
+
+bool isSetLineEndingStrokeWidth(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id))))
+        return isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return isSetStrokeWidth(getLineEndingRenderGroup(document, id));
+}
+
+bool isSetLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
+        return isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return isSetStrokeWidth(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+const double getLineEndingStrokeWidth(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id))) > 0.01)
+        return getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return getStrokeWidth(getLineEndingRenderGroup(document, id));
+}
+
+const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))) > 0.01)
+        return getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return getStrokeWidth(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+int setLineEndingStrokeWidth(SBMLDocument* document, const std::string& id, double strokeWidth) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeWidth);
+
+    return setStrokeWidth(getLineEndingRenderGroup(document, id), strokeWidth);
+}
+
+int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, double strokeWidth) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeWidth);
+
+    return setStrokeWidth(getLineEndingRenderGroup(document, renderIndex, id), strokeWidth);
+}
+
+bool isSetLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id))))
+        return isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return isSetStrokeDashArray(getLineEndingRenderGroup(document, id));
+}
+
+bool isSetLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
+        return isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return isSetStrokeDashArray(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
+        return getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return getStrokeDashArray(getLineEndingRenderGroup(document, id));
+}
+
+const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
+        return getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return getStrokeDashArray(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+int setLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id, const std::vector<unsigned int>& strokeDashArray) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeDashArray);
+
+    return setStrokeDashArray(getLineEndingRenderGroup(document, id), strokeDashArray);
+}
+
+int setLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::vector<unsigned int>& strokeDashArray) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeDashArray);
+
+    return setStrokeDashArray(getLineEndingRenderGroup(document, renderIndex, id), strokeDashArray);
+}
+
+unsigned int getNumLineEndingStrokeDashes(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return getNumStrokeDashes(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return getNumStrokeDashes(getLineEndingRenderGroup(document, id));
+}
+
+unsigned int getNumLineEndingStrokeDashes(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return getNumStrokeDashes(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return getNumStrokeDashes(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+unsigned int getLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return getStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dashIndex);
+
+    return getStrokeDash(getLineEndingRenderGroup(document, id), dashIndex);
+}
+
+unsigned int getLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dashIndex) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return getStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), dashIndex);
+
+    return getStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dashIndex);
+}
+
+int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex, unsigned int dash) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dashIndex, dash);
+
+    return setStrokeDash(getLineEndingRenderGroup(document, id), dashIndex, dash);
+}
+
+int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dashIndex, unsigned int dash) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), dashIndex, dash);
+
+    return setStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dashIndex, dash);
+}
+
+bool isSetLineEndingFillColor(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, id))))
+        return isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return isSetFillColor(getLineEndingRenderGroup(document, id));
+}
+
+bool isSetLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
+        return isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return isSetFillColor(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+const std::string getLineEndingFillColor(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getFillColor(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
+        return getFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return getFillColor(getLineEndingRenderGroup(document, id));
+}
+
+const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
+        return getFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return getFillColor(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fillColor) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)), fillColor);
+
+    return setFillColor(getLineEndingRenderGroup(document, id), fillColor);
+}
+
+int setLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillColor) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), fillColor);
+
+    return setFillColor(getLineEndingRenderGroup(document, renderIndex, id), fillColor);
+}
+
+bool isSetLineEndingFillRule(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, id))))
+        return isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return isSetFillRule(getLineEndingRenderGroup(document, id));
+}
+
+bool isSetLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
+        return isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return isSetFillRule(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+const std::string getLineEndingFillRule(SBMLDocument* document, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getFillRule(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
+        return getFillRule(getGeometricShape(getLineEndingRenderGroup(document, id)));
+
+    return getFillRule(getLineEndingRenderGroup(document, id));
+}
+
+const std::string getLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
+        return getFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
+
+    return getFillRule(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+int setLineEndingFillRule(SBMLDocument* document, const std::string& id, const std::string& fillRule) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setFillRule(getGeometricShape(getLineEndingRenderGroup(document, id)), fillRule);
+
+    return setFillRule(getLineEndingRenderGroup(document, id), fillRule);
+}
+
+int setLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillRule) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), fillRule);
+
+    return setFillRule(getLineEndingRenderGroup(document, renderIndex, id), fillRule);
+}
+
+unsigned int getNumLineEndingGeometricShapes(SBMLDocument* document, const std::string& id) {
+    return getNumGeometricShapes(getLineEndingRenderGroup(document, id));
+}
+
+unsigned int getNumLineEndingGeometricShapes(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
+    return getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id));
+}
+
+bool isLineEndingRectangle(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isRectangle(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
+}
+
+bool isLineEndingRectangle(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isRectangle(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isLineEndingEllipse(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isEllipse(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
+}
+
+bool isLineEndingEllipse(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isEllipse(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isLineEndingPolygon(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isPolygon(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
+}
+
+bool isLineEndingPolygon(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isPolygon(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isLineEndingImage(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isImage(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
+}
+
+bool isLineEndingImage(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isImage(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isLineEndingRenderCurve(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isRenderCurve(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
+}
+
+bool isLineEndingRenderCurve(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isRenderCurve(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isLineEndingText(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isText(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
+}
+
+bool isLineEndingText(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isText(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isSetLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x) {
+    return setGeometricShapeX(getLineEndingRenderGroup(document, id), geometricShapeIndex, x);
+}
+
+int setLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x) {
+    return setGeometricShapeX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, x);
+}
+
+bool isSetLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y) {
+    return setGeometricShapeY(getLineEndingRenderGroup(document, id), geometricShapeIndex, y);
+}
+
+int setLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y) {
+    return setGeometricShapeY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, y);
+}
+
+bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeWidth(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeWidth(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeWidth(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeWidth(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& width) {
+    return setGeometricShapeWidth(getLineEndingRenderGroup(document, id), geometricShapeIndex, width);
+}
+
+int setLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& width) {
+    return setGeometricShapeWidth(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, width);
+}
+
+bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHeight(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHeight(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHeight(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHeight(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& height) {
+    return setGeometricShapeHeight(getLineEndingRenderGroup(document, id), geometricShapeIndex, height);
+}
+
+int setLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& height) {
+    return setGeometricShapeHeight(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, height);
+}
+
+bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRatio(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRatio(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const double getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRatio(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const double getLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRatio(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, double ratio) {
+    return setGeometricShapeRatio(getLineEndingRenderGroup(document, id), geometricShapeIndex, ratio);
+}
+
+int setLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, double ratio) {
+    return setGeometricShapeRatio(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, ratio);
+}
+
+bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusX) {
+    return setGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex, cornerCurvatureRadiusX);
+}
+
+int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusX) {
+    return setGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, cornerCurvatureRadiusX);
+}
+
+bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusY) {
+    return setGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex, cornerCurvatureRadiusY);
+}
+
+int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusY) {
+    return setGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, cornerCurvatureRadiusY);
+}
+
+bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
+    return setGeometricShapeCenterX(getLineEndingRenderGroup(document, id), geometricShapeIndex, centerX);
+}
+
+int setLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
+    return setGeometricShapeCenterX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, centerX);
+}
+
+bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
+    return setGeometricShapeCenterY(getLineEndingRenderGroup(document, id), geometricShapeIndex, centerY);
+}
+
+int setLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
+    return setGeometricShapeCenterY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, centerY);
+}
+
+bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    return setGeometricShapeRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex, radiusX);
+}
+
+int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    return setGeometricShapeRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, radiusX);
+}
+
+bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    return setGeometricShapeRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex, radiusY);
+}
+
+int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    return setGeometricShapeRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, radiusY);
+}
+
+const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeNumElements(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeNumElements(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex);
+}
+
+bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementX(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex);
+}
+
+int setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, x);
+}
+
+int setLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, x);
+}
+
+const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementY(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex);
+}
+
+int setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, y);
+}
+
+int setLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, y);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1X(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
+    return setGeometricShapeBasePoint1X(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
+    return setGeometricShapeBasePoint1X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1Y(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
+    return setGeometricShapeBasePoint1Y(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
+    return setGeometricShapeBasePoint1Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2X(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
+    return setGeometricShapeBasePoint2X(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
+    return setGeometricShapeBasePoint2X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2Y(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
+    return setGeometricShapeBasePoint2Y(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
+    return setGeometricShapeBasePoint2Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHref(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHref(getLineEndingRenderGroup(document, id), geometricShapeIndex);
+}
+
+const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+int setLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& href) {
+    return setGeometricShapeHref(getLineEndingRenderGroup(document, id), geometricShapeIndex, href);
+}
+
+int setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& href) {
+    return setGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, href);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
@@ -780,7 +1599,7 @@ RenderGroup* getRenderGroup(SBMLDocument* document, unsigned int renderIndex, co
 
 bool isSetStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetStrokeColor(getGeometricShape(style)))
         return isSetStrokeColor(getGeometricShape(style));
 
     return isSetStrokeColor(style);
@@ -788,7 +1607,7 @@ bool isSetStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject) 
 
 bool isSetStrokeColor(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetStrokeColor(getGeometricShape(style)))
         return isSetStrokeColor(getGeometricShape(style));
 
     return isSetStrokeColor(style);
@@ -796,7 +1615,7 @@ bool isSetStrokeColor(SBMLDocument* document, const std::string& attribute) {
 
 const std::string getStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
         return getStrokeColor(getGeometricShape(style));
 
     return getStrokeColor(style);
@@ -804,7 +1623,7 @@ const std::string getStrokeColor(SBMLDocument* document, GraphicalObject* graphi
 
 const std::string getStrokeColor(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
         return getStrokeColor(getGeometricShape(style));
 
     return getStrokeColor(style);
@@ -828,7 +1647,7 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
 
 bool isSetStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetStrokeWidth(getGeometricShape(style)))
         return isSetStrokeWidth(getGeometricShape(style));
 
     return isSetStrokeWidth(style);
@@ -836,7 +1655,7 @@ bool isSetStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) 
 
 bool isSetStrokeWidth(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetStrokeWidth(getGeometricShape(style)))
         return isSetStrokeWidth(getGeometricShape(style));
 
     return isSetStrokeWidth(style);
@@ -844,7 +1663,7 @@ bool isSetStrokeWidth(SBMLDocument* document, const std::string& attribute) {
 
 const double getStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
         return getStrokeWidth(getGeometricShape(style));
 
     return getStrokeWidth(style);
@@ -852,7 +1671,7 @@ const double getStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalOb
 
 const double getStrokeWidth(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
         return getStrokeWidth(getGeometricShape(style));
 
     return getStrokeWidth(style);
@@ -876,7 +1695,7 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
 
 bool isSetStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetStrokeDashArray(getGeometricShape(style)))
         return isSetStrokeDashArray(getGeometricShape(style));
 
     return isSetStrokeDashArray(style);
@@ -884,7 +1703,7 @@ bool isSetStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObje
 
 bool isSetStrokeDashArray(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetStrokeDashArray(getGeometricShape(style)))
         return isSetStrokeDashArray(getGeometricShape(style));
 
     return isSetStrokeDashArray(style);
@@ -892,7 +1711,7 @@ bool isSetStrokeDashArray(SBMLDocument* document, const std::string& attribute) 
 
 const std::vector<unsigned int> getStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && getStrokeDashArray(getGeometricShape(style)).size())
         return getStrokeDashArray(getGeometricShape(style));
 
     return getStrokeDashArray(style);
@@ -900,7 +1719,7 @@ const std::vector<unsigned int> getStrokeDashArray(SBMLDocument* document, Graph
 
 const std::vector<unsigned int> getStrokeDashArray(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && getStrokeDashArray(getGeometricShape(style)).size())
         return getStrokeDashArray(getGeometricShape(style));
 
     return getStrokeDashArray(style);
@@ -924,7 +1743,7 @@ int setStrokeDashArray(SBMLDocument* document, const std::string& attribute, con
 
 unsigned int getNumStrokeDashes(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && getNumStrokeDashes(getGeometricShape(style)))
         return getNumStrokeDashes(getGeometricShape(style));
 
     return getNumStrokeDashes(style);
@@ -932,7 +1751,7 @@ unsigned int getNumStrokeDashes(SBMLDocument* document, GraphicalObject* graphic
 
 unsigned int getNumStrokeDashes(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && getNumStrokeDashes(getGeometricShape(style)))
         return getNumStrokeDashes(getGeometricShape(style));
 
     return getNumStrokeDashes(style);
@@ -1408,7 +2227,7 @@ int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const s
 
 bool isSetFillColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
         return isSetFillColor(getGeometricShape(style));
 
     return isSetFillColor(style);
@@ -1416,7 +2235,7 @@ bool isSetFillColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
 
 bool isSetFillColor(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
         return isSetFillColor(getGeometricShape(style));
 
     return isSetFillColor(style);
@@ -1424,7 +2243,7 @@ bool isSetFillColor(SBMLDocument* document, const std::string& attribute) {
 
 const std::string getFillColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
         return getFillColor(getGeometricShape(style));
 
     return getFillColor(style);
@@ -1432,7 +2251,7 @@ const std::string getFillColor(SBMLDocument* document, GraphicalObject* graphica
 
 const std::string getFillColor(SBMLDocument* document, const std::string& attribute) {
     Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
         return getFillColor(getGeometricShape(style));
 
     return getFillColor(style);
@@ -2036,6 +2855,14 @@ const unsigned int getGeometricShapeNumElements(SBMLDocument* document, Graphica
 
 const unsigned int getGeometricShapeNumElements(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     return getGeometricShapeNumElements(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isGeometricShapeElementCubicBezier(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+}
+
+bool isGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getStyle(document, attribute), geometricShapeIndex, elementIndex);
 }
 
 const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
