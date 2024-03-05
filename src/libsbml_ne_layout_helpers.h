@@ -84,6 +84,8 @@ bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction);
 
 bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
 
+const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);

@@ -159,6 +159,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setBackgroundColor(SBMLDocument* document, unsi
 /// @return the number of ColorDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumColorDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
 
+/// @brief Returns the id of the nth ColorDefinition object of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param colorIndex the of the ColorDefinition.
+/// @return the id of the nth ColorDefinition object in the ListOfColorDefinitions within this RenderInformationBase, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
+
 /// @brief Returns a ColorDefinition from all RenderInformationBase objects of the SBML document based on its identifier.
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the ColorDefinition to retrieve.
@@ -228,6 +235,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setValue(SBMLDocument* document, unsigned int r
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @return the number of GradientDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
+
+/// @brief Returns the id of the nth GradientDefinition object of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param gradientIndex the of the GradientDefinition.
+/// @return the id of the nth GradientDefinition object in the ListOfGradientDefinitions within this RenderInformationBase, or @c "" if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
 
 /// @brief Returns a GradientBase from all the RenderInformationBase objects of the SBML document based on its identifier.
 /// @param document a pointer to the SBMLDocument object.
@@ -863,6 +877,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int setRadialGradientR(SBMLDocument* document, unsi
 /// @return the number of LineEndings of this RenderInformationBase object, or @c 0 if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getNumLineEndings(SBMLDocument* document, unsigned int renderIndex = 0);
 
+/// @brief Returns the id of the nth LineEnding of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param lineEndingIndex the index number of the LineEnding to return.
+/// @return the id of the nth LineEnding of this RenderInformationBase object, or @c NULL if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getNthLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0);
+
 /// @brief Returns a LineEnding from all the RenderInformationBase objects of the SBML document based on its identifier.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the @c LineEnding in the ListOfLineEndings within this RenderInformationBase with the given sid or @c NULL if no such LineEnding exists.
@@ -932,27 +953,713 @@ LIBSBML_NETWORKEDITOR_EXTERN int setEnableRotationalMapping(SBMLDocument* docume
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, const std::string& sid);
 
-/// Returns the bounding box for the LineEnding with the given identifier in the render information base with the givne index of the SBML document.
+/// Returns the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the bounding box for the LineEnding object, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getBoundingBoxOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// Returns the value of the "x" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "x" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxX(SBMLDocument* document, const std::string& sid);
+
+/// Returns the value of the "x" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "x" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxX(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// Sets the value of the "x" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param x a double to use as the value of the "x" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxX(SBMLDocument* document, const std::string& sid, double x);
+
+/// Sets the value of the "x" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param x a double to use as the value of the "x" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxX(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double x);
+
+/// Returns the value of the "y" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "y" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxY(SBMLDocument* document, const std::string& sid);
+
+/// Returns the value of the "y" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "y" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxY(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// Sets the value of the "y" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param y a double to use as the value of the "y" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxY(SBMLDocument* document, const std::string& sid, double y);
+
+/// Sets the value of the "y" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param y a double to use as the value of the "y" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxY(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double y);
+
+/// Returns the value of the "width" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "width" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& sid);
+
+/// Returns the value of the "width" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "width" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// Sets the value of the "width" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param width a double to use as the value of the "width" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& sid, double width);
+
+/// Sets the value of the "width" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param width a double to use as the value of the "width" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double width);
+
+/// Returns the value of the "height" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "height" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& sid);
+
+/// Returns the value of the "height" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return the value of the "height" attribute of the bounding box for this LineEnding, or @c RelAbsVector() if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// Sets the value of the "height" attribute of the bounding box for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param height a double to use as the value of the "height" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& sid, double height);
+
+/// Sets the value of the "height" attribute of the bounding box for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param height a double to use as the value of the "height" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double height);
 
 /// Returns the value of the "group" element of the LineEnding with the given identifier.
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getLineEndingRenderGroup(SBMLDocument* document, const std::string& sid);
 
 /// Returns the value of the "group" element of the LineEnding with the given identifier in the render information base with the givne index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
 /// @return the value of the "group" element of this LineEnding as a RenderGroup, or @c NULL if the object is @c NULL
-LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getRenderGroupOfLineEnding(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+LIBSBML_NETWORKEDITOR_EXTERN RenderGroup* getLineEndingRenderGroup(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "stroke" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingStrokeColor(SBMLDocument* document, const std::string& id);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "stroke" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "stroke" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingStrokeColor(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "stroke" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param stroke a string to use as the value of the "stroke" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param stroke a string to use as the value of the "stroke" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& stroke);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "stroke-width" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke-width"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingStrokeWidth(SBMLDocument* document, const std::string& id);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "stroke-width" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke-width"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "stroke-width" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingStrokeWidth(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "stroke-width" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeWidth a double to use as the value of the "stroke-width" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeWidth(SBMLDocument* document, const std::string& id, double strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeWidth a double to use as the value of the "stroke-width" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, double strokeWidth);
+
+/// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke-dasharray"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id);
+
+/// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke-dasharray"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Returns the value of the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the value of the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Sets the value of the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeDashArray a vector of unsigned integers to use as the value of the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id, const std::vector<unsigned int>& strokeDashArray);
+
+/// @brief Sets the value of the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeDashArray a vector of unsigned integers to use as the value of the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::vector<unsigned int>& strokeDashArray);
+
+/// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the size of the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumLineEndingStrokeDashes(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the size of the "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, or @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumLineEndingStrokeDashes(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int strokeDashIndex = 0);
+
+/// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, @c 0 if the object is @c NULL
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int strokeDashIndex = 0);
+
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dash);
+
+/// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dash);
+
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int strokeDashIndex, unsigned int dash);
+
+/// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int strokeDashIndex, unsigned int dash);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "fill" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingFillColor(SBMLDocument* document, const std::string& id);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "fill" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Returns the value of the "fill" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "fill" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingFillColor(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the value of the "fill" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "fill" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param fill a string to use as the value of the "fill" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fill);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param fill a string to use as the value of the "fill" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fill);
+
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "fill-rule" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill-rule"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingFillRule(SBMLDocument* document, const std::string& id);
+
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return @c true if the "fill-rule" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill-rule"
+/// attribute is not set or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "fill-rule" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingFillRule(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the "fill-rule" attribute of the RenderGroup for this LineEnding object, or @c NULL if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Sets the value of the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param fillRule a string to use as the value of the "fill-rule" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingFillRule(SBMLDocument* document, const std::string& id, const std::string& fillRule);
+
+/// @brief Sets the value of the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param fillRule a string to use as the value of the "fill-rule" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillRule);
+
+/// @brief Returns number of Transformation2D objects in the RenderGroup for the LineEnding with the given identifier
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the number of Transformation2D objects in the RenderGroup for this LineEnding object, or @c 0 if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumLineEndingGeometricShapes(SBMLDocument* document, const std::string& id);
+
+/// @brief Returns number of Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @return the number of Transformation2D objects in the RenderGroup for this LineEnding object, or @c 0 if the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN unsigned int getNumLineEndingGeometricShapes(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Rectangle.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingRectangle(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Rectangle.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingRectangle(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Ellipse.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingEllipse(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Ellipse.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingEllipse(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Polygon.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingPolygon(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Polygon.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingPolygon(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Image.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingImage(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Image.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingImage(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type RenderCurve.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingRenderCurve(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type RenderCurve.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingRenderCurve(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Text.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingText(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Text.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingText(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& x);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& y);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& y);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& width);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& width);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& height);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& height);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const double getLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, double ratio);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, double ratio);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerX);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerX);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerY);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerY);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
+
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const std::string& href);
+
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
@@ -2548,6 +3255,24 @@ LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(SBM
 /// @return the number of elements of the Transformation2D object at the given index of the RenderGroup of this Style for this GraphicalObject, or @c 0 if
 /// either Transformation2D object does not exists, does not have any elements, or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getGeometricShapeNumElements(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is a CubicBezier object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the element at the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is a CubicBezier object,
+/// @c false if either the Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isGeometricShapeElementCubicBezier(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
+
+/// @brief Predicates returning @c true if the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is a CubicBezier object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @return @c true if the element at the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is a CubicBezier object,
+/// @c false if either the Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
+LIBSBML_NETWORKEDITOR_EXTERN bool isGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.

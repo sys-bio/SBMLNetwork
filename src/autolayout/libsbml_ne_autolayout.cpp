@@ -177,9 +177,17 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *r
         compartmentGlyphBoundingBox->setX(reactionCenterX - padding);
     }
     if (reactionCenterY - padding < compartmentGlyphBoundingBox->y()) {
-        compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->height() +
+        compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height() +
                                               (compartmentGlyphBoundingBox->y() - (reactionCenterY - padding)));
         compartmentGlyphBoundingBox->setY(reactionCenterY - padding);
+    }
+    if (reactionCenterX + padding > compartmentGlyphBoundingBox->x() + compartmentGlyphBoundingBox->width()) {
+        compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width()
+                                              + (reactionCenterX + padding) - (compartmentGlyphBoundingBox->x() + compartmentGlyphBoundingBox->width()));
+    }
+    if (reactionCenterY + padding > compartmentGlyphBoundingBox->y() + compartmentGlyphBoundingBox->height()) {
+        compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height()
+                                              + (reactionCenterY + padding) - (compartmentGlyphBoundingBox->y() + compartmentGlyphBoundingBox->height()));
     }
 }
 

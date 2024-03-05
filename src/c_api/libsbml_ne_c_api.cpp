@@ -36,6 +36,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return removeAllLayouts(document);
     }
 
+    int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const bool useMagnetism,
+                                  const bool useBoundary, const bool useGrid, const char **lockedNodeIds) {
+        std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
+        if (lockedNodeIds) {
+            for (int i; lockedNodeIds[i] != nullptr; i++)
+                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
+        }
+        return createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector);
+    }
+
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex);
     }
@@ -60,6 +70,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumGraphicalObjects(document, layoutIndex, id);
     }
 
+    const char* c_api_getNthGraphicalObjectId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        GraphicalObject* graphicalObject = getGraphicalObject(document, layoutIndex, entityId, graphicalObjectIndex);
+        if (graphicalObject)
+            return strdup(graphicalObject->getId().c_str());
+
+        return "";
+    }
+
+    const char* c_api_getNthGraphicalObjectMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        GraphicalObject* graphicalObject = getGraphicalObject(document, layoutIndex, entityId, graphicalObjectIndex);
+        if (graphicalObject)
+            return strdup(graphicalObject->getMetaId().c_str());
+
+        return "";
+    }
+
     const int c_api_getNumCompartments(SBMLDocument* document) {
         return getNumCompartments(document);
     }
@@ -76,8 +102,28 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumCompartmentGlyphs(document, layoutIndex, compartmentId);
     }
 
+    const char* c_api_getNthCompartmentGlyphId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex) {
+        CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(document, layoutIndex, compartmentId, compartmentGlyphIndex);
+        if (compartmentGlyph)
+            return strdup(compartmentGlyph->getId().c_str());
+
+        return "";
+    }
+
+    const char* c_api_getNthCompartmentGlyphMetaId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex) {
+        CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(document, layoutIndex, compartmentId, compartmentGlyphIndex);
+        if (compartmentGlyph)
+            return strdup(compartmentGlyph->getMetaId().c_str());
+
+        return "";
+    }
+
     bool c_api_isCompartmentGlyph(SBMLDocument* document, const char* compartmentId, int layoutIndex) {
         return isCompartmentGlyph(document, layoutIndex, compartmentId);
+    }
+
+    const char* c_api_getCompartmentId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getCompartmentId(document, layoutIndex, id, graphicalObjectIndex).c_str());
     }
 
     const int c_api_getNumSpecies(SBMLDocument* document) {
@@ -94,6 +140,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     const int c_api_getNumSpeciesGlyphs(SBMLDocument* document, const char* speciesId, int layoutIndex) {
         return getNumSpeciesGlyphs(document, layoutIndex, speciesId);
+    }
+
+    const char* c_api_getNthSpeciesGlyphId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex) {
+        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(document, layoutIndex, speciesId, speciesGlyphIndex);
+        if (speciesGlyph)
+            return strdup(speciesGlyph->getId().c_str());
+
+        return "";
+    }
+
+    const char* c_api_getNthSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex) {
+        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(document, layoutIndex, speciesId, speciesGlyphIndex);
+        if (speciesGlyph)
+            return strdup(speciesGlyph->getMetaId().c_str());
+
+        return "";
     }
 
     bool c_api_isSpeciesGlyph(SBMLDocument* document, const char* speciesId, int layoutIndex) {
@@ -114,6 +176,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     const int c_api_getNumReactionGlyphs(SBMLDocument* document, const char* reactionId, int layoutIndex) {
         return getNumReactionGlyphs(document, layoutIndex, reactionId);
+    }
+
+    const char* c_api_getNthReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+        ReactionGlyph* reactionGlyph = getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex);
+        if (reactionGlyph)
+            return strdup(reactionGlyph->getId().c_str());
+
+        return "";
+    }
+
+    const char* c_api_getNthReactionGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+        ReactionGlyph* reactionGlyph = getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex);
+        if (reactionGlyph)
+            return strdup(reactionGlyph->getMetaId().c_str());
+
+        return "";
     }
 
     bool c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex) {
@@ -152,36 +230,176 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumSpeciesReferenceGlyphs(document, layoutIndex, reactionId, reactionGlyphIndex);
     }
 
-    bool c_api_isSetRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
-        return isSetRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
+    const char* c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return strdup(getSpeciesReferenceSpeciesId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
     }
 
-    const char* c_api_getRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
-        return strdup(getRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex).c_str());
+    const char* c_api_getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return strdup(getSpeciesReferenceSpeciesGlyphId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
     }
 
-    int c_api_setRole(SBMLDocument* document, const char* reactionId, const char* role, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
-        return setRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, role);
+    bool c_api_isSetSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return isSetSpeciesReferenceRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
+    }
+
+    const char* c_api_getSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return strdup(getSpeciesReferenceRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex).c_str());
+    }
+
+    int c_api_setSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, const char* role, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return setSpeciesReferenceRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, role);
+    }
+
+    const int c_api_getNumSpeciesReferenceCurveSegments(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return getNumSpeciesReferenceCurveSegments(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    }
+
+    bool c_api_isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return isSpeciesReferenceCurveSegmentCubicBezier(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentStartPointX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentStartPointX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, x);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentStartPointY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentStartPointY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentEndPointX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentEndPointX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, x);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentEndPointY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentEndPointY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, x);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, x);
+    }
+
+    const double c_api_getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return getSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex);
+    }
+
+    int c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
+        return setSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
+    }
+
+    bool c_api_isSetSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return isSetStrokeColor(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
+    }
+
+    const char* c_api_getSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return strdup(getStrokeColor(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex)).c_str());
+    }
+
+    int c_api_setSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, const char* borderColor, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return setStrokeColor(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), borderColor);
+    }
+
+    bool c_api_isSetSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return isSetStrokeWidth(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
+    }
+
+    const double c_api_getSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return getStrokeWidth(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
+    }
+
+    int c_api_setSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, const double borderWidth, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return setStrokeWidth(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), borderWidth);
+    }
+
+    int c_api_getNumSpeciesReferenceBorderDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return getNumStrokeDashes(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
+    }
+
+    double c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int dashIndex, int layoutIndex) {
+        return getStrokeDash(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), dashIndex);
+    }
+
+    int c_api_setSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int dashIndex, int layoutIndex) {
+        return setStrokeDash(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), dashIndex, dash);
+    }
+
+    bool c_api_isSetSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return isSetStartHead(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
+    }
+
+    const char* c_api_getSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return strdup(getStartHead(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex)).c_str());
+    }
+
+    int c_api_setSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, const char* startHead, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return setStartHead(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), startHead);
+    }
+
+    bool c_api_isSetSpeciesReferenceEndHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return isSetEndHead(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
+    }
+
+    const char* c_api_getSpeciesReferenceEndHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return strdup(getEndHead(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex)).c_str());
+    }
+
+    int c_api_setSpeciesReferenceEndHead(SBMLDocument* document, const char* reactionId, const char* endHead, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        return setEndHead(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), endHead);
     }
 
     const int c_api_getNumAllTextGlyphs(SBMLDocument* document, int layoutIndex) {
         return getNumTextGlyphs(document, layoutIndex);
     }
 
-    const int c_api_getNumTextGlyphs(SBMLDocument* document, const char* id, int layoutIndex) {
-        return getNumTextGlyphs(document, layoutIndex, id);
+    const int c_api_getNumTextGlyphs(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return getNumTextGlyphs(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    const char* c_api_getText(SBMLDocument* document, const char* id, int textGlyphIndex, int layoutIndex) {
-        std::string text = getText(document, layoutIndex, id, textGlyphIndex);
+    const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        std::string text = getText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
         if (!text.empty()) {
            return strdup(text.c_str());
         }
-        text = getOriginOfTextId(document, layoutIndex, id, textGlyphIndex);
+        text = getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
         if (!text.empty()) {
             return strdup(text.c_str());
         }
-        text = getGraphicalObjectId(document, layoutIndex, id, textGlyphIndex);
+        text = getGraphicalObjectId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
         if (!text.empty()) {
             return strdup(text.c_str());
         }
@@ -189,11 +407,11 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return "";
     }
 
-    int c_api_setText(SBMLDocument* document, const char* id, const char* text, int textGlyphIndex, int layoutIndex) {
+    int c_api_setText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
         return setText(document, layoutIndex, id, textGlyphIndex, text);
     }
 
-    const double  c_api_getX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
+    const double c_api_getX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }
 
@@ -233,67 +451,71 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumCurveSegments(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    const double c_api_getCurveStartPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    bool c_api_isCurveSegmentCubicBezier(SBMLDocument* document, const std::string& id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+        return isCubicBezier(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
+    }
+
+    const double c_api_getCurveSegmentStartPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentStartPointX(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
-    
-    int c_api_setCurveStartPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+
+    int c_api_setCurveSegmentStartPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentStartPointX(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, x);
     }
     
-    const double c_api_getCurveStartPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentStartPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentStartPointY(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveStartPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentStartPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentStartPointY(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, y);
     }
     
-    const double c_api_getCurveEndPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentEndPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentEndPointX(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveEndPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentEndPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentEndPointX(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, x);
     }
     
-    const double c_api_getCurveEndPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentEndPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentEndPointY(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveEndPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentEndPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentEndPointY(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, y);
     }
     
-    const double c_api_getCurveBasePoint1X(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentBasePoint1X(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentBasePoint1X(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveBasePoint1X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentBasePoint1X(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, x);
     }
     
-    const double c_api_getCurveBasePoint1Y(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentBasePoint1Y(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentBasePoint1Y(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveBasePoint1Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentBasePoint1Y(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, y);
     }
     
-    const double c_api_getCurveBasePoint2X(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentBasePoint2X(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentBasePoint2X(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveBasePoint2X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentBasePoint2X(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, x);
     }
     
-    const double c_api_getCurveBasePoint2Y(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    const double c_api_getCurveSegmentBasePoint2Y(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return getCurveSegmentBasePoint2Y(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
     
-    int c_api_setCurveBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    int c_api_setCurveSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return setCurveSegmentBasePoint2Y(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex, y);
     }
 
@@ -320,6 +542,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return removeAllLocalRenderInformation(document, layoutIndex);
     }
 
+    int c_api_createDefaultGlobalRenderInformation(SBMLDocument* document) {
+        return createDefaultGlobalRenderInformation(document);
+    }
+
+    int c_api_createDefaultLocalRenderInformation(SBMLDocument* document) {
+        return createDefaultLocalRenderInformation(document);
+    }
+
     bool c_api_isSetBackgroundColor(SBMLDocument* document, int renderIndex) {
         return isSetBackgroundColor(document, renderIndex);
     }
@@ -336,6 +566,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumColorDefinitions(document, renderIndex);
     }
 
+    const char* c_api_getNthColorId(SBMLDocument* document, int colorIndex, int renderIndex) {
+        return strdup(getNthColorDefinitionId(document, renderIndex, colorIndex).c_str());
+    }
+
     bool c_api_isSetColorValue(SBMLDocument* document, const char* id, int renderIndex) {
         return isSetValue(document, renderIndex, id);
     }
@@ -348,391 +582,841 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setValue(document, renderIndex, id, value);
     }
 
-    bool c_api_isSetBorderColor(SBMLDocument* document, const char* id) {
-        return isSetStrokeColor(document, id);
+    const int c_api_getNumGradients(SBMLDocument* document, int renderIndex) {
+        return getNumGradientDefinitions(document, renderIndex);
     }
 
-    const char* c_api_getBorderColor(SBMLDocument* document, const char* id) {
-        return strdup(getStrokeColor(document, id).c_str());
+    const char* c_api_getNthGradientId(SBMLDocument* document, int gradientIndex, int renderIndex) {
+        return strdup(getNthGradientDefinitionId(document, renderIndex, gradientIndex).c_str());
     }
 
-    int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor) {
-        return setStrokeColor(document, id, borderColor);
+    const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex) {
+        return getNumLineEndings(document, renderIndex);
     }
 
-    bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id) {
-        return isSetStrokeWidth(document, id);
+    const char* c_api_getNthLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex) {
+        return strdup(getNthLineEndingId(document, renderIndex, lineEndingIndex).c_str());
     }
 
-    const double c_api_getBorderWidth(SBMLDocument* document, const char* id) {
-        return getStrokeWidth(document, id);
+    const double c_api_getLineEndingBoundingBoxX(SBMLDocument* document, const char* id, int renderIndex) {
+        return getLineEndingBoundingBoxX(document, renderIndex, id);
     }
 
-    int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth) {
-        return setStrokeWidth(document, id, borderWidth);
+    int c_api_setLineEndingBoundingBoxX(SBMLDocument* document, const char* id, const double x, int renderIndex) {
+        return setLineEndingBoundingBoxX(document, renderIndex, id, x);
     }
 
-    bool c_api_isSetFillColor(SBMLDocument* document, const char* id) {
-        return isSetFillColor(document, id);
+    const double c_api_getLineEndingBoundingBoxY(SBMLDocument* document, const char* id, int renderIndex) {
+        return getLineEndingBoundingBoxY(document, renderIndex, id);
     }
 
-    const char* c_api_getFillColor(SBMLDocument* document, const char* id) {
-        return strdup(getFillColor(document, id).c_str());
+    int c_api_setLineEndingBoundingBoxY(SBMLDocument* document, const char* id, const double y, int renderIndex) {
+        return setLineEndingBoundingBoxY(document, renderIndex, id, y);
     }
 
-    int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor) {
-        return setFillColor(document, id, fillColor);
+    const double c_api_getLineEndingBoundingBoxWidth(SBMLDocument* document, const char* id, int renderIndex) {
+        return getLineEndingBoundingBoxWidth(document, renderIndex, id);
     }
 
-    bool c_api_isSetFillRule(SBMLDocument* document, const char* id) {
-        return isSetFillRule(document, id);
+    int c_api_setLineEndingBoundingBoxWidth(SBMLDocument* document, const char* id, const double width, int renderIndex) {
+        return setLineEndingBoundingBoxWidth(document, renderIndex, id, width);
     }
 
-    const char* c_api_getFillRule(SBMLDocument* document, const char* id) {
-        return strdup(getFillRule(document, id).c_str());
+    const double c_api_getLineEndingBoundingBoxHeight(SBMLDocument* document, const char* id, int renderIndex) {
+        return getLineEndingBoundingBoxHeight(document, renderIndex, id);
     }
 
-    int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule) {
-        return setFillRule(document, id, fillRule);
+    int c_api_setLineEndingBoundingBoxHeight(SBMLDocument* document, const char* id, const double height, int renderIndex) {
+        return setLineEndingBoundingBoxHeight(document, renderIndex, id, height);
     }
 
-    bool c_api_isSetFontColor(SBMLDocument* document, const char* id) {
-        return isSetFontColor(document, id);
+    bool c_api_isSetLineEndingBorderColor(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLineEndingStrokeColor(document, renderIndex, id);
     }
 
-    const char* c_api_getFontColor(SBMLDocument* document, const char* id) {
-        return strdup(getFontColor(document, id).c_str());
+    const char* c_api_getLineEndingBorderColor(SBMLDocument* document, const char* id, int renderIndex) {
+        return strdup(getLineEndingStrokeColor(document, renderIndex, id).c_str());
     }
 
-    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor) {
-        return setFontColor(document, id, fontColor);
+    int c_api_setLineEndingBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int renderIndex) {
+        return setLineEndingStrokeColor(document, renderIndex, id, borderColor);
     }
 
-    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id) {
-        return isSetFontFamily(document, id);
+    bool c_api_isSetLineEndingBorderWidth(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLineEndingStrokeWidth(document, renderIndex, id);
     }
 
-    const char* c_api_getFontFamily(SBMLDocument* document, const char* id) {
-        return strdup(getFontFamily(document, id).c_str());
+    const double c_api_getLineEndingBorderWidth(SBMLDocument* document, const char* id, int renderIndex) {
+        return getLineEndingStrokeWidth(document, renderIndex, id);
     }
 
-    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily) {
-        return setFontFamily(document, id, fontFamily);
+    int c_api_setLineEndingBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int renderIndex) {
+        return setLineEndingStrokeWidth(document, renderIndex, id, borderWidth);
     }
 
-    bool c_api_isSetFontSize(SBMLDocument* document, const char* id) {
-        return isSetFontSize(document, id);
+    int c_api_getNumLineEndingBorderDashes(SBMLDocument* document, const char* id, int renderIndex) {
+        return getNumLineEndingStrokeDashes(document, renderIndex, id);
     }
 
-    const double c_api_getFontSize(SBMLDocument* document, const char* id) {
-        RelAbsVector fontSizeVector = getFontSize(document, id);
-        return fontSizeVector.getAbsoluteValue() + 0.5 * (c_api_getWidth(document, id) + c_api_getHeight(document, id)) * fontSizeVector.getRelativeValue();
+    const double c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int dashIndex, int renderIndex) {
+        return getLineEndingStrokeDash(document, renderIndex, id, dashIndex);
     }
 
-    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize) {
+    int c_api_setLineEndingNthBorderDash(SBMLDocument* document, const char* id, const int dash, int dashIndex, int renderIndex) {
+        return setLineEndingStrokeDash(document, renderIndex, id, dashIndex, dash);
+    }
+
+    bool c_api_isSetLineEndingFillColor(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLineEndingFillColor(document, renderIndex, id);
+    }
+
+    const char* c_api_getLineEndingFillColor(SBMLDocument* document, const char* id, int renderIndex) {
+        return strdup(getLineEndingFillColor(document, renderIndex, id).c_str());
+    }
+
+    int c_api_setLineEndingFillColor(SBMLDocument* document, const char* id, const char* fillColor, int renderIndex) {
+        return setLineEndingFillColor(document, renderIndex, id, fillColor);
+    }
+
+    bool c_api_isSetLineEndingFillRule(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLineEndingFillRule(document, renderIndex, id);
+    }
+
+    const char* c_api_getLineEndingFillRule(SBMLDocument* document, const char* id, int renderIndex) {
+        return strdup(getLineEndingFillRule(document, renderIndex, id).c_str());
+    }
+
+    int c_api_setLineEndingFillRule(SBMLDocument* document, const char* id, const char* fillRule, int renderIndex) {
+        return setLineEndingFillRule(document, renderIndex, id, fillRule);
+    }
+
+    const int c_api_getNumLineEndingGeometricShapes(SBMLDocument* document, const char* id, int renderIndex) {
+        return getNumLineEndingGeometricShapes(document, renderIndex, id);
+    }
+
+    bool c_api_isLineEndingRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingRectangle(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isLineEndingEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingEllipse(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isLineEndingPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingPolygon(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isLineEndingImage(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingImage(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isLineEndingRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingRenderCurve(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isLineEndingText(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingText(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeX(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector xVector = getLineEndingGeometricShapeX(document, id, geometricShapeIndex);
+        return xVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * xVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeX(SBMLDocument* document, const char* id, const double x, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setLineEndingGeometricShapeX(document, id, geometricShapeIndex, xVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeY(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector yVector = getLineEndingGeometricShapeY(document, id, geometricShapeIndex);
+        return yVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * yVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeY(SBMLDocument* document, const char* id, const double y, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setLineEndingGeometricShapeY(document, id, geometricShapeIndex, yVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeWidth(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector widthVector = getLineEndingGeometricShapeWidth(document, id, geometricShapeIndex);
+        return widthVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * widthVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector widthVector;
+        widthVector.setAbsoluteValue(width);
+        return setLineEndingGeometricShapeWidth(document, id, geometricShapeIndex, widthVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeHeight(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector heightVector = getLineEndingGeometricShapeHeight(document, id, geometricShapeIndex);
+        return heightVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * heightVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector heightVector;
+        heightVector.setAbsoluteValue(height);
+        return setLineEndingGeometricShapeHeight(document, id, geometricShapeIndex, heightVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeRatio(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return getLineEndingGeometricShapeRatio(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    int c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex, int renderIndex) {
+        return setLineEndingGeometricShapeRatio(document, renderIndex, id, geometricShapeIndex, ratio);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeCornerCurvatureRadiusX(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector borderRadiusXVector = getLineEndingGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex);
+        return borderRadiusXVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * borderRadiusXVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector borderRadiusXVector;
+        borderRadiusXVector.setAbsoluteValue(borderRadiusX);
+        return setLineEndingGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex, borderRadiusXVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeCornerCurvatureRadiusY(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector borderRadiusYVector = getLineEndingGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex);
+        return borderRadiusYVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * borderRadiusYVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector borderRadiusYVector;
+        borderRadiusYVector.setAbsoluteValue(borderRadiusY);
+        return setLineEndingGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex, borderRadiusYVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeCenterX(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector centerXVector = getLineEndingGeometricShapeCenterX(document, id, geometricShapeIndex);
+        return centerXVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * centerXVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector centerXVector;
+        centerXVector.setAbsoluteValue(centerX);
+        return setLineEndingGeometricShapeCenterX(document, id, geometricShapeIndex, centerXVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeCenterY(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector centerYVector = getLineEndingGeometricShapeCenterY(document, id, geometricShapeIndex);
+        return centerYVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * centerYVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector centerYVector;
+        centerYVector.setAbsoluteValue(centerY);
+        return setLineEndingGeometricShapeCenterY(document, id, geometricShapeIndex, centerYVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeRadiusX(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector radiusXVector = getLineEndingGeometricShapeRadiusX(document, id, geometricShapeIndex);
+        return radiusXVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * radiusXVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector radiusXVector;
+        radiusXVector.setAbsoluteValue(radiusX);
+        return setLineEndingGeometricShapeRadiusX(document, id, geometricShapeIndex, radiusXVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeRadiusY(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector radiusYVector = getLineEndingGeometricShapeRadiusY(document, id, geometricShapeIndex);
+        return radiusYVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * radiusYVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector radiusYVector;
+        radiusYVector.setAbsoluteValue(radiusY);
+        return setLineEndingGeometricShapeRadiusY(document, id, geometricShapeIndex, radiusYVector);
+    }
+
+    int c_api_getLineEndingGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return getLineEndingGeometricShapeNumElements(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    bool c_api_isLineEndingGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        return isLineEndingGeometricShapeElementCubicBezier(document, renderIndex, id, geometricShapeIndex, segmentIndex);
+    }
+
+    const double c_api_getLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector xVector = getLineEndingGeometricShapeElementX(document, id, geometricShapeIndex, segmentIndex);
+        return xVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * xVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setLineEndingGeometricShapeElementX(document, id, geometricShapeIndex, segmentIndex, xVector);
+    }
+
+    const double c_api_getLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector yVector = getLineEndingGeometricShapeElementY(document, id, geometricShapeIndex, segmentIndex);
+        return yVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * yVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setLineEndingGeometricShapeElementY(document, id, geometricShapeIndex, segmentIndex, yVector);
+    }
+
+    const double c_api_getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint1XVector = getLineEndingGeometricShapeBasePoint1X(document, id, geometricShapeIndex, segmentIndex);
+        return basePoint1XVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * basePoint1XVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint1XVector;
+        basePoint1XVector.setAbsoluteValue(x);
+        return setLineEndingGeometricShapeBasePoint1X(document, id, geometricShapeIndex, segmentIndex, basePoint1XVector);
+    }
+
+    const double c_api_getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint1YVector = getLineEndingGeometricShapeBasePoint1Y(document, id, geometricShapeIndex, segmentIndex);
+        return basePoint1YVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * basePoint1YVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint1YVector;
+        basePoint1YVector.setAbsoluteValue(y);
+        return setLineEndingGeometricShapeBasePoint1Y(document, id, geometricShapeIndex, segmentIndex, basePoint1YVector);
+    }
+
+    const double c_api_getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint2XVector = getLineEndingGeometricShapeBasePoint2X(document, id, geometricShapeIndex, segmentIndex);
+        return basePoint2XVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxWidth(document, id) * basePoint2XVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint2XVector;
+        basePoint2XVector.setAbsoluteValue(x);
+        return setLineEndingGeometricShapeBasePoint2X(document, id, geometricShapeIndex, segmentIndex, basePoint2XVector);
+    }
+
+    const double c_api_getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint2YVector = getLineEndingGeometricShapeBasePoint2Y(document, id, geometricShapeIndex, segmentIndex);
+        return basePoint2YVector.getAbsoluteValue() + 0.01 * c_api_getLineEndingBoundingBoxHeight(document, id) * basePoint2YVector.getRelativeValue();
+    }
+
+    int c_api_setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex, int renderIndex) {
+        RelAbsVector basePoint2YVector;
+        basePoint2YVector.setAbsoluteValue(y);
+        return setLineEndingGeometricShapeBasePoint2Y(document, id, geometricShapeIndex, segmentIndex, basePoint2YVector);
+    }
+
+    bool c_api_isSetLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return isSetLineEndingGeometricShapeHref(document, renderIndex, id, geometricShapeIndex);
+    }
+
+    const char* c_api_getLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
+        return strdup(getLineEndingGeometricShapeHref(document, renderIndex, id, geometricShapeIndex).c_str());
+    }
+
+    int c_api_setLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex, int renderIndex) {
+        return setLineEndingGeometricShapeHref(document, renderIndex, id, geometricShapeIndex, href);
+    }
+
+
+
+
+
+
+
+    bool c_api_isSetBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const char* c_api_getBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    }
+
+    int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex, int layoutIndex) {
+        return setStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderColor);
+    }
+
+    bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const double c_api_getBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return getStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex, int layoutIndex) {
+        return setStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderWidth);
+    }
+
+    int c_api_getNumBorderDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return getNumStrokeDashes(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const double c_api_getNthBorderDash(SBMLDocument* document, const char* id, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
+        return getStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex);
+    }
+
+    int c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
+        return setStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex, dash);
+    }
+
+    bool c_api_isSetFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const char* c_api_getFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    }
+
+    int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex, int layoutIndex) {
+        return setFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fillColor);
+    }
+
+    bool c_api_isSetFillRule(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFillRule(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const char* c_api_getFillRule(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getFillRule(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    }
+
+    int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule, int graphicalObjectIndex, int layoutIndex) {
+        return setFillRule(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fillRule);
+    }
+
+    bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    }
+
+    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex, int layoutIndex ) {
+        return setFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontColor);
+    }
+
+    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    }
+
+    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex, int layoutIndex) {
+        return setFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontFamily);
+    }
+
+    bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector fontSizeVector = getFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        return fontSizeVector.getAbsoluteValue() + (getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex) + getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex)) * fontSizeVector.getRelativeValue();
+    }
+
+    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector fontSizeVector;
         fontSizeVector.setAbsoluteValue(fontSize);
-        return setFontSize(document, id, fontSizeVector);
+        return setFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontSizeVector);
     }
 
-    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id) {
-        return isSetFontWeight(document, id);
+    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const char* c_api_getFontWeight(SBMLDocument* document, const char* id) {
-        return strdup(getFontWeight(document, id).c_str());
+    const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
-    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight) {
-        return setFontWeight(document, id, fontWeight);
+    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex, int layoutIndex) {
+        return setFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontWeight);
     }
 
-    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id) {
-        return isSetFontStyle(document, id);
+    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const char* c_api_getFontStyle(SBMLDocument* document, const char* id) {
-        return strdup(getFontStyle(document, id).c_str());
+    const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
-    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle) {
-        return setFontStyle(document, id, fontStyle);
+    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex, int layoutIndex) {
+        return setFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontStyle);
     }
 
-    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id) {
-        return isSetTextAnchor(document, id);
+    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id) {
-        return strdup(getTextAnchor(document, id).c_str());
+    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
-    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment) {
-        return setTextAnchor(document, id, textHorizontalAlignment);
+    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex, int layoutIndex) {
+        return setTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textHorizontalAlignment);
     }
 
-    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id) {
-        return isSetVTextAnchor(document, id);
+    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id) {
-        return strdup(getVTextAnchor(document, id).c_str());
+    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
-    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment) {
-        return setVTextAnchor(document, id, textVerticalAlignment);
+    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex, int layoutIndex) {
+        return setVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textVerticalAlignment);
     }
 
-    bool c_api_isSetStartHead(SBMLDocument* document, const char* id) {
-        return isSetStartHead(document, id);
+    bool c_api_isSetStartHead(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetStartHead(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const char* c_api_getStartHead(SBMLDocument* document, const char* id) {
-        return strdup(getStartHead(document, id).c_str());
+    const char* c_api_getStartHead(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getStartHead(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
-    int c_api_setStartHead(SBMLDocument* document, const char* id, const char* startHead) {
-        return setStartHead(document, id, startHead);
+    int c_api_setStartHead(SBMLDocument* document, const char* id, const char* startHead, int graphicalObjectIndex, int layoutIndex) {
+        return setStartHead(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), startHead);
     }
 
-    bool c_api_isSetEndHead(SBMLDocument* document, const char* id) {
-        return isSetEndHead(document, id);
+    bool c_api_isSetEndHead(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isSetEndHead(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const char* c_api_getEndHead(SBMLDocument* document, const char* id) {
-        return strdup(getEndHead(document, id).c_str());
+    const char* c_api_getEndHead(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getEndHead(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
-    int c_api_setEndHead(SBMLDocument* document, const char* id, const char* endHead) {
-        return setEndHead(document, id, endHead);
+    int c_api_setEndHead(SBMLDocument* document, const char* id, const char* endHead, int graphicalObjectIndex, int layoutIndex) {
+        return setEndHead(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), endHead);
     }
 
-    int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id) {
-        return getNumGeometricShapes(document, id);
+    int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return getNumGeometricShapes(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex) {
-        return isRectangle(document, id, geometricShapeIndex);
+    bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isRectangle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    bool c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex) {
-        return isEllipse(document, id, geometricShapeIndex);
+    bool c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isEllipse(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    bool c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex) {
-        return isPolygon(document, id, geometricShapeIndex);
+    bool c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isPolygon(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    bool c_api_isImage(SBMLDocument* document, const char* id, int geometricShapeIndex) {
-        return isImage(document, id, geometricShapeIndex);
+    bool c_api_isImage(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isImage(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    bool c_api_isRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex) {
-        return isRenderCurve(document, id, geometricShapeIndex);
+    bool c_api_isRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isRenderCurve(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    bool c_api_isText(SBMLDocument* document, const char* id, int geometricShapeIndex) {
-        return isText(document, id, geometricShapeIndex);
+    bool c_api_isText(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isText(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    const double c_api_getGeometricShapeX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector xVector = getGeometricShapeX(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector xVector = getGeometricShapeX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return xVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * xVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector xVector;
         xVector.setAbsoluteValue(x);
-        return setGeometricShapeX(document, id, geometricShapeIndex, xVector);
+        return setGeometricShapeX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, xVector);
     }
 
-    const double c_api_getGeometricShapeY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector yVector = getGeometricShapeY(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector yVector = getGeometricShapeY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return yVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * yVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector yVector;
         yVector.setAbsoluteValue(y);
-        return setGeometricShapeY(document, id, geometricShapeIndex, yVector);
+        return setGeometricShapeY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, yVector);
     }
 
-    const double c_api_getGeometricShapeWidth(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector widthVector = getGeometricShapeWidth(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector widthVector = getGeometricShapeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return widthVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * widthVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector widthVector;
         widthVector.setAbsoluteValue(width);
-        return setGeometricShapeWidth(document, id, geometricShapeIndex, widthVector);
+        return setGeometricShapeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, widthVector);
     }
 
-    const double c_api_getGeometricShapeHeight(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector heightVector = getGeometricShapeHeight(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeHeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector heightVector = getGeometricShapeHeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return heightVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * heightVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector heightVector;
         heightVector.setAbsoluteValue(height);
-        return setGeometricShapeHeight(document, id, geometricShapeIndex, heightVector);
+        return setGeometricShapeHeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, heightVector);
     }
 
-    const double c_api_getGeometricShapeRatio(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        return getGeometricShapeRatio(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeRatio(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, unsigned int geometricShapeIndex) {
-        return setGeometricShapeRatio(document, id, geometricShapeIndex, ratio);
+    const double c_api_getGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return getGeometricShapeRatio(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    const double c_api_getGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector borderRadiusXVector = getGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex);
+    int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return setGeometricShapeRatio(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, ratio);
+    }
+
+    bool c_api_isSetGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeCornerCurvatureRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector borderRadiusXVector = getGeometricShapeCornerCurvatureRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return borderRadiusXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * borderRadiusXVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector borderRadiusXVector;
         borderRadiusXVector.setAbsoluteValue(borderRadiusX);
-        return setGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex, borderRadiusXVector);
+        return setGeometricShapeCornerCurvatureRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, borderRadiusXVector);
     }
 
-    const double c_api_getGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector borderRadiusYVector = getGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeCornerCurvatureRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector borderRadiusYVector = getGeometricShapeCornerCurvatureRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return borderRadiusYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * borderRadiusYVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector borderRadiusYVector;
         borderRadiusYVector.setAbsoluteValue(borderRadiusY);
-        return setGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex, borderRadiusYVector);
+        return setGeometricShapeCornerCurvatureRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, borderRadiusYVector);
     }
 
-    const double c_api_getGeometricShapeCenterX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector centerXVector = getGeometricShapeCenterX(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeCenterX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector centerXVector = getGeometricShapeCenterX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return centerXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * centerXVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector centerXVector;
         centerXVector.setAbsoluteValue(centerX);
-        return setGeometricShapeCenterX(document, id, geometricShapeIndex, centerXVector);
+        return setGeometricShapeCenterX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, centerXVector);
     }
 
-    const double c_api_getGeometricShapeCenterY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector centerYVector = getGeometricShapeCenterY(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeCenterY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector centerYVector = getGeometricShapeCenterY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return centerYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * centerYVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector centerYVector;
         centerYVector.setAbsoluteValue(centerY);
-        return setGeometricShapeCenterY(document, id, geometricShapeIndex, centerYVector);
+        return setGeometricShapeCenterY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, centerYVector);
     }
 
-    const double c_api_getGeometricShapeRadiusX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector radiusXVector = getGeometricShapeRadiusX(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector radiusXVector = getGeometricShapeRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return radiusXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * radiusXVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector radiusXVector;
         radiusXVector.setAbsoluteValue(radiusX);
-        return setGeometricShapeRadiusX(document, id, geometricShapeIndex, radiusXVector);
+        return setGeometricShapeRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, radiusXVector);
     }
 
-    const double c_api_getGeometricShapeRadiusY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        RelAbsVector radiusYVector = getGeometricShapeRadiusY(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    const double c_api_getGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector radiusYVector = getGeometricShapeRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
         return radiusYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * radiusYVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector radiusYVector;
         radiusYVector.setAbsoluteValue(radiusY);
-        return setGeometricShapeRadiusY(document, id, geometricShapeIndex, radiusYVector);
+        return setGeometricShapeRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, radiusYVector);
     }
 
-    const unsigned int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        return getGeometricShapeNumElements(document, id, geometricShapeIndex);
+    const int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return getGeometricShapeNumElements(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    const double c_api_getGeometricShapeSegmentX(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
-        RelAbsVector segmentXVector = getGeometricShapeElementX(document, id, geometricShapeIndex, segmentIndex);
+    bool c_api_isGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isGeometricShapeElementCubicBezier(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
+    }
+
+    const double c_api_getGeometricShapeSegmentX(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector segmentXVector = getGeometricShapeElementX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentXVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentXVector;
         segmentXVector.setAbsoluteValue(x);
-        return setGeometricShapeElementX(document, id, geometricShapeIndex, segmentIndex, segmentXVector);
+        return setGeometricShapeElementX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentXVector);
     }
 
-    const double c_api_getGeometricShapeSegmentY(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
-        RelAbsVector segmentYVector = getGeometricShapeElementY(document, id, geometricShapeIndex, segmentIndex);
-        return segmentYVector.getAbsoluteValue() + 0.5 * 0.01 * c_api_getHeight(document, id) * segmentYVector.getRelativeValue();
+    const double c_api_getGeometricShapeSegmentY(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector segmentYVector = getGeometricShapeElementY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
+        return segmentYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentYVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentYVector;
         segmentYVector.setAbsoluteValue(y);
-        return setGeometricShapeElementY(document, id, geometricShapeIndex, segmentIndex, segmentYVector);
+        return setGeometricShapeElementY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentYVector);
     }
 
-    const double c_api_getGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
-        RelAbsVector segmentStartXVector = getGeometricShapeBasePoint1X(document, id, geometricShapeIndex, segmentIndex);
+    const double c_api_getGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector segmentStartXVector = getGeometricShapeBasePoint1X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentStartXVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentStartXVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentStartXVector;
         segmentStartXVector.setAbsoluteValue(x);
-        return setGeometricShapeBasePoint1X(document, id, geometricShapeIndex, segmentIndex, segmentStartXVector);
+        return setGeometricShapeBasePoint1X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentStartXVector);
     }
 
-    const double c_api_getGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
-        RelAbsVector segmentStartYVector = getGeometricShapeBasePoint1Y(document, id, geometricShapeIndex, segmentIndex);
+    const double c_api_getGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector segmentStartYVector = getGeometricShapeBasePoint1Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentStartYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentStartYVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentStartYVector;
         segmentStartYVector.setAbsoluteValue(y);
-        return setGeometricShapeBasePoint1Y(document, id, geometricShapeIndex, segmentIndex, segmentStartYVector);
+        return setGeometricShapeBasePoint1Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentStartYVector);
     }
 
-    const double c_api_getGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
-        RelAbsVector segmentBasePoint2XVector = getGeometricShapeBasePoint2X(document, id, geometricShapeIndex, segmentIndex);
+    const double c_api_getGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2XVector = getGeometricShapeBasePoint2X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentBasePoint2XVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentBasePoint2XVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentBasePoint2XVector;
         segmentBasePoint2XVector.setAbsoluteValue(x);
-        return setGeometricShapeBasePoint2X(document, id, geometricShapeIndex, segmentIndex, segmentBasePoint2XVector);
+        return setGeometricShapeBasePoint2X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentBasePoint2XVector);
     }
 
-    const double c_api_getGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
-        RelAbsVector segmentBasePoint2YVector = getGeometricShapeBasePoint2Y(document, id, geometricShapeIndex, segmentIndex);
+    const double c_api_getGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2YVector = getGeometricShapeBasePoint2Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentBasePoint2YVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentBasePoint2YVector.getRelativeValue();
     }
 
-    int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex, unsigned int geometricShapeIndex) {
+    int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentBasePoint2YVector;
         segmentBasePoint2YVector.setAbsoluteValue(y);
-        return setGeometricShapeBasePoint2Y(document, id, geometricShapeIndex, segmentIndex, segmentBasePoint2YVector);
+        return setGeometricShapeBasePoint2Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentBasePoint2YVector);
     }
 
-    bool c_api_isSetGeometricShapeHref(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        return isSetGeometricShapeHref(document, id, geometricShapeIndex);
+    bool c_api_isSetGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSetGeometricShapeHref(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
-    const char* c_api_getGeometricShapeHref(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex) {
-        return strdup(getGeometricShapeHref(document, id, geometricShapeIndex).c_str());
+    const char* c_api_getGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getGeometricShapeHref(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex).c_str());
     }
 
-    int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, unsigned int geometricShapeIndex) {
-        return setGeometricShapeHref(document, id, geometricShapeIndex, href);
+    int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return setGeometricShapeHref(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, href);
     }
 }
 

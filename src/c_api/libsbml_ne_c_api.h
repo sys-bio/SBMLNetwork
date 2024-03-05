@@ -52,6 +52,19 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_removeLayouts(SBMLDocument* document);
 
+    /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
+    /// set all the necessary features for it
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param stiffness the stiffness value used in the autolayout algorithm.
+    /// @param gravity the gravity value used in the autolayout algorithm.
+    /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
+    /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
+    /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
+                                                               const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
+                                                               const char** lockedNodeIds = NULL);
+
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -94,6 +107,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated GraphicalObject objects
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGraphicalObjects(SBMLDocument* document, const char* id, int layoutIndex = 0);
 
+    /// @brief Returns the id of the nth GraphicalObject associated with the given model entity id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the id of the GraphicalObject associated with it is going to be returned.
+    /// @param graphicalObjectIndex the index of the GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the nth GraphicalObject associated with the given model entity id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGraphicalObjectId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0);
+
+    /// @brief Returns the meta id of the nth GraphicalObject associated with the given model entity id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the id of the GraphicalObject associated with it is going to be returned.
+    /// @param graphicalObjectIndex the index of the GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the meta id of the nth GraphicalObject associated with the given model entity id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGraphicalObjectMetaId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0);
+
     /// @brief Returns the number of Compartment objects in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @return the number of Compartment objects in the given SBML document.
@@ -101,9 +130,9 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     /// @brief Returns the id of the nth Compartment object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param index the index of the Compartment object.
+    /// @param compartmentIndex the index of the Compartment object.
     /// @return the id of the nth Compartment object in the given SBML document, or @c "" if the object does not exists.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthCompartmentId(SBMLDocument* document, int index);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthCompartmentId(SBMLDocument* document, int compartmentIndex);
 
     /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -125,7 +154,23 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param compartmentId the id of the compartment the number of CompartmentGlyph objects associated with it is going to be returned.
     /// @return the number of CompartmentGlyph objects associated with the entered compartment id,
     /// or @c 0 if the object is @c NULL or has no associated CompartmentGlyph objects
-    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumCompartmentGlyphs(SBMLDocument* document, const char* compartmentId, int layoutIndex);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumCompartmentGlyphs(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0);
+
+    /// @brief Returns the id of the nth CompartmentGlyph associated with the given compartment id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param compartmentId the id of the compartment the id of the CompartmentGlyph object associated with it is going to be returned.
+    /// @param compartmentGlyphIndex the index of the CompartmentGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the nth CompartmentGlyph associated with the given compartment id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthCompartmentGlyphId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0);
+
+    /// @brief Returns the meta id of the nth CompartmentGlyph associated with the given compartment id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param compartmentId the id of the compartment the id of the CompartmentGlyph object associated with it is going to be returned.
+    /// @param compartmentGlyphIndex the index of the CompartmentGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the meta id of the nth CompartmentGlyph associated with the given compartment id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthCompartmentGlyphMetaId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0);
 
     /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the Layout object with the given index of the SBML document is of type CompartmentGlyph.
     /// @param document a pointer to the SBMLDocument object.
@@ -134,6 +179,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return @c true if this abstract GraphicalObject is of type CompartmentGlyph, false otherwise
     LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isCompartmentGlyph(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0);
 
+    /// @breif Returns the id of the compartment associated with the given GraphicalObject with the given id in the Layout object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the GraphicalObject.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the compartment associated with the given GraphicalObject, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getCompartmentId(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the number of Species objects in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @return the number of Species objects in the given SBML document.
@@ -141,9 +194,9 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     /// @brief Returns the id of the nth Species object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param index the index of the Species object.
+    /// @param speciesIndex the index of the Species object.
     /// @return the id of the nth Species object in the given SBML document, or @c "" if the object does not exists.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthSpeciesId(SBMLDocument* document, int index);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthSpeciesId(SBMLDocument* document, int speciesIndex);
 
     /// @brief Returns the number of SpeciesGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -160,6 +213,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated SpeciesGlyph objects
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumSpeciesGlyphs(SBMLDocument* document, const char* speciesId, int layoutIndex);
 
+    /// @brief Returns the id of the nth SpeciesGlyph object associated with the given species id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesId the id of the species the id of the SpeciesGlyph object associated with it is going to be returned.
+    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the nth SpeciesGlyph associated with the given species id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthSpeciesGlyphId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0);
+
+    /// @brief Returns the meta id of the nth SpeciesGlyph object associated with the given species id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesId the id of the species the id of the SpeciesGlyph object associated with it is going to be returned.
+    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the meta id of the nth SpeciesGlyph associated with the given species id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0);
+
     /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the Layout object with the given index of the SBML document is of type SpeciesGlyph.
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
@@ -174,9 +243,9 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     /// @brief Returns the id of the nth Reaction object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param index the index of the Reaction object.
+    /// @param reactionIndex the index of the Reaction object.
     /// @return the id of the nth Reaction object in the given SBML document, or @c "" if the object does not exists.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactionId(SBMLDocument* document, int index);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactionId(SBMLDocument* document, int reactionIndex);
 
     /// @brief Returns the number of ReactionGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -192,6 +261,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of ReactionGlyph objects associated with the entered reaction id,
     /// or @c 0 if the object is @c NULL or has no associated ReactionGlyph objects
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumReactionGlyphs(SBMLDocument* document, const char* reactionId, int layoutIndex);
+
+    /// @brief Returns the id of the nth ReactionGlyph object associated with the given reaction id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the id of the ReactionGlyph object associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the nth ReactionGlyph associated with the given reaction id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0);
+
+    /// @brief Returns the meta id of the nth ReactionGlyph object associated with the given reaction id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the id of the ReactionGlyph object associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the meta id of the nth ReactionGlyph associated with the given reaction id, or @c "" if the object does not exists.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactionGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0);
 
     /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the Layout object with the given index of the SBML document is of type SpeciesGlyph.
     /// @param document a pointer to the SBMLDocument object.
@@ -227,23 +312,23 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @brief Returns the id of nth Reactant of the Reaction object with the given id in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the id of the nth Reactant object associated with it is going to be returned.
-    /// @param index the index of the Reactant object.
+    /// @param reactantIndex the index of the Reactant object.
     /// @return the id of the nth Reactant object of the Reaction object with the given id, or @c "" if the object does not exists.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactantId(SBMLDocument* document, const char* reactionId, int index);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthReactantId(SBMLDocument* document, const char* reactionId, int reactantIndex);
 
     /// @brief Returns the id of nth Product of the Reaction object with the given id in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the id of the nth Product object associated with it is going to be returned.
-    /// @param index the index of the Product object.
+    /// @param productIndex the index of the Product object.
     /// @return the id of the nth Product object of the Reaction object with the given id, or @c "" if the object does not exists.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthProductId(SBMLDocument* document, const char* reactionId, int index);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthProductId(SBMLDocument* document, const char* reactionId, int productIndex);
 
     /// @brief Returns the id of nth Modifier of the Reaction object with the given id in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the id of the nth Modifier object associated with it is going to be returned.
-    /// @param index the index of the Modifier object.
+    /// @param modifierIndex the index of the Modifier object.
     /// @return the id of the nth Modifier object of the Reaction object with the given id, or @c "" if the object does not exists.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthModifierId(SBMLDocument* document, const char* reactionId, int index);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthModifierId(SBMLDocument* document, const char* reactionId, int modifierIndex);
 
     /// @brief Returns the number of SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -255,6 +340,28 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumSpeciesReferenceGlyphs(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the id of the species glyph associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the "species" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the id of the species glyph associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "speciesGlyph" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -264,7 +371,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "role" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "role"
     /// attribute is not set or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the string representation of the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the the Layout object with the givne index in the ListOfLayouts of the SBML document.
@@ -275,7 +382,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "role" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
     /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given id of
     /// the Layout object with the given index of the SBML document.
@@ -286,7 +393,387 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setRole(SBMLDocument* document, const char* reactionId, const char* role, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, const char* role, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the number of curve segments of the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the number of curve segments of the Curve object of the SpeciesReferenceGlyph object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumSpeciesReferenceCurveSegments(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+
+    /// @breif Predicate returning true if the curve segment with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts is of type CubicBezier.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the curve segment with the given index is of type CubicBezier, @c false otherwise
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "x" attribute of the start point of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param x the value to be set as "x" attribute of the start point of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const char* reactionId, double x, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "y" attribute of the start point of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param y the value to be set as "y" attribute of the start point of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const char* reactionId, double y, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "x" attribute of the end point of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param x the value to be set as "x" attribute of the end point of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const char* reactionId, double x, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "y" attribute of the end point of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param y the value to be set as "y" attribute of the end point of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const char* reactionId, double y, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param x the value to be set as "x" attribute of the base point 1 of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const char* reactionId, double x, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param y the value to be set as "y" attribute of the base point 1 of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const char* reactionId, double y, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param x the value to be set as "x" attribute of the base point 2 of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const char* reactionId, double x, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index, or @c 0 if
+    /// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param curveSegmentIndex the index of the CurveSegment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param y the value to be set as "y" attribute of the base point 2 of the CubicBezier object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, double y, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "stroke" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the "stroke" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "stroke"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "stroke" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "stroke" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param stroke a string value to be set as "stroke" attribute of the SpeciesReferenceGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, const char* stroke, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "stroke-width" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the "stroke-width" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "stroke-width"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "stroke-width" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "stroke-width" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke-width" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param strokeWidth a string value to be set as "stroke-width" attribute of the SpeciesReferenceGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, const double strokeWidth, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the size of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumSpeciesReferenceBorderDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the dash at the given index of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document at the given index.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param index the index of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getNthSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the dash at the given index of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document at the given index.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param borderDash a string value to be set as "stroke-dasharray" attribute of the SpeciesReferenceGlyph object.
+    /// @param index the index of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setNthSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, const int borderDash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "startHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the "startHead" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "startHead"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "startHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "startHead" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "startHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param startHead a string value to be set as "startHead" attribute of the SpeciesReferenceGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, const char* startHead, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "endHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the "endHead" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "endHead"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetSpeciesReferenceEndHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "endHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the value of the "endHead" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getSpeciesReferenceEndHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "endHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+    /// @param endHead a string value to be set as "endHead" attribute of the SpeciesReferenceGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceEndHead(SBMLDocument* document, const char* reactionId, const char* endHead, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the number of TextGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -297,29 +784,32 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @brief Returns the number of TextGlyph objects associated with entered id of the Layout object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of the TextGlyph objects associated with entered id of the Layout object, or @c 0 if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumTextGlyphs(SBMLDocument* document, const char* id, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumTextGlyphs(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
     /// the Layout object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
     /// , TextGlyph does not exits or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int textGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the "text" attribute of the TextGlyph object with the given index associated with the given id in
     /// the Layout object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
     /// @param text a string value to be set as "text" attribute of the TextGlyph object.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setText(SBMLDocument* document, const char* id, const char* text, int textGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -407,6 +897,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// or does not have a curve
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumCurveSegments(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Predicate returning true if the curve segment with the given index of the Curve of the GraphicalObject
+    /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document is of type CubicBezier.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param curveSegmentIndex an int representing the index of the curve segment.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if this curve segment is of type CubicBezier, false otherwise
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isCurveSegmentCubicBezier(SBMLDocument* document, const std::string& id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -416,7 +916,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "x" attribute of the start point of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveStartPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentStartPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -427,7 +927,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveStartPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentStartPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -438,7 +938,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "y" attribute of the start point of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveStartPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentStartPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of the start point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -449,7 +949,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveStartPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentStartPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -460,7 +960,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "x" attribute of the end point of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveEndPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentEndPointX(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -471,7 +971,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveEndPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentEndPointX(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -482,7 +982,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "y" attribute of the end point of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveEndPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentEndPointY(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of the end point of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -493,7 +993,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveEndPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentEndPointY(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the base point 1 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -504,7 +1004,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "x" attribute of the base point 1 of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveBasePoint1X(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentBasePoint1X(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of the base point 1 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -515,7 +1015,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveBasePoint1X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the base point 1 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -527,7 +1027,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "y" attribute of the base point 1 of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveBasePoint1Y(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentBasePoint1Y(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of the base point 1 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -538,7 +1038,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveBasePoint1Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -549,7 +1049,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "x" attribute of the base point 2 of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveBasePoint2X(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentBasePoint2X(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -560,7 +1060,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveBasePoint2X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -571,7 +1071,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "y" attribute of the base point 2 of the the curve segment with the given index of the curve of this GraphicalObject object,
     /// or @c 0.0 if the object is @c NULL or does not have a curve
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveBasePoint2Y(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getCurveSegmentBasePoint2Y(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of the base point 2 of the curve segment with the given index of the curve of the GraphicalObject
     /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -582,7 +1082,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCurveBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSegmentCurveBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the number of items in the ListOfGlobalRenderInformation of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -611,6 +1111,18 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_removeLocalRenderInformation(SBMLDocument* document, int layoutIndex = 0);
 
+    /// @brief Create a GlobalRenderInformation object, add it to list of global renders of the SBML document, and
+    /// set all the necessary features for it.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_createDefaultGlobalRenderInformation(SBMLDocument* document);
+
+    /// @brief Create a LocalRenderInformation object, add it to list of local renders of the Layout of the SBML document, and
+    /// set all the necessary features for it.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_createDefaultLocalRenderInformation(SBMLDocument* document);
+
     /// @brief Predicates returning @c true if the "backgroundColor" attribute of the GlobalRenderInformation object with the given index of the SBML document is set.
     /// @param document a pointer to the SBMLDocument object.
     /// @param renderIndex the index number of the GlobalRenderInformation object.
@@ -637,6 +1149,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of ColorDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumColors(SBMLDocument* document, int renderIndex = 0);
 
+    /// @brief Returns the id of the nth ColorDefinition object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param colorIndex the index of the ColorDefinition to return.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the id of the nth ColorDefinition object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
+
     /// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier
     /// in the RenderInformationBase with the given index is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -661,635 +1180,1641 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setColorValue(SBMLDocument* document, const char* id, const char* value, int renderIndex);
 
+    /// @brief Returns the number of GradientDefinitions of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the number of GradientDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGradients(SBMLDocument* document, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth GradientDefinition object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param gradientIndex the index of the GradientDefinition to return.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the id of the nth GradientDefinition object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
+
+    /// @brief Returns the number of LineEnding objects of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the number of LineEnding objects of this RenderInformationBase object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth LineEnding object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param lineEndingIndex the index of the LineEnding to return.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the id of the nth LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the bounding box of the LineEnding object  of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "x" attribute of the bounding box of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingBoundingBoxX(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param x a double value to be set as "x" attribute of the bounding box of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingBoundingBoxX(SBMLDocument* document, const char* id, const double x, int renderIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "y" attribute of the bounding box of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingBoundingBoxY(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param y a double value to be set as "y" attribute of the bounding box of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingBoundingBoxY(SBMLDocument* document, const char* id, const double y, int renderIndex = 0);
+
+    /// @brief Returns the value of the "width" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "width" attribute of the bounding box of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingBoundingBoxWidth(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "width" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param width a double value to be set as "width" attribute of the bounding box of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingBoundingBoxWidth(SBMLDocument* document, const char* id, const double width, int renderIndex = 0);
+
+    /// @brief Returns the value of the "height" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "height" attribute of the bounding box of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingBoundingBoxHeight(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "height" attribute of the bounding box of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param height a double value to be set as "height" attribute of the bounding box of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingBoundingBoxHeight(SBMLDocument* document, const char* id, const double height, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "stroke" attribute of the RenderGroup of the LineEnding object is set, @c false if either the "stroke"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingBorderColor(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "stroke" attribute of the RenderGroup of the LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getLineEndingBorderColor(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "stroke-width" attribute of the RenderGroup of the LineEnding object is set, @c false if either the "stroke-width"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingBorderWidth(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "stroke-width" attribute of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingBorderWidth(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int renderIndex = 0);
+
+    /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumLineEndingBorderDashes(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0);
+
+    /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param borderDashes a double array to use as the value of the "stroke-dasharray" attribute of the RenderGroup of the LineEnding object.
+    /// @param numBorderDashes the number of elements in the borderDashes array.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex, int renderIndex = 0);
+
+    /// @breif Predicates returning @c true if the "fill" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "fill" attribute of the RenderGroup of the LineEnding object is set, @c false if either the "fill"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingFillColor(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the "fill" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "fill" attribute of the RenderGroup of the LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getLineEndingFillColor(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingFillColor(SBMLDocument* document, const char* id, const char* fillColor, int renderIndex = 0);
+
+    /// @breif Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "fill-rule" attribute of the RenderGroup of the LineEnding object is set, @c false if either the "fill-rule"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingFillRule(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "fill-rule" attribute of the RenderGroup of the LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getLineEndingFillRule(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingFillRule(SBMLDocument* document, const char* id, const char* fillRule, int renderIndex = 0);
+
+    /// @brief Returns number of Transformation2D objects in the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the number of Transformation2D objects in the RenderGroup of the LineEnding object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLineEndingGeometricShapes(SBMLDocument* document, const char* id, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Rectangle.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object is of type Rectangle, @c false if either the Transformation2D
+    /// object is not of type Rectangle or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Ellipse.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object is of type Ellipse, @c false if either the Transformation2D
+    /// object is not of type Ellipse or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Polygon.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object is of type Polygon, @c false if either the Transformation2D
+    /// object is not of type Polygon or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Image.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object is of type Image, @c false if either the Transformation2D
+    /// object is not of type Image or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingImage(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type RenderCurve.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object is of type RenderCurve, @c false if either the Transformation2D
+    /// object is not of type RenderCurve or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Text.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object is of type Text, @c false if either the Transformation2D
+    /// object is not of type Text or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingText(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "x"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param x a double value to be set as "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeX(SBMLDocument* document, const char* id, const double x, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "y"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param y a double value to be set as "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeY(SBMLDocument* document, const char* id, const double y, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "width"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param width a double value to be set as "width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "height"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "height" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param height a double value to be set as "height" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "ratio"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param ratio a double value to be set as "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "rx"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param rx a double value to be set as "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double rx, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "ry"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param ry a double value to be set as "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double ry, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "cx"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param cx a double value to be set as "cx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, const double cx, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "cy"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param cy a double value to be set as "cy" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, const double cy, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "rx"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object
+    /// @param id the id of the LineEnding object
+    /// @param rx a double value to be set as "rx" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object
+    /// @return integer value indicating success/failure of the function
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double rx, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object
+    /// @param id the id of the LineEnding object
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object
+    /// @return @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "ry"
+    /// attribute is not set or the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document
+    /// @param document a pointer to the SBMLDocument object
+    /// @param id the id of the LineEnding object
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object
+    /// @return the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document
+    /// @param document a pointer to the SBMLDocument object
+    /// @param id the id of the LineEnding object
+    /// @param ry a double value to be set as "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object
+    /// @return integer value indicating success/failure of the function
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double ry, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the number of elements of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the number of elements of the RenderGroup of the LineEnding object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getLineEndingGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "type" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set to "cubicBezier".
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isLineEndingGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param x a double value to be set as "x" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param y a double value to be set as "y" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "x" attribute of the base point 1 of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param x a double value to be set as "x" attribute of the base point 1 of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "y" attribute of the base point 1 of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param y a double value to be set as "y" attribute of the base point 1 of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "x" attribute of the base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "x" attribute of the base point 2 of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param x a double value to be set as "x" attribute of the base point 2 of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "y" attribute of the base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "y" attribute of the base point 2 of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param y a double value to be set as "y" attribute of the base point 2 of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param segmentIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "href"
+    /// attribute is not set or the object is @c NULL.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Returns the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
+
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param href a string value to be set as "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setLineEndingGeometricShapeSegmentHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int renderIndex = 0);
+
     /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is set.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
     /// attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetBorderColor(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getBorderColor(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke-width"
     /// attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getBorderWidth(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumBorderDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param borderDashIndex an int representing the index of the stroke dash to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN int getNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param dash a int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+    /// @param borderDashIndex an int representing the index of the stroke dash to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill"
     /// attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFillColor(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "fill" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFillColor(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill-rule"
     /// attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFillRule(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFillRule(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFillRule(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFillRule(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
     /// attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontColor(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontColor(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-family"
     /// attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontFamily(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontFamily(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-size"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontSize(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getFontSize(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-weight"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontWeight(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontWeight(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-style"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontStyle(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontStyle(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "startHead"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetStartHead(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetStartHead(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "startHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getStartHead(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getStartHead(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "startHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setStartHead(SBMLDocument* document, const char* id, const char* startHead);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setStartHead(SBMLDocument* document, const char* id, const char* startHead, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "endHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "endHead"
     /// attribute is not set
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetEndHead(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetEndHead(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "endHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getEndHead(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getEndHead(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "endHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param endHead a string value to use as the value of the "endHead" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setEndHead(SBMLDocument* document, const char* id, const char* endHead);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setEndHead(SBMLDocument* document, const char* id, const char* endHead, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns number of Transformation2D objects in the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex);
 
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Rectangle.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle, @c false if
     /// it is not of type Rectangle or is or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Ellipse.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
     /// it is not of type Ellipse or is or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
     
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Polygon.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon, @c false if
     /// it is not of type Polygon or is or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
     
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Image.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Image, @c false if
     /// it is not of type Image or is or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isImage(SBMLDocument* document, const char* id, int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isImage(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
     
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type RenderCurve.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve, @c false if
     /// it is not of type RenderCurve or is or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isRenderCurve(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
     
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Text.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Text, @c false if
     /// it is not of type Text or is or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isText(SBMLDocument* document, const char* id, int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isText(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "x" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
     /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "y" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "y" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "y" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "width" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "width" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeWidth(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @breif Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "height" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "height" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "height" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeHeight(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "ratio" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "ratio" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "ratio" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeRatio(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
     /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "rx" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
     /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "ry" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
     /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "cx" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "cx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "cx" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeCenterX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
     /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "cy" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "cy" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "cy" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeCenterY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
     /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "rx" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "rx" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "rx" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeRadiusX(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
     /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+    /// @c false if either the "ry" attribute is not set or the object is @c NULL .
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0,  int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "ry" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have "ry" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeRadiusY(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the number of elements of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the number of elements of the Transformation2D object at the given index of the RenderGroup of this Style for this GraphicalObject, or @c 0 if
     /// either Transformation2D object does not exists, does not have any elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const unsigned int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type RenderCubicBezier.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentX(SBMLDocument* document, const char* id, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentX(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
     /// @param x a double to use as the value of the "x" attribute of this element.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentY(SBMLDocument* document, const char* id, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentY(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
     /// @param y a double to use as the value of the "y" attribute of this element.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
     /// @param x a double to use as the value of the "x" attribute of base point 1 of this element.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
     /// @param y a double to use as the value of the "y" attribute of base point 1 of this element.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
     /// @param x a double to use as the value of the "x" attribute of base point 2 of this element.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if
     /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param segmentIndex an unsigned int representing the index of the element to retrieve.
     /// @param y a double to use as the value of the "y" attribute of base point 2 of this element.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, unsigned int segmentIndex = 0, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return @c true if the "href" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
     /// @c false if either the "href" attribute is not set or the object is @c NULL .
-    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeHref(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return the "href" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c NULL if
     /// either Transformation2D object does not exists, does not have "href" attribute, it is not set, or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getGeometricShapeHref(SBMLDocument* document, const char* id, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
-    /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, unsigned int geometricShapeIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 }
 
 #ifdef __cplusplus

@@ -318,6 +318,16 @@ bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* spec
     return false;
 }
 
+const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (layout) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
+        if (speciesGlyph)
+            return speciesGlyph->getSpeciesId();
+    }
+
+    return "";
+}
+
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
 }
