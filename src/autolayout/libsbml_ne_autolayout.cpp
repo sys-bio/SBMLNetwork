@@ -16,6 +16,7 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     setGlyphsDimensions(model, layout);
     applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
     updateCompartmentExtents(model, layout, padding);
+    updateLayoutDimensions(layout, padding);
 }
 
 void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding,
@@ -189,6 +190,37 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *r
         compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height()
                                               + (reactionCenterY + padding) - (compartmentGlyphBoundingBox->y() + compartmentGlyphBoundingBox->height()));
     }
+}
+
+void updateLayoutDimensions(Layout* layout, const double &padding) {
+    double minX = INT_MAX;
+    double minY = INT_MAX;
+    double maxX = INT_MIN;
+    double maxY = INT_MIN;
+    for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
+        extractExtents(layout->getCompartmentGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
+    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        extractExtents(layout->getSpeciesGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
+    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
+        extractExtents(layout->getReactionGlyph(i)->getCurve(), minX, minY, maxX, maxY);
+    layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
+    layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
+}
+
+void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY) {
+    minX = std::min(minX, boundingBox->x());
+    minY = std::min(minY, boundingBox->y());
+    maxX = std::max(maxX, boundingBox->x() + boundingBox->width());
+    maxY = std::max(maxY, boundingBox->y() + boundingBox->height());
+}
+
+void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &maxX, double &maxY) {
+    double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() + reactionCurve->getCurveSegment(0)->getEnd()->x());
+    double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() + reactionCurve->getCurveSegment(0)->getEnd()->y());
+    minX = std::min(minX, reactionCenterX);
+    minY = std::min(minY, reactionCenterY);
+    maxX = std::max(maxX, reactionCenterX);
+    maxY = std::max(maxY, reactionCenterY);
 }
 
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
