@@ -322,35 +322,35 @@ void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPk
 
 void addWhiteColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     if (!globalRenderInformation->getColorDefinition("white"))
-        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "white", 255, 255, 255));
+        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "white", 255, 255, 255));
 }
 
 void addBlackColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     if (!globalRenderInformation->getColorDefinition("black"))
-        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "black", 0, 0, 0));
+        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "black", 0, 0, 0));
 }
 
 void addLightGrayColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     if (!globalRenderInformation->getColorDefinition("lightgray"))
-        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "lightgray", 211, 211, 211));
+        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "lightgray", 211, 211, 211));
 }
 
 void addDarkCyanColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     if (!globalRenderInformation->getColorDefinition("darkcyan"))
-        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "darkcyan", 0, 139, 139));
+        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "darkcyan", 0, 139, 139));
 }
 
 void addTealColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     if (!globalRenderInformation->getColorDefinition("teal"))
-        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "teal", 0, 128, 128));
+        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "teal", 0, 128, 128));
 }
 
 void addSilverColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     if (!globalRenderInformation->getColorDefinition("silver"))
-        globalRenderInformation->addColorDefinition(createColorDefintion(renderPkgNamespaces, "silver", 192, 192, 192));
+        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "silver", 192, 192, 192));
 }
 
-ColorDefinition* createColorDefintion(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     return new ColorDefinition(renderPkgNamespaces, id, r, g, b, a);
 }
 
