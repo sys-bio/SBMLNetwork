@@ -64,7 +64,7 @@ int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRend
         LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
         globalRenderInformation->setId("libSBML_NetworkEditor_Global_Render");
-        globalRenderInformation->setBackgroundColor("lightgray");
+        globalRenderInformation->setBackgroundColor("white");
         addDefaultColors(globalRenderInformation, renderPkgNamespaces);
         addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
         return 0;
