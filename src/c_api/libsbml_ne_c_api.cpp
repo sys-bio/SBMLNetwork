@@ -350,7 +350,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumStrokeDashes(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex));
     }
 
-    double c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int dashIndex, int layoutIndex) {
+    const int c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int dashIndex, int layoutIndex) {
         return getStrokeDash(document, getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex), dashIndex);
     }
 
@@ -658,7 +658,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumLineEndingStrokeDashes(document, renderIndex, id);
     }
 
-    const double c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int dashIndex, int renderIndex) {
+    const int c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int dashIndex, int renderIndex) {
         return getLineEndingStrokeDash(document, renderIndex, id, dashIndex);
     }
 
@@ -1000,7 +1000,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumStrokeDashes(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
-    const double c_api_getNthBorderDash(SBMLDocument* document, const char* id, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
+    const int c_api_getNthBorderDash(SBMLDocument* document, const char* id, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
         return getStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex);
     }
 

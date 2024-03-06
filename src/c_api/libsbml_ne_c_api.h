@@ -695,7 +695,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
     /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getNthSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNthSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the dash at the given index of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document at the given index.
@@ -1322,7 +1322,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param renderIndex the index number of the RenderInformationBase object.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0);
 
     /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1943,7 +1943,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN int getNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -1953,7 +1953,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
