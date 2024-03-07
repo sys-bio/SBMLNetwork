@@ -189,7 +189,7 @@ void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
     setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setStroke("darkcyan");
     rectangle->setStrokeWidth(2.0);
-    rectangle->setFill("lightgray");
+    rectangle->setFill("lightgrey");
     rectangle->setRX(RelAbsVector(0.0, 5.0));
     rectangle->setRY(RelAbsVector(0.0, 5.0));
 }
