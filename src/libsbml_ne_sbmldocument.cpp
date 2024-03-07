@@ -23,6 +23,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return writeSBMLToString(document);
     }
 
+    const unsigned int getSBMLLevel(SBMLDocument* document) {
+        if (document)
+            return document->getLevel();
+
+        return 0;
+    }
+
+    const unsigned int getSBMLVersion(SBMLDocument* document) {
+        if (document)
+            return document->getVersion();
+
+        return 0;
+    }
+
+    bool isSetModel(SBMLDocument* document) {
+        if (document)
+            return document->isSetModel();
+
+        return false;
+    }
+
     int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                    const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
                    std::vector <std::string> lockedNodeIds) {

@@ -1,5 +1,6 @@
 #include "libsbml_ne_render_helpers.h"
 #include "libsbml_ne_layout.h"
+#include "libsbml_ne_sbmldocument_render.h"
 #include "libsbml_ne_layout_helpers.h"
 
 #include <cmath>
@@ -304,7 +305,7 @@ LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, Gra
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
     renderGroup->setStroke("black");
     renderGroup->setFontSize(RelAbsVector(24.0, 0.0));
-    renderGroup->setFontFamily("monospace");
+    renderGroup->setFontFamily("sans-serif");
     renderGroup->setFontWeight("normal");
     renderGroup->setFontStyle("normal");
     renderGroup->setTextAnchor("middle");
@@ -312,46 +313,77 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
 }
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    addWhiteColor(globalRenderInformation, renderPkgNamespaces);
-    addBlackColor(globalRenderInformation, renderPkgNamespaces);
-    addLightGrayColor(globalRenderInformation, renderPkgNamespaces);
-    addDarkCyanColor(globalRenderInformation, renderPkgNamespaces);
-    addTealColor(globalRenderInformation, renderPkgNamespaces);
-    addSilverColor(globalRenderInformation, renderPkgNamespaces);
+    addColor(globalRenderInformation, "white");
+    addColor(globalRenderInformation, "black");
+    addColor(globalRenderInformation, "lightgrey");
+    addColor(globalRenderInformation, "darkcyan");
+    addColor(globalRenderInformation, "teal");
+    addColor(globalRenderInformation, "silver");
 }
 
-void addWhiteColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getColorDefinition("white"))
-        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "white", 255, 255, 255));
+const bool addColor(SBMLDocument* document, Style* style, const std::string &color) {
+    if (style) {
+        for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+            LocalRenderInformation* localRenderInformation = getLocalRenderInformation(document, i);
+            for (unsigned int j = 0; j < localRenderInformation->getNumLocalStyles(); j++) {
+                if (localRenderInformation->getLocalStyle(j) == style)
+                    return addColor(localRenderInformation, color);
+            }
+        }
+        for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+            GlobalRenderInformation* globalRenderInformation = getGlobalRenderInformation(document, i);
+            for (unsigned int j = 0; j < globalRenderInformation->getNumGlobalStyles(); j++) {
+                if (globalRenderInformation->getGlobalStyle(j) == style)
+                    return addColor(globalRenderInformation, color);
+            }
+        }
+    }
+
+    return false;
 }
 
-void addBlackColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getColorDefinition("black"))
-        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "black", 0, 0, 0));
+const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color) {
+    if (lineEnding) {
+        for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+            LocalRenderInformation *localRenderInformation = getLocalRenderInformation(document, i);
+            for (unsigned int j = 0; j < localRenderInformation->getNumLineEndings(); j++) {
+                if (localRenderInformation->getLineEnding(j) == lineEnding)
+                    return addColor(localRenderInformation, color);
+            }
+        }
+        for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+            GlobalRenderInformation *globalRenderInformation = getGlobalRenderInformation(document, i);
+            for (unsigned int j = 0; j < globalRenderInformation->getNumLineEndings(); j++) {
+                if (globalRenderInformation->getLineEnding(j) == lineEnding)
+                    return addColor(globalRenderInformation, color);
+            }
+        }
+    }
+
+    return false;
 }
 
-void addLightGrayColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getColorDefinition("lightgray"))
-        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "lightgray", 211, 211, 211));
-}
+const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color) {
+    if (!renderInformationBase->getColorDefinition(color)) {
+        std::string colorValue = getHexColorCodeFromHtmlColorName(color);
+        if (!colorValue.empty()) {
+            RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
+            renderInformationBase->addColorDefinition(createColorDefinition(renderPkgNamespaces, color, colorValue));
+            return 0;
+        }
+    }
 
-void addDarkCyanColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getColorDefinition("darkcyan"))
-        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "darkcyan", 0, 139, 139));
-}
-
-void addTealColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getColorDefinition("teal"))
-        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "teal", 0, 128, 128));
-}
-
-void addSilverColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getColorDefinition("silver"))
-        globalRenderInformation->addColorDefinition(createColorDefinition(renderPkgNamespaces, "silver", 192, 192, 192));
+    return true;
 }
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     return new ColorDefinition(renderPkgNamespaces, id, r, g, b, a);
+}
+
+ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value) {
+    ColorDefinition* colorDefinition = new ColorDefinition(renderPkgNamespaces, id);
+    colorDefinition->setValue(value);
+    return colorDefinition;
 }
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -688,15 +720,7 @@ const bool isValidFontColorValue(const std::string& fontColor) {
 }
 
 const bool isValidFontFamilyValue(const std::string& fontFamily) {
-    if (stringCompare(fontFamily, "serif"))
-        return true;
-    else if (stringCompare(fontFamily, "sans-serif"))
-        return true;
-    else if (stringCompare(fontFamily, "monospace"))
-        return true;
-
-    std::cerr << "error: font family must be either 'serif', 'sans-serif', or 'monospace'" << std::endl;
-    return false;
+    return true;
 }
 
 const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
@@ -868,6 +892,18 @@ const bool isValidColorValue(const std::string& value) {
     }
     std::cerr << "error: entered value (" << value << ") is not a valid color value" << std::endl;
     return false;
+}
+
+const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName) {
+    std::vector <std::string> htmlColorNames = getHtmlColorNames();
+    std::vector <std::string> hexColorCodes = getHexColorCodes();
+    for (unsigned int i = 0; i < htmlColorNames.size(); i++) {
+        if (stringCompare(htmlColorNames.at(i), htmlColorName))
+            return hexColorCodes.at(i);
+    }
+
+    std::cerr << "error: entered value (" << htmlColorName << ") is not a valid html color name" << std::endl;
+    return "";
 }
 
 std::vector<std::string> getHtmlColorNames() {

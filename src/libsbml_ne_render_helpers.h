@@ -85,19 +85,15 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addWhiteColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+const bool addColor(SBMLDocument* document, Style* style, const std::string &color);
 
-void addBlackColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color);
 
-void addLightGrayColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
-
-void addDarkCyanColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
-
-void addTealColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
-
-void addSilverColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color);
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
+
+ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
@@ -242,6 +238,8 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y);
 const bool isValidGeometricShapeHref(const std::string& href);
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
+
+const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
 std::vector<std::string> getHtmlColorNames();
 

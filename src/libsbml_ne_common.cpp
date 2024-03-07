@@ -1,5 +1,13 @@
 #include "libsbml_ne_common.h"
 
+#ifndef LIBSBML_NETWORK_EDITOR_VERSION
+#define LIBSBML_NETWORK_EDITOR_VERSION @LIBSBML_NETWORK_EDITOR_VERSION@
+#endif
+
+const std::string getLibraryVersion() {
+    return LIBSBML_NETWORK_EDITOR_VERSION;
+}
+
 bool compareChar(const char& c1, const char& c2) {
         if (c1 == c2)
             return true;

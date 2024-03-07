@@ -1,9 +1,13 @@
 #include "libsbml_ne_c_api.h"
-#include "libsbml_ne_layout_helpers.h"
+#include "../libsbml_ne_common.h"
 
 extern "C" {
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
+
+    const char* c_api_getVersion() {
+        return strdup(getLibraryVersion().c_str());
+    }
 
     SBMLDocument* c_api_readSBML(const char* sbml) {
         return readSBML(sbml);
@@ -15,6 +19,18 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     const char* c_api_writeSBMLToString(SBMLDocument* document) {
         return writeSBMLToString(document);
+    }
+
+    int c_api_getSBMLLevel(SBMLDocument* document) {
+        return getSBMLLevel(document);
+    }
+
+    int c_api_getSBMLVersion(SBMLDocument* document) {
+        return getSBMLVersion(document);
+    }
+
+    bool c_api_isSetModel(SBMLDocument* document) {
+        return isSetModel(document);
     }
 
     int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const bool useMagnetism,
@@ -563,11 +579,23 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     const int c_api_getNumColors(SBMLDocument* document, int renderIndex) {
-        return getNumColorDefinitions(document, renderIndex);
+        return getNumGlobalColorDefinitions(document, renderIndex) + getNumLocalColorDefinitions(document, renderIndex);
     }
 
-    const char* c_api_getNthColorId(SBMLDocument* document, int colorIndex, int renderIndex) {
-        return strdup(getNthColorDefinitionId(document, renderIndex, colorIndex).c_str());
+    const int c_api_getNumGlobalColors(SBMLDocument* document, int renderIndex) {
+        return getNumGlobalColorDefinitions(document, renderIndex);
+    }
+
+    const int c_api_getNumLocalColors(SBMLDocument* document, int renderIndex) {
+        return getNumLocalColorDefinitions(document, renderIndex);
+    }
+
+    const char* c_api_getNthGlobalColorId(SBMLDocument* document, int colorIndex, int renderIndex) {
+        return strdup(getNthGlobalColorDefinitionId(document, renderIndex, colorIndex).c_str());
+    }
+
+    const char* c_api_getNthLocalColorId(SBMLDocument* document, int colorIndex, int renderIndex) {
+        return strdup(getNthLocalColorDefinitionId(document, renderIndex, colorIndex).c_str());
     }
 
     bool c_api_isSetColorValue(SBMLDocument* document, const char* id, int renderIndex) {
@@ -583,19 +611,43 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     const int c_api_getNumGradients(SBMLDocument* document, int renderIndex) {
-        return getNumGradientDefinitions(document, renderIndex);
+        return getNumGlobalGradientDefinitions(document, renderIndex) + getNumLocalGradientDefinitions(document, renderIndex);
     }
 
-    const char* c_api_getNthGradientId(SBMLDocument* document, int gradientIndex, int renderIndex) {
-        return strdup(getNthGradientDefinitionId(document, renderIndex, gradientIndex).c_str());
+    const int c_api_getNumGlobalGradients(SBMLDocument* document, int renderIndex) {
+        return getNumGlobalGradientDefinitions(document, renderIndex);
+    }
+
+    const int c_api_getNumLocalGradients(SBMLDocument* document, int renderIndex) {
+        return getNumLocalGradientDefinitions(document, renderIndex);
+    }
+
+    const char* c_api_getNthGlobalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex) {
+        return strdup(getNthGlobalGradientDefinitionId(document, renderIndex, gradientIndex).c_str());
+    }
+
+    const char* c_api_getNthLocalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex) {
+        return strdup(getNthLocalGradientDefinitionId(document, renderIndex, gradientIndex).c_str());
     }
 
     const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex) {
-        return getNumLineEndings(document, renderIndex);
+        return getNumGlobalLineEndings(document, renderIndex) + getNumLocalLineEndings(document, renderIndex);
     }
 
-    const char* c_api_getNthLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex) {
-        return strdup(getNthLineEndingId(document, renderIndex, lineEndingIndex).c_str());
+    const int c_api_getNumGlobalLineEndings(SBMLDocument* document, int renderIndex) {
+        return getNumGlobalLineEndings(document, renderIndex);
+    }
+
+    const int c_api_getNumLocalLineEndings(SBMLDocument* document, int renderIndex) {
+        return getNumLocalLineEndings(document, renderIndex);
+    }
+
+    const char* c_api_getNthGlobalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex) {
+        return strdup(getNthGlobalLineEndingId(document, renderIndex, lineEndingIndex).c_str());
+    }
+
+    const char* c_api_getNthLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex) {
+        return strdup(getNthLocalLineEndingId(document, renderIndex, lineEndingIndex).c_str());
     }
 
     const double c_api_getLineEndingBoundingBoxX(SBMLDocument* document, const char* id, int renderIndex) {

@@ -24,6 +24,8 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
     list(GET VersionString 2 LIBSBML_NETWORKEDITOR_VERSION_PATCH)
 endif()
 
+add_definitions(-DLIBSBML_NETWORK_EDITOR_VERSION="${LIBSBML_NETWORKEDITOR_DOTTED_VERSION}")
+
 ## find sbml package
 if(WIN32)
 	find_package(libsbml REQUIRED)

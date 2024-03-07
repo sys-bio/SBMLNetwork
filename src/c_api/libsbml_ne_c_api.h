@@ -11,6 +11,10 @@ extern "C" {
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
+    /// @brief Returns the version of the library.
+    /// @return the version of the library.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getVersion();
+
     /// @brief Reads an SBML document from the given file name or the given text string
     /// @param sbml either the name or full pathname of the file to be read or a string containing a full SBML model.
     /// @return a pointer to the SBMLDocument structure created from the SBML content in the given file name or
@@ -27,6 +31,21 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param document the SBML document to be written.
     /// @return the string on success and empty string if one of the underlying parser components fail.
     LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_writeSBMLToString(SBMLDocument* document);
+
+    /// @brief Returns the SBML Level of the SBMLDocument object containing this object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the SBML Level of the SBMLDocument object containing this object.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getSBMLLevel(SBMLDocument* document);
+
+    /// @brief Returns the Version within the SBML Level of the SBMLDocument object containing this object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the Version within the SBML Level of the SBMLDocument object containing this object.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getSBMLVersion(SBMLDocument* document);
+
+    /// @brief Returns true if the Model object has been set, otherwise returns false.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return true if the Model object has been set, otherwise returns false.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetModel(SBMLDocument* document);
 
     /// @brief Create a Layout object, a GlobalRenderInformation object, and LocalRenderInformation resume object, add them
     /// to the the SBML document, and set all the necessary features for them.
@@ -1149,12 +1168,31 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of ColorDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumColors(SBMLDocument* document, int renderIndex = 0);
 
-    /// @brief Returns the id of the nth ColorDefinition object in the given SBML document.
+    /// @brief Returns the number of ColorDefinitions of the GlobalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
+    /// @return the number of ColorDefinitions of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGlobalColors(SBMLDocument* document, int renderIndex);
+
+    /// @brief Returns the number of ColorDefinitions of the LocalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the number of ColorDefinitions of this LocalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLocalColors(SBMLDocument* document, int renderIndex);
+
+    /// @brief Returns the id of the nth Global ColorDefinition object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param colorIndex the index of the ColorDefinition to return.
-    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
     /// @return the id of the nth ColorDefinition object, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGlobalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth Local ColorDefinition object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param colorIndex the index of the ColorDefinition to return.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the id of the nth ColorDefinition object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLocalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
 
     /// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier
     /// in the RenderInformationBase with the given index is set.
@@ -1186,12 +1224,31 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of GradientDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGradients(SBMLDocument* document, int renderIndex = 0);
 
+    /// @brief Returns the number of GradientDefinitions of the GlobalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
+    /// @return the number of GradientDefinitions of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGlobalGradients(SBMLDocument* document, int renderIndex = 0);
+
+    /// @brief Returns the number of GradientDefinitions of the LocalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the number of GradientDefinitions of this LocalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLocalGradients(SBMLDocument* document, int renderIndex = 0);
+
     /// @brief Returns the id of the nth GradientDefinition object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param gradientIndex the index of the GradientDefinition to return.
-    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
     /// @return the id of the nth GradientDefinition object, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGlobalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth GradientDefinition object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param gradientIndex the index of the GradientDefinition to return.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the id of the nth GradientDefinition object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLocalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
 
     /// @brief Returns the number of LineEnding objects of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1199,12 +1256,31 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of LineEnding objects of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex = 0);
 
+    /// @brief Returns the number of LineEnding objects of the GlobalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
+    /// @return the number of LineEnding objects of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGlobalLineEndings(SBMLDocument* document, int renderIndex = 0);
+
+    /// @brief Returns the number of LineEnding objects of the LocalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the number of LineEnding objects of this LocalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLocalLineEndings(SBMLDocument* document, int renderIndex = 0);
+
     /// @brief Returns the id of the nth LineEnding object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param lineEndingIndex the index of the LineEnding to return.
-    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
     /// @return the id of the nth LineEnding object, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGlobalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth LineEnding object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param lineEndingIndex the index of the LineEnding to return.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the id of the nth LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the LineEnding object  of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.

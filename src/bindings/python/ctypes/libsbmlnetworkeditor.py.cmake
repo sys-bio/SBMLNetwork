@@ -36,6 +36,17 @@ class LibSBMLNetworkEditor:
         self.sbml_object = None
         self.load(sbml)
 
+    def getVersion(self):
+        """
+        Returns the version of the libSBMLNetworkEditor
+
+        :Returns:
+
+            a string that determines the version of the libSBMLNetworkEditor
+        """
+        lib.c_api_getVersion.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getVersion()).value.decode()
+
     def load(self, sbml):
         """
         Reads an SBML document from the given file directory or the given text string
@@ -50,6 +61,10 @@ class LibSBMLNetworkEditor:
         """
         lib.c_api_readSBML.restype = ctypes.POINTER(SBMLDocument)
         self.sbml_object = lib.c_api_readSBML(str(sbml).encode())
+        if not self.isSetModel():
+            raise Exception("The SBML document could not be loaded")
+        if not self._layout_is_specified() or not self._render_is_specified():
+            self.autolayout()
 
     def export(self, file_name=""):
         """
@@ -97,6 +112,36 @@ class LibSBMLNetworkEditor:
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
         return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr)
+
+    def getSBMLLevel(self):
+        """
+        Returns the SBML level of the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the SBML level of the given SBMLDocument
+        """
+        return lib.c_api_getSBMLLevel(self.sbml_object)
+
+    def getSBMLVersion(self):
+        """
+        Returns the SBML version of the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the SBML version of the given SBMLDocument
+        """
+        return lib.c_api_getSBMLVersion(self.sbml_object)
+
+    def isSetModel(self):
+        """
+        Returns whether the SBMLDocument has a Model object
+
+        :Returns:
+
+            true if the SBMLDocument has a Model object and false otherwise
+        """
+        return lib.c_api_isSetModel(self.sbml_object)
 
     def getNumCompartments(self):
         """
@@ -2030,10 +2075,13 @@ class LibSBMLNetworkEditor:
             a list of strings that determines the list of ColorDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
 
         """
-        lib.c_api_getNthColorId.restype = ctypes.c_char_p
+        lib.c_api_getNthGlobalColorId.restype = ctypes.c_char_p
+        lib.c_api_getNthLocalColorId.restype = ctypes.c_char_p
         list_of_color_ids = []
-        for n in range(lib.c_api_getNumColors(self.sbml_object, render_index)):
-            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getNthColorId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumGlobalColors(self.sbml_object, render_index)):
+            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalColorId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumLocalColors(self.sbml_object, render_index)):
+            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalColorId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_color_ids
 
@@ -2051,21 +2099,65 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_getNumColors(self.sbml_object, render_index)
 
-    def getNthColorId(self, index, render_index=0):
+    def getNumGlobalColors(self, render_index=0):
         """
-        Returns the id of the ColorDefinition object with the given index in the RenderInformation object with the given index in the given SBMLDocument
+        Returns the number of ColorDefinition objects in the GlobalRenderInformation object with the given index in the given SBMLDocument
 
         :Parameters:
 
-            - index (int): an integer that determines the index of the ColorDefinition object in the RenderInformation object
-            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+            - render_index (int, optional): an integer (default: 0) that determines the index of the GlobalRenderInformation object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the ColorDefinition object with the given index in the RenderInformation object with the given index in the given SBMLDocument
+            an integer that determines the number of ColorDefinition objects in the GlobalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthColorId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthColorId(self.sbml_object, index, render_index)).value.decode()
+        return lib.c_api_getNumGlobalColors(self.sbml_object, render_index)
+
+    def getNumLocalColors(self, render_index=0):
+        """
+        Returns the number of ColorDefinition objects in the LocalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - render_index (int, optional): an integer (default: 0) that determines the index of the LocalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of ColorDefinition objects in the LocalRenderInformation object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumLocalColors(self.sbml_object, render_index)
+
+    def getNthGlobalColorId(self, index, render_index=0):
+        """
+        Returns the id of the ColorDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - index (int): an integer that determines the index of the ColorDefinition object in the GlobalRenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the GlobalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the ColorDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthGlobalColorId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthGlobalColorId(self.sbml_object, index, render_index)).value.decode()
+
+    def getNthLocalColorId(self, index, render_index=0):
+        """
+        Returns the id of the ColorDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - index (int): an integer that determines the index of the ColorDefinition object in the LocalRenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the LocalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the ColorDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthLocalColorId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthLocalColorId(self.sbml_object, index, render_index)).value.decode()
 
     def isSetColorValue(self, color_id, render_index=0):
         """
@@ -2126,10 +2218,13 @@ class LibSBMLNetworkEditor:
 
             a list of strings that determines the list of GradientDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGradientId.restype = ctypes.c_char_p
+        lib.c_api_getNthGlobalGradientId.restype = ctypes.c_char_p
+        lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
         list_of_gradient_ids = []
-        for n in range(lib.c_api_getNumGradients(self.sbml_object, render_index)):
-            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthGradientId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumGlobalGradients(self.sbml_object, render_index)):
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalGradientId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumLocalGradients(self.sbml_object, render_index)):
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_gradient_ids
 
@@ -2147,21 +2242,65 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_getNumGradients(self.sbml_object, render_index)
 
-    def getNthGradientId(self, index, render_index=0):
+    def getNumGlobalGradients(self, render_index=0):
         """
-        Returns the id of the GradientDefinition object with the given index in the RenderInformation object with the given index in the given SBMLDocument
+        Returns the number of GradientDefinition objects in the GlobalRenderInformation object with the given index in the given SBMLDocument
 
         :Parameters:
 
-            - index (int): an integer that determines the index of the GradientDefinition object in the RenderInformation object
-            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+            - render_index (int, optional): an integer (default: 0) that determines the index of the GlobalRenderInformation object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the GradientDefinition object with the given index in the RenderInformation object with the given index in the given SBMLDocument
+            an integer that determines the number of GradientDefinition objects in the GlobalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGradientId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthGradientId(self.sbml_object, index, render_index)).value.decode()
+        return lib.c_api_getNumGlobalGradients(self.sbml_object, render_index)
+
+    def getNumLocalGradients(self, render_index=0):
+        """
+        Returns the number of GradientDefinition objects in the LocalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - render_index (int, optional): an integer (default: 0) that determines the index of the LocalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of GradientDefinition objects in the LocalRenderInformation object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumLocalGradients(self.sbml_object, render_index)
+
+    def getNthGlobalGradientId(self, index, render_index=0):
+        """
+        Returns the id of the GradientDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - index (int): an integer that determines the index of the GradientDefinition object in the GlobalRenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the GlobalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the GradientDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthGlobalGradientId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthGlobalGradientId(self.sbml_object, index, render_index)).value.decode()
+
+    def getNthLocalGradientId(self, index, render_index=0):
+        """
+        Returns the id of the GradientDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - index (int): an integer that determines the index of the GradientDefinition object in the LocalRenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the LocalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the GradientDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, index, render_index)).value.decode()
 
     def getListOfLineEndingIds(self, render_index=0):
         """
@@ -2175,10 +2314,13 @@ class LibSBMLNetworkEditor:
 
             a list of strings that determines the list of LineEnding ids in the RenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthLineEndingId.restype = ctypes.c_char_p
+        lib.c_api_getNthGlobalLineEndingId.restype = ctypes.c_char_p
+        lib.c_api_getNthLocalLineEndingId.restype = ctypes.c_char_p
         list_of_line_ending_ids = []
-        for n in range(lib.c_api_getNumLineEndings(self.sbml_object, render_index)):
-            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getNthLineEndingId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumGlobalLineEndings(self.sbml_object, render_index)):
+            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalLineEndingId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumLocalLineEndings(self.sbml_object, render_index)):
+            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalLineEndingId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_line_ending_ids
 
@@ -2196,21 +2338,65 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_getNumLineEndings(self.sbml_object, render_index)
 
-    def getNthLineEndingId(self, index, render_index=0):
+    def getNumGlobalLineEndings(self, render_index=0):
         """
-        Returns the id of the LineEnding object with the given index in the RenderInformation object with the given index in the given SBMLDocument
+        Returns the number of LineEnding objects in the GlobalRenderInformation object with the given index in the given SBMLDocument
 
         :Parameters:
 
-            - index (int): an integer that determines the index of the LineEnding object in the RenderInformation object
-            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+            - render_index (int, optional): an integer (default: 0) that determines the index of the GlobalRenderInformation object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the LineEnding object with the given index in the RenderInformation object with the given index in the given SBMLDocument
+            an integer that determines the number of LineEnding objects in the GlobalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthLineEndingId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthLineEndingId(self.sbml_object, index, render_index)).value.decode()
+        return lib.c_api_getNumGlobalLineEndings(self.sbml_object, render_index)
+
+    def getNumLocalLineEndings(self, render_index=0):
+        """
+        Returns the number of LineEnding objects in the LocalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - render_index (int, optional): an integer (default: 0) that determines the index of the LocalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of LineEnding objects in the LocalRenderInformation object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumLocalLineEndings(self.sbml_object, render_index)
+
+    def getNthGlobalLineEndingId(self, index, render_index=0):
+        """
+        Returns the id of the LineEnding object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - index (int): an integer that determines the index of the LineEnding object in the GlobalRenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the GlobalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the LineEnding object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthGlobalLineEndingId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthGlobalLineEndingId(self.sbml_object, index, render_index)).value.decode()
+
+    def getNthLocalLineEndingId(self, index, render_index=0):
+        """
+        Returns the id of the LineEnding object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - index (int): an integer that determines the index of the LineEnding object in the LocalRenderInformation object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the LocalRenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the LineEnding object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthLocalLineEndingId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthLocalLineEndingId(self.sbml_object, index, render_index)).value.decode()
 
     def getLineEndingBoundingBoxX(self, line_ending_id, render_index=0):
         """
@@ -5134,6 +5320,18 @@ class LibSBMLNetworkEditor:
             true on success and false if the href of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeHref(self.sbml_object, str(id).encode(), str(href).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def _layout_is_specified(self):
+        if self.getNumLayouts():
+            return True
+
+        return False
+
+    def _render_is_specified(self):
+        if self.getNumGlobalRenderInformation() or self.getNumLocalRenderInformation():
+            return True
+
+        return False
 
 
 

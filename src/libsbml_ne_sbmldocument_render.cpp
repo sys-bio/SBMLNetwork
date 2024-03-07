@@ -151,18 +151,24 @@ int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const s
     return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
 }
 
-const unsigned int getNumColorDefinitions(SBMLDocument* document, unsigned int renderIndex) {
-    if (getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex)))
-        return getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex));
-
-    return getNumColorDefinitions(getLocalRenderInformation(document, 0, renderIndex));
+const unsigned int getNumGlobalColorDefinitions(SBMLDocument* document, unsigned int renderIndex) {
+    return getNumColorDefinitions(getGlobalRenderInformation(document, renderIndex));
 }
 
-const std::string getNthColorDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int colorIndex) {
+const std::string getNthGlobalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int colorIndex) {
     ColorDefinition* colorDefinition = getColorDefinition(getGlobalRenderInformation(document, renderIndex), colorIndex);
     if (colorDefinition)
         return colorDefinition->getId();
-    colorDefinition = getColorDefinition(getLocalRenderInformation(document, 0, renderIndex), colorIndex);
+
+    return "";
+}
+
+const unsigned int getNumLocalColorDefinitions(SBMLDocument* document, unsigned int renderIndex) {
+    return getNumColorDefinitions(getLocalRenderInformation(document, 0, renderIndex));
+}
+
+const std::string getNthLocalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int colorIndex) {
+    ColorDefinition* colorDefinition = getColorDefinition(getLocalRenderInformation(document, 0, renderIndex), colorIndex);
     if (colorDefinition)
         return colorDefinition->getId();
 
@@ -220,18 +226,24 @@ int setValue(SBMLDocument* document, unsigned int renderIndex, const std::string
     return setValue(getColorDefinition(document, renderIndex, sid), value);
 }
 
-const unsigned int getNumGradientDefinitions(SBMLDocument* document, unsigned int renderIndex) {
-    if (getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex)))
-        return getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex));
+const unsigned int getNumGlobalGradientDefinitions(SBMLDocument* document, unsigned int renderIndex) {
+    return getNumGradientDefinitions(getGlobalRenderInformation(document, renderIndex));
+}
 
+const unsigned int getNumLocalGradientDefinitions(SBMLDocument* document, unsigned int renderIndex) {
     return getNumGradientDefinitions(getLocalRenderInformation(document, 0, renderIndex));
 }
 
-const std::string getNthGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
+const std::string getNthGlobalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
     GradientBase* gradientDefinition = getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex);
     if (gradientDefinition)
         return gradientDefinition->getId();
-    gradientDefinition = getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), gradientIndex);
+
+    return "";
+}
+
+const std::string getNthLocalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
+    GradientBase* gradientDefinition = getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), gradientIndex);
     if (gradientDefinition)
         return gradientDefinition->getId();
 
@@ -601,18 +613,24 @@ int setRadialGradientR(SBMLDocument* document, unsigned int renderIndex, const s
     return setRadialGradientR(getGradientDefinition(document, renderIndex, sid), r);
 }
 
-const unsigned int getNumLineEndings(SBMLDocument* document, unsigned int renderIndex) {
-    if (getNumLineEndings(getGlobalRenderInformation(document, renderIndex)))
-        return getNumLineEndings(getGlobalRenderInformation(document, renderIndex));
+const unsigned int getNumGlobalLineEndings(SBMLDocument* document, unsigned int renderIndex) {
+    return getNumLineEndings(getGlobalRenderInformation(document, renderIndex));
+}
 
+const unsigned int getNumLocalLineEndings(SBMLDocument* document, unsigned int renderIndex) {
     return getNumLineEndings(getLocalRenderInformation(document, 0, renderIndex));
 }
 
-const std::string getNthLineEndingId(SBMLDocument* document, unsigned int renderIndex, unsigned int lineEndingIndex) {
+const std::string getNthGlobalLineEndingId(SBMLDocument* document, unsigned int renderIndex, unsigned int lineEndingIndex) {
     LineEnding* lineEnding = getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex);
     if (lineEnding)
         return lineEnding->getId();
-    lineEnding = getLineEnding(getLocalRenderInformation(document, 0, renderIndex), lineEndingIndex);
+
+    return "";
+}
+
+const std::string getNthLocalLineEndingId(SBMLDocument* document, unsigned int renderIndex, unsigned int lineEndingIndex) {
+    LineEnding* lineEnding = getLineEnding(getLocalRenderInformation(document, 0, renderIndex), lineEndingIndex);
     if (lineEnding)
         return lineEnding->getId();
 
@@ -779,6 +797,7 @@ const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int 
 }
 
 int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& strokeColor) {
+    addColor(document, getLineEnding(document, id), strokeColor);
     if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
         return setStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeColor);
 
@@ -786,6 +805,7 @@ int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, cons
 }
 
 int setLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& strokeColor) {
+    addColor(document, getLineEnding(document, renderIndex, id), strokeColor);
     if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
         return setStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeColor);
 
@@ -947,6 +967,7 @@ const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int re
 }
 
 int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fillColor) {
+    addColor(document, getLineEnding(document, id), fillColor);
     if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
         return setFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)), fillColor);
 
@@ -954,6 +975,7 @@ int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const 
 }
 
 int setLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillColor) {
+    addColor(document, getLineEnding(document, renderIndex, id), fillColor);
     if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
         return setFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), fillColor);
 
@@ -1459,18 +1481,6 @@ int setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderI
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
         if (getStyle(getLocalRenderInformation(document, i), graphicalObject))
@@ -1631,6 +1641,7 @@ const std::string getStrokeColor(SBMLDocument* document, const std::string& attr
 
 int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& stroke) {
     Style* style = getStyle(document, graphicalObject);
+    addColor(document, style, stroke);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeColor(getGeometricShape(style), stroke);
 
@@ -1639,6 +1650,7 @@ int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, con
 
 int setStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& stroke) {
     Style* style = getStyle(document, attribute);
+    addColor(document, style, stroke);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeColor(getGeometricShape(style), stroke);
 
@@ -1847,6 +1859,7 @@ const std::string getFontColor(SBMLDocument* document, const std::string& attrib
 
 int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontColor) {
     Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    addColor(document, style, fontColor);
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -1857,6 +1870,7 @@ int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
 
 int setFontColor(SBMLDocument* document, const std::string& attribute, const std::string& fontColor) {
     Style* style = getStyle(document, getTextGlyph(document, attribute));
+    addColor(document, style, fontColor);
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2259,6 +2273,7 @@ const std::string getFillColor(SBMLDocument* document, const std::string& attrib
 
 int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor) {
     Style* style = getStyle(document, graphicalObject);
+    addColor(document, style, fillColor);
     if (getNumGeometricShapes(style) == 1)
         return setFillColor(getGeometricShape(style), fillColor);
 
@@ -2267,6 +2282,7 @@ int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
 
 int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor) {
     Style* style = getStyle(document, attribute);
+    addColor(document, style, fillColor);
     if (getNumGeometricShapes(style) == 1)
         return setFillColor(getGeometricShape(style), fillColor);
 
