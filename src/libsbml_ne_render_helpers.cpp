@@ -189,7 +189,7 @@ void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
     setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setStroke("darkcyan");
     rectangle->setStrokeWidth(2.0);
-    rectangle->setFill("lightgrey");
+    rectangle->setFill("lightgray");
     rectangle->setRX(RelAbsVector(0.0, 5.0));
     rectangle->setRY(RelAbsVector(0.0, 5.0));
 }
@@ -315,7 +315,7 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     addColor(globalRenderInformation, "white");
     addColor(globalRenderInformation, "black");
-    addColor(globalRenderInformation, "lightgrey");
+    addColor(globalRenderInformation, "lightgray");
     addColor(globalRenderInformation, "darkcyan");
     addColor(globalRenderInformation, "teal");
     addColor(globalRenderInformation, "silver");
@@ -906,57 +906,169 @@ const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorN
     return "";
 }
 
+std::vector<std::pair<std::string, std::string>> colorData() {
+    std::vector<std::pair<std::string, std::string>> colors;
+    colors.push_back(std::make_pair("AliceBlue", "#F0F8FF"));
+    colors.push_back(std::make_pair("AntiqueWhite", "#FAEBD7"));
+    colors.push_back(std::make_pair("Aqua", "#00FFFF"));
+    colors.push_back(std::make_pair("Aquamarine", "#7FFFD4"));
+    colors.push_back(std::make_pair("Azure", "#F0FFFF"));
+    colors.push_back(std::make_pair("Beige", "#F5F5DC"));
+    colors.push_back(std::make_pair("Bisque", "#FFE4C4"));
+    colors.push_back(std::make_pair("Black", "#000000"));
+    colors.push_back(std::make_pair("BlanchedAlmond", "#FFEBCD"));
+    colors.push_back(std::make_pair("Blue", "#0000FF"));
+    colors.push_back(std::make_pair("BlueViolet", "#8A2BE2"));
+    colors.push_back(std::make_pair("Brown", "#A52A2A"));
+    colors.push_back(std::make_pair("BurlyWood", "#DEB887"));
+    colors.push_back(std::make_pair("CadetBlue", "#5F9EA0"));
+    colors.push_back(std::make_pair("Chartreuse", "#7FFF00"));
+    colors.push_back(std::make_pair("Chocolate", "#D2691E"));
+    colors.push_back(std::make_pair("Coral", "#FF7F50"));
+    colors.push_back(std::make_pair("CornflowerBlue", "#6495ED"));
+    colors.push_back(std::make_pair("Cornsilk", "#FFF8DC"));
+    colors.push_back(std::make_pair("Crimson", "#DC143C"));
+    colors.push_back(std::make_pair("Cyan", "#00FFFF"));
+    colors.push_back(std::make_pair("DarkBlue", "#00008B"));
+    colors.push_back(std::make_pair("DarkCyan", "#008B8B"));
+    colors.push_back(std::make_pair("DarkGoldenRod", "#B8860B"));
+    colors.push_back(std::make_pair("DarkGray", "#A9A9A9"));
+    colors.push_back(std::make_pair("DarkGreen", "#006400"));
+    colors.push_back(std::make_pair("DarkKhaki", "#BDB76B"));
+    colors.push_back(std::make_pair("DarkMagenta", "#8B008B"));
+    colors.push_back(std::make_pair("DarkOliveGreen", "#556B2F"));
+    colors.push_back(std::make_pair("DarkOrange", "#FF8C00"));
+    colors.push_back(std::make_pair("DarkOrchid", "#9932CC"));
+    colors.push_back(std::make_pair("DarkRed", "#8B0000"));
+    colors.push_back(std::make_pair("DarkSalmon", "#E9967A"));
+    colors.push_back(std::make_pair("DarkSeaGreen", "#8FBC8F"));
+    colors.push_back(std::make_pair("DarkSlateBlue", "#483D8B"));
+    colors.push_back(std::make_pair("DarkSlateGray", "#2F4F4F"));
+    colors.push_back(std::make_pair("DarkTurquoise", "#00CED1"));
+    colors.push_back(std::make_pair("DarkViolet", "#9400D3"));
+    colors.push_back(std::make_pair("DeepPink", "#FF1493"));
+    colors.push_back(std::make_pair("DeepSkyBlue", "#00BFFF"));
+    colors.push_back(std::make_pair("DimGray", "#696969"));
+    colors.push_back(std::make_pair("DodgerBlue", "#1E90FF"));
+    colors.push_back(std::make_pair("FireBrick", "#B22222"));
+    colors.push_back(std::make_pair("FloralWhite", "#FFFAF0"));
+    colors.push_back(std::make_pair("ForestGreen", "#228B22"));
+    colors.push_back(std::make_pair("Fuchsia", "#FF00FF"));
+    colors.push_back(std::make_pair("Gainsboro", "#DCDCDC"));
+    colors.push_back(std::make_pair("GhostWhite", "#F8F8FF"));
+    colors.push_back(std::make_pair("Gold", "#FFD700"));
+    colors.push_back(std::make_pair("GoldenRod", "#DAA520"));
+    colors.push_back(std::make_pair("Gray", "#808080"));
+    colors.push_back(std::make_pair("Green", "#008000"));
+    colors.push_back(std::make_pair("GreenYellow", "#ADFF2F"));
+    colors.push_back(std::make_pair("HoneyDew", "#F0FFF0"));
+    colors.push_back(std::make_pair("HotPink", "#FF69B4"));
+    colors.push_back(std::make_pair("IndianRed", "#CD5C5C"));
+    colors.push_back(std::make_pair("Indigo", "#4B0082"));
+    colors.push_back(std::make_pair("Ivory", "#FFFFF0"));
+    colors.push_back(std::make_pair("Khaki", "#F0E68C"));
+    colors.push_back(std::make_pair("Lavender", "#E6E6FA"));
+    colors.push_back(std::make_pair("LavenderBlush", "#FFF0F5"));
+    colors.push_back(std::make_pair("LawnGreen", "#7CFC00"));
+    colors.push_back(std::make_pair("LemonChiffon", "#FFFACD"));
+    colors.push_back(std::make_pair("LightBlue", "#ADD8E6"));
+    colors.push_back(std::make_pair("LightCoral", "#F08080"));
+    colors.push_back(std::make_pair("LightCyan", "#E0FFFF"));
+    colors.push_back(std::make_pair("LightGoldenRodYellow", "#FAFAD2"));
+    colors.push_back(std::make_pair("LightGray", "#D3D3D3"));
+    colors.push_back(std::make_pair("LightGreen", "#90EE90"));
+    colors.push_back(std::make_pair("LightPink", "#FFB6C1"));
+    colors.push_back(std::make_pair("LightSalmon", "#FFA07A"));
+    colors.push_back(std::make_pair("LightSeaGreen", "#20B2AA"));
+    colors.push_back(std::make_pair("LightSkyBlue", "#87CEFA"));
+    colors.push_back(std::make_pair("LightSlateGray", "#778899"));
+    colors.push_back(std::make_pair("LightSteelBlue", "#B0C4DE"));
+    colors.push_back(std::make_pair("LightYellow", "#FFFFE0"));
+    colors.push_back(std::make_pair("Lime", "#00FF00"));
+    colors.push_back(std::make_pair("LimeGreen", "#32CD32"));
+    colors.push_back(std::make_pair("Linen", "#FAF0E6"));
+    colors.push_back(std::make_pair("Magenta", "#FF00FF"));
+    colors.push_back(std::make_pair("Maroon", "#800000"));
+    colors.push_back(std::make_pair("MediumAquaMarine", "#66CDAA"));
+    colors.push_back(std::make_pair("MediumBlue", "#0000CD"));
+    colors.push_back(std::make_pair("MediumOrchid", "#BA55D3"));
+    colors.push_back(std::make_pair("MediumPurple", "#9370DB"));
+    colors.push_back(std::make_pair("MediumSeaGreen", "#3CB371"));
+    colors.push_back(std::make_pair("MediumSlateBlue", "#7B68EE"));
+    colors.push_back(std::make_pair("MediumSpringGreen", "#00FA9A"));
+    colors.push_back(std::make_pair("MediumTurquoise", "#48D1CC"));
+    colors.push_back(std::make_pair("MediumVioletRed", "#C71585"));
+    colors.push_back(std::make_pair("MidnightBlue", "#191970"));
+    colors.push_back(std::make_pair("MintCream", "#F5FFFA"));
+    colors.push_back(std::make_pair("MistyRose", "#FFE4E1"));
+    colors.push_back(std::make_pair("Moccasin", "#FFE4B5"));
+    colors.push_back(std::make_pair("NavajoWhite", "#FFDEAD"));
+    colors.push_back(std::make_pair("Navy", "#000080"));
+    colors.push_back(std::make_pair("OldLace", "#FDF5E6"));
+    colors.push_back(std::make_pair("Olive", "#808000"));
+    colors.push_back(std::make_pair("OliveDrab", "#6B8E23"));
+    colors.push_back(std::make_pair("Orange", "#FFA500"));
+    colors.push_back(std::make_pair("OrangeRed", "#FF4500"));
+    colors.push_back(std::make_pair("Orchid", "#DA70D6"));
+    colors.push_back(std::make_pair("PaleGoldenRod", "#EEE8AA"));
+    colors.push_back(std::make_pair("PaleGreen", "#98FB98"));
+    colors.push_back(std::make_pair("PaleTurquoise", "#AFEEEE"));
+    colors.push_back(std::make_pair("PaleVioletRed", "#DB7093"));
+    colors.push_back(std::make_pair("PapayaWhip", "#FFEFD5"));
+    colors.push_back(std::make_pair("PeachPuff", "#FFDAB9"));
+    colors.push_back(std::make_pair("Peru", "#CD853F"));
+    colors.push_back(std::make_pair("Pink", "#FFC0CB"));
+    colors.push_back(std::make_pair("Plum", "#DDA0DD"));
+    colors.push_back(std::make_pair("PowderBlue", "#B0E0E6"));
+    colors.push_back(std::make_pair("Purple", "#800080"));
+    colors.push_back(std::make_pair("RebeccaPurple", "#663399"));
+    colors.push_back(std::make_pair("Red", "#FF0000"));
+    colors.push_back(std::make_pair("RosyBrown", "#BC8F8F"));
+    colors.push_back(std::make_pair("RoyalBlue", "#4169E1"));
+    colors.push_back(std::make_pair("SaddleBrown", "#8B4513"));
+    colors.push_back(std::make_pair("Salmon", "#FA8072"));
+    colors.push_back(std::make_pair("SandyBrown", "#F4A460"));
+    colors.push_back(std::make_pair("SeaGreen", "#2E8B57"));
+    colors.push_back(std::make_pair("SeaShell", "#FFF5EE"));
+    colors.push_back(std::make_pair("Sienna", "#A0522D"));
+    colors.push_back(std::make_pair("Silver", "#C0C0C0"));
+    colors.push_back(std::make_pair("SkyBlue", "#87CEEB"));
+    colors.push_back(std::make_pair("SlateBlue", "#6A5ACD"));
+    colors.push_back(std::make_pair("SlateGray", "#708090"));
+    colors.push_back(std::make_pair("Snow", "#FFFAFA"));
+    colors.push_back(std::make_pair("SpringGreen", "#00FF7F"));
+    colors.push_back(std::make_pair("SteelBlue", "#4682B4"));
+    colors.push_back(std::make_pair("Tan", "#D2B48C"));
+    colors.push_back(std::make_pair("Teal", "#008080"));
+    colors.push_back(std::make_pair("Thistle", "#D8BFD8"));
+    colors.push_back(std::make_pair("Tomato", "#FF6347"));
+    colors.push_back(std::make_pair("Turquoise", "#40E0D0"));
+    colors.push_back(std::make_pair("Violet", "#EE82EE"));
+    colors.push_back(std::make_pair("Wheat", "#F5DEB3"));
+    colors.push_back(std::make_pair("White", "#FFFFFF"));
+    colors.push_back(std::make_pair("WhiteSmoke", "#F5F5F5"));
+    colors.push_back(std::make_pair("Yellow", "#FFFF00"));
+    colors.push_back(std::make_pair("YellowGreen", "#9ACD32"));
+
+    return colors;
+}
+
 std::vector<std::string> getHtmlColorNames() {
-    return std::vector<std::string>({"aliceblue", "antiquewhite", "aqua", "aquamarine", "azure",
-                                     "beige", "bisque", "black", "blanchedalmond", "blue",
-                                     "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
-                                     "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson",
-                                     "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
-                                     "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
-                                     "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
-                                     "darkslateblue", "darkslategray", "darkturquoise", "darkviolet",
-                                     "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick",
-                                     "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite",
-                                     "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew",
-                                     "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
-                                     "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
-                                     "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey",
-                                     "lightpink","lightsalmon", "lightseagreen", "lightskyblue",
-                                     "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen",
-                                     "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue",
-                                     "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue",
-                                     "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue",
-                                     "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace",
-                                     "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod",
-                                     "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff",
-                                     "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown",
-                                     "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen","seashell",
-                                     "sienna", "silver", "skyblue", "slateblue", "slategray", "snow","springgreen",
-                                     "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
-                                     "wheat", "white", "whitesmoke", "yellow", "yellowgreen"});
+    std::vector<std::string> htmlColorNames;
+    for (unsigned int i = 0; i < colorData().size(); i++) {
+        htmlColorNames.push_back(colorData().at(i).first);
+    }
+
+    return htmlColorNames;
 }
 
 std::vector<std::string> getHexColorCodes() {
-    return std::vector<std::string>({"#F0F8FF", "#FAEBD7", "#00FFFF", "#7FFFD4", "#F0FFFF", "#F5F5DC", "#FFE4C4",
-                                     "#000000", "#FFEBCD", "#0000FF", "#8A2BE2", "#A52A2A", "#DEB887", "#5F9EA0",
-                                     "#7FFF00", "#D2691E", "#FF7F50", "#6495ED", "#FFF8DC", "#DC143C", "#00FFFF",
-                                     "#00008B", "#008B8B", "#B8860B", "#A9A9A9", "#006400", "#BDB76B", "#8B008B",
-                                     "#556B2F", "#FF8C00", "#9932CC", "#8B0000", "#E9967A", "#8FBC8F", "#483D8B",
-                                     "#2F4F4F", "#00CED1", "#9400D3", "#FF1493", "#00BFFF", "#696969", "#1E90FF",
-                                     "#B22222", "#FFFAF0", "#228B22", "#FF00FF", "#DCDCDC", "#F8F8FF", "#FFD700",
-                                     "#DAA520", "#808080", "#008000", "#ADFF2F", "#F0FFF0", "#FF69B4", "#CD5C5C",
-                                     "#4B0082", "#FFFFF0", "#F0E68C", "#E6E6FA", "#FFF0F5", "#7CFC00", "#FFFACD",
-                                     "#ADD8E6", "#F08080", "#E0FFFF", "#FAFAD2", "#90EE90", "#D3D3D3", "#FFB6C1",
-                                     "#FFA07A", "#20B2AA", "#87CEFA", "#778899", "#B0C4DE", "#FFFFE0", "#00FF00",
-                                     "#32CD32", "#FAF0E6", "#FF00FF", "#800000", "#66CDAA", "#0000CD", "#BA55D3",
-                                     "#9370DB", "#3CB371", "#7B68EE", "#00FA9A", "#48D1CC", "#C71585", "#191970",
-                                     "#F5FFFA", "#FFE4E1", "#FFE4B5", "#FFDEAD", "#000080", "#FDF5E6", "#808000",
-                                     "#6B8E23", "#FFA500", "#FF4500", "#DA70D6", "#EEE8AA", "#98FB98", "#AFEEEE",
-                                     "#DB7093", "#FFEFD5", "#FFDAB9", "#CD853F", "#FFC0CB", "#DDA0DD", "#B0E0E6",
-                                     "#800080", "#FF0000", "#BC8F8F", "#4169E1", "#8B4513", "#FA8072", "#F4A460",
-                                     "#2E8B57", "#FFF5EE", "#A0522D", "#C0C0C0", "#87CEEB", "#6A5ACD", "#708090",
-                                     "#FFFAFA", "#00FF7F", "#4682B4", "#D2B48C", "#008080", "#D8BFD8", "#FF6347",
-                                     "#40E0D0", "#EE82EE", "#F5DEB3", "#FFFFFF", "#F5F5F5", "#FFFF00", "#9ACD32"});
+    std::vector<std::string> hexColorCodes;
+    for (unsigned int i = 0; i < colorData().size(); i++) {
+        hexColorCodes.push_back(colorData().at(i).second);
+    }
+
+    return hexColorCodes;
 }
 
 }
