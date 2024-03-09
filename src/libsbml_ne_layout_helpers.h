@@ -60,6 +60,8 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 void setCurveCubicBezier(Curve* curve);
@@ -81,8 +83,6 @@ bool compartmentGlyphBelongs(CompartmentGlyph* compartmentGlyph, Compartment* co
 bool speciesGlyphBelongs(SpeciesGlyph* speciesGlyph, Species* species);
 
 bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction);
-
-bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
 
 const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
 

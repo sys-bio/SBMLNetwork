@@ -87,6 +87,7 @@ void setReactionGlyphs(Model* model, Layout* layout) {
         Reaction* reaction = model->getReaction(i);
         ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reaction);
         setReactionGlyphCurve(reactionGlyph);
+        clearReactionGlyphSpeciesReferenceGlyphs(reactionGlyph);
         setReactantGlyphs(layout, reaction, reactionGlyph);
         setProductGlyphs(layout, reaction, reactionGlyph);
         setModifierGlyphs(layout, reaction, reactionGlyph);
@@ -171,12 +172,6 @@ ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
 }
 
 SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
-    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
-        if (canSpeciesReferenceGlyphBelongs(layout, reactionGlyph->getSpeciesReferenceGlyph(i), speciesReference)) {
-            if (getNumSpeciesReferencesAssociatedWithSpecies(reaction, speciesReference->getSpecies()) <= getNumSpeciesReferencesGlyphsAssociatedWithSpecies(layout, reactionGlyph, speciesReference->getSpecies()))
-                return reactionGlyph->getSpeciesReferenceGlyph(i);
-        }
-    }
     SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->createSpeciesReferenceGlyph();
     if (!speciesReference->getId().empty()) {
         speciesReferenceGlyph->setId(speciesReference->getId() + "_Glyph_1");
@@ -252,6 +247,11 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
         setCurveCubicBezier(reactionGlyph->getCurve());
 }
 
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
+        reactionGlyph->removeSpeciesReferenceGlyph(0);
+}
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph) {
     if (!speciesReferenceGlyph->isSetCurve())
         setCurveCubicBezier(speciesReferenceGlyph->getCurve());
@@ -308,14 +308,6 @@ bool speciesGlyphBelongs(SpeciesGlyph* speciesGlyph, Species* species) {
 
 bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction) {
     return reactionGlyph->getReactionId() == reaction->getId() ? true : false;
-}
-
-bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference) {
-    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
-    if (speciesGlyph)
-        return speciesGlyph->getSpeciesId() == speciesReference->getSpecies() ? true : false;
-    
-    return false;
 }
 
 const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) {
