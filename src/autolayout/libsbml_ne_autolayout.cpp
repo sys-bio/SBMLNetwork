@@ -21,8 +21,8 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
 
 void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding,
                               const std::vector <std::string> &lockedNodeIds) {
-    double canvasWidth = layout->getDimensions()->width() > 0.0001 ? layout->getDimensions()->width() : 400.0;
-    double canvasHeight = layout->getDimensions()->height() > 0.0001 ? layout->getDimensions()->height() : 400.0;
+    double canvasWidth = layout->getDimensions()->width();
+    double canvasHeight = layout->getDimensions()->height();
     randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding, lockedNodeIds);
     randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding, lockedNodeIds);
 }
@@ -46,12 +46,8 @@ void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double
 
 void randomizeBoundingBoxesPosition(BoundingBox *boundingBox, const double &canvasWidth, const double &canvasHeight) {
     double offset = 30.0;
-    double defaultBoundingBoxWidth = 60.0;
-    double defaultBoundingBoxHeight = 36.0;
     boundingBox->setX(offset + (std::rand() % int(canvasWidth - offset)));
     boundingBox->setY(offset + (std::rand() % int(canvasHeight - offset)));
-    boundingBox->setWidth(defaultBoundingBoxWidth);
-    boundingBox->setHeight(defaultBoundingBoxHeight);
 }
 
 void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const double &canvasHeight) {
@@ -75,10 +71,10 @@ void setGlyphsDimensions(Model *model, Layout *layout) {
 }
 
 void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph *speciesGlyph) {
-    double speciesWidth = calculateSpeciesGlyphDefaultWidth(model, speciesGlyph);
-    double speciesHeight = calculateSpeciesGlyphDefaultHeight(speciesGlyph, speciesWidth);
-    speciesGlyph->getBoundingBox()->setWidth(speciesWidth);
-    speciesGlyph->getBoundingBox()->setHeight(speciesHeight);
+    double calculatedSpeciesWidth = calculateSpeciesGlyphDefaultWidth(model, speciesGlyph);
+    double calculatedSpeciesHeight = calculateSpeciesGlyphDefaultHeight(speciesGlyph, calculatedSpeciesWidth);
+    speciesGlyph->getBoundingBox()->setWidth(std::max(calculatedSpeciesWidth, speciesGlyph->getBoundingBox()->width()));
+    speciesGlyph->getBoundingBox()->setHeight(std::max(calculatedSpeciesHeight, speciesGlyph->getBoundingBox()->height()));
 }
 
 const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph *speciesGlyph) {
