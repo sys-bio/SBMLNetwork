@@ -231,7 +231,8 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
 
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
-    graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
+    if  (!graphicalObject->getBoundingBox()->isSetId())
+        graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
