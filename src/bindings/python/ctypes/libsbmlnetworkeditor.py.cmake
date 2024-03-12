@@ -111,7 +111,7 @@ class LibSBMLNetworkEditor:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr)
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, len(locked_nodes), locked_nodes_ptr)
 
     def getSBMLLevel(self):
         """

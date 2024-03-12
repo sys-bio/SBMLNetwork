@@ -55,11 +55,12 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @param lockedNodesSize the size of lockedNodeIds
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                 const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                const char** lockedNodeIds = NULL);
+                                                const int lockedNodesSize = 0, const char** lockedNodeIds = NULL);
 
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -79,10 +80,12 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @param lockedNodesSize the size of lockedNodeIds
+    /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                                const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                               const char** lockedNodeIds = NULL);
+                                                               const int lockedNodesSize = 0, const char** lockedNodeIds = NULL);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.

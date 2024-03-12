@@ -47,7 +47,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
     int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                    const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
                    std::vector <std::string> lockedNodeIds) {
-        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid) && !createDefaultRenderInformation(document))
+        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds) && !createDefaultRenderInformation(document))
             return 0;
 
         return -1;

@@ -34,10 +34,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const bool useMagnetism,
-                   const bool useBoundary, const bool useGrid, const char **lockedNodeIds) {
+                   const bool useBoundary, const bool useGrid, const int lockedNodesSize, const char **lockedNodeIds) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
-            for (int i = 0; lockedNodeIds[i] != nullptr; i++)
+            for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
 
@@ -53,10 +53,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const bool useMagnetism,
-                                  const bool useBoundary, const bool useGrid, const char **lockedNodeIds) {
+                                  const bool useBoundary, const bool useGrid, const int lockedNodesSize, const char **lockedNodeIds) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
-            for (int i = 0; lockedNodeIds[i] != nullptr; i++)
+            for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
         return createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector);
