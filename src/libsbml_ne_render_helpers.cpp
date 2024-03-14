@@ -795,6 +795,31 @@ const bool isValidEndHeadValue(const std::string& endHead) {
     return true;
 }
 
+const bool isValidGeometricShapeName(const std::string geometricShapeName) {
+    if (stringCompare(geometricShapeName, "rectangle"))
+        return true;
+    else if (stringCompare(geometricShapeName, "ellipse"))
+        return true;
+    else if (stringCompare(geometricShapeName, "triangle"))
+        return true;
+    else if (stringCompare(geometricShapeName, "diamond"))
+        return true;
+    else if (stringCompare(geometricShapeName, "pentagon"))
+        return true;
+    else if (stringCompare(geometricShapeName, "hexagon"))
+        return true;
+    else if (stringCompare(geometricShapeName, "octagon"))
+        return true;
+    else if (stringCompare(geometricShapeName, "rendercurve"))
+        return true;
+    else if (stringCompare(geometricShapeName, "image"))
+        return true;
+
+    std::cerr << "error: entered value (" << geometricShapeName << ") is not a valid geometric shape name" << std::endl;
+    return false;
+
+}
+
 const bool isValidGeometricShapeXValue(const RelAbsVector& x) {
     return true;
 }

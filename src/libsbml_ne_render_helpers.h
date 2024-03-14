@@ -201,6 +201,8 @@ const bool isValidStartHeadValue(const std::string& startHead);
 
 const bool isValidEndHeadValue(const std::string& endHead);
 
+const bool isValidGeometricShapeName(const std::string geometricShapeName);
+
 const bool isValidGeometricShapeXValue(const RelAbsVector& x);
 
 const bool isValidGeometricShapeYValue(const RelAbsVector& y);

@@ -1657,6 +1657,58 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
     return setStrokeColor(style, stroke);
 }
 
+int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setStrokeColor(document, layout->getSpeciesGlyph(i), stroke))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setStrokeColor(document, layout->getReactionGlyph(i), stroke))
+            return -1;
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            if (setStrokeColor(document, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j), stroke))
+                return -1;
+        }
+    }
+    if (setLineEndingsStrokeColor(document, layoutIndex, stroke))
+        return -1;
+
+    return 0;
+}
+
+int setLineEndingsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingStrokeColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), stroke))
+                return -1;
+        }
+    }
+    for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingStrokeColor(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId(), stroke))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    if (setSpeciesStrokeColor(document, layoutIndex, stroke))
+        return -1;
+    if (setReactionsStrokeColor(document, layoutIndex, stroke))
+        return -1;
+
+    return 0;
+}
+
 bool isSetStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isSetStrokeWidth(getGeometricShape(style)))
@@ -1703,6 +1755,58 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
         return setStrokeWidth(getGeometricShape(style), strokeWidth);
 
     return setStrokeWidth(style, strokeWidth);
+}
+
+int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setStrokeWidth(document, layout->getSpeciesGlyph(i), strokeWidth))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setStrokeWidth(document, layout->getReactionGlyph(i), strokeWidth))
+            return -1;
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            if (setStrokeWidth(document, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j), strokeWidth))
+                return -1;
+        }
+    }
+    if (setLineEndingsStrokeWidth(document, layoutIndex, strokeWidth))
+        return -1;
+
+    return 0;
+}
+
+int setLineEndingsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingStrokeWidth(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), strokeWidth))
+                return -1;
+        }
+    }
+    for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingStrokeWidth(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId(), strokeWidth))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    if (setSpeciesStrokeWidth(document, layoutIndex, strokeWidth))
+        return -1;
+    if (setReactionsStrokeWidth(document, layoutIndex, strokeWidth))
+        return -1;
+
+    return 0;
 }
 
 bool isSetStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject) {
@@ -2289,6 +2393,54 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
     return setFillColor(style, fillColor);
 }
 
+int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setFillColor(document, layout->getSpeciesGlyph(i), fillColor))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setFillColor(document, layout->getReactionGlyph(i), fillColor))
+            return -1;
+    }
+    if (setLineEndingsFillColor(document, layoutIndex, fillColor))
+        return -1;
+
+    return 0;
+}
+
+int setLineEndingsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingFillColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), fillColor))
+                return -1;
+        }
+    }
+    for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingFillColor(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId(), fillColor))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    if (setSpeciesFillColor(document, layoutIndex, fillColor))
+        return -1;
+    if (setReactionsFillColor(document, layoutIndex, fillColor))
+        return -1;
+
+    return 0;
+}
+
 bool isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
@@ -2463,6 +2615,43 @@ Transformation2D* removeGeometricShape(SBMLDocument* document, GraphicalObject* 
 
 Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     return removeGeometricShape(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
+    return setGeometricShape(getStyle(document, graphicalObject), shape);
+}
+
+int setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
+    return setGeometricShape(getStyle(document, attribute), shape);
+}
+
+int setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setGeometricShape(document, layout->getSpeciesGlyph(i), shape))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionsGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setGeometricShape(document, layout->getReactionGlyph(i), shape))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    if (setSpeciesGeometricShape(document, layoutIndex, shape))
+        return -1;
+    if (setReactionsGeometricShape(document, layoutIndex, shape))
+        return -1;
+
+    return 0;
 }
 
 bool isRectangle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {

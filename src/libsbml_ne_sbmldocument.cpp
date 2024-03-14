@@ -53,6 +53,17 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return -1;
     }
 
+    int updateLayoutCurves(SBMLDocument* document) {
+        std::vector<std::string> lockedNodeIds;
+        std::vector<std::string> speciesGlyphIds = getSpeciesGlyphsIds(document);
+        for (unsigned int i = 0; i < speciesGlyphIds.size(); i++)
+            lockedNodeIds.push_back(speciesGlyphIds[i]);
+        std::vector<std::string> reactionGlyphIds = getReactionGlyphsIds(document);
+        for (unsigned int i = 0; i < reactionGlyphIds.size(); i++)
+            lockedNodeIds.push_back(reactionGlyphIds[i]);
+        return autolayout(document, 10, 15, false, false, false, lockedNodeIds);
+    }
+
     bool isSetId(SBase* object) {
         if (object)
             return object->isSetId();

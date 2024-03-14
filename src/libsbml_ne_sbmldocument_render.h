@@ -939,7 +939,7 @@ LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(SBMLDocument* document, u
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param lineEndingIndex the index value of the LineEnding to return.
-/// @return the @c LineEnding with the given index, or NULL if LineEnding does not exist or the object is @c NULL
+/// @return the @c LineEnding withf the given index, or NULL if LineEnding does not exist or the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN LineEnding* getLineEnding(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0);
 
 /// @brief Predicates returning @c true if the "enableRotationalMapping" attribute of the LineEnding with the given identifier
@@ -1870,6 +1870,34 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, Graphica
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& stroke);
 
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setReactionsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEnding objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1909,6 +1937,34 @@ LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(SBMLDocument* document, Graphica
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setReactionsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEnding objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
 
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -2326,6 +2382,34 @@ LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, GraphicalO
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
 
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fillColor a double value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setReactionsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEnding objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setLineEndingsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2499,6 +2583,41 @@ LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(SBMLDocument
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setReactionsGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
 /// @param document a pointer to the SBMLDocument object.

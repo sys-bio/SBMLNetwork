@@ -126,6 +126,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isCompartmentGlyph(Layout* layout, const std::
 /// @return @c true if this abstract GraphicalObject is of type CompartmentGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isCompartmentGlyph(GraphicalObject* graphicalObject);
 
+/// @brief Returns the ids of the SpeciesGlyph objects of the Layout object
+/// @param layout a pointer to the Layout object
+/// @return the ids of the SpeciesGlyph objects of the Layout object
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<std::string> getSpeciesGlyphsIds(Layout* layout);
+
 /// @brief Returns the number of SpeciesGlyph objects of the Layout object.
 /// @param layout a pointer to the Layout object
 /// @return the number of the SpeciesGlyph objects of the Layout object, or @c 0 if the object is @c NULL
@@ -180,6 +185,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesGlyph(Layout* layout, const std::stri
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesGlyph(GraphicalObject* graphicalObject);
+
+/// @brief Returns the ids of the ReactionGlyph objects of the Layout object
+/// @param layout a pointer to the Layout object
+/// @return the ids of the ReactionGlyph objects of the Layout object
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<std::string> getReactionGlyphsIds(Layout* layout);
 
 /// @brief Returns the number of ReactionGlyph objects of the Layout object.
 /// @param layout a pointer to the Layout object

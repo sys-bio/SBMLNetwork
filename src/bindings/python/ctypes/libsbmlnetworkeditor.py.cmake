@@ -3651,6 +3651,66 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setBorderColor(self.sbml_object, str(id).encode(), str(border_color).encode(), graphical_object_index, layout_index)
 
+    def setSpeciesBorderColors(self, border_color, layout_index=0):
+        """
+        Sets the border color of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_color (string): a string that determines the border color of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border color of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+
+    def setReactionsBorderColors(self, border_color, layout_index=0):
+        """
+        Sets the border color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_color (string): a string that determines the border color of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border color of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+
+    def setLineEndingsBorderColors(self, border_color, layout_index=0):
+        """
+        Sets the border color of all the LineEnding object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_color (string): a string that determines the border color of the LineEnding object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border color of all the LineEnding object could not be set
+        """
+        return lib.c_api_setLineEndingsBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+
+    def setBorderColors(self, border_color, layout_index=0):
+        """
+        Sets the border color of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_color (string): a string that determines the border color of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border color of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+
     def isSetBorderWidth(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the border width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -3700,6 +3760,66 @@ class LibSBMLNetworkEditor:
             true on success and false if the border width of the GraphicalObject could not be set
         """
         return lib.c_api_setBorderWidth(self.sbml_object, str(id).encode(), ctypes.c_double(border_width), graphical_object_index, layout_index)
+
+    def setSpeciesBorderWidths(self, border_width, layout_index=0):
+        """
+        Sets the border width of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_width (float): a float that determines the border width of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border width of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
+
+    def setReactionsBorderWidths(self, border_width, layout_index=0):
+        """
+        Sets the border width of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_width (float): a float that determines the border width of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border width of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
+
+    def setLineEndingsBorderWidths(self, border_width, layout_index=0):
+        """
+        Sets the border width of all the LineEnding object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_width (float): a float that determines the border width of the LineEnding object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border width of all the LineEnding object could not be set
+        """
+        return lib.c_api_setLineEndingsBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
+
+    def setBorderWidths(self, border_width, layout_index=0):
+        """
+        Sets the border width of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_width (float): a float that determines the border width of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border width of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
 
     def getNumBorderDashes(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -3801,6 +3921,66 @@ class LibSBMLNetworkEditor:
             true on success and false if the fill color of the GraphicalObject could not be set
         """
         return lib.c_api_setFillColor(self.sbml_object, str(id).encode(), str(fill_color).encode(), graphical_object_index, layout_index)
+
+    def setSpeciesFillColors(self, fill_color, layout_index=0):
+        """
+        Sets the fill color of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_color (string): a string that determines the fill color of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesFillColors(self.sbml_object, str(fill_color).encode(), layout_index)
+
+    def setReactionsFillColors(self, fill_color, layout_index=0):
+        """
+        Sets the fill color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_color (string): a string that determines the fill color of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsFillColors(self.sbml_object, str(fill_color).encode(), layout_index)
+
+    def setLineEndingsFillColors(self, fill_color, layout_index=0):
+        """
+        Sets the fill color of all the LineEnding object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_color (string): a string that determines the fill color of the LineEnding object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the LineEnding object could not be set
+        """
+        return lib.c_api_setLineEndingsFillColors(self.sbml_object, str(fill_color).encode(), layout_index)
+
+    def setFillColors(self, fill_color, layout_index=0):
+        """
+        Sets the fill color of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_color (string): a string that determines the fill color of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFillColors(self.sbml_object, str(fill_color).encode(), layout_index)
 
     def isSetFillRule(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -4319,6 +4499,104 @@ class LibSBMLNetworkEditor:
             an integer that determines the number of GeometricShape objects associated with the model entity with the given id in the given SBMLDocument
         """
         return lib.c_api_getNumGeometricShapes(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def addGeometricShape(self, id, geometric_shape_type, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Adds a GeometricShape object of the given type to the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be added to the model entity
+        """
+        return lib.c_api_addGeometricShape(self.sbml_object, str(id).encode(), str(geometric_shape_type).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def removeGeometricShape(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Removes the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be removed from the model entity
+        """
+        return lib.c_api_removeGeometricShape(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setGeometricShape(self, id, geometric_shape, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShape(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setSpeciesGeometricShapes(self, geometric_shape, layout_index=0):
+        """
+        Sets the GeometricShape object associated with the species in the given SBMLDocument
+
+        :Parameters:
+
+            - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+
+    def setReactionGeometricShapes(self, geometric_shape, layout_index=0):
+        """
+        Sets the GeometricShape object associated with the reaction in the given SBMLDocument
+
+        :Parameters:
+
+            - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be set
+        """
+        return lib.c_api_setReactionGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+
+    def setGeometricShapes(self, geometric_shape, layout_index=0):
+        """
+        Sets the GeometricShape object associated with the model entity in the given SBMLDocument
+
+        :Parameters:
+
+            - geometric_shape (string): a string that determines the type of the GeometricShape object to be added to the model entity
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
     def isRectangle(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """

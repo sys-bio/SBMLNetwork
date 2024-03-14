@@ -60,6 +60,11 @@ LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double
                                                 const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
                                                 std::vector <std::string> lockedNodeIds = std::vector<std::string>());
 
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document);
+
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.
 /// @return @c true if the "id" attribute of this SBML object is set, @c false if either the "id"

@@ -432,7 +432,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex) {
-        return setPositionX(document, layoutIndex, id, graphicalObjectIndex, x);
+        if (!setPositionX(document, layoutIndex, id, graphicalObjectIndex, x)  && updateLayoutCurves(document))
+            return 0;
+
+        return -1;
     }
 
     const double c_api_getY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
@@ -440,7 +443,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        return setPositionY(document, layoutIndex, id, graphicalObjectIndex, y);
+        if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, y)  && updateLayoutCurves(document))
+            return 0;
+
+        return -1;
     }
 
     const double c_api_getWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
@@ -448,7 +454,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex) {
-        return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width);
+        if (!setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width)  && updateLayoutCurves(document))
+            return 0;
+
+        return -1;
     }
 
     const double c_api_getHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
@@ -456,7 +465,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
-        return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height);
+        if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height)  && updateLayoutCurves(document))
+            return 0;
+
+        return -1;
     }
 
     bool c_api_isSetCurve(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1018,12 +1030,6 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setLineEndingGeometricShapeHref(document, renderIndex, id, geometricShapeIndex, href);
     }
 
-
-
-
-
-
-
     bool c_api_isSetBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
         return isSetStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
@@ -1033,7 +1039,28 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id)) {
+            for (unsigned int i = 0; i < getNumSpeciesReferences(document, id); i++)
+                setStrokeColor(document, getSpeciesReferenceGlyph(document, layoutIndex, id, graphicalObjectIndex, i), borderColor);
+        }
+
         return setStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderColor);
+    }
+
+    int c_api_setSpeciesBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+        return setSpeciesStrokeColor(document, layoutIndex, borderColor);
+    }
+
+    int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+        return setReactionsStrokeColor(document, layoutIndex, borderColor);
+    }
+
+    int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+        return setLineEndingsStrokeColor(document, layoutIndex, borderColor);
+    }
+
+    int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+        return setStrokeColor(document, layoutIndex, borderColor);
     }
 
     bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1045,7 +1072,29 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id)) {
+            for (unsigned int i = 0; i < getNumSpeciesReferences(document, id); i++)
+                setStrokeWidth(document, getSpeciesReferenceGlyph(document, layoutIndex, id, graphicalObjectIndex, i),
+                               borderWidth);
+        }
+
         return setStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderWidth);
+    }
+
+    int c_api_setSpeciesBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
+        return setSpeciesStrokeWidth(document, layoutIndex, borderWidth);
+    }
+
+    int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
+        return setReactionsStrokeWidth(document, layoutIndex, borderWidth);
+    }
+
+    int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
+        return setLineEndingsStrokeWidth(document, layoutIndex, borderWidth);
+    }
+
+    int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
+        return setStrokeWidth(document, layoutIndex, borderWidth);
     }
 
     int c_api_getNumBorderDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1057,6 +1106,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id)) {
+            for (unsigned int i = 0; i < getNumSpeciesReferences(document, id); i++)
+                setStrokeDash(document, getSpeciesReferenceGlyph(document, layoutIndex, id, graphicalObjectIndex, i), dash);
+        }
         return setStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex, dash);
     }
 
@@ -1070,6 +1123,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex, int layoutIndex) {
         return setFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fillColor);
+    }
+
+    int c_api_setSpeciesFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
+        return setSpeciesFillColor(document, layoutIndex, fillColor);
+    }
+
+    int c_api_setReactionsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
+        return setReactionsFillColor(document, layoutIndex, fillColor);
+    }
+
+    int c_api_setLineEndingsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
+        return setLineEndingsFillColor(document, layoutIndex, fillColor);
+    }
+
+    int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
+        return setFillColor(document, layoutIndex, fillColor);
     }
 
     bool c_api_isSetFillRule(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1197,6 +1266,33 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
         return getNumGeometricShapes(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
+    int c_api_addGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex, int layoutIndex) {
+        return addGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
+    }
+
+    int c_api_removeGeometricShape(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        if (removeGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex))
+            return 0;
+
+        return -1;
+    }
+
+    int c_api_setGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex, int layoutIndex) {
+        return setGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
+    }
+
+    int c_api_setSpeciesGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setSpeciesGeometricShape(document, layoutIndex, shape);
+    }
+
+    int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setReactionsGeometricShape(document, layoutIndex, shape);
+    }
+
+    int c_api_setGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setGeometricShape(document, layoutIndex, shape);
     }
 
     bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {

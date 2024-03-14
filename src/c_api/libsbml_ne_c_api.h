@@ -1981,6 +1981,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2006,6 +2027,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
 
     /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2059,6 +2101,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2326,7 +2389,56 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Add a geometric shape to the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param shape a string value indicating the shape of the geometric shape to be added.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_addGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Remove a geometric shape from the RenderGroup of the that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_removeGeometricShape(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Rectangle.
     /// @param document a pointer to the SBMLDocument object.
