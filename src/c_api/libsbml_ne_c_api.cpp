@@ -432,7 +432,8 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setPositionX(document, layoutIndex, id, graphicalObjectIndex, x)  && updateLayoutCurves(document))
+        if (!setPositionX(document, layoutIndex, id, graphicalObjectIndex, x)  && updateLayoutCurves(document,
+                                                                                                     getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
             return 0;
 
         return -1;
@@ -443,7 +444,8 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, y)  && updateLayoutCurves(document))
+        if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, y)  && updateLayoutCurves(document,
+                                                                                                     getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
             return 0;
 
         return -1;
@@ -454,7 +456,8 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width)  && updateLayoutCurves(document))
+        if (!setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width)  && updateLayoutCurves(document,
+                                                                                                              getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
             return 0;
 
         return -1;
@@ -465,7 +468,8 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height)  && updateLayoutCurves(document))
+        if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height)  && updateLayoutCurves(document,
+                                                                                                                getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
             return 0;
 
         return -1;

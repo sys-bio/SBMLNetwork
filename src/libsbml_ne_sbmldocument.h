@@ -62,8 +62,9 @@ LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double
 
 /// @brief lock all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.
+/// @param updateGraphicalObject a pointer to the GraphicalObject object the position of which has been updated recently.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document);
+LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject);
 
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.

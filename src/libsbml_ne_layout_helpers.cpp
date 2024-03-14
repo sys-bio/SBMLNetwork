@@ -325,6 +325,17 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
 }
 
+bool graphicalObjectBelongsToReactionGlyph(ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject) {
+    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+        if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
+            return true;
+        else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
+            return true;
+    }
+
+    return false;
+}
+
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
     std::vector<TextGlyph*> textGlyphs;
     for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
@@ -347,6 +358,18 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
         return reactionGlyph;
 
     return NULL;
+}
+
+std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
+    std::vector<std::string> graphicalObjectsIds;
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
+            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
+    }
+
+    return graphicalObjectsIds;
 }
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {
