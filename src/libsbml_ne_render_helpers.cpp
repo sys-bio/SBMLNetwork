@@ -209,8 +209,8 @@ void addCompartmentTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* 
 void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup, renderPkgNamespaces);
     renderGroup->setStroke("darkcyan");
-    renderGroup->setFontSize(RelAbsVector(8.0, 0.0));
-    renderGroup->setTextAnchor("start");
+    renderGroup->setFontSize(RelAbsVector(10.0, 0.0));
+    renderGroup->setTextAnchor("middle");
     renderGroup->setVTextAnchor("bottom");
 }
 
