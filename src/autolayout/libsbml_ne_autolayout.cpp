@@ -39,7 +39,7 @@ void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double
                                       const double &canvasHeight, const double &padding,
                                       const std::vector <std::string> &lockedNodeIds) {
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (!whetherGraphicalObjectIsLocked(layout, layout->getSpeciesGlyph(i), lockedNodeIds))
+        if (!whetherGraphicalObjectIsLocked(layout, layout->getReactionGlyph(i), lockedNodeIds))
             randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
     }
 }
