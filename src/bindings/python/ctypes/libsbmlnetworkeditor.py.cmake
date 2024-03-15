@@ -4032,6 +4032,21 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setFillRule(self.sbml_object, str(id).encode(), str(fill_rule).encode(), graphical_object_index, layout_index)
 
+    def setFillRules(self, fill_rule, layout_index=0):
+        """
+        Sets the fill rule of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - fill_rule (string): a string that determines the fill rule of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill rule of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFillRules(self.sbml_object, str(fill_rule).encode(), layout_index)
+
     def isSetFontColor(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the font color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -4081,6 +4096,21 @@ class LibSBMLNetworkEditor:
             true on success and false if the font color of the GraphicalObject could not be set
         """
         return lib.c_api_setFontColor(self.sbml_object, str(id).encode(), str(font_color).encode(), graphical_object_index, layout_index)
+
+    def setFontColors(self, font_color, layout_index=0):
+        """
+        Sets the font color of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_color (string): a string that determines the font color of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font color of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFontColors(self.sbml_object, str(font_color).encode(), layout_index)
 
     def isSetFontFamily(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -4132,6 +4162,21 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setFontFamily(self.sbml_object, str(id).encode(), str(font_family).encode(), graphical_object_index, layout_index)
 
+    def setFontFamilies(self, font_family, layout_index=0):
+        """
+        Sets the font family of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_family (string): a string that determines the font family of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font family of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFontFamilies(self.sbml_object, str(font_family).encode(), layout_index)
+
     def isSetFontSize(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the font size of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -4182,6 +4227,21 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setFontSize(self.sbml_object, str(id).encode(), ctypes.c_double(font_size), graphical_object_index, layout_index)
 
+    def setFontSizes(self, font_size, layout_index=0):
+        """
+        Sets the font size of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_size (float): a float that determines the font size of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font size of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFontSizes(self.sbml_object, ctypes.c_double(font_size), layout_index)
+
     def isSetFontWeight(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the font weight of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -4231,6 +4291,21 @@ class LibSBMLNetworkEditor:
             true on success and false if the font weight of the GraphicalObject could not be set
         """
         return lib.c_api_setFontWeight(self.sbml_object, str(id).encode(), str(font_weight).encode(), graphical_object_index, layout_index)
+
+    def setFontWeights(self, font_weight, layout_index=0):
+        """
+        Sets the font weight of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_weight (string): a string that determines the font weight of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font weight of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFontWeights(self.sbml_object, str(font_weight).encode(), layout_index)
 
     def isSetFontStyle(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -4283,6 +4358,21 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setFontStyle(self.sbml_object, str(id).encode(), str(font_style).encode(), graphical_object_index, layout_index)
 
+    def setFontStyles(self, font_style, layout_index=0):
+        """
+        Sets the font style of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - font_style (string): a string that determines the font style of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the font style of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setFontStyles(self.sbml_object, str(font_style).encode(), layout_index)
+
     def isSetTextHorizontalAlignment(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -4333,6 +4423,21 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_setTextHorizontalAlignment(self.sbml_object, str(id).encode(), str(text_horizontal_alignment).encode(), graphical_object_index, layout_index)
 
+    def setTextHorizontalAlignments(self, text_horizontal_alignment, layout_index=0):
+        """
+        Sets the text horizontal alignment of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - text_horizontal_alignment (string): a string that determines the text horizontal alignment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the text horizontal alignment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setTextHorizontalAlignments(self.sbml_object, str(text_horizontal_alignment).encode(), layout_index)
+
     def isSetTextVerticalAlignment(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
@@ -4382,6 +4487,21 @@ class LibSBMLNetworkEditor:
             true on success and false if the text vertical alignment of the GraphicalObject could not be set
         """
         return lib.c_api_setTextVerticalAlignment(self.sbml_object, str(id).encode(), str(text_vertical_alignment).encode(), graphical_object_index, layout_index)
+
+    def setTextVerticalAlignments(self, text_vertical_alignment, layout_index=0):
+        """
+        Sets the text vertical alignment of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - text_vertical_alignment (string): a string that determines the text vertical alignment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the text vertical alignment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setTextVerticalAlignments(self.sbml_object, str(text_vertical_alignment).encode(), layout_index)
 
     def isSetStartHead(self, id, graphical_object_index=0, layout_index=0):
         """
