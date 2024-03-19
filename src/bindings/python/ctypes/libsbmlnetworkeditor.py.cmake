@@ -111,7 +111,26 @@ class LibSBMLNetworkEditor:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, len(locked_nodes), locked_nodes_ptr)
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr, len(locked_nodes))
+
+    def align(self, nodes, alignment="center"):
+        """
+        Aligns the given nodes in the given alignment type form in the given SBMLDocument
+
+        :Parameters:
+
+            - nodes (list): a list that determines the nodes to be aligned
+            - alignment (string, optional): a string (default: "center") that determines the type of alignment to be applied ("top", "bottom", "left", "right", "center", "middle", "circular")
+
+        :Returns:
+
+            true on success and false if the alignment could not be applied
+        """
+        nodes_ptr = (ctypes.c_char_p * len(nodes))()
+        for i in range(len(nodes)):
+            nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
+
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode())
 
     def getSBMLLevel(self):
         """
@@ -261,7 +280,7 @@ class LibSBMLNetworkEditor:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr)
+        return lib.c_api_createDefaultLayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr, len(locked_nodes))
 
     def getCanvasWidth(self, layout_index=0):
         """
