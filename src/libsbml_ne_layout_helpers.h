@@ -114,6 +114,30 @@ std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* rea
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
 
+void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
+
+void alignGraphicalObjectsToTop(std::vector<GraphicalObject*> graphicalObjects);
+
+void alignGraphicalObjectsToCenter(std::vector<GraphicalObject*> graphicalObjects);
+
+void alignGraphicalObjectsToBottom(std::vector<GraphicalObject*> graphicalObjects);
+
+void alignGraphicalObjectsToLeft(std::vector<GraphicalObject*> graphicalObjects);
+
+void alignGraphicalObjectsToMiddle(std::vector<GraphicalObject*> graphicalObjects);
+
+void alignGraphicalObjectsToRight(std::vector<GraphicalObject*> graphicalObjects);
+
+void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMinPositionY(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMaxPositionX(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMaxPositionY(std::vector<GraphicalObject*> graphicalObjects);
+
 const bool isValidLayoutDimensionWidthValue(const double& width);
 
 const bool isValidLayoutDimensionHeightValue(const double& height);

@@ -66,6 +66,13 @@ LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject);
 
+/// @brief Align the nodes position in the SBML document in the given alignment type.
+/// @param document a pointer to the SBMLDocument object.
+/// @param nodeIds an array of node ids to be aligned.
+/// @param alignment determines how to align the nodes.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment);
+
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.
 /// @return @c true if the "id" attribute of this SBML object is set, @c false if either the "id"

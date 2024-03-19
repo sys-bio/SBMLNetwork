@@ -58,6 +58,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updateGraphicalObject));
     }
 
+    int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment) {
+        std::vector<GraphicalObject*> allGraphicalObjects;
+        for (unsigned int i = 0; i < nodeIds.size(); i++) {
+            std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
+            allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
+        }
+        alignGraphicalObjects(allGraphicalObjects, alignment);
+        return autolayout(document, 10, 15, false, false, false, nodeIds);
+    }
+
     bool isSetId(SBase* object) {
         if (object)
             return object->isSetId();

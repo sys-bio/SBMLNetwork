@@ -34,7 +34,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const bool useMagnetism,
-                   const bool useBoundary, const bool useGrid, const int lockedNodesSize, const char **lockedNodeIds) {
+                   const bool useBoundary, const bool useGrid, const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
@@ -42,6 +42,15 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         }
 
         return autolayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector);
+    }
+
+    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment) {
+        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+        if (nodeIds) {
+            for (int i = 0; i < nodesSize; i++)
+                nodeIdsVector.emplace_back(nodeIds[i]);
+        }
+        return align(document, nodeIdsVector, alignment);
     }
 
     const int c_api_getNumLayouts(SBMLDocument* document) {
@@ -53,7 +62,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const bool useMagnetism,
-                                  const bool useBoundary, const bool useGrid, const int lockedNodesSize, const char **lockedNodeIds) {
+                                  const bool useBoundary, const bool useGrid, const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
