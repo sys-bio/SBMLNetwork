@@ -60,6 +60,8 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 void setCurveCubicBezier(Curve* curve);
@@ -82,15 +84,17 @@ bool speciesGlyphBelongs(SpeciesGlyph* speciesGlyph, Species* species);
 
 bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction);
 
-bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference);
-
 const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
 
+bool graphicalObjectBelongsToReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject);
+
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
+
+std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
 

@@ -220,6 +220,10 @@ Compartment* getAssociatedCompartment(SBMLDocument* document, GraphicalObject* g
     return NULL;
 }
 
+std::vector<std::string> getSpeciesGlyphsIds(SBMLDocument* document, unsigned int layoutIndex) {
+    return getSpeciesGlyphsIds(getLayout(document, layoutIndex));
+}
+
 const unsigned int getNumSpeciesGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
     return getNumSpeciesGlyphs(getLayout(document, layoutIndex));
 }
@@ -258,6 +262,10 @@ bool isSpeciesGlyph(SBMLDocument* document, const std::string& id) {
 
 bool isSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
     return isSpeciesGlyph(getLayout(document, layoutIndex), id);
+}
+
+std::vector<std::string> getReactionGlyphsIds(SBMLDocument* document, unsigned int layoutIndex) {
+    return getReactionGlyphsIds(getLayout(document, layoutIndex));
 }
 
 const unsigned int getNumReactionGlyphs(SBMLDocument* document, unsigned int layoutIndex) {

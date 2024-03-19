@@ -11,6 +11,10 @@ extern "C" {
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
+    /// @brief Returns the version of the library.
+    /// @return the version of the library.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getVersion();
+
     /// @brief Reads an SBML document from the given file name or the given text string
     /// @param sbml either the name or full pathname of the file to be read or a string containing a full SBML model.
     /// @return a pointer to the SBMLDocument structure created from the SBML content in the given file name or
@@ -28,6 +32,21 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the string on success and empty string if one of the underlying parser components fail.
     LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_writeSBMLToString(SBMLDocument* document);
 
+    /// @brief Returns the SBML Level of the SBMLDocument object containing this object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the SBML Level of the SBMLDocument object containing this object.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getSBMLLevel(SBMLDocument* document);
+
+    /// @brief Returns the Version within the SBML Level of the SBMLDocument object containing this object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the Version within the SBML Level of the SBMLDocument object containing this object.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getSBMLVersion(SBMLDocument* document);
+
+    /// @brief Returns true if the Model object has been set, otherwise returns false.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return true if the Model object has been set, otherwise returns false.
+    LIBSBML_NETWORKEDITOR_EXTERN bool c_api_isSetModel(SBMLDocument* document);
+
     /// @brief Create a Layout object, a GlobalRenderInformation object, and LocalRenderInformation resume object, add them
     /// to the the SBML document, and set all the necessary features for them.
     /// @param document a pointer to the SBMLDocument object.
@@ -36,11 +55,12 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @param lockedNodesSize the size of lockedNodeIds
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                 const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                const char** lockedNodeIds = NULL);
+                                                const int lockedNodesSize = 0, const char** lockedNodeIds = NULL);
 
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -60,10 +80,12 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @param lockedNodesSize the size of lockedNodeIds
+    /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                                const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                               const char** lockedNodeIds = NULL);
+                                                               const int lockedNodesSize = 0, const char** lockedNodeIds = NULL);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
@@ -695,7 +717,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
     /// the SpeciesReferenceGlyph does not exits or the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getNthSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the dash at the given index of the "stroke-dasharray" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document at the given index.
@@ -707,7 +729,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setNthSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, const int borderDash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, const int borderDash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "startHead" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
@@ -1149,12 +1171,31 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of ColorDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumColors(SBMLDocument* document, int renderIndex = 0);
 
-    /// @brief Returns the id of the nth ColorDefinition object in the given SBML document.
+    /// @brief Returns the number of ColorDefinitions of the GlobalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
+    /// @return the number of ColorDefinitions of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGlobalColors(SBMLDocument* document, int renderIndex);
+
+    /// @brief Returns the number of ColorDefinitions of the LocalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the number of ColorDefinitions of this LocalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLocalColors(SBMLDocument* document, int renderIndex);
+
+    /// @brief Returns the id of the nth Global ColorDefinition object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param colorIndex the index of the ColorDefinition to return.
-    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
     /// @return the id of the nth ColorDefinition object, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGlobalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth Local ColorDefinition object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param colorIndex the index of the ColorDefinition to return.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the id of the nth ColorDefinition object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLocalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0);
 
     /// @brief Predicates returning @c true if the "value" attribute of the ColorDefinition with the given identifier
     /// in the RenderInformationBase with the given index is set.
@@ -1186,12 +1227,31 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of GradientDefinitions of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGradients(SBMLDocument* document, int renderIndex = 0);
 
+    /// @brief Returns the number of GradientDefinitions of the GlobalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
+    /// @return the number of GradientDefinitions of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGlobalGradients(SBMLDocument* document, int renderIndex = 0);
+
+    /// @brief Returns the number of GradientDefinitions of the LocalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the number of GradientDefinitions of this LocalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLocalGradients(SBMLDocument* document, int renderIndex = 0);
+
     /// @brief Returns the id of the nth GradientDefinition object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param gradientIndex the index of the GradientDefinition to return.
-    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
     /// @return the id of the nth GradientDefinition object, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGlobalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth GradientDefinition object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param gradientIndex the index of the GradientDefinition to return.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the id of the nth GradientDefinition object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLocalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0);
 
     /// @brief Returns the number of LineEnding objects of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1199,12 +1259,31 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return the number of LineEnding objects of this RenderInformationBase object, or @c 0 if the object is @c NULL
     LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex = 0);
 
+    /// @brief Returns the number of LineEnding objects of the GlobalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
+    /// @return the number of LineEnding objects of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumGlobalLineEndings(SBMLDocument* document, int renderIndex = 0);
+
+    /// @brief Returns the number of LineEnding objects of the LocalRenderInformation object with the given index of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the number of LineEnding objects of this LocalRenderInformation object, or @c 0 if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNumLocalLineEndings(SBMLDocument* document, int renderIndex = 0);
+
     /// @brief Returns the id of the nth LineEnding object in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param lineEndingIndex the index of the LineEnding to return.
-    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @param renderIndex the index number of the GlobalRenderInformation object.
     /// @return the id of the nth LineEnding object, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthGlobalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
+
+    /// @brief Returns the id of the nth LineEnding object in the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param lineEndingIndex the index of the LineEnding to return.
+    /// @param renderIndex the index number of the LocalRenderInformation object.
+    /// @return the id of the nth LineEnding object, or @c "" if the object is @c NULL
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the LineEnding object  of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1322,7 +1401,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param renderIndex the index number of the RenderInformationBase object.
-    LIBSBML_NETWORKEDITOR_EXTERN const double c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0);
 
     /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1902,6 +1981,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -1928,6 +2028,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
     /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -1943,7 +2064,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN int getNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const int c_api_getNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -1953,7 +2074,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -1981,6 +2102,27 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2006,6 +2148,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2033,7 +2189,21 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
-/// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+
+    /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
@@ -2058,6 +2228,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2085,6 +2269,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2110,6 +2308,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2137,6 +2349,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2163,6 +2389,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2188,6 +2428,20 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2247,7 +2501,56 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of Transformation2D objects in the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumGeometricShapes(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Add a geometric shape to the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param shape a string value indicating the shape of the geometric shape to be added.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_addGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Remove a geometric shape from the RenderGroup of the that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_removeGeometricShape(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setSpeciesGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type Rectangle.
     /// @param document a pointer to the SBMLDocument object.

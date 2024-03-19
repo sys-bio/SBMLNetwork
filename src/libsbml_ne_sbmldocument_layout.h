@@ -278,6 +278,11 @@ LIBSBML_NETWORKEDITOR_EXTERN Compartment* getAssociatedCompartment(SBMLDocument*
 /// @return a pointer to the compartment associated with the graphical object, or @c NULL if the object does not have an associated compartment or is @c NULL
 LIBSBML_NETWORKEDITOR_EXTERN Compartment* getAssociatedCompartment(SBMLDocument* document, GraphicalObject* graphicalObject);
 
+/// @brief Returns the ids of the SpeciesGlyph objects of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the ids of the SpeciesGlyph objects of this Layout object
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<std::string> getSpeciesGlyphsIds(SBMLDocument* document, unsigned int layoutIndex = 0);
+
 /// @brief Returns the number of SpeciesGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
@@ -352,6 +357,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesGlyph(SBMLDocument* document, const s
 /// @param id the id of the GraphicalObject.
 /// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
 LIBSBML_NETWORKEDITOR_EXTERN bool isSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Returns the ids of the ReactionGlyph objects of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the ids of the ReactionGlyph objects of this Layout object
+LIBSBML_NETWORKEDITOR_EXTERN std::vector<std::string> getReactionGlyphsIds(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Returns the number of ReactionGlyph of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.

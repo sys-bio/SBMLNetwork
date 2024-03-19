@@ -16,12 +16,13 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     setGlyphsDimensions(model, layout);
     applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
     updateCompartmentExtents(model, layout, padding);
+    updateLayoutDimensions(layout, padding);
 }
 
 void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding,
                               const std::vector <std::string> &lockedNodeIds) {
-    double canvasWidth = layout->getDimensions()->width() > 0.0001 ? layout->getDimensions()->width() : 400.0;
-    double canvasHeight = layout->getDimensions()->height() > 0.0001 ? layout->getDimensions()->height() : 400.0;
+    double canvasWidth = layout->getDimensions()->width();
+    double canvasHeight = layout->getDimensions()->height();
     randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding, lockedNodeIds);
     randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding, lockedNodeIds);
 }
@@ -38,19 +39,15 @@ void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double
                                       const double &canvasHeight, const double &padding,
                                       const std::vector <std::string> &lockedNodeIds) {
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (!whetherGraphicalObjectIsLocked(layout, layout->getSpeciesGlyph(i), lockedNodeIds))
+        if (!whetherGraphicalObjectIsLocked(layout, layout->getReactionGlyph(i), lockedNodeIds))
             randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
     }
 }
 
 void randomizeBoundingBoxesPosition(BoundingBox *boundingBox, const double &canvasWidth, const double &canvasHeight) {
     double offset = 30.0;
-    double defaultBoundingBoxWidth = 60.0;
-    double defaultBoundingBoxHeight = 36.0;
     boundingBox->setX(offset + (std::rand() % int(canvasWidth - offset)));
     boundingBox->setY(offset + (std::rand() % int(canvasHeight - offset)));
-    boundingBox->setWidth(defaultBoundingBoxWidth);
-    boundingBox->setHeight(defaultBoundingBoxHeight);
 }
 
 void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const double &canvasHeight) {
@@ -74,10 +71,10 @@ void setGlyphsDimensions(Model *model, Layout *layout) {
 }
 
 void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph *speciesGlyph) {
-    double speciesWidth = calculateSpeciesGlyphDefaultWidth(model, speciesGlyph);
-    double speciesHeight = calculateSpeciesGlyphDefaultHeight(speciesGlyph, speciesWidth);
-    speciesGlyph->getBoundingBox()->setWidth(speciesWidth);
-    speciesGlyph->getBoundingBox()->setHeight(speciesHeight);
+    double calculatedSpeciesWidth = calculateSpeciesGlyphDefaultWidth(model, speciesGlyph);
+    double calculatedSpeciesHeight = calculateSpeciesGlyphDefaultHeight(speciesGlyph, calculatedSpeciesWidth);
+    speciesGlyph->getBoundingBox()->setWidth(std::max(calculatedSpeciesWidth, speciesGlyph->getBoundingBox()->width()));
+    speciesGlyph->getBoundingBox()->setHeight(std::max(calculatedSpeciesHeight, speciesGlyph->getBoundingBox()->height()));
 }
 
 const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph *speciesGlyph) {
@@ -189,6 +186,37 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *r
         compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height()
                                               + (reactionCenterY + padding) - (compartmentGlyphBoundingBox->y() + compartmentGlyphBoundingBox->height()));
     }
+}
+
+void updateLayoutDimensions(Layout* layout, const double &padding) {
+    double minX = INT_MAX;
+    double minY = INT_MAX;
+    double maxX = INT_MIN;
+    double maxY = INT_MIN;
+    for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
+        extractExtents(layout->getCompartmentGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
+    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        extractExtents(layout->getSpeciesGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
+    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
+        extractExtents(layout->getReactionGlyph(i)->getCurve(), minX, minY, maxX, maxY);
+    layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
+    layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
+}
+
+void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY) {
+    minX = std::min(minX, boundingBox->x());
+    minY = std::min(minY, boundingBox->y());
+    maxX = std::max(maxX, boundingBox->x() + boundingBox->width());
+    maxY = std::max(maxY, boundingBox->y() + boundingBox->height());
+}
+
+void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &maxX, double &maxY) {
+    double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() + reactionCurve->getCurveSegment(0)->getEnd()->x());
+    double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() + reactionCurve->getCurveSegment(0)->getEnd()->y());
+    minX = std::min(minX, reactionCenterX);
+    minY = std::min(minY, reactionCenterY);
+    maxX = std::max(maxX, reactionCenterX);
+    maxY = std::max(maxY, reactionCenterY);
 }
 
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {

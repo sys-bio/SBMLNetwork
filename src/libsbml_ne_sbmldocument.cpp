@@ -1,6 +1,7 @@
 #include "libsbml_ne_sbmldocument.h"
 #include "libsbml_ne_sbmldocument_layout.h"
 #include "libsbml_ne_sbmldocument_render.h"
+#include "libsbml_ne_layout_helpers.h"
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
@@ -23,13 +24,38 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return writeSBMLToString(document);
     }
 
+    const unsigned int getSBMLLevel(SBMLDocument* document) {
+        if (document)
+            return document->getLevel();
+
+        return 0;
+    }
+
+    const unsigned int getSBMLVersion(SBMLDocument* document) {
+        if (document)
+            return document->getVersion();
+
+        return 0;
+    }
+
+    bool isSetModel(SBMLDocument* document) {
+        if (document)
+            return document->isSetModel();
+
+        return false;
+    }
+
     int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                    const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
                    std::vector <std::string> lockedNodeIds) {
-        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid) && !createDefaultRenderInformation(document))
+        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds) && !createDefaultRenderInformation(document))
             return 0;
 
         return -1;
+    }
+
+    int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject) {
+        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updateGraphicalObject));
     }
 
     bool isSetId(SBase* object) {

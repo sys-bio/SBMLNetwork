@@ -2065,6 +2065,32 @@ LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(Style* style
 /// @return a pointer to the nth Transformation2D of this RenderGroup, or @c NULL if the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int addGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of this Style object.
+/// @param style a pointer to the Style object.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShape(Style* style, const std::string& shape);
+
+/// @brief Sets the geometric shape as the single geometric shape of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int setGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

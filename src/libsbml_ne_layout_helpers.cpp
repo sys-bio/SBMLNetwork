@@ -87,6 +87,7 @@ void setReactionGlyphs(Model* model, Layout* layout) {
         Reaction* reaction = model->getReaction(i);
         ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reaction);
         setReactionGlyphCurve(reactionGlyph);
+        clearReactionGlyphSpeciesReferenceGlyphs(reactionGlyph);
         setReactantGlyphs(layout, reaction, reactionGlyph);
         setProductGlyphs(layout, reaction, reactionGlyph);
         setModifierGlyphs(layout, reaction, reactionGlyph);
@@ -171,12 +172,6 @@ ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
 }
 
 SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
-    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
-        if (canSpeciesReferenceGlyphBelongs(layout, reactionGlyph->getSpeciesReferenceGlyph(i), speciesReference)) {
-            if (getNumSpeciesReferencesAssociatedWithSpecies(reaction, speciesReference->getSpecies()) <= getNumSpeciesReferencesGlyphsAssociatedWithSpecies(layout, reactionGlyph, speciesReference->getSpecies()))
-                return reactionGlyph->getSpeciesReferenceGlyph(i);
-        }
-    }
     SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->createSpeciesReferenceGlyph();
     if (!speciesReference->getId().empty()) {
         speciesReferenceGlyph->setId(speciesReference->getId() + "_Glyph_1");
@@ -236,7 +231,8 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
 
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
-    graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
+    if  (!graphicalObject->getBoundingBox()->isSetId())
+        graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
@@ -250,6 +246,11 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
     if (!reactionGlyph->isSetCurve())
         setCurveCubicBezier(reactionGlyph->getCurve());
+}
+
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
+        reactionGlyph->removeSpeciesReferenceGlyph(0);
 }
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph) {
@@ -310,14 +311,6 @@ bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction) {
     return reactionGlyph->getReactionId() == reaction->getId() ? true : false;
 }
 
-bool canSpeciesReferenceGlyphBelongs(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph, SimpleSpeciesReference* speciesReference) {
-    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
-    if (speciesGlyph)
-        return speciesGlyph->getSpeciesId() == speciesReference->getSpecies() ? true : false;
-    
-    return false;
-}
-
 const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) {
     if (layout) {
         SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
@@ -330,6 +323,17 @@ const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesRefer
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
+}
+
+bool graphicalObjectBelongsToReactionGlyph(ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject) {
+    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+        if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
+            return true;
+        else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
+            return true;
+    }
+
+    return false;
 }
 
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
@@ -354,6 +358,18 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
         return reactionGlyph;
 
     return NULL;
+}
+
+std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
+    std::vector<std::string> graphicalObjectsIds;
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
+            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
+    }
+
+    return graphicalObjectsIds;
 }
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {

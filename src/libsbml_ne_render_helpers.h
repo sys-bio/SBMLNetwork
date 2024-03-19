@@ -85,19 +85,15 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addWhiteColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+const bool addColor(SBMLDocument* document, Style* style, const std::string &color);
 
-void addBlackColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color);
 
-void addLightGrayColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color);
 
-void addDarkCyanColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
 
-void addTealColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
-
-void addSilverColor(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
-
-ColorDefinition* createColorDefintion(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
+ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
@@ -205,6 +201,8 @@ const bool isValidStartHeadValue(const std::string& startHead);
 
 const bool isValidEndHeadValue(const std::string& endHead);
 
+const bool isValidGeometricShapeName(const std::string geometricShapeName);
+
 const bool isValidGeometricShapeXValue(const RelAbsVector& x);
 
 const bool isValidGeometricShapeYValue(const RelAbsVector& y);
@@ -242,6 +240,10 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y);
 const bool isValidGeometricShapeHref(const std::string& href);
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
+
+std::vector<std::pair<std::string, std::string>> colorData();
+
+const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
 std::vector<std::string> getHtmlColorNames();
 

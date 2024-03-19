@@ -11,6 +11,10 @@
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
+/// @brief Returns the version of the library.
+/// @return the version of the library.
+LIBSBML_NETWORKEDITOR_EXTERN const std::string getVersion();
+
 /// @brief Reads an SBML document from the given file name or the given text string
 /// @param sbml either the name or full pathname of the file to be read or a string containing a full SBML model.
 /// @return a pointer to the SBMLDocument structure created from the SBML content in the given file name or
@@ -28,6 +32,21 @@ LIBSBML_NETWORKEDITOR_EXTERN bool writeSBML(SBMLDocument* document, const std::s
 /// @return the string on success and empty string if one of the underlying parser components fail.
 LIBSBML_NETWORKEDITOR_EXTERN const std::string writeSBML(SBMLDocument* document);
 
+/// @brief Returns the SBML Level of the SBMLDocument object containing this object.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the SBML Level of the SBMLDocument object containing this object.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getSBMLLevel(SBMLDocument* document);
+
+/// @brief Returns the Version within the SBML Level of the SBMLDocument object containing this object.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the Version within the SBML Level of the SBMLDocument object containing this object.
+LIBSBML_NETWORKEDITOR_EXTERN const unsigned int getSBMLVersion(SBMLDocument* document);
+
+/// @brief Returns true if the Model object has been set, otherwise returns false.
+/// @param document a pointer to the SBMLDocument object.
+/// @return true if the Model object has been set, otherwise returns false.
+LIBSBML_NETWORKEDITOR_EXTERN bool isSetModel(SBMLDocument* document);
+
 /// @brief Create a Layout object, a GlobalRenderInformation object, and LocalRenderInformation resume object, add them
 /// to the the SBML document, and set all the necessary features for them.
 /// @param document a pointer to the SBMLDocument object.
@@ -40,6 +59,12 @@ LIBSBML_NETWORKEDITOR_EXTERN const std::string writeSBML(SBMLDocument* document)
 LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
                                                 const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
                                                 std::vector <std::string> lockedNodeIds = std::vector<std::string>());
+
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @param updateGraphicalObject a pointer to the GraphicalObject object the position of which has been updated recently.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject);
 
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.

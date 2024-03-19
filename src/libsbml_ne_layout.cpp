@@ -152,6 +152,16 @@ bool isCompartmentGlyph(GraphicalObject* graphicalObject) {
     return false;
 }
 
+std::vector<std::string> getSpeciesGlyphsIds(Layout* layout) {
+    std::vector<std::string> speciesGlyphsIds;
+    if (layout) {
+        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+            speciesGlyphsIds.push_back(layout->getSpeciesGlyph(i)->getId());
+    }
+
+    return speciesGlyphsIds;
+}
+
 const unsigned int getNumSpeciesGlyphs(Layout* layout) {
     if (layout)
         return layout->getNumSpeciesGlyphs();
@@ -205,6 +215,16 @@ bool isSpeciesGlyph(GraphicalObject* graphicalObject) {
         return true;
 
     return false;
+}
+
+std::vector<std::string> getReactionGlyphsIds(Layout* layout) {
+    std::vector<std::string> reactionGlyphsIds;
+    if (layout) {
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++)
+            reactionGlyphsIds.push_back(layout->getReactionGlyph(i)->getId());
+    }
+
+    return reactionGlyphsIds;
 }
 
 const unsigned int getNumReactionGlyphs(Layout* layout) {

@@ -1909,6 +1909,29 @@ Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int ge
     return NULL;
 }
 
+int setGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape) {
+    return setGeometricShape(getStyle(renderInformationBase, graphicalObject), shape);
+}
+
+int setGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape) {
+    return setGeometricShape(getStyle(renderInformationBase, attribute), shape);
+}
+
+int setGeometricShape(Style* style, const std::string& shape) {
+    return setGeometricShape(getRenderGroup(style), shape);
+}
+
+int setGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
+    if (getNumGeometricShapes(renderGroup) && isValidGeometricShapeName(shape)) {
+        while (getNumGeometricShapes(renderGroup))
+            removeGeometricShape(renderGroup, 0);
+
+        return addGeometricShape(renderGroup, shape);
+    }
+
+    return -1;
+}
+
 bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isRectangle(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
