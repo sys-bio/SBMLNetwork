@@ -66,7 +66,7 @@ class LibSBMLNetworkEditor:
         if not self._layout_is_specified() or not self._render_is_specified():
             self.autolayout()
 
-    def export(self, file_name=""):
+    def save(self, file_name=""):
         """
         Writes the given SBML document to either the file_name or a string
 
