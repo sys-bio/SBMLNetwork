@@ -31,6 +31,8 @@ public:
 
     void setNodesLockedStatus(Layout *layout, const std::vector<std::string>& lockedNodeIds);
 
+    void setPadding(const double& padding);
+
     void apply();
 
     void initialize();
@@ -54,6 +56,8 @@ public:
     void adjustWithinTheBoundary(AutoLayoutObjectBase* node);
 
     void adjustOnTheGrids(AutoLayoutObjectBase* node);
+
+    void adjustCoordinateOrigin();
 
     void updateConnectionsControlPoints();
 
@@ -80,6 +84,7 @@ protected:
     bool _useMagnetism;
     bool _useBoundary;
     bool _useGrid;
+    double _padding;
 
     std::vector<AutoLayoutObjectBase*> _connections;
     std::vector<AutoLayoutObjectBase*> _nodes;

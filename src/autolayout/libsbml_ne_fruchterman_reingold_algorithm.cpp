@@ -78,9 +78,14 @@ void FruthtermanReingoldAlgorithm::setNodesLockedStatus(Layout *layout, const st
     }
 }
 
+void FruthtermanReingoldAlgorithm::setPadding(const double &padding) {
+    _padding = padding;
+}
+
 void FruthtermanReingoldAlgorithm::apply() {
     initialize();
     iterate();
+    adjustCoordinateOrigin();
     updateConnectionsControlPoints();
 }
 
@@ -268,6 +273,22 @@ void FruthtermanReingoldAlgorithm::adjustWithinTheBoundary(AutoLayoutObjectBase*
 void FruthtermanReingoldAlgorithm::adjustOnTheGrids(AutoLayoutObjectBase* node) {
     ((AutoLayoutNodeBase*)node)->setX(std::floor(((AutoLayoutNodeBase*)node)->getX() / _stiffness) * _stiffness);
     ((AutoLayoutNodeBase*)node)->setY(std::floor(((AutoLayoutNodeBase*)node)->getY() / _stiffness) * _stiffness);
+}
+
+void FruthtermanReingoldAlgorithm::adjustCoordinateOrigin() {
+    AutoLayoutPoint _origin = AutoLayoutPoint(0.0, 0.0);
+    for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() < _origin.getX())
+            _origin.setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX());
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < _origin.getY())
+            _origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
+    }
+    _origin.setX(_origin.getX() - _padding);
+    _origin.setY(_origin.getY() - _padding);
+    for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
+        ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());
+        ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() - _origin.getY());
+    }
 }
 
 void FruthtermanReingoldAlgorithm::updateConnectionsControlPoints() {

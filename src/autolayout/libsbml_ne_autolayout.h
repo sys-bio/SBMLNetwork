@@ -32,7 +32,7 @@ const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph* speciesGlyph, cons
 
 void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
                      const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                     const std::vector <std::string> &lockedNodeIds = std::vector<std::string>());
+                     const std::vector <std::string> &lockedNodeIds = std::vector<std::string>(), const double& padding = 0.0);
 
 void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
 

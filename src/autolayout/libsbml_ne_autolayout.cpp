@@ -14,7 +14,7 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     std::srand(time(0));
     randomizeGlyphsLocations(model, layout, padding, lockedNodeIds);
     setGlyphsDimensions(model, layout);
-    applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+    applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds, padding);
     updateCompartmentExtents(model, layout, padding);
     updateLayoutDimensions(layout, padding);
 }
@@ -93,7 +93,7 @@ const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph *speciesGlyph, cons
 
 void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const std::vector <std::string> &lockedNodeIds) {
+                     const std::vector <std::string> &lockedNodeIds, const double &padding) {
     FruthtermanReingoldAlgorithm *fruthtermanReingoldAlgorithm = new FruthtermanReingoldAlgorithm();
     fruthtermanReingoldAlgorithm->setElements(layout);
     fruthtermanReingoldAlgorithm->setStiffness(stiffness);
@@ -102,6 +102,7 @@ void applyAutolayout(Model *model, Layout *layout, const double &stiffness, cons
     fruthtermanReingoldAlgorithm->setUseBoundary(useBoundary);
     fruthtermanReingoldAlgorithm->setUseGrid(useGrid);
     fruthtermanReingoldAlgorithm->setNodesLockedStatus(layout, lockedNodeIds);
+    fruthtermanReingoldAlgorithm->setPadding(padding);
     fruthtermanReingoldAlgorithm->apply();
 }
 
