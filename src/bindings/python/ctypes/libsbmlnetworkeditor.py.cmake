@@ -2247,6 +2247,28 @@ class LibSBMLNetworkEditor:
 
         return list_of_gradient_ids
 
+    def getListOfGradientIds(self, render_index=0):
+        """
+        Returns the list of GradientDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the list of GradientDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthGlobalGradientId.restype = ctypes.c_char_p
+        lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
+        list_of_gradient_ids = []
+        for n in range(lib.c_api_getNumGlobalGradients(self.sbml_object, render_index)):
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalGradientId(self.sbml_object, n, render_index)).value.decode())
+        for n in range(lib.c_api_getNumLocalGradients(self.sbml_object, render_index)):
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, n, render_index)).value.decode())
+
+        return list_of_gradient_ids
+
     def getNumGradients(self, render_index=0):
         """
         Returns the number of GradientDefinition objects in the RenderInformation object with the given index in the given SBMLDocument
@@ -2320,6 +2342,621 @@ class LibSBMLNetworkEditor:
         """
         lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, index, render_index)).value.decode()
+
+    def isLinearGradient(self, gradient_id, render_index=0):
+        """
+        Returns whether the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is a LinearGradient object
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is a LinearGradient object and false otherwise
+        """
+        return lib.c_api_isLinearGradient(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def isRadialGradient(self, gradient_id, render_index=0):
+        """
+        Returns whether the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is a RadialGradient object
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is a RadialGradient object and false otherwise
+        """
+        return lib.c_api_isRadialGradient(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def isSetSpreadMethod(self, gradient_id, render_index=0):
+        """
+        Returns whether the spread method of the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the spread method of the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetSpreadMethod(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getSpreadMethod(self, gradient_id, render_index=0):
+        """
+        Returns the spread method of the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the spread method of the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getSpreadMethod.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpreadMethod(self.sbml_object, str(gradient_id).encode(), render_index)).value.decode()
+
+    def setSpreadMethod(self, gradient_id, spread_method, render_index=0):
+        """
+        Sets the spread method of the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - spread_method (string): a string that determines the spread method of the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the spread method of the GradientDefinition object could not be set
+        """
+        return lib.c_api_setSpreadMethod(self.sbml_object, str(gradient_id).encode(), str(spread_method).encode(), render_index)
+
+    def getNumGradientStops(self, gradient_id, render_index=0):
+        """
+        Returns the number of GradientStop objects in the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of GradientStop objects in the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        return lib.c_api_getNumGradientStops(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def isSetOffset(self, gradient_id, gradient_stop_index=0, render_index=0):
+        """
+        Returns whether the offset of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - gradient_stop_index (int): an integer that determines the index of the GradientStop object in the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the offset of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetOffset(self.sbml_object, str(gradient_id).encode(), gradient_stop_index, render_index)
+
+    def getOffset(self, gradient_id, gradient_stop_index=0, render_index=0):
+        """
+        Returns the offset of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - gradient_stop_index (int): an integer that determines the index of the GradientStop object in the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the offset of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument
+        """
+        lib.c_api_getOffset.restype = ctypes.c_double
+        return lib.c_api_getOffset(self.sbml_object, str(gradient_id).encode(), gradient_stop_index, render_index)
+
+    def setOffset(self, gradient_id, offset, gradient_stop_index=0, render_index=0):
+        """
+        Sets the offset of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - offset (float): a float that determines the offset of the GradientStop object
+            - gradient_stop_index (int): an integer that determines the index of the GradientStop object in the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the offset of the GradientStop object could not be set
+        """
+        return lib.c_api_setOffset(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(offset), gradient_stop_index, render_index)
+
+    def isSetStopColor(self, gradient_id, gradient_stop_index=0, render_index=0):
+        """
+        Returns whether the stop color of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - gradient_stop_index (int): an integer that determines the index of the GradientStop object in the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the stop color of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetStopColor(self.sbml_object, str(gradient_id).encode(), gradient_stop_index, render_index)
+
+    def getStopColor(self, gradient_id, gradient_stop_index=0, render_index=0):
+        """
+        Returns the stop color of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - gradient_stop_index (int): an integer that determines the index of the GradientStop object in the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the stop color of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument
+        """
+        lib.c_api_getStopColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getStopColor(self.sbml_object, str(gradient_id).encode(), gradient_stop_index, render_index)).value.decode()
+
+    def setStopColor(self, gradient_id, stop_color, gradient_stop_index=0, render_index=0):
+        """
+        Sets the stop color of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the GradientDefinition object
+            - stop_color (string): a string that determines the stop color of the GradientStop object
+            - gradient_stop_index (int): an integer that determines the index of the GradientStop object in the GradientDefinition object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the stop color of the GradientStop object could not be set
+        """
+        return lib.c_api_setStopColor(self.sbml_object, str(gradient_id).encode(), str(stop_color).encode(), gradient_stop_index, render_index)
+
+    def isSetLinearGradientX1(self, gradient_id, render_index=0):
+        """
+        Returns whether the x1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the x1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetLinearGradientX1(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getLinearGradientX1(self, gradient_id, render_index=0):
+        """
+        Returns the x1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getLinearGradientX1.restype = ctypes.c_double
+        return lib.c_api_getLinearGradientX1(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setLinearGradientX1(self, gradient_id, x1, render_index=0):
+        """
+        Sets the x1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - x1 (float): a float that determines the x1-coordinate of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x1-coordinate of the LinearGradient object could not be set
+        """
+        return lib.c_api_setLinearGradientX1(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(x1), render_index)
+
+    def isSetLinearGradientY1(self, gradient_id, render_index=0):
+        """
+        Returns whether the y1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the y1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetLinearGradientY1(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getLinearGradientY1(self, gradient_id, render_index=0):
+        """
+        Returns the y1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getLinearGradientY1.restype = ctypes.c_double
+        return lib.c_api_getLinearGradientY1(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setLinearGradientY1(self, gradient_id, y1, render_index=0):
+        """
+        Sets the y1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - y1 (float): a float that determines the y1-coordinate of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y1-coordinate of the LinearGradient object could not be set
+        """
+        return lib.c_api_setLinearGradientY1(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(y1), render_index)
+
+    def isSetLinearGradientX2(self, gradient_id, render_index=0):
+        """
+        Returns whether the x2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the x2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetLinearGradientX2(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getLinearGradientX2(self, gradient_id, render_index=0):
+        """
+        Returns the x2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getLinearGradientX2.restype = ctypes.c_double
+        return lib.c_api_getLinearGradientX2(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setLinearGradientX2(self, gradient_id, x2, render_index=0):
+        """
+        Sets the x2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - x2 (float): a float that determines the x2-coordinate of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x2-coordinate of the LinearGradient object could not be set
+        """
+        return lib.c_api_setLinearGradientX2(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(x2), render_index)
+
+    def isSetLinearGradientY2(self, gradient_id, render_index=0):
+        """
+        Returns whether the y2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the y2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetLinearGradientY2(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getLinearGradientY2(self, gradient_id, render_index=0):
+        """
+        Returns the y2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getLinearGradientY2.restype = ctypes.c_double
+        return lib.c_api_getLinearGradientY2(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setLinearGradientY2(self, gradient_id, y2, render_index=0):
+        """
+        Sets the y2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the LinearGradient object
+            - y2 (float): a float that determines the y2-coordinate of the LinearGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y2-coordinate of the LinearGradient object could not be set
+        """
+        return lib.c_api_setLinearGradientY2(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(y2), render_index)
+
+    def isSetRadialGradientCenterX(self, gradient_id, render_index=0):
+        """
+        Returns whether the x-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the x-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetRadialGradientCenterX(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getRadialGradientCenterX(self, gradient_id, render_index=0):
+        """
+        Returns the x-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getRadialGradientCenterX.restype = ctypes.c_double
+        return lib.c_api_getRadialGradientCenterX(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setRadialGradientCenterX(self, gradient_id, center_x, render_index=0):
+        """
+        Sets the x-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - center_x (float): a float that determines the x-coordinate of the center of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the center of the RadialGradient object could not be set
+        """
+        return lib.c_api_setRadialGradientCenterX(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(center_x), render_index)
+
+    def isSetRadialGradientCenterY(self, gradient_id, render_index=0):
+        """
+        Returns whether the y-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the y-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetRadialGradientCenterY(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getRadialGradientCenterY(self, gradient_id, render_index=0):
+        """
+        Returns the y-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getRadialGradientCenterY.restype = ctypes.c_double
+        return lib.c_api_getRadialGradientCenterY(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setRadialGradientCenterY(self, gradient_id, center_y, render_index=0):
+        """
+        Sets the y-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - center_y (float): a float that determines the y-coordinate of the center of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the center of the RadialGradient object could not be set
+        """
+        return lib.c_api_setRadialGradientCenterY(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(center_y), render_index)
+
+    def isSetRadialGradientRadius(self, gradient_id, render_index=0):
+        """
+        Returns whether the radius of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the radius of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetRadialGradientRadius(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getRadialGradientRadius(self, gradient_id, render_index=0):
+        """
+        Returns the radius of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the radius of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getRadialGradientRadius.restype = ctypes.c_double
+        return lib.c_api_getRadialGradientRadius(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setRadialGradientRadius(self, gradient_id, radius, render_index=0):
+        """
+        Sets the radius of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - radius (float): a float that determines the radius of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the radius of the RadialGradient object could not be set
+        """
+        return lib.c_api_setRadialGradientRadius(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(radius), render_index)
+
+    def isSetRadialGradientFocalX(self, gradient_id, render_index=0):
+        """
+        Returns whether the x-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the x-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetRadialGradientFocalX(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getRadialGradientFocalX(self, gradient_id, render_index=0):
+        """
+        Returns the x-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getRadialGradientFocalX.restype = ctypes.c_double
+        return lib.c_api_getRadialGradientFocalX(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setRadialGradientFocalX(self, gradient_id, focal_x, render_index=0):
+        """
+        Sets the x-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - focal_x (float): a float that determines the x-coordinate of the focal point of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the focal point of the RadialGradient object could not be set
+        """
+        return lib.c_api_setRadialGradientFocalX(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(focal_x), render_index)
+
+    def isSetRadialGradientFocalY(self, gradient_id, render_index=0):
+        """
+        Returns whether the y-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true if the y-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetRadialGradientFocalY(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def getRadialGradientFocalY(self, gradient_id, render_index=0):
+        """
+        Returns the y-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getRadialGradientFocalY.restype = ctypes.c_double
+        return lib.c_api_getRadialGradientFocalY(self.sbml_object, str(gradient_id).encode(), render_index)
+
+    def setRadialGradientFocalY(self, gradient_id, focal_y, render_index=0):
+        """
+        Sets the y-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - gradient_id (string): a string that determines the id of the RadialGradient object
+            - focal_y (float): a float that determines the y-coordinate of the focal point of the RadialGradient object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the focal point of the RadialGradient object could not be set
+        """
+        return lib.c_api_setRadialGradientFocalY(self.sbml_object, str(gradient_id).encode(), ctypes.c_double(focal_y), render_index)
 
     def getListOfLineEndingIds(self, render_index=0):
         """

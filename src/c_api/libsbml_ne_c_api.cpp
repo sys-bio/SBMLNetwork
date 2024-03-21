@@ -492,7 +492,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumCurveSegments(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    bool c_api_isCurveSegmentCubicBezier(SBMLDocument* document, const std::string& id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
+    bool c_api_isCurveSegmentCubicBezier(SBMLDocument* document, const char* id, int graphicalObjectIndex, int curveSegmentIndex, int layoutIndex) {
         return isCubicBezier(document, layoutIndex, id, graphicalObjectIndex, curveSegmentIndex);
     }
 
@@ -653,6 +653,192 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     const char* c_api_getNthLocalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex) {
         return strdup(getNthLocalGradientDefinitionId(document, renderIndex, gradientIndex).c_str());
+    }
+
+    bool c_api_isLinearGradient(SBMLDocument* document, const char* id, int renderIndex) {
+        return isLinearGradient(document, renderIndex, id);
+    }
+
+    bool c_api_isRadialGradient(SBMLDocument* document, const char* id, int renderIndex) {
+        return isRadialGradient(document, renderIndex, id);
+    }
+
+    bool c_api_isSetSpreadMethod(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetSpreadMethod(document, renderIndex, id);
+    }
+
+    const char* c_api_getSpreadMethod(SBMLDocument* document, const char* id, int renderIndex) {
+        return strdup(getSpreadMethod(document, renderIndex, id).c_str());
+    }
+
+    int c_api_setSpreadMethod(SBMLDocument* document, const char* id, const char* spreadMethod, int renderIndex) {
+        return setSpreadMethod(document, renderIndex, id, spreadMethod);
+    }
+
+    int c_api_getNumGradientStops(SBMLDocument* document, const char* id, int renderIndex) {
+        return getNumGradientStops(document, renderIndex, id);
+    }
+
+    bool c_api_isSetOffset(SBMLDocument* document, const char* id, int gradientStopIndex, int renderIndex) {
+        return isSetOffset(document, renderIndex, id, gradientStopIndex);
+    }
+
+    const double c_api_getOffset(SBMLDocument* document, const char* id, int gradientStopIndex, int renderIndex) {
+        RelAbsVector offsetVector =  getOffset(document, renderIndex, id, gradientStopIndex);
+        return offsetVector.getRelativeValue();
+    }
+
+    int c_api_setOffset(SBMLDocument* document, const char* id, const double offset, int gradientStopIndex, int renderIndex) {
+        RelAbsVector offsetVector;
+        offsetVector.setRelativeValue(offset);
+        return setOffset(document, renderIndex, id, gradientStopIndex, offsetVector);
+    }
+
+    bool c_api_isSetStopColor(SBMLDocument* document, const char* id, int gradientStopIndex, int renderIndex) {
+        return isSetStopColor(document, renderIndex, id, gradientStopIndex);
+    }
+
+    const char* c_api_getStopColor(SBMLDocument* document, const char* id, int gradientStopIndex, int renderIndex) {
+        return strdup(getStopColor(document, renderIndex, id, gradientStopIndex).c_str());
+    }
+
+    int c_api_setStopColor(SBMLDocument* document, const char* id, const char* stopColor, int gradientStopIndex, int renderIndex) {
+        return setStopColor(document, renderIndex, id, gradientStopIndex, stopColor);
+    }
+
+    int c_isSetLinearGradientX1(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLinearGradientX1(document, renderIndex, id);
+    }
+
+    const double c_api_getLinearGradientX1(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector x1Vector = getLinearGradientX1(document, renderIndex, id);
+        return  x1Vector.getRelativeValue();
+    }
+
+    int c_api_setLinearGradientX1(SBMLDocument* document, const char* id, const double x1, int renderIndex) {
+        RelAbsVector x1Vector;
+        x1Vector.setRelativeValue(x1);
+        return setLinearGradientX1(document, renderIndex, id, x1Vector);
+    }
+
+    bool c_api_isSetLinearGradientY1(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLinearGradientY1(document, renderIndex, id);
+    }
+
+    const double c_api_getLinearGradientY1(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector y1Vector = getLinearGradientY1(document, renderIndex, id);
+        return  y1Vector.getRelativeValue();
+    }
+
+    int c_api_setLinearGradientY1(SBMLDocument* document, const char* id, const double y1, int renderIndex) {
+        RelAbsVector y1Vector;
+        y1Vector.setRelativeValue(y1);
+        return setLinearGradientY1(document, renderIndex, id, y1Vector);
+    }
+
+    bool c_api_isSetLinearGradientX2(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLinearGradientX2(document, renderIndex, id);
+    }
+
+    const double c_api_getLinearGradientX2(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector x2Vector = getLinearGradientX2(document, renderIndex, id);
+        return  x2Vector.getRelativeValue();
+    }
+
+    int c_api_setLinearGradientX2(SBMLDocument* document, const char* id, const double x2, int renderIndex) {
+        RelAbsVector x2Vector;
+        x2Vector.setRelativeValue(x2);
+        return setLinearGradientX2(document, renderIndex, id, x2Vector);
+    }
+
+    bool c_api_isSetLinearGradientY2(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetLinearGradientY2(document, renderIndex, id);
+    }
+
+    const double c_api_getLinearGradientY2(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector y2Vector = getLinearGradientY2(document, renderIndex, id);
+        return  y2Vector.getRelativeValue();
+    }
+
+    int c_api_setLinearGradientY2(SBMLDocument* document, const char* id, const double y2, int renderIndex) {
+        RelAbsVector y2Vector;
+        y2Vector.setRelativeValue(y2);
+        return setLinearGradientY2(document, renderIndex, id, y2Vector);
+    }
+
+    bool c_api_isSetRadialGradientCenterX(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetRadialGradientCx(document, renderIndex, id);
+    }
+
+    const double c_api_getRadialGradientCenterX(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector cxVector = getRadialGradientCx(document, renderIndex, id);
+        return  cxVector.getRelativeValue();
+    }
+
+    int c_api_setRadialGradientCenterX(SBMLDocument* document, const char* id, const double cx, int renderIndex) {
+        RelAbsVector cxVector;
+        cxVector.setRelativeValue(cx);
+        return setRadialGradientCx(document, renderIndex, id, cxVector);
+    }
+
+    bool c_api_isSetRadialGradientCenterY(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetRadialGradientCy(document, renderIndex, id);
+    }
+
+    const double c_api_getRadialGradientCenterY(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector cyVector = getRadialGradientCy(document, renderIndex, id);
+        return  cyVector.getRelativeValue();
+    }
+
+    int c_api_setRadialGradientCenterY(SBMLDocument* document, const char* id, const double cy, int renderIndex) {
+        RelAbsVector cyVector;
+        cyVector.setRelativeValue(cy);
+        return setRadialGradientCy(document, renderIndex, id, cyVector);
+    }
+
+    bool c_api_isSetRadialGradientRadius(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetRadialGradientR(document, renderIndex, id);
+    }
+
+    const double c_api_getRadialGradientRadius(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector rVector = getRadialGradientR(document, renderIndex, id);
+        return  rVector.getRelativeValue();
+    }
+
+    int c_api_setRadialGradientRadius(SBMLDocument* document, const char* id, const double r, int renderIndex) {
+        RelAbsVector rVector;
+        rVector.setRelativeValue(r);
+        return setRadialGradientR(document, renderIndex, id, rVector);
+    }
+
+    bool c_api_isSetRadialGradientFocalX(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetRadialGradientFx(document, renderIndex, id);
+    }
+
+    const double c_api_getRadialGradientFocalX(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector fxVector = getRadialGradientFx(document, renderIndex, id);
+        return  fxVector.getRelativeValue();
+    }
+
+    int c_api_setRadialGradientFocalX(SBMLDocument* document, const char* id, const double fx, int renderIndex) {
+        RelAbsVector fxVector;
+        fxVector.setRelativeValue(fx);
+        return setRadialGradientFx(document, renderIndex, id, fxVector);
+    }
+
+    bool c_api_isSetRadialGradientFocalY(SBMLDocument* document, const char* id, int renderIndex) {
+        return isSetRadialGradientFy(document, renderIndex, id);
+    }
+
+    const double c_api_getRadialGradientFocalY(SBMLDocument* document, const char* id, int renderIndex) {
+        RelAbsVector fyVector = getRadialGradientFy(document, renderIndex, id);
+        return  fyVector.getRelativeValue();
+    }
+
+    int c_api_setRadialGradientFocalY(SBMLDocument* document, const char* id, const double fy, int renderIndex) {
+        RelAbsVector fyVector;
+        fyVector.setRelativeValue(fy);
+        return setRadialGradientFy(document, renderIndex, id, fyVector);
     }
 
     const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex) {
