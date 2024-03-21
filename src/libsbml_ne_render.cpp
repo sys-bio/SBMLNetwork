@@ -327,7 +327,7 @@ bool isSetLinearGradientX1(RenderInformationBase* renderInformationBase, const s
 
 bool isSetLinearGradientX1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->isSetX1();
+        return ((LinearGradient*)gradientBase)->isSetX1();
 
     return false;
 }
@@ -338,7 +338,7 @@ const RelAbsVector getLinearGradientX1(RenderInformationBase* renderInformationB
 
 const RelAbsVector getLinearGradientX1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->getX1();
+        return ((LinearGradient*)gradientBase)->getX1();
 
     return RelAbsVector();
 }
@@ -362,7 +362,7 @@ bool isSetLinearGradientX2(RenderInformationBase* renderInformationBase, const s
 
 bool isSetLinearGradientX2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->isSetX2();
+        return ((LinearGradient*)gradientBase)->isSetX2();
 
     return false;
 }
@@ -373,7 +373,7 @@ const RelAbsVector getLinearGradientX2(RenderInformationBase* renderInformationB
 
 const RelAbsVector getLinearGradientX2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->getX2();
+        return ((LinearGradient*)gradientBase)->getX2();
 
     return RelAbsVector();
 }
@@ -397,7 +397,7 @@ bool isSetLinearGradientY1(RenderInformationBase* renderInformationBase, const s
 
 bool isSetLinearGradientY1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->isSetY1();
+        return ((LinearGradient*)gradientBase)->isSetY1();
 
     return false;
 }
@@ -408,7 +408,7 @@ const RelAbsVector getLinearGradientY1(RenderInformationBase* renderInformationB
 
 const RelAbsVector getLinearGradientY1(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->getY1();
+        return ((LinearGradient*)gradientBase)->getY1();
 
     return RelAbsVector();
 }
@@ -432,7 +432,7 @@ bool isSetLinearGradientY2(RenderInformationBase* renderInformationBase, const s
 
 bool isSetLinearGradientY2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->isSetY2();
+        return ((LinearGradient*)gradientBase)->isSetY2();
 
     return false;
 }
@@ -443,7 +443,7 @@ const RelAbsVector getLinearGradientY2(RenderInformationBase* renderInformationB
 
 const RelAbsVector getLinearGradientY2(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        ((LinearGradient*)gradientBase)->getY2();
+        return ((LinearGradient*)gradientBase)->getY2();
 
     return RelAbsVector();
 }
@@ -467,7 +467,7 @@ bool isSetRadialGradientCx(RenderInformationBase* renderInformationBase, const s
 
 bool isSetRadialGradientCx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->isSetCx();
+        return ((RadialGradient*)gradientBase)->isSetCx();
 
     return false;
 }
@@ -478,7 +478,7 @@ const RelAbsVector getRadialGradientCx(RenderInformationBase* renderInformationB
 
 const RelAbsVector getRadialGradientCx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->getCx();
+        return ((RadialGradient*)gradientBase)->getCx();
 
     return RelAbsVector();
 }
@@ -502,7 +502,7 @@ bool isSetRadialGradientCy(RenderInformationBase* renderInformationBase, const s
 
 bool isSetRadialGradientCy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->isSetCy();
+        return ((RadialGradient*)gradientBase)->isSetCy();
 
     return false;
 }
@@ -513,7 +513,7 @@ const RelAbsVector getRadialGradientCy(RenderInformationBase* renderInformationB
 
 const RelAbsVector getRadialGradientCy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->getCy();
+        return ((RadialGradient*)gradientBase)->getCy();
 
     return RelAbsVector();
 }
@@ -537,7 +537,7 @@ bool isSetRadialGradientFx(RenderInformationBase* renderInformationBase, const s
 
 bool isSetRadialGradientFx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->isSetFx();
+        return ((RadialGradient*)gradientBase)->isSetFx();
 
     return false;
 }
@@ -548,7 +548,7 @@ const RelAbsVector getRadialGradientFx(RenderInformationBase* renderInformationB
 
 const RelAbsVector getRadialGradientFx(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->getFx();
+        return ((RadialGradient*)gradientBase)->getFx();
 
     return RelAbsVector();
 }
@@ -572,7 +572,7 @@ bool isSetRadialGradientFy(RenderInformationBase* renderInformationBase, const s
 
 bool isSetRadialGradientFy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->isSetFy();
+        return ((RadialGradient*)gradientBase)->isSetFy();
 
     return false;
 }
@@ -583,7 +583,7 @@ const RelAbsVector getRadialGradientFy(RenderInformationBase* renderInformationB
 
 const RelAbsVector getRadialGradientFy(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->getFy();
+        return ((RadialGradient*)gradientBase)->getFy();
 
     return RelAbsVector();
 }
@@ -607,7 +607,7 @@ bool isSetRadialGradientR(RenderInformationBase* renderInformationBase, const st
 
 bool isSetRadialGradientR(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->isSetR();
+        return ((RadialGradient*)gradientBase)->isSetR();
 
     return false;
 }
@@ -618,7 +618,7 @@ const RelAbsVector getRadialGradientR(RenderInformationBase* renderInformationBa
 
 const RelAbsVector getRadialGradientR(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        ((RadialGradient*)gradientBase)->getR();
+        return ((RadialGradient*)gradientBase)->getR();
 
     return RelAbsVector();
 }
