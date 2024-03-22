@@ -201,7 +201,7 @@ const bool isValidStartHeadValue(const std::string& startHead);
 
 const bool isValidEndHeadValue(const std::string& endHead);
 
-const bool isValidGeometricShapeName(const std::string geometricShapeName);
+const bool isValidGeometricShapeName(const std::string& geometricShapeName);
 
 const bool isValidGeometricShapeXValue(const RelAbsVector& x);
 
@@ -245,9 +245,25 @@ std::vector<std::pair<std::string, std::string>> colorData();
 
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
-std::vector<std::string> getHtmlColorNames();
+const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
 
-std::vector<std::string> getHexColorCodes();
+std::vector<std::string> getValidHtmlColorNames();
+
+std::vector<std::string> getValidHexColorCodes();
+
+std::vector<std::string> getValidSpreadMethodValues();
+
+std::vector<std::string> getValidFontWeightValues();
+
+std::vector<std::string> getValidFontStyleValues();
+
+std::vector<std::string> getValidTextAnchorValues();
+
+std::vector<std::string> getValidVTextAnchorValues();
+
+std::vector<std::string> getValidFillRuleValues();
+
+std::vector<std::string> getValidGeometricShapeNameValues();
 
 }
 

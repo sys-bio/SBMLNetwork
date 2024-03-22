@@ -460,22 +460,22 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
 }
 
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
-    if (stringCompare(alignment, "top"))
-        alignGraphicalObjectsToTop(graphicalObjects);
-    else if (stringCompare(alignment, "center"))
-        alignGraphicalObjectsToCenter(graphicalObjects);
-    else if (stringCompare(alignment, "bottom"))
-        alignGraphicalObjectsToBottom(graphicalObjects);
-    else if (stringCompare(alignment, "left"))
-        alignGraphicalObjectsToLeft(graphicalObjects);
-    else if (stringCompare(alignment, "middle"))
-        alignGraphicalObjectsToMiddle(graphicalObjects);
-    else if (stringCompare(alignment, "right"))
-        alignGraphicalObjectsToRight(graphicalObjects);
-    else if (stringCompare(alignment, "circular"))
-        alignGraphicalObjectsCircularly(graphicalObjects);
-    else
-        std::cerr << "error: " + alignment + " is an Invalid alignment type\n";
+    if (isValidAlignment(alignment)) {
+        if (stringCompare(alignment, "top"))
+            alignGraphicalObjectsToTop(graphicalObjects);
+        else if (stringCompare(alignment, "center"))
+            alignGraphicalObjectsToCenter(graphicalObjects);
+        else if (stringCompare(alignment, "bottom"))
+            alignGraphicalObjectsToBottom(graphicalObjects);
+        else if (stringCompare(alignment, "left"))
+            alignGraphicalObjectsToLeft(graphicalObjects);
+        else if (stringCompare(alignment, "middle"))
+            alignGraphicalObjectsToMiddle(graphicalObjects);
+        else if (stringCompare(alignment, "right"))
+            alignGraphicalObjectsToRight(graphicalObjects);
+        else if (stringCompare(alignment, "circular"))
+            alignGraphicalObjectsCircularly(graphicalObjects);
+    }
 }
 
 void alignGraphicalObjectsToTop(std::vector<GraphicalObject*> graphicalObjects) {
@@ -579,25 +579,7 @@ const bool isValidLayoutDimensionHeightValue(const double& height) {
 }
 
 const bool isValidRoleValue(const std::string& role) {
-    if (stringCompare(role, "substrate"))
-        return true;
-    else if (stringCompare(role, "sidesubstrate"))
-        return true;
-    else if (stringCompare(role, "modifier"))
-        return true;
-    else if (stringCompare(role, "inhibitor"))
-        return true;
-    else if (stringCompare(role, "product"))
-        return true;
-    else if (stringCompare(role, "sideproduct"))
-        return true;
-    else if (stringCompare(role, "activator"))
-        return true;
-    else if (stringCompare(role, "undefined"))
-        return true;
-
-    std::cerr << "error: role must be one of the following: substrate, sidesubstrate, modifier, inhibitor, product, sideproduct, activator, undefined" << std::endl;
-    return false;
+    return isValueValid(role, getValidRoleValues());
 }
 
 const bool isValidBoundingBoxXValue(const double& x) {
@@ -654,6 +636,37 @@ const bool isValidDimensionValue(const double& dimensionValue) {
 
     std::cerr << "error: A dimension value must be greater than 0" << std::endl;
     return false;
+}
+
+const bool isValidAlignment(const std::string& alignment) {
+    return isValueValid(alignment, getValidAlignmentValues());
+}
+
+std::vector<std::string> getValidRoleValues() {
+    std::vector <std::string> roleValues;
+    roleValues.push_back("substrate");
+    roleValues.push_back("sidesubstrate");
+    roleValues.push_back("modifier");
+    roleValues.push_back("inhibitor");
+    roleValues.push_back("product");
+    roleValues.push_back("sideproduct");
+    roleValues.push_back("activator");
+    roleValues.push_back("undefined");
+
+    return roleValues;
+}
+
+std::vector<std::string> getValidAlignmentValues() {
+    std::vector <std::string> alignmentValues;
+    alignmentValues.push_back("top");
+    alignmentValues.push_back("center");
+    alignmentValues.push_back("bottom");
+    alignmentValues.push_back("left");
+    alignmentValues.push_back("middle");
+    alignmentValues.push_back("right");
+    alignmentValues.push_back("circular");
+
+    return alignmentValues;
 }
 
 }

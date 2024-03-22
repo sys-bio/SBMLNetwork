@@ -17,7 +17,7 @@ SBasePlugin* getRenderPlugin(SBMLDocument* document) {
         }
         return renderBase;
     }
-    
+
     return NULL;
 }
 
@@ -42,7 +42,7 @@ RenderListOfLayoutsPlugin* getRenderListOfLayoutsPlugin(SBasePlugin* renderBase)
     catch(std::bad_cast) {
         std::cerr << "error: Unable to get global render information\n";
     }
-    
+
     return renderListOfLayoutsPlugin;
 }
 
@@ -53,7 +53,7 @@ RenderLayoutPlugin* getRenderLayoutPlugin(SBasePlugin* renderBase) {
     catch(std::bad_cast) {
         std::cerr << "error: Unable to get local render information\n";
     }
-    
+
     return renderLayoutPlugin;
 }
 
@@ -284,7 +284,7 @@ void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph,
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role, RenderPkgNamespaces* renderPkgNamespaces) {
     renderGroup->setStroke("black");
     renderGroup->setStrokeWidth(2.0);
-    
+
     if (role == SPECIES_ROLE_PRODUCT || role == SPECIES_ROLE_SIDEPRODUCT)
         renderGroup->setEndHead("productHead");
     else if (role == SPECIES_ROLE_MODIFIER)
@@ -364,16 +364,22 @@ const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::s
 }
 
 const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color) {
-    if (!renderInformationBase->getColorDefinition(color)) {
+    if (!renderInformationBase->getColorDefinition(color) || !renderInformationBase->getColorDefinition(getHtmlColorNameFromHexColorCode(color))) {
+        std::string colorId = color;
         std::string colorValue = getHexColorCodeFromHtmlColorName(color);
-        if (!colorValue.empty()) {
+        if (colorValue.empty()) {
+            colorId = getHtmlColorNameFromHexColorCode(color);
+            if (!colorId.empty())
+                colorValue = color;
+        }
+        if (!colorId.empty() && !colorValue.empty()) {
             RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
-            renderInformationBase->addColorDefinition(createColorDefinition(renderPkgNamespaces, color, colorValue));
-            return 0;
+            renderInformationBase->addColorDefinition(createColorDefinition(renderPkgNamespaces, colorId, colorValue));
+            return true;
         }
     }
 
-    return true;
+    return false;
 }
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
@@ -627,15 +633,7 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
 }
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
-    if (stringCompare(spreadMethod, "pad"))
-        return true;
-    else if (stringCompare(spreadMethod, "reflect"))
-        return true;
-    else if (stringCompare(spreadMethod, "repeat"))
-        return true;
-
-    std::cerr << "error: spread method must be either 'pad', 'reflect', or 'repeat'" << std::endl;
-    return false;
+    return isValueValid(spreadMethod, getValidSpreadMethodValues());
 }
 
 const bool isValidOffsetValue(const RelAbsVector& offset) {
@@ -728,49 +726,19 @@ const bool isValidFontSizeValue(const RelAbsVector& fontSize) {
 }
 
 const bool isValidFontWeightValue(const std::string& fontWeight) {
-    if (stringCompare(fontWeight, "bold"))
-        return true;
-    else if (stringCompare(fontWeight, "normal"))
-        return true;
-
-    std::cerr << "error: font weight must be either 'bold' or 'normal'" << std::endl;
-    return false;
+    return isValueValid(fontWeight, getValidFontWeightValues());
 }
 
 const bool isValidFontStyleValue(const std::string& fontStyle) {
-    if (stringCompare(fontStyle, "italic"))
-        return true;
-    else if (stringCompare(fontStyle, "normal"))
-        return true;
-
-    std::cerr << "error: font style must be either 'italic' or 'normal'" << std::endl;
-    return false;
+    return isValueValid(fontStyle, getValidFontStyleValues());
 }
 
 const bool isValidTextAnchorValue(const std::string& textAnchor) {
-    if (stringCompare(textAnchor, "start"))
-        return true;
-    else if (stringCompare(textAnchor, "middle"))
-        return true;
-    else if (stringCompare(textAnchor, "end"))
-        return true;
-
-    std::cerr << "error: horizontal text alignment must be either 'start', 'middle', or 'end'" << std::endl;
-    return false;
+    return isValueValid(textAnchor, getValidTextAnchorValues());
 }
 
 const bool isValidVTextAnchorValue(const std::string& vtextAnchor) {
-    if (stringCompare(vtextAnchor, "top"))
-        return true;
-    else if (stringCompare(vtextAnchor, "middle"))
-        return true;
-    else if (stringCompare(vtextAnchor, "bottom"))
-        return true;
-    else if (stringCompare(vtextAnchor, "baseline"))
-        return true;
-
-    std::cerr << "error: vertical text alignment must be either 'top', 'middle', 'bottom', or 'baseline'" << std::endl;
-    return false;
+    return isValueValid(vtextAnchor, getValidVTextAnchorValues());
 }
 
 const bool isValidFillColorValue(const std::string& fillColor) {
@@ -778,13 +746,7 @@ const bool isValidFillColorValue(const std::string& fillColor) {
 }
 
 const bool isValidFillRuleValue(const std::string& fillRule) {
-    if (stringCompare(fillRule, "nonzero"))
-        return true;
-    else if (stringCompare(fillRule, "evenodd"))
-        return true;
-
-    std::cerr << "error: error: fillRule must be either 'nonzero' or 'evenodd'" << std::endl;
-    return false;
+    return isValueValid(fillRule, getValidFillRuleValues());
 }
 
 const bool isValidStartHeadValue(const std::string& startHead) {
@@ -795,29 +757,8 @@ const bool isValidEndHeadValue(const std::string& endHead) {
     return true;
 }
 
-const bool isValidGeometricShapeName(const std::string geometricShapeName) {
-    if (stringCompare(geometricShapeName, "rectangle"))
-        return true;
-    else if (stringCompare(geometricShapeName, "ellipse"))
-        return true;
-    else if (stringCompare(geometricShapeName, "triangle"))
-        return true;
-    else if (stringCompare(geometricShapeName, "diamond"))
-        return true;
-    else if (stringCompare(geometricShapeName, "pentagon"))
-        return true;
-    else if (stringCompare(geometricShapeName, "hexagon"))
-        return true;
-    else if (stringCompare(geometricShapeName, "octagon"))
-        return true;
-    else if (stringCompare(geometricShapeName, "rendercurve"))
-        return true;
-    else if (stringCompare(geometricShapeName, "image"))
-        return true;
-
-    std::cerr << "error: entered value (" << geometricShapeName << ") is not a valid geometric shape name" << std::endl;
-    return false;
-
+const bool isValidGeometricShapeName(const std::string& geometricShapeName) {
+    return isValueValid(geometricShapeName, getValidGeometricShapeNameValues());
 }
 
 const bool isValidGeometricShapeXValue(const RelAbsVector& x) {
@@ -904,13 +845,12 @@ const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValu
 }
 
 const bool isValidColorValue(const std::string& value) {
-    std::vector<std::string> htmlColorNames = getHtmlColorNames();
+    std::vector<std::string> htmlColorNames = getValidHtmlColorNames();
     for (unsigned int i = 0; i < htmlColorNames.size(); i++) {
         if (stringCompare(htmlColorNames.at(i), value))
             return true;
     }
-
-    std::vector<std::string> hexColorCodes = getHexColorCodes();
+    std::vector<std::string> hexColorCodes = getValidHexColorCodes();
     for (unsigned int i = 0; i < hexColorCodes.size(); i++) {
         if (stringCompare(hexColorCodes.at(i), value))
             return true;
@@ -920,14 +860,24 @@ const bool isValidColorValue(const std::string& value) {
 }
 
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName) {
-    std::vector <std::string> htmlColorNames = getHtmlColorNames();
-    std::vector <std::string> hexColorCodes = getHexColorCodes();
+    std::vector <std::string> htmlColorNames = getValidHtmlColorNames();
+    std::vector <std::string> hexColorCodes = getValidHexColorCodes();
     for (unsigned int i = 0; i < htmlColorNames.size(); i++) {
         if (stringCompare(htmlColorNames.at(i), htmlColorName))
             return hexColorCodes.at(i);
     }
 
-    std::cerr << "error: entered value (" << htmlColorName << ") is not a valid html color name" << std::endl;
+    return "";
+}
+
+const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode) {
+    std::vector <std::string> hexColorCodes = getValidHexColorCodes();
+    std::vector <std::string> htmlColorNames = getValidHtmlColorNames();
+    for (unsigned int i = 0; i < hexColorCodes.size(); i++) {
+        if (stringCompare(hexColorCodes.at(i), hexColorCode))
+            return htmlColorNames.at(i);
+    }
+
     return "";
 }
 
@@ -1078,7 +1028,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     return colors;
 }
 
-std::vector<std::string> getHtmlColorNames() {
+std::vector<std::string> getValidHtmlColorNames() {
     std::vector<std::string> htmlColorNames;
     for (unsigned int i = 0; i < colorData().size(); i++) {
         htmlColorNames.push_back(colorData().at(i).first);
@@ -1087,13 +1037,71 @@ std::vector<std::string> getHtmlColorNames() {
     return htmlColorNames;
 }
 
-std::vector<std::string> getHexColorCodes() {
+std::vector<std::string> getValidHexColorCodes() {
     std::vector<std::string> hexColorCodes;
     for (unsigned int i = 0; i < colorData().size(); i++) {
         hexColorCodes.push_back(colorData().at(i).second);
     }
 
     return hexColorCodes;
+}
+
+std::vector<std::string> getValidSpreadMethodValues() {
+    std::vector <std::string> spreadMethods;
+    spreadMethods.push_back("pad");
+    spreadMethods.push_back("reflect");
+    spreadMethods.push_back("repeat");
+    return spreadMethods;
+}
+
+std::vector<std::string> getValidFontWeightValues() {
+    std::vector <std::string> fontWeights;
+    fontWeights.push_back("normal");
+    fontWeights.push_back("bold");
+    return fontWeights;
+}
+
+std::vector<std::string> getValidFontStyleValues() {
+    std::vector <std::string> fontStyles;
+    fontStyles.push_back("normal");
+    fontStyles.push_back("italic");
+    return fontStyles;
+}
+
+std::vector<std::string> getValidTextAnchorValues() {
+    std::vector <std::string> textAnchors;
+    textAnchors.push_back("start");
+    textAnchors.push_back("middle");
+    textAnchors.push_back("end");
+    return textAnchors;
+}
+
+std::vector<std::string> getValidVTextAnchorValues() {
+    std::vector <std::string> vTextAnchors;
+    vTextAnchors.push_back("top");
+    vTextAnchors.push_back("middle");
+    vTextAnchors.push_back("bottom");
+    vTextAnchors.push_back("baseline");
+    return vTextAnchors;
+}
+
+std::vector<std::string> getValidFillRuleValues() {
+    std::vector <std::string> fillRules;
+    fillRules.push_back("nonzero");
+    fillRules.push_back("evenodd");
+    return fillRules;
+}
+
+std::vector<std::string> getValidGeometricShapeNameValues() {
+    std::vector <std::string> geometricShapeNames;
+    geometricShapeNames.push_back("rectangle");
+    geometricShapeNames.push_back("ellipse");
+    geometricShapeNames.push_back("triangle");
+    geometricShapeNames.push_back("diamond");
+    geometricShapeNames.push_back("pentagon");
+    geometricShapeNames.push_back("hexagon");
+    geometricShapeNames.push_back("octagon");
+    return geometricShapeNames;
 }
 
 }

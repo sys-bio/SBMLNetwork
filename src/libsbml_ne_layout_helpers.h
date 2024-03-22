@@ -170,6 +170,12 @@ const bool isValidCurveSegmentBasePoint2YValue(const double& y);
 
 const bool isValidDimensionValue(const double& dimensionValue);
 
+const bool isValidAlignment(const std::string& alignment);
+
+std::vector<std::string> getValidRoleValues();
+
+std::vector<std::string> getValidAlignmentValues();
+
 }
 
 #endif
