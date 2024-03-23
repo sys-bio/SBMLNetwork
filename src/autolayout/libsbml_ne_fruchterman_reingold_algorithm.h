@@ -71,6 +71,8 @@ public:
 
     void adjustCurvePoints(AutoLayoutObjectBase* connection);
 
+    void adjustSingleUniUniConnections(AutoLayoutObjectBase* connection);
+
 protected:
 
     void setNodes(Layout* layout);
@@ -127,9 +129,13 @@ AutoLayoutPoint calculateBottomSideIntersectionPoint(AutoLayoutPoint source, Aut
 
 AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p2, AutoLayoutPoint q1, AutoLayoutPoint q2);
 
+AutoLayoutPoint calculateCenterWardIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target, double distance);
+
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId);
 
 const int numConnectionsBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> connections, std::vector<std::string> connectionNodeIds);
+
+AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::vector<std::string> nodeIds);
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
 

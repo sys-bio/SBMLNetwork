@@ -301,6 +301,7 @@ void FruthtermanReingoldAlgorithm::updateConnectionControlPoints(AutoLayoutObjec
     adjustCenterControlPoint(connection);
     setCurvePoints(connection);
     adjustCurvePoints(connection);
+    adjustSingleUniUniConnections(connection);
 }
 
 void FruthtermanReingoldAlgorithm::calculateCenterControlPoint(AutoLayoutObjectBase* connection) {
@@ -390,14 +391,14 @@ void FruthtermanReingoldAlgorithm::setCurvePoints(AutoLayoutObjectBase* connecti
                 case SPECIES_ROLE_SIDEPRODUCT:
                     curve->setCentroidSideControlPoint(adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, 1, true));
                     curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(adjustPointPosition(curve->getCentroidSideControlPoint(), curve->getNodeSidePoint(), 0, -20, false));
+                    curve->setNodeSideControlPoint(adjustPointPosition(curve->getNodeSidePoint(), curveNode->getPosition(), 0, -2.5 * calculateEuclideanDistance(curve->getNodeSidePoint(), curveNode->getPosition()), false));
                     break;
 
                 case SPECIES_ROLE_SUBSTRATE:
                 case SPECIES_ROLE_SIDESUBSTRATE:
                     curve->setCentroidSideControlPoint(_centerControlPoint);
                     curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(adjustPointPosition(curve->getCentroidSideControlPoint(), curve->getNodeSidePoint(), 0, -20, false));
+                    curve->setNodeSideControlPoint(adjustPointPosition(curve->getNodeSidePoint(), curveNode->getPosition(), 0, -2.5 * calculateEuclideanDistance(curve->getNodeSidePoint(), curveNode->getPosition()), false));
                     break;
 
                 case SPECIES_ROLE_ACTIVATOR:
@@ -406,7 +407,7 @@ void FruthtermanReingoldAlgorithm::setCurvePoints(AutoLayoutObjectBase* connecti
                     curve->setCentroidSidePoint(adjustPointPosition(curveNode->getPosition(), centroidNode->getPosition(), 0, -15, false));
                     curve->setCentroidSideControlPoint(adjustPointPosition(curveNode->getPosition(), centroidNode->getPosition(), 0, -20, false));
                     curve->setNodeSidePoint(calculateCurveNodeSidePoint(curve->getCentroidSideControlPoint(), curveNode, 10));
-                    curve->setNodeSideControlPoint(curve->getNodeSidePoint());
+                    curve->setNodeSideControlPoint(adjustPointPosition(curve->getNodeSidePoint(), curveNode->getPosition(), 0, -2.5 * calculateEuclideanDistance(curve->getNodeSidePoint(), curveNode->getPosition()), false));
                     break;
 
                 default:
@@ -438,6 +439,24 @@ void FruthtermanReingoldAlgorithm::adjustCurvePoints(AutoLayoutObjectBase* conne
                     firstCurve->setNodeSidePoint(adjustPointPosition(firstCurve->getNodeSideControlPoint(), firstCurve->getNodeSidePoint(), -12.5, 0, false));
                     secondCurve->setNodeSidePoint(adjustPointPosition(secondCurve->getNodeSideControlPoint(), secondCurve->getNodeSidePoint(), 12.5, 0, false));
                 }
+            }
+        }
+    }
+}
+
+void FruthtermanReingoldAlgorithm::adjustSingleUniUniConnections(AutoLayoutObjectBase* connection) {
+    if (((AutoLayoutConnection*)connection)->getNumNonModifierCurves() == 2 && numConnectionsBetweenTheSameNodes(_connections, ((AutoLayoutConnection*)connection)->getNodeIds()) == 1) {
+        ((AutoLayoutNodeBase *)(((AutoLayoutConnection *) connection)->getCentroidNode()))->setPosition(
+                getNodesCenter(_nodes, ((AutoLayoutConnection *) connection)->getNodeIds()));
+        for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
+            AutoLayoutCurve *curve = (AutoLayoutCurve *) (((AutoLayoutConnection *) connection)->getCurves().at(
+                    curveIndex));
+            AutoLayoutNodeBase *curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
+            if (curveNode) {
+                curve->setCentroidSidePoint(((AutoLayoutNodeBase *)(((AutoLayoutConnection *) connection)->getCentroidNode()))->getPosition());
+                curve->setCentroidSideControlPoint(((AutoLayoutNodeBase *)(((AutoLayoutConnection *) connection)->getCentroidNode()))->getPosition());
+                curve->setNodeSideControlPoint(calculateCenterWardIntersectionPoint(curve->getCentroidSideControlPoint(), curveNode, -10));
+                curve->setNodeSidePoint(calculateCenterWardIntersectionPoint(curve->getCentroidSidePoint(), curveNode, -10));
             }
         }
     }
@@ -547,6 +566,26 @@ AutoLayoutPoint calculateIntersectionPoint(AutoLayoutPoint p1, AutoLayoutPoint p
     return AutoLayoutPoint(0.0000001, 0.0000001);
 }
 
+AutoLayoutPoint calculateCenterWardIntersectionPoint(AutoLayoutPoint source, AutoLayoutObjectBase* target, double distance) {
+    AutoLayoutPoint center = ((AutoLayoutNodeBase*)target)->getPosition();
+    double width = ((AutoLayoutNodeBase*)target)->getWidth();
+    double height = ((AutoLayoutNodeBase*)target)->getHeight();
+    double ratio = height / width;
+    double slope = atan2(source.getY() - center.getY(), source.getX() - center.getX());
+    if (slope < 0.0)
+        slope += 2 * M_PI;
+    if (slope >= 2 * M_PI - ratio || slope < ratio)
+        return adjustPointPosition(source, AutoLayoutPoint(center.getX() + 0.5 * width, center.getY() + 0.5 * width * tan(slope)), 0, distance, false);
+    else if (slope >= ratio && slope < (M_PI - ratio))
+        return adjustPointPosition(source, AutoLayoutPoint(center.getX() + 0.5 * height / tan(slope), center.getY() + 0.5 * height), 0, distance, false);
+    else if (slope >= (M_PI - ratio) && slope < M_PI + ratio)
+        return adjustPointPosition(source, AutoLayoutPoint(center.getX() - 0.5 * width, center.getY() - 0.5 * width * tan(slope)), 0, distance, false);
+    else if (slope >= M_PI + ratio && slope < 2 * M_PI - ratio)
+        return adjustPointPosition(source, AutoLayoutPoint(center.getX() - 0.5 * height / tan(slope), center.getY() - 0.5 * height), 0, distance, false);
+
+    return adjustPointPosition(source, center, 0, distance, false);
+}
+
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId) {
     for (int objectIndex = 0; objectIndex < objects.size(); objectIndex++) {
         if (objects.at(objectIndex)->getId() == objectId)
@@ -564,6 +603,18 @@ const int numConnectionsBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> c
     }
 
     return numConnections;
+}
+
+AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::vector<std::string> nodeIds) {
+    AutoLayoutPoint center = AutoLayoutPoint(0.0, 0.0);
+    for (int nodeIndex = 0; nodeIndex < nodeIds.size(); nodeIndex++) {
+        AutoLayoutObjectBase* node = findObject(nodes, nodeIds[nodeIndex]);
+        if (node)
+            center.setPosition(AutoLayoutPoint(center.getX() + ((AutoLayoutNodeBase *) node)->getPosition().getX(),
+                                               center.getY() + ((AutoLayoutNodeBase *) node)->getPosition().getY()));
+    }
+
+    return AutoLayoutPoint(center.getX() / nodeIds.size(), center.getY() / nodeIds.size());
 }
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2) {
