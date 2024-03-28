@@ -23,7 +23,7 @@ setup(
     description = "LibSBML Network Editor Python API",
     long_description_content_type = "text/x-rst",
     long_description = ("LibSBML Network Editor is a portable library for systems/synthetic biologist to work with the Layout and Render extensions of SBML models. It enables the users to straightforwardly read, manipulate, and write and also automatically generate the information about the Layout and Render extensions of an SBML model."),
-    url = "https://github.com/adelhpour/lisbmlNetworkEditor",
+    url = "https://github.com/adelhpour/libsmlNetworkEditor",
     license = "MIT License",
     platforms = ["Windows", "MacOS", "Unix"],
     classifiers = [
