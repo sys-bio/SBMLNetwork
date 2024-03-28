@@ -44,6 +44,8 @@ void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* r
 
 void updateLayoutDimensions(Layout* layout, const double &padding);
 
+void extractExtents(Layout* layout, double &minX, double &minY, double &maxX, double &maxY);
+
 void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY);
 
 void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &maxX, double &maxY);

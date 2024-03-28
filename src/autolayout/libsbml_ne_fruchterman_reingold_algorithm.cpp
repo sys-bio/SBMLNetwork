@@ -279,15 +279,17 @@ void FruthtermanReingoldAlgorithm::adjustCoordinateOrigin() {
     AutoLayoutPoint _origin = AutoLayoutPoint(0.0, 0.0);
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
         if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() < _origin.getX())
-            _origin.setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX());
+            _origin.setX(((AutoLayoutNodeBase *) _nodes.at(nodeIndex))->getX());
         if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < _origin.getY())
             _origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
     }
     _origin.setX(_origin.getX() - _padding);
     _origin.setY(_origin.getY() - _padding);
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
-        ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());
-        ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() - _origin.getY());
+        if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isLocked()) {
+            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());
+            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() - _origin.getY());
+        }
     }
 }
 

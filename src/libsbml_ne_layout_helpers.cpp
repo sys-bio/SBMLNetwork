@@ -360,6 +360,25 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     return NULL;
 }
 
+std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+    std::vector<std::string> graphicalObjectsIds;
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        bool isIndependentReaction = true;
+        for (unsigned int j = 0; j < graphicalObjects.size(); j++) {
+            if (graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObjects.at(j))) {
+                isIndependentReaction = false;
+                break;
+            }
+        }
+        if (isIndependentReaction)
+            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
+    }
+
+    return graphicalObjectsIds;
+}
+
 std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
     std::vector<std::string> graphicalObjectsIds;
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
@@ -527,47 +546,55 @@ void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObje
 }
 
 const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects) {
-    double minX = 0.0;
     if (graphicalObjects.size()) {
+        double minX = INT_MAX;
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             if (graphicalObjects.at(i)->getBoundingBox()->x() < minX)
                 minX = graphicalObjects.at(i)->getBoundingBox()->x();
+
+        return minX;
     }
 
-    return minX;
+    return 0.0;
 }
 
 const double getMinPositionY(std::vector<GraphicalObject*> graphicalObjects) {
-    double minY = 0.0;
     if (graphicalObjects.size()) {
+        double minY = INT_MAX;
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             if (graphicalObjects.at(i)->getBoundingBox()->y() < minY)
                 minY = graphicalObjects.at(i)->getBoundingBox()->y();
+
+        return minY;
     }
 
-    return minY;
+    return 0.0;
 }
 
 const double getMaxPositionX(std::vector<GraphicalObject*> graphicalObjects) {
-    double maxX = 0.0;
     if (graphicalObjects.size()) {
+        double maxX = INT_MIN;
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             if (graphicalObjects.at(i)->getBoundingBox()->x() > maxX)
                 maxX = graphicalObjects.at(i)->getBoundingBox()->x();
+
+        return maxX;
     }
 
-    return maxX;
+    return 0.0;
 }
 
 const double getMaxPositionY(std::vector<GraphicalObject*> graphicalObjects) {
-    double maxY = 0.0;
     if (graphicalObjects.size()) {
+        double maxY = INT_MIN;
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             if (graphicalObjects.at(i)->getBoundingBox()->y() > maxY)
                 maxY = graphicalObjects.at(i)->getBoundingBox()->y();
+
+        return maxY;
     }
 
-    return maxY;
+    return 0.0;
 }
 
 const bool isValidLayoutDimensionWidthValue(const double& width) {

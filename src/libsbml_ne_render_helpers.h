@@ -101,25 +101,25 @@ void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, 
 
 LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setProductHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setModifierHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setActivatorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setInhibitorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces);
 

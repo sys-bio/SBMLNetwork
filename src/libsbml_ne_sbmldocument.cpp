@@ -56,19 +56,23 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return -1;
     }
 
-    int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject) {
-        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updateGraphicalObject));
+    int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updatedGraphicalObject) {
+        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
     }
 
-    int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment) {
-        if (nodeIds.size() > 2) {
+    int updateLayoutCurves(SBMLDocument* document, std::vector<GraphicalObject*> updatedGraphicalObjects) {
+        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
+    }
+
+    int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {
+        if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
             for (unsigned int i = 0; i < nodeIds.size(); i++) {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             alignGraphicalObjects(allGraphicalObjects, alignment);
-            return autolayout(document, 10, 15, false, false, false, nodeIds);
+            return updateLayoutCurves(document, allGraphicalObjects);
         }
 
         return -1;

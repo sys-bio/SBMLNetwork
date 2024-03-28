@@ -62,9 +62,15 @@ LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double
 
 /// @brief lock all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.
-/// @param updateGraphicalObject a pointer to the GraphicalObject object the position of which has been updated recently.
+/// @param updatedGraphicalObject a pointer to the GraphicalObject object the position of which has been updated recently.
 /// @return integer value indicating success/failure of the function.
-LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject);
+LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updatedGraphicalObject);
+
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @param updatedGraphicalObjects a vector of GraphicalObject object pointers the position of which has been updated recently.
+/// @return integer value indicating success/failure of the function.
+LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, std::vector<GraphicalObject*> updatedGraphicalObjects);
 
 /// @brief Align the nodes position in the SBML document in the given alignment type.
 /// @param document a pointer to the SBMLDocument object.

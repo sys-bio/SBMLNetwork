@@ -407,11 +407,11 @@ void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, 
 LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "productHead");
     setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setProductHeadLineEndingExcluseFeatures(lineEnding, renderPkgNamespaces);
+    setProductHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
     return lineEnding;
 }
 
-void setProductHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* triangle = renderGroup->createPolygon();
     setDefaultTriangleShapeFeatures(triangle);
@@ -430,11 +430,11 @@ void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation,
 LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "modifierHead");
     setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setModifierHeadLineEndingExcluseFeatures(lineEnding, renderPkgNamespaces);
+    setModifierHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
     return lineEnding;
 }
 
-void setModifierHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* diamond = renderGroup->createPolygon();
     setDefaultDiamondShapeFeatures(diamond);
@@ -451,11 +451,11 @@ void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation
 LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "activatorHead");
     setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setActivatorHeadLineEndingExcluseFeatures(lineEnding, renderPkgNamespaces);
+    setActivatorHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
     return lineEnding;
 }
 
-void setActivatorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Ellipse* ellipse = renderGroup->createEllipse();
     setDefaultEllipseShapeFeatures(ellipse);
@@ -473,11 +473,11 @@ LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespac
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "inhibitorHead");
     lineEnding->createGroup();
     setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setInhibitorHeadLineEndingExcluseFeatures(lineEnding, renderPkgNamespaces);
+    setInhibitorHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
     return lineEnding;
 }
 
-void setInhibitorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
