@@ -148,6 +148,7 @@ int setBackgroundColor(SBMLDocument* document, const std::string& backgroundColo
 }
 
 int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const std::string& backgroundColor) {
+    addColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
     return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
 }
 

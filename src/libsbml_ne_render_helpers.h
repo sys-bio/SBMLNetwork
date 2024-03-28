@@ -101,25 +101,25 @@ void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, 
 
 LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setProductHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setModifierHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setActivatorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
 LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
 
-void setInhibitorHeadLineEndingExcluseFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces);
 
@@ -201,7 +201,7 @@ const bool isValidStartHeadValue(const std::string& startHead);
 
 const bool isValidEndHeadValue(const std::string& endHead);
 
-const bool isValidGeometricShapeName(const std::string geometricShapeName);
+const bool isValidGeometricShapeName(const std::string& geometricShapeName);
 
 const bool isValidGeometricShapeXValue(const RelAbsVector& x);
 
@@ -245,9 +245,25 @@ std::vector<std::pair<std::string, std::string>> colorData();
 
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
-std::vector<std::string> getHtmlColorNames();
+const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
 
-std::vector<std::string> getHexColorCodes();
+std::vector<std::string> getValidHtmlColorNames();
+
+std::vector<std::string> getValidHexColorCodes();
+
+std::vector<std::string> getValidSpreadMethodValues();
+
+std::vector<std::string> getValidFontWeightValues();
+
+std::vector<std::string> getValidFontStyleValues();
+
+std::vector<std::string> getValidTextAnchorValues();
+
+std::vector<std::string> getValidVTextAnchorValues();
+
+std::vector<std::string> getValidFillRuleValues();
+
+std::vector<std::string> getValidGeometricShapeNameValues();
 
 }
 

@@ -48,24 +48,34 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
     int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                    const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
                    std::vector <std::string> lockedNodeIds) {
-        if (!createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds) && !createDefaultRenderInformation(document))
+        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+        const bool renderIsAdded = !createDefaultRenderInformation(document);
+        if (layoutIsAdded || renderIsAdded)
             return 0;
 
         return -1;
     }
 
-    int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updateGraphicalObject) {
-        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updateGraphicalObject));
+    int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updatedGraphicalObject) {
+        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
     }
 
-    int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment) {
-        std::vector<GraphicalObject*> allGraphicalObjects;
-        for (unsigned int i = 0; i < nodeIds.size(); i++) {
-            std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
-            allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
+    int updateLayoutCurves(SBMLDocument* document, std::vector<GraphicalObject*> updatedGraphicalObjects) {
+        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
+    }
+
+    int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {
+        if (nodeIds.size() > 1) {
+            std::vector<GraphicalObject*> allGraphicalObjects;
+            for (unsigned int i = 0; i < nodeIds.size(); i++) {
+                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
+                allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
+            }
+            alignGraphicalObjects(allGraphicalObjects, alignment);
+            return updateLayoutCurves(document, allGraphicalObjects);
         }
-        alignGraphicalObjects(allGraphicalObjects, alignment);
-        return autolayout(document, 10, 15, false, false, false, nodeIds);
+
+        return -1;
     }
 
     bool isSetId(SBase* object) {

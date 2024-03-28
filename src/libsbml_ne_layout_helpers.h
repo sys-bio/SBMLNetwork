@@ -94,6 +94,8 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
+std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+
 std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
@@ -169,6 +171,12 @@ const bool isValidCurveSegmentBasePoint2XValue(const double& x);
 const bool isValidCurveSegmentBasePoint2YValue(const double& y);
 
 const bool isValidDimensionValue(const double& dimensionValue);
+
+const bool isValidAlignment(const std::string& alignment);
+
+std::vector<std::string> getValidRoleValues();
+
+std::vector<std::string> getValidAlignmentValues();
 
 }
 

@@ -1,5 +1,7 @@
 #include "libsbml_ne_c_api.h"
 #include "../libsbml_ne_common.h"
+#include "../libsbml_ne_layout_helpers.h"
+#include "../libsbml_ne_render_helpers.h"
 
 extern "C" {
 
@@ -1832,6 +1834,127 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return setGeometricShapeHref(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, href);
+    }
+
+    int c_api_getNumValidRoleValues() {
+        return getValidRoleValues().size();
+    }
+
+    const char* c_api_getNthValidRoleValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidRoleValues())
+            return strdup(getValidRoleValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidAlignmentValues() {
+        return getValidAlignmentValues().size();
+    }
+
+    const char* c_api_getNthValidAlignmentValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidAlignmentValues())
+            return strdup(getValidAlignmentValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidColorNameValues() {
+        return getValidHtmlColorNames().size();
+    }
+
+    const char* c_api_getNthValidColorNameValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidColorNameValues())
+            return strdup(getValidHtmlColorNames().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidHexColorCodeValues() {
+        return getValidHexColorCodes().size();
+    }
+
+    const char* c_api_getNthValidHexColorCodeValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidHexColorCodeValues())
+            return strdup(getValidHexColorCodes().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidSpreadMethodValues() {
+        return getValidSpreadMethodValues().size();
+    }
+
+    const char* c_api_getNthValidSpreadMethodValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidSpreadMethodValues())
+            return strdup(getValidSpreadMethodValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidFontWeightValues() {
+        return getValidFontWeightValues().size();
+    }
+
+    const char* c_api_getNthValidFontWeightValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidFontWeightValues())
+            return strdup(getValidFontWeightValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidFontStyleValues() {
+        return getValidFontStyleValues().size();
+    }
+
+    const char* c_api_getNthValidFontStyleValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidFontStyleValues())
+            return strdup(getValidFontStyleValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidHorizontalTextAlignmentValues() {
+        return getValidTextAnchorValues().size();
+    }
+
+    const char* c_api_getNthValidHorizontalTextAlignmentValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidHorizontalTextAlignmentValues())
+            return strdup(getValidTextAnchorValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidVerticalTextAlignmentValues() {
+        return getValidVTextAnchorValues().size();
+    }
+
+    const char* c_api_getNthValidVerticalTextAlignmentValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidVerticalTextAlignmentValues())
+            return strdup(getValidVTextAnchorValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidFillRuleValues() {
+        return getValidFillRuleValues().size();
+    }
+
+    const char* c_api_getNthValidFillRuleValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidFillRuleValues())
+            return strdup(getValidFillRuleValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidGeometricShapeValues() {
+        return getValidGeometricShapeNameValues().size();
+    }
+
+    const char* c_api_getNthValidGeometricShapeValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidGeometricShapeValues())
+            return strdup(getValidGeometricShapeNameValues().at(index).c_str());
+
+        return "";
     }
 }
 

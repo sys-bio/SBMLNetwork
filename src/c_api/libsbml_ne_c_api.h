@@ -3435,6 +3435,94 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    // @brief Returns the number of valid values for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
+    // @return the number of valid values for the "role" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidRoleValues();
+
+    // @brief Returns the nth valid value for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidRoleValue(int index);
+
+    // @brief Returns the number of valid values for the "alignment" attribute that can be used in for c_api_align function.
+    // @return the number of valid values for the "alignment" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidAlignmentValues();
+
+    // @brief Returns the nth valid value for the "alignment" attribute that can be used in for c_api_align function.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidAlignmentValue(int index);
+
+    // @brief Returns the number of valid values for the "color" name attribute that can be used in for all set color value functions.
+    // @return the number of valid values for the "color" name attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidColorNameValues();
+
+    // @brief Returns the nth valid value for the "color" name attribute that can be used in for all set color value functions.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidColorNameValue(int index);
+
+    // @brief Returns the number of valid values for the hex "color" attribute that can be used in for all set color value functions.
+    // @return the number of valid values for the hex "color" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidHexColorCodeValues();
+
+    // @brief Returns the nth valid value for the hex "color" attribute that can be used in for all set color value functions.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidHexColorCodeValue(int index);
+
+    // @brief Returns the number of valid values for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
+    // @return the number of valid values for the "spread-method" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidSpreadMethodValues();
+
+    // @brief Returns the nth valid value for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidSpreadMethodValue(int index);
+
+    // @brief Returns the number of valid values for the "font-weight" attribute that can be used in for all set font weight functions.
+    // @return the number of valid values for the "font-weight" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidFontWeightValues();
+
+    // @brief Returns the nth valid value for the "font-weight" attribute that can be used in for all set font weight functions.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidFontWeightValue(int index);
+
+    // @brief Returns the number of valid values for the "font-style" attribute that can be used in for all set font style functions.
+    // @return the number of valid values for the "font-style" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidFontStyleValues();
+
+    // @brief Returns the nth valid value for the "font-style" attribute that can be used in for all set font style functions.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidFontStyleValue(int index);
+
+    // @brief Returns the number of valid values for the "text-anchor" attribute that can be used in for all set text anchor functions.
+    // @return the number of valid values for the "text-anchor" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidHorizontalTextAlignmentValues();
+
+    // @brief Returns the nth valid value for the "text-anchor" attribute that can be used in for all set text anchor functions.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidHorizontalTextAlignmentValue(int index);
+
+    // @brief Returns the number of valid values for the "vtext-anchor" attribute that can be used in for all set vertical text alignment functions.
+    // @return the number of valid values for the "vtext-anchor" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidVerticalTextAlignmentValues();
+
+    // @brief Returns the nth valid value for the "vtext-anchor" attribute that can be used in for all set vertical text alignment functions.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidVerticalTextAlignmentValue(int index);
+
+    // @brief Returns the number of valid values for the "fill-rule" attribute that can be used in for c_api_setFillRule function.
+    // @return the number of valid values for the "fill-rule" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidFillRuleValues();
+
+    // @brief Returns the nth valid value for the "fill-rule" attribute that can be used in for c_api_setFillRule function.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidFillRuleValue(int index);
+
+    // @brief Returns the number of valid values for the "shape" attribute that can be sued in for c_api_setGeometricShape function.
+    // @return the number of valid values for the "shape" attribute.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_getNumValidGeometricShapeValues();
+
+    // @brief Returns the nth valid value for the "shape" attribute that can be used in for c_api_setGeometricShape function.
+    // @param index an int representing the index of the valid value to retrieve.
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getNthValidGeometricShapeValue(int index);
 }
 
 #ifdef __cplusplus

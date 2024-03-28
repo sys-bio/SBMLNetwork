@@ -383,21 +383,32 @@ int setRole(Layout* layout, const std::string& id, const std::string& role) {
 }
 
 int setRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, const std::string& role) {
-    return setRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex), role);
+    if (isValidRoleValue(role))
+        return setRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex), role);
+
+    return -1;
 }
 
 int setRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role) {
-    return setRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex), role);
+    if (isValidRoleValue(role))
+        return setRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex), role);
+
+    return -1;
 }
 
 int setRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex, const std::string& role) {
-    return setRole(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex), role);
+    if (isValidRoleValue(role))
+        return setRole(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex), role);
+
+    return -1;
 }
 
 int setRole(GraphicalObject* speciesReferenceGlyph, const std::string& role) {
-    if (isSpeciesReferenceGlyph(speciesReferenceGlyph)) {
-        ((SpeciesReferenceGlyph *) speciesReferenceGlyph)->setRole(role);
-        return 0;
+    if (isValidRoleValue(role)) {
+        if (isSpeciesReferenceGlyph(speciesReferenceGlyph)) {
+            ((SpeciesReferenceGlyph *) speciesReferenceGlyph)->setRole(role);
+            return 0;
+        }
     }
 
     return -1;

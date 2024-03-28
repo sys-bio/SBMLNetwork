@@ -66,7 +66,7 @@ class LibSBMLNetworkEditor:
         if not self._layout_is_specified() or not self._render_is_specified():
             self.autolayout()
 
-    def export(self, file_name=""):
+    def save(self, file_name=""):
         """
         Writes the given SBML document to either the file_name or a string
 
@@ -6374,6 +6374,193 @@ class LibSBMLNetworkEditor:
             true on success and false if the href of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeHref(self.sbml_object, str(id).encode(), str(href).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def getListOfRoles(self):
+        """
+        Returns the list of valid SpeciesReference roles in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid SpeciesReference roles in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidRoleValue.restype = ctypes.c_char_p
+        list_of_roles = []
+        for n in range(lib.c_api_getNumValidRoleValues()):
+            list_of_roles.append(ctypes.c_char_p(lib.c_api_getNthValidRoleValue(n)).value.decode())
+
+        return list_of_roles
+
+    def getListOfAlignments(self):
+        """
+        Returns the list of valid GraphicalObject alignments in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject alignments in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidAlignmentValue.restype = ctypes.c_char_p
+        list_of_alignments = []
+        for n in range(lib.c_api_getNumValidAlignmentValues()):
+            list_of_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidAlignmentValue(n)).value.decode())
+
+        return list_of_alignments
+
+    def getListOfColorNames(self):
+        """
+        Returns the list of valid html color names that can be used as the value of colors in the SBML Document
+
+        :Returns:
+
+            a list of strings that determines the valid html color names that can be used as the value of colors in the SBML Document
+
+        """
+        lib.c_api_getNthValidColorNameValue.restype = ctypes.c_char_p
+        list_of_color_names = []
+        for n in range(lib.c_api_getNumValidColorNameValues()):
+            list_of_color_names.append(ctypes.c_char_p(lib.c_api_getNthValidColorNameValue(n)).value.decode())
+
+        return list_of_color_names
+
+    def getListOfHexColorCodes(self):
+        """
+        Returns the list of valid hex color codes that can be used as the value of colors in the SBML Document
+
+        :Returns:
+
+            a list of strings that determines the valid hex color codes that can be used as the value of colors in the SBML Document
+
+        """
+        lib.c_api_getNthValidHexColorCodeValue.restype = ctypes.c_char_p
+        list_of_hex_color_codes = []
+        for n in range(lib.c_api_getNumValidHexColorCodeValues()):
+            list_of_hex_color_codes.append(ctypes.c_char_p(lib.c_api_getNthValidHexColorCodeValue(n)).value.decode())
+
+        return list_of_hex_color_codes
+
+    def getListOfColors(self):
+        """
+        Returns the list of all valid colors that can be used as the value of colors in the SBML Document
+
+        :Returns:
+
+            a list of strings that determines the valid colors that can be used as the value of colors in the SBML Document
+
+        """
+        return self.getListOfColorNames() + self.getListOfHexColorCodes()
+
+    def getListOfSpreadMethods(self):
+        """
+        Returns the list of valid GradientBase spread methods in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GradientBase spread methods in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidSpreadMethodValue.restype = ctypes.c_char_p
+        list_of_spread_methods = []
+        for n in range(lib.c_api_getNumValidSpreadMethodValues()):
+            list_of_spread_methods.append(ctypes.c_char_p(lib.c_api_getNthValidSpreadMethodValue(n)).value.decode())
+
+        return list_of_spread_methods
+
+    def getListOfFontWeights(self):
+        """
+        Returns the list of valid GraphicalObject font weights in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject font weights in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidFontWeightValue.restype = ctypes.c_char_p
+        list_of_font_weights = []
+        for n in range(lib.c_api_getNumValidFontWeightValues()):
+            list_of_font_weights.append(ctypes.c_char_p(lib.c_api_getNthValidFontWeightValue(n)).value.decode())
+
+        return list_of_font_weights
+
+    def getListOfFontStyles(self):
+        """
+        Returns the list of valid GraphicalObject font styles in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject font styles in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidFontStyleValue.restype = ctypes.c_char_p
+        list_of_font_styles = []
+        for n in range(lib.c_api_getNumValidFontStyleValues()):
+            list_of_font_styles.append(ctypes.c_char_p(lib.c_api_getNthValidFontStyleValue(n)).value.decode())
+
+        return list_of_font_styles
+
+    def getListOfHorizontalTextAlignments(self):
+        """
+        Returns the list of valid GraphicalObject horizontal text alignments in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject horizontal text alignments in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidHorizontalTextAlignmentValue.restype = ctypes.c_char_p
+        list_of_horizontal_text_alignments = []
+        for n in range(lib.c_api_getNumValidHorizontalTextAlignmentValues()):
+            list_of_horizontal_text_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidHorizontalTextAlignmentValue(n)).value.decode())
+
+        return list_of_horizontal_text_alignments
+
+    def getListOfVerticalTextAlignments(self):
+        """
+        Returns the list of valid GraphicalObject vertical text alignments in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject vertical text alignments in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidVerticalTextAlignmentValue.restype = ctypes.c_char_p
+        list_of_vertical_text_alignments = []
+        for n in range(lib.c_api_getNumValidVerticalTextAlignmentValues()):
+            list_of_vertical_text_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidVerticalTextAlignmentValue(n)).value.decode())
+
+        return list_of_vertical_text_alignments
+
+    def getListOfFillRules(self):
+        """
+        Returns the list of valid GraphicalObject fill rules in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject fill rules in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidFillRuleValue.restype = ctypes.c_char_p
+        list_of_fill_rules = []
+        for n in range(lib.c_api_getNumValidFillRuleValues()):
+            list_of_fill_rules.append(ctypes.c_char_p(lib.c_api_getNthValidFillRuleValue(n)).value.decode())
+
+        return list_of_fill_rules
+
+    def getListOfGeometricShapes(self):
+        """
+        Returns the list of valid GeometricShape types in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GeometricShape types in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidGeometricShapeValue.restype = ctypes.c_char_p
+        list_of_geometric_shapes = []
+        for n in range(lib.c_api_getNumValidGeometricShapeValues()):
+            list_of_geometric_shapes.append(ctypes.c_char_p(lib.c_api_getNthValidGeometricShapeValue(n)).value.decode())
+
+        return list_of_geometric_shapes
 
     def _layout_is_specified(self):
         if self.getNumLayouts():

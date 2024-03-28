@@ -14,7 +14,7 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     std::srand(time(0));
     randomizeGlyphsLocations(model, layout, padding, lockedNodeIds);
     setGlyphsDimensions(model, layout);
-    applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+    applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds, padding);
     updateCompartmentExtents(model, layout, padding);
     updateLayoutDimensions(layout, padding);
 }
@@ -93,7 +93,7 @@ const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph *speciesGlyph, cons
 
 void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const std::vector <std::string> &lockedNodeIds) {
+                     const std::vector <std::string> &lockedNodeIds, const double &padding) {
     FruthtermanReingoldAlgorithm *fruthtermanReingoldAlgorithm = new FruthtermanReingoldAlgorithm();
     fruthtermanReingoldAlgorithm->setElements(layout);
     fruthtermanReingoldAlgorithm->setStiffness(stiffness);
@@ -102,6 +102,7 @@ void applyAutolayout(Model *model, Layout *layout, const double &stiffness, cons
     fruthtermanReingoldAlgorithm->setUseBoundary(useBoundary);
     fruthtermanReingoldAlgorithm->setUseGrid(useGrid);
     fruthtermanReingoldAlgorithm->setNodesLockedStatus(layout, lockedNodeIds);
+    fruthtermanReingoldAlgorithm->setPadding(padding);
     fruthtermanReingoldAlgorithm->apply();
 }
 
@@ -189,18 +190,26 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *r
 }
 
 void updateLayoutDimensions(Layout* layout, const double &padding) {
-    double minX = INT_MAX;
-    double minY = INT_MAX;
-    double maxX = INT_MIN;
-    double maxY = INT_MIN;
+    double minX;
+    double minY;
+    double maxX;
+    double maxY;
+    extractExtents(layout, minX, minY, maxX, maxY);
+    layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
+    layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
+}
+
+void extractExtents(Layout* layout, double &minX, double &minY, double &maxX, double &maxY) {
+    minX = INT_MAX;
+    minY = INT_MAX;
+    maxX = INT_MIN;
+    maxY = INT_MIN;
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
         extractExtents(layout->getCompartmentGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         extractExtents(layout->getSpeciesGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
         extractExtents(layout->getReactionGlyph(i)->getCurve(), minX, minY, maxX, maxY);
-    layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
-    layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
 }
 
 void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY) {
