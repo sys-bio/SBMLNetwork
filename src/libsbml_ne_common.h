@@ -12,6 +12,7 @@
 #endif
 
 #include <iostream>
+#include <vector>
 
 LIBSBML_NETWORKEDITOR_EXTERN const std::string getLibraryVersion();
 
