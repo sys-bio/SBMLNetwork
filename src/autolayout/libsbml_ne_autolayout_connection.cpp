@@ -53,3 +53,19 @@ std::vector<std::string> AutoLayoutConnection::getNodeIds() {
     return nodeIds;
 }
 
+std::vector<std::string> AutoLayoutConnection::getNonModifierNodeIds() {
+    std::vector<std::string> nodeIds;
+    for (int curveIndex = 0; curveIndex < _curves.size(); curveIndex++) {
+        if (((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_PRODUCT ||
+            ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_SIDEPRODUCT ||
+            ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_SUBSTRATE ||
+            ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_SIDESUBSTRATE ||
+            ((AutoLayoutCurve*)_curves.at(curveIndex))->getRole() == SPECIES_ROLE_UNDEFINED) {
+            if (std::find(nodeIds.begin(), nodeIds.end(), ((AutoLayoutCurve*)_curves.at(curveIndex))->getNodeId()) == nodeIds.end())
+                nodeIds.push_back(((AutoLayoutCurve*)_curves.at(curveIndex))->getNodeId());
+        }
+    }
+
+    return nodeIds;
+}
+

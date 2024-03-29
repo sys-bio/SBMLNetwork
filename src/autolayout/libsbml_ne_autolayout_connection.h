@@ -22,6 +22,8 @@ public:
 
     std::vector<std::string> getNodeIds();
 
+    std::vector<std::string> getNonModifierNodeIds();
+
 protected:
 
     ReactionGlyph* _reactionGlyph;

@@ -365,10 +365,6 @@ void FruthtermanReingoldAlgorithm::adjustCenterControlPoint(AutoLayoutObjectBase
                 }
             }
         }
-        if (numConnectionsBetweenTheSameNodes(_connections, ((AutoLayoutConnection*)connection)->getNodeIds()) == 1) {
-            centroidNode->setX(0.5 * (x2 + x1));
-            centroidNode->setY(0.5 * (y2 + y1));
-        }
         _centerControlPoint.setX(centroidNode->getX() + (x2 - x1));
         _centerControlPoint.setY(centroidNode->getY() + (y2 - y1));
         _centerControlPoint = adjustPointPosition(_centerControlPoint, centroidNode->getPosition(), 0, dist, false);
@@ -447,9 +443,11 @@ void FruthtermanReingoldAlgorithm::adjustCurvePoints(AutoLayoutObjectBase* conne
 }
 
 void FruthtermanReingoldAlgorithm::adjustSingleUniUniConnections(AutoLayoutObjectBase* connection) {
-    if (((AutoLayoutConnection*)connection)->getNumNonModifierCurves() == 2 && numConnectionsBetweenTheSameNodes(_connections, ((AutoLayoutConnection*)connection)->getNodeIds()) == 1) {
+    if (((AutoLayoutConnection*)connection)->getCurves().size() == 2 &&
+    ((AutoLayoutConnection*)connection)->getNumNonModifierCurves() == 2 &&
+    numConnectionsBetweenTheSameNodes(_connections, ((AutoLayoutConnection*)connection)->getNodeIds()) == 1) {
         ((AutoLayoutNodeBase *)(((AutoLayoutConnection *) connection)->getCentroidNode()))->setPosition(
-                getNodesCenter(_nodes, ((AutoLayoutConnection *) connection)->getNodeIds()));
+                getNodesCenter(_nodes, ((AutoLayoutConnection *) connection)->getNonModifierNodeIds()));
         for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
             AutoLayoutCurve *curve = (AutoLayoutCurve *) (((AutoLayoutConnection *) connection)->getCurves().at(
                     curveIndex));
