@@ -121,7 +121,10 @@ void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
         SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
-        speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
+        if (speciesReference->getSBOTermID() == "SBO:0000020")
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
+        else
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
 }

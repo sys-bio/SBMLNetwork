@@ -436,11 +436,11 @@ LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespace
 
 void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Polygon* diamond = renderGroup->createPolygon();
-    setDefaultDiamondShapeFeatures(diamond);
-    diamond->setStroke("black");
-    diamond->setStrokeWidth(2.0);
-    diamond->setFill("white");
+    Ellipse* ellipse = renderGroup->createEllipse();
+    setDefaultEllipseShapeFeatures(ellipse);
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2.0);
+    ellipse->setFill("white");
 }
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -457,11 +457,11 @@ LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespac
 
 void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setStroke("black");
-    ellipse->setStrokeWidth(2.0);
-    ellipse->setFill("white");
+    Polygon* diamond = renderGroup->createPolygon();
+    setDefaultDiamondShapeFeatures(diamond);
+    diamond->setStroke("black");
+    diamond->setStrokeWidth(2.0);
+    diamond->setFill("white");
 }
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
