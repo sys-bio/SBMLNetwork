@@ -422,7 +422,11 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         if (!text.empty()) {
            return strdup(text.c_str());
         }
-        text = getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
+        text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+        if (!text.empty()) {
+            return strdup(text.c_str());
+        }
+        text = getId(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
         if (!text.empty()) {
             return strdup(text.c_str());
         }

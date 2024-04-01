@@ -79,10 +79,16 @@ LIBSBML_NETWORKEDITOR_EXTERN int updateLayoutCurves(SBMLDocument* document, std:
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment);
 
+/// @brief Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the object to be found.
+/// @return a pointer to the first element found with the given identifier.
+SBase* getSBMLObject(SBMLDocument* document, const std::string& id);
+
 /// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
 /// @param object a pointer to the SBML object.
 /// @return @c true if the "id" attribute of this SBML object is set, @c false if either the "id"
-/// attribute is not set or the object is @c NULL .
+/// attribute is not set or the object is @c NULL.
 LIBSBML_NETWORKEDITOR_EXTERN bool isSetId(SBase* object);
 
 /// Returns the value of the "id" attribute of this SBML object.

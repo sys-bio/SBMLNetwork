@@ -78,6 +78,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
         return -1;
     }
 
+    SBase* getSBMLObject(SBMLDocument* document, const std::string& id) {
+        if (document && document->isSetModel())
+            return document->getModel()->getElementBySId(id);
+
+        return NULL;
+    }
+
     bool isSetId(SBase* object) {
         if (object)
             return object->isSetId();
