@@ -9,12 +9,13 @@
 class AutoLayoutObjectBase {
 public:
 
-    AutoLayoutObjectBase(Layout* layout);
+    AutoLayoutObjectBase(Model* model, Layout* layout);
 
     virtual const std::string getId() = 0;
 
 protected:
 
+    Model* _model;
     Layout* _layout;
 };
 

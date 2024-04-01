@@ -6,7 +6,7 @@
 class AutoLayoutConnection : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutConnection(Layout* layout, ReactionGlyph* reactionGlyph);
+    AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
     const std::string getId() override;
 

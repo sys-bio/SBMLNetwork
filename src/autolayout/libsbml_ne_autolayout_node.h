@@ -7,7 +7,7 @@
 class AutoLayoutNodeBase : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutNodeBase(Layout* layout);
+    AutoLayoutNodeBase(Model* model, Layout* layout);
 
     virtual GraphicalObject* getGraphicalObject() = 0;
 
@@ -26,6 +26,12 @@ public:
     virtual const double getHeight() = 0;
 
     virtual void setHeight(const double& height) = 0;
+
+    void updateDimensions();
+
+    virtual const double calculateWidth() = 0;
+
+    virtual const double calculateHeight() = 0;
 
     void setPosition(const AutoLayoutPoint position);
 
@@ -62,7 +68,7 @@ protected:
 class AutoLayoutNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph);
+    AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph);
 
     const std::string getId() override;
 
@@ -83,6 +89,10 @@ public:
     const double getHeight() override;
 
     void setHeight(const double& height) override;
+
+    const double calculateWidth() override;
+
+    const double calculateHeight() override;
 
 protected:
 
@@ -92,7 +102,7 @@ protected:
 class AutoLayoutCentroidNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* reactionGlyph);
+    AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
     const std::string getId() override;
 
@@ -114,9 +124,17 @@ public:
 
     void setHeight(const double& height) override;
 
+    const double calculateWidth() override;
+
+    const double calculateHeight() override;
+
 protected:
 
     ReactionGlyph* _reactionGlyph;
 };
+
+const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph *speciesGlyph);
+
+const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph *speciesGlyph, const double &speciesWidth);
 
 #endif

@@ -17,7 +17,7 @@ public:
 
     FruthtermanReingoldAlgorithm();
 
-    void setElements(Layout* layout);
+    void setElements(Model* model, Layout* layout);
 
     void setStiffness(const double& stiffness);
 
@@ -57,6 +57,8 @@ public:
 
     void adjustOnTheGrids(AutoLayoutObjectBase* node);
 
+    void updateNodesDimensions();
+
     void adjustCoordinateOrigin();
 
     void updateConnectionsControlPoints();
@@ -75,9 +77,9 @@ public:
 
 protected:
 
-    void setNodes(Layout* layout);
+    void setNodes(Model* model, Layout* layout);
 
-    void setConnections(Layout* layout);
+    void setConnections(Model* model, Layout* layout);
 
     void setNodesDegrees();
 

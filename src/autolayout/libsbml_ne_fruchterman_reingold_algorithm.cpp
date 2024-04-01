@@ -16,22 +16,22 @@ FruthtermanReingoldAlgorithm::FruthtermanReingoldAlgorithm() {
 
 }
 
-void FruthtermanReingoldAlgorithm::setElements(Layout* layout) {
-    setConnections(layout);
-    setNodes(layout);
+void FruthtermanReingoldAlgorithm::setElements(Model* model, Layout* layout) {
+    setConnections(model, layout);
+    setNodes(model, layout);
     setNodesDegrees();
 }
 
-void FruthtermanReingoldAlgorithm::setNodes(Layout* layout) {
+void FruthtermanReingoldAlgorithm::setNodes(Model* model, Layout* layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        _nodes.push_back(new AutoLayoutNode(layout, layout->getSpeciesGlyph(i)));
+        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i)));
     for (int i = 0; i < _connections.size(); i++)
         _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }
 
-void FruthtermanReingoldAlgorithm::setConnections(Layout* layout) {
+void FruthtermanReingoldAlgorithm::setConnections(Model* model, Layout* layout) {
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        _connections.push_back(new AutoLayoutConnection(layout, layout->getReactionGlyph(i)));
+        _connections.push_back(new AutoLayoutConnection(model, layout, layout->getReactionGlyph(i)));
 }
 
 void FruthtermanReingoldAlgorithm::setNodesDegrees() {
@@ -85,6 +85,7 @@ void FruthtermanReingoldAlgorithm::setPadding(const double &padding) {
 void FruthtermanReingoldAlgorithm::apply() {
     initialize();
     iterate();
+    updateNodesDimensions();
     adjustCoordinateOrigin();
     updateConnectionsControlPoints();
 }
@@ -273,6 +274,14 @@ void FruthtermanReingoldAlgorithm::adjustWithinTheBoundary(AutoLayoutObjectBase*
 void FruthtermanReingoldAlgorithm::adjustOnTheGrids(AutoLayoutObjectBase* node) {
     ((AutoLayoutNodeBase*)node)->setX(std::floor(((AutoLayoutNodeBase*)node)->getX() / _stiffness) * _stiffness);
     ((AutoLayoutNodeBase*)node)->setY(std::floor(((AutoLayoutNodeBase*)node)->getY() / _stiffness) * _stiffness);
+}
+
+void FruthtermanReingoldAlgorithm::updateNodesDimensions() {
+    for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
+        AutoLayoutNodeBase* node = (AutoLayoutNodeBase*)_nodes.at(nodeIndex);
+        if (!node->isLocked())
+            ((AutoLayoutNodeBase*)node)->updateDimensions();
+    }
 }
 
 void FruthtermanReingoldAlgorithm::adjustCoordinateOrigin() {

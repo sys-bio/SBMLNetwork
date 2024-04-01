@@ -1,10 +1,16 @@
 #include "libsbml_ne_autolayout_node.h"
+#include "../libsbml_ne_layout_helpers.h"
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Layout* layout) : AutoLayoutObjectBase(layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
     _locked = false;
+}
+
+void AutoLayoutNodeBase::updateDimensions() {
+    setWidth(std::max(calculateWidth(), getWidth()));
+    setHeight(std::max(calculateHeight(), getHeight()));
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -59,7 +65,7 @@ const bool AutoLayoutNodeBase::isLocked() {
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph) : AutoLayoutNodeBase(layout) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph) : AutoLayoutNodeBase(model, layout) {
     _speciesGlyph = speciesGlyph;
 }
 
@@ -103,9 +109,23 @@ void AutoLayoutNode::setHeight(const double& height) {
     _speciesGlyph->getBoundingBox()->setHeight(height);
 }
 
+const double AutoLayoutNode::calculateWidth() {
+    std::string displayedText = _speciesGlyph->getSpeciesId();
+    Species *species = LIBSBML_NETWORKEDITOR_CPP_NAMESPACE::findSpeciesGlyphSpecies(_model, _speciesGlyph);
+    if (species && species->isSetName())
+        displayedText = species->getName();
+
+    return std::max(60.0, displayedText.size() * 15.0);
+}
+
+const double AutoLayoutNode::calculateHeight() {
+    return std::max(36.0, getHeight());
+}
+
 // AutoLayoutCentroidNode
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutNodeBase(layout) {
+
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutNodeBase(model, layout) {
     _reactionGlyph = reactionGlyph;
 }
 
@@ -165,3 +185,10 @@ void AutoLayoutCentroidNode::setHeight(const double& height) {
     }
 }
 
+const double AutoLayoutCentroidNode::calculateWidth() {
+    return getWidth();
+}
+
+const double AutoLayoutCentroidNode::calculateHeight() {
+    return getHeight();
+}

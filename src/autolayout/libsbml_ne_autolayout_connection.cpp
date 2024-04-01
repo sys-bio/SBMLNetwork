@@ -2,7 +2,7 @@
 #include "libsbml_ne_autolayout_node.h"
 #include "libsbml_ne_autolayout_curve.h"
 
-AutoLayoutConnection::AutoLayoutConnection(Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutObjectBase(layout) {
+AutoLayoutConnection::AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutObjectBase(model, layout) {
     _reactionGlyph = reactionGlyph;
     setCentroidNode();
     setCurves();
@@ -13,7 +13,7 @@ const std::string AutoLayoutConnection::getId() {
 }
 
 void AutoLayoutConnection::setCentroidNode() {
-    _centroidNode = new AutoLayoutCentroidNode(_layout, _reactionGlyph);
+    _centroidNode = new AutoLayoutCentroidNode(_model, _layout, _reactionGlyph);
 }
 
 AutoLayoutObjectBase* AutoLayoutConnection::getCentroidNode() {
@@ -22,7 +22,7 @@ AutoLayoutObjectBase* AutoLayoutConnection::getCentroidNode() {
 
 void AutoLayoutConnection::setCurves() {
     for (int i = 0; i < _reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
-        _curves.push_back(new AutoLayoutCurve(_layout, _reactionGlyph->getSpeciesReferenceGlyph(i)));
+        _curves.push_back(new AutoLayoutCurve(_model, _layout, _reactionGlyph->getSpeciesReferenceGlyph(i)));
 }
 
 std::vector<AutoLayoutObjectBase*> AutoLayoutConnection::getCurves() {

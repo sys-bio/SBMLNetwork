@@ -71,31 +71,17 @@ void setGlyphsDimensions(Model *model, Layout *layout) {
 }
 
 void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph *speciesGlyph) {
-    double calculatedSpeciesWidth = calculateSpeciesGlyphDefaultWidth(model, speciesGlyph);
-    double calculatedSpeciesHeight = calculateSpeciesGlyphDefaultHeight(speciesGlyph, calculatedSpeciesWidth);
-    speciesGlyph->getBoundingBox()->setWidth(std::max(calculatedSpeciesWidth, speciesGlyph->getBoundingBox()->width()));
-    speciesGlyph->getBoundingBox()->setHeight(std::max(calculatedSpeciesHeight, speciesGlyph->getBoundingBox()->height()));
-}
-
-const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph *speciesGlyph) {
-    std::string displayedText = speciesGlyph->getSpeciesId();
-    Species *species = findSpeciesGlyphSpecies(model, speciesGlyph);
-    if (species && species->isSetName())
-        displayedText = species->getName();
-
-    return std::max(60.0, displayedText.size() * 15.0);
-}
-
-const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph *speciesGlyph, const double &speciesWidth) {
-    const double dimensionRatio = 36.0 / 60.0;
-    return std::min(std::max(36.0, dimensionRatio * speciesWidth), 72.0);
+    double speciesDefaultWidth = 60.0;
+    double speciesDefaultHeight = 36.0;
+    speciesGlyph->getBoundingBox()->setWidth(std::max(speciesDefaultWidth, speciesGlyph->getBoundingBox()->width()));
+    speciesGlyph->getBoundingBox()->setHeight(std::max(speciesDefaultHeight, speciesGlyph->getBoundingBox()->height()));
 }
 
 void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
                      const std::vector <std::string> &lockedNodeIds, const double &padding) {
     FruthtermanReingoldAlgorithm *fruthtermanReingoldAlgorithm = new FruthtermanReingoldAlgorithm();
-    fruthtermanReingoldAlgorithm->setElements(layout);
+    fruthtermanReingoldAlgorithm->setElements(model, layout);
     fruthtermanReingoldAlgorithm->setStiffness(stiffness);
     fruthtermanReingoldAlgorithm->setGravity(gravity);
     fruthtermanReingoldAlgorithm->setUseMagnetism(useMagnetism);
