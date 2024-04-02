@@ -35,6 +35,7 @@ class LibSBMLNetworkEditor:
     
         self.sbml_object = None
         self.use_name_as_text_label = True
+        self.display_reactions_text_label = False
         self.layout_is_added = True
         self.load(sbml)
 
@@ -1622,6 +1623,150 @@ class LibSBMLNetworkEditor:
             true on success and false if the height of the GraphicalObject could not be set
         """
         return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
+
+    def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Returns the x-coordinate of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the x-coordinate of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getTextX.restype = ctypes.c_double
+        return lib.c_api_getTextX(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
+    def setTextX(self, id, x, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, text_glyph_index, layout_index)
+
+    def getTextY(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Returns the y-coordinate of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the y-coordinate of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getTextY.restype = ctypes.c_double
+        return lib.c_api_getTextY(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
+    def setTextY(self, id, y, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - y (float): a float that determines the y-coordinate of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, text_glyph_index, layout_index)
+
+    def getTextWidth(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Returns the width of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the width of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getTextWidth.restype = ctypes.c_double
+        return lib.c_api_getTextWidth(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
+    def setTextWidth(self, id, width, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the width of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - width (float): a float that determines the width of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, text_glyph_index, layout_index)
+
+    def getTextHeight(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Returns the height of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the height of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getTextHeight.restype = ctypes.c_double
+        return lib.c_api_getTextHeight(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
+    def setTextHeight(self, id, height, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the height of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - height (float): a float that determines the height of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, text_glyph_index, layout_index)
 
     def isSetCurve(self, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
@@ -6578,6 +6723,17 @@ class LibSBMLNetworkEditor:
         self.use_name_as_text_label = use_name_as_text_label
         if self.layout_is_added:
             self.autolayout(locked_nodes=self.getListOfSpeciesIds())
+
+    def enable_display_reactions_text_label(self, display_reactions_text_label):
+        """
+        Set the flag to display the text labels of the reactions in the layout
+
+        :Parameters:
+
+            - display_reaction_text_labels (bool): a boolean that determines whether to display the text labels of the reactions in the layout
+
+        """
+        self.display_reactions_text_label = display_reactions_text_label
 
     def _layout_is_specified(self):
         if self.getNumLayouts():

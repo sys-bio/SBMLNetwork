@@ -70,6 +70,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
             locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
             setCompartmentTextGlyphs(layout);
             setSpeciesTextGlyphs(layout);
+            setReactionTextGlyphs(layout);
             return 0;
         }
     }

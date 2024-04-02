@@ -143,6 +143,14 @@ void setSpeciesTextGlyphs(Layout* layout) {
     }
 }
 
+void setReactionTextGlyphs(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        double padding = 5.0;
+        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
+        setTextGlyphBoundingBox(textGlyph, layout->getReactionGlyph(i), padding);
+    }
+}
+
 CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment) {
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         if (compartmentGlyphBelongs(layout->getCompartmentGlyph(i), compartment))
@@ -243,10 +251,10 @@ void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
         graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding) {
     textGlyph->getBoundingBox()->setId(textGlyph->getId() + "_bb");
-    textGlyph->getBoundingBox()->setX(graphicalObject->getBoundingBox()->x());
-    textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y());
+    textGlyph->getBoundingBox()->setX(graphicalObject->getBoundingBox()->x() + padding);
+    textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y() + padding);
     textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
     textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
 }

@@ -912,6 +912,90 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "x" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "x" attribute of the bounding box of the TextGlyph object, or @c 0.0 if the object is @c NULL
+    const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Sets the value of the "x" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param x a double value to be set as "x" attribute of the bounding box of the TextGlyph object.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    int c_api_setTextX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Returns the value of the "y" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "y" attribute of the bounding box of the TextGlyph object, or @c 0.0 if the object is @c NULL
+    const double c_api_getTextY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Sets the value of the "y" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param y a double value to be set as "y" attribute of the bounding box of the TextGlyph object.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    int c_api_setTextY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Returns the value of the "width" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "width" attribute of the bounding box of the TextGlyph object, or @c 0.0 if the object is @c NULL
+    const double c_api_getTextWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Sets the value of the "width" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param width a double value to be set as "width" attribute of the bounding box of the TextGlyph object.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    int c_api_setTextWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Returns the value of the "height" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "height" attribute of the bounding box of the TextGlyph object, or @c 0.0 if the object is @c NULL
+    const double c_api_getTextHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// @brief Sets the value of the "height" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param height a double value to be set as "height" attribute of the bounding box of the TextGlyph object.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    int c_api_setTextHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
     /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document
     /// has a Curve object and the curve consists of one or more segments.
     /// @param document a pointer to the SBMLDocument object.

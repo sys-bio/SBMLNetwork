@@ -256,6 +256,7 @@ void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
 void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         addReactionGlyphStyle(layout->getReactionGlyph(i), localRenderInformation, renderPkgNamespaces);
+        addReactionTextGlyphsStyles(layout, localRenderInformation, layout->getReactionGlyph(i), renderPkgNamespaces);
         addSpeciesReferenceGlyphsStyles(layout->getReactionGlyph(i), localRenderInformation, renderPkgNamespaces);
     }
 }
@@ -271,6 +272,24 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgName
     ellipse->setStroke("black");
     ellipse->setStrokeWidth(2.0);
     ellipse->setFill("white");
+}
+
+void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
+    for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
+        if (layout->getTextGlyph(i)->getGraphicalObjectId() == reactionGlyph->getId())
+            addReactionTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation, renderPkgNamespaces);
+    }
+}
+
+void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
+    setReactionTextGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+}
+
+void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup, renderPkgNamespaces);
+    renderGroup->setStroke("darkslategray");
+    renderGroup->setFontSize(RelAbsVector(12.0, 0.0));
 }
 
 void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -318,6 +337,7 @@ void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPk
     addColor(globalRenderInformation, "white");
     addColor(globalRenderInformation, "black");
     addColor(globalRenderInformation, "lightgray");
+    addColor(globalRenderInformation, "darkslategray");
     addColor(globalRenderInformation, "darkcyan");
     addColor(globalRenderInformation, "teal");
     addColor(globalRenderInformation, "silver");

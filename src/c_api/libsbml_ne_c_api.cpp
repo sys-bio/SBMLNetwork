@@ -1,5 +1,6 @@
 #include "libsbml_ne_c_api.h"
 #include "../libsbml_ne_common.h"
+#include "../libsbml_ne_layout.h"
 #include "../libsbml_ne_layout_helpers.h"
 #include "../libsbml_ne_render_helpers.h"
 
@@ -489,6 +490,78 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height)  && updateLayoutCurves(document,
                                                                                                                 getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
             return 0;
+
+        return -1;
+    }
+
+    const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
+            return getPositionX(textGlyphs.at(textGlyphIndex));
+
+        return 0.0;
+    }
+
+    int c_api_setTextX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
+            if (!setPositionX(textGlyphs.at(textGlyphIndex), x))
+                return 0;
+        }
+
+        return -1;
+    }
+
+    const double c_api_getTextY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
+            return getPositionY(textGlyphs.at(textGlyphIndex));
+
+        return 0.0;
+    }
+
+    int c_api_setTextY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
+            if (!setPositionY(textGlyphs.at(textGlyphIndex), y))
+                return 0;
+        }
+
+        return -1;
+    }
+
+    const double c_api_getTextWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
+            return getDimensionWidth(textGlyphs.at(textGlyphIndex));
+
+        return 0.0;
+    }
+
+    int c_api_setTextWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
+            if (!setDimensionWidth(textGlyphs.at(textGlyphIndex), width))
+                return 0;
+        }
+
+        return -1;
+    }
+
+    const double c_api_getTextHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
+            return getDimensionHeight(textGlyphs.at(textGlyphIndex));
+
+        return 0.0;
+    }
+
+    int c_api_setTextHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
+            if (!setDimensionHeight(textGlyphs.at(textGlyphIndex), height))
+                return 0;
+        }
 
         return -1;
     }
