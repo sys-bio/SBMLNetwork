@@ -55,10 +55,11 @@ LIBSBML_NETWORKEDITOR_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+/// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBML_NETWORKEDITOR_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
                                                 const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                                                std::vector <std::string> lockedNodeIds = std::vector<std::string>());
+                                                const bool& useNameAsTextLabel = false, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief lock all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.

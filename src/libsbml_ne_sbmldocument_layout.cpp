@@ -58,7 +58,7 @@ int removeAllLayouts(SBMLDocument* document) {
 
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity,
                              const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
-                             const std::vector<std::string>& lockedNodeIds) {
+                             const bool& useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
@@ -67,7 +67,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
             setCompartmentGlyphs(model, layout);
             setSpeciesGlyphs(model, layout);
             setReactionGlyphs(model, layout);
-            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
             setCompartmentTextGlyphs(layout);
             setSpeciesTextGlyphs(layout);
             return 0;
@@ -79,12 +79,12 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
 
 int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                         const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
-                        const std::vector<std::string>& lockedNodeIds) {
+                        const bool& useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {

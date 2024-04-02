@@ -3,9 +3,10 @@
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout) : AutoLayoutObjectBase(model, layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
     _locked = false;
+    _useNameAsTextLabel = useNameAsTextLabel;
 }
 
 void AutoLayoutNodeBase::updateDimensions() {
@@ -65,7 +66,7 @@ const bool AutoLayoutNodeBase::isLocked() {
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph) : AutoLayoutNodeBase(model, layout) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel) {
     _speciesGlyph = speciesGlyph;
 }
 
@@ -112,7 +113,7 @@ void AutoLayoutNode::setHeight(const double& height) {
 const double AutoLayoutNode::calculateWidth() {
     std::string displayedText = _speciesGlyph->getSpeciesId();
     Species *species = LIBSBML_NETWORKEDITOR_CPP_NAMESPACE::findSpeciesGlyphSpecies(_model, _speciesGlyph);
-    if (species && species->isSetName())
+    if (species && species->isSetName() && _useNameAsTextLabel)
         displayedText = species->getName();
 
     return std::max(60.0, displayedText.size() * 15.0);
@@ -125,7 +126,7 @@ const double AutoLayoutNode::calculateHeight() {
 // AutoLayoutCentroidNode
 
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutNodeBase(model, layout) {
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel) {
     _reactionGlyph = reactionGlyph;
 }
 

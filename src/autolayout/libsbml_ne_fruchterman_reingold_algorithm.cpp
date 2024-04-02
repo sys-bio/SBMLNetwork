@@ -16,22 +16,22 @@ FruthtermanReingoldAlgorithm::FruthtermanReingoldAlgorithm() {
 
 }
 
-void FruthtermanReingoldAlgorithm::setElements(Model* model, Layout* layout) {
-    setConnections(model, layout);
-    setNodes(model, layout);
+void FruthtermanReingoldAlgorithm::setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
+    setConnections(model, layout, useNameAsTextLabel);
+    setNodes(model, layout, useNameAsTextLabel);
     setNodesDegrees();
 }
 
-void FruthtermanReingoldAlgorithm::setNodes(Model* model, Layout* layout) {
-    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i)));
-    for (int i = 0; i < _connections.size(); i++)
-        _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
+void FruthtermanReingoldAlgorithm::setConnections(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
+    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
+        _connections.push_back(new AutoLayoutConnection(model, layout, layout->getReactionGlyph(i), useNameAsTextLabel));
 }
 
-void FruthtermanReingoldAlgorithm::setConnections(Model* model, Layout* layout) {
-    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        _connections.push_back(new AutoLayoutConnection(model, layout, layout->getReactionGlyph(i)));
+void FruthtermanReingoldAlgorithm::setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
+    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), useNameAsTextLabel));
+    for (int i = 0; i < _connections.size(); i++)
+        _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }
 
 void FruthtermanReingoldAlgorithm::setNodesDegrees() {
@@ -279,8 +279,7 @@ void FruthtermanReingoldAlgorithm::adjustOnTheGrids(AutoLayoutObjectBase* node) 
 void FruthtermanReingoldAlgorithm::updateNodesDimensions() {
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
         AutoLayoutNodeBase* node = (AutoLayoutNodeBase*)_nodes.at(nodeIndex);
-        if (!node->isLocked())
-            ((AutoLayoutNodeBase*)node)->updateDimensions();
+        ((AutoLayoutNodeBase*)node)->updateDimensions();
     }
 }
 

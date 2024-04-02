@@ -36,14 +36,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const bool useMagnetism,
-                   const bool useBoundary, const bool useGrid, const char **lockedNodeIds, const int lockedNodesSize) {
+                   const bool useBoundary, const bool useGrid, const bool useNameAsTextLabel, const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
 
-        return autolayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector);
+        return autolayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
     }
 
     int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment) {
@@ -64,13 +64,14 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const bool useMagnetism,
-                                  const bool useBoundary, const bool useGrid, const char **lockedNodeIds, const int lockedNodesSize) {
+                                  const bool useBoundary, const bool useGrid, const bool useNameAsTextLabel,
+                                  const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
-        return createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIdsVector);
+        return createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {
@@ -417,14 +418,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return getNumTextGlyphs(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+    const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex, const bool useNameAsTextLabel) {
         std::string text = getText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
         if (!text.empty()) {
-           return strdup(text.c_str());
-        }
-        text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
-        if (!text.empty()) {
             return strdup(text.c_str());
+        }
+        if (useNameAsTextLabel) {
+            text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+            if (!text.empty()) {
+                return strdup(text.c_str());
+            }
         }
         text = getId(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
         if (!text.empty()) {

@@ -34,6 +34,8 @@ class LibSBMLNetworkEditor:
         """
     
         self.sbml_object = None
+        self.use_name_as_text_label = True
+        self.layout_is_added = True
         self.load(sbml)
 
     def getVersion(self):
@@ -65,6 +67,7 @@ class LibSBMLNetworkEditor:
             raise Exception("The SBML document could not be loaded")
         if not self._layout_is_specified() or not self._render_is_specified():
             self.autolayout()
+            self.layout_is_added = True
 
     def save(self, file_name=""):
         """
@@ -111,7 +114,7 @@ class LibSBMLNetworkEditor:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, self.use_name_as_text_label, locked_nodes_ptr, len(locked_nodes))
 
     def align(self, nodes, alignment="center"):
         """
@@ -1447,7 +1450,7 @@ class LibSBMLNetworkEditor:
         """
         return lib.c_api_getNumTextGlyphs(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def getText(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+    def getText(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0, use_name_as_text_label=True):
         """
         Returns the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
 
@@ -1457,13 +1460,14 @@ class LibSBMLNetworkEditor:
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - use_name_as_text_label (bool, optional): a boolean (default: True) that determines whether the name of the model entity should be used as the text label of the TextGlyph
 
         :Returns:
 
             a string that determines the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getText.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index, use_name_as_text_label)).value.decode()
 
     def setText(self, id, text, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -6561,6 +6565,19 @@ class LibSBMLNetworkEditor:
             list_of_geometric_shapes.append(ctypes.c_char_p(lib.c_api_getNthValidGeometricShapeValue(n)).value.decode())
 
         return list_of_geometric_shapes
+
+    def set_names_as_text_labels(self, use_name_as_text_label):
+        """
+        Set the flag to use the name of the model entity as the text label of the GraphicalObject associated with the model entity
+
+        :Parameters:
+
+            - use_name_as_text_label (bool): a boolean that determines whether to use the name of the model entity as the text label of the GraphicalObject associated with the model entity
+
+        """
+        self.use_name_as_text_label = use_name_as_text_label
+        if self.layout_is_added:
+            self.autolayout(locked_nodes=self.getListOfSpeciesIds())
 
     def _layout_is_specified(self):
         if self.getNumLayouts():

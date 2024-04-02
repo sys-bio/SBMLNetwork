@@ -17,7 +17,7 @@ public:
 
     FruthtermanReingoldAlgorithm();
 
-    void setElements(Model* model, Layout* layout);
+    void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
     void setStiffness(const double& stiffness);
 
@@ -79,9 +79,9 @@ public:
 
 protected:
 
-    void setNodes(Model* model, Layout* layout);
+    void setConnections(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
-    void setConnections(Model* model, Layout* layout);
+    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
     void setNodesDegrees();
 

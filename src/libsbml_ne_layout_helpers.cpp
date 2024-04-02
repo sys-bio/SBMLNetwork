@@ -334,11 +334,13 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
 }
 
 bool graphicalObjectBelongsToReactionGlyph(ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject) {
-    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
-        if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
-            return true;
-        else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
-            return true;
+    if (graphicalObject) {
+        for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+            if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
+                return true;
+            else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
+                return true;
+        }
     }
 
     return false;

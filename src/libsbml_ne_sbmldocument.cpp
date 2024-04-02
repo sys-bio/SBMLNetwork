@@ -47,8 +47,8 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
     int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
                    const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
-                   std::vector <std::string> lockedNodeIds) {
-        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, lockedNodeIds);
+                   const bool& useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
+        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;
@@ -57,11 +57,11 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
     }
 
     int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updatedGraphicalObject) {
-        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
+        return autolayout(document, 10, 15, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
     }
 
     int updateLayoutCurves(SBMLDocument* document, std::vector<GraphicalObject*> updatedGraphicalObjects) {
-        return autolayout(document, 10, 15, false, false, false, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
+        return autolayout(document, 10, 15, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
     }
 
     int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {

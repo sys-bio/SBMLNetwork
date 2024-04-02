@@ -55,12 +55,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                 const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                const bool useNameAsTextLabel = true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.
@@ -88,12 +89,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
+    /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                                const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                               const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                               const bool useNameAsTextLabel=true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
@@ -826,9 +828,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @package checkForName a boolean value to indicate whether the function should check for the "name" attribute of the TextGlyph object.
     /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
     /// , TextGlyph does not exits or the object is @c NULL.
-    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0, const bool checkForName = true);
 
     /// @brief Sets the "text" attribute of the TextGlyph object with the given index associated with the given id in
     /// the Layout object with the given index of the SBML document.
