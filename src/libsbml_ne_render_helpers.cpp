@@ -232,6 +232,8 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNames
     rectangle->setStroke("black");
     rectangle->setStrokeWidth(2.0);
     rectangle->setFill("white");
+    rectangle->setRX(RelAbsVector(6, 0.0));
+    rectangle->setRY(RelAbsVector(3.6, 0.0));
 }
 
 void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
