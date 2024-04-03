@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <cmath>
+#include <climits>
 
 namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
 

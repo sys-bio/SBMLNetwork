@@ -1,6 +1,8 @@
 #include "libsbml_ne_layout_helpers.h"
 #include "libsbml_ne_common.h"
+
 #include <cmath>
+#include <climits>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
