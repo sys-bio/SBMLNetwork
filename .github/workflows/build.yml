@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
-        cpp_standard: 20
+        cpp_standard: [20]
     runs-on: ${{ matrix.platform }}
 
     steps:
