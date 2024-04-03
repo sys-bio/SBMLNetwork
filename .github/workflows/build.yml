@@ -15,13 +15,12 @@ env:
 jobs:
   build_on_OSs:
     name:
-      Build on ${{ matrix.platform }} with Python${{ matrix.python_version }}
+      Build on ${{ matrix.platform }}
     strategy:
       fail-fast: false
       matrix:
-        platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
+        platform: ["windows-latest", "macos-latest", "macos-latest-xlarge", "ubuntu-latest"]
         cpp_standard: [ 20 ]
-        python_version: ["3.9", "3.10", "3.11"]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -55,13 +54,12 @@ jobs:
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
 
-      - name: Download SWIG on Windows
+      - name: Setup Windows environment
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
-          unzip -o swig.zip -d swig
-          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> "${GITHUB_PATH}"
+          echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
+          echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
       - name: Add libsbml install directory to path on Windows
         if: matrix.platform == 'windows-latest'
@@ -86,14 +84,8 @@ jobs:
         run: |
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
-      - name: Install dependencies on macOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install check swig ccache
-
       - name: Add libsbml install directory to path on macOS
-        if: matrix.platform == 'macos-latest'
+        if: matrix.platform == 'macos-latest' || matrix.platform == 'macos-latest-xlarge'
         shell: bash
         run: |
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
@@ -160,8 +152,6 @@ jobs:
 
       - name: Setup Python
         uses: actions/setup-python@v4
-        with:
-          python-version: ${{matrix.python_version}}
 
       - name: Cache dependencies on Windows
         if: matrix.platform == 'windows-latest'
@@ -201,7 +191,6 @@ jobs:
           -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DPython_REQUIRED_VERSION=${{matrix.python_version}} \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
       - name: Build and Install libsbmlnetworkeditor
@@ -212,20 +201,19 @@ jobs:
       - name: Upload binary archives
         uses: actions/upload-artifact@v3
         with:
-          name: binaries for ${{ matrix.platform }} with Python${{ matrix.python_version }}
+          name: binaries for ${{ matrix.platform }}
           path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
           retention-days: 1
           if-no-files-found: error
 
   build_on_ManyLinux:
     name:
-      Build on ${{ matrix.container }} with Python${{ matrix.python_version }}
+      Build on ${{ matrix.container }}
     strategy:
       fail-fast: false
       matrix:
         platform: ["ubuntu-latest"]
         cpp_standard: [ 20 ]
-        python_version: [ "3.8", "3.9", "3.10", "3.11" ]
         container: ["quay.io/pypa/manylinux2014_x86_64"]
     runs-on: ${{ matrix.platform }}
     container: ${{ matrix.container}}
@@ -236,18 +224,6 @@ jobs:
         with:
           repository: sbmlteam/libsbml
           ref: v5.20.2
-
-      - name: Build and install Swig from source
-        run: |
-          yum install -y pcre-devel
-          echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
-          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
-          tar -zxvf swig.tar.gz
-          cd swig-4.0.2/
-          ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
-          make clean
-          make -j 2
-          make install
 
       - name: install CMake using pip
         run: |
