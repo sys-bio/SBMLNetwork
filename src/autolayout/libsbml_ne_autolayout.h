@@ -10,7 +10,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE  {
 
 void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
                   const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                  const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
+                  const bool& useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
 
 void randomizeGlyphsLocations(Model* model, Layout* layout, const double &padding, const std::vector<std::string>& lockedNodeIds);
 
@@ -26,13 +26,9 @@ void setGlyphsDimensions(Model *model, Layout *layout);
 
 void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph* speciesGlyph);
 
-const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph* speciesGlyph);
-
-const double calculateSpeciesGlyphDefaultHeight(SpeciesGlyph* speciesGlyph, const double& speciesWidth);
-
 void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
                      const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                     const std::vector <std::string> &lockedNodeIds = std::vector<std::string>(), const double& padding = 0.0);
+                     const bool& useNameAsTextLabel=true, const std::vector <std::string> &lockedNodeIds = std::vector<std::string>(), const double& padding = 0.0);
 
 void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
 

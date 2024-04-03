@@ -232,6 +232,8 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNames
     rectangle->setStroke("black");
     rectangle->setStrokeWidth(2.0);
     rectangle->setFill("white");
+    rectangle->setRX(RelAbsVector(6, 0.0));
+    rectangle->setRY(RelAbsVector(3.6, 0.0));
 }
 
 void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -254,6 +256,7 @@ void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
 void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         addReactionGlyphStyle(layout->getReactionGlyph(i), localRenderInformation, renderPkgNamespaces);
+        addReactionTextGlyphsStyles(layout, localRenderInformation, layout->getReactionGlyph(i), renderPkgNamespaces);
         addSpeciesReferenceGlyphsStyles(layout->getReactionGlyph(i), localRenderInformation, renderPkgNamespaces);
     }
 }
@@ -269,6 +272,24 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgName
     ellipse->setStroke("black");
     ellipse->setStrokeWidth(2.0);
     ellipse->setFill("white");
+}
+
+void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
+    for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
+        if (layout->getTextGlyph(i)->getGraphicalObjectId() == reactionGlyph->getId())
+            addReactionTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation, renderPkgNamespaces);
+    }
+}
+
+void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+    LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
+    setReactionTextGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+}
+
+void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup, renderPkgNamespaces);
+    renderGroup->setStroke("darkslategray");
+    renderGroup->setFontSize(RelAbsVector(12.0, 0.0));
 }
 
 void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -316,6 +337,7 @@ void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPk
     addColor(globalRenderInformation, "white");
     addColor(globalRenderInformation, "black");
     addColor(globalRenderInformation, "lightgray");
+    addColor(globalRenderInformation, "darkslategray");
     addColor(globalRenderInformation, "darkcyan");
     addColor(globalRenderInformation, "teal");
     addColor(globalRenderInformation, "silver");
@@ -436,11 +458,11 @@ LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespace
 
 void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Polygon* diamond = renderGroup->createPolygon();
-    setDefaultDiamondShapeFeatures(diamond);
-    diamond->setStroke("black");
-    diamond->setStrokeWidth(2.0);
-    diamond->setFill("white");
+    Ellipse* ellipse = renderGroup->createEllipse();
+    setDefaultEllipseShapeFeatures(ellipse);
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2.0);
+    ellipse->setFill("white");
 }
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -457,11 +479,11 @@ LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespac
 
 void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
     RenderGroup* renderGroup = lineEnding->getGroup();
-    Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setStroke("black");
-    ellipse->setStrokeWidth(2.0);
-    ellipse->setFill("white");
+    Polygon* diamond = renderGroup->createPolygon();
+    setDefaultDiamondShapeFeatures(diamond);
+    diamond->setStroke("black");
+    diamond->setStrokeWidth(2.0);
+    diamond->setFill("white");
 }
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -887,28 +909,46 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("AntiqueWhite", "#FAEBD7"));
     colors.push_back(std::make_pair("Aqua", "#00FFFF"));
     colors.push_back(std::make_pair("Aquamarine", "#7FFFD4"));
+    colors.push_back(std::make_pair("Apricot", "#EB9373"));
+    colors.push_back(std::make_pair("Arapawa", "#1A2421"));
     colors.push_back(std::make_pair("Azure", "#F0FFFF"));
+    colors.push_back(std::make_pair("AzureRadiance", "#007FFF"));
+    colors.push_back(std::make_pair("AquaIsland", "#A1DAD7"));
+    colors.push_back(std::make_pair("BayOfMany", "#273A3E"));
     colors.push_back(std::make_pair("Beige", "#F5F5DC"));
     colors.push_back(std::make_pair("Bisque", "#FFE4C4"));
     colors.push_back(std::make_pair("Black", "#000000"));
     colors.push_back(std::make_pair("BlanchedAlmond", "#FFEBCD"));
     colors.push_back(std::make_pair("Blue", "#0000FF"));
+    colors.push_back(std::make_pair("BlueRibbon", "#0066FF"));
     colors.push_back(std::make_pair("BlueViolet", "#8A2BE2"));
     colors.push_back(std::make_pair("Brown", "#A52A2A"));
     colors.push_back(std::make_pair("BurlyWood", "#DEB887"));
+    colors.push_back(std::make_pair("Buttercup", "#F3AD16"));
     colors.push_back(std::make_pair("CadetBlue", "#5F9EA0"));
+    colors.push_back(std::make_pair("CannonPink", "#8E5164"));
+    colors.push_back(std::make_pair("Carnation", "#F95A61"));
+    colors.push_back(std::make_pair("CarrotOrange", "#ED9121"));
+    colors.push_back(std::make_pair("Casal", "#2E2F30"));
+    colors.push_back(std::make_pair("CeruleanBlue", "#2A52BE"));
     colors.push_back(std::make_pair("Chartreuse", "#7FFF00"));
+    colors.push_back(std::make_pair("Chino", "#D2B7AD"));
     colors.push_back(std::make_pair("Chocolate", "#D2691E"));
+    colors.push_back(std::make_pair("Christine", "#E1634F"));
     colors.push_back(std::make_pair("Coral", "#FF7F50"));
     colors.push_back(std::make_pair("CornflowerBlue", "#6495ED"));
     colors.push_back(std::make_pair("Cornsilk", "#FFF8DC"));
+    colors.push_back(std::make_pair("CreamCan", "#F5C71A"));
     colors.push_back(std::make_pair("Crimson", "#DC143C"));
     colors.push_back(std::make_pair("Cyan", "#00FFFF"));
+    colors.push_back(std::make_pair("DaisyBush", "#4F2398"));
     colors.push_back(std::make_pair("DarkBlue", "#00008B"));
     colors.push_back(std::make_pair("DarkCyan", "#008B8B"));
+    colors.push_back(std::make_pair("DarkFern", "#0A6906"));
     colors.push_back(std::make_pair("DarkGoldenRod", "#B8860B"));
     colors.push_back(std::make_pair("DarkGray", "#A9A9A9"));
     colors.push_back(std::make_pair("DarkGreen", "#006400"));
+    colors.push_back(std::make_pair("DarkIndigo", "#4B0082"));
     colors.push_back(std::make_pair("DarkKhaki", "#BDB76B"));
     colors.push_back(std::make_pair("DarkMagenta", "#8B008B"));
     colors.push_back(std::make_pair("DarkOliveGreen", "#556B2F"));
@@ -924,23 +964,42 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("DeepPink", "#FF1493"));
     colors.push_back(std::make_pair("DeepSkyBlue", "#00BFFF"));
     colors.push_back(std::make_pair("DimGray", "#696969"));
+    colors.push_back(std::make_pair("DiSerria", "#DAA520"));
     colors.push_back(std::make_pair("DodgerBlue", "#1E90FF"));
+    colors.push_back(std::make_pair("Domino", "#8A2008"));
+    colors.push_back(std::make_pair("DullLavender", "#A899E6"));
+    colors.push_back(std::make_pair("EastSide", "#AC91CE"));
+    colors.push_back(std::make_pair("Elm", "#027877"));
+    colors.push_back(std::make_pair("Everglade", "#1A2421"));
+    colors.push_back(std::make_pair("Fern", "#4F7942"));
     colors.push_back(std::make_pair("FireBrick", "#B22222"));
     colors.push_back(std::make_pair("FloralWhite", "#FFFAF0"));
     colors.push_back(std::make_pair("ForestGreen", "#228B22"));
+    colors.push_back(std::make_pair("FrenchRose", "#F64A8A"));
+    colors.push_back(std::make_pair("FruitSalad", "#4F9D5D"));
     colors.push_back(std::make_pair("Fuchsia", "#FF00FF"));
     colors.push_back(std::make_pair("Gainsboro", "#DCDCDC"));
     colors.push_back(std::make_pair("GhostWhite", "#F8F8FF"));
+    colors.push_back(std::make_pair("Glade Green", "#4A6B4E"));
     colors.push_back(std::make_pair("Gold", "#FFD700"));
+    colors.push_back(std::make_pair("GoldenGrass", "#D9B612"));
     colors.push_back(std::make_pair("GoldenRod", "#DAA520"));
+    colors.push_back(std::make_pair("Gondola", "#211916"));
     colors.push_back(std::make_pair("Gray", "#808080"));
+    colors.push_back(std::make_pair("GrannySmithApple", "#A8E4A0"));
     colors.push_back(std::make_pair("Green", "#008000"));
     colors.push_back(std::make_pair("GreenYellow", "#ADFF2F"));
+    colors.push_back(std::make_pair("GunSmoke", "#828685"));
+    colors.push_back(std::make_pair("Hemlock", "#5E5D3B"));
+    colors.push_back(std::make_pair("Hibiscus", "#AE4560"));
     colors.push_back(std::make_pair("HoneyDew", "#F0FFF0"));
+    colors.push_back(std::make_pair("Hopbush", "#D5853E"));
     colors.push_back(std::make_pair("HotPink", "#FF69B4"));
     colors.push_back(std::make_pair("IndianRed", "#CD5C5C"));
     colors.push_back(std::make_pair("Indigo", "#4B0082"));
     colors.push_back(std::make_pair("Ivory", "#FFFFF0"));
+    colors.push_back(std::make_pair("Jaffa", "#EF8633"));
+    colors.push_back(std::make_pair("Java", "#32303D"));
     colors.push_back(std::make_pair("Khaki", "#F0E68C"));
     colors.push_back(std::make_pair("Lavender", "#E6E6FA"));
     colors.push_back(std::make_pair("LavenderBlush", "#FFF0F5"));
@@ -952,6 +1011,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("LightGoldenRodYellow", "#FAFAD2"));
     colors.push_back(std::make_pair("LightGray", "#D3D3D3"));
     colors.push_back(std::make_pair("LightGreen", "#90EE90"));
+    colors.push_back(std::make_pair("LightOrchid", "#E29CD2"));
     colors.push_back(std::make_pair("LightPink", "#FFB6C1"));
     colors.push_back(std::make_pair("LightSalmon", "#FFA07A"));
     colors.push_back(std::make_pair("LightSeaGreen", "#20B2AA"));
@@ -962,7 +1022,9 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Lime", "#00FF00"));
     colors.push_back(std::make_pair("LimeGreen", "#32CD32"));
     colors.push_back(std::make_pair("Linen", "#FAF0E6"));
+    colors.push_back(std::make_pair("LunarGreen", "#3A7D02"));
     colors.push_back(std::make_pair("Magenta", "#FF00FF"));
+    colors.push_back(std::make_pair("Mandy", "#D57C6B"));
     colors.push_back(std::make_pair("Maroon", "#800000"));
     colors.push_back(std::make_pair("MediumAquaMarine", "#66CDAA"));
     colors.push_back(std::make_pair("MediumBlue", "#0000CD"));
@@ -973,16 +1035,22 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("MediumSpringGreen", "#00FA9A"));
     colors.push_back(std::make_pair("MediumTurquoise", "#48D1CC"));
     colors.push_back(std::make_pair("MediumVioletRed", "#C71585"));
+    colors.push_back(std::make_pair("MexicanRed", "#A72525"));
     colors.push_back(std::make_pair("MidnightBlue", "#191970"));
     colors.push_back(std::make_pair("MintCream", "#F5FFFA"));
     colors.push_back(std::make_pair("MistyRose", "#FFE4E1"));
     colors.push_back(std::make_pair("Moccasin", "#FFE4B5"));
+    colors.push_back(std::make_pair("Mondo", "#4A3C30"));
+    colors.push_back(std::make_pair("MonteCarlo", "#78A39C"));
+    colors.push_back(std::make_pair("Nandor", "#4B3D2A"));
     colors.push_back(std::make_pair("NavajoWhite", "#FFDEAD"));
     colors.push_back(std::make_pair("Navy", "#000080"));
+    colors.push_back(std::make_pair("Ochre", "#C77434"));
     colors.push_back(std::make_pair("OldLace", "#FDF5E6"));
     colors.push_back(std::make_pair("Olive", "#808000"));
     colors.push_back(std::make_pair("OliveDrab", "#6B8E23"));
     colors.push_back(std::make_pair("Orange", "#FFA500"));
+    colors.push_back(std::make_pair("OrangePeel", "#FFA500"));
     colors.push_back(std::make_pair("OrangeRed", "#FF4500"));
     colors.push_back(std::make_pair("Orchid", "#DA70D6"));
     colors.push_back(std::make_pair("PaleGoldenRod", "#EEE8AA"));
@@ -990,21 +1058,35 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("PaleTurquoise", "#AFEEEE"));
     colors.push_back(std::make_pair("PaleVioletRed", "#DB7093"));
     colors.push_back(std::make_pair("PapayaWhip", "#FFEFD5"));
+    colors.push_back(std::make_pair("Paradiso", "#35A793"));
     colors.push_back(std::make_pair("PeachPuff", "#FFDAB9"));
+    colors.push_back(std::make_pair("Perano", "#7F7F7F"));
     colors.push_back(std::make_pair("Peru", "#CD853F"));
+    colors.push_back(std::make_pair("Pewter", "#96A8A1"));
+    colors.push_back(std::make_pair("PictonBlue", "#45B1E8"));
     colors.push_back(std::make_pair("Pink", "#FFC0CB"));
     colors.push_back(std::make_pair("Plum", "#DDA0DD"));
     colors.push_back(std::make_pair("PowderBlue", "#B0E0E6"));
+    colors.push_back(std::make_pair("PuertoRico", "#3B69D6"));
+    colors.push_back(std::make_pair("Pumice", "#C2CAC4"));
     colors.push_back(std::make_pair("Purple", "#800080"));
+    colors.push_back(std::make_pair("PurpleHeart", "#69359C"));
     colors.push_back(std::make_pair("RebeccaPurple", "#663399"));
     colors.push_back(std::make_pair("Red", "#FF0000"));
+    colors.push_back(std::make_pair("RedDamask", "#DA6A41"));
+    colors.push_back(std::make_pair("Riptide", "#8BE6D8"));
+    colors.push_back(std::make_pair("RiverBed", "#434A59"));
     colors.push_back(std::make_pair("RosyBrown", "#BC8F8F"));
     colors.push_back(std::make_pair("RoyalBlue", "#4169E1"));
+    colors.push_back(std::make_pair("RoyalPurple", "#6B3FA0"));
     colors.push_back(std::make_pair("SaddleBrown", "#8B4513"));
+    colors.push_back(std::make_pair("Sage", "#9EAD3D"));
     colors.push_back(std::make_pair("Salmon", "#FA8072"));
     colors.push_back(std::make_pair("SandyBrown", "#F4A460"));
     colors.push_back(std::make_pair("SeaGreen", "#2E8B57"));
     colors.push_back(std::make_pair("SeaShell", "#FFF5EE"));
+    colors.push_back(std::make_pair("Seance", "#721757"));
+    colors.push_back(std::make_pair("Shiraz", "#B52D42"));
     colors.push_back(std::make_pair("Sienna", "#A0522D"));
     colors.push_back(std::make_pair("Silver", "#C0C0C0"));
     colors.push_back(std::make_pair("SkyBlue", "#87CEEB"));
@@ -1013,15 +1095,25 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Snow", "#FFFAFA"));
     colors.push_back(std::make_pair("SpringGreen", "#00FF7F"));
     colors.push_back(std::make_pair("SteelBlue", "#4682B4"));
+    colors.push_back(std::make_pair("Studio", "#714AB2"));
+    colors.push_back(std::make_pair("Sunglo", "#E16865"));
     colors.push_back(std::make_pair("Tan", "#D2B48C"));
     colors.push_back(std::make_pair("Teal", "#008080"));
     colors.push_back(std::make_pair("Thistle", "#D8BFD8"));
+    colors.push_back(std::make_pair("Thunderbird", "#C02B18"));
+    colors.push_back(std::make_pair("TiaMaria", "#C1440E"));
+    colors.push_back(std::make_pair("TobaccoBrown", "#715D47"));
+    colors.push_back(std::make_pair("GladeGreen", "#4A6B4E"));
     colors.push_back(std::make_pair("Tomato", "#FF6347"));
+    colors.push_back(std::make_pair("TomThumb", "#273E33"));
+    colors.push_back(std::make_pair("TotemPole", "#991B07"));
     colors.push_back(std::make_pair("Turquoise", "#40E0D0"));
+    colors.push_back(std::make_pair("Vesuvius", "#AD975A"));
     colors.push_back(std::make_pair("Violet", "#EE82EE"));
     colors.push_back(std::make_pair("Wheat", "#F5DEB3"));
     colors.push_back(std::make_pair("White", "#FFFFFF"));
     colors.push_back(std::make_pair("WhiteSmoke", "#F5F5F5"));
+    colors.push_back(std::make_pair("Yuma", "#CFAB7A"));
     colors.push_back(std::make_pair("Yellow", "#FFFF00"));
     colors.push_back(std::make_pair("YellowGreen", "#9ACD32"));
 

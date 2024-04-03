@@ -6,11 +6,11 @@
 class AutoLayoutConnection : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutConnection(Layout* layout, ReactionGlyph* reactionGlyph);
+    AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel);
 
     const std::string getId() override;
 
-    void setCentroidNode();
+    void setCentroidNode(const bool& useNameAsTextLabel);
 
     AutoLayoutObjectBase* getCentroidNode();
 
@@ -21,6 +21,8 @@ public:
     const int getNumNonModifierCurves();
 
     std::vector<std::string> getNodeIds();
+
+    std::vector<std::string> getNonModifierNodeIds();
 
 protected:
 

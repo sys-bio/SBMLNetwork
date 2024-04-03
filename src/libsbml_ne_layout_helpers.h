@@ -40,6 +40,8 @@ void setCompartmentTextGlyphs(Layout* layout);
 
 void setSpeciesTextGlyphs(Layout* layout);
 
+void setReactionTextGlyphs(Layout* layout);
+
 CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
 
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
@@ -56,7 +58,7 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 

@@ -17,7 +17,7 @@ public:
 
     FruthtermanReingoldAlgorithm();
 
-    void setElements(Layout* layout);
+    void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
     void setStiffness(const double& stiffness);
 
@@ -57,6 +57,8 @@ public:
 
     void adjustOnTheGrids(AutoLayoutObjectBase* node);
 
+    void updateNodesDimensions();
+
     void adjustCoordinateOrigin();
 
     void updateConnectionsControlPoints();
@@ -71,13 +73,15 @@ public:
 
     void adjustCurvePoints(AutoLayoutObjectBase* connection);
 
-    void adjustSingleUniUniConnections(AutoLayoutObjectBase* connection);
+    void adjustUniUniConnections(AutoLayoutObjectBase* connection);
+
+    void setUniUniConnectionCurvePoints(AutoLayoutObjectBase* connection, const AutoLayoutPoint& nodesCenter, const double& slope);
 
 protected:
 
-    void setNodes(Layout* layout);
+    void setConnections(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
-    void setConnections(Layout* layout);
+    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
     void setNodesDegrees();
 
@@ -133,7 +137,17 @@ AutoLayoutPoint calculateCenterWardIntersectionPoint(AutoLayoutPoint source, Aut
 
 AutoLayoutObjectBase* findObject(std::vector<AutoLayoutObjectBase*> objects, const std::string& objectId);
 
-const int numConnectionsBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> connections, std::vector<std::string> connectionNodeIds);
+const int numOfConnectionsBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> connections, std::vector<std::string> connectionNodeIds);
+
+const int indexOfConnectionBetweenTheSameNodes(std::vector<AutoLayoutObjectBase*> connections, std::vector<std::string> connectionNodeIds, AutoLayoutObjectBase* connection);
+
+const double getNodePairSlope(std::vector<AutoLayoutObjectBase*> nodes, const std::string &node1Id, const std::string &node2Id);
+
+const double getNodePairSlope(std::vector<AutoLayoutObjectBase*> nodes, AutoLayoutObjectBase* node1, AutoLayoutObjectBase* node2);
+
+const double getPointPairSlope(AutoLayoutPoint point1, AutoLayoutPoint point2);
+
+const double getConnectionCenterPadding(std::vector<AutoLayoutObjectBase*> connections, AutoLayoutObjectBase* connection);
 
 AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::vector<std::string> nodeIds);
 

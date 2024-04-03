@@ -1658,6 +1658,16 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
     return setStrokeColor(style, stroke);
 }
 
+int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setStrokeColor(document, layout->getCompartmentGlyph(i), stroke))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -1668,7 +1678,7 @@ int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setReactionsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setStrokeColor(document, layout->getReactionGlyph(i), stroke))
@@ -1702,9 +1712,11 @@ int setLineEndingsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, 
 }
 
 int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+    if (setCompartmentStrokeColor(document, layoutIndex, stroke))
+        return -1;
     if (setSpeciesStrokeColor(document, layoutIndex, stroke))
         return -1;
-    if (setReactionsStrokeColor(document, layoutIndex, stroke))
+    if (setReactionStrokeColor(document, layoutIndex, stroke))
         return -1;
 
     return 0;
@@ -1758,6 +1770,16 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
     return setStrokeWidth(style, strokeWidth);
 }
 
+int setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setStrokeWidth(document, layout->getCompartmentGlyph(i), strokeWidth))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -1768,7 +1790,7 @@ int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setReactionsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setStrokeWidth(document, layout->getReactionGlyph(i), strokeWidth))
@@ -1802,9 +1824,11 @@ int setLineEndingsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, 
 }
 
 int setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+    if (setCompartmentStrokeWidth(document, layoutIndex, strokeWidth))
+        return -1;
     if (setSpeciesStrokeWidth(document, layoutIndex, strokeWidth))
         return -1;
-    if (setReactionsStrokeWidth(document, layoutIndex, strokeWidth))
+    if (setReactionStrokeWidth(document, layoutIndex, strokeWidth))
         return -1;
 
     return 0;
@@ -1984,6 +2008,16 @@ int setFontColor(SBMLDocument* document, const std::string& attribute, const std
     return setFontColor(style, fontColor);
 }
 
+int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFontColor(document, layout->getCompartmentGlyph(i), fontColor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -1994,8 +2028,22 @@ int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const 
     return 0;
 }
 
+int setReactionFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setFontColor(document, layout->getReactionGlyph(i), fontColor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
+    if (setCompartmentFontColor(document, layoutIndex, fontColor))
+        return -1;
     if (setSpeciesFontColor(document, layoutIndex, fontColor))
+        return -1;
+    if (setReactionFontColor(document, layoutIndex, fontColor))
         return -1;
 
     return 0;
@@ -2061,6 +2109,16 @@ int setFontFamily(SBMLDocument* document, const std::string& attribute, const st
     return setFontFamily(style, fontFamily);
 }
 
+int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFontFamily(document, layout->getCompartmentGlyph(i), fontFamily))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2071,8 +2129,22 @@ int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const
     return 0;
 }
 
+int setReactionFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setFontFamily(document, layout->getReactionGlyph(i), fontFamily))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
+    if (setCompartmentFontFamily(document, layoutIndex, fontFamily))
+        return -1;
     if (setSpeciesFontFamily(document, layoutIndex, fontFamily))
+        return -1;
+    if (setReactionFontFamily(document, layoutIndex, fontFamily))
         return -1;
 
     return 0;
@@ -2138,6 +2210,16 @@ int setFontSize(SBMLDocument* document, const std::string& attribute, const RelA
     return setFontSize(style, fontSize);
 }
 
+int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFontSize(document, layout->getCompartmentGlyph(i), fontSize))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2147,6 +2229,17 @@ int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const R
 
     return 0;
 }
+
+int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setFontSize(document, layout->getReactionGlyph(i), fontSize))
+            return -1;
+    }
+
+    return 0;
+}
+
 
 int setFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     if (setSpeciesFontSize(document, layoutIndex, fontSize))
@@ -2216,6 +2309,16 @@ int setFontWeight(SBMLDocument* document, const std::string& attribute, const st
     return setFontWeight(style, fontWeight);
 }
 
+int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFontWeight(document, layout->getCompartmentGlyph(i), fontWeight))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2226,8 +2329,22 @@ int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const
     return 0;
 }
 
+int setReactionFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setFontWeight(document, layout->getReactionGlyph(i), fontWeight))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
+    if (setCompartmentFontWeight(document, layoutIndex, fontWeight))
+        return -1;
     if (setSpeciesFontWeight(document, layoutIndex, fontWeight))
+        return -1;
+    if (setReactionFontWeight(document, layoutIndex, fontWeight))
         return -1;
 
     return 0;
@@ -2293,6 +2410,16 @@ int setFontStyle(SBMLDocument* document, const std::string& attribute, const std
     return setFontStyle(style, fontStyle);
 }
 
+int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFontStyle(document, layout->getCompartmentGlyph(i), fontStyle))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2303,8 +2430,22 @@ int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const 
     return 0;
 }
 
+int setReactionFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setFontStyle(document, layout->getReactionGlyph(i), fontStyle))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
+    if (setCompartmentFontStyle(document, layoutIndex, fontStyle))
+        return -1;
     if (setSpeciesFontStyle(document, layoutIndex, fontStyle))
+        return -1;
+    if (setReactionFontStyle(document, layoutIndex, fontStyle))
         return -1;
 
     return 0;
@@ -2370,6 +2511,16 @@ int setTextAnchor(SBMLDocument* document, const std::string& attribute, const st
     return setTextAnchor(style, textAnchor);
 }
 
+int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setTextAnchor(document, layout->getCompartmentGlyph(i), textAnchor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2380,8 +2531,22 @@ int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const
     return 0;
 }
 
+int setReactionTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setTextAnchor(document, layout->getReactionGlyph(i), textAnchor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
+    if (setCompartmentTextAnchor(document, layoutIndex, textAnchor))
+        return -1;
     if (setSpeciesTextAnchor(document, layoutIndex, textAnchor))
+        return -1;
+    if (setReactionTextAnchor(document, layoutIndex, textAnchor))
         return -1;
 
     return 0;
@@ -2447,6 +2612,16 @@ int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const s
     return setVTextAnchor(style, vtextAnchor);
 }
 
+int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setVTextAnchor(document, layout->getCompartmentGlyph(i), vtextAnchor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2457,8 +2632,22 @@ int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
+int setReactionVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setVTextAnchor(document, layout->getReactionGlyph(i), vtextAnchor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
+    if (setCompartmentVTextAnchor(document, layoutIndex, vtextAnchor))
+        return -1;
     if (setSpeciesVTextAnchor(document, layoutIndex, vtextAnchor))
+        return -1;
+    if (setReactionVTextAnchor(document, layoutIndex, vtextAnchor))
         return -1;
 
     return 0;
@@ -2514,6 +2703,16 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
     return setFillColor(style, fillColor);
 }
 
+int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFillColor(document, layout->getCompartmentGlyph(i), fillColor))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2524,7 +2723,7 @@ int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const 
     return 0;
 }
 
-int setReactionsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setFillColor(document, layout->getReactionGlyph(i), fillColor))
@@ -2554,9 +2753,11 @@ int setLineEndingsFillColor(SBMLDocument* document, unsigned int layoutIndex, co
 }
 
 int setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    if (setCompartmentFillColor(document, layoutIndex, fillColor))
+        return -1;
     if (setSpeciesFillColor(document, layoutIndex, fillColor))
         return -1;
-    if (setReactionsFillColor(document, layoutIndex, fillColor))
+    if (setReactionFillColor(document, layoutIndex, fillColor))
         return -1;
 
     return 0;
@@ -2610,6 +2811,16 @@ int setFillRule(SBMLDocument* document, const std::string& attribute, const std:
     return setFillRule(style, fillRule);
 }
 
+int setCompartmentFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setFillRule(document, layout->getCompartmentGlyph(i), fillRule))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2620,7 +2831,7 @@ int setSpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const s
     return 0;
 }
 
-int setReactionsFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
+int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setFillRule(document, layout->getReactionGlyph(i), fillRule))
@@ -2650,9 +2861,11 @@ int setLineEndingsFillRule(SBMLDocument* document, unsigned int layoutIndex, con
 }
 
 int setFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
+    if (setCompartmentFillRule(document, layoutIndex, fillRule))
+        return -1;
     if (setSpeciesFillRule(document, layoutIndex, fillRule))
         return -1;
-    if (setReactionsFillRule(document, layoutIndex, fillRule))
+    if (setReactionFillRule(document, layoutIndex, fillRule))
         return -1;
 
     return 0;
@@ -2794,6 +3007,16 @@ int setGeometricShape(SBMLDocument* document, const std::string& attribute, cons
     return setGeometricShape(getStyle(document, attribute), shape);
 }
 
+int setCompartmentGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    Layout* layout = getLayout(document, layoutIndex);
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setGeometricShape(document, layout->getCompartmentGlyph(i), shape))
+            return -1;
+    }
+
+    return 0;
+}
+
 int setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -2804,7 +3027,7 @@ int setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, c
     return 0;
 }
 
-int setReactionsGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+int setReactionGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setGeometricShape(document, layout->getReactionGlyph(i), shape))
@@ -2815,9 +3038,11 @@ int setReactionsGeometricShape(SBMLDocument* document, unsigned int layoutIndex,
 }
 
 int setGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    if (setCompartmentGeometricShape(document, layoutIndex, shape))
+        return -1;
     if (setSpeciesGeometricShape(document, layoutIndex, shape))
         return -1;
-    if (setReactionsGeometricShape(document, layoutIndex, shape))
+    if (setReactionGeometricShape(document, layoutIndex, shape))
         return -1;
 
     return 0;

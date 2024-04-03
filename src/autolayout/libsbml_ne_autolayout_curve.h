@@ -7,7 +7,7 @@
 class AutoLayoutCurve : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutCurve(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
+    AutoLayoutCurve(Model* model, Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
     const std::string getId() override;
 

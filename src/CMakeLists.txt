@@ -54,14 +54,18 @@ if (WIN32)
 else ()
 	target_link_libraries(sbmlnetworkeditor sbml)
 endif ()
-	
+
 # copy dependencies to the build directory
 if (APPLE)
 	set(DEPENDENCIES_DIR ${CMAKE_BINARY_DIR}/src/dependencies)
+	set(RESOURCES_DIR ${CMAKE_BINARY_DIR}/src/resources)
 	add_custom_command(TARGET sbmlnetworkeditor POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPENDENCIES_DIR}
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SBML_LIBS}
 		${DEPENDENCIES_DIR}
+		COMMAND ${CMAKE_COMMAND} -E make_directory ${RESOURCES_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${RESOURCES}
+		${RESOURCES_DIR}
 		COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
 		"libsbml.5.dylib"
 		"@rpath/libsbml.5.dylib" $<TARGET_FILE:sbmlnetworkeditor>)
@@ -97,11 +101,16 @@ if (WIN32)
 	include (InstallRequiredSystemLibraries)
 	install(FILES ${LIBSBML_DLLS}
 			DESTINATION bin COMPONENT libsbmlnetworkeditor_api)
+	install(FILES ${RESOURCES}
+			DESTINATION bin/resources COMPONENT libsbmlnetworkeditor_api)
 elseif (APPLE)
 	install(DIRECTORY ${DEPENDENCIES_DIR}
 			DESTINATION lib COMPONENT libsbmlnetworkeditor_api)
+	install(DIRECTORY ${RESOURCES_DIR}
+			DESTINATION lib COMPONENT libsbmlnetworkeditor_api)
 elseif(UNIX)
 	install(FILES ${SBML_LIBS} DESTINATION lib/dependencies COMPONENT libsbmlnetworkeditor_api)
+	install(FILES ${RESOURCES} DESTINATION lib/resources COMPONENT libsbmlnetworkeditor_api)
 endif()
 
 add_subdirectory(bindings)

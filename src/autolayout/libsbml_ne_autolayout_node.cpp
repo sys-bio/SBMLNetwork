@@ -1,10 +1,17 @@
 #include "libsbml_ne_autolayout_node.h"
+#include "../libsbml_ne_layout_helpers.h"
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Layout* layout) : AutoLayoutObjectBase(layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
     _locked = false;
+    _useNameAsTextLabel = useNameAsTextLabel;
+}
+
+void AutoLayoutNodeBase::updateDimensions() {
+    setWidth(std::max(calculateWidth(), getWidth()));
+    setHeight(std::max(calculateHeight(), getHeight()));
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -59,7 +66,7 @@ const bool AutoLayoutNodeBase::isLocked() {
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Layout* layout, SpeciesGlyph* speciesGlyph) : AutoLayoutNodeBase(layout) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel) {
     _speciesGlyph = speciesGlyph;
 }
 
@@ -103,9 +110,23 @@ void AutoLayoutNode::setHeight(const double& height) {
     _speciesGlyph->getBoundingBox()->setHeight(height);
 }
 
+const double AutoLayoutNode::calculateWidth() {
+    std::string displayedText = _speciesGlyph->getSpeciesId();
+    Species *species = LIBSBML_NETWORKEDITOR_CPP_NAMESPACE::findSpeciesGlyphSpecies(_model, _speciesGlyph);
+    if (species && species->isSetName() && _useNameAsTextLabel)
+        displayedText = species->getName();
+
+    return std::max(60.0, displayedText.size() * 15.0);
+}
+
+const double AutoLayoutNode::calculateHeight() {
+    return std::max(36.0, getHeight());
+}
+
 // AutoLayoutCentroidNode
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutNodeBase(layout) {
+
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel) {
     _reactionGlyph = reactionGlyph;
 }
 
@@ -126,6 +147,7 @@ void AutoLayoutCentroidNode::setX(const double& x) {
     ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(x);
     _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(x);
     ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(x);
+    _reactionGlyph->getBoundingBox()->setX(x);
 }
 
 const double AutoLayoutCentroidNode::getY() {
@@ -137,6 +159,7 @@ void AutoLayoutCentroidNode::setY(const double& y) {
     ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(y);
     _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(y);
     ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(y);
+    _reactionGlyph->getBoundingBox()->setY(y);
 }
 
 const double AutoLayoutCentroidNode::getWidth() {
@@ -149,6 +172,7 @@ void AutoLayoutCentroidNode::setWidth(const double& width) {
         ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(width - getWidth()));
         _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(_reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
         ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(width - getWidth()));
+        _reactionGlyph->getBoundingBox()->setWidth(width);
     }
 }
 
@@ -162,6 +186,19 @@ void AutoLayoutCentroidNode::setHeight(const double& height) {
         ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(height - getHeight()));
         _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(_reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
         ((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(_reactionGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(height - getHeight()));
+        _reactionGlyph->getBoundingBox()->setHeight(height);
     }
 }
 
+const double AutoLayoutCentroidNode::calculateWidth() {
+    std::string displayedText = _reactionGlyph->getReactionId();
+    Reaction *reaction = LIBSBML_NETWORKEDITOR_CPP_NAMESPACE::findReactionGlyphReaction(_model, _reactionGlyph);
+    if (reaction && reaction->isSetName() && _useNameAsTextLabel)
+        displayedText = reaction->getName();
+
+    return std::max(30.0, displayedText.size() * 9.0);
+}
+
+const double AutoLayoutCentroidNode::calculateHeight() {
+    return std::max(20.0, getHeight());
+}

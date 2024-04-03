@@ -121,7 +121,10 @@ void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
         SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
-        speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
+        if (speciesReference->getSBOTermID() == "SBO:0000020")
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
+        else
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
 }
@@ -137,6 +140,14 @@ void setSpeciesTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getSpeciesGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getSpeciesGlyph(i));
+    }
+}
+
+void setReactionTextGlyphs(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        double padding = 5.0;
+        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
+        setTextGlyphBoundingBox(textGlyph, layout->getReactionGlyph(i), padding);
     }
 }
 
@@ -240,10 +251,10 @@ void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
         graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding) {
     textGlyph->getBoundingBox()->setId(textGlyph->getId() + "_bb");
-    textGlyph->getBoundingBox()->setX(graphicalObject->getBoundingBox()->x());
-    textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y());
+    textGlyph->getBoundingBox()->setX(graphicalObject->getBoundingBox()->x() + padding);
+    textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y() + padding);
     textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
     textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
 }
@@ -331,11 +342,13 @@ bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
 }
 
 bool graphicalObjectBelongsToReactionGlyph(ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject) {
-    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
-        if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
-            return true;
-        else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
-            return true;
+    if (graphicalObject) {
+        for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+            if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
+                return true;
+            else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
+                return true;
+        }
     }
 
     return false;
