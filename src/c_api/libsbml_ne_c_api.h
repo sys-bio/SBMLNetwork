@@ -2385,6 +2385,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
@@ -2431,6 +2438,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2506,6 +2520,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -2553,6 +2574,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+
     /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -2592,6 +2620,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2633,6 +2668,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -2672,6 +2714,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2713,6 +2762,12 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -2752,6 +2807,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2793,6 +2855,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -2832,6 +2901,13 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBML_NETWORKEDITOR_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setCompartmentsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2947,7 +3023,7 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
     /// @param shape a string value indicating the shape of the geometric shape to be set.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+    LIBSBML_NETWORKEDITOR_EXTERN int c_api_setReactionGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

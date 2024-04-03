@@ -1328,12 +1328,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderColor);
     }
 
+    int c_api_setCompartmentsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+        return setCompartmentStrokeColor(document, layoutIndex, borderColor);
+    }
+
     int c_api_setSpeciesBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
         return setSpeciesStrokeColor(document, layoutIndex, borderColor);
     }
 
     int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
-        return setReactionsStrokeColor(document, layoutIndex, borderColor);
+        return setReactionStrokeColor(document, layoutIndex, borderColor);
     }
 
     int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
@@ -1362,12 +1366,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderWidth);
     }
 
+    int c_api_setCompartmentsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
+        return setCompartmentStrokeWidth(document, layoutIndex, borderWidth);
+    }
+
     int c_api_setSpeciesBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
         return setSpeciesStrokeWidth(document, layoutIndex, borderWidth);
     }
 
     int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
-        return setReactionsStrokeWidth(document, layoutIndex, borderWidth);
+        return setReactionStrokeWidth(document, layoutIndex, borderWidth);
     }
 
     int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
@@ -1406,12 +1414,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fillColor);
     }
 
+    int c_api_setCompartmentsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
+        return setCompartmentFillColor(document, layoutIndex, fillColor);
+    }
+
     int c_api_setSpeciesFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
         return setSpeciesFillColor(document, layoutIndex, fillColor);
     }
 
     int c_api_setReactionsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
-        return setReactionsFillColor(document, layoutIndex, fillColor);
+        return setReactionFillColor(document, layoutIndex, fillColor);
     }
 
     int c_api_setLineEndingsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
@@ -1434,6 +1446,10 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFillRule(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fillRule);
     }
 
+    int c_api_setCompartmentsFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex) {
+        return setCompartmentFillRule(document, layoutIndex, fillRule);
+    }
+
     int c_api_setSpeciesFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex) {
         return setSpeciesFillRule(document, layoutIndex, fillRule);
     }
@@ -1454,8 +1470,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontColor);
     }
 
+    int c_api_setCompartmentsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex) {
+        return setCompartmentFontColor(document, layoutIndex, fontColor);
+    }
+
     int c_api_setSpeciesFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex) {
         return setSpeciesFontColor(document, layoutIndex, fontColor);
+    }
+
+    int c_api_setReactionsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex) {
+        return setReactionFontColor(document, layoutIndex, fontColor);
     }
 
     int c_api_setFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex) {
@@ -1474,8 +1498,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontFamily);
     }
 
+    int c_api_setCompartmentsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex) {
+        return setCompartmentFontFamily(document, layoutIndex, fontFamily);
+    }
+
     int c_api_setSpeciesFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex) {
         return setSpeciesFontFamily(document, layoutIndex, fontFamily);
+    }
+
+    int c_api_setReactionsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex) {
+        return setReactionFontFamily(document, layoutIndex, fontFamily);
     }
 
     int c_api_setFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex) {
@@ -1497,10 +1529,22 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontSizeVector);
     }
 
+    int c_api_setCompartmentsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex) {
+        RelAbsVector fontSizeVector;
+        fontSizeVector.setAbsoluteValue(fontSize);
+        return setCompartmentFontSize(document, layoutIndex, fontSizeVector);
+    }
+
     int c_api_setSpeciesFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex) {
         RelAbsVector fontSizeVector;
         fontSizeVector.setAbsoluteValue(fontSize);
         return setSpeciesFontSize(document, layoutIndex, fontSizeVector);
+    }
+
+    int c_api_setReactionsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex) {
+        RelAbsVector fontSizeVector;
+        fontSizeVector.setAbsoluteValue(fontSize);
+        return setReactionFontSize(document, layoutIndex, fontSizeVector);
     }
 
     int c_api_setFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex) {
@@ -1521,8 +1565,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontWeight);
     }
 
+    int c_api_setCompartmentsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex) {
+        return setCompartmentFontWeight(document, layoutIndex, fontWeight);
+    }
+
     int c_api_setSpeciesFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex) {
         return setSpeciesFontWeight(document, layoutIndex, fontWeight);
+    }
+
+    int c_api_setReactionsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex) {
+        return setReactionFontWeight(document, layoutIndex, fontWeight);
     }
 
     int c_api_setFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex) {
@@ -1541,8 +1593,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontStyle);
     }
 
+    int c_api_setCompartmentsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex) {
+        return setCompartmentFontStyle(document, layoutIndex, fontStyle);
+    }
+
     int c_api_setSpeciesFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex) {
         return setSpeciesFontStyle(document, layoutIndex, fontStyle);
+    }
+
+    int c_api_setReactionsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex) {
+        return setReactionFontStyle(document, layoutIndex, fontStyle);
     }
 
     int c_api_setFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex) {
@@ -1561,8 +1621,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textHorizontalAlignment);
     }
 
+    int c_api_setCompartmentsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex) {
+        return setCompartmentTextAnchor(document, layoutIndex, textHorizontalAlignment);
+    }
+
     int c_api_setSpeciesTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex) {
         return setSpeciesTextAnchor(document, layoutIndex, textHorizontalAlignment);
+    }
+
+    int c_api_setReactionsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex) {
+        return setReactionTextAnchor(document, layoutIndex, textHorizontalAlignment);
     }
 
     int c_api_setTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex) {
@@ -1581,8 +1649,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textVerticalAlignment);
     }
 
+    int c_api_setCompartmentsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex) {
+        return setCompartmentVTextAnchor(document, layoutIndex, textVerticalAlignment);
+    }
+
     int c_api_setSpeciesTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex) {
         return setSpeciesVTextAnchor(document, layoutIndex, textVerticalAlignment);
+    }
+
+    int c_api_setReactionsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex) {
+        return setReactionVTextAnchor(document, layoutIndex, textVerticalAlignment);
     }
 
     int c_api_setTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex) {
@@ -1632,12 +1708,16 @@ namespace LIBSBML_NETWORKEDITOR_CPP_NAMESPACE {
         return setGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
     }
 
+    int c_api_setCompartmentsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setCompartmentGeometricShape(document, layoutIndex, shape);
+    }
+
     int c_api_setSpeciesGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
         return setSpeciesGeometricShape(document, layoutIndex, shape);
     }
 
     int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
-        return setReactionsGeometricShape(document, layoutIndex, shape);
+        return setReactionGeometricShape(document, layoutIndex, shape);
     }
 
     int c_api_setGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
