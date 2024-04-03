@@ -44,7 +44,7 @@ jobs:
         with:
           path: |
             ./dependencies
-          key: ${{ runner.os }}-dependencies-static
+          key: ${{ runner.os }}-dependencies-static-for-libsbml
 
       - name: Download pre-built dependencies for libsbml on Windows
         if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static-for-libsbml.outputs.cache-hit != 'true'
@@ -53,13 +53,6 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-
-      - name: Setup Windows environment
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
-          echo PYTHON_LINKING_OPTION="-DWITH_PYTHON=ON" >> "${GITHUB_ENV}"
 
       - name: Add libsbml install directory to path on Windows
         if: matrix.platform == 'windows-latest'
@@ -83,6 +76,12 @@ jobs:
         shell: bash
         run: |
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
+
+      - name: Install dependencies on macOS
+        if: matrix.platform == 'macos-latest'
+        shell: bash
+        run: |
+          brew install check ccache
 
       - name: Add libsbml install directory to path on macOS
         if: matrix.platform == 'macos-latest'
@@ -130,6 +129,7 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DWITH_CHECK=True \
           -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT="ON" \
           -DENABLE_RENDER="ON" \
