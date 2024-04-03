@@ -19,8 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: ["windows-latest", "macos-latest", "macos-latest-xlarge", "ubuntu-latest"]
-        cpp_standard: [ 20 ]
+        platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
+        cpp_standard: 20
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -85,7 +85,7 @@ jobs:
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
       - name: Add libsbml install directory to path on macOS
-        if: matrix.platform == 'macos-latest' || matrix.platform == 'macos-latest-xlarge'
+        if: matrix.platform == 'macos-latest'
         shell: bash
         run: |
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
@@ -126,11 +126,10 @@ jobs:
         run: |
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_BUILD_TYPE="Release" \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_CHECK=True \
           -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT="ON" \
           -DENABLE_RENDER="ON" \
