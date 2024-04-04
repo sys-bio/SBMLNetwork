@@ -61,6 +61,7 @@ jobs:
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/lib" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include/libxml" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor"
           ls D:/a/libSBMLNetworkEditor
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
@@ -242,10 +243,10 @@ jobs:
           cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
           cmake --build . --target install --config $BUILD_TYPE
           echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
-          echo "$GITHUB_WORKSPACE"
+          echo $GITHUB_WORKSPACE
           ls $GITHUB_WORKSPACE
           pwd
-          ccahce -v
+          ccache -v
 
       - name: install CMake using pip
         run: |
