@@ -243,7 +243,6 @@ jobs:
           cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
           cmake --build . --target install --config $BUILD_TYPE
           echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
-          ls $GITHUB_WORKSPACE/ccache-install/bin
 
       - name: install CMake using pip
         run: |
@@ -307,6 +306,40 @@ jobs:
       - name: Build and Install libsbml
         working-directory: build-libsbml
         run: cmake --build . --config $BUILD_TYPE
+
+      - name: Checkout libsbmlnetworkeditor
+        uses: actions/checkout@v3
+        with:
+          repository: adelhpour/libSBMLNetworkEditor
+
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+
+      - name: Create libsbmlNetworkEditor build directory
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
+
+      - name: Configure CMake for libsbmlNetworkEditor
+        shell: bash
+        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+        run: |
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
+          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
+          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
+          -DWITH_PYTHON="ON" \
+          -DPYTHON_INSTALL_WITH_SETUP="ON" \
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
+
+      - name: Build and Install libsbmlnetworkeditor
+        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+        shell: bash
+        run: cmake --build . --target install --config $BUILD_TYPE
 
       - name: Upload binary archives
         uses: actions/upload-artifact@v3
