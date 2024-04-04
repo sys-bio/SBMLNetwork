@@ -59,7 +59,15 @@ jobs:
         run: |
           echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
-          ls /D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies
+          echo "D:/a/libSBMLNetworkEditor"
+          ls D:/a/libSBMLNetworkEditor
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
+          ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
+          ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
+          echo "D:/a/libSBMLNetworkEditor/libsbml"
+          ls "D:/a/libSBMLNetworkEditor/libsbml"
+          
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
