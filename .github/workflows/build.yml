@@ -240,7 +240,7 @@ jobs:
           cd ccache-build
           cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
           cmake --build . --target install --config $BUILD_TYPE
-          echo "$GITHUB_WORKSPACE/../ccache-install/bin" >> $GITHUB_PATH
+          echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
           echo "$GITHUB_WORKSPACE"
           pwd
           ccahce -v
