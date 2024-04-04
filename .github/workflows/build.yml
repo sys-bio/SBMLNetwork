@@ -233,7 +233,7 @@ jobs:
           cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
           cmake --build . --target install --config $BUILD_TYPE
           echo "${{runner.workspace}}/ccache-install/bin" >> $GITHUB_PATH
-          ls ../ccache-install/bin
+          echo ${{runner.workspace}}/ccache-install/bin
           ccahce -v
 
       - name: install CMake using pip
