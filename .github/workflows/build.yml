@@ -58,8 +58,7 @@ jobs:
         shell: bash
         run: |
           echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
-          echo "checking the content of the dependencies folder"
-          ls D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
