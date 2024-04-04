@@ -233,7 +233,7 @@ jobs:
           cd ccache-build
           cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
           cmake --build . --target install --config $BUILD_TYPE
-          echo "${{runner.workspace}}/ccache-install/bin" >> $GITHUB_PATH
+          echo "${{runner.workspace}}/libSBMLNetworkEditor/ccache-install/bin" >> $GITHUB_PATH
           echo ${{runner.workspace}}/ccache-install/bin
           pwd
           ccahce -v
