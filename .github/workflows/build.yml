@@ -68,7 +68,6 @@ jobs:
           ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
           ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
-          
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
@@ -182,7 +181,13 @@ jobs:
       - name: Add Windows dependencies to PATH
         if: matrix.platform == 'windows-latest'
         shell: bash
-        run: echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/" >> "${GITHUB_PATH}"
+        run: |
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> "${GITHUB_PATH}"
+          echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/lib" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include/libxml" >> $GITHUB_PATH
 
       - name: Create libsbmlNetworkEditor build directory
         run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
@@ -197,7 +202,6 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
@@ -331,7 +335,6 @@ jobs:
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DGRAPHVIZ_PREFIX=${GRAPHVIZ_PATH} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
