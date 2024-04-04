@@ -229,12 +229,11 @@ jobs:
         run: |
           curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
           tar -zxvf ccache.tar.gz
-          cd ccache-4.9.1/
-          ./configure --disable-man
-          make clean
-          make -j 2
-          make install
-          ccache -version
+          mkdir ccache-build
+          mkdir ccache-install
+          cd ccache-build
+          cmake -DCMAKE_INSTALL_PREFIX=../ccache-install ../ccache-4.9.1
+          ccahce -v
 
       - name: install CMake using pip
         run: |
@@ -277,7 +276,6 @@ jobs:
       - name: Create libsbml build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbml
-          pwd
           echo $GITHUB_WORKSPACE
           echo ${{runner.workspace}}
 
