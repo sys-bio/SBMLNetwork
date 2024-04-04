@@ -196,8 +196,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          cmake $GITHUB_WORKSPACE \
-          -G "Ninja" \
+          cmake -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
