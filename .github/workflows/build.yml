@@ -1,9 +1,9 @@
 name: CMake (rapid build on push)
 
-#on:
+  #on:
   #push:
-    #tags:
-      #- v*
+  #tags:
+#- v*
 on:
   push:
     branches:
@@ -196,7 +196,8 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
         run: |
-          cmake -G "Ninja" \
+          cmake $GITHUB_WORKSPACE \
+          -G "Ninja" \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
