@@ -232,6 +232,7 @@ jobs:
           mkdir ccache-install
           cd ccache-build
           cmake -DCMAKE_INSTALL_PREFIX=../ccache-install ../ccache-4.9.1
+          cmake --build --target install --config $BUILD_TYPE
           ccahce -v
 
       - name: install CMake using pip
