@@ -235,6 +235,7 @@ jobs:
           cmake --build . --target install --config $BUILD_TYPE
           echo "${{runner.workspace}}/ccache-install/bin" >> $GITHUB_PATH
           echo ${{runner.workspace}}/ccache-install/bin
+          pwd
           ccahce -v
 
       - name: install CMake using pip
