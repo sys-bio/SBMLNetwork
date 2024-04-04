@@ -323,9 +323,9 @@ jobs:
 
       - name: Create libsbmlNetworkEditor build directory
         run: |
-        mkdir $GITHUB_WORKSPACE/build-libsbmlNetworkEditor
-        echo $GITHUB_WORKSPACE
-        echo ${{runner.workspace}}
+          mkdir $GITHUB_WORKSPACE/build-libsbmlNetworkEditor
+          echo $GITHUB_WORKSPACE
+          echo ${{runner.workspace}}
 
       - name: Configure CMake for libsbmlNetworkEditor
         shell: bash
