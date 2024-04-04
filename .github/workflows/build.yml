@@ -59,10 +59,8 @@ jobs:
         run: |
           echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
           echo "checking the content of the dependencies folder"
-          ls /D:/a/libSBMLNetworkEditor
-          ls /D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor
-          ls /D:/a/libSBMLNetworkEditor/libsbml
-          ls /D:/a/libSBMLNetworkEditor/libsbml/dependencies
+          ls D:/a/libSBMLNetworkEditor
+          ls D:/a
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
@@ -229,7 +227,7 @@ jobs:
 
       - name: install ccache from source
         run: |
-          wget https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
+          curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
           tar -zxvf ccache.tar.gz
           cd ccache-4.9.1/
           ./configure --disable-man
