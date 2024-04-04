@@ -227,6 +227,17 @@ jobs:
         with:
           repository: sbmlteam/libsbml
 
+      - name: install ccache from source
+        run: |
+          wget https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
+          tar -zxvf ccache.tar.gz
+          cd ccache-4.9.1/
+          ./configure --disable-man
+          make clean
+          make -j 2
+          make install
+          ccache -version
+
       - name: install CMake using pip
         run: |
           /opt/python/cp38-cp38/bin/pip install cmake
