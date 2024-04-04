@@ -58,6 +58,7 @@ jobs:
         shell: bash
         run: |
           echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/lib" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include" >> $GITHUB_PATH
           echo "D:/a/libSBMLNetworkEditor"
