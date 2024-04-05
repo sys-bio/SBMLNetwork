@@ -262,11 +262,6 @@ jobs:
       - name: Install dependencies
         run: yum install -y libxml2-devel check-devel java-devel mono-devel
 
-      - name: Add libsbml install directory to path
-        shell: bash
-        run: |
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
-
       - name: Prepare ccache timestamp
         id: ccache_cache_timestamp
         shell: cmake -P {0}
@@ -315,6 +310,11 @@ jobs:
         working-directory: build-libsbml
         run: cmake --build . --target install --config $BUILD_TYPE
 
+      - name: Add libsbml install directory to path
+        shell: bash
+        run: |
+          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
+
       - name: Checkout libsbmlnetworkeditor
         uses: actions/checkout@v3
         with:
@@ -340,7 +340,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/install-libsbmlnetworkeditor"
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
 
       - name: Build and Install libsbmlnetworkeditor
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
