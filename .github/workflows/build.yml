@@ -313,7 +313,7 @@ jobs:
 
       - name: Build and Install libsbml
         working-directory: build-libsbml
-        run: cmake --build . --config $BUILD_TYPE
+        run: cmake --build . --target install --config $BUILD_TYPE
 
       - name: Checkout libsbmlnetworkeditor
         uses: actions/checkout@v3
