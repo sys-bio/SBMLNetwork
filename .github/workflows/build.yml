@@ -294,6 +294,7 @@ jobs:
       - name: Create libsbml build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbml
+          mkdir $GITHUB_WORKSPACE/build-libsbmlNetworkEditor
           echo $GITHUB_WORKSPACE
           echo ${{runner.workspace}}
 
@@ -319,9 +320,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: adelhpour/libSBMLNetworkEditor
-
-      - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Setup Python
         uses: actions/setup-python@v4
