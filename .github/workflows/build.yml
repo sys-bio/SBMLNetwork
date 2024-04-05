@@ -309,7 +309,7 @@ jobs:
           -DWITH_LIBXML=ON \
           -DENABLE_LAYOUT="ON" \
           -DENABLE_RENDER="ON" \
-          -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/install-libsbml"
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
 
       - name: Build and Install libsbml
         working-directory: build-libsbml
