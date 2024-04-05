@@ -294,7 +294,6 @@ jobs:
       - name: Create libsbml build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbml
-          mkdir $GITHUB_WORKSPACE/build-libsbmlNetworkEditor
           echo $GITHUB_WORKSPACE
           echo ${{runner.workspace}}
 
@@ -332,7 +331,7 @@ jobs:
 
       - name: Configure CMake for libsbmlNetworkEditor
         shell: bash
-        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+        working-directory: build-libsbmlNetworkEditor
         run: |
           cmake $GITHUB_WORKSPACE \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
@@ -341,7 +340,7 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
+          -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/install-libsbmlnetworkeditor"
 
       - name: Build and Install libsbmlnetworkeditor
         working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
