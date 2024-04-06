@@ -1,1 +1,1 @@
-from .libsbmlnetworkeditor import *
+from .libsbmlnetwork import *

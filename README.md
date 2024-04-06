@@ -1,3 +1,3 @@
-# libSBMLNetworkEditor
+# libSBMLNetwork
 
-libSBMLNetworkEditor is a programming library that helps you read, write, and manipulate the Layout and Render information of SBML files. LibSBML is written in ISO standard C++ and C and provides APIs for the Python language. It works on Linux, Windows, and macOS.
+ibSBMLNetwork is a cross-platform shared library designed to facilitate the reading, writing, and editing of Layout and Render data within SBML files. Developed in standard C++ and C, it also offers Python APIs for enhanced accessibility. Compatible with Linux, Windows, and macOS operating systems, libSBMLNetwork ensures integration across diverse platforms.
