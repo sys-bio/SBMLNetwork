@@ -560,8 +560,8 @@ void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObje
                              0.5 * (getMaxPositionY(graphicalObjects) - getMinPositionY(graphicalObjects)));
     double angle = 2 * M_PI / graphicalObjects.size();
     for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
-        graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(i * angle));
-        graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(i * angle));
+        graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(1.5 * M_PI + i * angle));
+        graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(1.5 * M_PI + i * angle));
     }
 }
 
