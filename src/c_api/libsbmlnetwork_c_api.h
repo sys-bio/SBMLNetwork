@@ -2406,6 +2406,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEndings objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex);
+
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject.
@@ -2444,7 +2451,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2459,6 +2466,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEndings objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2540,6 +2554,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEndings objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
