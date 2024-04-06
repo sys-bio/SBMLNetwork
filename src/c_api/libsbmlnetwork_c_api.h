@@ -2656,6 +2656,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
