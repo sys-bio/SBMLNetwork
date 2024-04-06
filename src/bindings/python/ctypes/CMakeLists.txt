@@ -8,7 +8,7 @@ if (PYTHON_INSTALL_IN_PREFIX)
 endif()
 
 if (PYTHON_INSTALL_WITH_SETUP)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetwork_python_bindings)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetwork COMPONENT libsbmlnetwork_python_bindings)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetwork COMPONENT libsbmlnetwork_python_bindings)
 endif()
 
