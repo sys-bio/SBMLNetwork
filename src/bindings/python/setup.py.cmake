@@ -16,14 +16,14 @@ elif platform.system() == "Darwin" or platform.system() == "Linux":
     deps = ['*.so', '*.dylib', './dependencies/*', './resources/*']
 
 setup(
-    name = "libsbmlnetworkeditor",
-    version = "${LIBSBML_NETWORKEDITOR_DOTTED_VERSION}",
+    name = "libsbmlnetwork",
+    version = "${LIBSBMLNETWORK_DOTTED_VERSION}",
     author = "Adel Heydarabadipour",
     author_email = "adelhp@uw.edu",
-    description = "LibSBML Network Editor Python API",
+    description = "LibSBML Network Python API",
     long_description_content_type = "text/x-rst",
-    long_description = ("LibSBML Network Editor is a portable library for systems/synthetic biologist to work with the Layout and Render extensions of SBML models. It enables the users to straightforwardly read, manipulate, and write and also automatically generate the information about the Layout and Render extensions of an SBML model."),
-    url = "https://github.com/adelhpour/libsmlNetworkEditor",
+    long_description = ("LibSBML Network is a portable library for systems/synthetic biologist to work with the Layout and Render extensions of SBML models. It enables the users to straightforwardly read, manipulate, and write and also automatically generate the information about the Layout and Render extensions of an SBML model."),
+    url = "https://github.com/adelhpour/libsmlNetwork",
     license = "MIT License",
     platforms = ["Windows", "MacOS", "Unix"],
     classifiers = [

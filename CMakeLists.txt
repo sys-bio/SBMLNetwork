@@ -1,30 +1,30 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
 project(libsbmlnetworkeditor)
-add_definitions(-DLIBSBML_NETWORKEDITOR_EXPORTS=true)
+add_definitions(-DLIBSBMLNETWORK_EXPORTS=true)
 
 include(GNUInstallDirs)
 include(CMakeDependentOption)
 
 ## Determine the version
-set(LIBSBML_NETWORKEDITOR_VERSION_MAJOR)
-set(LIBSBML_NETWORKEDITOR_VERSION_MINOR)
-set(LIBSBML_NETWORKEDITOR_VERSION_PATCH)
-set(LIBSBML_NETWORKEDITOR_DOTTED_VERSION)
+set(LIBSBMLNETWORK_VERSION_MAJOR)
+set(LIBSBMLNETWORK_VERSION_MINOR)
+set(LIBSBMLNETWORK_VERSION_PATCH)
+set(LIBSBMLNETWORK_DOTTED_VERSION)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
     file(STRINGS "${CMAKE_SOURCE_DIR}/VERSION.txt" VersionString NEWLINE_CONSUME)
     string(STRIP "${VersionString}" VersionString)
-    set(LIBSBML_NETWORKEDITOR_DOTTED_VERSION ${VersionString})
+    set(LIBSBMLNETWORK_DOTTED_VERSION ${VersionString})
     string(REPLACE "." ";" VersionString "${VersionString}" )
     string(REPLACE "-" ";" VersionString "${VersionString}" )
     list(LENGTH VersionString versionLength)
-    list(GET VersionString 0 LIBSBML_NETWORKEDITOR_VERSION_MAJOR)
-    list(GET VersionString 1 LIBSBML_NETWORKEDITOR_VERSION_MINOR)
-    list(GET VersionString 2 LIBSBML_NETWORKEDITOR_VERSION_PATCH)
+    list(GET VersionString 0 LIBSBMLNETWORK_VERSION_MAJOR)
+    list(GET VersionString 1 LIBSBMLNETWORK_VERSION_MINOR)
+    list(GET VersionString 2 LIBSBMLNETWORK_VERSION_PATCH)
 endif()
 
-add_definitions(-DLIBSBML_NETWORK_EDITOR_VERSION="${LIBSBML_NETWORKEDITOR_DOTTED_VERSION}")
+add_definitions(-DLIBSBMLNETWORK_VERSION="${LIBSBMLNETWORK_DOTTED_VERSION}")
 
 ## find sbml package
 if(WIN32)

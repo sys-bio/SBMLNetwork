@@ -57,17 +57,17 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/lib" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include/libxml" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor"
-          ls D:/a/libSBMLNetworkEditor
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
-          ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
-          ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
+          echo "D:/a/libsbmlnetwork/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork"
+          ls D:/a/libsbmlnetwork
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork"
+          ls "D:/a/libsbmlnetwork/libsbmlnetwork"
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
+          ls "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
@@ -150,10 +150,10 @@ jobs:
         run: |
           cmake --build . --target install --config $BUILD_TYPE
 
-      - name: Checkout libsbmlnetworkeditor
+      - name: Checkout libBMLNetwork
         uses: actions/checkout@v3
         with:
-          repository: adelhpour/libSBMLNetworkEditor
+          repository: adelhpour/libsbmlnetwork
 
       - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
@@ -163,7 +163,7 @@ jobs:
 
       - name: Cache dependencies on Windows
         if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies-static-for-libsbmlnetworkeditor
+        id: cache-win-dependencies-static-for-libsbmlnetwork
         uses: actions/cache@v3
         with:
           path: |
@@ -171,7 +171,7 @@ jobs:
           key: ${{ runner.os }}-dependencies-static
 
       - name: Download pre-built dependencies on Windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static-for-libsbmlnetworkeditor.outputs.cache-hit != 'true'
+        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static-for-libsbmlnetwork.outputs.cache-hit != 'true'
         shell: bash
         run: |
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
@@ -182,24 +182,24 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> "${GITHUB_PATH}"
-          echo "D:/a/libSBMLNetworkEditor/install-libsbml/lib/cmake" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/lib" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include" >> $GITHUB_PATH
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies/include/libxml" >> $GITHUB_PATH
-          ls D:/a/libSBMLNetworkEditor
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
-          ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor"
-          echo "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
-          ls "D:/a/libSBMLNetworkEditor/libSBMLNetworkEditor/dependencies"
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> "${GITHUB_PATH}"
+          echo "D:/a/libsbmlnetwork/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml" >> $GITHUB_PATH
+          ls D:/a/libsbmlnetwork
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork"
+          ls "D:/a/libsbmlnetwork/libsbmlnetwork"
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
+          ls "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
 
-      - name: Create libsbmlNetworkEditor build directory
-        run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlNetworkEditor
+      - name: Create libBMLNetwork build directory
+        run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlnetwork
 
-      - name: Configure CMake for libsbmlNetworkEditor
+      - name: Configure CMake for libBMLNetwork
         shell: bash
-        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+        working-directory: ${{runner.workspace}}/build-libsbmlnetwork
         run: |
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
@@ -209,10 +209,10 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetwork"
 
-      - name: Build and Install libsbmlnetworkeditor
-        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+      - name: Build and Install libBMLNetwork
+        working-directory: ${{runner.workspace}}/build-libsbmlnetwork
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
@@ -220,7 +220,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: binaries for ${{ matrix.platform }}
-          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
+          path: ${{runner.workspace}}/install-libsbmlnetwork/*
           retention-days: 1
           if-no-files-found: error
 
@@ -315,23 +315,23 @@ jobs:
         run: |
           echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
 
-      - name: Checkout libsbmlnetworkeditor
+      - name: Checkout libBMLNetwork
         uses: actions/checkout@v3
         with:
-          repository: adelhpour/libSBMLNetworkEditor
+          repository: adelhpour/libsbmlnetwork
 
       - name: Setup Python
         uses: actions/setup-python@v4
 
-      - name: Create libsbmlNetworkEditor build directory
+      - name: Create libBMLNetwork build directory
         run: |
-          mkdir $GITHUB_WORKSPACE/build-libsbmlNetworkEditor
+          mkdir $GITHUB_WORKSPACE/build-libsbmlnetwork
           echo $GITHUB_WORKSPACE
           echo ${{runner.workspace}}
 
-      - name: Configure CMake for libsbmlNetworkEditor
+      - name: Configure CMake for libBMLNetwork
         shell: bash
-        working-directory: build-libsbmlNetworkEditor
+        working-directory: build-libsbmlnetwork
         run: |
           cmake $GITHUB_WORKSPACE \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
@@ -340,10 +340,10 @@ jobs:
           -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
           -DWITH_PYTHON="ON" \
           -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetworkeditor"
+          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetwork"
 
-      - name: Build and Install libsbmlnetworkeditor
-        working-directory: ${{runner.workspace}}/build-libsbmlNetworkEditor
+      - name: Build and Install libBMLNetwork
+        working-directory: ${{runner.workspace}}/build-libsbmlnetwork
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
@@ -351,6 +351,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: binaries for ${{ matrix.container }}
-          path: ${{runner.workspace}}/install-libsbmlnetworkeditor/*
+          path: ${{runner.workspace}}/install-libsbmlnetwork/*
           retention-days: 1
           if-no-files-found: error

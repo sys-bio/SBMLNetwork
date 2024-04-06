@@ -39,7 +39,7 @@ find_package(SWIG)
 file(GLOB SWIG_DEPENDENCIES ${CMAKE_CURRENT_SOURCE_DIR}/*.i)
 
 ## Swig bindings
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork.py
         COMMAND "${SWIG_EXECUTABLE}"
         ARGS -I${CMAKE_CURRENT_SOURCE_DIR}
         -I${CMAKE_CURRENT_BINARY_DIR}
@@ -48,16 +48,16 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor_wrap.
         -c++
         -python
         ${SWIG_EXTRA_ARGS}
-        -o ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor_wrap.cpp
-        libsbmlnetworkeditor.i
-        MAIN_DEPENDENCY libsbmlnetworkeditor.i
+        -o ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork_wrap.cpp
+        libsbmlnetwork.i
+        MAIN_DEPENDENCY libsbmlnetwork.i
         DEPENDS CMakeLists.txt
         ${SWIG_DEPENDENCIES}
         COMMENT "Swig Python source")
 
-add_custom_target(binding_python_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor_wrap.cpp)
+add_custom_target(binding_python_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork_wrap.cpp)
 
-add_library(binding_python_lib SHARED libsbmlnetworkeditor_wrap.cpp)
+add_library(binding_python_lib SHARED libsbmlnetwork_wrap.cpp)
 
 target_include_directories(binding_python_lib PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -65,10 +65,10 @@ target_include_directories(binding_python_lib PRIVATE
 
 target_link_libraries(binding_python_lib
         Python::Python
-        sbmlnetworkeditor-static)
+        sbmlnetwork-static)
 
 add_dependencies(binding_python_lib binding_python_swig)
-set_target_properties(binding_python_lib PROPERTIES OUTPUT_NAME "_libsbmlnetworkeditor")
+set_target_properties(binding_python_lib PROPERTIES OUTPUT_NAME "_libsbmlnetwork")
 
 if (UNIX)
     set_target_properties (binding_python_lib PROPERTIES PREFIX "")
@@ -89,14 +89,14 @@ if (APPLE)
             $<TARGET_FILE:binding_python_lib>)
 endif()
 
-install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor 	COMPONENT libsbmlnetworkeditor_python_bindings)
+install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetwork 	COMPONENT libsbmlnetwork_python_bindings)
 
 if (PYTHON_INSTALL_IN_PREFIX)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetwork COMPONENT libsbmlnetwork_python_bindings)
 endif()
 
 if (PYTHON_INSTALL_WITH_SETUP)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor RENAME __init__.py COMPONENT python_extra)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetworkeditor/__init__.py DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetworkeditor COMPONENT libsbmlnetworkeditor_python_bindings)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork RENAME __init__.py COMPONENT python_extra)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlnetwork/__init__.py DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbmlnetwork COMPONENT libsbmlnetwork_python_bindings)
 endif()
 
