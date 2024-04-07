@@ -142,6 +142,14 @@ const double getMaxPositionX(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getMaxPositionY(std::vector<GraphicalObject*> graphicalObjects);
 
+const double getMinCenterX(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
+
 const bool isValidLayoutDimensionWidthValue(const double& width);
 
 const bool isValidLayoutDimensionHeightValue(const double& height);
