@@ -384,6 +384,7 @@ std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGrap
     std::vector<std::string> graphicalObjectsIds;
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
+    /*
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         bool isIndependentReaction = true;
         for (unsigned int j = 0; j < graphicalObjects.size(); j++) {
@@ -395,6 +396,7 @@ std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGrap
         if (isIndependentReaction)
             graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
     }
+     */
 
     return graphicalObjectsIds;
 }
@@ -403,10 +405,10 @@ std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGrap
     std::vector<std::string> graphicalObjectsIds;
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
-            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
-    }
+    //for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        //if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
+            //graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
+    //}
 
     return graphicalObjectsIds;
 }
