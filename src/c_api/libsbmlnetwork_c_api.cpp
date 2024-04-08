@@ -1336,8 +1336,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesStrokeColor(document, layoutIndex, borderColor);
     }
 
-    int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
-        return setReactionStrokeColor(document, layoutIndex, borderColor);
+    int c_api_setReactionsLineColors(SBMLDocument* document, const char* lineColor, int layoutIndex) {
+        return setReactionStrokeColor(document, layoutIndex, lineColor);
     }
 
     int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
@@ -1374,8 +1374,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesStrokeWidth(document, layoutIndex, borderWidth);
     }
 
-    int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
-        return setReactionStrokeWidth(document, layoutIndex, borderWidth);
+    int c_api_setReactionsLineWidths(SBMLDocument* document, const double lineWidth, int layoutIndex) {
+        return setReactionStrokeWidth(document, layoutIndex, lineWidth);
     }
 
     int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {

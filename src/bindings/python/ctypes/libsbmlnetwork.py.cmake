@@ -4487,20 +4487,20 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
 
-    def setReactionsBorderColors(self, border_color, layout_index=0):
+    def setReactionsLineColors(self, line_color, layout_index=0):
         """
-        Sets the border color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+        Sets the line color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
 
         :Parameters:
 
-            - border_color (string): a string that determines the border color of the ReactionGlyph object
+            - line_color (string): a string that determines the line color of the ReactionGlyph object
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the border color of all the ReactionGlyph object could not be set
+            true on success and false if the line color of all the ReactionGlyph object could not be set
         """
-        return lib.c_api_setReactionsBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+        return lib.c_api_setReactionsLineColors(self.sbml_object, str(line_color).encode(), layout_index)
 
     def setLineEndingsBorderColors(self, border_color, layout_index=0):
         """
@@ -4612,20 +4612,20 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
 
-    def setReactionsBorderWidths(self, border_width, layout_index=0):
+    def setReactionsLineWidths(self, line_width, layout_index=0):
         """
-        Sets the border width of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+        Sets the line width of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
 
         :Parameters:
 
-            - border_width (float): a float that determines the border width of the ReactionGlyph object
+            - line_width (float): a float that determines the line width of the ReactionGlyph object
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the border width of all the ReactionGlyph object could not be set
+            true on success and false if the line width of all the ReactionGlyph object could not be set
         """
-        return lib.c_api_setReactionsBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
+        return lib.c_api_setReactionsLineWidths(self.sbml_object, ctypes.c_double(line_width), layout_index)
 
     def setLineEndingsBorderWidths(self, border_width, layout_index=0):
         """
@@ -7156,7 +7156,7 @@ class LibSBMLNetwork:
                         if 'species_border_color' in theme.keys():
                             self.setSpeciesBorderColors(theme['species_border_color'])
                         if 'reaction_line_color' in theme.keys():
-                            self.setReactionsBorderColors(theme['reaction_line_color'])
+                            self.setReactionsLineColors(theme['reaction_line_color'])
                         if 'line_ending_fill_color' in theme.keys():
                             self.setLineEndingsFillColors(theme['line_ending_fill_color'])
                         if 'line_ending_border_color' in theme.keys():
