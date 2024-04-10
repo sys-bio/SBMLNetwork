@@ -1888,8 +1888,9 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(SBMLDocument* document, unsigned
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
+/// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, const bool& setSpeciesReferenceGlyphs = true);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -1963,8 +1964,9 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(SBMLDocument* document, unsigned
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
+/// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke-width" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, const bool& setSpeciesReferenceGlyphs = true);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -2936,6 +2938,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeX(SBMLDocument* document, const std::
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
+
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2997,6 +3007,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeY(SBMLDocument* document, const std::
 /// @param y a RelAbsVector to use as the value of the "y" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -3060,6 +3078,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(SBMLDocument* document, const s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
+
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3121,6 +3147,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(SBMLDocument* document, const 
 /// @param height a RelAbsVector to use as the value of the "height" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -3184,6 +3218,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, const s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& ratio);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
+
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3245,6 +3287,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* 
 /// @param rx a RelAbsVector to use as the value of the "rx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -3308,6 +3358,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3355,7 +3413,6 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, Graph
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
-
 /// @brief Sets the value of the "cx" attribute of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
@@ -3370,6 +3427,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, const
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -3433,6 +3498,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cy);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
+
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3495,6 +3568,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
+
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3556,6 +3637,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(SBMLDocument* document, const
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
 /// @brief Returns the number of elements of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -3657,6 +3746,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(SBMLDocument* document, cons
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3722,6 +3819,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(SBMLDocument* document, cons
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -3789,6 +3894,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3855,6 +3968,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3919,6 +4040,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(SBMLDocument* document, c
 /// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -3985,6 +4114,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(SBMLDocument* document, c
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -4109,6 +4246,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, const st
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
 }
 

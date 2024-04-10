@@ -973,6 +973,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Everglade", "#1A2421"));
     colors.push_back(std::make_pair("Fern", "#4F7942"));
     colors.push_back(std::make_pair("FireBrick", "#B22222"));
+    colors.push_back(std::make_pair("Fiery Orange", "#A24510"));
     colors.push_back(std::make_pair("FloralWhite", "#FFFAF0"));
     colors.push_back(std::make_pair("ForestGreen", "#228B22"));
     colors.push_back(std::make_pair("FrenchRose", "#F64A8A"));
@@ -990,6 +991,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Green", "#008000"));
     colors.push_back(std::make_pair("GreenYellow", "#ADFF2F"));
     colors.push_back(std::make_pair("GunSmoke", "#828685"));
+    colors.push_back(std::make_pair("HawaiianTan", "#9D5616"));
     colors.push_back(std::make_pair("Hemlock", "#5E5D3B"));
     colors.push_back(std::make_pair("Hibiscus", "#AE4560"));
     colors.push_back(std::make_pair("HoneyDew", "#F0FFF0"));
@@ -1023,6 +1025,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("LimeGreen", "#32CD32"));
     colors.push_back(std::make_pair("Linen", "#FAF0E6"));
     colors.push_back(std::make_pair("LunarGreen", "#3A7D02"));
+    colors.push_back(std::make_pair("LuckyPoint", "#202078"));
     colors.push_back(std::make_pair("Magenta", "#FF00FF"));
     colors.push_back(std::make_pair("Mandy", "#D57C6B"));
     colors.push_back(std::make_pair("Maroon", "#800000"));
@@ -1038,6 +1041,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("MexicanRed", "#A72525"));
     colors.push_back(std::make_pair("MidnightBlue", "#191970"));
     colors.push_back(std::make_pair("MintCream", "#F5FFFA"));
+    colors.push_back(std::make_pair("MineShaft", "#323232"));
     colors.push_back(std::make_pair("MistyRose", "#FFE4E1"));
     colors.push_back(std::make_pair("Moccasin", "#FFE4B5"));
     colors.push_back(std::make_pair("Mondo", "#4A3C30"));
@@ -1083,6 +1087,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Sage", "#9EAD3D"));
     colors.push_back(std::make_pair("Salmon", "#FA8072"));
     colors.push_back(std::make_pair("SandyBrown", "#F4A460"));
+    colors.push_back(std::make_pair("SanJuan", "#334E75"));
     colors.push_back(std::make_pair("SeaGreen", "#2E8B57"));
     colors.push_back(std::make_pair("SeaShell", "#FFF5EE"));
     colors.push_back(std::make_pair("Seance", "#721757"));
@@ -1099,6 +1104,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Sunglo", "#E16865"));
     colors.push_back(std::make_pair("Tan", "#D2B48C"));
     colors.push_back(std::make_pair("Teal", "#008080"));
+    colors.push_back(std::make_pair("TerraCotta", "#E2725B"));
     colors.push_back(std::make_pair("Thistle", "#D8BFD8"));
     colors.push_back(std::make_pair("Thunderbird", "#C02B18"));
     colors.push_back(std::make_pair("TiaMaria", "#C1440E"));
@@ -1110,6 +1116,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Turquoise", "#40E0D0"));
     colors.push_back(std::make_pair("Vesuvius", "#AD975A"));
     colors.push_back(std::make_pair("Violet", "#EE82EE"));
+    colors.push_back(std::make_pair("WaikawaGray", "#5D7291"));
     colors.push_back(std::make_pair("Wheat", "#F5DEB3"));
     colors.push_back(std::make_pair("White", "#FFFFFF"));
     colors.push_back(std::make_pair("WhiteSmoke", "#F5F5F5"));

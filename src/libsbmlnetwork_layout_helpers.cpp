@@ -276,6 +276,11 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph)
         setCurveCubicBezier(speciesReferenceGlyph->getCurve());
 }
 
+void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getCurve()->getNumCurveSegments())
+        reactionGlyph->getCurve()->getCurveSegment(0)->removeFromParentAndDelete();
+}
+
 void setCurveCubicBezier(Curve* curve) {
     CubicBezier* cubicBezier = curve->createCubicBezier();
 }

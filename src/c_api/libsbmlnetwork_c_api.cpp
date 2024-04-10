@@ -1315,17 +1315,37 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
+    bool c_api_isSetLineColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id))
+            return isSetStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+
+        return false;
+    }
+
     const char* c_api_getBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
         return strdup(getStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
     }
 
+    const char* c_api_getLineColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id))
+            return strdup(getStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+
+        return "";
+    }
+
     int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex, int layoutIndex) {
+        return setStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderColor);
+    }
+
+    int c_api_setLineColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex, int layoutIndex) {
         if (isReactionGlyph(document, layoutIndex, id)) {
             for (unsigned int i = 0; i < getNumSpeciesReferences(document, id); i++)
                 setStrokeColor(document, getSpeciesReferenceGlyph(document, layoutIndex, id, graphicalObjectIndex, i), borderColor);
+
+            return setStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderColor);
         }
 
-        return setStrokeColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderColor);
+        return -1;
     }
 
     int c_api_setCompartmentsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
@@ -1334,6 +1354,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
         return setSpeciesStrokeColor(document, layoutIndex, borderColor);
+    }
+
+    int c_api_setReactionsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+        return setReactionStrokeColor(document, layoutIndex, borderColor, false);
     }
 
     int c_api_setReactionsLineColors(SBMLDocument* document, const char* lineColor, int layoutIndex) {
@@ -1352,18 +1376,37 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
+    bool c_api_isSetLineWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id))
+            return isSetStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+
+        return false;
+    }
+
     const double c_api_getBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
         return getStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
     }
 
+    const double c_api_getLineWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id))
+            return getStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+
+        return -1;
+    }
+
     int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex, int layoutIndex) {
+        return setStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderWidth);
+    }
+
+    int c_api_setLineWidth(SBMLDocument* document, const char* id, const double lineWidth, int graphicalObjectIndex, int layoutIndex) {
         if (isReactionGlyph(document, layoutIndex, id)) {
             for (unsigned int i = 0; i < getNumSpeciesReferences(document, id); i++)
-                setStrokeWidth(document, getSpeciesReferenceGlyph(document, layoutIndex, id, graphicalObjectIndex, i),
-                               borderWidth);
+                setStrokeWidth(document, getSpeciesReferenceGlyph(document, layoutIndex, id, graphicalObjectIndex, i), lineWidth);
+
+            return setStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), lineWidth);
         }
 
-        return setStrokeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), borderWidth);
+        return -1;
     }
 
     int c_api_setCompartmentsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
@@ -1372,6 +1415,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
         return setSpeciesStrokeWidth(document, layoutIndex, borderWidth);
+    }
+
+    int c_api_setReactionsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
+        return setReactionStrokeWidth(document, layoutIndex, borderWidth, false);
     }
 
     int c_api_setReactionsLineWidths(SBMLDocument* document, const double lineWidth, int layoutIndex) {
@@ -1763,6 +1810,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, xVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setCompartmentGeometricShapeX(document, layoutIndex, xVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setSpeciesGeometricShapeX(document, layoutIndex, xVector);
+    }
+
+    int c_api_setReactionsGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setReactionGeometricShapeX(document, layoutIndex, xVector);
+    }
+
+    int c_api_setGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex) {
+        RelAbsVector xVector;
+        xVector.setAbsoluteValue(x);
+        return setGeometricShapeX(document, layoutIndex, xVector);
+    }
+
     bool c_api_isSetGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isSetGeometricShapeY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
@@ -1776,6 +1847,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector yVector;
         yVector.setAbsoluteValue(y);
         return setGeometricShapeY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, yVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setCompartmentGeometricShapeY(document, layoutIndex, yVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setSpeciesGeometricShapeY(document, layoutIndex, yVector);
+    }
+
+    int c_api_setReactionsGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setReactionGeometricShapeY(document, layoutIndex, yVector);
+    }
+
+    int c_api_setGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex) {
+        RelAbsVector yVector;
+        yVector.setAbsoluteValue(y);
+        return setGeometricShapeY(document, layoutIndex, yVector);
     }
 
     bool c_api_isSetGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1793,6 +1888,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeWidth(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, widthVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        RelAbsVector widthVector;
+        widthVector.setAbsoluteValue(width);
+        return setCompartmentGeometricShapeWidth(document, layoutIndex, widthVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        RelAbsVector widthVector;
+        widthVector.setAbsoluteValue(width);
+        return setSpeciesGeometricShapeWidth(document, layoutIndex, widthVector);
+    }
+
+    int c_api_setReactionsGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        RelAbsVector widthVector;
+        widthVector.setAbsoluteValue(width);
+        return setReactionGeometricShapeWidth(document, layoutIndex, widthVector);
+    }
+
+    int c_api_setGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        RelAbsVector widthVector;
+        widthVector.setAbsoluteValue(width);
+        return setGeometricShapeWidth(document, layoutIndex, widthVector);
+    }
+
     bool c_api_isSetGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isSetGeometricShapeHeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
@@ -1808,6 +1927,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeHeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, heightVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        RelAbsVector heightVector;
+        heightVector.setAbsoluteValue(height);
+        return setCompartmentGeometricShapeHeight(document, layoutIndex, heightVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        RelAbsVector heightVector;
+        heightVector.setAbsoluteValue(height);
+        return setSpeciesGeometricShapeHeight(document, layoutIndex, heightVector);
+    }
+
+    int c_api_setReactionsGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        RelAbsVector heightVector;
+        heightVector.setAbsoluteValue(height);
+        return setReactionGeometricShapeHeight(document, layoutIndex, heightVector);
+    }
+
+    int c_api_setGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        RelAbsVector heightVector;
+        heightVector.setAbsoluteValue(height);
+        return setGeometricShapeHeight(document, layoutIndex, heightVector);
+    }
+
     bool c_api_isSetGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isSetGeometricShapeRatio(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
@@ -1818,6 +1961,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return setGeometricShapeRatio(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, ratio);
+    }
+
+    int c_api_setCompartmentsGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex) {
+        return setCompartmentGeometricShapeRatio(document, layoutIndex, ratio);
+    }
+
+    int c_api_setSpeciesGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex) {
+        return setSpeciesGeometricShapeRatio(document, layoutIndex, ratio);
+    }
+
+    int c_api_setReactionsGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex) {
+        return setReactionGeometricShapeRatio(document, layoutIndex, ratio);
+    }
+
+    int c_api_setGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex) {
+        return setGeometricShapeRatio(document, layoutIndex, ratio);
     }
 
     bool c_api_isSetGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1835,6 +1994,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeCornerCurvatureRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, borderRadiusXVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex) {
+        RelAbsVector borderRadiusXVector;
+        borderRadiusXVector.setAbsoluteValue(borderRadiusX);
+        return setCompartmentGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, borderRadiusXVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex) {
+        RelAbsVector borderRadiusXVector;
+        borderRadiusXVector.setAbsoluteValue(borderRadiusX);
+        return setSpeciesGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, borderRadiusXVector);
+    }
+
+    int c_api_setReactionsGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex) {
+        RelAbsVector borderRadiusXVector;
+        borderRadiusXVector.setAbsoluteValue(borderRadiusX);
+        return setReactionGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, borderRadiusXVector);
+    }
+
+    int c_api_setGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex) {
+        RelAbsVector borderRadiusXVector;
+        borderRadiusXVector.setAbsoluteValue(borderRadiusX);
+        return setGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, borderRadiusXVector);
+    }
+
     bool c_api_isSetGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isSetGeometricShapeCornerCurvatureRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
@@ -1848,6 +2031,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector borderRadiusYVector;
         borderRadiusYVector.setAbsoluteValue(borderRadiusY);
         return setGeometricShapeCornerCurvatureRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, borderRadiusYVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex) {
+        RelAbsVector borderRadiusYVector;
+        borderRadiusYVector.setAbsoluteValue(borderRadiusY);
+        return setCompartmentGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, borderRadiusYVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex) {
+        RelAbsVector borderRadiusYVector;
+        borderRadiusYVector.setAbsoluteValue(borderRadiusY);
+        return setSpeciesGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, borderRadiusYVector);
+    }
+
+    int c_api_setReactionsGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex) {
+        RelAbsVector borderRadiusYVector;
+        borderRadiusYVector.setAbsoluteValue(borderRadiusY);
+        return setReactionGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, borderRadiusYVector);
+    }
+
+    int c_api_setGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex) {
+        RelAbsVector borderRadiusYVector;
+        borderRadiusYVector.setAbsoluteValue(borderRadiusY);
+        return setGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, borderRadiusYVector);
     }
 
     bool c_api_isSetGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1865,6 +2072,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeCenterX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, centerXVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex) {
+        RelAbsVector centerXVector;
+        centerXVector.setAbsoluteValue(centerX);
+        return setCompartmentGeometricShapeCenterX(document, layoutIndex, centerXVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex) {
+        RelAbsVector centerXVector;
+        centerXVector.setAbsoluteValue(centerX);
+        return setSpeciesGeometricShapeCenterX(document, layoutIndex, centerXVector);
+    }
+
+    int c_api_setReactionsGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex) {
+        RelAbsVector centerXVector;
+        centerXVector.setAbsoluteValue(centerX);
+        return setReactionGeometricShapeCenterX(document, layoutIndex, centerXVector);
+    }
+
+    int c_api_setGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex) {
+        RelAbsVector centerXVector;
+        centerXVector.setAbsoluteValue(centerX);
+        return setGeometricShapeCenterX(document, layoutIndex, centerXVector);
+    }
+
     bool c_api_isSetGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isSetGeometricShapeCenterY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
@@ -1878,6 +2109,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector centerYVector;
         centerYVector.setAbsoluteValue(centerY);
         return setGeometricShapeCenterY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, centerYVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex) {
+        RelAbsVector centerYVector;
+        centerYVector.setAbsoluteValue(centerY);
+        return setCompartmentGeometricShapeCenterY(document, layoutIndex, centerYVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex) {
+        RelAbsVector centerYVector;
+        centerYVector.setAbsoluteValue(centerY);
+        return setSpeciesGeometricShapeCenterY(document, layoutIndex, centerYVector);
+    }
+
+    int c_api_setReactionsGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex) {
+        RelAbsVector centerYVector;
+        centerYVector.setAbsoluteValue(centerY);
+        return setReactionGeometricShapeCenterY(document, layoutIndex, centerYVector);
+    }
+
+    int c_api_setGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex) {
+        RelAbsVector centerYVector;
+        centerYVector.setAbsoluteValue(centerY);
+        return setGeometricShapeCenterY(document, layoutIndex, centerYVector);
     }
 
     bool c_api_isSetGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1895,6 +2150,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeRadiusX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, radiusXVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex) {
+        RelAbsVector radiusXVector;
+        radiusXVector.setAbsoluteValue(radiusX);
+        return setCompartmentGeometricShapeRadiusX(document, layoutIndex, radiusXVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex) {
+        RelAbsVector radiusXVector;
+        radiusXVector.setAbsoluteValue(radiusX);
+        return setSpeciesGeometricShapeRadiusX(document, layoutIndex, radiusXVector);
+    }
+
+    int c_api_setReactionsGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex) {
+        RelAbsVector radiusXVector;
+        radiusXVector.setAbsoluteValue(radiusX);
+        return setReactionGeometricShapeRadiusX(document, layoutIndex, radiusXVector);
+    }
+
+    int c_api_setGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex) {
+        RelAbsVector radiusXVector;
+        radiusXVector.setAbsoluteValue(radiusX);
+        return setGeometricShapeRadiusX(document, layoutIndex, radiusXVector);
+    }
+
     bool c_api_isSetGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isSetGeometricShapeRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
@@ -1908,6 +2187,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector radiusYVector;
         radiusYVector.setAbsoluteValue(radiusY);
         return setGeometricShapeRadiusY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, radiusYVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex) {
+        RelAbsVector radiusYVector;
+        radiusYVector.setAbsoluteValue(radiusY);
+        return setCompartmentGeometricShapeRadiusY(document, layoutIndex, radiusYVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex) {
+        RelAbsVector radiusYVector;
+        radiusYVector.setAbsoluteValue(radiusY);
+        return setSpeciesGeometricShapeRadiusY(document, layoutIndex, radiusYVector);
+    }
+
+    int c_api_setReactionsGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex) {
+        RelAbsVector radiusYVector;
+        radiusYVector.setAbsoluteValue(radiusY);
+        return setReactionGeometricShapeRadiusY(document, layoutIndex, radiusYVector);
+    }
+
+    int c_api_setGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex) {
+        RelAbsVector radiusYVector;
+        radiusYVector.setAbsoluteValue(radiusY);
+        return setGeometricShapeRadiusY(document, layoutIndex, radiusYVector);
     }
 
     const int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1929,6 +2232,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeElementX(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentXVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentXVector;
+        segmentXVector.setAbsoluteValue(x);
+        return setCompartmentGeometricShapeElementX(document, layoutIndex, segmentIndex, segmentXVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentXVector;
+        segmentXVector.setAbsoluteValue(x);
+        return setSpeciesGeometricShapeElementX(document, layoutIndex, segmentIndex, segmentXVector);
+    }
+
+    int c_api_setReactionsGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentXVector;
+        segmentXVector.setAbsoluteValue(x);
+        return setReactionGeometricShapeElementX(document, layoutIndex, segmentIndex, segmentXVector);
+    }
+
+    int c_api_setGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentXVector;
+        segmentXVector.setAbsoluteValue(x);
+        return setGeometricShapeElementX(document, layoutIndex, segmentIndex, segmentXVector);
+    }
+
     const double c_api_getGeometricShapeSegmentY(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentYVector = getGeometricShapeElementY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentYVector.getRelativeValue();
@@ -1938,6 +2265,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector segmentYVector;
         segmentYVector.setAbsoluteValue(y);
         return setGeometricShapeElementY(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentYVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentYVector;
+        segmentYVector.setAbsoluteValue(y);
+        return setCompartmentGeometricShapeElementY(document, layoutIndex, segmentIndex, segmentYVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentYVector;
+        segmentYVector.setAbsoluteValue(y);
+        return setSpeciesGeometricShapeElementY(document, layoutIndex, segmentIndex, segmentYVector);
+    }
+
+    int c_api_setReactionsGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentYVector;
+        segmentYVector.setAbsoluteValue(y);
+        return setReactionGeometricShapeElementY(document, layoutIndex, segmentIndex, segmentYVector);
+    }
+
+    int c_api_setGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentYVector;
+        segmentYVector.setAbsoluteValue(y);
+        return setGeometricShapeElementY(document, layoutIndex, segmentIndex, segmentYVector);
     }
 
     const double c_api_getGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1951,6 +2302,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeBasePoint1X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentStartXVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartXVector;
+        segmentStartXVector.setAbsoluteValue(x);
+        return setCompartmentGeometricShapeBasePoint1X(document, layoutIndex, segmentIndex, segmentStartXVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartXVector;
+        segmentStartXVector.setAbsoluteValue(x);
+        return setSpeciesGeometricShapeBasePoint1X(document, layoutIndex, segmentIndex, segmentStartXVector);
+    }
+
+    int c_api_setReactionsGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartXVector;
+        segmentStartXVector.setAbsoluteValue(x);
+        return setReactionGeometricShapeBasePoint1X(document, layoutIndex, segmentIndex, segmentStartXVector);
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartXVector;
+        segmentStartXVector.setAbsoluteValue(x);
+        return setGeometricShapeBasePoint1X(document, layoutIndex, segmentIndex, segmentStartXVector);
+    }
+
     const double c_api_getGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentStartYVector = getGeometricShapeBasePoint1Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentStartYVector.getAbsoluteValue() + 0.01 * c_api_getHeight(document, id) * segmentStartYVector.getRelativeValue();
@@ -1962,6 +2337,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeBasePoint1Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentStartYVector);
     }
 
+    int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartYVector;
+        segmentStartYVector.setAbsoluteValue(y);
+        return setCompartmentGeometricShapeBasePoint1Y(document, layoutIndex, segmentIndex, segmentStartYVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartYVector;
+        segmentStartYVector.setAbsoluteValue(y);
+        return setSpeciesGeometricShapeBasePoint1Y(document, layoutIndex, segmentIndex, segmentStartYVector);
+    }
+
+    int c_api_setReactionsGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartYVector;
+        segmentStartYVector.setAbsoluteValue(y);
+        return setReactionGeometricShapeBasePoint1Y(document, layoutIndex, segmentIndex, segmentStartYVector);
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentStartYVector;
+        segmentStartYVector.setAbsoluteValue(y);
+        return setGeometricShapeBasePoint1Y(document, layoutIndex, segmentIndex, segmentStartYVector);
+    }
+
     const double c_api_getGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         RelAbsVector segmentBasePoint2XVector = getGeometricShapeBasePoint2X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex);
         return segmentBasePoint2XVector.getAbsoluteValue() + 0.01 * c_api_getWidth(document, id) * segmentBasePoint2XVector.getRelativeValue();
@@ -1971,6 +2370,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector segmentBasePoint2XVector;
         segmentBasePoint2XVector.setAbsoluteValue(x);
         return setGeometricShapeBasePoint2X(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentBasePoint2XVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2XVector;
+        segmentBasePoint2XVector.setAbsoluteValue(x);
+        return setCompartmentGeometricShapeBasePoint2X(document, layoutIndex, segmentIndex, segmentBasePoint2XVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2XVector;
+        segmentBasePoint2XVector.setAbsoluteValue(x);
+        return setSpeciesGeometricShapeBasePoint2X(document, layoutIndex, segmentIndex, segmentBasePoint2XVector);
+    }
+
+    int c_api_setReactionsGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2XVector;
+        segmentBasePoint2XVector.setAbsoluteValue(x);
+        return setReactionGeometricShapeBasePoint2X(document, layoutIndex, segmentIndex, segmentBasePoint2XVector);
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2XVector;
+        segmentBasePoint2XVector.setAbsoluteValue(x);
+        return setGeometricShapeBasePoint2X(document, layoutIndex, segmentIndex, segmentBasePoint2XVector);
     }
 
     const double c_api_getGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
@@ -1994,6 +2417,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return setGeometricShapeHref(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, href);
+    }
+
+    int c_api_setCompartmentsGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex) {
+        return setCompartmentGeometricShapeHref(document, layoutIndex, href);
+    }
+
+    int c_api_setSpeciesGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex) {
+        return setSpeciesGeometricShapeHref(document, layoutIndex, href);
+    }
+
+    int c_api_setReactionsGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex) {
+        return setReactionGeometricShapeHref(document, layoutIndex, href);
+    }
+
+    int c_api_setGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex) {
+        return setGeometricShapeHref(document, layoutIndex, href);
     }
 
     int c_api_getNumValidRoleValues() {

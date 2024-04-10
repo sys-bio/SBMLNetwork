@@ -2368,6 +2368,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// attribute is not set or the object is @c NULL .
     LIBSBMLNETWORK_EXTERN bool c_api_isSetBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject (ReactionGlyph).
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetLineColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2375,6 +2382,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
     LIBSBMLNETWORK_EXTERN const char* c_api_getBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject (ReactionGlyph).
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL or not a ReactoinGlyph.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getLineColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2384,6 +2399,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setBorderColor(SBMLDocument* document, const char* id, const char* borderColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject (ReactionGlyph).
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param lineColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineColor(SBMLDocument* document, const char* id, const char* lineColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2435,7 +2459,23 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetLineWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL
     LIBSBMLNETWORK_EXTERN const double c_api_getBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject (ReactionGlyph).
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL or not a ReactionGlyph.
+    LIBSBMLNETWORK_EXTERN const double c_api_getLineWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -2445,6 +2485,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setBorderWidth(SBMLDocument* document, const char* id, const double borderWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject (ReactionGlyph).
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param lineWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineWidth(SBMLDocument* document, const char* id, const double lineWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3192,6 +3240,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3221,6 +3297,35 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3252,6 +3357,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+
     /// @breif Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3281,6 +3414,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3312,6 +3473,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3341,6 +3530,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3372,6 +3589,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3401,6 +3646,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3432,6 +3705,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3461,6 +3762,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3492,6 +3821,35 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+
     /// @brief Returns the number of elements of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3503,6 +3861,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     LIBSBMLNETWORK_EXTERN const int c_api_getGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is of type RenderCubicBezier.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex an int representing the index of the GraphicalObject to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return @c true if the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCubicBezier,
     LIBSBMLNETWORK_EXTERN bool c_api_isGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
@@ -3527,6 +3892,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3549,6 +3946,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3573,6 +4002,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3594,6 +4055,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 1 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3617,6 +4110,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param x a double to use as the value of the "x" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3638,6 +4163,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param y a double to use as the value of the "y" attribute of base point 2 of this element.
+    /// @param segmentIndex an int representing the index of the element to retrieve.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3669,92 +4226,120 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
-    // @brief Returns the number of valid values for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
-    // @return the number of valid values for the "role" attribute.
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    /// @brief Returns the number of valid values for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
+    /// @return the number of valid values for the "role" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidRoleValues();
 
-    // @brief Returns the nth valid value for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidRoleValue(int index);
 
-    // @brief Returns the number of valid values for the "alignment" attribute that can be used in for c_api_align function.
-    // @return the number of valid values for the "alignment" attribute.
+    /// @brief Returns the number of valid values for the "alignment" attribute that can be used in for c_api_align function.
+    /// @return the number of valid values for the "alignment" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidAlignmentValues();
 
-    // @brief Returns the nth valid value for the "alignment" attribute that can be used in for c_api_align function.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "alignment" attribute that can be used in for c_api_align function.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidAlignmentValue(int index);
 
-    // @brief Returns the number of valid values for the "color" name attribute that can be used in for all set color value functions.
-    // @return the number of valid values for the "color" name attribute.
+    /// @brief Returns the number of valid values for the "color" name attribute that can be used in for all set color value functions.
+    /// @return the number of valid values for the "color" name attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidColorNameValues();
 
-    // @brief Returns the nth valid value for the "color" name attribute that can be used in for all set color value functions.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "color" name attribute that can be used in for all set color value functions.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidColorNameValue(int index);
 
-    // @brief Returns the number of valid values for the hex "color" attribute that can be used in for all set color value functions.
-    // @return the number of valid values for the hex "color" attribute.
+    /// @brief Returns the number of valid values for the hex "color" attribute that can be used in for all set color value functions.
+    /// @return the number of valid values for the hex "color" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidHexColorCodeValues();
 
-    // @brief Returns the nth valid value for the hex "color" attribute that can be used in for all set color value functions.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the hex "color" attribute that can be used in for all set color value functions.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidHexColorCodeValue(int index);
 
-    // @brief Returns the number of valid values for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
-    // @return the number of valid values for the "spread-method" attribute.
+    /// @brief Returns the number of valid values for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
+    /// @return the number of valid values for the "spread-method" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidSpreadMethodValues();
 
-    // @brief Returns the nth valid value for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidSpreadMethodValue(int index);
 
-    // @brief Returns the number of valid values for the "font-weight" attribute that can be used in for all set font weight functions.
-    // @return the number of valid values for the "font-weight" attribute.
+    /// @brief Returns the number of valid values for the "font-weight" attribute that can be used in for all set font weight functions.
+    /// @return the number of valid values for the "font-weight" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidFontWeightValues();
 
-    // @brief Returns the nth valid value for the "font-weight" attribute that can be used in for all set font weight functions.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "font-weight" attribute that can be used in for all set font weight functions.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidFontWeightValue(int index);
 
-    // @brief Returns the number of valid values for the "font-style" attribute that can be used in for all set font style functions.
-    // @return the number of valid values for the "font-style" attribute.
+    /// @brief Returns the number of valid values for the "font-style" attribute that can be used in for all set font style functions.
+    /// @return the number of valid values for the "font-style" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidFontStyleValues();
 
-    // @brief Returns the nth valid value for the "font-style" attribute that can be used in for all set font style functions.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "font-style" attribute that can be used in for all set font style functions.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidFontStyleValue(int index);
 
-    // @brief Returns the number of valid values for the "text-anchor" attribute that can be used in for all set text anchor functions.
-    // @return the number of valid values for the "text-anchor" attribute.
+    /// @brief Returns the number of valid values for the "text-anchor" attribute that can be used in for all set text anchor functions.
+    /// @return the number of valid values for the "text-anchor" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidHorizontalTextAlignmentValues();
 
-    // @brief Returns the nth valid value for the "text-anchor" attribute that can be used in for all set text anchor functions.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "text-anchor" attribute that can be used in for all set text anchor functions.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidHorizontalTextAlignmentValue(int index);
 
-    // @brief Returns the number of valid values for the "vtext-anchor" attribute that can be used in for all set vertical text alignment functions.
-    // @return the number of valid values for the "vtext-anchor" attribute.
+    /// @brief Returns the number of valid values for the "vtext-anchor" attribute that can be used in for all set vertical text alignment functions.
+    /// @return the number of valid values for the "vtext-anchor" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidVerticalTextAlignmentValues();
 
-    // @brief Returns the nth valid value for the "vtext-anchor" attribute that can be used in for all set vertical text alignment functions.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "vtext-anchor" attribute that can be used in for all set vertical text alignment functions.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidVerticalTextAlignmentValue(int index);
 
-    // @brief Returns the number of valid values for the "fill-rule" attribute that can be used in for c_api_setFillRule function.
-    // @return the number of valid values for the "fill-rule" attribute.
+    /// @brief Returns the number of valid values for the "fill-rule" attribute that can be used in for c_api_setFillRule function.
+    /// @return the number of valid values for the "fill-rule" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidFillRuleValues();
 
-    // @brief Returns the nth valid value for the "fill-rule" attribute that can be used in for c_api_setFillRule function.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "fill-rule" attribute that can be used in for c_api_setFillRule function.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidFillRuleValue(int index);
 
-    // @brief Returns the number of valid values for the "shape" attribute that can be sued in for c_api_setGeometricShape function.
-    // @return the number of valid values for the "shape" attribute.
+    /// @brief Returns the number of valid values for the "shape" attribute that can be sued in for c_api_setGeometricShape function.
+    /// @return the number of valid values for the "shape" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidGeometricShapeValues();
 
-    // @brief Returns the nth valid value for the "shape" attribute that can be used in for c_api_setGeometricShape function.
-    // @param index an int representing the index of the valid value to retrieve.
+    /// @brief Returns the nth valid value for the "shape" attribute that can be used in for c_api_setGeometricShape function.
+    /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidGeometricShapeValue(int index);
 }
 

@@ -792,6 +792,15 @@ Curve* getCurve(GraphicalObject* graphicalObject) {
     return  NULL;
 }
 
+int removeCurve(GraphicalObject* graphicalObject) {
+    if (isReactionGlyph(graphicalObject)) {
+        removeReactionGlyphCurve((ReactionGlyph *) graphicalObject);
+        return 0;
+    }
+
+    return -1;
+}
+
 const unsigned int getNumCurveSegments(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
     return getNumCurveSegments(getGraphicalObject(layout, id, graphicalObjectIndex));
 }

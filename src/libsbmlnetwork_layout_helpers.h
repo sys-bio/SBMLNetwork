@@ -64,6 +64,8 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
+void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 void setCurveCubicBezier(Curve* curve);

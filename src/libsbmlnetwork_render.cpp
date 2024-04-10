@@ -2808,7 +2808,7 @@ int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, const
 }
 
 int setGeometricShapeCenterX(Style* style, const RelAbsVector& cx) {
-    return setGeometricShapeCenterX(style, cx);
+    return setGeometricShapeCenterX(style, 0, cx);
 }
 
 int setGeometricShapeCenterX(Style* style, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
