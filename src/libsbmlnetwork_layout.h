@@ -855,6 +855,9 @@ LIBSBMLNETWORK_EXTERN Curve* getCurve(Layout* layout, const std::string& id, uns
 /// @return the Curve object of the GraphicalObject object, or @c NULL if the object is @c NULL or does not have a Curve object
 LIBSBMLNETWORK_EXTERN Curve* getCurve(GraphicalObject* graphicalObject);
 
+/// @brief Removes the Curve object of this GraphicalObject object.
+LIBSBMLNETWORK_EXTERN int removeCurve(GraphicalObject* graphicalObject);
+
 /// @brief Returns the number of curve segments of the curve of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.

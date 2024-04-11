@@ -4423,6 +4423,22 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isSetBorderColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
+    def isSetLineColor(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the line color of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the line color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetLineColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
     def getBorderColor(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the border color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -4440,6 +4456,23 @@ class LibSBMLNetwork:
         lib.c_api_getBorderColor.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getBorderColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
 
+    def getLineColor(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the line color of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the line color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getLineColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLineColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
     def setBorderColor(self, id, border_color, graphical_object_index=0, layout_index=0):
         """
         Sets the border color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -4456,6 +4489,23 @@ class LibSBMLNetwork:
             true on success and false if the border color of the GraphicalObject could not be set
         """
         return lib.c_api_setBorderColor(self.sbml_object, str(id).encode(), str(border_color).encode(), graphical_object_index, layout_index)
+
+    def setLineColor(self, id, line_color, graphical_object_index=0, layout_index=0):
+        """
+        Sets the line color of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - line_color (string): a string that determines the line color of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line color of the GraphicalObject could not be set
+        """
+        return lib.c_api_setLineColor(self.sbml_object, str(id).encode(), str(line_color).encode(), graphical_object_index, layout_index)
 
     def setCompartmentsBorderColors(self, border_color, layout_index=0):
         """
@@ -4489,7 +4539,7 @@ class LibSBMLNetwork:
 
     def setReactionsBorderColors(self, border_color, layout_index=0):
         """
-        Sets the border color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+        Sets the border color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument (only the border of the reaction glyph graphical object)
 
         :Parameters:
 
@@ -4501,6 +4551,21 @@ class LibSBMLNetwork:
             true on success and false if the border color of all the ReactionGlyph object could not be set
         """
         return lib.c_api_setReactionsBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+
+    def setReactionsLineColors(self, line_color, layout_index=0):
+        """
+        Sets the line color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_color (string): a string that determines the line color of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line color of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsLineColors(self.sbml_object, str(line_color).encode(), layout_index)
 
     def setLineEndingsBorderColors(self, border_color, layout_index=0):
         """
@@ -4548,6 +4613,22 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isSetBorderWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
+    def isSetLineWidth(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the line width of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the line width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetLineWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
     def getBorderWidth(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the border width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -4565,6 +4646,23 @@ class LibSBMLNetwork:
         lib.c_api_getBorderWidth.restype = ctypes.c_double
         return lib.c_api_getBorderWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
+    def getLineWidth(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the line width of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the line width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getLineWidth.restype = ctypes.c_double
+        return lib.c_api_getLineWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
     def setBorderWidth(self, id, border_width, graphical_object_index=0, layout_index=0):
         """
         Sets the border width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -4581,6 +4679,23 @@ class LibSBMLNetwork:
             true on success and false if the border width of the GraphicalObject could not be set
         """
         return lib.c_api_setBorderWidth(self.sbml_object, str(id).encode(), ctypes.c_double(border_width), graphical_object_index, layout_index)
+
+    def setLineWidth(self, id, line_width, graphical_object_index=0, layout_index=0):
+        """
+        Sets the line width of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - line_width (float): a float that determines the line width of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line width of the GraphicalObject could not be set
+        """
+        return lib.c_api_setLineWidth(self.sbml_object, str(id).encode(), ctypes.c_double(line_width), graphical_object_index, layout_index)
 
     def setCompartmentsBorderWidths(self, border_width, layout_index=0):
         """
@@ -4626,6 +4741,21 @@ class LibSBMLNetwork:
             true on success and false if the border width of all the ReactionGlyph object could not be set
         """
         return lib.c_api_setReactionsBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
+
+    def setReactionsLineWidths(self, line_width, layout_index=0):
+        """
+        Sets the line width of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_width (float): a float that determines the line width of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line width of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsLineWidths(self.sbml_object, ctypes.c_double(line_width), layout_index)
 
     def setLineEndingsBorderWidths(self, border_width, layout_index=0):
         """
@@ -5868,7 +5998,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
-    def setReactionGeometricShapes(self, geometric_shape, layout_index=0):
+    def setReactionsGeometricShapes(self, geometric_shape, layout_index=0):
         """
         Sets the GeometricShape object associated with the reaction in the given SBMLDocument
 
@@ -5881,7 +6011,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+        return lib.c_api_setReactionsGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
     def setGeometricShapes(self, geometric_shape, layout_index=0):
         """
@@ -6053,6 +6183,66 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeX(self.sbml_object, str(id).encode(), ctypes.c_double(x), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeXs(self, x, layout_index=0):
+        """
+        Sets the x-coordinate of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeXs(self.sbml_object, ctypes.c_double(x), layout_index)
+
+    def setSpeciesGeometricShapeXs(self, x, layout_index=0):
+        """
+        Sets the x-coordinate of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeXs(self.sbml_object, ctypes.c_double(x), layout_index)
+
+    def setReactionsGeometricShapeXs(self, x, layout_index=0):
+        """
+        Sets the x-coordinate of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeXs(self.sbml_object, ctypes.c_double(x), layout_index)
+
+    def setGeometricShapeXs(self, x, layout_index=0):
+        """
+        Sets the x-coordinate of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeXs(self.sbml_object, ctypes.c_double(x), layout_index)
+
     def isSetGeometricShapeY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the y-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
@@ -6105,6 +6295,65 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeY(self.sbml_object, str(id).encode(), ctypes.c_double(y), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeYs(self, y, layout_index=0):
+        """
+        Sets the y-coordinate of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeYs(self.sbml_object, ctypes.c_double(y), layout_index)
+
+    def setSpeciesGeometricShapeYs(self, y, layout_index=0):
+        """
+        Sets the y-coordinate of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeYs(self.sbml_object, ctypes.c_double(y), layout_index)
+
+    def setReactionsGeometricShapeYs(self, y, layout_index=0):
+        """
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeYs(self.sbml_object, ctypes.c_double(y), layout_index)
+
+    def setGeometricShapeYs(self, y, layout_index=0):
+        """
+        Sets the y-coordinate of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeYs(self.sbml_object, ctypes.c_double(y), layout_index)
 
     def isSetGeometricShapeWidth(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6159,6 +6408,66 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setSpeciesGeometricShapeWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setReactionsGeometricShapeWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setGeometricShapeWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
     def isSetGeometricShapeHeight(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the height of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
@@ -6211,6 +6520,65 @@ class LibSBMLNetwork:
             true on success and false if the height of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeHeights(self, height, layout_index=0):
+        """
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+    def setSpeciesGeometricShapeHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+    def setReactionsGeometricShapeHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+    def setGeometricShapeHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeHeights(self.sbml_object, ctypes.c_double(height), layout_index)
 
     def isSetGeometricShapeRatio(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6265,6 +6633,66 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeRatio(self.sbml_object, str(id).encode(), ctypes.c_double(ratio), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeRatios(self, ratio, layout_index=0):
+        """
+        Sets the ratio of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - ratio (float): a float that determines the ratio of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ratio of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeRatios(self.sbml_object, ctypes.c_double(ratio), layout_index)
+
+    def setSpeciesGeometricShapeRatios(self, ratio, layout_index=0):
+        """
+        Sets the ratio of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - ratio (float): a float that determines the ratio of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ratio of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeRatios(self.sbml_object, ctypes.c_double(ratio), layout_index)
+
+    def setReactionsGeometricShapeRatios(self, ratio, layout_index=0):
+        """
+        Sets the ratio of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - ratio (float): a float that determines the ratio of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ratio of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeRatios(self.sbml_object, ctypes.c_double(ratio), layout_index)
+
+    def setGeometricShapeRatios(self, ratio, layout_index=0):
+        """
+        Sets the ratio of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - ratio (float): a float that determines the ratio of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ratio of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeRatios(self.sbml_object, ctypes.c_double(ratio), layout_index)
+
     def isSetGeometricShapeBorderRadiusX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the x-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
@@ -6317,6 +6745,66 @@ class LibSBMLNetwork:
             true on success and false if the x-radius of the border of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeBorderRadiusX(self.sbml_object, str(id).encode(), ctypes.c_double(border_radius_x), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeBorderRadiusXs(self, border_radius_x, layout_index=0):
+        """
+        Sets the x-radius of the border of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_x (float): a float that determines the x-radius of the border of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of the border of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeBorderRadiusXs(self.sbml_object, ctypes.c_double(border_radius_x), layout_index)
+
+    def setSpeciesGeometricShapeBorderRadiusXs(self, border_radius_x, layout_index=0):
+        """
+        Sets the x-radius of the border of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_x (float): a float that determines the x-radius of the border of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of the border of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeBorderRadiusXs(self.sbml_object, ctypes.c_double(border_radius_x), layout_index)
+
+    def setReactionsGeometricShapeBorderRadiusXs(self, border_radius_x, layout_index=0):
+        """
+        Sets the x-radius of the border of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_x (float): a float that determines the x-radius of the border of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of the border of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeBorderRadiusXs(self.sbml_object, ctypes.c_double(border_radius_x), layout_index)
+
+    def setGeometricShapeBorderRadiusXs(self, border_radius_x, layout_index=0):
+        """
+        Sets the x-radius of the border of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_x (float): a float that determines the x-radius of the border of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of the border of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeBorderRadiusXs(self.sbml_object, ctypes.c_double(border_radius_x), layout_index)
 
     def isSetGeometricShapeBorderRadiusY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6371,6 +6859,66 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeBorderRadiusY(self.sbml_object, str(id).encode(), ctypes.c_double(border_radius_y), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeBorderRadiusYs(self, border_radius_y, layout_index=0):
+        """
+        Sets the y-radius of the border of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_y (float): a float that determines the y-radius of the border of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of the border of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeBorderRadiusYs(self.sbml_object, ctypes.c_double(border_radius_y), layout_index)
+
+    def setSpeciesGeometricShapeBorderRadiusYs(self, border_radius_y, layout_index=0):
+        """
+        Sets the y-radius of the border of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_y (float): a float that determines the y-radius of the border of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of the border of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeBorderRadiusYs(self.sbml_object, ctypes.c_double(border_radius_y), layout_index)
+
+    def setReactionsGeometricShapeBorderRadiusYs(self, border_radius_y, layout_index=0):
+        """
+        Sets the y-radius of the border of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_y (float): a float that determines the y-radius of the border of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of the border of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeBorderRadiusYs(self.sbml_object, ctypes.c_double(border_radius_y), layout_index)
+
+    def setGeometricShapeBorderRadiusYs(self, border_radius_y, layout_index=0):
+        """
+        Sets the y-radius of the border of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - border_radius_y (float): a float that determines the y-radius of the border of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of the border of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeBorderRadiusYs(self.sbml_object, ctypes.c_double(border_radius_y), layout_index)
+
     def isSetGeometricShapeCenterX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the x-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
@@ -6423,6 +6971,66 @@ class LibSBMLNetwork:
             true on success and false if the x-coordinate of the center of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeCenterX(self.sbml_object, str(id).encode(), ctypes.c_double(center_x), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeCenterXs(self, center_x, layout_index=0):
+        """
+        Sets the x-coordinate of the center of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_x (float): a float that determines the x-coordinate of the center of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the center of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeCenterXs(self.sbml_object, ctypes.c_double(center_x), layout_index)
+
+    def setSpeciesGeometricShapeCenterXs(self, center_x, layout_index=0):
+        """
+        Sets the x-coordinate of the center of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_x (float): a float that determines the x-coordinate of the center of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the center of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeCenterXs(self.sbml_object, ctypes.c_double(center_x), layout_index)
+
+    def setReactionsGeometricShapeCenterXs(self, center_x, layout_index=0):
+        """
+        Sets the x-coordinate of the center of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_x (float): a float that determines the x-coordinate of the center of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the center of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeCenterXs(self.sbml_object, ctypes.c_double(center_x), layout_index)
+
+    def setGeometricShapeCenterXs(self, center_x, layout_index=0):
+        """
+        Sets the x-coordinate of the center of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_x (float): a float that determines the x-coordinate of the center of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the center of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeCenterXs(self.sbml_object, ctypes.c_double(center_x), layout_index)
 
     def isSetGeometricShapeCenterY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6477,6 +7085,66 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeCenterY(self.sbml_object, str(id).encode(), ctypes.c_double(center_y), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeCenterYs(self, center_y, layout_index=0):
+        """
+        Sets the y-coordinate of the center of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_y (float): a float that determines the y-coordinate of the center of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the center of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeCenterYs(self.sbml_object, ctypes.c_double(center_y), layout_index)
+
+    def setSpeciesGeometricShapeCenterYs(self, center_y, layout_index=0):
+        """
+        Sets the y-coordinate of the center of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_y (float): a float that determines the y-coordinate of the center of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the center of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeCenterYs(self.sbml_object, ctypes.c_double(center_y), layout_index)
+
+    def setReactionsGeometricShapeCenterYs(self, center_y, layout_index=0):
+        """
+        Sets the y-coordinate of the center of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_y (float): a float that determines the y-coordinate of the center of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the center of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeCenterYs(self.sbml_object, ctypes.c_double(center_y), layout_index)
+
+    def setGeometricShapeCenterYs(self, center_y, layout_index=0):
+        """
+        Sets the y-coordinate of the center of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - center_y (float): a float that determines the y-coordinate of the center of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the center of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeCenterYs(self.sbml_object, ctypes.c_double(center_y), layout_index)
+
     def isSetGeometricShapeRadiusX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the x-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
@@ -6530,6 +7198,66 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeRadiusX(self.sbml_object, str(id).encode(), ctypes.c_double(radius_x), geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeRadiusXs(self, radius_x, layout_index=0):
+        """
+        Sets the x-radius of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_x (float): a float that determines the x-radius of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeRadiusXs(self.sbml_object, ctypes.c_double(radius_x), layout_index)
+
+    def setSpeciesGeometricShapeRadiusXs(self, radius_x, layout_index=0):
+        """
+        Sets the x-radius of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_x (float): a float that determines the x-radius of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeRadiusXs(self.sbml_object, ctypes.c_double(radius_x), layout_index)
+
+    def setReactionsGeometricShapeRadiusXs(self, radius_x, layout_index=0):
+        """
+        Sets the x-radius of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_x (float): a float that determines the x-radius of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeRadiusXs(self.sbml_object, ctypes.c_double(radius_x), layout_index)
+
+    def setGeometricShapeRadiusXs(self, radius_x, layout_index=0):
+        """
+        Sets the x-radius of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_x (float): a float that determines the x-radius of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-radius of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeRadiusXs(self.sbml_object, ctypes.c_double(radius_x), layout_index)
+
     def isSetGeometricShapeRadiusY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the y-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
@@ -6582,6 +7310,66 @@ class LibSBMLNetwork:
             true on success and false if the y-radius of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeRadiusY(self.sbml_object, str(id).encode(), ctypes.c_double(radius_y), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeRadiusYs(self, radius_y, layout_index=0):
+        """
+        Sets the y-radius of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_y (float): a float that determines the y-radius of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeRadiusYs(self.sbml_object, ctypes.c_double(radius_y), layout_index)
+
+    def setSpeciesGeometricShapeRadiusYs(self, radius_y, layout_index=0):
+        """
+        Sets the y-radius of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_y (float): a float that determines the y-radius of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeRadiusYs(self.sbml_object, ctypes.c_double(radius_y), layout_index)
+
+    def setReactionsGeometricShapeRadiusYs(self, radius_y, layout_index=0):
+        """
+        Sets the y-radius of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_y (float): a float that determines the y-radius of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeRadiusYs(self.sbml_object, ctypes.c_double(radius_y), layout_index)
+
+    def setGeometricShapeRadiusYs(self, radius_y, layout_index=0):
+        """
+        Sets the y-radius of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - radius_y (float): a float that determines the y-radius of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-radius of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeRadiusYs(self.sbml_object, ctypes.c_double(radius_y), layout_index)
 
     def getGeometricShapeNumSegments(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6656,6 +7444,70 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeSegmentX(self.sbml_object, str(id).encode(), ctypes.c_double(x), segment_index, geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeSegmentXs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the segment with the given segment_index of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the segment of the CompartmentGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the segment of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeSegmentXs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setSpeciesGeometricShapeSegmentXs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the segment with the given segment_index of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the segment of the SpeciesGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the segment of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeSegmentXs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setReactionsGeometricShapeSegmentXs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the segment with the given segment_index of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the segment of the ReactionGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the segment of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeSegmentXs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setGeometricShapeSegmentXs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the segment with the given segment_index of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the segment of the GraphicalObject object
+            - segment_index (int): an integer that determines the index of the segment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the segment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentXs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
     def getGeometricShapeSegmentY(self, id, segment_index=0, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
@@ -6693,6 +7545,70 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the segment of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeSegmentY(self.sbml_object, str(id).encode(), ctypes.c_double(y), segment_index, geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeSegmentYs(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the segment with the given segment_index of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the segment of the CompartmentGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the segment of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeSegmentYs(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setSpeciesGeometricShapeSegmentYs(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the segment with the given segment_index of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the segment of the SpeciesGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the segment of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeSegmentYs(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setReactionsGeometricShapeSegmentYs(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the segment with the given segment_index of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the segment of the ReactionGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the segment of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeSegmentYs(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setGeometricShapeSegmentYs(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the segment with the given segment_index of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the segment of the GraphicalObject object
+            - segment_index (int): an integer that determines the index of the segment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the segment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentYs(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
 
     def getGeometricShapeSegmentBasePoint1X(self, id, segment_index=0, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6732,6 +7648,70 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeSegmentBasePoint1X(self.sbml_object, str(id).encode(), ctypes.c_double(x), segment_index, geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeSegmentBasePoint1Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 1 of the segment with the given segment_index of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 1 of the segment of the CompartmentGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 1 of the segment of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeSegmentBasePoint1Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setSpeciesGeometricShapeSegmentBasePoint1Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 1 of the segment with the given segment_index of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 1 of the segment of the SpeciesGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 1 of the segment of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeSegmentBasePoint1Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setReactionsGeometricShapeSegmentBasePoint1Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 1 of the segment with the given segment_index of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 1 of the segment of the ReactionGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 1 of the segment of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeSegmentBasePoint1Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setGeometricShapeSegmentBasePoint1Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 1 of the segment with the given segment_index of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 1 of the segment of the GraphicalObject object
+            - segment_index (int): an integer that determines the index of the segment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 1 of the segment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint1Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
     def getGeometricShapeSegmentBasePoint1Y(self, id, segment_index=0, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns the y-coordinate of the base point 1 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
@@ -6769,6 +7749,70 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the base point 1 of the segment of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeSegmentBasePoint1Y(self.sbml_object, str(id).encode(), ctypes.c_double(y), segment_index, geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeSegmentBasePoint1Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 1 of the segment with the given segment_index of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 1 of the segment of the CompartmentGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 1 of the segment of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeSegmentBasePoint1Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setSpeciesGeometricShapeSegmentBasePoint1Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 1 of the segment with the given segment_index of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 1 of the segment of the SpeciesGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 1 of the segment of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeSegmentBasePoint1Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setReactionsGeometricShapeSegmentBasePoint1Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 1 of the segment with the given segment_index of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 1 of the segment of the ReactionGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 1 of the segment of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeSegmentBasePoint1Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setGeometricShapeSegmentBasePoint1Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 1 of the segment with the given segment_index of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 1 of the segment of the GraphicalObject object
+            - segment_index (int): an integer that determines the index of the segment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 1 of the segment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint1Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
 
     def getGeometricShapeSegmentBasePoint2X(self, id, segment_index=0, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6808,6 +7852,70 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setGeometricShapeSegmentBasePoint2X(self.sbml_object, str(id).encode(), ctypes.c_double(x), segment_index, geometric_shape_index, graphical_object_index, layout_index)
 
+    def setCompartmentsGeometricShapeSegmentBasePoint2Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 2 of the segment with the given segment_index of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 2 of the segment of the CompartmentGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 2 of the segment of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeSegmentBasePoint2Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setSpeciesGeometricShapeSegmentBasePoint2Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 2 of the segment with the given segment_index of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 2 of the segment of the SpeciesGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 2 of the segment of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeSegmentBasePoint2Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setReactionsGeometricShapeSegmentBasePoint2Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 2 of the segment with the given segment_index of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 2 of the segment of the ReactionGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 2 of the segment of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeSegmentBasePoint2Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
+    def setGeometricShapeSegmentBasePoint2Xs(self, x, segment_index=0, layout_index=0):
+        """
+        Sets the x-coordinate of the base point 2 of the segment with the given segment_index of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - x (float): a float that determines the x-coordinate of the base point 2 of the segment of the GraphicalObject object
+            - segment_index (int): an integer that determines the index of the segment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the x-coordinate of the base point 2 of the segment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint2Xs(self.sbml_object, ctypes.c_double(x), segment_index, layout_index)
+
     def getGeometricShapeSegmentBasePoint2Y(self, id, segment_index=0, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns the y-coordinate of the base point 2 of the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
@@ -6845,6 +7953,70 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the base point 2 of the segment of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeSegmentBasePoint2Y(self.sbml_object, str(id).encode(), ctypes.c_double(y), segment_index, geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeSegmentBasePoint2Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 2 of the segment with the given segment_index of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 2 of the segment of the CompartmentGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 2 of the segment of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeSegmentBasePoint2Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setSpeciesGeometricShapeSegmentBasePoint2Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 2 of the segment with the given segment_index of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 2 of the segment of the SpeciesGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 2 of the segment of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeSegmentBasePoint2Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setReactionsGeometricShapeSegmentBasePoint2Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 2 of the segment with the given segment_index of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 2 of the segment of the ReactionGlyph object
+            - segment_index (int): an integer that determines the index of the segment of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 2 of the segment of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeSegmentBasePoint2Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
+
+    def setGeometricShapeSegmentBasePoint2Ys(self, y, segment_index=0, layout_index=0):
+        """
+        Sets the y-coordinate of the base point 2 of the segment with the given segment_index of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - y (float): a float that determines the y-coordinate of the base point 2 of the segment of the GraphicalObject object
+            - segment_index (int): an integer that determines the index of the segment of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the y-coordinate of the base point 2 of the segment of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeSegmentBasePoint2Ys(self.sbml_object, ctypes.c_double(y), segment_index, layout_index)
 
     def isSetGeometricShapeHref(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6898,6 +8070,66 @@ class LibSBMLNetwork:
             true on success and false if the href of the GeometricShape object could not be set
         """
         return lib.c_api_setGeometricShapeHref(self.sbml_object, str(id).encode(), str(href).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setCompartmentsGeometricShapeHrefs(self, href, layout_index=0):
+        """
+        Sets the href of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - href (string): a string that determines the href of the CompartmentGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the href of all the CompartmentGlyph object could not be set
+        """
+        return lib.c_api_setCompartmentsGeometricShapeHrefs(self.sbml_object, str(href).encode(), layout_index)
+
+    def setSpeciesGeometricShapeHrefs(self, href, layout_index=0):
+        """
+        Sets the href of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - href (string): a string that determines the href of the SpeciesGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the href of all the SpeciesGlyph object could not be set
+        """
+        return lib.c_api_setSpeciesGeometricShapeHrefs(self.sbml_object, str(href).encode(), layout_index)
+
+    def setReactionsGeometricShapeHrefs(self, href, layout_index=0):
+        """
+        Sets the href of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - href (string): a string that determines the href of the ReactionGlyph object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the href of all the ReactionGlyph object could not be set
+        """
+        return lib.c_api_setReactionsGeometricShapeHrefs(self.sbml_object, str(href).encode(), layout_index)
+
+    def setGeometricShapeHrefs(self, href, layout_index=0):
+        """
+        Sets the href of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - href (string): a string that determines the href of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the href of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setGeometricShapeHrefs(self.sbml_object, str(href).encode(), layout_index)
 
     def getListOfRoles(self):
         """
@@ -7086,7 +8318,7 @@ class LibSBMLNetwork:
 
         return list_of_geometric_shapes
 
-    def set_names_as_text_labels(self, use_name_as_text_label):
+    def setNamesAsTextLabels(self, use_name_as_text_label):
         """
         Set the flag to use the name of the model entity as the text label of the GraphicalObject associated with the model entity
 
@@ -7099,7 +8331,7 @@ class LibSBMLNetwork:
         if self.layout_is_added:
             self.autolayout(locked_nodes=self.getListOfSpeciesIds())
 
-    def enable_display_reactions_text_label(self, display_reactions_text_label):
+    def enableDisplayReactionsTextLabel(self, display_reactions_text_label):
         """
         Set the flag to display the text labels of the reactions in the layout
 
@@ -7111,67 +8343,122 @@ class LibSBMLNetwork:
         self.display_reactions_text_label = display_reactions_text_label
 
     @staticmethod
-    def getListOfColorThemes():
+    def getListOfStyles():
+
         """
-        Returns the list of available color themes
+        Returns the list of available styles
 
         :Returns:
 
-            a list of strings that determines the available color themes
+            a list of strings that determines the available style names
 
         """
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, "resources/color_themes.json")
+        file_path = os.path.join(dir_path, "resources/styles.json")
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"File '{filename}' not found in the current directory.")
         with open(file_path, 'r') as file:
             data = json.load(file)
-            if 'themes' in data.keys():
-                return [theme['name'] for theme in data['themes']]
+            if 'style' in data.keys():
+                return [style['name'] for style in data['styles']]
 
-    def set_theme(self, color_theme):
+    def setStyle(self, style_name):
         """
-        Set the theme of the colors used in the styles of the GraphicalObjects
+        Set the a predefined style for the styles of the GraphicalObjects
 
         :Parameters:
 
-            - color_theme (string): a string that determines the theme of the colors used in the styles of the GraphicalObjects
+            - style_name (string): a string that determines the name of the predefined style for the styles of the GraphicalObjects
 
         """
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, "resources/color_themes.json")
+        file_path = os.path.join(dir_path, "resources/styles.json")
         if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File '{filename}' not found in the current directory.")
+            raise FileNotFoundError(f"File '{filename}' not found in the current directory for styles.")
         with open(file_path, 'r') as file:
             data = json.load(file)
-            if 'themes' in data.keys():
-                for theme in data['themes']:
-                    if theme['name'] == color_theme:
-                        if 'background_color' in theme.keys():
-                            self.setBackgroundColor(theme['background_color'])
-                        if 'compartment_fill_color' in theme.keys():
-                            self.setCompartmentsFillColors(theme['compartment_fill_color'])
-                        if 'species_fill_color' in theme.keys():
-                            self.setSpeciesFillColors(theme['species_fill_color'])
-                        if 'species_border_color' in theme.keys():
-                            self.setSpeciesBorderColors(theme['species_border_color'])
-                        if 'reaction_line_color' in theme.keys():
-                            self.setReactionsBorderColors(theme['reaction_line_color'])
-                        if 'line_ending_fill_color' in theme.keys():
-                            self.setLineEndingsFillColors(theme['line_ending_fill_color'])
-                        if 'line_ending_border_color' in theme.keys():
-                            self.setLineEndingsBorderColors(theme['line_ending_border_color'])
-                        if 'compartment_font_color' in theme.keys():
-                            self.setCompartmentsFontColors(theme['compartment_font_color'])
-                        if 'species_font_color' in theme.keys():
-                            self.setSpeciesFontColors(theme['species_font_color'])
-                        if 'reaction_font_color' in theme.keys():
-                            self.setReactionsFontColors(theme['reaction_font_color'])
+            if 'styles' in data.keys():
+                for style in data['styles']:
+                    if style['name'].lower() == style_name.lower():
+                        if 'background_color' in style.keys():
+                            self.setBackgroundColor(style['background_color'])
+                        if 'compartment_geometric_shape' in style.keys():
+                            self.setCompartmentsGeometricShapes(style['compartment_geometric_shape'])
+                        if 'compartment_geometric_shape_ratio' in style.keys():
+                            self.setCompartmentsGeometricShapeRatios(style['compartment_geometric_shape_ratio'])
+                        if 'compartment_border_color' in style.keys():
+                            self.setCompartmentsBorderColors(style['compartment_border_color'])
+                        if 'compartment_border_width' in style.keys():
+                            self.setCompartmentsBorderWidths(style['compartment_border_width'])
+                        if 'compartment_fill_color' in style.keys():
+                            self.setCompartmentsFillColors(style['compartment_fill_color'])
+                        if 'compartment_font_color' in style.keys():
+                            self.setCompartmentsFontColors(style['compartment_font_color'])
+                        if 'compartment_font_size' in style.keys():
+                            self.setCompartmentsFontSizes(style['compartment_font_size'])
+                        if 'compartment_font_style' in style.keys():
+                            self.setCompartmentsFontStyles(style['compartment_font_style'])
+                        if 'compartment_font_weight' in style.keys():
+                            self.setCompartmentsFontWeights(style['compartment_font_weight'])
+                        if 'species_geometric_shape' in style.keys():
+                            self.setSpeciesGeometricShapes(style['species_geometric_shape'])
+                        if 'species_geometric_shape_ratio' in style.keys():
+                            self.setSpeciesGeometricShapeRatios(style['species_geometric_shape_ratio'])
+                        if 'species_border_color' in style.keys():
+                            self.setSpeciesBorderColors(style['species_border_color'])
+                        if 'species_border_width' in style.keys():
+                            self.setSpeciesBorderWidths(style['species_border_width'])
+                        if 'species_fill_color' in style.keys():
+                            self.setSpeciesFillColors(style['species_fill_color'])
+                        if 'species_font_color' in style.keys():
+                            self.setSpeciesFontColors(style['species_font_color'])
+                        if 'species_font_size' in style.keys():
+                            self.setSpeciesFontSizes(style['species_font_size'])
+                        if 'species_font_style' in style.keys():
+                            self.setSpeciesFontStyles(style['species_font_style'])
+                        if 'species_font_weight' in style.keys():
+                            self.setSpeciesFontWeights(style['species_font_weight'])
+                        if 'reaction_geometric_shape' in style.keys():
+                            self.setReactionsGeometricShapes(style['reaction_geometric_shape'])
+                        if 'reaction_geometric_shape_ratio' in style.keys():
+                            self.setReactionsGeometricShapeRatios(style['reaction_geometric_shape_ratio'])
+                        if 'reaction_geometric_shape_center_x' in style.keys():
+                            self.setReactionsGeometricShapeCenterXs(style['reaction_geometric_shape_center_x'])
+                        if 'reaction_geometric_shape_center_y' in style.keys():
+                            self.setReactionsGeometricShapeCenterYs(style['reaction_geometric_shape_center_y'])
+                        if 'reaction_geometric_shape_radius_x' in style.keys():
+                            self.setReactionsGeometricShapeRadiusXs(style['reaction_geometric_shape_radius_x'])
+                        if 'reaction_geometric_shape_radius_y' in style.keys():
+                            self.setReactionsGeometricShapeRadiusYs(style['reaction_geometric_shape_radius_y'])
+                        if 'reaction_line_color' in style.keys():
+                            self.setReactionsLineColors(style['reaction_line_color'])
+                        if 'reaction_line_width' in style.keys():
+                            self.setReactionsLineWidths(style['reaction_line_width'])
+                        if 'reaction_border_color' in style.keys():
+                            self.setReactionsBorderColors(style['reaction_border_color'])
+                        if 'reaction_border_width' in style.keys():
+                            self.setReactionsBorderWidths(style['reaction_border_width'])
+                        if 'reaction_fill_color' in style.keys():
+                            self.setReactionsFillColors(style['reaction_fill_color'])
+                        if 'display_reaction_text_label' in style.keys():
+                            self.enableDisplayReactionsTextLabel(style['display_reaction_text_label'])
+                        if 'reaction_font_color' in style.keys():
+                            self.setReactionsFontColors(style['reaction_font_color'])
+                        if 'reaction_font_size' in style.keys():
+                            self.setReactionsFontSizes(style['reaction_font_size'])
+                        if 'reaction_font_style' in style.keys():
+                            self.setReactionsFontStyles(style['reaction_font_style'])
+                        if 'reaction_font_weight' in style.keys():
+                            self.setReactionsFontWeights(style['reaction_font_weight'])
+                        if 'line_ending_border_color' in style.keys():
+                            self.setLineEndingsBorderColors(style['line_ending_border_color'])
+                        if 'line_ending_border_width' in style.keys():
+                            self.setLineEndingsBorderWidths(style['line_ending_border_width'])
+                        if 'line_ending_fill_color' in style.keys():
+                            self.setLineEndingsFillColors(style['line_ending_fill_color'])
                         return
 
-        raise ValueError(f"Color theme '{color_theme}' not found in list of available color themes. Available color themes are: {self.getListOfColorThemes()}")
-
-
+        raise ValueError(f"Style '{style_name}' not found in list of available styles. Available predefined styles are: {self.getListOfStyles()}")
 
     def _layout_is_specified(self):
         if self.getNumLayouts():

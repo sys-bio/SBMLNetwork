@@ -276,6 +276,11 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph)
         setCurveCubicBezier(speciesReferenceGlyph->getCurve());
 }
 
+void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getCurve()->getNumCurveSegments())
+        reactionGlyph->getCurve()->getCurveSegment(0)->removeFromParentAndDelete();
+}
+
 void setCurveCubicBezier(Curve* curve) {
     CubicBezier* cubicBezier = curve->createCubicBezier();
 }
@@ -384,6 +389,7 @@ std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGrap
     std::vector<std::string> graphicalObjectsIds;
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
+    /*
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         bool isIndependentReaction = true;
         for (unsigned int j = 0; j < graphicalObjects.size(); j++) {
@@ -395,6 +401,7 @@ std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGrap
         if (isIndependentReaction)
             graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
     }
+     */
 
     return graphicalObjectsIds;
 }
@@ -403,10 +410,10 @@ std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGrap
     std::vector<std::string> graphicalObjectsIds;
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
-            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
-    }
+    //for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        //if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
+            //graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
+    //}
 
     return graphicalObjectsIds;
 }
@@ -554,14 +561,13 @@ void alignGraphicalObjectsToRight(std::vector<GraphicalObject*> graphicalObjects
 }
 
 void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObjects) {
-    double centerX = 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
-    double centerY = 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
-    double radius = std::max(0.5 * (getMaxPositionX(graphicalObjects) - getMinPositionX(graphicalObjects)),
-                             0.5 * (getMaxPositionY(graphicalObjects) - getMinPositionY(graphicalObjects)));
+    double radius = graphicalObjects.size() * 50.0;
     double angle = 2 * M_PI / graphicalObjects.size();
+    double centerX = std::max(radius, 0.5 * (getMinCenterX(graphicalObjects) + getMaxCenterX(graphicalObjects)));
+    double centerY = std::max(radius, 0.5 * (getMinCenterY(graphicalObjects) + getMaxCenterY(graphicalObjects)));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
-        graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(1.5 * M_PI + i * angle));
-        graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(1.5 * M_PI + i * angle));
+        graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->width());
+        graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->height());
     }
 }
 
@@ -610,6 +616,58 @@ const double getMaxPositionY(std::vector<GraphicalObject*> graphicalObjects) {
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             if (graphicalObjects.at(i)->getBoundingBox()->y() > maxY)
                 maxY = graphicalObjects.at(i)->getBoundingBox()->y();
+
+        return maxY;
+    }
+
+    return 0.0;
+}
+
+const double getMinCenterX(std::vector<GraphicalObject*> graphicalObjects) {
+    if (graphicalObjects.size()) {
+        double minX = INT_MAX;
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            if (graphicalObjects.at(i)->getBoundingBox()->x() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->width() < minX)
+                minX = graphicalObjects.at(i)->getBoundingBox()->x() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->width();
+
+        return minX;
+    }
+
+    return 0.0;
+}
+
+const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects) {
+    if (graphicalObjects.size()) {
+        double minY = INT_MAX;
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            if (graphicalObjects.at(i)->getBoundingBox()->y() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->height() < minY)
+                minY = graphicalObjects.at(i)->getBoundingBox()->y() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->height();
+
+        return minY;
+    }
+
+    return 0.0;
+}
+
+const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects) {
+    if (graphicalObjects.size()) {
+        double maxX = INT_MIN;
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            if (graphicalObjects.at(i)->getBoundingBox()->x() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->width() > maxX)
+                maxX = graphicalObjects.at(i)->getBoundingBox()->x() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->width();
+
+        return maxX;
+    }
+
+    return 0.0;
+}
+
+const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects) {
+    if (graphicalObjects.size()) {
+        double maxY = INT_MIN;
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            if (graphicalObjects.at(i)->getBoundingBox()->y() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->height() > maxY)
+                maxY = graphicalObjects.at(i)->getBoundingBox()->y() + 0.5 * graphicalObjects.at(i)->getBoundingBox()->height();
 
         return maxY;
     }

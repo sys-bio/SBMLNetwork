@@ -64,6 +64,8 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
+void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 void setCurveCubicBezier(Curve* curve);
@@ -141,6 +143,14 @@ const double getMinPositionY(std::vector<GraphicalObject*> graphicalObjects);
 const double getMaxPositionX(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getMaxPositionY(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMinCenterX(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
 
 const bool isValidLayoutDimensionWidthValue(const double& width);
 
