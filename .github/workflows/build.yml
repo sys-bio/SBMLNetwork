@@ -212,7 +212,7 @@ jobs:
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
-     - name: Build wheels for libBMLNetwork
+      - name: Build wheels for libBMLNetwork
         working-directory: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages
         shell: bash
         run: |
