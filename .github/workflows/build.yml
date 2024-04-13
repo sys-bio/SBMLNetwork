@@ -52,23 +52,16 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+          echo "${{runner.workspace}}/libsbmlnetwork/dependencies" >> $GITHUB_PATH
+          echo "${{runner.workspace}}/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
+          echo "${{runner.workspace}}/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
+          echo "${{runner.workspace}}/libsbmlnetwork/dependencies/include/libxml2" >> $GITHUB_PATH
 
       - name: Add libsbml install directory to path on Windows
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
           echo "D:/a/libsbmlnetwork/install-libsbml/lib/cmake" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml2" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork"
-          ls D:/a/libsbmlnetwork
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork"
-          ls "D:/a/libsbmlnetwork/libsbmlnetwork"
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
-          ls "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
 
       - name: Install dependencies on Ubuntu
         if: matrix.platform == 'ubuntu-latest'
@@ -160,7 +153,7 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
@@ -324,7 +317,7 @@ jobs:
           repository: adelhpour/libsbmlnetwork
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
