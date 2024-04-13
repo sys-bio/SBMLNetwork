@@ -330,6 +330,14 @@ const std::string getSpeciesReferenceId(GraphicalObject* speciesReferenceGlyph) 
     return "";
 }
 
+const std::string getSpeciesReferenceSpeciesId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
+    GraphicalObject* speciesGlyph = getGraphicalObjectUsingItsOwnId(layout, getSpeciesReferenceSpeciesGlyphId(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex)));
+    if (dynamic_cast<SpeciesGlyph*>(speciesGlyph))
+        return ((SpeciesGlyph*)speciesGlyph)->getSpeciesId();
+
+    return "";
+}
+
 const std::string getSpeciesReferenceSpeciesGlyphId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
     return getSpeciesReferenceSpeciesGlyphId(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
 }

@@ -35,9 +35,10 @@ class LibSBMLNetwork:
         """
     
         self.sbml_object = None
+        self.layout_is_added = False
+        self.render_is_added = False
         self.use_name_as_text_label = True
         self.display_reactions_text_label = False
-        self.layout_is_added = True
         self.load(sbml)
 
     def getVersion(self):
@@ -67,9 +68,12 @@ class LibSBMLNetwork:
         self.sbml_object = lib.c_api_readSBML(str(sbml).encode())
         if not self.isSetModel():
             raise Exception("The SBML document could not be loaded")
-        if not self._layout_is_specified() or not self._render_is_specified():
+        if not self._layout_is_specified():
             self.autolayout()
             self.layout_is_added = True
+        if not self._render_is_specified():
+            self.autolayout(locked_nodes=self.getListOfSpeciesIds() + self.getListOfReactionIds())
+            self.render_is_added = True
 
     def save(self, file_name=""):
         """

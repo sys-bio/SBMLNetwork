@@ -305,6 +305,8 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceId(GraphicalObject* r
 /// @return the value of the "speciesReference" attribute, or @c "" if the object is not of type SpeciesReferenceGlyph object or is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceId(GraphicalObject* speciesReferenceGlyph);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex);
+
 /// @brief Returns the id of the species glyph associated with the the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the reaction the the ReactionGlyph objects of which to be returned.
