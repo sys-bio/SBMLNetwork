@@ -313,7 +313,7 @@ jobs:
       - name: Add libsbml install directory to path
         shell: bash
         run: |
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
+          echo "${{runner.workspace}}/install-libsbml/lib64/cmake" >> $GITHUB_PATH
 
       - name: Checkout libBMLNetwork
         uses: actions/checkout@v3
