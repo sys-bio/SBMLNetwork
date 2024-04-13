@@ -253,6 +253,8 @@ jobs:
           /opt/python/cp38-cp38/bin/pip install cmake
           ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
           ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
+          echo "/opt/python/cp38-cp38/bin/python3.8" >> $GITHUB_PATH
+          ls /opt/python/cp38-cp38/bin
 
       - name: Install dependencies
         run: yum install -y libxml2-devel check-devel java-devel mono-devel
