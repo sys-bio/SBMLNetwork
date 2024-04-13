@@ -317,7 +317,7 @@ jobs:
           repository: adelhpour/libsbmlnetwork
 
       - name: Install dependencies
-        run: yum install python-devel
+        run: yum install -y python-devel
 
       - name: Create libBMLNetwork build directory
         run: |
