@@ -139,7 +139,7 @@ class LibSBMLNetwork:
         for i in range(len(nodes)):
             nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
 
-        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode())
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), self.layout_is_added)
 
     def getSBMLLevel(self):
         """
@@ -1525,7 +1525,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index)
+        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index, self.layout_is_added)
 
     def getY(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1559,7 +1559,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index)
+        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
 
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1593,7 +1593,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the GraphicalObject could not be set
         """
-        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index)
+        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index, self.layout_is_added)
 
     def getHeight(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1627,7 +1627,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the GraphicalObject could not be set
         """
-        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
+        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index, self.layout_is_added)
 
     def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
