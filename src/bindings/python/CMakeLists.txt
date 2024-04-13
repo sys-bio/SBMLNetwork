@@ -1,7 +1,7 @@
 if (${Python_REQUIRED_VERSION})
     find_package(Python ${Python_REQUIRED_VERSION} EXACT COMPONENTS Interpreter Development)
 else ()
-    find_package(Python COMPONENTS Interpreter Development)
+    find_package(Python 3 COMPONENTS Interpreter Development)
 endif ()
 
 if (Python_FOUND)
@@ -11,7 +11,7 @@ else ()
 endif ()
 
 ## determine the python installation directory
-set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python${Python_VERSION}/site-packages)
+set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python/site-packages)
 if (UNIX OR CYGWIN)
     execute_process(COMMAND "${Python_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
             OUTPUT_VARIABLE Python_VERSION)
