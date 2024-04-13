@@ -62,6 +62,7 @@ jobs:
           echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
           echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
           echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml2" >> $GITHUB_PATH
           echo "D:/a/libsbmlnetwork"
           ls D:/a/libsbmlnetwork
           echo "D:/a/libsbmlnetwork/libsbmlnetwork"
@@ -326,8 +327,6 @@ jobs:
       - name: Create libBMLNetwork build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbmlnetwork
-          echo $GITHUB_WORKSPACE
-          echo ${{runner.workspace}}
 
       - name: Configure CMake for libBMLNetwork
         shell: bash
