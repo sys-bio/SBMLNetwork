@@ -160,7 +160,9 @@ jobs:
         uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Cache dependencies on Windows
         if: matrix.platform == 'windows-latest'
@@ -322,7 +324,9 @@ jobs:
           repository: adelhpour/libsbmlnetwork
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Create libBMLNetwork build directory
         run: |
