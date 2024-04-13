@@ -335,7 +335,7 @@ bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction) {
 }
 
 const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) {
-    if (layout) {
+    if (layout && speciesReferenceGlyph) {
         SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
         if (speciesGlyph)
             return speciesGlyph->getSpeciesId();

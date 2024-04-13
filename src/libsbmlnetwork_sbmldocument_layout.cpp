@@ -341,18 +341,8 @@ const std::string getSpeciesReferenceId(SBMLDocument* document, unsigned int lay
     return getSpeciesReferenceId(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }
 
-const std::string getSpeciesReferenceSpeciesId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    if (document) {
-        Species* species = document->getModel()->getSpecies(getSpeciesReferenceSpeciesGlyphId(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
-        if (species)
-            return species->getId();
-    }
-
-    return "";
-}
-
 const std::string getSpeciesReferenceSpeciesId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getSpeciesReferenceGlyphSpeciesId(getLayout(document, layoutIndex), getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return getSpeciesReferenceSpeciesId(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }
 
 const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
