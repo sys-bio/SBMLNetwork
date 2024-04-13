@@ -52,10 +52,10 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          echo "${{runner.workspace}}/libsbmlnetwork/dependencies" >> $GITHUB_PATH
-          echo "${{runner.workspace}}/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
-          echo "${{runner.workspace}}/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
-          echo "${{runner.workspace}}/libsbmlnetwork/dependencies/include/libxml2" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
+          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml2" >> $GITHUB_PATH
 
       - name: Add libsbml install directory to path on Windows
         if: matrix.platform == 'windows-latest'
@@ -211,6 +211,15 @@ jobs:
         working-directory: ${{runner.workspace}}/build-libsbmlnetwork
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
+
+     - name: Build wheels for libBMLNetwork
+        working-directory: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install wheel
+          python libsbmlnetwork/setup.py bdist_wheel
+          python sbmlnetwork/setup.py bdist_wheel
 
       - name: Upload binary archives
         uses: actions/upload-artifact@v3
