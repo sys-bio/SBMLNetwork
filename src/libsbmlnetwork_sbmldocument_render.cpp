@@ -1716,8 +1716,6 @@ int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::
         return -1;
     if (setSpeciesStrokeColor(document, layoutIndex, stroke))
         return -1;
-    if (setReactionStrokeColor(document, layoutIndex, stroke))
-        return -1;
 
     return 0;
 }
