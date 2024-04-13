@@ -141,7 +141,7 @@ GraphicalObject* getGraphicalObject(SBMLDocument* document, const std::string& i
 }
 
 GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getGraphicalObject(getLayout(document, layoutIndex), id);
+    return getGraphicalObject(getLayout(document, layoutIndex), id, graphicalObjectIndex);
 }
 
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
