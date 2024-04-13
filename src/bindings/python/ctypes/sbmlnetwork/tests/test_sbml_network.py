@@ -176,7 +176,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 network.autolayout()
                 list_of_reaction_ids = network.getListOfReactionIds()
                 for reaction_id in list_of_reaction_ids:
-                    self._check_curves_direction_towards_nodes_center(network, reaction_id)
+                    self._check_curves_direction_towards_species_center(network, reaction_id)
 
     def test_set_background_color(self):
         for network in self.networks:
@@ -568,11 +568,11 @@ class TestSBMLNetwork(unittest.TestCase):
                         network.getY(compartment_id) + network.getHeight(
                             compartment_id))
 
-    def _check_curves_direction_towards_nodes_center(self, network, reaction_id):
+    def _check_curves_direction_towards_species_center(self, network, reaction_id):
         for species_reference_index in range(network.getNumSpeciesReferenceGlyphs(reaction_id)):
-            self._check_curve_direction_towards_node_center(network, reaction_id, species_reference_index)
+            self._check_curve_direction_towards_species_center(network, reaction_id, species_reference_index)
 
-    def _check_curve_direction_towards_node_center(self, network, reaction_id, species_reference_index):
+    def _check_curve_direction_towards_species_center(self, network, reaction_id, species_reference_index):
         species_id = network.getSpeciesReferenceSpeciesId(reaction_id, species_reference_index)
         species_center_x = network.getX(species_id) + 0.5 * network.getWidth(species_id)
         species_center_y = network.getY(species_id) + 0.5 * network.getHeight(species_id)
