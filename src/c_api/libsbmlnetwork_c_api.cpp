@@ -47,13 +47,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return autolayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
     }
 
-    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment) {
-        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
-        if (nodeIds) {
-            for (int i = 0; i < nodesSize; i++)
-                nodeIdsVector.emplace_back(nodeIds[i]);
+    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, const bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+            if (nodeIds) {
+                for (int i = 0; i < nodesSize; i++)
+                    nodeIdsVector.emplace_back(nodeIds[i]);
+            }
+            return align(document, nodeIdsVector, alignment);
         }
-        return align(document, nodeIdsVector, alignment);
+        else
+            std::cerr << "Align function does not apply as the layout is not set by the autolayout algorithm." << std::endl;
+
+        return -1;
     }
 
     const int c_api_getNumLayouts(SBMLDocument* document) {
@@ -450,10 +456,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setPositionX(document, layoutIndex, id, graphicalObjectIndex, x)  && updateLayoutCurves(document,
-                                                                                                     getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
-            return 0;
+    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex, const bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            if (!setPositionX(document, layoutIndex, id, graphicalObjectIndex, x) && updateLayoutCurves(document,
+                                                                                                        getGraphicalObject(
+                                                                                                                document,
+                                                                                                                layoutIndex,
+                                                                                                                id,
+                                                                                                                graphicalObjectIndex)))
+                return 0;
+        }
+        else
+            std::cerr << "X cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
 
         return -1;
     }
@@ -462,10 +476,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getPositionY(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, y)  && updateLayoutCurves(document,
-                                                                                                     getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
-            return 0;
+    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex, const bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, y) && updateLayoutCurves(document,
+                                                                                                        getGraphicalObject(
+                                                                                                                document,
+                                                                                                                layoutIndex,
+                                                                                                                id,
+                                                                                                                graphicalObjectIndex)))
+                return 0;
+        }
+        else
+            std::cerr << "Y cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
 
         return -1;
     }
@@ -474,10 +496,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width)  && updateLayoutCurves(document,
-                                                                                                              getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
-            return 0;
+    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex, const bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            if (!setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width) && updateLayoutCurves(document,
+                                                                                                        getGraphicalObject(
+                                                                                                                document,
+                                                                                                                layoutIndex,
+                                                                                                                id,
+                                                                                                                graphicalObjectIndex)))
+                return 0;
+        }
+        else
+            std::cerr << "Width cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
 
         return -1;
     }
@@ -486,10 +516,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
-        if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height)  && updateLayoutCurves(document,
-                                                                                                                getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)))
-            return 0;
+    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex, const bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, height) && updateLayoutCurves(document,
+                                                                                                        getGraphicalObject(
+                                                                                                                document,
+                                                                                                                layoutIndex,
+                                                                                                                id,
+                                                                                                                graphicalObjectIndex)))
+                return 0;
+        }
+        else
+            std::cerr << "Height cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
 
         return -1;
     }

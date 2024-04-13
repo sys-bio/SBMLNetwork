@@ -65,7 +65,7 @@ int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRend
         RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
         globalRenderInformation->setId("libSBMLNetwork_Global_Render");
         globalRenderInformation->setBackgroundColor("white");
-        addDefaultColors(globalRenderInformation, renderPkgNamespaces);
+        addDefaultColors(globalRenderInformation);
         addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
         return 0;
     }
@@ -2997,6 +2997,10 @@ Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string
 
 int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
     if (!setGeometricShape(getStyle(document, graphicalObject), shape)) {
+        if (getGlobalRenderInformation(document))
+            addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
+        else
+            addColorsOfDefaultGeometricShapes(document, getStyle(document, graphicalObject));
         removeCurve(graphicalObject);
         return 0;
     }
@@ -3006,6 +3010,10 @@ int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, 
 
 int setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
     if (setGeometricShape(getStyle(document, attribute), shape)) {
+        if (getGlobalRenderInformation(document))
+            addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
+        else
+            addColorsOfDefaultGeometricShapes(document, getStyle(document, attribute));
         removeCurve(getGraphicalObject(document, attribute));
         return 0;
     }

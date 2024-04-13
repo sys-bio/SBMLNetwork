@@ -229,9 +229,6 @@ void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* lo
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
-    rectangle->setStroke("black");
-    rectangle->setStrokeWidth(2.0);
-    rectangle->setFill("white");
     rectangle->setRX(RelAbsVector(6, 0.0));
     rectangle->setRY(RelAbsVector(3.6, 0.0));
 }
@@ -269,9 +266,6 @@ void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation*
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
     Ellipse* ellipse = renderGroup->createEllipse();
     setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setStroke("black");
-    ellipse->setStrokeWidth(2.0);
-    ellipse->setFill("white");
 }
 
 void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -303,9 +297,7 @@ void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph,
 }
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role, RenderPkgNamespaces* renderPkgNamespaces) {
-    renderGroup->setStroke("black");
-    renderGroup->setStrokeWidth(2.0);
-
+    setDefault1DShapeFeatures(renderGroup);
     if (role == SPECIES_ROLE_PRODUCT || role == SPECIES_ROLE_SIDEPRODUCT)
         renderGroup->setEndHead("productHead");
     else if (role == SPECIES_ROLE_MODIFIER)
@@ -333,7 +325,7 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
     renderGroup->setVTextAnchor("middle");
 }
 
-void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addDefaultColors(GlobalRenderInformation* globalRenderInformation) {
     addColor(globalRenderInformation, "white");
     addColor(globalRenderInformation, "black");
     addColor(globalRenderInformation, "lightgray");
@@ -341,6 +333,16 @@ void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPk
     addColor(globalRenderInformation, "darkcyan");
     addColor(globalRenderInformation, "teal");
     addColor(globalRenderInformation, "silver");
+}
+
+void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style) {
+    addColor(document, style, "white");
+    addColor(document, style, "black");
+}
+
+void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation) {
+    addColor(globalRenderInformation, "white");
+    addColor(globalRenderInformation, "black");
 }
 
 const bool addColor(SBMLDocument* document, Style* style, const std::string &color) {
@@ -439,8 +441,6 @@ void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkg
     setDefaultTriangleShapeFeatures(triangle);
     triangle->getElement(1)->setY(RelAbsVector(0.0, 50.0));
     triangle->getElement(2)->setX(RelAbsVector(0.0, 0.0));
-    triangle->setStroke("black");
-    triangle->setStrokeWidth(2.0);
     triangle->setFill("black");
 }
 
@@ -460,9 +460,6 @@ void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPk
     RenderGroup* renderGroup = lineEnding->getGroup();
     Ellipse* ellipse = renderGroup->createEllipse();
     setDefaultEllipseShapeFeatures(ellipse);
-    ellipse->setStroke("black");
-    ellipse->setStrokeWidth(2.0);
-    ellipse->setFill("white");
 }
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -481,9 +478,6 @@ void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderP
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* diamond = renderGroup->createPolygon();
     setDefaultDiamondShapeFeatures(diamond);
-    diamond->setStroke("black");
-    diamond->setStrokeWidth(2.0);
-    diamond->setFill("white");
 }
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
@@ -507,9 +501,6 @@ void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderP
     rectangle->setWidth(RelAbsVector(0.0, 20.0));
     rectangle->setRX(RelAbsVector(0.0, 0.0));
     rectangle->setRY(RelAbsVector(0.0, 0.0));
-    rectangle->setStroke("black");
-    rectangle->setStrokeWidth(2.0);
-    rectangle->setFill("black");
 }
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces) {
@@ -517,7 +508,18 @@ void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* l
     lineEnding->setBoundingBox(new BoundingBox(layoutPkgNamespaces, lineEnding->getId() + "_bb", -12.0, -6.0, 12.0, 12.0));
 }
 
+void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D) {
+    graphicalPrimitive1D->setStroke("black");
+    graphicalPrimitive1D->setStrokeWidth(2.0);
+}
+
+void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D) {
+    setDefault1DShapeFeatures(graphicalPrimitive2D);
+    graphicalPrimitive2D->setFill("white");
+}
+
 void setDefaultRectangleShapeFeatures(Rectangle* rectangle) {
+    setDefault2DShapeFeatures(rectangle);
     rectangle->setX(RelAbsVector(0.0, 0.0));
     rectangle->setY(RelAbsVector(0.0, 0.0));
     rectangle->setWidth(RelAbsVector(0.0, 100.0));
@@ -527,13 +529,17 @@ void setDefaultRectangleShapeFeatures(Rectangle* rectangle) {
 }
 
 void setDefaultEllipseShapeFeatures(Ellipse* ellipse) {
+    setDefault2DShapeFeatures(ellipse);
     ellipse->setCX(RelAbsVector(0.0, 50.0));
     ellipse->setCY(RelAbsVector(0.0, 50.0));
     ellipse->setRX(RelAbsVector(0.0, 50.0));
     ellipse->setRY(RelAbsVector(0.0, 50.0));
+    ellipse->setStroke("black");
+    ellipse->setStrokeWidth(2.0);
 }
 
 void setDefaultTriangleShapeFeatures(Polygon* triangle) {
+    setDefault2DShapeFeatures(triangle);
     RenderPoint* point = NULL;
     point = triangle->createPoint();
     point->setX(RelAbsVector(0.0, 0.0));
@@ -547,6 +553,7 @@ void setDefaultTriangleShapeFeatures(Polygon* triangle) {
 }
 
 void setDefaultDiamondShapeFeatures(Polygon* diamond) {
+    setDefault2DShapeFeatures(diamond);
     RenderPoint* point = NULL;
     point = diamond->createPoint();
     point->setX(RelAbsVector(0.0, 0.0));
@@ -560,9 +567,11 @@ void setDefaultDiamondShapeFeatures(Polygon* diamond) {
     point = diamond->createPoint();
     point->setX(RelAbsVector(0.0, 50.0));
     point->setY(RelAbsVector(0.0, 100.0));
+
 }
 
 void setDefaultPentagonShapeFeatures(Polygon* pentagon) {
+    setDefault2DShapeFeatures(pentagon);
     const double pi = 3.14159265;
     RenderPoint* point = NULL;
     point = pentagon->createPoint();
@@ -583,6 +592,7 @@ void setDefaultPentagonShapeFeatures(Polygon* pentagon) {
 }
 
 void setDefaultHexagonShapeFeatures(Polygon* hexagon) {
+    setDefault2DShapeFeatures(hexagon);
     RenderPoint* point = NULL;
     point = hexagon->createPoint();
     point->setX(RelAbsVector(0.0, 0.0));
@@ -605,6 +615,7 @@ void setDefaultHexagonShapeFeatures(Polygon* hexagon) {
 }
 
 void setDefaultOctagonShapeFeatures(Polygon* octagon) {
+    setDefault2DShapeFeatures(octagon);
     const double pi = 3.14159265;
     RenderPoint* point = NULL;
     point = octagon->createPoint();
@@ -634,6 +645,7 @@ void setDefaultOctagonShapeFeatures(Polygon* octagon) {
 }
 
 void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve) {
+    setDefault1DShapeFeatures(renderCurve);
     RenderPoint* point = NULL;
     point = renderCurve->createPoint();
     point->setX(RelAbsVector(0.0, 0.0));

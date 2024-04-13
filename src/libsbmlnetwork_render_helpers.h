@@ -89,7 +89,11 @@ LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, Gra
 
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
 
-void addDefaultColors(GlobalRenderInformation* globalRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addDefaultColors(GlobalRenderInformation* globalRenderInformation);
+
+void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style);
+
+void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation);
 
 const bool addColor(SBMLDocument* document, Style* style, const std::string &color);
 
@@ -128,6 +132,10 @@ LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespac
 void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces);
+
+void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D);
+
+void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D);
 
 void setDefaultRectangleShapeFeatures(Rectangle* rectangle);
 
