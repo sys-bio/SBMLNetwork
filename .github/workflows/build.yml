@@ -285,8 +285,6 @@ jobs:
       - name: Create libsbml build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbml
-          echo $GITHUB_WORKSPACE
-          echo ${{runner.workspace}}
 
       - name: Configure CMake for libsbml
         working-directory: build-libsbml
@@ -316,15 +314,14 @@ jobs:
         with:
           repository: adelhpour/libsbmlnetwork
 
-      - name: Install dependencies
-        run: yum install -y python-devel
+      - name: Setup Python
+        uses: actions/setup-python@v4
 
       - name: Create libBMLNetwork build directory
         run: |
           mkdir $GITHUB_WORKSPACE/build-libsbmlnetwork
 
       - name: Configure CMake for libBMLNetwork
-        shell: bash
         working-directory: build-libsbmlnetwork
         run: |
           cmake $GITHUB_WORKSPACE \
@@ -337,7 +334,7 @@ jobs:
           -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetwork"
 
       - name: Build and Install libBMLNetwork
-        working-directory: ${{runner.workspace}}/build-libsbmlnetwork
+        working-directory: build-libsbmlnetwork
         shell: bash
         run: cmake --build . --target install --config $BUILD_TYPE
 
