@@ -1,13 +1,14 @@
 from setuptools import setup
 from setuptools import find_packages
+import os
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
     
-with open("VERSION.txt", "r") as f:
+with open(os.path.dirname(os.path.abspath(__file__)) + "/VERSION.txt", "r") as f:
     version = f.read().rstrip()
     
-with open("requirements.txt", "r") as f:
+with open(os.path.dirname(os.path.abspath(__file__)) +"/requirements.txt", "r") as f:
     requirements = f.readlines()
 setup(
     name="sbmlnetwork",
