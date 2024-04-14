@@ -28,19 +28,19 @@ class TestSBMLNetwork(unittest.TestCase):
                 network.autolayout()
                 list_of_compartment_ids = network.getListOfCompartmentIds()
                 for compartment_id in list_of_compartment_ids:
-                    self.assertEqual(True, network.isCompartmentGlyph(compartment_id))
+                    self.assertEqual(True, bool(network.isCompartmentGlyph(compartment_id)))
 
     def test_species_list(self):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(True, network.isSpeciesGlyph(species_id))
+                self.assertEqual(True, bool(network.isSpeciesGlyph(species_id)))
 
     def test_reactions_list(self):
         for network in self.networks:
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
-                self.assertEqual(True, network.isReactionGlyph(reaction_id))
+                self.assertEqual(True, bool(network.isReactionGlyph(reaction_id)))
 
     def test_displayed_texts(self):
         for network in self.networks:
@@ -432,14 +432,14 @@ class TestSBMLNetwork(unittest.TestCase):
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 network.setGeometricShape(species_id, 'ellipse')
-                self.assertEqual(True, network.isEllipse(species_id))
+                self.assertEqual(True, bool(network.isEllipse(species_id)))
 
     def test_set_geometric_shapes(self):
         for network in self.networks:
             network.setSpeciesGeometricShapes('rectangle')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(True, network.isRectangle(species_id))
+                self.assertEqual(True, bool(network.isRectangle(species_id)))
 
     def test_move_rectangle_geometric_shape(self):
         for network in self.networks:
