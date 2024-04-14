@@ -216,8 +216,7 @@ jobs:
           python -m pip install pytest ipython
           python -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
           python -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
-          pytest
+          pytest ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
 
       - name: Upload binary archives
         uses: actions/upload-artifact@v3
@@ -361,8 +360,7 @@ jobs:
           /opt/python/cp38-cp38/bin/python3.8 -m pip install pytest ipython
           /opt/python/cp38-cp38/bin/python3.8 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
           /opt/python/cp38-cp38/bin/python3.8 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
-          /opt/python/cp38-cp38/bin/python3.8 -m pytest
+          /opt/python/cp38-cp38/bin/python3.8 -m pytest ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
 
       - name: Upload binary archives
         uses: actions/upload-artifact@v3
