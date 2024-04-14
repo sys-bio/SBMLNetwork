@@ -321,6 +321,17 @@ jobs:
         with:
           repository: adelhpour/libsbmlnetwork
 
+      - name: install ccache from source
+        run: |
+          curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
+          tar -zxvf ccache.tar.gz
+          mkdir ccache-build
+          mkdir ccache-install
+          cd ccache-build
+          cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
+          cmake --build . --target install --config $BUILD_TYPE
+          echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
+
       - name: Setup Python
         uses: actions/setup-python@v4
 
