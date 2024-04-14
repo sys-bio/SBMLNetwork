@@ -12,10 +12,10 @@ class TestSBMLNetwork(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.networks = []
-        files = os.listdir(os.getcwd() + '/models')
+        files = os.listdir(os.path.realpath(__file__) + '/models')
         for file in files:
             if file.endswith('.xml'):
-                cls.networks.append(sbmlnetwork.load(os.getcwd() + '/models/' + file))
+                cls.networks.append(sbmlnetwork.load(os.path.realpath(__file__) + '/models/' + file))
 
     def test_layout_render_info(self):
         for network in self.networks:
