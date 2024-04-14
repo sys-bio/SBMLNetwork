@@ -1,6 +1,22 @@
 include(CMakeDependentOption)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+if (${Python_REQUIRED_VERSION})
+    find_package(Python ${Python_REQUIRED_VERSION} EXACT COMPONENTS Interpreter Development)
+else ()
+    find_package(Python 3 COMPONENTS Interpreter Development)
+endif ()
+
+if (Python_FOUND)
+    message(STATUS "Python found: ${Python_EXECUTABLE} (found version \"${Python_VERSION}\")")
+else ()
+    message(FATAL_ERROR "Python not found")
+endif ()
+if (UNIX OR CYGWIN)
+    execute_process(COMMAND "${Python_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
+            OUTPUT_VARIABLE Python_VERSION)
+endif()
+
 find_program(SWIG_EXECUTABLE
         NAMES swig
         PATHS

@@ -1,32 +1,15 @@
-if (${Python_REQUIRED_VERSION})
-    find_package(Python ${Python_REQUIRED_VERSION} EXACT COMPONENTS Interpreter Development)
-else ()
-    find_package(Python 3 COMPONENTS Interpreter Development)
-endif ()
-
-if (Python_FOUND)
-    message(STATUS "Python found: ${Python_EXECUTABLE} (found version \"${Python_VERSION}\")")
-else ()
-    message(FATAL_ERROR "Python not found")
-endif ()
-
 ## determine the python installation directory
 set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python/site-packages)
-if (UNIX OR CYGWIN)
-    execute_process(COMMAND "${Python_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
-            OUTPUT_VARIABLE Python_VERSION)
-endif()
-
-cmake_dependent_option(PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." OFF
-        "NOT ${PYTHON_INSTALL_WITH_SETUP}" OFF)
-cmake_dependent_option(PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." OFF
-        "NOT ${PYTHON_INSTALL_IN_PREFIX}" OFF)
-
 if (${WITH_SWIG})
     add_subdirectory(swig)
 else ()
     add_subdirectory(ctypes)
 endif ()
+
+cmake_dependent_option(PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." OFF
+        "NOT ${PYTHON_INSTALL_WITH_SETUP}" OFF)
+cmake_dependent_option(PYTHON_INSTALL_WITH_SETUP "Use setup.py to install the compiled python binaries." OFF
+        "NOT ${PYTHON_INSTALL_IN_PREFIX}" OFF)
 
 
 if (PYTHON_INSTALL_IN_PREFIX)
