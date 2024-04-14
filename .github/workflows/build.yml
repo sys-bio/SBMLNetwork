@@ -393,3 +393,27 @@ jobs:
           path: ${{runner.workspace}}/install-libsbmlnetwork/*
           retention-days: 1
           if-no-files-found: error
+
+      - name: Create Wheel Packages
+        run: |
+          python3 -m pip install setuptools wheel
+          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+          python3 setup.py bdist_wheel
+          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+          python3 setup.py bdist_wheel
+
+      - name: Upload libsbmlnetwork Wheel Package
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheel for ${{ matrix.platform }}
+          path: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/*
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload sbmlnetwork Wheel Package
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheel for ${{ matrix.platform }}
+          path: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/*
+          retention-days: 1
+          if-no-files-found: error
