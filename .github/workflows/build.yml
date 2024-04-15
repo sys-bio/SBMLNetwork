@@ -357,7 +357,7 @@ jobs:
           echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
 
       - name: Setup Python
-        run: yum install -y python3.11
+        run: yum install -y python3
 
       - name: Create libBMLNetwork build directory
         run: |
@@ -381,10 +381,10 @@ jobs:
 
       - name: Test with pytest
         run: |
-          python3.11 -m pip install pytest ipython
-          python3.11 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-          python3.11 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          python3.11 -m pytest ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
+          python3 -m pip install pytest ipython
+          python3 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+          python3 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+          python3 -m pytest ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
 
       - name: Upload binary archives
         uses: actions/upload-artifact@v3
