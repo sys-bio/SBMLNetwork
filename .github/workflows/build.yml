@@ -1,13 +1,12 @@
-name: CMake (rapid build on push)
+name: Build LibSBMLNetwork
 
-  #on:
-  #push:
-  #tags:
-#- v*
 on:
   push:
     branches:
-      - 'develop'
+      - develop
+  pull_request:
+    branches:
+      - '**'
 
 env:
   BUILD_TYPE: Release
