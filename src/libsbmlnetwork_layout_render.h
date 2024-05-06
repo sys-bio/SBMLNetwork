@@ -9,6 +9,8 @@
 #include "sbml/packages/render/common/RenderExtensionTypes.h"
 #endif
 
+using namespace libsbml;
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 /// @brief Get the List of local render Information of the Layout.

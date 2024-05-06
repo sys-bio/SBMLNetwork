@@ -6,6 +6,8 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
+using namespace libsbml;
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
 void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,

@@ -7,6 +7,8 @@
 #include "sbml/packages/render/common/RenderExtensionTypes.h"
 #endif
 
+using namespace libsbml;
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
 SBasePlugin* getRenderPlugin(SBMLDocument* document);

@@ -48,28 +48,21 @@ set_target_properties(sbmlnetwork PROPERTIES
 		VERSION ${LIBSBMLNETWORK_DOTTED_VERSION}
 		SOVERSION ${LIBSBMLNETWORK_VERSION_MAJOR})
 
+#### link to dependencies
+add_library(libsbml STATIC IMPORTED)
+set_target_properties(libsbml PROPERTIES IMPORTED_LOCATION ${LIBSBML_LIBRARY})
+target_link_libraries(sbmlnetwork PUBLIC libsbml C)
+add_library(libexpat STATIC IMPORTED)
+set_target_properties(libexpat PROPERTIES IMPORTED_LOCATION ${LIBEXPAT_LIBRARY})
+target_link_libraries(sbmlnetwork PUBLIC libexpat C)
+add_library(libz STATIC IMPORTED)
+set_target_properties(libz PROPERTIES IMPORTED_LOCATION ${LIBZ_LIBRARY})
+target_link_libraries(sbmlnetwork PUBLIC libz C)
+target_link_libraries(sbmlnetwork PUBLIC ${EXTRA_LIBS})
+target_include_directories(sbmlnetwork PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
 if (WIN32)
-	target_link_libraries(sbmlnetwork libsbml ${EXTRA_LIBS})
 	set_target_properties(sbmlnetwork PROPERTIES OUTPUT_NAME "libsbmlnetwork")
-else ()
-	target_link_libraries(sbmlnetwork sbml)
 endif ()
-
-# copy dependencies to the build directory
-if (APPLE)
-	set(DEPENDENCIES_DIR ${CMAKE_BINARY_DIR}/src/dependencies)
-	set(RESOURCES_DIR ${CMAKE_BINARY_DIR}/src/resources)
-	add_custom_command(TARGET sbmlnetwork POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPENDENCIES_DIR}
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SBML_LIBS}
-		${DEPENDENCIES_DIR}
-		COMMAND ${CMAKE_COMMAND} -E make_directory ${RESOURCES_DIR}
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different ${RESOURCES}
-		${RESOURCES_DIR}
-		COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change
-		"libsbml.5.dylib"
-		"@rpath/libsbml.5.dylib" $<TARGET_FILE:sbmlnetwork>)
-endif(APPLE)
 
 ## set library dist
 install(TARGETS sbmlnetwork RUNTIME DESTINATION bin COMPONENT libsbmlnetwork_api
@@ -79,11 +72,10 @@ install(TARGETS sbmlnetwork RUNTIME DESTINATION bin COMPONENT libsbmlnetwork_api
 ### static library
 if (BUILD_STATIC_LIB)
 	add_library(sbmlnetwork-static STATIC ${SOURCES})
+	target_link_libraries(sbmlnetwork-static ${LIBSBML_LIBRARY} ${EXTRA_LIBS})
+	target_include_directories(sbmlnetwork-static PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
 	if (WIN32)
-		target_link_libraries(sbmlnetwork-static libsbml ${EXTRA_LIBS})
 		set_target_properties(sbmlnetwork-static PROPERTIES OUTPUT_NAME "libsbmlnetwork-static")
-	else ()
-		target_link_libraries(sbmlnetwork-static sbml)
 	endif ()
 	install(TARGETS sbmlnetwork-static RUNTIME DESTINATION bin COMPONENT sbm_network_api
 												LIBRARY DESTINATION lib COMPONENT libsbmlnetwork_api
@@ -92,24 +84,13 @@ endif()
 
 ### install
 file(GLOB SOURCE_HEADERS "${CMAKE_SOURCE_DIR}/src/*.h")
-install(FILES ${SOURCE_HEADERS} DESTINATION include/libsbmlnetwork COMPONENT libsbmlnetwork_api)
+install(FILES ${SOURCE_HEADERS} DESTINATION include COMPONENT libsbmlnetwork_api)
 file(GLOB AUTOLAYOUT_HEADERS "${CMAKE_SOURCE_DIR}/src/autolayout/*.h")
-install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/libsbmlnetwork/autolayout COMPONENT libsbmlnetwork_api)
-install(DIRECTORY "${SBML_INCLUDEDIR}"
-		DESTINATION include COMPONENT libsbmlnetwork_api FILES_MATCHING PATTERN "*.h")
+install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/autolayout COMPONENT libsbmlnetwork_api)
 if (WIN32)
 	include (InstallRequiredSystemLibraries)
-	install(FILES ${LIBSBML_DLLS}
-			DESTINATION bin COMPONENT libsbmlnetwork_api)
-	install(FILES ${RESOURCES}
-			DESTINATION bin/resources COMPONENT libsbmlnetwork_api)
-elseif (APPLE)
-	install(DIRECTORY ${DEPENDENCIES_DIR}
-			DESTINATION lib COMPONENT libsbmlnetwork_api)
-	install(DIRECTORY ${RESOURCES_DIR}
-			DESTINATION lib COMPONENT libsbmlnetwork_api)
-elseif(UNIX)
-	install(FILES ${SBML_LIBS} DESTINATION lib/dependencies COMPONENT libsbmlnetwork_api)
+	install(FILES ${RESOURCES} DESTINATION bin/resources COMPONENT libsbmlnetwork_api)
+else ()
 	install(FILES ${RESOURCES} DESTINATION lib/resources COMPONENT libsbmlnetwork_api)
 endif()
 

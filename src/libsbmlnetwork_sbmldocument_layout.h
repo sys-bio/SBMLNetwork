@@ -8,6 +8,8 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
+using namespace libsbml;
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 /// @brief Get the Layout of the SBML document.

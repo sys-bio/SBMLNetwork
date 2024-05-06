@@ -6,6 +6,8 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
+using namespace libsbml;
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
 LayoutModelPlugin* getLayoutModelPlugin(SBMLDocument* document);
