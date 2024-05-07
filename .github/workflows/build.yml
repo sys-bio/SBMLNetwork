@@ -249,21 +249,21 @@ jobs:
           cd ${RUNNER_WORKSPACE}/build-libsbmlnetwork
           cmake --build . --target install --config ${{ matrix.platform.build_type }}
 
-      - name: Install test dependencies
+      - name: Install python packages
         if: matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            python -m pip install pytest ipython
+            python -m pip install pytest ipython setuptools wheel
             python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest ipython
+            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest ipython setuptools wheel
             python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
           else
-            python${{ matrix.python_version.version }} -m pip install pytest ipython
+            python${{ matrix.python_version.version }} -m pip install pytest ipython setuptools wheel
             python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
           fi
@@ -306,36 +306,30 @@ jobs:
           name: ${{env.artifacts_name}}
           path: ${{env.artifacts_path}}
 
-      - name: Create Python wheel artifacts
+      - name: Create and rename libSBMLNetwork Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
-          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            python -m pip install setuptools wheel
-            python libsbmlnetwork/setup.py bdist_wheel
-            python sbmlnetwork/setup.py bdist_wheel
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org setuptools wheel
-            python${{ matrix.python_version.version }} libsbmlnetwork/setup.py bdist_wheel
-            python${{ matrix.python_version.version }} sbmlnetwork/setup.py bdist_wheel
+            python setup.py bdist_wheel
+            mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
           else
-            python${{ matrix.python_version.version }} -m pip install setuptools wheel
-            python${{ matrix.python_version.version }} libsbmlnetwork/setup.py bdist_wheel
-            python${{ matrix.python_version.version }} sbmlnetwork/setup.py bdist_wheel
+            python${{ matrix.python_version.version }} setup.py bdist_wheel
+            mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
           fi
 
-      - name: Rename Python wheel artifacts
+      - name: Create and rename SBMLNetwork Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
-          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            mv libsbmlnetwork/libsbmlnetwork*.whl $(echo libsbmlnetwork/libsbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
-            mv sbmlnetwork/sbmlnetwork*.whl $(echo sbmlnetwork/sbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
-          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv libsbmlnetwork/libsbmlnetwork*.whl $(echo libsbmlnetwork/libsbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
-            mv sbmlnetwork/sbmlnetwork*.whl $(echo sbmlnetwork/sbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            python setup.py bdist_wheel
+            mv dist/sbmlnetwork*.whl $(echo dist/sbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
+          else
+            python${{ matrix.python_version.version }} setup.py bdist_wheel
+            mv dist/sbmlnetwork*.whl $(echo dist/sbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
           fi
 
       - name: Set Python wheel artifacts path and name
