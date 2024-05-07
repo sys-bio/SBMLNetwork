@@ -342,8 +342,8 @@ jobs:
           sbmlnetwork_python_wheel_file_name=$(ls sbmlnetwork/dist | grep '^sbmlnetwork')
           echo "sbmlnetwork_python_wheel_artifacts_name=${sbmlnetwork_python_wheel_file_name}" >> "${GITHUB_ENV}"
           # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
-          echo "libsbmlnetwork_python_wheel_artifacts_file=./install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/$libsbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
-          echo "sbmlnetwork_python_wheel_artifacts_file=./install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/$sbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "libsbmlnetwork_python_wheel_artifacts_file=../install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/$libsbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "sbmlnetwork_python_wheel_artifacts_file=../install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/$sbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
 
       - name: Upload libSBMLNetwork Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
