@@ -303,23 +303,28 @@ jobs:
           name: ${{env.artifacts_name}}
           path: ${{env.artifacts_path}}
 
-      - name: Create and rename libSBMLNetwork Python wheel artifacts
+      - name: Create libSBMLNetwork Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            python setup.py bdist_wheel
+          else
+            python${{ matrix.python_version }} setup.py bdist_wheel
+          fi
+
+      - name: Rename libSBMLNetwork Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
-            python setup.py bdist_wheel
             mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version }} setup.py bdist_wheel
             mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
-          else
-            python${{ matrix.python_version }} setup.py bdist_wheel
           fi
           python_version_number=$(echo "${{ matrix.python_version }}" | tr -d '.')
-          echo "PATH is $PATH"
-          echo "python version is $(python --version)"
           mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/cp${python_version_number}-cp${python_version_number}/py3-none/g")
 
       - name: Create SBMLNetwork Python wheel artifacts
@@ -327,7 +332,7 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             python setup.py bdist_wheel
           else
             python${{ matrix.python_version }} setup.py bdist_wheel
