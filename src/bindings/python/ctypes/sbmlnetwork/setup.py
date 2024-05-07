@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_packages
 import os
 
-with open(os.path.dirname(os.path.abspath(__file__)) + "README.md", "r", encoding="utf-8") as fh:
+with open(os.path.dirname(os.path.abspath(__file__)) + "/README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
     
 with open(os.path.dirname(os.path.abspath(__file__)) + "/VERSION.txt", "r") as f:
