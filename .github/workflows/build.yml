@@ -220,6 +220,8 @@ jobs:
           unzip -q $binary_file_name.zip
           rm $binary_file_name.zip
           echo DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> "${GITHUB_ENV}"
+          echo "directory is: ${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries"
+          ls ${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries
 
       - name: Create build directory
         shell: bash
