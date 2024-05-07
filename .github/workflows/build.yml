@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_on_OSs:
-    name: Build RoadRunner on ${{ matrix.platform.name }}-python${{ matrix.python_version.version }}
+    name: Build RoadRunner on ${{ matrix.platform.name }}-python${{ matrix.python_version }}
     strategy:
       fail-fast: false
       matrix:
@@ -170,7 +170,7 @@ jobs:
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python_version.version }}
+          python-version: ${{ matrix.python_version }}
 
       - name: Setup Python for Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
@@ -256,24 +256,24 @@ jobs:
             python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest ipython setuptools wheel
-            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+            python${{ matrix.python_version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest ipython setuptools wheel
+            python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+            python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
           else
-            python${{ matrix.python_version.version }} -m pip install pytest ipython setuptools wheel
-            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+            python${{ matrix.python_version }} -m pip install pytest ipython setuptools wheel
+            python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+            python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
           fi
 
       - name: Run libSBMLNetwork tests
-        if : ${{ matrix.platform.build_type == 'Release' }} && ${{ matrix.platform.build_python == 'ON' }}
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             python -m pytest
           else
-            python${{ matrix.python_version.version }} -m pytest
+            python${{ matrix.python_version }} -m pytest
           fi
 
       - name: Set artifacts path and name
@@ -312,10 +312,10 @@ jobs:
             python setup.py bdist_wheel
             mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            python${{ matrix.python_version.version }} setup.py bdist_wheel
+            python${{ matrix.python_version }} setup.py bdist_wheel
             mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
           else
-            python${{ matrix.python_version.version }} setup.py bdist_wheel
+            python${{ matrix.python_version }} setup.py bdist_wheel
           fi
           python_version_number=$(echo "${{ matrix.python_version }}" | tr -d '.')
           echo "PATH is $PATH"
@@ -330,7 +330,7 @@ jobs:
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             python setup.py bdist_wheel
           else
-            python${{ matrix.python_version.version }} setup.py bdist_wheel
+            python${{ matrix.python_version }} setup.py bdist_wheel
           fi
 
       - name: Set Python wheel artifacts path and name
