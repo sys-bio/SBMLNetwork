@@ -240,6 +240,12 @@ jobs:
           -DWITH_PYTHON=${{ matrix.platform.build_python }} \
           -DPYTHON_INSTALL_WITH_SETUP="ON"
 
+      - name: Build and install libSBMLNetwork
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}/build-libsbmlnetwork
+          cmake --build . --target install --config ${{ matrix.platform.build_type }}
+
       - name: Install test dependencies
         if: matrix.platform.build_python == 'ON'
         shell: bash
