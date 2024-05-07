@@ -324,10 +324,10 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             python setup.py bdist_wheel
             mv dist/sbmlnetwork*.whl $(echo dist/sbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
-          else
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             python${{ matrix.python_version.version }} setup.py bdist_wheel
             mv dist/sbmlnetwork*.whl $(echo dist/sbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
           fi
