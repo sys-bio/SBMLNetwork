@@ -8,92 +8,138 @@ on:
     branches:
       - '**'
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
   build_on_OSs:
-    name:
-      Build on ${{ matrix.platform }}
+    name: Build RoadRunner on ${{ matrix.platform.name }}-python${{ matrix.python_version.version }}
     strategy:
       fail-fast: false
       matrix:
-        platform: ["windows-latest", "macos-latest", "ubuntu-latest"]
-        cpp_standard: [20]
-    runs-on: ${{ matrix.platform }}
+        platform:
+          - name: macos-11-release
+            os_type: macos
+            os_name: macos-11
+            build_type: Release
+            build_python: ON
+          - name: macos-11-debug
+            os_type: macos
+            os_name: macos-11
+            build_type: Debug
+            build_python: ON
+          - name: macos-latest-release
+            os_type: macos
+            os_name: macos-latest
+            build_type: Release
+            build_python: ON
+          - name: macos-latest-debug
+            os_type: macos
+            os_name: macos-latest
+            build_type: Debug
+            build_python: ON
+          - name: ubuntu-latest-release
+            os_type: ubuntu
+            os_name: ubuntu-latest
+            build_type: Release
+            build_python: ON
+          - name: ubuntu-latest-debug
+            os_type: ubuntu
+            os_name: ubuntu-latest
+            build_type: Debug
+            build_python: ON
+          - name: windows-latest-release
+            os_type: windows
+            os_name: windows-latest
+            build_type: Release
+            build_python: ON
+          - name: windows-latest-debug
+            os_type: windows
+            os_name: windows-latest
+            build_type: Debug
+            build_python: OFF
+          - name: manylinux2014-release
+            os_type: manylinux
+            os_name: ubuntu-latest
+            container_image: quay.io/pypa/manylinux2014_x86_64
+            build_type: Release
+            build_python: ON
+          - name: manylinux2014-debug
+            os_type: manylinux
+            os_name: ubuntu-latest
+            container_image: quay.io/pypa/manylinux2014_x86_64
+            build_type: Debug
+            build_python: ON
+        libroadrunner_deps_owner: [ "sys-bio" ]
+        libroadrunner_deps_repo: [ "libroadrunner-deps" ]
+        libroadrunner_deps_name: [ "libroadrunner-deps" ]
+        libroadrunner_deps_release_version: [ "v2.1.1" ]
+        python_version: [ "3.11" ]
+    runs-on: ${{ matrix.platform.os_name }}
+    container:
+      image: ${{ matrix.platform.container_image || '' }}
 
     steps:
-      - name: Checkout libsbml
+      - name: Checkout libSBMLNetwork
         uses: actions/checkout@v3
-        with:
-          repository: sbmlteam/libsbml
+
+      - name: Set MSVC as the default compiler on Windows
+        if: matrix.platform.os_type == 'windows'
+        uses: ilammy/msvc-dev-cmd@v1.6.0
+
+      - name: Upgrade gcc on Linux
+        if: matrix.platform.os_type == 'manylinux'
+        shell: bash
+        run: |
+          if [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            apt-get update
+            apt-get install -y software-properties-common
+            add-apt-repository -y ppa:ubuntu-toolchain-r/test
+            apt-get update
+            apt-get install -y gcc-11 g++-11
+            update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
+            update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            yum install -y centos-release-scl
+            yum install -y devtoolset-11
+            scl enable devtoolset-11 bash
+            echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+          fi
 
       - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Add msbuild to PATH on Windows
-        if: matrix.platform == 'windows-latest'
-        uses: ilammy/msvc-dev-cmd@v1.6.0
-
-      - name: Cache dependencies on Windows
-        if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies-static-for-libsbml
-        uses: actions/cache@v3
-        with:
-          path: |
-            ./dependencies
-          key: ${{ runner.os }}-dependencies-static-for-libsbml
-
-      - name: Download pre-built dependencies for libsbml on Windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static-for-libsbml.outputs.cache-hit != 'true'
+      - name: Get Host Architecture
         shell: bash
         run: |
-          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
-          unzip dependencies.zip
-          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+          architecture=$(uname -m)
+          echo "host_architecture=$architecture" >> "${GITHUB_ENV}"
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            echo "OSX_ARCHITECTURES=$architecture" >> "${GITHUB_ENV}"
+          fi
 
-      - name: Add libsbml install directory to path on Windows
-        if: matrix.platform == 'windows-latest'
+      - name: Install ccache
         shell: bash
         run: |
-          echo "D:/a/libsbmlnetwork/install-libsbml/lib/cmake" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml2" >> $GITHUB_PATH
+          cd ${RUNNER_WORKSPACE}
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            brew install ccache
+          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            sudo apt-get update
+            sudo apt-get install -y ccache
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mkdir -p ccache
+            cd ccache
+            curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
+            tar -zxf ccache.tar.gz
+            rm ccache.tar.gz
+            mkdir -p build-ccache
+            mkdir -p install-ccache
+            cd build-ccache
+            cmake -DCMAKE_INSTALL_PREFIX="$RUNNER_WORKSPACE/ccache/install-ccache" -DCMAKE_BUILD_TYPE=Release ../ccache-4.9.1
+            cmake --build . --target install
+            echo "$RUNNER_WORKSPACE/ccache/install-ccache/bin" >> "${GITHUB_PATH}"
+          fi
 
-      - name: Install dependencies on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
-        shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y check ccache
-          git clone https://github.com/libexpat/libexpat
-          cmake -G Ninja -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEXPAT_BUILD_TESTS=OFF -DEXPAT_BUILD_TOOLS=OFF -DEXPAT_BUILD_EXAMPLES=OFF -DEXPAT_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./dependencies -B libexpat -S libexpat/expat 
-          cmake --build libexpat
-          cmake --install libexpat
-
-      - name: Add libsbml install directory to path on Ubuntu
-        if: matrix.platform == 'ubuntu-latest'
-        shell: bash
-        run: |
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
-
-      - name: Install dependencies on macOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          brew install check ccache
-
-      - name: Add libsbml install directory to path on macOS
-        if: matrix.platform == 'macos-latest'
-        shell: bash
-        run: |
-          echo "${{runner.workspace}}/install-libsbml/lib/cmake" >> $GITHUB_PATH
-
-      - name: Prepare ccache timestamp on non-Windows
-        if: matrix.platform != 'windows-latest'
+      - name: Prepare ccache timestamp on non-Windows platforms
+        if: matrix.platform.os_type != 'windows'
         id: ccache_cache_timestamp
         shell: cmake -P {0}
         run: |
@@ -101,17 +147,18 @@ jobs:
           message("::set-output name=timestamp::${current_date}")
 
       - name: Set ccache cache directory on non-Windows
-        if: matrix.platform != 'windows-latest'
+        if: matrix.platform.os_type != 'windows'
         shell: bash
         run: |
-          echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
+          cd ${RUNNER_WORKSPACE}
+          echo "CCACHE_DIR=${RUNNER_WORKSPACE}/.ccache" >> "${GITHUB_ENV}"
           echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
 
       - name: Cache ccache files on non-Windows
-        if: matrix.platform != 'windows-latest'
+        if: matrix.platform.os_type != 'windows'
         uses: actions/cache@v3
         with:
-          path: ${{runner.workspace}}/.ccache
+          path: ${RUNNER_WORKSPACE}/.ccache
           key:
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
             }}
@@ -119,300 +166,192 @@ jobs:
             ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
             ${{ runner.os }}-
 
-      - name: Create libsbml build directory
-        run: cmake -E make_directory ${{runner.workspace}}/build-libsbml
-
-      - name: Configure CMake for libsbml
-        shell: bash
-        working-directory: ${{runner.workspace}}/build-libsbml
-        run: |
-          cmake $GITHUB_WORKSPACE \
-          -G "Ninja" \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_CHECK=True \
-          -DWITH_LIBXML=ON \
-          -DENABLE_LAYOUT="ON" \
-          -DENABLE_RENDER="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
-
-      - name: Build and Install libsbml
-        working-directory: ${{runner.workspace}}/build-libsbml
-        shell: bash
-        run: |
-          cmake --build . --target install --config $BUILD_TYPE
-
-      - name: Checkout libBMLNetwork
-        uses: actions/checkout@v3
-        with:
-          repository: adelhpour/libsbmlnetwork
-
-      - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
-
-      - name: Setup Python
+      - name: Setup Python for non-Manylinux platforms
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
         uses: actions/setup-python@v4
-
-      - name: Cache dependencies on Windows
-        if: matrix.platform == 'windows-latest'
-        id: cache-win-dependencies-static-for-libsbmlnetwork
-        uses: actions/cache@v3
         with:
-          path: |
-            ./dependencies
-          key: ${{ runner.os }}-dependencies-static
+          python-version: ${{ matrix.python_version.version }}
 
-      - name: Download pre-built dependencies on Windows
-        if: matrix.platform == 'windows-latest' && steps.cache-win-dependencies-static-for-libsbmlnetwork.outputs.cache-hit != 'true'
+      - name: Setup Python for Manylinux platforms
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
         shell: bash
         run: |
-          curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
-          unzip dependencies.zip
-          mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
+          cd ${RUNNER_WORKSPACE}
+          yum update -y
+          yum install -y gcc openssl-devel bzip2-devel libffi-devel epel-release openssl11-devel
+          mkdir -p python${{ matrix.python_version.version }}
+          cd python${{ matrix.python_version.version }}
+          curl -L https://www.python.org/ftp/python/${{ matrix.python_version.version }}.0/Python-${{ matrix.python_version.version }}.0.tgz > python.tgz
+          tar -zxf python.tgz
+          rm python.tgz
+          cd Python-${{ matrix.python_version.version }}.0
+          sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
+          mkdir -p install-python
+          if [ -z "$CFLAGS" ]; then
+            export CFLAGS="-fPIC"
+          else
+            export CFLAGS="$CFLAGS -fPIC"
+          fi
+          ./configure --enable-optimizations --prefix=${RUNNER_WORKSPACE}/python${{ matrix.python_version.version }}/install-python
+          make install
+          echo "${RUNNER_WORKSPACE}/python${{ matrix.python_version.version }}/install-python/bin" >> "${GITHUB_PATH}"
 
-      - name: Add Windows dependencies to PATH
-        if: matrix.platform == 'windows-latest'
+      - name: Download Dependencies binaries
         shell: bash
         run: |
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> "${GITHUB_PATH}"
-          echo "D:/a/libsbmlnetwork/install-libsbml/lib/cmake" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/lib" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include" >> $GITHUB_PATH
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies/include/libxml" >> $GITHUB_PATH
-          ls D:/a/libsbmlnetwork
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork"
-          ls "D:/a/libsbmlnetwork/libsbmlnetwork"
-          echo "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
-          ls "D:/a/libsbmlnetwork/libsbmlnetwork/dependencies"
+          cd ${RUNNER_WORKSPACE}
+          mkdir -p ${{ matrix.libroadrunner_deps_name }}-binaries
+          cd ${{ matrix.libroadrunner_deps_name }}-binaries
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
+            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ matrix.platform.os_type }}-msvc${compiler_version}-${host_architecture}-${{ matrix.platform.build_type }}
+          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ matrix.platform.os_type }}-${os_version}-${host_architecture}-${{ matrix.platform.build_type }}
+          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            os_version=$(lsb_release -rs | cut -d '.' -f 1)
+            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${{ matrix.platform.os_type }}-${os_version}-${host_architecture}-${{ matrix.platform.build_type }}
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            os_name="${{ matrix.platform.name }}"
+            os_name_without_build_type="${os_name%%-*}"
+            binary_file_name=${{ matrix.libroadrunner_deps_name }}-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}
+          fi
+          curl -LO "https://github.com/${{ matrix.libroadrunner_deps_owner }}/${{ matrix.libroadrunner_deps_repo }}/releases/download/${{ matrix.libroadrunner_deps_release_version }}/$binary_file_name.zip"
+          unzip -q $binary_file_name.zip
+          rm $binary_file_name.zip
+          echo DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> "${GITHUB_ENV}"
 
-      - name: Create libBMLNetwork build directory
-        run: cmake -E make_directory ${{runner.workspace}}/build-libsbmlnetwork
+      - name: Create build directory
+        shell: bash
+        run: mkdir -p ${RUNNER_WORKSPACE}/build-libsbmlnetwork
 
       - name: Configure CMake for libBMLNetwork
         shell: bash
-        working-directory: ${{runner.workspace}}/build-libsbmlnetwork
         run: |
+          cd ${RUNNER_WORKSPACE}/build-libsbmlnetwork
           cmake $GITHUB_WORKSPACE \
           -G "Ninja" \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_PYTHON="ON" \
-          -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetwork"
+          -DCMAKE_BUILD_TYPE=${{ matrix.platform.build_type }} \
+          -DCMAKE_OSX_ARCHITECTURES=${OSX_ARCHITECTURES} \
+          -DCMAKE_INSTALL_PREFIX="${RUNNER_WORKSPACE}/install-libsbmlnetwork" \
+          -DDEPENDENCIES_INSTALL_PREFIX=${DEPENDENCIES_INSTALL_PREFIX} \
+          -DWITH_PYTHON=${{ matrix.platform.build_python }} \
+          -DPYTHON_INSTALL_WITH_SETUP="ON"
 
-      - name: Build and Install libBMLNetwork
-        working-directory: ${{runner.workspace}}/build-libsbmlnetwork
-        shell: bash
-        run: cmake --build . --target install --config $BUILD_TYPE
-
-      - name: Test with pytest
-        run: |
-          python -m pip install pytest ipython
-          python -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-          python -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          pytest ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
-
-      - name: Upload binary archives
-        uses: actions/upload-artifact@v3
-        with:
-          name: binaries for ${{ matrix.platform }}
-          path: ${{runner.workspace}}/install-libsbmlnetwork/*
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Create Wheel Packages
-        run: |
-          python -m pip install setuptools wheel
-          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-          python setup.py bdist_wheel
-          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          python setup.py bdist_wheel
-
-      - name: Upload libsbmlnetwork Wheel Package
-        uses: actions/upload-artifact@v3
-        with:
-          name: wheel for ${{ matrix.platform }}
-          path: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/*
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Upload sbmlnetwork Wheel Package
-        uses: actions/upload-artifact@v3
-        with:
-          name: wheel for ${{ matrix.platform }}
-          path: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/*
-          retention-days: 1
-          if-no-files-found: error
-
-  build_on_ManyLinux:
-    name:
-      Build on ${{ matrix.container }}
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: ["ubuntu-latest"]
-        cpp_standard: [ 20 ]
-        container: ["quay.io/pypa/manylinux2014_x86_64"]
-    runs-on: ${{ matrix.platform }}
-    container: ${{ matrix.container}}
-
-    steps:
-      - name: Checkout libsbml
-        uses: actions/checkout@v3
-        with:
-          repository: sbmlteam/libsbml
-
-      - name: install ccache from source
-        run: |
-          curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
-          tar -zxvf ccache.tar.gz
-          mkdir ccache-build
-          mkdir ccache-install
-          cd ccache-build
-          cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
-          cmake --build . --target install --config $BUILD_TYPE
-          echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
-
-      - name: install CMake using pip
-        run: |
-          /opt/python/cp38-cp38/bin/pip install cmake
-          ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
-          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
-          echo "/opt/python/cp38-cp38/bin/python3.8" >> $GITHUB_PATH
-
-      - name: Install dependencies
-        run: yum install -y libxml2-devel check-devel java-devel mono-devel
-
-      - name: Prepare ccache timestamp
-        id: ccache_cache_timestamp
-        shell: cmake -P {0}
-        run: |
-          string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
-
-      - name: Set ccache cache directory
+      - name: Install test dependencies
+        if: matrix.platform.build_python == 'ON'
         shell: bash
         run: |
-          echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
-          echo "COMPILER_LAUNCHER=ccache" >> "${GITHUB_ENV}"
+          cd ${RUNNER_WORKSPACE}
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            python -m pip install pytest ipython
+            python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+            python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest ipython
+            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+          else
+            python${{ matrix.python_version.version }} -m pip install pytest ipython
+            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
+            python${{ matrix.python_version.version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+          fi
 
-      - name: Cache ccache files
-        uses: actions/cache@v3
-        with:
-          path: ${{runner.workspace}}/.ccache
-          key:
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp
-            }}
-          restore-keys: |
-            ${{ runner.os }}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
-            ${{ runner.os }}-
-
-      - name: Create libsbml build directory
-        run: |
-          mkdir $GITHUB_WORKSPACE/build-libsbml
-
-      - name: Configure CMake for libsbml
-        working-directory: build-libsbml
-        run: |
-          cmake $GITHUB_WORKSPACE \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_CHECK=True \
-          -DWITH_LIBXML=ON \
-          -DENABLE_LAYOUT="ON" \
-          -DENABLE_RENDER="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbml"
-
-      - name: Build and Install libsbml
-        working-directory: build-libsbml
-        run: cmake --build . --target install --config $BUILD_TYPE
-
-      - name: Add libsbml install directory to path
+      - name: Run libSBMLNetwork tests
+        if : matrix.platform.build_type == 'Release' matrix.platform.build_python == 'ON'
         shell: bash
         run: |
-          echo "${{runner.workspace}}/install-libsbml/lib64/cmake" >> $GITHUB_PATH
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            python -m pytest
+          else
+            python${{ matrix.python_version.version }} -m pytest
+          fi
 
-      - name: Checkout libBMLNetwork
-        uses: actions/checkout@v3
+      - name: Set artifacts path and name
+        shell: bash
+        run: |
+          cd ${RUNNER_WORKSPACE}
+          artifacts_name=""
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            compiler_version=$(ls "C:\Program Files\Microsoft Visual Studio")
+            echo "artifacts_name=libsbmlnetwork-${{ matrix.platform.os_type }}-msvc$compiler_version-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+          elif [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            os_version=$(sw_vers -productVersion | cut -d '.' -f 1)
+            echo "artifacts_name=libsbmlnetwork-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+          elif [ "${{ matrix.platform.os_type }}" == 'ubuntu' ]; then
+            os_version=$(lsb_release -rs | cut -d '.' -f 1)
+            echo "artifacts_name=libsbmlnetwork-${{ matrix.platform.os_type }}-$os_version-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            os_name="${{ matrix.platform.name }}"
+            os_name_without_build_type="${os_name%%-*}"
+            echo "artifacts_name=libsbmlnetwork-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
+          fi
+          echo "artifacts_path=../install-libsbmlnetwork" >> "${GITHUB_ENV}"
+
+      - name: Upload libSBMLNetwork binaries
+        uses: actions/upload-artifact@v1
         with:
-          repository: adelhpour/libsbmlnetwork
+          name: ${{env.artifacts_name}}
+          path: ${{env.artifacts_path}}
 
-      - name: install ccache from source
+      - name: Create Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
         run: |
-          curl -L https://github.com/ccache/ccache/releases/download/v4.9.1/ccache-4.9.1.tar.gz > ccache.tar.gz
-          tar -zxvf ccache.tar.gz
-          mkdir ccache-build
-          mkdir ccache-install
-          cd ccache-build
-          cmake -DCMAKE_INSTALL_PREFIX=../ccache-install -DCMAKE_BUILD_TYPE=$BUILD_TYPE ../ccache-4.9.1
-          cmake --build . --target install --config $BUILD_TYPE
-          echo "$GITHUB_WORKSPACE/ccache-install/bin" >> $GITHUB_PATH
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages
+          if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
+            python -m pip install setuptools wheel
+            python libsbmlnetwork/setup.py bdist_wheel
+            python sbmlnetwork/setup.py bdist_wheel
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            python${{ matrix.python_version.version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org setuptools wheel
+            python${{ matrix.python_version.version }} libsbmlnetwork/setup.py bdist_wheel
+            python${{ matrix.python_version.version }} sbmlnetwork/setup.py bdist_wheel
+          else
+            python${{ matrix.python_version.version }} -m pip install setuptools wheel
+            python${{ matrix.python_version.version }} libsbmlnetwork/setup.py bdist_wheel
+            python${{ matrix.python_version.version }} sbmlnetwork/setup.py bdist_wheel
+          fi
 
-      - name: Setup Python
-        run: yum install -y python3
-
-      - name: Create libBMLNetwork build directory
+      - name: Rename Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
         run: |
-          mkdir $GITHUB_WORKSPACE/build-libsbmlnetwork
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages
+          if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
+            mv libsbmlnetwork/libsbmlnetwork*.whl $(echo libsbmlnetwork/libsbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
+            mv sbmlnetwork/sbmlnetwork*.whl $(echo sbmlnetwork/sbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
+          elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
+            mv libsbmlnetwork/libsbmlnetwork*.whl $(echo libsbmlnetwork/libsbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
+            mv sbmlnetwork/sbmlnetwork*.whl $(echo sbmlnetwork/sbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
+          fi
 
-      - name: Configure CMake for libBMLNetwork
-        working-directory: build-libsbmlnetwork
+      - name: Set Python wheel artifacts path and name
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        shell: bash
         run: |
-          cmake $GITHUB_WORKSPACE \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=${{matrix.cpp_standard}} \
-          -DWITH_PYTHON="ON" \
-          -DPYTHON_INSTALL_WITH_SETUP="ON" \
-          -DCMAKE_INSTALL_PREFIX="${{runner.workspace}}/install-libsbmlnetwork"
+          cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages
+          libsbmlnetwork_python_wheel_file_name=$(ls libsbmlnetwork/dist | grep '^libsbmlnetwork')
+          echo "libsbmlnetwork_python_wheel_artifacts_name=${libsbmlnetwork_python_wheel_file_name}" >> "${GITHUB_ENV}"
+          sbmlnetwork_python_wheel_file_name=$(ls sbmlnetwork/dist | grep '^sbmlnetwork')
+          echo "sbmlnetwork_python_wheel_artifacts_name=${sbmlnetwork_python_wheel_file_name}" >> "${GITHUB_ENV}"
+          # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
+          echo "libsbmlnetwork_python_wheel_artifacts_file=./libsbmlnetwork/dist/$libsbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "sbmlnetwork_python_wheel_artifacts_file=./sbmlnetwork/dist/$sbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
 
-      - name: Build and Install libBMLNetwork
-        working-directory: build-libsbmlnetwork
-        run: cmake --build . --target install --config $BUILD_TYPE
-
-      - name: Test with pytest
-        run: |
-          python3 -m pip install pytest ipython
-          python3 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-          python3 -m pip install ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          python3 -m pytest ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
-
-      - name: Upload binary archives
-        uses: actions/upload-artifact@v3
+      - name: Upload libSBMLNetwork Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        uses: actions/upload-artifact@v1
         with:
-          name: binaries for ${{ matrix.container }}
-          path: ${{runner.workspace}}/install-libsbmlnetwork/*
-          retention-days: 1
-          if-no-files-found: error
+          name: ${{env.libsbmlnetwork_python_wheel_artifacts_name}}
+          path: ${{env.libsbmlnetwork_python_wheel_artifacts_file}}
 
-      - name: Create Wheel Packages
-        run: |
-          python3.11 -m pip install setuptools wheel
-          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
-          python3.11 setup.py bdist_wheel
-          cd ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
-          python3.11 setup.py bdist_wheel
-
-      - name: Upload libsbmlnetwork Wheel Package
-        uses: actions/upload-artifact@v3
+      - name: Upload SBMLNetwork Plugins Python wheel artifacts
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
+        uses: actions/upload-artifact@v1
         with:
-          name: wheel for ${{ matrix.platform }}
-          path: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/*
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Upload sbmlnetwork Wheel Package
-        uses: actions/upload-artifact@v3
-        with:
-          name: wheel for ${{ matrix.platform }}
-          path: ${{runner.workspace}}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/*
-          retention-days: 1
-          if-no-files-found: error
+          name: ${{env.sbmlnetwork_plugins_python_wheel_artifacts_name}}
+          path: ${{env.sbmlnetwork_plugins_python_wheel_artifacts_file}}
