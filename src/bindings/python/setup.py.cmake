@@ -13,7 +13,7 @@ deps = []
 if platform.system() == "Windows":
     deps = ['*.dll', '*.pyd', './resources/*']
 elif platform.system() == "Darwin" or platform.system() == "Linux":
-    deps = ['*.so', '*.dylib', './dependencies/*', './resources/*']
+    deps = ['*.so', '*.dylib', './resources/*']
 
 setup(
     name = "libsbmlnetwork",
