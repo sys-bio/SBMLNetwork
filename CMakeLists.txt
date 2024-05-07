@@ -34,6 +34,7 @@ if (WIN32)
 	find_library(LIBZ_LIBRARY zlib.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 else()
 	find_library(LIBSBML_LIBRARY
+			NAMES
 			libsbml-static.lib
 			libsbml-static.so
 			libsbml-static.a
@@ -52,8 +53,10 @@ else()
 			sbml-staticmd.lib
 			sbml-staticmd.so
 			sbml-staticmd.a
-			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+			PATHS
+			${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 	find_library(LIBEXPAT_LIBRARY
+			NAMES
 			libexpat.lib
 			libexpat.so
 			libexpat.a
@@ -63,8 +66,10 @@ else()
 			libexpatmd.lib
 			libexpatmd.so
 			libexpatmd.a
-			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+			PATHS
+			${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 	find_library(LIBZ_LIBRARY
+			NAMES
 			libz.lib
 			libz.so
 			libz.a
@@ -83,7 +88,8 @@ else()
 			zlibmd.lib
 			zlibmd.so
 			zlibmd.a
-			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+			PATHS
+			${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 endif()
 set(DEPENDENCIES_INCLUDE_DIR ${DEPENDENCIES_INSTALL_PREFIX}/include)
 
