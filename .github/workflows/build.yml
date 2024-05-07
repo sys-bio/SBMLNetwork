@@ -179,12 +179,12 @@ jobs:
           cd ${RUNNER_WORKSPACE}
           yum update -y
           yum install -y gcc openssl-devel bzip2-devel libffi-devel epel-release openssl11-devel
-          mkdir -p python${{ matrix.python_version.version }}
-          cd python${{ matrix.python_version.version }}
-          curl -L https://www.python.org/ftp/python/${{ matrix.python_version.version }}.0/Python-${{ matrix.python_version.version }}.0.tgz > python.tgz
+          mkdir -p python${{ matrix.python_version }}
+          cd python${{ matrix.python_version }}
+          curl -L https://www.python.org/ftp/python/${{ matrix.python_version }}.0/Python-${{ matrix.python_version }}.0.tgz > python.tgz
           tar -zxf python.tgz
           rm python.tgz
-          cd Python-${{ matrix.python_version.version }}.0
+          cd Python-${{ matrix.python_version }}.0
           sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
           mkdir -p install-python
           if [ -z "$CFLAGS" ]; then
@@ -192,9 +192,9 @@ jobs:
           else
             export CFLAGS="$CFLAGS -fPIC"
           fi
-          ./configure --enable-optimizations --prefix=${RUNNER_WORKSPACE}/python${{ matrix.python_version.version }}/install-python
+          ./configure --enable-optimizations --prefix=${RUNNER_WORKSPACE}/python${{ matrix.python_version }}/install-python
           make install
-          echo "${RUNNER_WORKSPACE}/python${{ matrix.python_version.version }}/install-python/bin" >> "${GITHUB_PATH}"
+          echo "${RUNNER_WORKSPACE}/python${{ matrix.python_version }}/install-python/bin" >> "${GITHUB_PATH}"
 
       - name: Download Dependencies binaries
         shell: bash
@@ -220,9 +220,6 @@ jobs:
           unzip -q $binary_file_name.zip
           rm $binary_file_name.zip
           echo DEPENDENCIES_INSTALL_PREFIX="${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries" >> "${GITHUB_ENV}"
-          echo "directory is: ${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries"
-          ls ${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries
-          ls ${RUNNER_WORKSPACE}/${{ matrix.libroadrunner_deps_name }}-binaries/lib
 
       - name: Create build directory
         shell: bash
