@@ -260,7 +260,7 @@ jobs:
           fi
 
       - name: Run libSBMLNetwork tests
-        if : matrix.platform.build_type == 'Release' matrix.platform.build_python == 'ON'
+        if : ${{ matrix.platform.build_type == 'Release' }} && ${{ matrix.platform.build_python == 'ON' }}
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
