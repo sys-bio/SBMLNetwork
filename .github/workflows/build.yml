@@ -356,9 +356,9 @@ jobs:
           name: ${{env.libsbmlnetwork_python_wheel_artifacts_name}}
           path: ${{env.libsbmlnetwork_python_wheel_artifacts_file}}
 
-      - name: Upload SBMLNetwork Plugins Python wheel artifacts
+      - name: Upload SBMLNetwork Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
         uses: actions/upload-artifact@v1
         with:
-          name: ${{env.sbmlnetwork_plugins_python_wheel_artifacts_name}}
-          path: ${{env.sbmlnetwork_plugins_python_wheel_artifacts_file}}
+          name: ${{env.sbmlnetwork_python_wheel_artifacts_name}}
+          path: ${{env.sbmlnetwork_python_wheel_artifacts_file}}
