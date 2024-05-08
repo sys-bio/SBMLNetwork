@@ -9,9 +9,9 @@ current_platform = platform.system()
 if current_platform == 'Windows':
     shared_lib = os.path.join(lib_path, "libsbmlnetwork.dll")
 elif current_platform == 'Linux':
-    shared_lib = os.path.join(lib_path, "libsbmlnetwork.so")
+    shared_lib = os.path.join(lib_path, "libs/libsbmlnetwork.so")
 elif current_platform == 'Darwin':
-    shared_lib = os.path.join(lib_path, "libsbmlnetwork." + "${LIBSBMLNETWORK_DOTTED_VERSION}" + ".dylib")
+    shared_lib = os.path.join(lib_path, "libs/libsbmlnetwork." + "${LIBSBMLNETWORK_DOTTED_VERSION}" + ".dylib")
 else:
     raise Exception(f"Unsupported platform: {current_platform}")
     
