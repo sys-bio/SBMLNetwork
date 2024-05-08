@@ -271,9 +271,9 @@ jobs:
         run: |
           cd ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/tests
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
-            python -m pytest
+            python -m pytest -p no:cacheprovider
           else
-            python${{ matrix.python_version }} -m pytest
+            python${{ matrix.python_version }} -m pytest -p no:cacheprovider
           fi
 
       - name: Set artifacts path and name
