@@ -8,6 +8,8 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
+using namespace libsbml;
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
 /// @brief Returns the number of items in this ListOfLayouts object.

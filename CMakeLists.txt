@@ -26,23 +26,32 @@ endif()
 
 add_definitions(-DLIBSBMLNETWORK_VERSION="${LIBSBMLNETWORK_DOTTED_VERSION}")
 
-## find sbml package
+## find dependencies
+set(DEPENDENCIES_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml, libexpat, and libz installation directory")
 if(WIN32)
-	find_package(libsbml REQUIRED)
-	file(GLOB LIBSBML_DLLS "${libsbml_DIR}/../../bin/libsbml.dll")
-	set(SBML_INCLUDEDIR "${libsbml_DIR}/../../include/sbml")
-else()
-	find_package(sbml REQUIRED)
-	file(GLOB SBML_LIBS "${sbml_DIR}/../libsbml.*")
-	set(SBML_INCLUDEDIR "${sbml_DIR}/../../include/sbml")
+	find_library(LIBSBML_LIBRARY NAMES libsbml-staticmd.lib libsbml-staticmdd.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+	find_library(LIBEXPAT_LIBRARY NAMES libexpatMD.lib libexpatdMD.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+	find_library(LIBZ_LIBRARY NAMES zlibstatic.lib zlibstaticd.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+elseif (APPLE)
+	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+	find_library(LIBEXPAT_LIBRARY NAMES libexpat.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+	find_library(LIBZ_LIBRARY NAMES libz.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
+elseif(UNIX)
+	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a
+			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
+	find_library(LIBEXPAT_LIBRARY NAMES libexpat.a
+			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
+	find_library(LIBZ_LIBRARY NAMES libz.so
+			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
 endif()
+set(DEPENDENCIES_INCLUDE_DIR ${DEPENDENCIES_INSTALL_PREFIX}/include)
 
 ## whether to build the static version of the library
 set(BUILD_STATIC_LIB ON CACHE BOOL "Build the static version of the library")
 
 if(WIN32)
 	## on windows Ws2_32.lib is needed to be included for the dll
-    	list(APPEND EXTRA_LIBS "Ws2_32.lib")
+	list(APPEND EXTRA_LIBS "Ws2_32.lib")
 elseif(UNIX)
 	## set use of RPATH for Mac
 	if (APPLE)
