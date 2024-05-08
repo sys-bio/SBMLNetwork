@@ -72,10 +72,10 @@ void enableRenderPlugin(Layout* layout) {
         layout->enablePackage(RenderExtension::getXmlnsL3V1V1(), "render", true);
 }
 
-void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
-    addCompartmentGlyphsStyles(layout, localRenderInformation, renderPkgNamespaces);
-    addSpeciesGlyphsStyles(layout, localRenderInformation, renderPkgNamespaces);
-    addReactionGlyphsStyles(layout, localRenderInformation, renderPkgNamespaces);
+void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
+    addCompartmentGlyphsStyles(layout, localRenderInformation);
+    addSpeciesGlyphsStyles(layout, localRenderInformation);
+    addReactionGlyphsStyles(layout, localRenderInformation);
 }
 
 Style* findStyleByIdList(RenderInformationBase* renderInformationBase, const std::string& id) {
@@ -172,19 +172,19 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
     return "";
 }
 
-void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        addCompartmentGlyphStyle(layout->getCompartmentGlyph(i), localRenderInformation, renderPkgNamespaces);
-        addCompartmentTextGlyphsStyles(layout, localRenderInformation, layout->getCompartmentGlyph(i), renderPkgNamespaces);
+        addCompartmentGlyphStyle(layout->getCompartmentGlyph(i), localRenderInformation);
+        addCompartmentTextGlyphsStyles(layout, localRenderInformation, layout->getCompartmentGlyph(i));
     }
 }
 
-void addCompartmentGlyphStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addCompartmentGlyphStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, compartmentGlyph);
-    setCompartmentGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+    setCompartmentGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
-void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
+void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setStroke("darkcyan");
@@ -194,109 +194,109 @@ void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgN
     rectangle->setRY(RelAbsVector(0.0, 5.0));
 }
 
-void addCompartmentTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
+void addCompartmentTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph) {
     for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
         if (layout->getTextGlyph(i)->getGraphicalObjectId() == compartmentGlyph->getId())
-            addCompartmentTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation, renderPkgNamespaces);
+            addCompartmentTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation);
     }
 }
 
-void addCompartmentTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addCompartmentTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
-    setCompartmentTextGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+    setCompartmentTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
-void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
-    setGeneralTextGlyphRenderGroupFeatures(renderGroup, renderPkgNamespaces);
+void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke("darkcyan");
     renderGroup->setFontSize(RelAbsVector(10.0, 0.0));
     renderGroup->setTextAnchor("middle");
     renderGroup->setVTextAnchor("bottom");
 }
 
-void addSpeciesGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addSpeciesGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        addSpeciesGlyphStyle(layout->getSpeciesGlyph(i), localRenderInformation, renderPkgNamespaces);
-        addSpeciesTextGlyphsStyles(layout, localRenderInformation, layout->getSpeciesGlyph(i), renderPkgNamespaces);
+        addSpeciesGlyphStyle(layout->getSpeciesGlyph(i), localRenderInformation);
+        addSpeciesTextGlyphsStyles(layout, localRenderInformation, layout->getSpeciesGlyph(i));
     }
 }
 
-void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, speciesGlyph);
-    setSpeciesGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+    setSpeciesGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
-void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
+void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setRX(RelAbsVector(6, 0.0));
     rectangle->setRY(RelAbsVector(3.6, 0.0));
 }
 
-void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
+void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph) {
     for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
         if (layout->getTextGlyph(i)->getGraphicalObjectId() == speciesGlyph->getId())
-            addSpeciesTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation, renderPkgNamespaces);
+            addSpeciesTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation);
     }
 }
 
-void addSpeciesTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addSpeciesTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
-    setSpeciesTextGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+    setSpeciesTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
-void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
-    setGeneralTextGlyphRenderGroupFeatures(renderGroup, renderPkgNamespaces);
+void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setFontSize(RelAbsVector(24.0, 0.0));
 }
 
-void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        addReactionGlyphStyle(layout->getReactionGlyph(i), localRenderInformation, renderPkgNamespaces);
-        addReactionTextGlyphsStyles(layout, localRenderInformation, layout->getReactionGlyph(i), renderPkgNamespaces);
-        addSpeciesReferenceGlyphsStyles(layout->getReactionGlyph(i), localRenderInformation, renderPkgNamespaces);
+        addReactionGlyphStyle(layout->getReactionGlyph(i), localRenderInformation);
+        addReactionTextGlyphsStyles(layout, localRenderInformation, layout->getReactionGlyph(i));
+        addSpeciesReferenceGlyphsStyles(layout->getReactionGlyph(i), localRenderInformation);
     }
 }
 
-void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, reactionGlyph);
-    setReactionGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+    setReactionGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
-void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
+void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
     setDefaultEllipseShapeFeatures(ellipse);
 }
 
-void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph, RenderPkgNamespaces* renderPkgNamespaces) {
+void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
         if (layout->getTextGlyph(i)->getGraphicalObjectId() == reactionGlyph->getId())
-            addReactionTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation, renderPkgNamespaces);
+            addReactionTextGlyphStyle(layout->getTextGlyph(i), localRenderInformation);
     }
 }
 
-void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
-    setReactionTextGlyphRenderGroupFeatures(localStyle->createGroup(), renderPkgNamespaces);
+    setReactionTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
-void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
-    setGeneralTextGlyphRenderGroupFeatures(renderGroup, renderPkgNamespaces);
+void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke("darkslategray");
     renderGroup->setFontSize(RelAbsVector(12.0, 0.0));
 }
 
-void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation) {
     for (int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
-        addSpeciesReferenceGlyphStyle(reactionGlyph->getSpeciesReferenceGlyph(i), localRenderInformation, renderPkgNamespaces);
+        addSpeciesReferenceGlyphStyle(reactionGlyph->getSpeciesReferenceGlyph(i), localRenderInformation);
 }
 
-void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces) {
+void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation) {
     LocalStyle* localStyle = createLocalStyle(localRenderInformation, speciesReferenceGlyph);
-    setSpeciesReferenceGlyphRenderGroupFeatures(localStyle->createGroup(), speciesReferenceGlyph->getRole(), renderPkgNamespaces);
+    setSpeciesReferenceGlyphRenderGroupFeatures(localStyle->createGroup(), speciesReferenceGlyph->getRole());
 }
 
-void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role, RenderPkgNamespaces* renderPkgNamespaces) {
+void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role) {
     setDefault1DShapeFeatures(renderGroup);
     if (role == SPECIES_ROLE_PRODUCT || role == SPECIES_ROLE_SIDEPRODUCT)
         renderGroup->setEndHead("productHead");
@@ -315,7 +315,7 @@ LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, Gra
     return localStyle;
 }
 
-void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces) {
+void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     renderGroup->setStroke("black");
     renderGroup->setFontSize(RelAbsVector(24.0, 0.0));
     renderGroup->setFontFamily("sans-serif");
@@ -416,26 +416,28 @@ ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces,
     return colorDefinition;
 }
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    addProductHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-    addModifierHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-    addActivatorHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
-    addInhibitorHeadLineEnding(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation) {
+    addProductHeadLineEnding(globalRenderInformation);
+    addModifierHeadLineEnding(globalRenderInformation);
+    addActivatorHeadLineEnding(globalRenderInformation);
+    addInhibitorHeadLineEnding(globalRenderInformation);
 }
 
-void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getLineEnding("productHead"))
-        globalRenderInformation->addLineEnding(createProductHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
+    if (!globalRenderInformation->getLineEnding("productHead")) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        globalRenderInformation->addLineEnding(createProductHeadLineEnding(renderPkgNamespaces));
+    }
 }
 
-LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+LineEnding* createProductHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "productHead");
-    setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setProductHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
+    setLineEndingGeneralFeatures(lineEnding);
+    setProductHeadLineEndingExclusiveFeatures(lineEnding);
     return lineEnding;
 }
 
-void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* triangle = renderGroup->createPolygon();
     setDefaultTriangleShapeFeatures(triangle);
@@ -444,56 +446,62 @@ void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkg
     triangle->setFill("black");
 }
 
-void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getLineEnding("modifierHead"))
-        globalRenderInformation->addLineEnding(createModifierHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
+    if (!globalRenderInformation->getLineEnding("modifierHead")) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        globalRenderInformation->addLineEnding(createModifierHeadLineEnding(renderPkgNamespaces));
+    }
 }
 
-LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+LineEnding* createModifierHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "modifierHead");
-    setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setModifierHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
+    setLineEndingGeneralFeatures(lineEnding);
+    setModifierHeadLineEndingExclusiveFeatures(lineEnding);
     return lineEnding;
 }
 
-void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Ellipse* ellipse = renderGroup->createEllipse();
     setDefaultEllipseShapeFeatures(ellipse);
 }
 
-void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getLineEnding("activatorHead"))
-        globalRenderInformation->addLineEnding(createActivatorHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
+    if (!globalRenderInformation->getLineEnding("activatorHead")) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        globalRenderInformation->addLineEnding(createActivatorHeadLineEnding(renderPkgNamespaces));
+    }
 }
 
-LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+LineEnding* createActivatorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "activatorHead");
-    setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setActivatorHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
+    setLineEndingGeneralFeatures(lineEnding);
+    setActivatorHeadLineEndingExclusiveFeatures(lineEnding);
     return lineEnding;
 }
 
-void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* diamond = renderGroup->createPolygon();
     setDefaultDiamondShapeFeatures(diamond);
 }
 
-void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
-    if (!globalRenderInformation->getLineEnding("inhibitorHead"))
-        globalRenderInformation->addLineEnding(createInhibitorHeadLineEnding(layoutPkgNamespaces, renderPkgNamespaces));
+void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
+    if (!globalRenderInformation->getLineEnding("inhibitorHead")) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        globalRenderInformation->addLineEnding(createInhibitorHeadLineEnding(renderPkgNamespaces));
+    }
 }
 
-LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces) {
+LineEnding* createInhibitorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces) {
     LineEnding* lineEnding = new LineEnding(renderPkgNamespaces, "inhibitorHead");
     lineEnding->createGroup();
-    setLineEndingGeneralFeatures(lineEnding, layoutPkgNamespaces);
-    setInhibitorHeadLineEndingExclusiveFeatures(lineEnding, renderPkgNamespaces);
+    setLineEndingGeneralFeatures(lineEnding);
+    setInhibitorHeadLineEndingExclusiveFeatures(lineEnding);
     return lineEnding;
 }
 
-void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces) {
+void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
@@ -503,8 +511,9 @@ void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderP
     rectangle->setRY(RelAbsVector(0.0, 0.0));
 }
 
-void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces) {
+void setLineEndingGeneralFeatures(LineEnding* lineEnding) {
     lineEnding->setEnableRotationalMapping(true);
+    LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(lineEnding->getLevel(), lineEnding->getVersion());
     lineEnding->setBoundingBox(new BoundingBox(layoutPkgNamespaces, lineEnding->getId() + "_bb", -12.0, -6.0, 12.0, 12.0));
 }
 

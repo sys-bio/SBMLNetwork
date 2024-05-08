@@ -61,12 +61,10 @@ int removeAllGlobalRenderInformation(SBMLDocument* document) {
 
 int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRenderInformation* globalRenderInformation) {
     if (document && globalRenderInformation) {
-        LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(document->getLevel(), document->getVersion());
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
         globalRenderInformation->setId("libSBMLNetwork_Global_Render");
         globalRenderInformation->setBackgroundColor("white");
         addDefaultColors(globalRenderInformation);
-        addDefaultLineEndings(globalRenderInformation, layoutPkgNamespaces, renderPkgNamespaces);
+        addDefaultLineEndings(globalRenderInformation);
         return 0;
     }
 
@@ -129,7 +127,7 @@ int createDefaultLocalRenderInformation(SBMLDocument* document) {
     Layout* layout = getLayout(document);
     if (!getNumLocalRenderInformation(layout)) {
         LocalRenderInformation* localRenderInformation = createLocalRenderInformation(layout);
-        return setDefaultLocalRenderInformationFeatures(document,layout, localRenderInformation);
+        return setDefaultLocalRenderInformationFeatures(document, layout, localRenderInformation);
     }
 
     return -1;

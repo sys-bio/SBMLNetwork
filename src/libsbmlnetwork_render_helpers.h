@@ -25,7 +25,7 @@ void enableRenderPlugin(SBMLDocument* document);
 
 void enableRenderPlugin(Layout* layout);
 
-void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
 Style* findStyleByIdList(RenderInformationBase* renderInformationBase, const std::string& id);
 
@@ -45,51 +45,51 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
 
 const std::string getStyleType(GraphicalObject* graphicalObject);
 
-void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
-void addCompartmentGlyphStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addCompartmentGlyphStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation);
 
-void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addCompartmentTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph, RenderPkgNamespaces* renderPkgNamespaces);
+void addCompartmentTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph);
 
-void addCompartmentTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addCompartmentTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
 
-void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addSpeciesGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addSpeciesGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
-void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation);
 
-void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph, RenderPkgNamespaces* renderPkgNamespaces);
+void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph);
 
-void addSpeciesTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addSpeciesTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
 
-void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
-void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation);
 
-void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph, RenderPkgNamespaces* renderPkgNamespaces);
+void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph);
 
-void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
 
-void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation);
 
-void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation, RenderPkgNamespaces* renderPkgNamespaces);
+void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation);
 
-void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role, RenderPkgNamespaces* renderPkgNamespaces);
+void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
 
 LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
 
-void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup, RenderPkgNamespaces* renderPkgNamespaces);
+void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation);
 
@@ -107,33 +107,33 @@ ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces,
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation);
 
-void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation);
 
-LineEnding* createProductHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+LineEnding* createProductHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces);
 
-void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding);
 
-void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation);
 
-LineEnding* createModifierHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+LineEnding* createModifierHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces);
 
-void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding);
 
-void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation);
 
-LineEnding* createActivatorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+LineEnding* createActivatorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces);
 
-void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding);
 
-void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation, LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation);
 
-LineEnding* createInhibitorHeadLineEnding(LayoutPkgNamespaces* layoutPkgNamespaces, RenderPkgNamespaces* renderPkgNamespaces);
+LineEnding* createInhibitorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces);
 
-void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding, RenderPkgNamespaces* renderPkgNamespaces);
+void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding);
 
-void setLineEndingGeneralFeatures(LineEnding* lineEnding, LayoutPkgNamespaces* layoutPkgNamespaces);
+void setLineEndingGeneralFeatures(LineEnding* lineEnding);
 
 void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D);
 

@@ -58,11 +58,10 @@ int removeAllLocalRenderInformation(Layout* layout) {
 
 int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation) {
     if (document && localRenderInformation) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(document->getLevel(), document->getVersion());
         localRenderInformation->setId("libSBMLNetwork_Local_Render");
         localRenderInformation->setReferenceRenderInformation("libSBMLNetwork_Global_Render");
         if (layout) {
-            addStyles(layout, localRenderInformation, renderPkgNamespaces);
+            addStyles(layout, localRenderInformation);
             return 0;
         }
     }
