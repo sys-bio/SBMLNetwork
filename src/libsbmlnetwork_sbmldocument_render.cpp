@@ -65,6 +65,7 @@ int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRend
         globalRenderInformation->setBackgroundColor("white");
         addDefaultColors(globalRenderInformation);
         addDefaultLineEndings(globalRenderInformation);
+        addGlobalStyles(globalRenderInformation);
         return 0;
     }
 
