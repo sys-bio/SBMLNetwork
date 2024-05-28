@@ -25,8 +25,6 @@ void enableRenderPlugin(SBMLDocument* document);
 
 void enableRenderPlugin(Layout* layout);
 
-void addStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
-
 Style* findStyleByIdList(RenderInformationBase* renderInformationBase, const std::string& id);
 
 Style* findStyleByIdList(LocalRenderInformation* localRenderInformation, const std::string& id);
@@ -45,50 +43,6 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
 
 const std::string getStyleType(GraphicalObject* graphicalObject);
 
-void addCompartmentGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
-
-void addCompartmentGlyphStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation);
-
-void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addCompartmentTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph);
-
-void addCompartmentTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
-
-void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addSpeciesGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
-
-void addSpeciesGlyphStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation);
-
-void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addSpeciesTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph);
-
-void addSpeciesTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
-
-void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addReactionGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
-
-void addReactionGlyphStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation);
-
-void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addReactionTextGlyphsStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph);
-
-void addReactionTextGlyphStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
-
-void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addSpeciesReferenceGlyphsStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation);
-
-void addSpeciesReferenceGlyphStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation);
-
-void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
-
-LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
-
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation);
@@ -103,9 +57,11 @@ const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::s
 
 const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color);
 
-ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255);
+ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
+
+void addTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation);
 
@@ -135,6 +91,68 @@ void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding);
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding);
 
+void addGlobalStyles(GlobalRenderInformation* globalRenderInformation);
+
+GlobalStyle* createGlobalStyle(GlobalRenderInformation* globalRenderInformation, const std::string& type);
+
+void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
+void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
+void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
+void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderInformation);
+
+void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
+
+LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
+
+void addCompartmentGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
+
+void addCompartmentGlyphLocalStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation);
+
+void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void addCompartmentTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation, CompartmentGlyph* compartmentGlyph);
+
+void addCompartmentTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
+
+void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void addSpeciesGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
+
+void addSpeciesGlyphLocalStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation);
+
+void addSpeciesTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation, SpeciesGlyph* speciesGlyph);
+
+void addSpeciesTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
+
+void addReactionGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
+
+void addReactionGlyphLocalStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation);
+
+void addReactionTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation, ReactionGlyph* reactionGlyph);
+
+void addReactionTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation);
+
+void addSpeciesReferenceGlyphsLocalStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation);
+
+void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation);
+
+void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
+void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
+
 void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D);
 
 void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D);
@@ -156,6 +174,8 @@ void setDefaultOctagonShapeFeatures(Polygon* pentagon);
 void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
 
 void setDefaultImageShapeFeatures(Image* image);
+
+const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type);
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
 
