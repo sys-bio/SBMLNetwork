@@ -61,7 +61,7 @@ int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* lay
         localRenderInformation->setId("libSBMLNetwork_Local_Render");
         localRenderInformation->setReferenceRenderInformation("libSBMLNetwork_Global_Render");
         if (layout) {
-            addStyles(layout, localRenderInformation);
+            //addLocalStyles(layout, localRenderInformation);
             return 0;
         }
     }
