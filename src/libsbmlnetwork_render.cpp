@@ -3921,10 +3921,10 @@ const std::string getObjectRole(Layout* layout, const std::string& id) {
 }
 
 const std::string getObjectRole(GraphicalObject* graphicalObject) {
-    if (graphicalObject) {
-        RenderGraphicalObjectPlugin* renderGraphicalObjectPlugin = dynamic_cast<RenderGraphicalObjectPlugin*>(graphicalObject->getPlugin("render"));
-        if (renderGraphicalObjectPlugin)
-            return renderGraphicalObjectPlugin->getObjectRole();
+    if (isSpeciesReferenceGlyph(graphicalObject)) {
+        SpeciesReferenceGlyph* speciesReferenceGlyph = (SpeciesReferenceGlyph*)graphicalObject;
+        return speciesReferenceGlyph->getRoleString();
+
     }
 
     return "";
