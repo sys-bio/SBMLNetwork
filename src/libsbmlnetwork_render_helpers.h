@@ -93,7 +93,9 @@ void setLineEndingGeneralFeatures(LineEnding* lineEnding);
 
 void addGlobalStyles(GlobalRenderInformation* globalRenderInformation);
 
-GlobalStyle* createGlobalStyle(GlobalRenderInformation* globalRenderInformation, const std::string& type);
+GlobalStyle* createGlobalStyleByType(GlobalRenderInformation* globalRenderInformation, const std::string& type);
+
+GlobalStyle* createGlobalStyleByRole(GlobalRenderInformation* globalRenderInformation, const std::string& role);
 
 void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
