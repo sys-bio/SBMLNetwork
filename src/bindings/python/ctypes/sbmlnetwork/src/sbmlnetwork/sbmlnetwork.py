@@ -14,7 +14,6 @@ class SBMLNetwork(libsbmlnetwork.LibSBMLNetwork):
 
         :param file_directory:
         :param file_name:
-        :param file_format:
         """
         if file_name:
             networkinfotranslator.import_sbml_export_figure(self.save(), file_name, self.use_name_as_text_label, self.display_reactions_text_label)
