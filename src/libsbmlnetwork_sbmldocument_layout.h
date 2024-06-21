@@ -789,8 +789,9 @@ LIBSBMLNETWORK_EXTERN CubicBezier* createSpeciesReferenceCubicBezierCurveSegment
 /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param curveSegmentIndex the index of the CurveSegment.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
 /// @brief Removes the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -799,8 +800,9 @@ LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* docum
 /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param curveSegmentIndex the index of the CurveSegment.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
 /// @breif Predicate returning true if the curve segment with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts is of type CubicBezier.
