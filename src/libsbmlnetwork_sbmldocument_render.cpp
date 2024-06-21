@@ -924,6 +924,21 @@ unsigned int getLineEndingStrokeDash(SBMLDocument* document, unsigned int render
     return getStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dashIndex);
 }
 
+int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dash) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
+        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dash);
+
+    return setStrokeDash(getLineEndingRenderGroup(document, id), dash);
+}
+
+int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dash) {
+    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
+        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), dash);
+
+    return setStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dash);
+}
+
+
 int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex, unsigned int dash) {
     if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
         return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dashIndex, dash);
@@ -1895,20 +1910,20 @@ unsigned int getNumStrokeDashes(SBMLDocument* document, const std::string& attri
     return getNumStrokeDashes(style);
 }
 
-unsigned int getStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int strokeDashIndex) {
+unsigned int getStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dashIndex) {
     Style* style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
-        return getStrokeDash(getGeometricShape(style), strokeDashIndex);
+        return getStrokeDash(getGeometricShape(style), dashIndex);
 
-    return getStrokeDash(style, strokeDashIndex);
+    return getStrokeDash(style, dashIndex);
 }
 
-unsigned int getStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int strokeDashIndex) {
+unsigned int getStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dashIndex) {
     Style* style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1)
-        return getStrokeDash(getGeometricShape(style), strokeDashIndex);
+        return getStrokeDash(getGeometricShape(style), dashIndex);
 
-    return getStrokeDash(style, strokeDashIndex);
+    return getStrokeDash(style, dashIndex);
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dash) {
@@ -1919,12 +1934,12 @@ unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObj
     return setStrokeDash(style, dash);
 }
 
-unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash) {
+unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dashIndex, unsigned int dash) {
     Style* style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), strokeDashIndex, dash);
+        return setStrokeDash(getGeometricShape(style), dashIndex, dash);
 
-    return setStrokeDash(style, strokeDashIndex, dash);
+    return setStrokeDash(style, dashIndex, dash);
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dash) {
@@ -1935,12 +1950,12 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
     return setStrokeDash(style, dash);
 }
 
-unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash) {
+unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dashIndex, unsigned int dash) {
     Style* style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), strokeDashIndex, dash);
+        return setStrokeDash(getGeometricShape(style), dashIndex, dash);
 
-    return setStrokeDash(style, strokeDashIndex, dash);
+    return setStrokeDash(style, dashIndex, dash);
 }
 
 bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {

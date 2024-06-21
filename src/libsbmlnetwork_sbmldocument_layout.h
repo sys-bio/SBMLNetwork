@@ -1434,10 +1434,11 @@ LIBSBMLNETWORK_EXTERN bool isSetText(SBMLDocument* document, unsigned int layout
 /// the first Layout object of the SBML document is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
@@ -1653,7 +1654,7 @@ LIBSBMLNETWORK_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned 
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, unsigned int graphicalObjectIndex, const std::string& id, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
+LIBSBMLNETWORK_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given index associated with the given id in
 /// the first Layout object of the SBML document is of type TextGlyph.
