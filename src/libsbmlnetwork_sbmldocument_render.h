@@ -1892,7 +1892,7 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(SBMLDocument* document, unsigned
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
 /// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, const bool& setSpeciesReferenceGlyphs = true);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs = true);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -1968,7 +1968,7 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(SBMLDocument* document, unsigned
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
 /// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke-width" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, const bool& setSpeciesReferenceGlyphs = true);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs = true);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.

@@ -57,8 +57,8 @@ int removeAllLayouts(SBMLDocument* document) {
 }
 
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity,
-                             const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
-                             const bool& useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
+                             bool useMagnetism, bool useBoundary, bool useGrid,
+                             bool useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
@@ -79,8 +79,8 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
 }
 
 int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
-                        const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
-                        const bool& useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
+                        bool useMagnetism, bool useBoundary, bool useGrid,
+                        bool useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);

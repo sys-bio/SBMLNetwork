@@ -60,8 +60,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
-                                                const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                const bool useNameAsTextLabel = true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
+                                                bool useNameAsTextLabel = true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.
@@ -70,7 +70,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param alignment determines how to align the nodes.
     /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, const bool isLayoutAdded = true);
+    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool isLayoutAdded = true);
 
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -95,8 +95,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
-                                                               const bool useMagnetism = false, const bool useBoundary = false, const bool useGrid = false,
-                                                               const bool useNameAsTextLabel=true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                               bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
+                                                               bool useNameAsTextLabel=true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
@@ -832,7 +832,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @package checkForName a boolean value to indicate whether the function should check for the "name" attribute of the TextGlyph object.
     /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
     /// , TextGlyph does not exits or the object is @c NULL.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0, const bool checkForName = true);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0, bool checkForName = true);
 
     /// @brief Sets the "text" attribute of the TextGlyph object with the given index associated with the given id in
     /// the Layout object with the given index of the SBML document.
@@ -861,7 +861,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @isLayoutAdded a boolean value
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex = 0, int layoutIndex = 0, const bool isLayoutAdded = true);
+    LIBSBMLNETWORK_EXTERN int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool isLayoutAdded = true);
 
     /// @brief Returns the value of the "y" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -879,7 +879,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0, const bool isLayoutAdded = true);
+    LIBSBMLNETWORK_EXTERN int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool isLayoutAdded = true);
 
     /// @brief Returns the value of the "width" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -897,7 +897,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex = 0, int layoutIndex = 0, const bool isLayoutAdded = true);
+    LIBSBMLNETWORK_EXTERN int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool isLayoutAdded = true);
 
     /// @brief Returns the value of the "height" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -915,7 +915,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex = 0, int layoutIndex = 0, const bool isLayoutAdded = true);
+    LIBSBMLNETWORK_EXTERN int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool isLayoutAdded = true);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the TextGlyph object with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.

@@ -724,7 +724,7 @@ LIBSBMLNETWORK_EXTERN int setEnableRotationalMapping(RenderInformationBase* rend
 /// @param lineEnding a pointer to the LineEnding object.
 /// @param enableRotationalMapping a boolean to use as the value of the "enableRotationalMapping" attribute of this LineEnding object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setEnableRotationalMapping(LineEnding* lineEnding, const bool& enableRotationalMapping);
+LIBSBMLNETWORK_EXTERN int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping);
 
 /// Returns the bounding box for the LineEnding with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

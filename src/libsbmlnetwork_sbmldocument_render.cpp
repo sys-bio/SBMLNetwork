@@ -1677,7 +1677,7 @@ int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, const bool& setSpeciesReferenceGlyphs) {
+int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setStrokeColor(document, layout->getReactionGlyph(i), stroke))
@@ -1787,7 +1787,7 @@ int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, const bool& setSpeciesReferenceGlyphs) {
+int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         if (setStrokeWidth(document, layout->getReactionGlyph(i), strokeWidth))

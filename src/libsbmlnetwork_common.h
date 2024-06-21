@@ -20,7 +20,7 @@ bool compareChar(const char& c1, const char& c2);
 
 bool stringCompare(const std::string& str1, const std::string& str2);
 
-const bool isValueValid(const std::string& value, const std::vector<std::string>& validValues);
+bool isValueValid(const std::string& value, const std::vector<std::string>& validValues);
 
 std::string createErrorMessage(const std::string& value, std::vector<std::string> validValues);
 

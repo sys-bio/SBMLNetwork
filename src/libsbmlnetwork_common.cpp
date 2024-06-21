@@ -20,7 +20,7 @@ bool stringCompare(const std::string& str1, const std::string& str2) {
         return ((str1.size() == str2.size()) && std::equal(str1.begin(), str1.end(), str2.begin(), &compareChar));
 }
 
-const bool isValueValid(const std::string& value, const std::vector<std::string>& validValues) {
+bool isValueValid(const std::string& value, const std::vector<std::string>& validValues) {
     for (unsigned int i = 0; i < validValues.size(); i++) {
         if (stringCompare(value, validValues[i]))
             return true;

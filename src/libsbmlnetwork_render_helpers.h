@@ -207,7 +207,7 @@ const bool isValidGradientFyValue(const RelAbsVector& fy);
 
 const bool isValidGradientRValue(const RelAbsVector& r);
 
-const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping);
+const bool isValidEnableRotationalMappingValue(bool enableRotationalMapping);
 
 const bool isValidStrokeColorValue(const std::string& stroke);
 
