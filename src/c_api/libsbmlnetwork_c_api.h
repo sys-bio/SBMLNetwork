@@ -96,7 +96,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
                                                                bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
-                                                               bool useNameAsTextLabel=true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                               bool useNameAsTextLabel= true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
