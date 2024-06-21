@@ -24,10 +24,10 @@ Dimensions* getDimensions(Layout* layout) {
     return NULL;
 }
 
-double getDimensionWidth(Layout* layout) {
+const double getDimensionWidth(Layout* layout) {
     Dimensions* dimensions = getDimensions(layout);
     if (dimensions)
-        return dimensions->width();
+        return roundToTwoDecimalPlaces(dimensions->width());
 
     return 0.0;
 }
@@ -44,10 +44,10 @@ int setDimensionWidth(Layout* layout, const double& width) {
     return -1;
 }
 
-double getDimensionHeight(Layout* layout) {
+const double getDimensionHeight(Layout* layout) {
     Dimensions* dimensions = getDimensions(layout);
     if (dimensions)
-        return dimensions->height();
+        return roundToTwoDecimalPlaces(dimensions->height());
 
     return 0.0;
 }
@@ -640,7 +640,7 @@ const double getPositionX(GraphicalObject* graphicalObject) {
 
 const double getPositionX(BoundingBox* boundingBox) {
     if (boundingBox)
-        return boundingBox->x();
+        return roundToTwoDecimalPlaces(boundingBox->x());
 
     return 0.0;
 }
@@ -676,7 +676,7 @@ const double getPositionY(GraphicalObject* graphicalObject) {
 
 const double getPositionY(BoundingBox* boundingBox) {
     if (boundingBox)
-        return boundingBox->y();
+        return roundToTwoDecimalPlaces(boundingBox->y());
 
     return 0.0;
 }
@@ -712,7 +712,7 @@ const double getDimensionWidth(GraphicalObject* graphicalObject) {
 
 const double getDimensionWidth(BoundingBox* boundingBox) {
     if (boundingBox)
-        return boundingBox->width();
+        return roundToTwoDecimalPlaces(boundingBox->width());
 
     return 0.0;
 }
@@ -748,7 +748,7 @@ const double getDimensionHeight(GraphicalObject* graphicalObject) {;
 
 const double getDimensionHeight(BoundingBox* boundingBox) {
     if (boundingBox)
-        return boundingBox->height();
+        return roundToTwoDecimalPlaces(boundingBox->height());
 
     return 0.0;
 }
@@ -923,9 +923,9 @@ const double getCurveSegmentStartPointX(GraphicalObject* graphicalObject, unsign
 const double getCurveSegmentStartPointX(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment)
-        return lineSegment->getStart()->x();
+        return roundToTwoDecimalPlaces(lineSegment->getStart()->x());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentStartPointX(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
@@ -963,9 +963,9 @@ const double getCurveSegmentStartPointY(GraphicalObject* graphicalObject, unsign
 const double getCurveSegmentStartPointY(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment)
-        return lineSegment->getStart()->y();
+        return roundToTwoDecimalPlaces(lineSegment->getStart()->y());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentStartPointY(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
@@ -1003,9 +1003,9 @@ const double getCurveSegmentEndPointX(GraphicalObject* graphicalObject, unsigned
 const double getCurveSegmentEndPointX(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment)
-        return lineSegment->getEnd()->x();
+        return roundToTwoDecimalPlaces(lineSegment->getEnd()->x());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentEndPointX(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
@@ -1043,9 +1043,9 @@ const double getCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned
 const double getCurveSegmentEndPointY(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment)
-        return lineSegment->getEnd()->y();
+        return roundToTwoDecimalPlaces(lineSegment->getEnd()->y());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentEndPointY(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
@@ -1083,9 +1083,9 @@ const double getCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsign
 const double getCurveSegmentBasePoint1X(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment && isCubicBezier(lineSegment))
-        return ((CubicBezier*)lineSegment)->getBasePoint1()->x();
+        return roundToTwoDecimalPlaces(((CubicBezier*)lineSegment)->getBasePoint1()->x());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentBasePoint1X(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
@@ -1123,9 +1123,9 @@ const double getCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsign
 const double getCurveSegmentBasePoint1Y(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment && isCubicBezier(lineSegment))
-        return ((CubicBezier*)lineSegment)->getBasePoint1()->y();
+        return roundToTwoDecimalPlaces(((CubicBezier*)lineSegment)->getBasePoint1()->y());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentBasePoint1Y(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& y) {
@@ -1163,9 +1163,9 @@ const double getCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsign
 const double getCurveSegmentBasePoint2X(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment && isCubicBezier(lineSegment))
-        return ((CubicBezier*)lineSegment)->getBasePoint2()->x();
+        return roundToTwoDecimalPlaces(((CubicBezier*)lineSegment)->getBasePoint2()->x());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentBasePoint2X(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& x) {
@@ -1203,9 +1203,9 @@ const double getCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsign
 const double getCurveSegmentBasePoint2Y(Curve* curve, unsigned int curveSegmentIndex) {
     LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
     if (lineSegment && isCubicBezier(lineSegment))
-        return ((CubicBezier*)lineSegment)->getBasePoint2()->y();
+        return roundToTwoDecimalPlaces(((CubicBezier*)lineSegment)->getBasePoint2()->y());
 
-    return  0.0;
+    return  0.00;
 }
 
 int setCurveSegmentBasePoint2Y(Layout* layout, const std::string& id, unsigned int curveSegmentIndex, const double& y) {

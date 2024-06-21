@@ -24,5 +24,7 @@ bool isValueValid(const std::string& value, const std::vector<std::string>& vali
 
 std::string createErrorMessage(const std::string& value, std::vector<std::string> validValues);
 
+const double roundToTwoDecimalPlaces(const double& value);
+
 #endif
 

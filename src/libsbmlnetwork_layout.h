@@ -30,7 +30,7 @@ LIBSBMLNETWORK_EXTERN Dimensions* getDimensions(Layout* layout);
 /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object.
 /// @param layout a pointer to the Layout object.
 /// @return the value of the "width" attribute of the Dimensions object of the Layout object.
-LIBSBMLNETWORK_EXTERN double getDimensionWidth(Layout* layout);
+LIBSBMLNETWORK_EXTERN const double getDimensionWidth(Layout* layout);
 
 /// @brief Sets the value of the "width" attribute of the Dimensions object of the Layout object.
 /// @param layout a pointer to the Layout object.
@@ -41,7 +41,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const double& width)
 /// @brief Returns the value of the "height" attribute of the Dimensions object of the Layout object.
 /// @param layout a pointer to the Layout object.
 /// @return the value of the "height" attribute of the Dimensions object of the Layout object.
-LIBSBMLNETWORK_EXTERN double getDimensionHeight(Layout* layout);
+LIBSBMLNETWORK_EXTERN const double getDimensionHeight(Layout* layout);
 
 /// @brief Sets the value of the "height" attribute of the Dimensions object of the Layout object.
 /// @param layout a pointer to the Layout object.

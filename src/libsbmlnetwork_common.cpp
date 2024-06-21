@@ -44,3 +44,7 @@ std::string createErrorMessage(const std::string& value, std::vector<std::string
 
     return errorMessage;
 }
+
+const double roundToTwoDecimalPlaces(const double& value) {
+    return round(value * 100.0) / 100.0;
+}

@@ -536,7 +536,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
             return getPositionX(textGlyphs.at(textGlyphIndex));
 
-        return 0.0;
+        return 0.00;
     }
 
     int c_api_setTextX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
@@ -554,7 +554,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
             return getPositionY(textGlyphs.at(textGlyphIndex));
 
-        return 0.0;
+        return 0.00;
     }
 
     int c_api_setTextY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
@@ -572,7 +572,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
             return getDimensionWidth(textGlyphs.at(textGlyphIndex));
 
-        return 0.0;
+        return 0.00;
     }
 
     int c_api_setTextWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
@@ -590,7 +590,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
             return getDimensionHeight(textGlyphs.at(textGlyphIndex));
 
-        return 0.0;
+        return 0.00;
     }
 
     int c_api_setTextHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
