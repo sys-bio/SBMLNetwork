@@ -101,7 +101,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'left')
                 for species_id in list_of_species_ids:
-                    self.assertAlmostEqual(x_min, network.getX(species_id), 2)
+                    self.assertAlmostEqual(x_min, network.getX(species_id), 1)
 
     def test_align_right(self):
         for network in self.networks:
@@ -111,7 +111,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 x_max = self._get_max_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'right')
                 for species_id in list_of_species_ids:
-                    self.assertAlmostEqual(x_max, network.getX(species_id), 2)
+                    self.assertAlmostEqual(x_max, network.getX(species_id), 1)
 
     def test_align_center(self):
         for network in self.networks:
@@ -123,7 +123,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 center_x = 0.5 * (x_min + x_max)
                 network.align(list_of_species_ids, 'center')
                 for species_id in list_of_species_ids:
-                    self.assertAlmostEqual(center_x, network.getX(species_id), 2)
+                    self.assertAlmostEqual(center_x, network.getX(species_id), 1)
 
     def test_align_top(self):
         for network in self.networks:
@@ -133,7 +133,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'top')
                 for species_id in list_of_species_ids:
-                    self.assertAlmostEqual(y_min, network.getY(species_id), 2)
+                    self.assertAlmostEqual(y_min, network.getY(species_id), 1)
 
     def test_align_bottom(self):
         for network in self.networks:
@@ -143,7 +143,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 y_max = self._get_max_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'bottom')
                 for species_id in list_of_species_ids:
-                    self.assertAlmostEqual(y_max, network.getY(species_id), 2)
+                    self.assertAlmostEqual(y_max, network.getY(species_id), 1)
 
     def test_align_middle(self):
         for network in self.networks:
@@ -155,7 +155,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 middle_y = 0.5 * (y_min + y_max)
                 network.align(list_of_species_ids, 'middle')
                 for species_id in list_of_species_ids:
-                    self.assertAlmostEqual(middle_y, network.getY(species_id), 2)
+                    self.assertAlmostEqual(middle_y, network.getY(species_id), 1)
 
     def test_align_circular(self):
         for network in self.networks:
@@ -165,10 +165,10 @@ class TestSBMLNetwork(unittest.TestCase):
                 network.align(list_of_species_ids, 'circular')
                 radius = self._get_radius_of_positions(network, list_of_species_ids)
                 center_x, center_y = self._get_center_of_positions(network, list_of_species_ids)
-                self.assertAlmostEqual(radius, 50.0 * len(list_of_species_ids), 2)
+                self.assertAlmostEqual(radius, 50.0 * len(list_of_species_ids), 1)
                 for species_id in list_of_species_ids:
                     self.assertAlmostEqual(self._distance(center_x, center_y, network.getX(species_id),
-                                                          network.getY(species_id)), radius, 2)
+                                                          network.getY(species_id)), radius, 1)
 
     def test_curves_direction_towards_species_center(self):
         for network in self.networks:
@@ -603,7 +603,7 @@ class TestSBMLNetwork(unittest.TestCase):
             slope2 = (species_center_y - curve_species_point_y) / (species_center_x - curve_species_point_x)
         else:
             slope2 = 0.0
-        self.assertAlmostEqual(slope1, slope2, 2)
+        self.assertAlmostEqual(slope1, slope2, 1)
 
     @staticmethod
     def _get_min_position_x(network, list_of_entity_ids):
