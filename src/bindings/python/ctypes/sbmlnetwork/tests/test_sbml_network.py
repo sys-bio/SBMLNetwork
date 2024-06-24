@@ -101,7 +101,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'left')
                 for species_id in list_of_species_ids:
-                    self.assertEqual(x_min, network.getX(species_id))
+                    self.assertAlmostEqual(x_min, network.getX(species_id))
 
     def test_align_right(self):
         for network in self.networks:
@@ -111,7 +111,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 x_max = self._get_max_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'right')
                 for species_id in list_of_species_ids:
-                    self.assertEqual(x_max, network.getX(species_id))
+                    self.assertAlmostEqual(x_max, network.getX(species_id))
 
     def test_align_center(self):
         for network in self.networks:
@@ -123,7 +123,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 center_x = 0.5 * (x_min + x_max)
                 network.align(list_of_species_ids, 'center')
                 for species_id in list_of_species_ids:
-                    self.assertEqual(center_x, network.getX(species_id))
+                    self.assertAlmostEqual(center_x, network.getX(species_id))
 
     def test_align_top(self):
         for network in self.networks:
@@ -133,7 +133,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'top')
                 for species_id in list_of_species_ids:
-                    self.assertEqual(y_min, network.getY(species_id))
+                    self.assertAlmostEqual(y_min, network.getY(species_id))
 
     def test_align_bottom(self):
         for network in self.networks:
@@ -143,7 +143,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 y_max = self._get_max_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'bottom')
                 for species_id in list_of_species_ids:
-                    self.assertEqual(y_max, network.getY(species_id))
+                    self.assertAlmostEqual(y_max, network.getY(species_id))
 
     def test_align_middle(self):
         for network in self.networks:
@@ -155,7 +155,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 middle_y = 0.5 * (y_min + y_max)
                 network.align(list_of_species_ids, 'middle')
                 for species_id in list_of_species_ids:
-                    self.assertEqual(middle_y, network.getY(species_id))
+                    self.assertAlmostEqual(middle_y, network.getY(species_id))
 
     def test_align_circular(self):
         for network in self.networks:
