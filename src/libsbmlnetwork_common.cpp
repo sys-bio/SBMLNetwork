@@ -1,5 +1,7 @@
 #include "libsbmlnetwork_common.h"
 
+#include <cmath>
+
 #ifndef LIBSBMLNETWORK_VERSION
 #define LIBSBMLNETWORK_VERSION @LIBSBMLNETWORK_VERSION@
 #endif
