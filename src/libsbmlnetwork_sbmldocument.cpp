@@ -46,8 +46,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     }
 
     int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
-                   const bool& useMagnetism, const bool& useBoundary, const bool& useGrid,
-                   const bool& useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
+                   bool useMagnetism, bool useBoundary, bool useGrid,
+                   bool useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
         const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)

@@ -1272,17 +1272,17 @@ LIBSBMLNETWORK_EXTERN unsigned int getNumLineEndingStrokeDashes(SBMLDocument* do
 /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN unsigned int getLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int strokeDashIndex = 0);
+LIBSBMLNETWORK_EXTERN unsigned int getLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex = 0);
 
 /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup for this LineEnding object, @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN unsigned int getLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int strokeDashIndex = 0);
+LIBSBMLNETWORK_EXTERN unsigned int getLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dashIndex = 0);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -1301,18 +1301,18 @@ LIBSBMLNETWORK_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, unsign
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup for this LineEnding object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex, unsigned int dash);
 
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup for this LineEnding object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dashIndex, unsigned int dash);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -1892,7 +1892,7 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(SBMLDocument* document, unsigned
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
 /// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, const bool& setSpeciesReferenceGlyphs = true);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs = true);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -1968,7 +1968,7 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(SBMLDocument* document, unsigned
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
 /// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke-width" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, const bool& setSpeciesReferenceGlyphs = true);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs = true);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -2039,16 +2039,16 @@ LIBSBMLNETWORK_EXTERN unsigned int getNumStrokeDashes(SBMLDocument* document, co
 /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int strokeDashIndex = 0);
+LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dashIndex = 0);
 
 /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int strokeDashIndex = 0);
+LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dashIndex = 0);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2060,10 +2060,10 @@ LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, Graphic
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dashIndex, unsigned int dash);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2075,10 +2075,10 @@ LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, const s
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
+/// @param dashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dashIndex, unsigned int dash);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.

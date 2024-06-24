@@ -685,7 +685,7 @@ int setEnableRotationalMapping(RenderInformationBase* renderInformationBase, con
     return setEnableRotationalMapping(getLineEnding(renderInformationBase, sid), enableRotationalMapping);
 }
 
-int setEnableRotationalMapping(LineEnding* lineEnding, const bool& enableRotationalMapping) {
+int setEnableRotationalMapping(LineEnding* lineEnding, bool enableRotationalMapping) {
     if (lineEnding && isValidEnableRotationalMappingValue(enableRotationalMapping)) {
         lineEnding->setEnableRotationalMapping(enableRotationalMapping);
         return 0;
@@ -910,9 +910,9 @@ const double getStrokeWidth(Style* style) {
 
 const double getStrokeWidth(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive1D(transformation2D))
-        return ((GraphicalPrimitive1D*)transformation2D)->getStrokeWidth();
+        return roundToTwoDecimalPlaces(((GraphicalPrimitive1D*)transformation2D)->getStrokeWidth());
 
-    return 0.0;
+    return 0.00;
 }
 
 int setStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth) {
@@ -2517,11 +2517,11 @@ const double getGeometricShapeRatio(RenderGroup* renderGroup, unsigned int geome
 
 const double getGeometricShapeRatio(Transformation2D* shape) {
     if (isRectangle(shape))
-        return ((Rectangle*)shape)->getRatio();
+        return roundToTwoDecimalPlaces(((Rectangle*)shape)->getRatio());
     else if (isEllipse(shape))
-        return ((Ellipse*)shape)->getRatio();
+        return roundToTwoDecimalPlaces(((Ellipse*)shape)->getRatio());
 
-    return 0.0;
+    return 0.00;
 }
 
 int setGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& ratio) {
@@ -3901,7 +3901,7 @@ int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
 }
 
 const double getAbsoluteValue(const RelAbsVector& relAbsVector) {
-    return relAbsVector.getAbsoluteValue();
+    return roundToTwoDecimalPlaces(relAbsVector.getAbsoluteValue());
 }
 
 int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs) {
@@ -3909,7 +3909,7 @@ int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs) {
 }
 
 const double getRelativeValue(const RelAbsVector& relAbsVector) {
-    return relAbsVector.getRelativeValue();
+    return roundToTwoDecimalPlaces(relAbsVector.getRelativeValue());
 }
 
 int setRelativeValue(RelAbsVector relAbsVector, const double& rel) {

@@ -5,9 +5,12 @@
 
 #ifndef SWIG
 #include "sbml/SBMLTypes.h"
+#include "sbml/common/libsbml-namespace.h"
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #include "sbml/packages/render/common/RenderExtensionTypes.h"
 #endif
+
+#include "sbml/common/libsbml-namespace.h"
 
 using namespace libsbml;
 
@@ -60,8 +63,8 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
-                                                const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                                                const bool& useNameAsTextLabel = false, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
+                                                bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
+                                                bool useNameAsTextLabel = true, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief lock all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.

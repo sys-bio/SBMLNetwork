@@ -810,7 +810,7 @@ const bool isValidGradientRValue(const RelAbsVector& r) {
     return isValidRelAbsVectorPositiveValue(r);
 }
 
-const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping) {
+const bool isValidEnableRotationalMappingValue(bool enableRotationalMapping) {
     return true;
 }
 

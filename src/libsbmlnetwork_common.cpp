@@ -1,5 +1,7 @@
 #include "libsbmlnetwork_common.h"
 
+#include <cmath>
+
 #ifndef LIBSBMLNETWORK_VERSION
 #define LIBSBMLNETWORK_VERSION @LIBSBMLNETWORK_VERSION@
 #endif
@@ -20,7 +22,7 @@ bool stringCompare(const std::string& str1, const std::string& str2) {
         return ((str1.size() == str2.size()) && std::equal(str1.begin(), str1.end(), str2.begin(), &compareChar));
 }
 
-const bool isValueValid(const std::string& value, const std::vector<std::string>& validValues) {
+bool isValueValid(const std::string& value, const std::vector<std::string>& validValues) {
     for (unsigned int i = 0; i < validValues.size(); i++) {
         if (stringCompare(value, validValues[i]))
             return true;
@@ -43,4 +45,8 @@ std::string createErrorMessage(const std::string& value, std::vector<std::string
     }
 
     return errorMessage;
+}
+
+const double roundToTwoDecimalPlaces(const double& value) {
+    return round(value * 100.0) / 100.0;
 }
