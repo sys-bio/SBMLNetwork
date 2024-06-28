@@ -32,6 +32,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getSBMLVersion(document);
     }
 
+    bool c_api_freeSBMLDocument(SBMLDocument* document) {
+        return freeSBMLDocument(document);
+    }
+
     bool c_api_isSetModel(SBMLDocument* document) {
         return isSetModel(document);
     }

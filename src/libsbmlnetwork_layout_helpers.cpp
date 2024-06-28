@@ -560,6 +560,10 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
     return speciesReferenceGlyphs;
 }
 
+const bool layoutContainsGlyphs(Layout* layout) {
+    return layout->getNumCompartmentGlyphs() || layout->getNumSpeciesGlyphs() || layout->getNumReactionGlyphs();
+}
+
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
