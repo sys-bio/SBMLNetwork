@@ -81,16 +81,16 @@ void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph *speciesGlyph) {
 void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
                      const bool& useNameAsTextLabel, const std::vector <std::string> &lockedNodeIds, const double &padding) {
-    FruthtermanReingoldAlgorithm *fruthtermanReingoldAlgorithm = new FruthtermanReingoldAlgorithm();
-    fruthtermanReingoldAlgorithm->setElements(model, layout, useNameAsTextLabel);
-    fruthtermanReingoldAlgorithm->setStiffness(stiffness);
-    fruthtermanReingoldAlgorithm->setGravity(gravity);
-    fruthtermanReingoldAlgorithm->setUseMagnetism(useMagnetism);
-    fruthtermanReingoldAlgorithm->setUseBoundary(useBoundary);
-    fruthtermanReingoldAlgorithm->setUseGrid(useGrid);
-    fruthtermanReingoldAlgorithm->setNodesLockedStatus(layout, lockedNodeIds);
-    fruthtermanReingoldAlgorithm->setPadding(padding);
-    fruthtermanReingoldAlgorithm->apply();
+    FruchtermanReingoldAlgorithm* fruchtermanReingoldAlgorithm = new FruchtermanReingoldAlgorithm();
+    fruchtermanReingoldAlgorithm->setElements(model, layout, useNameAsTextLabel);
+    fruchtermanReingoldAlgorithm->setStiffness(stiffness);
+    fruchtermanReingoldAlgorithm->setGravity(gravity);
+    fruchtermanReingoldAlgorithm->setUseMagnetism(useMagnetism);
+    fruchtermanReingoldAlgorithm->setUseBoundary(useBoundary);
+    fruchtermanReingoldAlgorithm->setUseGrid(useGrid);
+    fruchtermanReingoldAlgorithm->setNodesLockedStatus(layout, lockedNodeIds);
+    fruchtermanReingoldAlgorithm->setPadding(padding);
+    fruchtermanReingoldAlgorithm->apply();
 }
 
 void initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox,
@@ -213,24 +213,6 @@ void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &ma
     minY = std::min(minY, reactionCenterY);
     maxX = std::max(maxX, reactionCenterX);
     maxY = std::max(maxY, reactionCenterY);
-}
-
-CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    Compartment* compartment = findReactionGlyphCompartment(model, reactionGlyph);
-    if (compartment) {
-        CompartmentGlyph* compartmentGlyph =  getCompartmentGlyph(layout, compartment);
-        if (compartmentGlyph)
-            return compartmentGlyph;
-    }
-
-    return getDefaultCompartmentGlyph(layout);
-}
-
-CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
-    if (layout->getNumCompartmentGlyphs() == 1 && layout->getCompartmentGlyph(0)->getCompartmentId() == "default_compartment")
-        return layout->getCompartmentGlyph(0);
-
-    return NULL;
 }
 
 }

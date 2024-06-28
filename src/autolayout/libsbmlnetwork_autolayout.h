@@ -48,10 +48,6 @@ void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double
 
 void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &maxX, double &maxY);
 
-CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
-
-CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
-
 }
 
 #endif
