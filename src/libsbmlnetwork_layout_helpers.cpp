@@ -98,6 +98,14 @@ void setReactionGlyphs(Model* model, Layout* layout) {
         setReactantGlyphs(layout, reaction, reactionGlyph);
         setProductGlyphs(layout, reaction, reactionGlyph);
         setModifierGlyphs(layout, reaction, reactionGlyph);
+        if (reaction->getNumReactants() == 0) {
+            SpeciesReferenceGlyph* dummyReactantGlyph = getDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
+            dummyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
+        }
+        else if (reaction->getNumProducts() == 0) {
+            SpeciesReferenceGlyph* dummyProductGlyph = getDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
+            dummyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
+        }
     }
 }
 
@@ -129,6 +137,32 @@ void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
             speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
+}
+
+SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    SpeciesGlyph* dummySpeciesGlyph = getDummySpeciesGlyph(model, layout, reactionGlyph);
+    return getDummySpeciesReferenceGlyph(layout, reactionGlyph, dummySpeciesGlyph);
+}
+
+SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    SpeciesGlyph* dummySpeciesGlyph = layout->createSpeciesGlyph();
+    dummySpeciesGlyph->setId(reactionGlyph->getId() + "_DummySpeciesGlyph");
+    CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
+    // we store the compartment id of dummy species glyphs in the metaid of the species glyph
+    if (compartmentGlyph)
+        dummySpeciesGlyph->setMetaId(compartmentGlyph->getCompartmentId());
+    setGraphicalObjectBoundingBox(dummySpeciesGlyph);
+
+    return dummySpeciesGlyph;
+}
+
+SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph) {
+    SpeciesReferenceGlyph* dummySpeciesReferenceGlyph = layout->createSpeciesReferenceGlyph();
+    dummySpeciesReferenceGlyph->setId(reactionGlyph->getId() + "_DummySpeciesReferenceGlyph");
+    dummySpeciesReferenceGlyph->setSpeciesGlyphId(dummySpeciesGlyph->getId());
+    setSpeciesReferenceGlyphCurve(dummySpeciesReferenceGlyph);
+
+    return dummySpeciesReferenceGlyph;
 }
 
 void setCompartmentTextGlyphs(Layout* layout) {
@@ -187,6 +221,24 @@ ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
     reactionGlyph->setReactionId(reaction->getId());
     
     return reactionGlyph;
+}
+
+CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    Compartment* compartment = findReactionGlyphCompartment(model, reactionGlyph);
+    if (compartment) {
+        CompartmentGlyph* compartmentGlyph =  getCompartmentGlyph(layout, compartment);
+        if (compartmentGlyph)
+            return compartmentGlyph;
+    }
+
+    return getDefaultCompartmentGlyph(layout);
+}
+
+CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
+    if (layout->getNumCompartmentGlyphs() == 1 && layout->getCompartmentGlyph(0)->getCompartmentId() == "default_compartment")
+        return layout->getCompartmentGlyph(0);
+
+    return NULL;
 }
 
 SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
@@ -293,6 +345,9 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     Species* species = model->getSpecies(speciesGlyph->getSpeciesId());
     if (species)
         return model->getCompartment(species->getCompartment());
+    // we store the compartment id of dummy species glyphs in the metaid of the species glyph
+    else if (speciesGlyph->isSetMetaId())
+        return model->getCompartment(speciesGlyph->getMetaId());
 
     return NULL;
 }

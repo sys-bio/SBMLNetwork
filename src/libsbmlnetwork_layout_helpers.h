@@ -38,6 +38,14 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
+SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+
+SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+
+SpeciesGlyph* getDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
+
+SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
+
 void setCompartmentTextGlyphs(Layout* layout);
 
 void setSpeciesTextGlyphs(Layout* layout);
@@ -49,6 +57,10 @@ CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
 
 ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
+
+CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+
+CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
 
 SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
 
@@ -121,6 +133,8 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
+
+bool isDummySpeciesGlyph(GraphicalObject* graphicalObject);
 
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
 

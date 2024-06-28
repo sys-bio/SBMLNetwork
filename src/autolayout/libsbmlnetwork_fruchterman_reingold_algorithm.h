@@ -11,11 +11,11 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-class FruthtermanReingoldAlgorithm {
+class FruchtermanReingoldAlgorithm {
 
 public:
 
-    FruthtermanReingoldAlgorithm();
+    FruchtermanReingoldAlgorithm();
 
     void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
