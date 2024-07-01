@@ -66,6 +66,19 @@ class TestSBMLNetwork(unittest.TestCase):
                     network.setY(species_id, position_y + vertical_displacement)
                     self.assertEqual(position_y + vertical_displacement, network.getY(species_id))
 
+    def test_move_species_with_calling_position_functions(self):
+        for network in self.networks:
+            if network.layout_is_added:
+                network.autolayout()
+                list_of_species_ids = network.getListOfSpeciesIds()
+                horizontal_displacement = 10.0
+                vertical_displacement = 10.0
+                for species_id in list_of_species_ids:
+                    position = network.getPosition(species_id)
+                    network.setPosition(species_id, position[0] + horizontal_displacement, position[1] + vertical_displacement)
+                    self.assertEqual(position[0] + horizontal_displacement, network.getX(species_id))
+                    self.assertEqual(position[1] + vertical_displacement, network.getY(species_id))
+
     def disabled_test_set_species_dimensions(self):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
