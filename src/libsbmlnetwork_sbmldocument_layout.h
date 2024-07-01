@@ -1794,6 +1794,47 @@ LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, const std::string
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
 
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with
+/// the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y);
+
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with
+/// the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y);
+
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with the model entity with
+/// the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with the model entity with
+/// the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
 /// @brief Returns the value of the "width" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with
 /// the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.

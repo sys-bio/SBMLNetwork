@@ -702,6 +702,28 @@ int setPositionY(BoundingBox* boundingBox, const double& y) {
     return -1;
 }
 
+int setPosition(Layout* layout, const std::string& id, const double& x, const double& y) {
+    return setPosition(getGraphicalObject(layout, id), x, y);
+}
+
+int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y) {
+    return setPosition(getGraphicalObject(layout, id, graphicalObjectIndex), x, y);
+}
+
+int setPosition(GraphicalObject* graphicalObject, const double& x, const double& y) {
+    return setPosition(getBoundingBox(graphicalObject), x, y);
+}
+
+int setPosition(BoundingBox* boundingBox, const double& x, const double& y) {
+    if (boundingBox && isValidBoundingBoxXValue(x) && isValidBoundingBoxYValue(y)) {
+        boundingBox->setX(x);
+        boundingBox->setY(y);
+        return 0;
+    }
+
+    return -1;
+}
+
 const double getDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
     return getDimensionWidth(getGraphicalObject(layout, id, graphicalObjectIndex));
 }

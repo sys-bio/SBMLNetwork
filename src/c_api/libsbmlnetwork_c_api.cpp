@@ -491,6 +491,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return -1;
     }
 
+    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            if (!setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y) && updateLayoutCurves(document,
+                                                                                                        getGraphicalObject(
+                                                                                                                document,
+                                                                                                                layoutIndex,
+                                                                                                                id,
+                                                                                                                graphicalObjectIndex)))
+                return 0;
+        }
+        else
+            std::cerr << "Position cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
+
+        return -1;
+    }
+
     const double c_api_getWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex);
     }
@@ -561,6 +577,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
         if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
             if (!setPositionY(textGlyphs.at(textGlyphIndex), y))
+                return 0;
+        }
+
+        return -1;
+    }
+
+    int c_api_setTextPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
+            if (!setPosition(textGlyphs.at(textGlyphIndex), x, y))
                 return 0;
         }
 

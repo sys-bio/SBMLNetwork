@@ -847,6 +847,22 @@ int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return setPositionY(getLayout(document, layoutIndex), id, graphicalObjectIndex, y);
 }
 
+int setPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y) {
+    return setPosition(getLayout(document), id, x, y);
+}
+
+int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y) {
+    return setPosition(getLayout(document, layoutIndex), id, x, y);
+}
+
+int setPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y) {
+    return setPosition(getLayout(document), id, graphicalObjectIndex, x, y);
+}
+
+int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y) {
+    return setPosition(getLayout(document, layoutIndex), id, graphicalObjectIndex, x, y);
+}
+
 const double getDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
     return getDimensionWidth(getLayout(document), id, graphicalObjectIndex);
 }

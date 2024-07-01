@@ -746,6 +746,37 @@ LIBSBMLNETWORK_EXTERN int setPositionY(GraphicalObject* graphicalObject, const d
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(BoundingBox* boundingBox, const double& y);
 
+/// @brief Sets the value of "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(GraphicalObject* graphicalObject, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box this BoundingBox object.
+/// @param boundingBox a pointer to the BoundingBox object.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this BoundingBox object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this BoundingBox object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(BoundingBox* boundingBox, const double& x, const double& y);
+
 /// @brief Returns the value of the "width" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.

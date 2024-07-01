@@ -1561,6 +1561,42 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
 
+    def getPosition(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a tuple that determines the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getX.restype = ctypes.c_double
+        lib.c_api_getY.restype = ctypes.c_double
+        return (lib.c_api_getX(self.sbml_object, str(id).encode(), graphical_object_index, layout_index), lib.c_api_getY(self.sbml_object, str(id).encode(), graphical_object_index, layout_index))
+
+    def setPosition(self, id, x, y, graphical_object_index=0, layout_index=0):
+        """
+        Sets the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the GraphicalObject
+            - y (float): a float that determines the y-coordinate of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the position of the GraphicalObject could not be set
+        """
+        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
+
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the width of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -1700,6 +1736,44 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the TextGlyph could not be set
         """
         return lib.c_api_setTextY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, text_glyph_index, layout_index)
+
+    def getTextPosition(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Returns the position of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a tuple that determines the position of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getTextX.restype = ctypes.c_double
+        lib.c_api_getTextY.restype = ctypes.c_double
+        return (lib.c_api_getTextX(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index), lib.c_api_getTextY(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index))
+
+    def setTextPosition(self, id, x, y, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the position of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the TextGlyph
+            - y (float): a float that determines the y-coordinate of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the position of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, text_glyph_index, layout_index)
 
     def getTextWidth(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
