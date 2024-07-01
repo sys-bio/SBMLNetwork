@@ -77,7 +77,7 @@ class LibSBMLNetwork:
 
     def save(self, file_name=""):
         """
-        Writes the given SBML document to either the file_name or a string
+        Writes the given SBML document to either the file_name or a string (another name for the export method)
 
         :Parameters:
 
@@ -95,6 +95,22 @@ class LibSBMLNetwork:
         else:
             lib.c_api_writeSBMLToString.restype = ctypes.c_char_p
             return ctypes.c_char_p(lib.c_api_writeSBMLToString(self.sbml_object)).value.decode()
+
+    def export(self, file_name=""):
+        """
+        Writes the given SBML document to either the file_name or a string (another name for the save method)
+
+        :Parameters:
+
+            - file_name (string, optional): a string (default : "") that determines the name or full pathname of the file where the SBML is to be written
+
+        :Returns:
+
+            either success: true on success and false if the filename could not be opened for writing
+            or text: the SBML text string on success and empty string if one of the underlying parser components fail.
+        """
+
+        return self.save(file_name)
         
     def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
         """
