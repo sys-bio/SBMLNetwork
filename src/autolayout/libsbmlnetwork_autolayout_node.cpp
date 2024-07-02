@@ -10,8 +10,8 @@ AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, const bool&
 }
 
 void AutoLayoutNodeBase::updateDimensions() {
-    setWidth(std::max(calculateWidth(), getWidth()));
-    setHeight(std::max(calculateHeight(), getHeight()));
+    setWidth(std::max(calculateWidth(), std::max(getWidth(), getDefaultWidth())));
+    setHeight(std::max(calculateHeight(), std::max(getHeight(), getDefaultHeight())));
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -98,12 +98,20 @@ const double AutoLayoutNode::getWidth() {
     return _speciesGlyph->getBoundingBox()->width();
 }
 
+const double AutoLayoutNode::getDefaultWidth() {
+    return 60.0;
+}
+
 void AutoLayoutNode::setWidth(const double& width) {
     _speciesGlyph->getBoundingBox()->setWidth(width);
 }
 
 const double AutoLayoutNode::getHeight() {
     return _speciesGlyph->getBoundingBox()->height();
+}
+
+const double AutoLayoutNode::getDefaultHeight() {
+    return 36.0;
 }
 
 void AutoLayoutNode::setHeight(const double& height) {
@@ -166,6 +174,10 @@ const double AutoLayoutCentroidNode::getWidth() {
     return _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x() - _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x();
 }
 
+const double AutoLayoutCentroidNode::getDefaultWidth() {
+    return getWidth();
+}
+
 void AutoLayoutCentroidNode::setWidth(const double& width) {
     if (std::abs(width - getWidth())) {
         _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(_reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
@@ -178,6 +190,10 @@ void AutoLayoutCentroidNode::setWidth(const double& width) {
 
 const double AutoLayoutCentroidNode::getHeight() {
     return _reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y() - _reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->y();
+}
+
+const double AutoLayoutCentroidNode::getDefaultHeight() {
+    return getHeight();
 }
 
 void AutoLayoutCentroidNode::setHeight(const double& height) {

@@ -499,8 +499,8 @@ const double calculateEuclideanDistance(const double& distanceX, const double& d
 
 const double calculateStiffnessAdjustmentFactor(AutoLayoutObjectBase* vNode, AutoLayoutObjectBase* uNode) {
     double minimumDimension = 15.0;
-    double uNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)vNode)->getWidth(), ((AutoLayoutNodeBase*)vNode)->getHeight()), minimumDimension);
-    double vNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)uNode)->getWidth(), ((AutoLayoutNodeBase*)uNode)->getHeight()), minimumDimension);
+    double uNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)vNode)->getDefaultWidth(), ((AutoLayoutNodeBase*)vNode)->getDefaultHeight()), minimumDimension);
+    double vNodeDimension = std::max(std::max(((AutoLayoutNodeBase*)uNode)->getDefaultWidth(), ((AutoLayoutNodeBase*)uNode)->getDefaultHeight()), minimumDimension);
     return std::log(((AutoLayoutNodeBase*)vNode)->getDegree() + ((AutoLayoutNodeBase*)uNode)->getDegree() + 2) + 0.25 * (uNodeDimension + vNodeDimension);
 }
 

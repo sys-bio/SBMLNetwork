@@ -21,9 +21,13 @@ public:
 
     virtual const double getWidth() = 0;
 
+    virtual const double getDefaultWidth() = 0;
+
     virtual void setWidth(const double& width) = 0;
 
     virtual const double getHeight() = 0;
+
+    virtual const double getDefaultHeight() = 0;
 
     virtual void setHeight(const double& height) = 0;
 
@@ -85,9 +89,13 @@ public:
 
     const double getWidth() override;
 
+    const double getDefaultWidth() override;
+
     void setWidth(const double& width) override;
 
     const double getHeight() override;
+
+    const double getDefaultHeight() override;
 
     void setHeight(const double& height) override;
 
@@ -119,9 +127,13 @@ public:
 
     const double getWidth() override;
 
+    const double getDefaultWidth() override;
+
     void setWidth(const double& width) override;
 
     const double getHeight() override;
+
+    const double getDefaultHeight() override;
 
     void setHeight(const double& height) override;
 

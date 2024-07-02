@@ -556,7 +556,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
         if (isLayoutAdded) {
-            if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, height) && updateLayoutCurves(document,
+            if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height) && updateLayoutCurves(document,
                                                                                                         getGraphicalObject(
                                                                                                                 document,
                                                                                                                 layoutIndex,
