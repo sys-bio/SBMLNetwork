@@ -157,6 +157,27 @@ class LibSBMLNetwork:
 
         return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), self.layout_is_added)
 
+    def distribute(self, nodes, direction="horizontal", spacing=-1):
+        """
+        Distributes the given nodes in the given direction in the given SBMLDocument
+
+        :Parameters:
+
+            - nodes (list): a list that determines the nodes to be distributed
+            - direction (string, optional): a string (default: "horizontal") that determines the direction of distribution to be applied ("horizontal", "vertical")
+            - spacing (float, optional): a float (default: -1) that determines the spacing between the nodes (default: -1, which means the spacing will be calculated automatically
+
+        :Returns:
+
+                true on success and false if the distribution could not be applied
+            """
+
+        nodes_ptr = (ctypes.c_char_p * len(nodes))()
+        for i in range(len(nodes)):
+            nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
+
+        return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing), self.layout_is_added)
+
     def getSBMLLevel(self):
         """
         Returns the SBML level of the given SBMLDocument
@@ -8256,6 +8277,22 @@ class LibSBMLNetwork:
             list_of_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidAlignmentValue(n)).value.decode())
 
         return list_of_alignments
+
+    def getListOfDistributionDirections(self):
+        """
+        Returns the list of valid GraphicalObject distribution directions in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject distribution directions in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidDistributionDirectionValue.restype = ctypes.c_char_p
+        list_of_distribution_directions = []
+        for n in range(lib.c_api_getNumValidDistributionDirectionValues()):
+            list_of_distribution_directions.append(ctypes.c_char_p(lib.c_api_getNthValidDistributionDirectionValue(n)).value.decode())
+
+        return list_of_distribution_directions
 
     def getListOfColorNames(self):
         """

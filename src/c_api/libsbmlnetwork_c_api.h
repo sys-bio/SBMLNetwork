@@ -72,6 +72,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool isLayoutAdded = true);
 
+    /// @brief Distribute the nodes position in the SBML document in the given direction.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param nodeIds an array of strings containing the ids of the nodes that should be distributed.
+    /// @param nodesSize the size of nodeIds
+    /// @param direction determines how to distribute the nodes.
+    /// @param spacing the spacing between the distributed nodes.
+    /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing = -1.0, bool isLayoutAdded = true);
+
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @return the number of items in of this SBML document, or @c 0 if the object is @c NULL
@@ -4297,6 +4307,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @brief Returns the nth valid value for the "alignment" attribute that can be used in for c_api_align function.
     /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidAlignmentValue(int index);
+
+    /// @brief Returns the number of valid values for the "distribution" direction attribute that can be used in for c_api_setDistribution function
+    /// @return the number of valid values for the "distribution" direction attribute.
+    LIBSBMLNETWORK_EXTERN int c_api_getNumValidDistributionDirectionValues();
+
+    /// @brief Returns the nth valid value for the "distribution" direction attribute that can be used in for c_api_setDistribution function
+    /// @param index an int representing the index of the valid value to retrieve.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidDistributionDirectionValue(int index);
 
     /// @brief Returns the number of valid values for the "color" name attribute that can be used in for all set color value functions.
     /// @return the number of valid values for the "color" name attribute.

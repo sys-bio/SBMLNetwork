@@ -61,6 +61,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return -1;
     }
 
+    int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing, bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+            if (nodeIds) {
+                for (int i = 0; i < nodesSize; i++)
+                    nodeIdsVector.emplace_back(nodeIds[i]);
+            }
+            return distribute(document, nodeIdsVector, direction, spacing);
+        }
+        else
+            std::cerr << "Distribute function does not apply as the layout is not set by the autolayout algorithm." << std::endl;
+
+        return -1;
+    }
+
     const int c_api_getNumLayouts(SBMLDocument* document) {
         return getNumLayouts(document);
     }
@@ -2516,6 +2531,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     const char* c_api_getNthValidAlignmentValue(int index) {
         if (index >= 0 && index < c_api_getNumValidAlignmentValues())
             return strdup(getValidAlignmentValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidDistributionDirectionValues() {
+        return getValidDistributionDirectionValues().size();
+    }
+
+    const char* c_api_getNthValidDistributionDirectionValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidDistributionDirectionValues())
+            return strdup(getValidDistributionDirectionValues().at(index).c_str());
 
         return "";
     }

@@ -85,6 +85,14 @@ LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, std::vector
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment);
 
+/// @brief Distribute the nodes position in the SBML document in the given distribution direction.
+/// @param document a pointer to the SBMLDocument object.
+/// @param nodeIds an array of node ids to be distributed.
+/// @param direction determines how to distribute the nodes.
+/// @param spacing the spacing between the distributed nodes.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int distribute(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& direction, const double& spacing = -1);
+
 /// @brief Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the object to be found.
