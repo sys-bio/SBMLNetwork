@@ -1708,6 +1708,24 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHref(SBMLDocument* document
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the local styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the global styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Creates a new Style object with the given GraphicalObject attributes and adds it to the styles of the first local render information in the SBML document
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the created Style object.
+LIBSBMLNETWORK_EXTERN Style* createLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
@@ -1715,11 +1733,50 @@ LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, GraphicalObject* g
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the local styles of the render information base with the given index of the SBML document and returns one that matches this GraphicalObject attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the global styles of the render information base with the given index of the SBML document and returns one that matches this GraphicalObject attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Creates a new Style object with the given GraphicalObject attributes and adds it to the styles of the local render information with the given index in the SBML document
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the created Style object.
+LIBSBMLNETWORK_EXTERN Style* createLocalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, const std::string& attribute);
+
+/// @brief Searches among the local styles of the first render information base in the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, const std::string& attribute);
+
+/// @brief Searches among the global styles of the first render information base in the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, const std::string& attribute);
+
+/// @brief Creates a new Style object with the given attribute and adds it to the styles of the first local render information in the SBML document
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the created Style object.
+LIBSBMLNETWORK_EXTERN Style* createLocalStyle(SBMLDocument* document, const std::string& attribute);
 
 /// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
 /// @param document a pointer to the SBMLDocument object.
@@ -1727,6 +1784,27 @@ LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, const std::string&
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute);
+
+/// @brief Searches among the local styles of the render information base with the given index of the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute);
+
+/// @brief Searches among the global styles of the render information base with the given index of the SBML document and returns one that matches this attribute (id, role, type) of a GraphicalObject
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute);
+
+/// @brief Creates a new Style object with the given attribute and adds it to the styles of the local render information with the given index in the SBML document
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @return a pointer to the created Style object.
+LIBSBMLNETWORK_EXTERN Style* createLocalStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute);
 
 /// @brief Searches among the styles of the first render information base in the SBML document and returns one contains the "id" in its idlist.
 /// @param document a pointer to the SBMLDocument object.

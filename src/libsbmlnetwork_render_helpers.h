@@ -107,7 +107,9 @@ void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderI
 
 void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
-LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject);
+Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject);
+
+Style* createLocalStyle(RenderInformationBase* localRenderInformation, GraphicalObject* graphicalObject);
 
 void addCompartmentGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 

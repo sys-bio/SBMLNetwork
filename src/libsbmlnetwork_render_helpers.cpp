@@ -443,12 +443,22 @@ void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformati
     addReactionGlyphsLocalStyles(layout, localRenderInformation);
 }
 
-LocalStyle* createLocalStyle(LocalRenderInformation* localRenderInformation, GraphicalObject* graphicalObject) {
-        LocalStyle* localStyle = localRenderInformation->createLocalStyle();
+Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject) {
+    Style* localStyle = createLocalStyle(localRenderInformation, graphicalObject);
+    localStyle->setGroup(globalStyle->getGroup()->clone());
+    return localStyle;
+}
+
+Style* createLocalStyle(RenderInformationBase* localRenderInformation, GraphicalObject* graphicalObject) {
+    Style* localStyle = NULL;
+    if (localRenderInformation->isLocalRenderInformation()) {
+        localStyle = ((LocalRenderInformation*)localRenderInformation)->createLocalStyle();
+        ((LocalStyle*)localStyle)->addId(graphicalObject->getId());
         localStyle->setId(graphicalObject->getId() + "_style");
-        localStyle->addId(graphicalObject->getId());
-        return localStyle;
     }
+
+    return localStyle;
+}
 
 void addCompartmentGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
@@ -458,7 +468,7 @@ void addCompartmentGlyphsLocalStyles(Layout* layout, LocalRenderInformation* loc
 }
 
 void addCompartmentGlyphLocalStyle(CompartmentGlyph* compartmentGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, compartmentGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, compartmentGlyph);
     setCompartmentGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
@@ -470,7 +480,7 @@ void addCompartmentTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation*
 }
 
 void addCompartmentTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, textGlyph);
     setCompartmentTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
@@ -482,7 +492,7 @@ void addSpeciesGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRe
 }
 
 void addSpeciesGlyphLocalStyle(SpeciesGlyph* speciesGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, speciesGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, speciesGlyph);
     setSpeciesGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
@@ -494,7 +504,7 @@ void addSpeciesTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* loc
 }
 
 void addSpeciesTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, textGlyph);
     setSpeciesTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
@@ -507,7 +517,7 @@ void addReactionGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localR
 }
 
 void addReactionGlyphLocalStyle(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, reactionGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, reactionGlyph);
     setReactionGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
@@ -519,7 +529,7 @@ void addReactionTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* lo
 }
 
 void addReactionTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, textGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, textGlyph);
     setReactionTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
@@ -529,7 +539,7 @@ void addSpeciesReferenceGlyphsLocalStyles(ReactionGlyph* reactionGlyph, LocalRen
 }
 
 void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceGlyph, LocalRenderInformation* localRenderInformation) {
-    LocalStyle* localStyle = createLocalStyle(localRenderInformation, speciesReferenceGlyph);
+    Style* localStyle = createLocalStyle(localRenderInformation, speciesReferenceGlyph);
     setSpeciesReferenceGlyphRenderGroupFeatures(localStyle->createGroup(), speciesReferenceGlyph->getRole());
 }
 
