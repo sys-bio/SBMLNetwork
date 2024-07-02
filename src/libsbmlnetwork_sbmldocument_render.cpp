@@ -1526,6 +1526,11 @@ Style* createLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject
     return createLocalStyle(getLocalRenderInformation(document), globalStyle, graphicalObject);
 }
 
+Style* createLocalStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
+    Style* globalStyle = getGlobalStyle(document, graphicalObject);
+    return createLocalStyle(getLocalRenderInformation(document), globalStyle, textGlyph);
+}
+
 Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
     Style* style = getLocalStyle(document, renderIndex, graphicalObject);
     if (!style)
@@ -2044,7 +2049,7 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
 bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject), graphicalObject);
     if (getNumGeometricShapes(style) == 1)
         return isSetFontColor(getGeometricShape(style));
 
@@ -2084,7 +2089,7 @@ const std::string getFontColor(SBMLDocument* document, const std::string& attrib
 int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontColor) {
     Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, graphicalObject));
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject), graphicalObject);
     addColor(document, style, fontColor);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontColor(getGeometricShape(style), fontColor);
@@ -2095,7 +2100,7 @@ int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
 int setFontColor(SBMLDocument* document, const std::string& attribute, const std::string& fontColor) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     addColor(document, style, fontColor);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontColor(getGeometricShape(style), fontColor);
@@ -2187,7 +2192,7 @@ const std::string getFontFamily(SBMLDocument* document, const std::string& attri
 int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontFamily) {
     Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, graphicalObject));
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontFamily(getGeometricShape(style), fontFamily);
 
@@ -2197,7 +2202,7 @@ int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, cons
 int setFontFamily(SBMLDocument* document, const std::string& attribute, const std::string& fontFamily) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontFamily(getGeometricShape(style), fontFamily);
 
@@ -2286,9 +2291,9 @@ const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attrib
 }
 
 int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& fontSize) {
-    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject));
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject));;
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, graphicalObject));
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontSize(getGeometricShape(style), fontSize);
 
@@ -2298,7 +2303,7 @@ int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const 
 int setFontSize(SBMLDocument* document, const std::string& attribute, const RelAbsVector& fontSize) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontSize(getGeometricShape(style), fontSize);
 
@@ -2387,7 +2392,7 @@ const std::string getFontWeight(SBMLDocument* document, const std::string& attri
 int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontWeight) {
     Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, graphicalObject));
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontWeight(getGeometricShape(style), fontWeight);
 
@@ -2397,7 +2402,7 @@ int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, cons
 int setFontWeight(SBMLDocument* document, const std::string& attribute, const std::string& fontWeight) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontWeight(getGeometricShape(style), fontWeight);
 
@@ -2488,7 +2493,7 @@ const std::string getFontStyle(SBMLDocument* document, const std::string& attrib
 int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontStyle) {
     Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, graphicalObject));
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontStyle(getGeometricShape(style), fontStyle);
 
@@ -2498,7 +2503,7 @@ int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const
 int setFontStyle(SBMLDocument* document, const std::string& attribute, const std::string& fontStyle) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontStyle(getGeometricShape(style), fontStyle);
 
@@ -2599,7 +2604,7 @@ int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, cons
 int setTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& textAnchor) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setTextAnchor(getGeometricShape(style), textAnchor);
 
@@ -2700,7 +2705,7 @@ int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, con
 int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& vtextAnchor) {
     Style* style = getLocalStyle(document, getTextGlyph(document, attribute));
     if (!style)
-        style = createLocalStyle(document, getTextGlyph(document, attribute));
+        style = createLocalStyle(document, getTextGlyph(document, attribute), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
