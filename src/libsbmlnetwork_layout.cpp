@@ -515,6 +515,37 @@ int setText(GraphicalObject* textGlyph, const std::string& text) {
     return -1;
 }
 
+int addText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {
+    return addText(layout, getGraphicalObject(layout, id, graphicalObjectIndex), text);
+}
+
+int addText(Layout* layout, GraphicalObject* graphicalObject, const std::string& text) {
+    if (graphicalObject) {
+        TextGlyph* textGlyph = layout->createTextGlyph();
+        textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
+        textGlyph->setText(text);
+        textGlyph->setGraphicalObjectId(graphicalObject->getId());
+        textGlyph->setOriginOfTextId(getEntityId(layout, graphicalObject));
+        setTextGlyphBoundingBox(textGlyph, graphicalObject);
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int removeText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return removeText(layout, getTextGlyph(layout, getGraphicalObject(layout, id, graphicalObjectIndex), textGlyphIndex));
+}
+
+int removeText(Layout* layout, GraphicalObject* textGlyph) {
+    if (isTextGlyph(textGlyph)) {
+        layout->removeTextGlyph(textGlyph->getId());
+    }
+
+    return -1;
+}
+
 bool isSetOriginOfTextId(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     return isSetOriginOfTextId(getTextGlyph(layout, getGraphicalObject(layout, id, graphicalObjectIndex), textGlyphIndex));
 }

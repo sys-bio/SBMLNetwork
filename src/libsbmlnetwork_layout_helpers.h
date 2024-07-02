@@ -134,7 +134,7 @@ std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* rea
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
 
-bool isDummySpeciesGlyph(GraphicalObject* graphicalObject);
+const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject);
 
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
 

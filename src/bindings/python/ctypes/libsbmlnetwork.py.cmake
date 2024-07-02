@@ -1530,6 +1530,40 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setText(self.sbml_object, str(id).encode(), str(text).encode(), graphical_object_index, text_glyph_index, layout_index)
 
+    def addText(self, id, text, graphical_object_index=0, layout_index=0):
+        """
+        Adds a TextGlyph with the given text, id, graphical_object_index, and layout_index to the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text (string): a string that determines the text of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the TextGlyph could not be added
+        """
+        return lib.c_api_addText(self.sbml_object, str(id).encode(), str(text).encode(), graphical_object_index, layout_index)
+
+    def removeText(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Removes the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index from the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the TextGlyph could not be removed
+        """
+        return lib.c_api_removeText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
     def getX(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the x-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument

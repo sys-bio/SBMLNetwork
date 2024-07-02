@@ -719,6 +719,22 @@ int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string&
     return setText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex, text);
 }
 
+int addText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {
+    return addText(getLayout(document), id, graphicalObjectIndex, text);
+}
+
+int addText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {
+    return addText(getLayout(document, layoutIndex), id, graphicalObjectIndex, text);
+}
+
+int removeText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return removeText(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
+}
+
+int removeText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return removeText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+}
+
 bool isSetOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     return isSetOriginOfTextId(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
 }

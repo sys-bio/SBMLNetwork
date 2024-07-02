@@ -510,6 +510,33 @@ LIBSBMLNETWORK_EXTERN int setText(Layout* layout, const std::string& id, unsigne
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setText(GraphicalObject* textGlyph, const std::string& text);
 
+/// @brief Adds a new TextGlyph object to the Layout object and associates it with the given GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+LIBSBMLNETWORK_EXTERN int addText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text);
+
+/// @brief Adds a new TextGlyph object to the Layout object and associates it with the given GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+int addText(Layout* layout, GraphicalObject* graphicalObject, const std::string& text);
+
+/// @brief Removes the TextGlyph object with the given index associated with the given GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param textGlyphIndex the index of the TextGlyph to remove.
+/// @return integer value indicating success/failure of the function.
+int removeText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
+/// @brief Removes the TextGlyph object from the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+int removeText(Layout* layout, GraphicalObject* textGlyph);
+
 /// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id is not the empty string.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.

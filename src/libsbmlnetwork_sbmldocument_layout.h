@@ -1491,6 +1491,40 @@ LIBSBMLNETWORK_EXTERN int setText(SBMLDocument* document, const std::string& id,
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& text);
 
+/// @brief Adds a new TextGlyph object to the first Layout object of the SBML document and associates it with the given GraphicalObject object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text);
+
+/// @brief Adds a new TextGlyph object to the Layout object with the given index of the SBML document and associates it with the given GraphicalObject object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text);
+
+/// @brief Removes the TextGlyph object with the given index associated with the given id in the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
+/// @brief Removes the TextGlyph object with the given index associated with the given id in the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
 /// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id in
 /// the first Layout object of the SBML document is not the empty string.
 /// @param document a pointer to the SBMLDocument object.

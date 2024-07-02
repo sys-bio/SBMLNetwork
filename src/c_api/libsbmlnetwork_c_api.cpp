@@ -466,6 +466,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setText(document, layoutIndex, id, textGlyphIndex, text);
     }
 
+    int c_api_addText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex, int layoutIndex) {
+        return addText(document, layoutIndex, id, graphicalObjectIndex, text);
+    }
+
+    int c_api_removeText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return removeText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
+    }
+
     const double c_api_getX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }

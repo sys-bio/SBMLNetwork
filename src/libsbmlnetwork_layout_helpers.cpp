@@ -292,7 +292,7 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
             return layout->getTextGlyph(i);
     }
     TextGlyph* textGlyph = layout->createTextGlyph();
-    textGlyph->setId(graphicalObject->getId() + "_TextGlyph_1");
+    textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
     textGlyph->setGraphicalObjectId(graphicalObject->getId());
     textGlyph->setOriginOfTextId(getEntityId(layout, graphicalObject));
     
@@ -558,6 +558,26 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
         speciesReferenceGlyphs.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
 
     return speciesReferenceGlyphs;
+}
+
+const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject) {
+    std::string textGlyphUniqueId = "";
+    int textGlyphIndex = 1;
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    while (true) {
+        textGlyphUniqueId = graphicalObject->getId() + "_TextGlyph_" + std::to_string(textGlyphIndex++);
+        bool isUniqueId = true;
+        for (unsigned int i = 0; i < textGlyphs.size(); i++) {
+            if (textGlyphUniqueId == textGlyphs.at(i)->getId()) {
+                isUniqueId = false;
+                break;
+            }
+        }
+        if (isUniqueId)
+            break;
+    }
+
+    return textGlyphUniqueId;
 }
 
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
