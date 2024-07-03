@@ -171,30 +171,6 @@ jobs:
         with:
           python-version: ${{ matrix.python_version }}
 
-      - name: Setup Python for Manylinux platforms
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}
-          dnf update -y
-          dnf install -y gcc openssl-devel bzip2-devel libffi-devel epel-release
-          mkdir -p python${{ matrix.python_version }}
-          cd python${{ matrix.python_version }}
-          curl -L https://www.python.org/ftp/python/${{ matrix.python_version }}.0/Python-${{ matrix.python_version }}.0.tgz > python.tgz
-          tar -zxf python.tgz
-          rm python.tgz
-          cd Python-${{ matrix.python_version }}.0
-          sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
-          mkdir -p install-python
-          if [ -z "$CFLAGS" ]; then
-            export CFLAGS="-fPIC"
-          else
-            export CFLAGS="$CFLAGS -fPIC"
-          fi
-          ./configure --enable-optimizations --prefix=${RUNNER_WORKSPACE}/python${{ matrix.python_version }}/install-python
-          make install
-          echo "${RUNNER_WORKSPACE}/python${{ matrix.python_version }}/install-python/bin" >> "${GITHUB_PATH}"
-
       - name: Download Dependencies binaries
         shell: bash
         run: |
