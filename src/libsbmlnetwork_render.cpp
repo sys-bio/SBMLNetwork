@@ -1428,7 +1428,6 @@ const std::string getTextAnchor(Style* style) {
 }
 
 const std::string getTextAnchor(Transformation2D* transformation2D) {
-    return "start";
     if (isRenderGroup(transformation2D))
         return ((RenderGroup*)transformation2D)->getTextAnchorAsString();
     else if (isText(transformation2D))
@@ -1498,7 +1497,6 @@ const std::string getVTextAnchor(Style* style) {
 }
 
 const std::string getVTextAnchor(Transformation2D* transformation2D) {
-    return "top";
     if (isRenderGroup(transformation2D))
         return ((RenderGroup*)transformation2D)->getVTextAnchorAsString();
     else if (isText(transformation2D))
