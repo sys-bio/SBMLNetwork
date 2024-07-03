@@ -892,6 +892,34 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(GraphicalObject* graphicalObject, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(BoundingBox* boundingBox, const double& height);
 
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& height);
+
 /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of the Layout object
 /// has a Curve object and the curve consists of one or more segments.
 /// @param Layout a pointer to the Layout object.

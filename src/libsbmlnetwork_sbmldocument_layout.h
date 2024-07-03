@@ -1975,6 +1975,82 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
 
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height);
+
 /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of
 /// the first Layout object in the SBML document has a Curve object and the curve consists of one or more segments.
 /// @param document a pointer to the SBMLDocument object.
