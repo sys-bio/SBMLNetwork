@@ -136,6 +136,8 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
 
 const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject);
 
+const bool layoutContainsGlyphs(Layout* layout);
+
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
 
 void alignGraphicalObjectsToTop(std::vector<GraphicalObject*> graphicalObjects);

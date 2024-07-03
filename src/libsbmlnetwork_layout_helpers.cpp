@@ -580,6 +580,10 @@ const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphica
     return textGlyphUniqueId;
 }
 
+const bool layoutContainsGlyphs(Layout* layout) {
+    return layout->getNumCompartmentGlyphs() + layout->getNumSpeciesGlyphs() + layout->getNumReactionGlyphs() > 0 ? true : false;
+}
+
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
