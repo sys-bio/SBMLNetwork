@@ -1706,6 +1706,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return "middle";
         return strdup(getTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
@@ -1734,6 +1735,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return "Top";
         return strdup(getVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
