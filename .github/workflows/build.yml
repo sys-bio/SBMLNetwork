@@ -60,13 +60,13 @@ jobs:
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Release
-            build_python: ON
+            build_python: OFF
           - name: manylinux2014-debug
             os_type: manylinux
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Debug
-            build_python: ON
+            build_python: OFF
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
@@ -97,10 +97,10 @@ jobs:
             update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
             update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            yum install -y centos-release-scl
-            yum install -y devtoolset-11
-            scl enable devtoolset-11 bash
-            echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+            #yum install -y centos-release-scl
+            #yum install -y devtoolset-11
+            #scl enable devtoolset-11 bash
+            #echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
           fi
 
       - name: Setup Ninja
