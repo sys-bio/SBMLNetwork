@@ -98,8 +98,8 @@ jobs:
             update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             dnf install -y gcc-toolset-11
-            scl enable devtoolset-11 bash
-            echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+            scl enable gcc-toolset-11 bash
+            echo "/opt/rh/gcc-toolset-11/root/usr/bin" >> "${GITHUB_PATH}"
           fi
 
       - name: Setup Ninja
