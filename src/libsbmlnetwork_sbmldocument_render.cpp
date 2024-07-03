@@ -2659,9 +2659,9 @@ const std::string getTextAnchor(SBMLDocument* document, const std::string& attri
     Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
-    return "start";
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getTextAnchor(getGeometricShape(style));
+    return "start";
 
     return getTextAnchor(style);
 }
@@ -2765,9 +2765,9 @@ const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphi
     Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
-    return "top";
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getVTextAnchor(getGeometricShape(style));
+    return "top";
 
     return getVTextAnchor(style);
 }
