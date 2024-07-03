@@ -97,7 +97,6 @@ jobs:
             update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
             update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            dnf install -y centos-release-scl
             dnf install -y devtoolset-11
             scl enable devtoolset-11 bash
             echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
