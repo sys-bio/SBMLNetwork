@@ -177,8 +177,8 @@ jobs:
         shell: bash
         run: |
           cd ${RUNNER_WORKSPACE}
-          yum update -y
-          yum install -y gcc openssl-devel bzip2-devel libffi-devel epel-release openssl11-devel
+          dnf update -y
+          dnf install -y gcc openssl-devel bzip2-devel libffi-devel epel-release openssl11-devel
           mkdir -p python${{ matrix.python_version }}
           cd python${{ matrix.python_version }}
           curl -L https://www.python.org/ftp/python/${{ matrix.python_version }}.0/Python-${{ matrix.python_version }}.0.tgz > python.tgz
