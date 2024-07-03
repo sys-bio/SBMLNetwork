@@ -166,7 +166,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Setup Python for non-Manylinux platforms
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
+        if: matrix.platform.build_python == 'ON'
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python_version }}
