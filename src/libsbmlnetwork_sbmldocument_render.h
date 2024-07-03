@@ -2168,28 +2168,32 @@ LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(SBMLDocument* document, const s
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontColor(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontColor(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const std::string getFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2198,12 +2202,27 @@ LIBSBMLNETWORK_EXTERN const std::string getFontColor(SBMLDocument* document, con
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontColor);
 
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontColor);
+
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, const std::string& attribute, const std::string& fontColor);
+
+/// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontColor);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -2236,28 +2255,32 @@ LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, unsigned int layo
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-family"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-family"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontFamily(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontFamily(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const std::string getFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2266,12 +2289,28 @@ LIBSBMLNETWORK_EXTERN const std::string getFontFamily(SBMLDocument* document, co
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontFamily);
 
+/// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontFamily);
+
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, const std::string& attribute, const std::string& fontFamily);
+
+/// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontFamily);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -2304,28 +2343,32 @@ LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, unsigned int lay
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-size"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-size"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontSize(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c RelAbsVector() if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2334,12 +2377,28 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(SBMLDocument* document, con
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& fontSize);
 
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontSize a RelAbsVector value to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const RelAbsVector& fontSize);
+
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, const std::string& attribute, const RelAbsVector& fontSize);
+
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const RelAbsVector& fontSize);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
@@ -2352,28 +2411,32 @@ LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, unsigned int layou
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-weight"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-weight"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontWeight(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontWeight(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const std::string getFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2382,12 +2445,28 @@ LIBSBMLNETWORK_EXTERN const std::string getFontWeight(SBMLDocument* document, co
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontWeight);
 
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontWeight);
+
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, const std::string& attribute, const std::string& fontWeight);
+
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontWeight);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
@@ -2400,35 +2479,48 @@ LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, unsigned int lay
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-style"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-style"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetFontStyle(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getFontStyle(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const std::string getFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontStyle);
+
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontStyle);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2436,6 +2528,14 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, GraphicalObject* 
 /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, const std::string& attribute, const std::string& fontStyle);
+
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontStyle);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
@@ -2448,28 +2548,32 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, unsigned int layo
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -2478,12 +2582,28 @@ LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(SBMLDocument* document, co
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& textAnchor);
 
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& textAnchor);
+
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& textAnchor);
+
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& textAnchor);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
@@ -2496,42 +2616,48 @@ LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, unsigned int lay
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "vtext-anchor"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "vtext-anchor"
 /// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @return the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(SBMLDocument* document, const std::string& attribute);
+LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& vtextAnchor);
+LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& vtextAnchor);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param textGlyphIndex an unsigned int representing the index of the TextGlyph object.
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& vtextAnchor);
+LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& vtextAnchor);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 

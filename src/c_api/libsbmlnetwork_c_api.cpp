@@ -1545,16 +1545,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFillRule(document, layoutIndex, fillRule);
     }
 
-    bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex, int layoutIndex ) {
-        return setFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontColor);
+    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontColor);
     }
 
     int c_api_setCompartmentsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex) {
@@ -1573,16 +1573,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontColor(document, layoutIndex, fontColor);
     }
 
-    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex, int layoutIndex) {
-        return setFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontFamily);
+    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontFamily);
     }
 
     int c_api_setCompartmentsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex) {
@@ -1601,19 +1601,20 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontFamily(document, layoutIndex, fontFamily);
     }
 
-    bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        RelAbsVector fontSizeVector = getFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        return fontSizeVector.getAbsoluteValue() + (getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex) + getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex)) * fontSizeVector.getRelativeValue();
+    const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        RelAbsVector fontSizeVector = getFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
+        return fontSizeVector.getAbsoluteValue() + 0.5 * (getTextDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex) +
+                getTextDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)) * fontSizeVector.getRelativeValue();
     }
 
-    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex, int layoutIndex) {
+    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
         RelAbsVector fontSizeVector;
         fontSizeVector.setAbsoluteValue(fontSize);
-        return setFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontSizeVector);
+        return setFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontSizeVector);
     }
 
     int c_api_setCompartmentsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex) {
@@ -1640,16 +1641,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontSize(document, layoutIndex, fontSizeVector);
     }
 
-    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex, int layoutIndex) {
-        return setFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontWeight);
+    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontWeight);
     }
 
     int c_api_setCompartmentsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex) {
@@ -1668,16 +1669,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontWeight(document, layoutIndex, fontWeight);
     }
 
-    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex, int layoutIndex) {
-        return setFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontStyle);
+    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontStyle);
     }
 
     int c_api_setCompartmentsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex) {
@@ -1696,16 +1697,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontStyle(document, layoutIndex, fontStyle);
     }
 
-    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex, int layoutIndex) {
-        return setTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textHorizontalAlignment);
+    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, textHorizontalAlignment);
     }
 
     int c_api_setCompartmentsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex) {
@@ -1724,16 +1725,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setTextAnchor(document, layoutIndex, textHorizontalAlignment);
     }
 
-    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex, int layoutIndex) {
-        return setVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textVerticalAlignment);
+    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, textVerticalAlignment);
     }
 
     int c_api_setCompartmentsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex) {
