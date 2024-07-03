@@ -286,7 +286,6 @@ class TestSBMLNetwork(unittest.TestCase):
             for species_id in list_of_species_ids:
                 self.assertEqual('yellow', network.getFillColor(species_id))
 
-    @unittest.skip("Skip for now")
     def test_set_font_color(self):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
