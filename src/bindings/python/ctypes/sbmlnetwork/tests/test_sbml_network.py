@@ -407,7 +407,6 @@ class TestSBMLNetwork(unittest.TestCase):
                 network.setTextHorizontalAlignment(reaction_id, 'start')
                 print(network.getTextHorizontalAlignment(reaction_id))
 
-    @unittest.skip("Skip for now")
     def test_set_text_horizontal_alignments(self):
         for network in self.networks:
             network.setSpeciesTextHorizontalAlignments('end')
@@ -430,7 +429,6 @@ class TestSBMLNetwork(unittest.TestCase):
                 network.setTextVerticalAlignment(reaction_id, 'top')
                 self.assertEqual('top', network.getTextVerticalAlignment(reaction_id))
 
-    @unittest.skip("Skip for now")
     def test_set_text_vertical_alignments(self):
         for network in self.networks:
             network.setSpeciesTextVerticalAlignments('bottom')

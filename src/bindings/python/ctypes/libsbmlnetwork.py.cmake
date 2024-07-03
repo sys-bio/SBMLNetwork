@@ -5750,13 +5750,14 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             true if the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getTextHorizontalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -5774,7 +5775,7 @@ class LibSBMLNetwork:
             a string that determines the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getTextHorizontalAlignment.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
     def setTextHorizontalAlignment(self, id, text_horizontal_alignment, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -5862,13 +5863,14 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             true if the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getTextVerticalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -5886,7 +5888,7 @@ class LibSBMLNetwork:
             a string that determines the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getTextVerticalAlignment.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
     def setTextVerticalAlignment(self, id, text_vertical_alignment, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """

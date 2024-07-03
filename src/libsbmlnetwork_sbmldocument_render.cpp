@@ -2651,7 +2651,6 @@ const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphic
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getTextAnchor(getGeometricShape(style));
-    return "start";
 
     return getTextAnchor(style);
 }
@@ -2767,7 +2766,6 @@ const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphi
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getVTextAnchor(getGeometricShape(style));
-    return "top";
 
     return getVTextAnchor(style);
 }
