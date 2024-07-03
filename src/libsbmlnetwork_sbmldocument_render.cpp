@@ -2657,9 +2657,9 @@ const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphic
 
 const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
-    return "start";
     if (!style)
         style = getStyle(document, attribute);
+    return "start";
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getTextAnchor(getGeometricShape(style));
 
@@ -2763,9 +2763,9 @@ bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsi
 
 const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
-    return "top";
     if (!style)
         style = getStyle(document, graphicalObject);
+    return "top";
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return getVTextAnchor(getGeometricShape(style));
 
