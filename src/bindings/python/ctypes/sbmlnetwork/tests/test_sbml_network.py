@@ -419,7 +419,6 @@ class TestSBMLNetwork(unittest.TestCase):
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('end', network.getTextHorizontalAlignment(reaction_id))
 
-    @unittest.skip("Skip for now")
     def test_set_text_vertical_alignment(self):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
