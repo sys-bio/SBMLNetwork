@@ -164,13 +164,20 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *r
 }
 
 void updateLayoutDimensions(Layout* layout, const double &padding) {
-    double minX;
-    double minY;
-    double maxX;
-    double maxY;
-    extractExtents(layout, minX, minY, maxX, maxY);
-    layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
-    layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
+    if (!layoutContainsGlyphs(layout)) {
+        layout->getDimensions()->setWidth(0);
+        layout->getDimensions()->setHeight(0);
+        return;
+    }
+    else {
+        double minX;
+        double minY;
+        double maxX;
+        double maxY;
+        extractExtents(layout, minX, minY, maxX, maxY);
+        layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
+        layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
+    }
 }
 
 void extractExtents(Layout* layout, double &minX, double &minY, double &maxX, double &maxY) {

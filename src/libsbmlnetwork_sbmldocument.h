@@ -47,6 +47,11 @@ LIBSBMLNETWORK_EXTERN const unsigned int getSBMLLevel(SBMLDocument* document);
 /// @return the Version within the SBML Level of the SBMLDocument object containing this object.
 LIBSBMLNETWORK_EXTERN const unsigned int getSBMLVersion(SBMLDocument* document);
 
+/// @brief Free the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return boolean value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN bool freeSBMLDocument(SBMLDocument* document);
+
 /// @brief Returns true if the Model object has been set, otherwise returns false.
 /// @param document a pointer to the SBMLDocument object.
 /// @return true if the Model object has been set, otherwise returns false.

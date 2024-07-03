@@ -42,6 +42,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the Version within the SBML Level of the SBMLDocument object containing this object.
     LIBSBMLNETWORK_EXTERN int c_api_getSBMLVersion(SBMLDocument* document);
 
+    /// @brief Free the given SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return boolean value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN bool c_api_freeSBMLDocument(SBMLDocument* document);
+
     /// @brief Returns true if the Model object has been set, otherwise returns false.
     /// @param document a pointer to the SBMLDocument object.
     /// @return true if the Model object has been set, otherwise returns false.

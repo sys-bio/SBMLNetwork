@@ -38,6 +38,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return 0;
     }
 
+    bool freeSBMLDocument(SBMLDocument* document) {
+        if (document) {
+            delete document;
+            return true;
+        }
+
+        return false;
+    }
+
     bool isSetModel(SBMLDocument* document) {
         if (document)
             return document->isSetModel();
