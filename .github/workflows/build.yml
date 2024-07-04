@@ -78,7 +78,7 @@ jobs:
 
     steps:
       - name: Checkout libSBMLNetwork
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
