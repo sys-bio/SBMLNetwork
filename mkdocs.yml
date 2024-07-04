@@ -2,16 +2,16 @@ site_name: My Documentation
 nav:
   - Home: docs/source/index.md
   - Getting Started:
-      - Introduction: docs/source/getting-started/introduction.md
-      - Installation: docs/source/getting-started/installation.md
-      - Configuration: docs/source/getting-started/configuration.md
+      - Introduction: source/getting-started/introduction.md
+      - Installation: source/getting-started/installation.md
+      - Configuration: source/getting-started/configuration.md
   - Usage:
-      - Overview: docs/source/usage/introduction.md
-      - Examples: docs/source/usage/examples.md
-      - Troubleshooting: docs/source/usage/troubleshooting.md
+      - Overview: source/usage/introduction.md
+      - Examples: source/usage/examples.md
+      - Troubleshooting: source/usage/troubleshooting.md
 
   - API Reference:
-      - Overview: docs/source/api-reference/introduction.md
-      - C API: docs/source/api-reference/modules/c_module.md
-      - C++ API: docs/source/api-reference/modules/cpp_module.md
-      - Python API: docs/source/api-reference/modules/python_module.md
+      - Overview: source/api-reference/introduction.md
+      - C API: source/api-reference/modules/c_module.md
+      - C++ API: source/api-reference/modules/cpp_module.md
+      - Python API: source/api-reference/modules/python_module.md
