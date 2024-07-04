@@ -450,7 +450,7 @@ Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* gl
 }
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, GraphicalObject* graphicalObject) {
-    Style* localStyle = NULL;
+    LocalStyle* localStyle = NULL;
     if (localRenderInformation->isLocalRenderInformation()) {
         localStyle = ((LocalRenderInformation*)localRenderInformation)->createLocalStyle();
         ((LocalStyle*)localStyle)->addId(graphicalObject->getId());
