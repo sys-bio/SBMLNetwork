@@ -2,9 +2,9 @@ site_name: My Documentation
 nav:
   - Home: source/index.md
   - Getting Started:
-        - Introduction: source/getting-started/introduction.md
-        - Installation: source/getting-started/installation.md
-        - Configuration: source/getting-started/configuration.md
+      - Introduction: source/getting-started/introduction.md
+      - Installation: source/getting-started/installation.md
+      - Configuration: source/getting-started/configuration.md
   - Usage:
       - Overview: source/usage/introduction.md
       - Examples: source/usage/examples.md
