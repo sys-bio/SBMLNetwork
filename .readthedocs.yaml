@@ -1,0 +1,19 @@
+version: 3
+
+build:
+  image: latest
+
+formats:
+  - markdown
+
+# HTML theme configuration
+theme:
+  name: sphinx_rtd_theme
+  pygments_style: default
+  logo: null
+
+static:
+  - _static
+
+# Project documentation settings
+docs_dir: docs/source
