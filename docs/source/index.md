@@ -27,7 +27,7 @@ To get started with Project X, follow the steps outlined in the [Getting Started
 
 ## Usage
 
-Learn how to use Project X to [describe primary use cases or tasks your project facilitates] in the [Usage section](usage/overview.md).
+Learn how to use Project X to [describe primary use cases or tasks your project facilitates] in the [Usage section](usage/introduction.md).
 
 ## API Reference
 
