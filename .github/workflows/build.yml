@@ -166,10 +166,21 @@ jobs:
             ${{ runner.os }}-
 
       - name: Setup Python for non-Manylinux platforms
-        if: matrix.platform.build_python == 'ON'
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python_version }}
+
+      - name: Setup Python for Manylinux platforms
+        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
+        shell: bash
+        run: |
+          dnf install -y wget
+          wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+          bash Miniconda3-latest-Linux-x86_64.sh -b -p /Miniconda3
+          /Miniconda3/bin/conda create -y --name python${{ matrix.python_version }} python=${{ matrix.python_version }}
+          /Miniconda3/bin/conda init && bash ~/.bashrc && . ~/.bashrc          cd ${RUNNER_WORKSPACE}
+          echo "export PATH=/Miniconda3/envs/python${{ matrix.python_version }}/bin:$PATH" >> "${GITHUB_ENV}"
 
       - name: Download Dependencies binaries
         shell: bash
