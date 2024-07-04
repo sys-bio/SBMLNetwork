@@ -1,17 +1,3 @@
 site_name: My Documentation
 nav:
   - Home: docs/source/index.md
-  - Getting Started:
-      - Introduction: source/getting-started/introduction.md
-      - Installation: source/getting-started/installation.md
-      - Configuration: source/getting-started/configuration.md
-  - Usage:
-      - Overview: source/usage/introduction.md
-      - Examples: source/usage/examples.md
-      - Troubleshooting: source/usage/troubleshooting.md
-
-  - API Reference:
-      - Overview: source/api-reference/introduction.md
-      - C API: source/api-reference/modules/c_module.md
-      - C++ API: source/api-reference/modules/cpp_module.md
-      - Python API: source/api-reference/modules/python_module.md
