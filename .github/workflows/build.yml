@@ -58,20 +58,20 @@ jobs:
           - name: manylinux2014-release
             os_type: manylinux
             os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux2014_x86_64
+            container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Release
             build_python: ON
           - name: manylinux2014-debug
             os_type: manylinux
             os_name: ubuntu-latest
-            container_image: quay.io/pypa/manylinux2014_x86_64
+            container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Debug
             build_python: ON
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
         libroadrunner_deps_release_version: [ "v2.1.1" ]
-        python_version: [ "3.12" ]
+        python_version: [ "3.11" ]
     runs-on: ${{ matrix.platform.os_name }}
     container:
       image: ${{ matrix.platform.container_image || '' }}
@@ -97,10 +97,9 @@ jobs:
             update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 90
             update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            yum install -y centos-release-scl
-            yum install -y devtoolset-11
-            scl enable devtoolset-11 bash
-            echo "/opt/rh/devtoolset-11/root/usr/bin" >> "${GITHUB_PATH}"
+            dnf install -y gcc-toolset-11
+            scl enable gcc-toolset-11 bash
+            echo "/opt/rh/gcc-toolset-11/root/usr/bin" >> "${GITHUB_PATH}"
           fi
 
       - name: Setup Ninja
@@ -167,34 +166,10 @@ jobs:
             ${{ runner.os }}-
 
       - name: Setup Python for non-Manylinux platforms
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
+        if: matrix.platform.build_python == 'ON'
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python_version }}
-
-      - name: Setup Python for Manylinux platforms
-        if: matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'manylinux'
-        shell: bash
-        run: |
-          cd ${RUNNER_WORKSPACE}
-          yum update -y
-          yum install -y gcc openssl-devel bzip2-devel libffi-devel epel-release openssl11-devel
-          mkdir -p python${{ matrix.python_version }}
-          cd python${{ matrix.python_version }}
-          curl -L https://www.python.org/ftp/python/${{ matrix.python_version }}.0/Python-${{ matrix.python_version }}.0.tgz > python.tgz
-          tar -zxf python.tgz
-          rm python.tgz
-          cd Python-${{ matrix.python_version }}.0
-          sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
-          mkdir -p install-python
-          if [ -z "$CFLAGS" ]; then
-            export CFLAGS="-fPIC"
-          else
-            export CFLAGS="$CFLAGS -fPIC"
-          fi
-          ./configure --enable-optimizations --prefix=${RUNNER_WORKSPACE}/python${{ matrix.python_version }}/install-python
-          make install
-          echo "${RUNNER_WORKSPACE}/python${{ matrix.python_version }}/install-python/bin" >> "${GITHUB_PATH}"
 
       - name: Download Dependencies binaries
         shell: bash

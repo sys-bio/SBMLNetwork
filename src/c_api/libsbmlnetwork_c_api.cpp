@@ -65,6 +65,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return -1;
     }
 
+    int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing, bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+            if (nodeIds) {
+                for (int i = 0; i < nodesSize; i++)
+                    nodeIdsVector.emplace_back(nodeIds[i]);
+            }
+            return distribute(document, nodeIdsVector, direction, spacing);
+        }
+        else
+            std::cerr << "Distribute function does not apply as the layout is not set by the autolayout algorithm." << std::endl;
+
+        return -1;
+    }
+
     const int c_api_getNumLayouts(SBMLDocument* document) {
         return getNumLayouts(document);
     }
@@ -455,6 +470,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setText(document, layoutIndex, id, textGlyphIndex, text);
     }
 
+    int c_api_addText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex, int layoutIndex) {
+        return addText(document, layoutIndex, id, graphicalObjectIndex, text);
+    }
+
+    int c_api_removeText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return removeText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
+    }
+
     const double c_api_getX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }
@@ -495,6 +518,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return -1;
     }
 
+    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
+        if (isLayoutAdded) {
+            if (!setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y) && updateLayoutCurves(document,
+                                                                                                        getGraphicalObject(
+                                                                                                                document,
+                                                                                                                layoutIndex,
+                                                                                                                id,
+                                                                                                                graphicalObjectIndex)))
+                return 0;
+        }
+        else
+            std::cerr << "Position cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
+
+        return -1;
+    }
+
     const double c_api_getWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex);
     }
@@ -521,7 +560,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
         if (isLayoutAdded) {
-            if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, height) && updateLayoutCurves(document,
+            if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height) && updateLayoutCurves(document,
                                                                                                         getGraphicalObject(
                                                                                                                 document,
                                                                                                                 layoutIndex,
@@ -536,75 +575,39 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-            return getPositionX(textGlyphs.at(textGlyphIndex));
-
-        return 0.00;
+        return getTextPositionX(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
     int c_api_setTextX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
-            if (!setPositionX(textGlyphs.at(textGlyphIndex), x))
-                return 0;
-        }
-
-        return -1;
+        return setTextPositionX(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, x);
     }
 
     const double c_api_getTextY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-            return getPositionY(textGlyphs.at(textGlyphIndex));
-
-        return 0.00;
+        return getTextPositionY(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
     int c_api_setTextY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
-            if (!setPositionY(textGlyphs.at(textGlyphIndex), y))
-                return 0;
-        }
+        return setTextPositionY(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, y);
+    }
 
-        return -1;
+    int c_api_setTextPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
+        return setTextPosition(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, x, y);
     }
 
     const double c_api_getTextWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-            return getDimensionWidth(textGlyphs.at(textGlyphIndex));
-
-        return 0.00;
+        return getDimensionWidth(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex));
     }
 
     int c_api_setTextWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
-            if (!setDimensionWidth(textGlyphs.at(textGlyphIndex), width))
-                return 0;
-        }
-
-        return -1;
+        return setDimensionWidth(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex), width);
     }
 
     const double c_api_getTextHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-            return getDimensionHeight(textGlyphs.at(textGlyphIndex));
-
-        return 0.00;
+        return getDimensionHeight(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex));
     }
 
     int c_api_setTextHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
-            if (!setDimensionHeight(textGlyphs.at(textGlyphIndex), height))
-                return 0;
-        }
-
-        return -1;
+        return setDimensionHeight(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex), height);
     }
 
     bool c_api_isSetCurve(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1546,16 +1549,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFillRule(document, layoutIndex, fillRule);
     }
 
-    bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex, int layoutIndex ) {
-        return setFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontColor);
+    int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontColor);
     }
 
     int c_api_setCompartmentsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex) {
@@ -1574,16 +1577,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontColor(document, layoutIndex, fontColor);
     }
 
-    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex, int layoutIndex) {
-        return setFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontFamily);
+    int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontFamily(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontFamily);
     }
 
     int c_api_setCompartmentsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex) {
@@ -1602,19 +1605,20 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontFamily(document, layoutIndex, fontFamily);
     }
 
-    bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        RelAbsVector fontSizeVector = getFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
-        return fontSizeVector.getAbsoluteValue() + (getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex) + getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex)) * fontSizeVector.getRelativeValue();
+    const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        RelAbsVector fontSizeVector = getFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
+        return fontSizeVector.getAbsoluteValue() + 0.5 * (getTextDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex) +
+                getTextDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)) * fontSizeVector.getRelativeValue();
     }
 
-    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex, int layoutIndex) {
+    int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
         RelAbsVector fontSizeVector;
         fontSizeVector.setAbsoluteValue(fontSize);
-        return setFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontSizeVector);
+        return setFontSize(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontSizeVector);
     }
 
     int c_api_setCompartmentsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex) {
@@ -1641,16 +1645,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontSize(document, layoutIndex, fontSizeVector);
     }
 
-    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex, int layoutIndex) {
-        return setFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontWeight);
+    int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontWeight(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontWeight);
     }
 
     int c_api_setCompartmentsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex) {
@@ -1669,16 +1673,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontWeight(document, layoutIndex, fontWeight);
     }
 
-    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex, int layoutIndex) {
-        return setFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fontStyle);
+    int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setFontStyle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, fontStyle);
     }
 
     int c_api_setCompartmentsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex) {
@@ -1697,16 +1701,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFontStyle(document, layoutIndex, fontStyle);
     }
 
-    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex, int layoutIndex) {
-        return setTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textHorizontalAlignment);
+    int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, textHorizontalAlignment);
     }
 
     int c_api_setCompartmentsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex) {
@@ -1725,16 +1729,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setTextAnchor(document, layoutIndex, textHorizontalAlignment);
     }
 
-    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return isSetVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return isSetVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
     }
 
-    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
-        return strdup(getVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).c_str());
+    const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return strdup(getVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex).c_str());
     }
 
-    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex, int layoutIndex) {
-        return setVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textVerticalAlignment);
+    int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
+        return setVTextAnchor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, textVerticalAlignment);
     }
 
     int c_api_setCompartmentsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex) {
@@ -2494,6 +2498,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     const char* c_api_getNthValidAlignmentValue(int index) {
         if (index >= 0 && index < c_api_getNumValidAlignmentValues())
             return strdup(getValidAlignmentValues().at(index).c_str());
+
+        return "";
+    }
+
+    int c_api_getNumValidDistributionDirectionValues() {
+        return getValidDistributionDirectionValues().size();
+    }
+
+    const char* c_api_getNthValidDistributionDirectionValue(int index) {
+        if (index >= 0 && index < c_api_getNumValidDistributionDirectionValues())
+            return strdup(getValidDistributionDirectionValues().at(index).c_str());
 
         return "";
     }

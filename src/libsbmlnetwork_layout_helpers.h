@@ -134,6 +134,8 @@ std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* rea
 
 std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph);
 
+const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject);
+
 const bool layoutContainsGlyphs(Layout* layout);
 
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
@@ -151,6 +153,22 @@ void alignGraphicalObjectsToMiddle(std::vector<GraphicalObject*> graphicalObject
 void alignGraphicalObjectsToRight(std::vector<GraphicalObject*> graphicalObjects);
 
 void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObjects);
+
+void distributeGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing);
+
+void distributeGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
+
+void distributeEvenGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
+
+void distributeOddGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
+
+void distributeGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
+
+void distributeEvenGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
+
+void distributeOddGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
+
+const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing);
 
 const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects);
 
@@ -202,9 +220,13 @@ const bool isValidDimensionValue(const double& dimensionValue);
 
 const bool isValidAlignment(const std::string& alignment);
 
+const bool isValidDistributionDirection(const std::string& direction);
+
 std::vector<std::string> getValidRoleValues();
 
 std::vector<std::string> getValidAlignmentValues();
+
+std::vector<std::string> getValidDistributionDirectionValues();
 
 }
 

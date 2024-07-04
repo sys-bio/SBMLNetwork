@@ -77,6 +77,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool isLayoutAdded = true);
 
+    /// @brief Distribute the nodes position in the SBML document in the given direction.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param nodeIds an array of strings containing the ids of the nodes that should be distributed.
+    /// @param nodesSize the size of nodeIds
+    /// @param direction determines how to distribute the nodes.
+    /// @param spacing the spacing between the distributed nodes.
+    /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing = -1.0, bool isLayoutAdded = true);
+
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @return the number of items in of this SBML document, or @c 0 if the object is @c NULL
@@ -886,6 +896,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool isLayoutAdded = true);
 
+    /// @brief Sets the values of the "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+    /// @param x a double value to be set as "x" attribute of the bounding box of the GraphicalObject object.
+    /// @param y a double value to be set as "y" attribute of the bounding box of the GraphicalObject object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @param isLayoutAdded a variable that determines whether layout info is added after sbml document is loaded.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool isLayoutAdded = true);
+
     /// @brief Returns the value of the "width" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -963,6 +984,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setTextY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
+
+    /// brief Sets the value of "x" and "y" attribute of the bounding box of the TextGlyph object with the given index associated with
+    /// the model entity with the given id of the Layout object with the given index in the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the model entity the TextGlyph object associated with it to be returned.
+    /// @param x a double value to be set as "x" attribute of the bounding box of the TextGlyph object.
+    /// @param y a double value to be set as "y" attribute of the bounding box of the TextGlyph object.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setTextPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex);
 
     /// @brief Returns the value of the "width" attribute of the bounding box of the TextGlyph object with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -2674,31 +2707,35 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
 
-    /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that belongs to the the TextGlyph
+    /// with the given index associated with the GraphicalObject with the given index associated with the model entity with this id is set.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke"
     /// attribute is not set or the object is @c NULL .
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getFontColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.  
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2732,27 +2769,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-family"
     /// attribute is not set or the object is @c NULL .
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getFontFamily(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2786,27 +2826,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-size"
     /// attribute is not set
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const double c_api_getFontSize(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2840,27 +2883,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-weight"
     /// attribute is not set
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getFontWeight(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2894,26 +2940,29 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @return @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "font-style"
     /// attribute is not set
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getFontStyle(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2947,27 +2996,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
     /// attribute is not set
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getTextHorizontalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3001,27 +3053,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "text-anchor"
     /// attribute is not set
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getTextVerticalAlignment(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
     /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4279,6 +4334,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @brief Returns the nth valid value for the "alignment" attribute that can be used in for c_api_align function.
     /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidAlignmentValue(int index);
+
+    /// @brief Returns the number of valid values for the "distribution" direction attribute that can be used in for c_api_setDistribution function
+    /// @return the number of valid values for the "distribution" direction attribute.
+    LIBSBMLNETWORK_EXTERN int c_api_getNumValidDistributionDirectionValues();
+
+    /// @brief Returns the nth valid value for the "distribution" direction attribute that can be used in for c_api_setDistribution function
+    /// @param index an int representing the index of the valid value to retrieve.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidDistributionDirectionValue(int index);
 
     /// @brief Returns the number of valid values for the "color" name attribute that can be used in for all set color value functions.
     /// @return the number of valid values for the "color" name attribute.

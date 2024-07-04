@@ -510,6 +510,33 @@ LIBSBMLNETWORK_EXTERN int setText(Layout* layout, const std::string& id, unsigne
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setText(GraphicalObject* textGlyph, const std::string& text);
 
+/// @brief Adds a new TextGlyph object to the Layout object and associates it with the given GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+LIBSBMLNETWORK_EXTERN int addText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text);
+
+/// @brief Adds a new TextGlyph object to the Layout object and associates it with the given GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+int addText(Layout* layout, GraphicalObject* graphicalObject, const std::string& text);
+
+/// @brief Removes the TextGlyph object with the given index associated with the given GraphicalObject object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param textGlyphIndex the index of the TextGlyph to remove.
+/// @return integer value indicating success/failure of the function.
+int removeText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
+/// @brief Removes the TextGlyph object from the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+int removeText(Layout* layout, GraphicalObject* textGlyph);
+
 /// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id is not the empty string.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
@@ -746,6 +773,37 @@ LIBSBMLNETWORK_EXTERN int setPositionY(GraphicalObject* graphicalObject, const d
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(BoundingBox* boundingBox, const double& y);
 
+/// @brief Sets the value of "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box this GraphicalObject object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(GraphicalObject* graphicalObject, const double& x, const double& y);
+
+/// @brief Sets the value of "x" and "y" attributes of the bounding box this BoundingBox object.
+/// @param boundingBox a pointer to the BoundingBox object.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this BoundingBox object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this BoundingBox object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(BoundingBox* boundingBox, const double& x, const double& y);
+
 /// @brief Returns the value of the "width" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
@@ -833,6 +891,34 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(GraphicalObject* graphicalObject, c
 /// @param width a double value to use as the value of the "height" attribute of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(BoundingBox* boundingBox, const double& height);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& height);
 
 /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of the Layout object
 /// has a Curve object and the curve consists of one or more segments.

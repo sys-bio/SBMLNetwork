@@ -1491,6 +1491,40 @@ LIBSBMLNETWORK_EXTERN int setText(SBMLDocument* document, const std::string& id,
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& text);
 
+/// @brief Adds a new TextGlyph object to the first Layout object of the SBML document and associates it with the given GraphicalObject object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text);
+
+/// @brief Adds a new TextGlyph object to the Layout object with the given index of the SBML document and associates it with the given GraphicalObject object.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param text a string value to be set as "text" attribute of the TextGlyph object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text);
+
+/// @brief Removes the TextGlyph object with the given index associated with the given id in the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
+/// @brief Removes the TextGlyph object with the given index associated with the given id in the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject.
+/// @param textGlyphIndex the index of the TextGlyph to return.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex);
+
 /// @brief Predicates returning @c true if the origin of text of the TextGlyph object with the given index associated with the given id in
 /// the first Layout object of the SBML document is not the empty string.
 /// @param document a pointer to the SBMLDocument object.
@@ -1794,6 +1828,47 @@ LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, const std::string
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
 
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with
+/// the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y);
+
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with
+/// the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y);
+
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with the model entity with
+/// the given id of the first Layout object in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+/// @breif Sets th value of the "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with the model entity with
+/// the given id of the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
+/// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
 /// @brief Returns the value of the "width" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with
 /// the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -1899,6 +1974,82 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height);
 
 /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of
 /// the first Layout object in the SBML document has a Curve object and the curve consists of one or more segments.

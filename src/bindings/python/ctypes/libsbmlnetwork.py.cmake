@@ -77,7 +77,7 @@ class LibSBMLNetwork:
 
     def save(self, file_name=""):
         """
-        Writes the given SBML document to either the file_name or a string
+        Writes the given SBML document to either the file_name or a string (another name for the export method)
 
         :Parameters:
 
@@ -95,6 +95,22 @@ class LibSBMLNetwork:
         else:
             lib.c_api_writeSBMLToString.restype = ctypes.c_char_p
             return ctypes.c_char_p(lib.c_api_writeSBMLToString(self.sbml_object)).value.decode()
+
+    def export(self, file_name=""):
+        """
+        Writes the given SBML document to either the file_name or a string (another name for the save method)
+
+        :Parameters:
+
+            - file_name (string, optional): a string (default : "") that determines the name or full pathname of the file where the SBML is to be written
+
+        :Returns:
+
+            either success: true on success and false if the filename could not be opened for writing
+            or text: the SBML text string on success and empty string if one of the underlying parser components fail.
+        """
+
+        return self.save(file_name)
         
     def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
         """
@@ -140,6 +156,27 @@ class LibSBMLNetwork:
             nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
 
         return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), self.layout_is_added)
+
+    def distribute(self, nodes, direction="horizontal", spacing=-1):
+        """
+        Distributes the given nodes in the given direction in the given SBMLDocument
+
+        :Parameters:
+
+            - nodes (list): a list that determines the nodes to be distributed
+            - direction (string, optional): a string (default: "horizontal") that determines the direction of distribution to be applied ("horizontal", "vertical")
+            - spacing (float, optional): a float (default: -1) that determines the spacing between the nodes (default: -1, which means the spacing will be calculated automatically
+
+        :Returns:
+
+                true on success and false if the distribution could not be applied
+            """
+
+        nodes_ptr = (ctypes.c_char_p * len(nodes))()
+        for i in range(len(nodes)):
+            nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
+
+        return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing), self.layout_is_added)
 
     def getSBMLLevel(self):
         """
@@ -1493,6 +1530,40 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setText(self.sbml_object, str(id).encode(), str(text).encode(), graphical_object_index, text_glyph_index, layout_index)
 
+    def addText(self, id, text, graphical_object_index=0, layout_index=0):
+        """
+        Adds a TextGlyph with the given text, id, graphical_object_index, and layout_index to the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - text (string): a string that determines the text of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the TextGlyph could not be added
+        """
+        return lib.c_api_addText(self.sbml_object, str(id).encode(), str(text).encode(), graphical_object_index, layout_index)
+
+    def removeText(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Removes the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index from the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the TextGlyph could not be removed
+        """
+        return lib.c_api_removeText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
     def getX(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the x-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -1560,6 +1631,42 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the GraphicalObject could not be set
         """
         return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
+
+    def getPosition(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a tuple that determines the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getX.restype = ctypes.c_double
+        lib.c_api_getY.restype = ctypes.c_double
+        return (lib.c_api_getX(self.sbml_object, str(id).encode(), graphical_object_index, layout_index), lib.c_api_getY(self.sbml_object, str(id).encode(), graphical_object_index, layout_index))
+
+    def setPosition(self, id, x, y, graphical_object_index=0, layout_index=0):
+        """
+        Sets the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the GraphicalObject
+            - y (float): a float that determines the y-coordinate of the GraphicalObject
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the position of the GraphicalObject could not be set
+        """
+        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
 
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1700,6 +1807,44 @@ class LibSBMLNetwork:
             true on success and false if the y-coordinate of the TextGlyph could not be set
         """
         return lib.c_api_setTextY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, text_glyph_index, layout_index)
+
+    def getTextPosition(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Returns the position of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a tuple that determines the position of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getTextX.restype = ctypes.c_double
+        lib.c_api_getTextY.restype = ctypes.c_double
+        return (lib.c_api_getTextX(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index), lib.c_api_getTextY(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index))
+
+    def setTextPosition(self, id, x, y, graphical_object_index=0, text_glyph_index=0, layout_index=0):
+        """
+        Sets the position of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - x (float): a float that determines the x-coordinate of the TextGlyph
+            - y (float): a float that determines the y-coordinate of the TextGlyph
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the position of the TextGlyph could not be set
+        """
+        return lib.c_api_setTextPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, text_glyph_index, layout_index)
 
     def getTextWidth(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -5032,55 +5177,58 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFillRules(self.sbml_object, str(fill_rule).encode(), layout_index)
 
-    def isSetFontColor(self, id, graphical_object_index=0, layout_index=0):
+    def isSetFontColor(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns whether the font color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+        Returns whether the font color of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true if the font color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+            true if the font color of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetFontColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetFontColor(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getFontColor(self, id, graphical_object_index=0, layout_index=0):
+    def getFontColor(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns the font color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Returns the font color of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the font color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+            a string that determines the font color of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getFontColor.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getFontColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getFontColor(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
-    def setFontColor(self, id, font_color, graphical_object_index=0, layout_index=0):
+    def setFontColor(self, id, font_color, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Sets the font color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Sets the font color of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
-            - font_color (string): a string that determines the font color of the GraphicalObject
+            - font_color (string): a string that determines the font color of the TextGlyph
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the font color of the GraphicalObject could not be set
+            true on success and false if the font color of the TextGlyph could not be set
         """
-        return lib.c_api_setFontColor(self.sbml_object, str(id).encode(), str(font_color).encode(), graphical_object_index, layout_index)
+        return lib.c_api_setFontColor(self.sbml_object, str(id).encode(), str(font_color).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsFontColors(self, font_color, layout_index=0):
         """
@@ -5142,55 +5290,58 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontColors(self.sbml_object, str(font_color).encode(), layout_index)
 
-    def isSetFontFamily(self, id, graphical_object_index=0, layout_index=0):
+    def isSetFontFamily(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns whether the font family of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+        Returns whether the font family of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true if the font family of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+            true if the font family of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetFontFamily(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetFontFamily(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getFontFamily(self, id, graphical_object_index=0, layout_index=0):
+    def getFontFamily(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns the font family of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Returns the font family of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the font family of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+            a string that determines the font family of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getFontFamily.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getFontFamily(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getFontFamily(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
-    def setFontFamily(self, id, font_family, graphical_object_index=0, layout_index=0):
+    def setFontFamily(self, id, font_family, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Sets the font family of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Sets the font family of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
-            - font_family (string): a string that determines the font family of the GraphicalObject
+            - font_family (string): a string that determines the font family of the TextGlyph
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the font family of the GraphicalObject could not be set
+            true on success and false if the font family of the TextGlyph could not be set
         """
-        return lib.c_api_setFontFamily(self.sbml_object, str(id).encode(), str(font_family).encode(), graphical_object_index, layout_index)
+        return lib.c_api_setFontFamily(self.sbml_object, str(id).encode(), str(font_family).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsFontFamilies(self, font_family, layout_index=0):
         """
@@ -5252,55 +5403,58 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontFamilies(self.sbml_object, str(font_family).encode(), layout_index)
 
-    def isSetFontSize(self, id, graphical_object_index=0, layout_index=0):
+    def isSetFontSize(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns whether the font size of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+        Returns whether the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true if the font size of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+            true if the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetFontSize(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetFontSize(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getFontSize(self, id, graphical_object_index=0, layout_index=0):
+    def getFontSize(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns the font size of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Returns the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a float that determines the font size of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+            a float that determines the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getFontSize.restype = ctypes.c_double
-        return lib.c_api_getFontSize(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_getFontSize(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def setFontSize(self, id, font_size, graphical_object_index=0, layout_index=0):
+    def setFontSize(self, id, font_size, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Sets the font size of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Sets the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
-            - font_size (float): a float that determines the font size of the GraphicalObject
+            - font_size (float): a float that determines the font size of the TextGlyph
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the font size of the GraphicalObject could not be set
+            true on success and false if the font size of the TextGlyph could not be set
         """
-        return lib.c_api_setFontSize(self.sbml_object, str(id).encode(), ctypes.c_double(font_size), graphical_object_index, layout_index)
+        return lib.c_api_setFontSize(self.sbml_object, str(id).encode(), ctypes.c_double(font_size), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsFontSizes(self, font_size, layout_index=0):
         """
@@ -5362,55 +5516,58 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontSizes(self.sbml_object, ctypes.c_double(font_size), layout_index)
 
-    def isSetFontWeight(self, id, graphical_object_index=0, layout_index=0):
+    def isSetFontWeight(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns whether the font weight of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+        Returns whether the font weight of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true if the font weight of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+            true if the font weight of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetFontWeight(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetFontWeight(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getFontWeight(self, id, graphical_object_index=0, layout_index=0):
+    def getFontWeight(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns the font weight of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Returns the font weight of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the font weight of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+            a string that determines the font weight of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getFontWeight.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getFontWeight(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getFontWeight(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
-    def setFontWeight(self, id, font_weight, graphical_object_index=0, layout_index=0):
+    def setFontWeight(self, id, font_weight, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Sets the font weight of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Sets the font weight of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
-            - font_weight (string): a string that determines the font weight of the GraphicalObject
+            - font_weight (string): a string that determines the font weight of the TextGlyph
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the font weight of the GraphicalObject could not be set
+            true on success and false if the font weight of the TextGlyph could not be set
         """
-        return lib.c_api_setFontWeight(self.sbml_object, str(id).encode(), str(font_weight).encode(), graphical_object_index, layout_index)
+        return lib.c_api_setFontWeight(self.sbml_object, str(id).encode(), str(font_weight).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsFontWeights(self, font_weight, layout_index=0):
         """
@@ -5472,55 +5629,58 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontWeights(self.sbml_object, str(font_weight).encode(), layout_index)
 
-    def isSetFontStyle(self, id, graphical_object_index=0, layout_index=0):
+    def isSetFontStyle(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns whether the font style of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
+        Returns whether the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true if the font style of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
+            true if the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetFontStyle(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetFontStyle(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getFontStyle(self, id, graphical_object_index=0, layout_index=0):
+    def getFontStyle(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Returns the font style of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Returns the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the font style of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+            a string that determines the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getFontStyle.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getFontStyle(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getFontStyle(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
-    def setFontStyle(self, id, font_style, graphical_object_index=0, layout_index=0):
+    def setFontStyle(self, id, font_style, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
-        Sets the font style of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        Sets the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
             - id (string): a string that determines the id of the model entity
-            - font_style (string): a string that determines the font style of the GraphicalObject
+            - font_style (string): a string that determines the font style of the TextGlyph
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the font style of the GraphicalObject could not be set
+            true on success and false if the font style of the TextGlyph could not be set
         """
-        return lib.c_api_setFontStyle(self.sbml_object, str(id).encode(), str(font_style).encode(), graphical_object_index, layout_index)
+        return lib.c_api_setFontStyle(self.sbml_object, str(id).encode(), str(font_style).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsFontStyles(self, font_style, layout_index=0):
         """
@@ -5582,7 +5742,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFontStyles(self.sbml_object, str(font_style).encode(), layout_index)
 
-    def isSetTextHorizontalAlignment(self, id, graphical_object_index=0, layout_index=0):
+    def isSetTextHorizontalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns whether the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
 
@@ -5590,15 +5750,16 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             true if the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getTextHorizontalAlignment(self, id, graphical_object_index=0, layout_index=0):
+    def getTextHorizontalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -5606,6 +5767,7 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
@@ -5613,9 +5775,9 @@ class LibSBMLNetwork:
             a string that determines the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getTextHorizontalAlignment.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
-    def setTextHorizontalAlignment(self, id, text_horizontal_alignment, graphical_object_index=0, layout_index=0):
+    def setTextHorizontalAlignment(self, id, text_horizontal_alignment, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Sets the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -5624,13 +5786,14 @@ class LibSBMLNetwork:
             - id (string): a string that determines the id of the model entity
             - text_horizontal_alignment (string): a string that determines the text horizontal alignment of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             true on success and false if the text horizontal alignment of the GraphicalObject could not be set
         """
-        return lib.c_api_setTextHorizontalAlignment(self.sbml_object, str(id).encode(), str(text_horizontal_alignment).encode(), graphical_object_index, layout_index)
+        return lib.c_api_setTextHorizontalAlignment(self.sbml_object, str(id).encode(), str(text_horizontal_alignment).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsTextHorizontalAlignments(self, text_horizontal_alignment, layout_index=0):
         """
@@ -5692,7 +5855,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setTextHorizontalAlignments(self.sbml_object, str(text_horizontal_alignment).encode(), layout_index)
 
-    def isSetTextVerticalAlignment(self, id, graphical_object_index=0, layout_index=0):
+    def isSetTextVerticalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns whether the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set
 
@@ -5700,15 +5863,16 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             true if the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+        return lib.c_api_isSetTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
-    def getTextVerticalAlignment(self, id, graphical_object_index=0, layout_index=0):
+    def getTextVerticalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -5716,6 +5880,7 @@ class LibSBMLNetwork:
 
             - id (string): a string that determines the id of the model entity
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
@@ -5723,9 +5888,9 @@ class LibSBMLNetwork:
             a string that determines the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getTextVerticalAlignment.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
-    def setTextVerticalAlignment(self, id, text_vertical_alignment, graphical_object_index=0, layout_index=0):
+    def setTextVerticalAlignment(self, id, text_vertical_alignment, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Sets the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -5734,13 +5899,14 @@ class LibSBMLNetwork:
             - id (string): a string that determines the id of the model entity
             - text_vertical_alignment (string): a string that determines the text vertical alignment of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             true on success and false if the text vertical alignment of the GraphicalObject could not be set
         """
-        return lib.c_api_setTextVerticalAlignment(self.sbml_object, str(id).encode(), str(text_vertical_alignment).encode(), graphical_object_index, layout_index)
+        return lib.c_api_setTextVerticalAlignment(self.sbml_object, str(id).encode(), str(text_vertical_alignment).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def setCompartmentsTextVerticalAlignments(self, text_vertical_alignment, layout_index=0):
         """
@@ -8166,6 +8332,22 @@ class LibSBMLNetwork:
             list_of_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidAlignmentValue(n)).value.decode())
 
         return list_of_alignments
+
+    def getListOfDistributionDirections(self):
+        """
+        Returns the list of valid GraphicalObject distribution directions in the given SBMLDocument
+
+        :Returns:
+
+            a list of strings that determines the valid GraphicalObject distribution directions in the given SBMLDocument
+
+        """
+        lib.c_api_getNthValidDistributionDirectionValue.restype = ctypes.c_char_p
+        list_of_distribution_directions = []
+        for n in range(lib.c_api_getNumValidDistributionDirectionValues()):
+            list_of_distribution_directions.append(ctypes.c_char_p(lib.c_api_getNthValidDistributionDirectionValue(n)).value.decode())
+
+        return list_of_distribution_directions
 
     def getListOfColorNames(self):
         """

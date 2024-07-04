@@ -292,7 +292,7 @@ TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObje
             return layout->getTextGlyph(i);
     }
     TextGlyph* textGlyph = layout->createTextGlyph();
-    textGlyph->setId(graphicalObject->getId() + "_TextGlyph_1");
+    textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
     textGlyph->setGraphicalObjectId(graphicalObject->getId());
     textGlyph->setOriginOfTextId(getEntityId(layout, graphicalObject));
     
@@ -560,8 +560,28 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
     return speciesReferenceGlyphs;
 }
 
+const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject) {
+    std::string textGlyphUniqueId = "";
+    int textGlyphIndex = 1;
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    while (true) {
+        textGlyphUniqueId = graphicalObject->getId() + "_TextGlyph_" + std::to_string(textGlyphIndex++);
+        bool isUniqueId = true;
+        for (unsigned int i = 0; i < textGlyphs.size(); i++) {
+            if (textGlyphUniqueId == textGlyphs.at(i)->getId()) {
+                isUniqueId = false;
+                break;
+            }
+        }
+        if (isUniqueId)
+            break;
+    }
+
+    return textGlyphUniqueId;
+}
+
 const bool layoutContainsGlyphs(Layout* layout) {
-    return layout->getNumCompartmentGlyphs() || layout->getNumSpeciesGlyphs() || layout->getNumReactionGlyphs();
+    return layout->getNumCompartmentGlyphs() + layout->getNumSpeciesGlyphs() + layout->getNumReactionGlyphs() > 0 ? true : false;
 }
 
 void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
@@ -628,6 +648,69 @@ void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObje
         graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->width());
         graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->height());
     }
+}
+
+void distributeGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
+    if (isValidDistributionDirection(direction)) {
+        if (stringCompare(direction, "horizontal"))
+            distributeGraphicalObjectsHorizontally(graphicalObjects, spacing);
+        else if (stringCompare(direction, "vertical"))
+            distributeGraphicalObjectsVertically(graphicalObjects, spacing);
+    }
+}
+
+void distributeGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
+    if (graphicalObjects.size() < 2)
+        return;
+    double minX = getMinPositionX(graphicalObjects);
+    double maxX = getMaxPositionX(graphicalObjects);
+    double distance = findDistributionDistance(minX, maxX, graphicalObjects.size(), spacing);
+    if (graphicalObjects.size() % 2 == 0)
+        distributeEvenGraphicalObjectsHorizontally(graphicalObjects, minX, maxX, distance);
+    else
+        distributeOddGraphicalObjectsHorizontally(graphicalObjects, minX, maxX, distance);
+}
+
+void distributeEvenGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        graphicalObjects.at(i)->getBoundingBox()->setX(minX + i * distance);
+}
+
+void distributeOddGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        graphicalObjects.at(i)->getBoundingBox()->setX(0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+}
+
+void distributeGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
+    if (graphicalObjects.size() < 2)
+        return;
+    double minY = getMinPositionY(graphicalObjects);
+    double maxY = getMaxPositionY(graphicalObjects);
+    double distance = findDistributionDistance(minY, maxY, graphicalObjects.size(), spacing);
+    if (graphicalObjects.size() % 2 == 0)
+        distributeEvenGraphicalObjectsVertically(graphicalObjects, minY, maxY, distance);
+    else
+        distributeOddGraphicalObjectsVertically(graphicalObjects, minY, maxY, distance);
+}
+
+void distributeEvenGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        graphicalObjects.at(i)->getBoundingBox()->setY(minY + i * distance);
+}
+
+void distributeOddGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        graphicalObjects.at(i)->getBoundingBox()->setY(0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+}
+
+const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing) {
+    double distance = 0;
+    if (spacing > 0)
+        distance = spacing;
+    else
+        distance = (maxPosition - minPosition) / (numGraphicalObjects - 1);
+
+    return distance;
 }
 
 const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects) {
@@ -806,6 +889,10 @@ const bool isValidAlignment(const std::string& alignment) {
     return isValueValid(alignment, getValidAlignmentValues());
 }
 
+const bool isValidDistributionDirection(const std::string& direction) {
+    return isValueValid(direction, getValidDistributionDirectionValues());
+}
+
 std::vector<std::string> getValidRoleValues() {
     std::vector <std::string> roleValues;
     roleValues.push_back("substrate");
@@ -831,6 +918,14 @@ std::vector<std::string> getValidAlignmentValues() {
     alignmentValues.push_back("circular");
 
     return alignmentValues;
+}
+
+std::vector<std::string> getValidDistributionDirectionValues() {
+    std::vector <std::string> distributionDirectionValues;
+    distributionDirectionValues.push_back("horizontal");
+    distributionDirectionValues.push_back("vertical");
+
+    return distributionDirectionValues;
 }
 
 }

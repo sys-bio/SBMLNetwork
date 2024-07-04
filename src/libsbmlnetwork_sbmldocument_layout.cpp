@@ -719,6 +719,22 @@ int setText(SBMLDocument* document, unsigned int layoutIndex, const std::string&
     return setText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex, text);
 }
 
+int addText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {
+    return addText(getLayout(document), id, graphicalObjectIndex, text);
+}
+
+int addText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {
+    return addText(getLayout(document, layoutIndex), id, graphicalObjectIndex, text);
+}
+
+int removeText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return removeText(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
+}
+
+int removeText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return removeText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+}
+
 bool isSetOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     return isSetOriginOfTextId(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
 }
@@ -847,6 +863,22 @@ int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return setPositionY(getLayout(document, layoutIndex), id, graphicalObjectIndex, y);
 }
 
+int setPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y) {
+    return setPosition(getLayout(document), id, x, y);
+}
+
+int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y) {
+    return setPosition(getLayout(document, layoutIndex), id, x, y);
+}
+
+int setPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y) {
+    return setPosition(getLayout(document), id, graphicalObjectIndex, x, y);
+}
+
+int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y) {
+    return setPosition(getLayout(document, layoutIndex), id, graphicalObjectIndex, x, y);
+}
+
 const double getDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
     return getDimensionWidth(getLayout(document), id, graphicalObjectIndex);
 }
@@ -893,6 +925,118 @@ int setDimensionHeight(SBMLDocument* document, const std::string& id, unsigned i
 
 int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height) {
     return setDimensionHeight(getLayout(document, layoutIndex), id, graphicalObjectIndex, height);
+}
+
+const double getTextPositionX(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex) {
+    return getTextPositionX(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+const double getTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex) {
+    return getTextPositionX(getLayout(document, layoutIndex), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+int setTextPositionX(SBMLDocument* document, const std::string& id, const double& x) {
+    return setTextPositionX(getLayout(document), getGraphicalObject(document, id), x);
+}
+
+int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x) {
+    return setTextPositionX(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id), x);
+}
+
+int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex, const double& x) {
+    return setTextPositionX(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex, x);
+}
+
+int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const unsigned int textGlyphIndex, const double& x) {
+    return setTextPositionX(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, x);
+}
+
+const double getTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextPositionY(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+const double getTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextPositionY(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+int setTextPositionY(SBMLDocument* document, const std::string& id, const double& y) {
+    return setTextPositionY(getLayout(document), getGraphicalObject(document, id), y);
+}
+
+int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& y) {
+    return setTextPositionY(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id), y);
+}
+
+int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y) {
+    return setTextPositionY(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex, y);
+}
+
+int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y) {
+    return setTextPositionY(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, y);
+}
+
+int setTextPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y) {
+    return setTextPosition(getLayout(document), getGraphicalObject(document, id), x, y);
+}
+
+int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y) {
+    return setTextPosition(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id), x, y);
+}
+
+int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y) {
+    return setTextPosition(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex, x, y);
+}
+
+int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y) {
+    return setTextPosition(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, x, y);
+}
+
+const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextDimensionWidth(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+const double getTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextDimensionWidth(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+int setTextDimensionWidth(SBMLDocument* document, const std::string& id, const double& width) {
+    return setTextDimensionWidth(getLayout(document), getGraphicalObject(document, id), width);
+}
+
+int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& width) {
+    return setTextDimensionWidth(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id), width);
+}
+
+int setTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width) {
+    return setTextDimensionWidth(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex, width);
+}
+
+int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width) {
+    return setTextDimensionWidth(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, width);
+}
+
+const double getTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextDimensionHeight(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+const double getTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getTextDimensionHeight(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex);
+}
+
+int setTextDimensionHeight(SBMLDocument* document, const std::string& id, const double& height) {
+    return setTextDimensionHeight(getLayout(document), getGraphicalObject(document, id), height);
+}
+
+int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& height) {
+    return setTextDimensionHeight(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id), height);
+}
+
+int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height) {
+    return setTextDimensionHeight(getLayout(document), getGraphicalObject(document, id, graphicalObjectIndex), textGlyphIndex, height);
+}
+
+int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height) {
+    return setTextDimensionHeight(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, height);
 }
 
 bool isSetCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {

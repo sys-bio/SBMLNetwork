@@ -87,6 +87,20 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
+    int distribute(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& direction, const double& spacing) {
+        if (nodeIds.size() > 1) {
+            std::vector<GraphicalObject*> allGraphicalObjects;
+            for (unsigned int i = 0; i < nodeIds.size(); i++) {
+                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
+                allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
+            }
+            distributeGraphicalObjects(allGraphicalObjects, direction, spacing);
+            return updateLayoutCurves(document, allGraphicalObjects);
+        }
+
+        return -1;
+    }
+
     SBase* getSBMLObject(SBMLDocument* document, const std::string& id) {
         if (document && document->isSetModel())
             return document->getModel()->getElementBySId(id);

@@ -14,7 +14,6 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     double padding = 30.0;
     std::srand(time(0));
     randomizeGlyphsLocations(model, layout, padding, lockedNodeIds);
-    setGlyphsDimensions(model, layout);
     applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds, padding);
     updateCompartmentExtents(model, layout, padding);
     updateLayoutDimensions(layout, padding);
@@ -64,18 +63,6 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
     cubicBezier->getBasePoint1()->setY(randomPointY);
     cubicBezier->getBasePoint2()->setX(randomPointX);
     cubicBezier->getBasePoint2()->setY(randomPointY);
-}
-
-void setGlyphsDimensions(Model *model, Layout *layout) {
-    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        setSpeciesGlyphDimensions(model, layout->getSpeciesGlyph(i));
-}
-
-void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph *speciesGlyph) {
-    double speciesDefaultWidth = 60.0;
-    double speciesDefaultHeight = 36.0;
-    speciesGlyph->getBoundingBox()->setWidth(speciesDefaultWidth);
-    speciesGlyph->getBoundingBox()->setHeight(speciesDefaultHeight);
 }
 
 void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,

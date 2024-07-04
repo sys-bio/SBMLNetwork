@@ -1495,12 +1495,24 @@ int setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderI
     return setGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, href);
 }
 
-
 Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = getGlobalStyle(document, graphicalObject);
+
+    return style;
+}
+
+Style* getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
         if (getStyle(getLocalRenderInformation(document, i), graphicalObject))
             return getStyle(getLocalRenderInformation(document, i), graphicalObject);
     }
+
+    return NULL;
+}
+
+Style* getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
         if (getStyle(getGlobalRenderInformation(document, i), graphicalObject))
             return getStyle(getGlobalRenderInformation(document, i), graphicalObject);
@@ -1509,29 +1521,85 @@ Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return NULL;
 }
 
-Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
-    if (getStyle(getLocalRenderInformation(document, 0, renderIndex), graphicalObject))
-        return getStyle(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+Style* createLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    Style* globalStyle = getGlobalStyle(document, graphicalObject);
+    return createLocalStyle(getLocalRenderInformation(document), globalStyle, graphicalObject);
+}
 
+Style* createLocalStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
+    Style* globalStyle = getGlobalStyle(document, graphicalObject);
+    return createLocalStyle(getLocalRenderInformation(document), globalStyle, textGlyph);
+}
+
+Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    Style* style = getLocalStyle(document, renderIndex, graphicalObject);
+    if (!style)
+        style = getGlobalStyle(document, renderIndex, graphicalObject);
+
+    return style;
+}
+
+Style* getLocalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    return getStyle(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+}
+
+Style* getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
     return getStyle(getGlobalRenderInformation(document, renderIndex), graphicalObject);
 }
 
-Style* getStyle(SBMLDocument* document, const std::string& attribute) {
-    if (getStyle(getLocalRenderInformation(document), attribute))
-        return getStyle(getLocalRenderInformation(document), attribute);
-    else if (getStyle(getLocalRenderInformation(document), getGraphicalObject(document, attribute)))
-        return getStyle(getLocalRenderInformation(document), getGraphicalObject(document, attribute));
+Style* createLocalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
+    Style* globalStyle = getGlobalStyle(document, renderIndex, graphicalObject);
+    return createLocalStyle(getLocalRenderInformation(document, renderIndex), globalStyle, graphicalObject);
+}
 
+Style* getStyle(SBMLDocument* document, const std::string& attribute) {
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = getGlobalStyle(document, attribute);
+
+    return style;
+}
+
+Style* getLocalStyle(SBMLDocument* document, const std::string& attribute) {
+    Style* style = getStyle(getLocalRenderInformation(document), attribute);
+    if (!style)
+        style = getStyle(getLocalRenderInformation(document), getGraphicalObject(document, attribute));
+
+    return style;
+}
+
+Style* getGlobalStyle(SBMLDocument* document, const std::string& attribute) {
     return getStyle(getGlobalRenderInformation(document), attribute);
 }
 
-Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
-    if (getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute))
-        return getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute);
-    else if (getStyle(getLocalRenderInformation(document, 0, renderIndex), getGraphicalObject(document, 0, attribute)))
-        return getStyle(getLocalRenderInformation(document, 0, renderIndex), getGraphicalObject(document, 0, attribute));
+Style* createLocalStyle(SBMLDocument* document, const std::string& attribute) {
+    Style* globalStyle = getGlobalStyle(document, attribute);
+    return createLocalStyle(getLocalRenderInformation(document), globalStyle, getGraphicalObject(document, attribute));
+}
 
+Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
+    Style* style = getLocalStyle(document, renderIndex, attribute);
+    if (style)
+        style = getGlobalStyle(document, renderIndex, attribute);
+
+    return style;
+}
+
+Style* getLocalStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
+    Style* style = getStyle(getLocalRenderInformation(document, 0, renderIndex), attribute);
+    if (!style)
+        style = getStyle(getLocalRenderInformation(document, 0, renderIndex), getGraphicalObject(document, 0, attribute));
+
+    return style;
+}
+
+Style* getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
     return getStyle(getGlobalRenderInformation(document, renderIndex), attribute);
+}
+
+Style* createLocalStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
+    Style* globalStyle = getGlobalStyle(document, renderIndex, attribute);
+    return createLocalStyle(getLocalRenderInformation(document, 0, renderIndex), globalStyle, getGraphicalObject(document, 0, attribute));
 }
 
 Style* getStyleById(SBMLDocument* document, GraphicalObject* graphicalObject) {
@@ -1655,7 +1723,9 @@ const std::string getStrokeColor(SBMLDocument* document, const std::string& attr
 }
 
 int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& stroke) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     addColor(document, style, stroke);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeColor(getGeometricShape(style), stroke);
@@ -1664,7 +1734,9 @@ int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, con
 }
 
 int setStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& stroke) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     addColor(document, style, stroke);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeColor(getGeometricShape(style), stroke);
@@ -1767,7 +1839,9 @@ const double getStrokeWidth(SBMLDocument* document, const std::string& attribute
 }
 
 int setStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const double& strokeWidth) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeWidth(getGeometricShape(style), strokeWidth);
 
@@ -1775,7 +1849,9 @@ int setStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, con
 }
 
 int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeWidth(getGeometricShape(style), strokeWidth);
 
@@ -1879,7 +1955,9 @@ const std::vector<unsigned int> getStrokeDashArray(SBMLDocument* document, const
 }
 
 int setStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject, const std::vector<unsigned int>& strokeDashArray) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeDashArray(getGeometricShape(style), strokeDashArray);
 
@@ -1887,7 +1965,9 @@ int setStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject,
 }
 
 int setStrokeDashArray(SBMLDocument* document, const std::string& attribute, const std::vector<unsigned int>& strokeDashArray) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeDashArray(getGeometricShape(style), strokeDashArray);
 
@@ -1927,7 +2007,9 @@ unsigned int getStrokeDash(SBMLDocument* document, const std::string& attribute,
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dash) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeDash(getGeometricShape(style), dash);
 
@@ -1935,7 +2017,9 @@ unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObj
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dashIndex, unsigned int dash) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeDash(getGeometricShape(style), dashIndex, dash);
 
@@ -1943,7 +2027,9 @@ unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObj
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dash) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeDash(getGeometricShape(style), dash);
 
@@ -1951,25 +2037,27 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dashIndex, unsigned int dash) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1)
         return setStrokeDash(getGeometricShape(style), dashIndex, dash);
 
     return setStrokeDash(style, dashIndex, dash);
 }
 
-bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
+    if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return isSetFontColor(getGeometricShape(style));
 
     return isSetFontColor(style);
 }
 
-bool isSetFontColor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -1978,8 +2066,8 @@ bool isSetFontColor(SBMLDocument* document, const std::string& attribute) {
     return isSetFontColor(style);
 }
 
-const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -1988,8 +2076,8 @@ const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphica
     return getFontColor(style);
 }
 
-const std::string getFontColor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const std::string getFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -1999,10 +2087,14 @@ const std::string getFontColor(SBMLDocument* document, const std::string& attrib
 }
 
 int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontColor) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
-    addColor(document, style, fontColor);
+    return setFontColor(document, graphicalObject, 0, fontColor);
+}
+
+int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontColor) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
+    addColor(document, style, fontColor);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontColor(getGeometricShape(style), fontColor);
 
@@ -2010,10 +2102,14 @@ int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
 }
 
 int setFontColor(SBMLDocument* document, const std::string& attribute, const std::string& fontColor) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
-    addColor(document, style, fontColor);
+    return setFontColor(document, attribute, 0, fontColor);
+}
+
+int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontColor) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
+    addColor(document, style, fontColor);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontColor(getGeometricShape(style), fontColor);
 
@@ -2023,8 +2119,10 @@ int setFontColor(SBMLDocument* document, const std::string& attribute, const std
 int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFontColor(document, layout->getCompartmentGlyph(i), fontColor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setFontColor(document, layout->getCompartmentGlyph(i), j, fontColor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2033,8 +2131,10 @@ int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, co
 int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFontColor(document, layout->getSpeciesGlyph(i), fontColor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setFontColor(document, layout->getSpeciesGlyph(i), j, fontColor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2043,8 +2143,10 @@ int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const 
 int setReactionFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFontColor(document, layout->getReactionGlyph(i), fontColor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setFontColor(document, layout->getReactionGlyph(i), j, fontColor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2061,8 +2163,8 @@ int setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return 0;
 }
 
-bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2071,8 +2173,8 @@ bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return isSetFontFamily(style);
 }
 
-bool isSetFontFamily(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2081,8 +2183,8 @@ bool isSetFontFamily(SBMLDocument* document, const std::string& attribute) {
     return isSetFontFamily(style);
 }
 
-const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2091,8 +2193,8 @@ const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphic
     return getFontFamily(style);
 }
 
-const std::string getFontFamily(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const std::string getFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2102,9 +2204,13 @@ const std::string getFontFamily(SBMLDocument* document, const std::string& attri
 }
 
 int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontFamily) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    return setFontFamily(document, graphicalObject, 0, fontFamily);
+}
+
+int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontFamily) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontFamily(getGeometricShape(style), fontFamily);
 
@@ -2112,9 +2218,13 @@ int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, cons
 }
 
 int setFontFamily(SBMLDocument* document, const std::string& attribute, const std::string& fontFamily) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    return setFontFamily(document, attribute, 0, fontFamily);
+}
+
+int setFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontFamily) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontFamily(getGeometricShape(style), fontFamily);
 
@@ -2124,8 +2234,10 @@ int setFontFamily(SBMLDocument* document, const std::string& attribute, const st
 int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFontFamily(document, layout->getCompartmentGlyph(i), fontFamily))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setFontFamily(document, layout->getCompartmentGlyph(i), j, fontFamily))
+                return -1;
+        }
     }
 
     return 0;
@@ -2134,8 +2246,10 @@ int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, c
 int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFontFamily(document, layout->getSpeciesGlyph(i), fontFamily))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setFontFamily(document, layout->getSpeciesGlyph(i), j, fontFamily))
+                return -1;
+        }
     }
 
     return 0;
@@ -2144,8 +2258,10 @@ int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const
 int setReactionFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFontFamily(document, layout->getReactionGlyph(i), fontFamily))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setFontFamily(document, layout->getReactionGlyph(i), j, fontFamily))
+                return -1;
+        }
     }
 
     return 0;
@@ -2162,8 +2278,8 @@ int setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::s
     return 0;
 }
 
-bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2172,8 +2288,8 @@ bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return isSetFontSize(style);
 }
 
-bool isSetFontSize(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2182,8 +2298,8 @@ bool isSetFontSize(SBMLDocument* document, const std::string& attribute) {
     return isSetFontSize(style);
 }
 
-const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2192,8 +2308,8 @@ const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphica
     return getFontSize(style);
 }
 
-const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2203,9 +2319,13 @@ const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attrib
 }
 
 int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& fontSize) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    return setFontSize(document, graphicalObject, 0, fontSize);
+}
+
+int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const RelAbsVector& fontSize) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontSize(getGeometricShape(style), fontSize);
 
@@ -2213,9 +2333,13 @@ int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const 
 }
 
 int setFontSize(SBMLDocument* document, const std::string& attribute, const RelAbsVector& fontSize) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    return setFontSize(document, attribute, 0, fontSize);
+}
+
+int setFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const RelAbsVector& fontSize) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontSize(getGeometricShape(style), fontSize);
 
@@ -2225,8 +2349,10 @@ int setFontSize(SBMLDocument* document, const std::string& attribute, const RelA
 int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFontSize(document, layout->getCompartmentGlyph(i), fontSize))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setFontSize(document, layout->getCompartmentGlyph(i), j, fontSize))
+                return -1;
+        }
     }
 
     return 0;
@@ -2235,8 +2361,10 @@ int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, con
 int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFontSize(document, layout->getSpeciesGlyph(i), fontSize))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setFontSize(document, layout->getSpeciesGlyph(i), j, fontSize))
+                return -1;
+        }
     }
 
     return 0;
@@ -2245,8 +2373,10 @@ int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const R
 int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFontSize(document, layout->getReactionGlyph(i), fontSize))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setFontSize(document, layout->getReactionGlyph(i), j, fontSize))
+                return -1;
+        }
     }
 
     return 0;
@@ -2256,13 +2386,17 @@ int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const 
 int setFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     if (setSpeciesFontSize(document, layoutIndex, fontSize))
         return -1;
+    if (setCompartmentFontSize(document, layoutIndex, fontSize))
+        return -1;
+    if (setReactionFontSize(document, layoutIndex, fontSize))
+        return -1;
 
     return 0;
 }
 
 
-bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2271,8 +2405,8 @@ bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return isSetFontWeight(style);
 }
 
-bool isSetFontWeight(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2281,8 +2415,8 @@ bool isSetFontWeight(SBMLDocument* document, const std::string& attribute) {
     return isSetFontWeight(style);
 }
 
-const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2291,8 +2425,8 @@ const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphic
     return getFontWeight(style);
 }
 
-const std::string getFontWeight(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const std::string getFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2302,9 +2436,13 @@ const std::string getFontWeight(SBMLDocument* document, const std::string& attri
 }
 
 int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontWeight) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    return setFontWeight(document, graphicalObject, 0, fontWeight);
+}
+
+int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontWeight) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontWeight(getGeometricShape(style), fontWeight);
 
@@ -2312,9 +2450,13 @@ int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, cons
 }
 
 int setFontWeight(SBMLDocument* document, const std::string& attribute, const std::string& fontWeight) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    return setFontWeight(document, attribute, 0, fontWeight);
+}
+
+int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontWeight) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontWeight(getGeometricShape(style), fontWeight);
 
@@ -2324,8 +2466,10 @@ int setFontWeight(SBMLDocument* document, const std::string& attribute, const st
 int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFontWeight(document, layout->getCompartmentGlyph(i), fontWeight))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setFontWeight(document, layout->getCompartmentGlyph(i), j, fontWeight))
+                return -1;
+        }
     }
 
     return 0;
@@ -2334,8 +2478,10 @@ int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, c
 int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFontWeight(document, layout->getSpeciesGlyph(i), fontWeight))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setFontWeight(document, layout->getSpeciesGlyph(i), j, fontWeight))
+                return -1;
+        }
     }
 
     return 0;
@@ -2344,8 +2490,10 @@ int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const
 int setReactionFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFontWeight(document, layout->getReactionGlyph(i), fontWeight))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setFontWeight(document, layout->getReactionGlyph(i), j, fontWeight))
+                return -1;
+        }
     }
 
     return 0;
@@ -2362,8 +2510,8 @@ int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::s
     return 0;
 }
 
-bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2372,8 +2520,8 @@ bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return isSetFontStyle(style);
 }
 
-bool isSetFontStyle(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2382,8 +2530,8 @@ bool isSetFontStyle(SBMLDocument* document, const std::string& attribute) {
     return isSetFontStyle(style);
 }
 
-const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2392,8 +2540,8 @@ const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphica
     return getFontStyle(style);
 }
 
-const std::string getFontStyle(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const std::string getFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2403,9 +2551,13 @@ const std::string getFontStyle(SBMLDocument* document, const std::string& attrib
 }
 
 int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fontStyle) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    return setFontStyle(document, graphicalObject, 0, fontStyle);
+}
+
+int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& fontStyle) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontStyle(getGeometricShape(style), fontStyle);
 
@@ -2413,9 +2565,13 @@ int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, const
 }
 
 int setFontStyle(SBMLDocument* document, const std::string& attribute, const std::string& fontStyle) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    return setFontStyle(document, attribute, 0, fontStyle);
+}
+
+int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontStyle) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setFontStyle(getGeometricShape(style), fontStyle);
 
@@ -2425,8 +2581,10 @@ int setFontStyle(SBMLDocument* document, const std::string& attribute, const std
 int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFontStyle(document, layout->getCompartmentGlyph(i), fontStyle))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setFontStyle(document, layout->getCompartmentGlyph(i), j, fontStyle))
+                return -1;
+        }
     }
 
     return 0;
@@ -2435,8 +2593,10 @@ int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, co
 int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFontStyle(document, layout->getSpeciesGlyph(i), fontStyle))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setFontStyle(document, layout->getSpeciesGlyph(i), j, fontStyle))
+                return -1;
+        }
     }
 
     return 0;
@@ -2445,8 +2605,10 @@ int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const 
 int setReactionFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFontStyle(document, layout->getReactionGlyph(i), fontStyle))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setFontStyle(document, layout->getReactionGlyph(i), j, fontStyle))
+                return -1;
+        }
     }
 
     return 0;
@@ -2463,8 +2625,8 @@ int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return 0;
 }
 
-bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2473,8 +2635,8 @@ bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return isSetTextAnchor(style);
 }
 
-bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2483,8 +2645,8 @@ bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute) {
     return isSetTextAnchor(style);
 }
 
-const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2493,8 +2655,8 @@ const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphic
     return getTextAnchor(style);
 }
 
-const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2504,9 +2666,13 @@ const std::string getTextAnchor(SBMLDocument* document, const std::string& attri
 }
 
 int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& textAnchor) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    return setTextAnchor(document, graphicalObject, 0, textAnchor);
+}
+
+int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& textAnchor) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setTextAnchor(getGeometricShape(style), textAnchor);
 
@@ -2514,9 +2680,13 @@ int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, cons
 }
 
 int setTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& textAnchor) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    return setTextAnchor(document, attribute, 0, textAnchor);
+}
+
+int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& textAnchor) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setTextAnchor(getGeometricShape(style), textAnchor);
 
@@ -2526,8 +2696,10 @@ int setTextAnchor(SBMLDocument* document, const std::string& attribute, const st
 int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setTextAnchor(document, layout->getCompartmentGlyph(i), textAnchor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setTextAnchor(document, layout->getCompartmentGlyph(i), j, textAnchor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2536,8 +2708,10 @@ int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, c
 int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setTextAnchor(document, layout->getSpeciesGlyph(i), textAnchor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setTextAnchor(document, layout->getSpeciesGlyph(i), j, textAnchor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2546,8 +2720,10 @@ int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const
 int setReactionTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setTextAnchor(document, layout->getReactionGlyph(i), textAnchor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setTextAnchor(document, layout->getReactionGlyph(i), j, textAnchor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2564,8 +2740,8 @@ int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::s
     return 0;
 }
 
-bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2574,8 +2750,8 @@ bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) 
     return isSetVTextAnchor(style);
 }
 
-bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2584,8 +2760,8 @@ bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute) {
     return isSetVTextAnchor(style);
 }
 
-const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
         style = getStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2594,8 +2770,8 @@ const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphi
     return getVTextAnchor(style);
 }
 
-const std::string getVTextAnchor(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+const std::string getVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
+    Style* style = getStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
         style = getStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
@@ -2605,9 +2781,13 @@ const std::string getVTextAnchor(SBMLDocument* document, const std::string& attr
 }
 
 int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& vtextAnchor) {
-    Style* style = getStyle(document, getTextGlyph(document, graphicalObject));
+    return setVTextAnchor(document, graphicalObject, 0, vtextAnchor);
+}
+
+int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const std::string& vtextAnchor) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex));
     if (!style)
-        style = getStyle(document, graphicalObject);
+        style = createLocalStyle(document, getTextGlyph(document, graphicalObject, textGlyphIndex), graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
@@ -2615,9 +2795,13 @@ int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, con
 }
 
 int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const std::string& vtextAnchor) {
-    Style* style = getStyle(document, getTextGlyph(document, attribute));
+    return setVTextAnchor(document, attribute, 0, vtextAnchor);
+}
+
+int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& vtextAnchor) {
+    Style* style = getLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex));
     if (!style)
-        style = getStyle(document, attribute);
+        style = createLocalStyle(document, getTextGlyph(document, attribute, textGlyphIndex), getGraphicalObject(document, attribute));
     if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
         return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
@@ -2627,8 +2811,10 @@ int setVTextAnchor(SBMLDocument* document, const std::string& attribute, const s
 int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setVTextAnchor(document, layout->getCompartmentGlyph(i), vtextAnchor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
+            if (setVTextAnchor(document, layout->getCompartmentGlyph(i), j, vtextAnchor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2637,8 +2823,10 @@ int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, 
 int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setVTextAnchor(document, layout->getSpeciesGlyph(i), vtextAnchor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
+            if (setVTextAnchor(document, layout->getSpeciesGlyph(i), j, vtextAnchor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2647,8 +2835,10 @@ int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, cons
 int setReactionVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setVTextAnchor(document, layout->getReactionGlyph(i), vtextAnchor))
-            return -1;
+        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
+            if (setVTextAnchor(document, layout->getReactionGlyph(i), j, vtextAnchor))
+                return -1;
+        }
     }
 
     return 0;
@@ -2698,7 +2888,9 @@ const std::string getFillColor(SBMLDocument* document, const std::string& attrib
 }
 
 int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     addColor(document, style, fillColor);
     if (getNumGeometricShapes(style) == 1)
         return setFillColor(getGeometricShape(style), fillColor);
@@ -2707,7 +2899,9 @@ int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
 }
 
 int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     addColor(document, style, fillColor);
     if (getNumGeometricShapes(style) == 1)
         return setFillColor(getGeometricShape(style), fillColor);
@@ -2790,7 +2984,9 @@ bool isSetFillRule(SBMLDocument* document, const std::string& attribute) {
 }
 
 const std::string getFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return getFillRule(getGeometricShape(style));
 
@@ -2798,7 +2994,9 @@ const std::string getFillRule(SBMLDocument* document, GraphicalObject* graphical
 }
 
 const std::string getFillRule(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
         return getFillRule(getGeometricShape(style));
 
@@ -2914,7 +3112,9 @@ const std::string getStartHead(SBMLDocument* document, const std::string& attrib
 }
 
 int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& startHead) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setStartHead(getGeometricShape(style), startHead);
 
@@ -2922,7 +3122,9 @@ int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, const
 }
 
 int setStartHead(SBMLDocument* document, const std::string& attribute, const std::string& startHead) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setStartHead(getGeometricShape(style), startHead);
 
@@ -2962,7 +3164,9 @@ const std::string getEndHead(SBMLDocument* document, const std::string& attribut
 }
 
 int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& endHead) {
-    Style* style = getStyle(document, graphicalObject);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
     if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setEndHead(getGeometricShape(style), endHead);
 
@@ -2970,7 +3174,9 @@ int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, const s
 }
 
 int setEndHead(SBMLDocument* document, const std::string& attribute, const std::string& endHead) {
-    Style* style = getStyle(document, attribute);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
     if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
         return setEndHead(getGeometricShape(style), endHead);
 
@@ -2994,27 +3200,42 @@ Transformation2D* getGeometricShape(SBMLDocument* document, const std::string& a
 }
 
 int addGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
-    return addGeometricShape(getStyle(document, graphicalObject), shape);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return addGeometricShape(style, shape);
 }
 
 int addGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
-    return addGeometricShape(getStyle(document, attribute), shape);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return addGeometricShape(style, shape);
 }
 
 Transformation2D* removeGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
-    return removeGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return removeGeometricShape(style, geometricShapeIndex);
 }
 
 Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
-    return removeGeometricShape(getStyle(document, attribute), geometricShapeIndex);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return removeGeometricShape(style, geometricShapeIndex);
 }
 
 int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
-    if (!setGeometricShape(getStyle(document, graphicalObject), shape)) {
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    if (!setGeometricShape(style, shape)) {
         if (getGlobalRenderInformation(document))
             addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
         else
-            addColorsOfDefaultGeometricShapes(document, getStyle(document, graphicalObject));
+            addColorsOfDefaultGeometricShapes(document, style);
         removeCurve(graphicalObject);
         return 0;
     }
@@ -3023,11 +3244,14 @@ int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, 
 }
 
 int setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
-    if (setGeometricShape(getStyle(document, attribute), shape)) {
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    if (setGeometricShape(style, shape)) {
         if (getGlobalRenderInformation(document))
             addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
         else
-            addColorsOfDefaultGeometricShapes(document, getStyle(document, attribute));
+            addColorsOfDefaultGeometricShapes(document, style);
         removeCurve(getGraphicalObject(document, attribute));
         return 0;
     }
@@ -3141,19 +3365,31 @@ const RelAbsVector getGeometricShapeX(SBMLDocument* document, const std::string&
 }
 
 int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
-    return setGeometricShapeX(getStyle(document, graphicalObject), 0, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeX(style, 0, x);
 }
 
 int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& x) {
-    return setGeometricShapeX(getStyle(document, graphicalObject), geometricShapeIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeX(style, geometricShapeIndex, x);
 }
 
 int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
-    return setGeometricShapeX(getStyle(document, attribute), 0, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeX(style, 0, x);
 }
 
 int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& x) {
-    return setGeometricShapeX(getStyle(document, attribute), geometricShapeIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeX(style, geometricShapeIndex, x);
 }
 
 int setCompartmentGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
@@ -3214,19 +3450,31 @@ const RelAbsVector getGeometricShapeY(SBMLDocument* document, const std::string&
 }
 
 int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
-    return setGeometricShapeY(getStyle(document, graphicalObject), 0, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeY(style, 0, y);
 }
 
 int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& y) {
-    return setGeometricShapeY(getStyle(document, graphicalObject), geometricShapeIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeY(style, geometricShapeIndex, y);
 }
 
 int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
-    return setGeometricShapeY(getStyle(document, attribute), 0, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeY(style, 0, y);
 }
 
 int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& y) {
-    return setGeometricShapeY(getStyle(document, attribute), geometricShapeIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeY(style, geometricShapeIndex, y);
 }
 
 int setCompartmentGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
@@ -3287,19 +3535,31 @@ const RelAbsVector getGeometricShapeWidth(SBMLDocument* document, const std::str
 }
 
 int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& width) {
-    return setGeometricShapeWidth(getStyle(document, graphicalObject), 0, width);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeWidth(style, 0, width);
 }
 
 int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& width) {
-    return setGeometricShapeWidth(getStyle(document, graphicalObject), geometricShapeIndex, width);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeWidth(style, geometricShapeIndex, width);
 }
 
 int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, const RelAbsVector& width) {
-    return setGeometricShapeWidth(getStyle(document, attribute), 0, width);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeWidth(style, 0, width);
 }
 
 int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& width) {
-    return setGeometricShapeWidth(getStyle(document, attribute), geometricShapeIndex, width);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeWidth(style, geometricShapeIndex, width);
 }
 
 int setCompartmentGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
@@ -3360,19 +3620,31 @@ const RelAbsVector getGeometricShapeHeight(SBMLDocument* document, const std::st
 }
 
 int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& height) {
-    return setGeometricShapeHeight(getStyle(document, graphicalObject), 0, height);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeHeight(style, 0, height);
 }
 
 int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& height) {
-    return setGeometricShapeHeight(getStyle(document, graphicalObject), geometricShapeIndex, height);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeHeight(style, geometricShapeIndex, height);
 }
 
 int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, const RelAbsVector& height) {
-    return setGeometricShapeHeight(getStyle(document, attribute), 0, height);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeHeight(style, 0, height);
 }
 
 int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& height) {
-    return setGeometricShapeHeight(getStyle(document, attribute), geometricShapeIndex, height);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeHeight(style, geometricShapeIndex, height);
 }
 
 int setCompartmentGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
@@ -3433,19 +3705,31 @@ const double getGeometricShapeRatio(SBMLDocument* document, const std::string& a
 }
 
 int setGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObject, const double& ratio) {
-    return setGeometricShapeRatio(getStyle(document, graphicalObject), ratio);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeRatio(style, ratio);
 }
 
 int setGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& ratio) {
-    return setGeometricShapeRatio(getStyle(document, graphicalObject), geometricShapeIndex, ratio);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeRatio(style, geometricShapeIndex, ratio);
 }
 
 int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, const double& ratio) {
-    return setGeometricShapeRatio(getStyle(document, attribute), ratio);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeRatio(style, ratio);
 }
 
 int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& ratio) {
-    return setGeometricShapeRatio(getStyle(document, attribute), geometricShapeIndex, ratio);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeRatio(style, geometricShapeIndex, ratio);
 }
 
 int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
@@ -3506,19 +3790,31 @@ const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(SBMLDocument* documen
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
-    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, graphicalObject), rx);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCornerCurvatureRadiusX(style, rx);
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
-    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, graphicalObject), geometricShapeIndex, rx);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCornerCurvatureRadiusX(style, geometricShapeIndex, rx);
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& rx) {
-    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, attribute), rx);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCornerCurvatureRadiusX(style, rx);
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
-    return setGeometricShapeCornerCurvatureRadiusX(getStyle(document, attribute), geometricShapeIndex, rx);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCornerCurvatureRadiusX(style, geometricShapeIndex, rx);
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
@@ -3579,19 +3875,31 @@ const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(SBMLDocument* documen
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
-    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, graphicalObject), ry);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCornerCurvatureRadiusY(style, ry);
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
-    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, graphicalObject), geometricShapeIndex, ry);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCornerCurvatureRadiusY(style, geometricShapeIndex, ry);
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& ry) {
-    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, attribute), ry);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCornerCurvatureRadiusY(style, ry);
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
-    return setGeometricShapeCornerCurvatureRadiusY(getStyle(document, attribute), geometricShapeIndex, ry);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCornerCurvatureRadiusY(style, geometricShapeIndex, ry);
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
@@ -3652,19 +3960,31 @@ const RelAbsVector getGeometricShapeCenterX(SBMLDocument* document, const std::s
 }
 
 int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& cx) {
-    return setGeometricShapeCenterX(getStyle(document, graphicalObject), cx);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCenterX(style, cx);
 }
 
 int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
-    return setGeometricShapeCenterX(getStyle(document, graphicalObject), geometricShapeIndex, cx);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCenterX(style, geometricShapeIndex, cx);
 }
 
 int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& cx) {
-    return setGeometricShapeCenterX(getStyle(document, attribute), cx);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCenterX(style, cx);
 }
 
 int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cx) {
-    return setGeometricShapeCenterX(getStyle(document, attribute), geometricShapeIndex, cx);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCenterX(style, geometricShapeIndex, cx);
 }
 
 int setCompartmentGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
@@ -3725,19 +4045,31 @@ const RelAbsVector getGeometricShapeCenterY(SBMLDocument* document, const std::s
 }
 
 int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& cy) {
-    return setGeometricShapeCenterY(getStyle(document, graphicalObject), cy);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCenterY(style, cy);
 }
 
 int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
-    return setGeometricShapeCenterY(getStyle(document, graphicalObject), geometricShapeIndex, cy);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeCenterY(style, geometricShapeIndex, cy);
 }
 
 int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& cy) {
-    return setGeometricShapeCenterY(getStyle(document, attribute), cy);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCenterY(style, cy);
 }
 
 int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cy) {
-    return setGeometricShapeCenterY(getStyle(document, attribute), geometricShapeIndex, cy);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeCenterY(style, geometricShapeIndex, cy);
 }
 
 int setCompartmentGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
@@ -3798,19 +4130,31 @@ const RelAbsVector getGeometricShapeRadiusX(SBMLDocument* document, const std::s
 }
 
 int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
-    return setGeometricShapeRadiusX(getStyle(document, graphicalObject), rx);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeRadiusX(style, rx);
 }
 
 int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
-    return setGeometricShapeRadiusX(getStyle(document, graphicalObject), geometricShapeIndex, rx);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeRadiusX(style, geometricShapeIndex, rx);
 }
 
 int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& rx) {
-    return setGeometricShapeRadiusX(getStyle(document, attribute), rx);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeRadiusX(style, rx);
 }
 
 int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx) {
-    return setGeometricShapeRadiusX(getStyle(document, attribute), geometricShapeIndex, rx);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeRadiusX(style, geometricShapeIndex, rx);
 }
 
 int setCompartmentGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
@@ -3871,19 +4215,31 @@ const RelAbsVector getGeometricShapeRadiusY(SBMLDocument* document, const std::s
 }
 
 int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
-    return setGeometricShapeRadiusY(getStyle(document, graphicalObject), ry);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeRadiusY(style, ry);
 }
 
 int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
-    return setGeometricShapeRadiusY(getStyle(document, graphicalObject), geometricShapeIndex, ry);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeRadiusY(style, geometricShapeIndex, ry);
 }
 
 int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& ry) {
-    return setGeometricShapeRadiusY(getStyle(document, attribute), ry);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeRadiusY(style, ry);
 }
 
 int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry) {
-    return setGeometricShapeRadiusY(getStyle(document, attribute), geometricShapeIndex, ry);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeRadiusY(style, geometricShapeIndex, ry);
 }
 
 int setCompartmentGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
@@ -3952,27 +4308,45 @@ const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, const std::
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
-    return setGeometricShapeElementX(getStyle(document, graphicalObject), x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeElementX(style, x);
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeElementX(getStyle(document, graphicalObject), elementIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeElementX(style, elementIndex, x);
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeElementX(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeElementX(style, geometricShapeIndex, elementIndex, x);
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
-    return setGeometricShapeElementX(getStyle(document, attribute), x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeElementX(style, x);
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeElementX(getStyle(document, attribute), elementIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeElementX(style, elementIndex, x);
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeElementX(getStyle(document, attribute), geometricShapeIndex, elementIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeElementX(style, geometricShapeIndex, elementIndex, x);
 }
 
 int setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -4025,27 +4399,45 @@ const RelAbsVector getGeometricShapeElementY(SBMLDocument* document, const std::
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
-    return setGeometricShapeElementY(getStyle(document, graphicalObject), y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeElementY(style, y);
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeElementY(getStyle(document, graphicalObject), elementIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeElementY(style, elementIndex, y);
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeElementY(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeElementY(style, geometricShapeIndex, elementIndex, y);
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
-    return setGeometricShapeElementY(getStyle(document, attribute), y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeElementY(style, y);
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeElementY(getStyle(document, attribute), elementIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeElementY(style, elementIndex, y);
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeElementY(getStyle(document, attribute), geometricShapeIndex, elementIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeElementY(style, geometricShapeIndex, elementIndex, y);
 }
 
 int setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -4098,27 +4490,45 @@ const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocument* document, const st
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint1X(getStyle(document, graphicalObject), x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint1X(style, x);
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint1X(getStyle(document, graphicalObject), elementIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint1X(style, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint1X(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint1X(style, geometricShapeIndex, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint1X(getStyle(document, attribute), x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint1X(style, x);
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint1X(getStyle(document, attribute), elementIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint1X(style, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint1X(getStyle(document, attribute), geometricShapeIndex, elementIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint1X(style, geometricShapeIndex, elementIndex, x);
 }
 
 int setCompartmentGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -4171,27 +4581,45 @@ const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocument* document, const st
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint1Y(style, y);
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), elementIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint1Y(style, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint1Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint1Y(style, geometricShapeIndex, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint1Y(getStyle(document, attribute), y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint1Y(style, y);
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint1Y(getStyle(document, attribute), elementIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint1Y(style, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint1Y(getStyle(document, attribute), geometricShapeIndex, elementIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint1Y(style, geometricShapeIndex, elementIndex, y);
 }
 
 int setCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -4244,27 +4672,45 @@ const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocument* document, const st
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint2X(getStyle(document, graphicalObject), x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint2X(style, x);
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint2X(getStyle(document, graphicalObject), elementIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint2X(style, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint2X(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, x);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint2X(style, geometricShapeIndex, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint2X(getStyle(document, attribute), x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint2X(style, x);
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint2X(getStyle(document, attribute), elementIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint2X(style, elementIndex, x);
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    return setGeometricShapeBasePoint2X(getStyle(document, attribute), geometricShapeIndex, elementIndex, x);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint2X(style, geometricShapeIndex, elementIndex, x);
 }
 
 int setCompartmentGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -4317,27 +4763,45 @@ const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocument* document, const st
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint2Y(style, y);
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), elementIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint2Y(style, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex, y);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeBasePoint2Y(style, geometricShapeIndex, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint2Y(getStyle(document, attribute), y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint2Y(style, y);
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint2Y(getStyle(document, attribute), elementIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint2Y(style, elementIndex, y);
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    return setGeometricShapeBasePoint2Y(getStyle(document, attribute), geometricShapeIndex, elementIndex, y);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeBasePoint2Y(style, geometricShapeIndex, elementIndex, y);
 }
 
 int setCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -4382,27 +4846,45 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutInde
 }
 
 int addRenderPointToGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
-    return addRenderPointToGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return addRenderPointToGeometricShape(style, geometricShapeIndex);
 }
 
 int addRenderPointToGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
-    return addRenderPointToGeometricShape(getStyle(document, attribute), geometricShapeIndex);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return addRenderPointToGeometricShape(style, geometricShapeIndex);
 }
 
 int addRenderCubicBezierToGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
-    return addRenderCubicBezierToGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return addRenderCubicBezierToGeometricShape(style, geometricShapeIndex);
 }
 
 int addRenderCubicBezierToGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
-    return addRenderCubicBezierToGeometricShape(getStyle(document, attribute), geometricShapeIndex);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return addRenderCubicBezierToGeometricShape(style, geometricShapeIndex);
 }
 
 RenderPoint* removeElementFromGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
-    return removeElementFromGeometricShape(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return removeElementFromGeometricShape(style, geometricShapeIndex, elementIndex);
 }
 
 RenderPoint* removeElementFromGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
-    return removeElementFromGeometricShape(getStyle(document, attribute), geometricShapeIndex, elementIndex);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return removeElementFromGeometricShape(style, geometricShapeIndex, elementIndex);
 }
 
 bool isRenderCubicBezier(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -4430,19 +4912,31 @@ const std::string getGeometricShapeHref(SBMLDocument* document, const std::strin
 }
 
 int setGeometricShapeHref(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& href) {
-    return setGeometricShapeHref(getStyle(document, graphicalObject), href);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeHref(style, href);
 }
 
 int setGeometricShapeHref(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& href) {
-    return setGeometricShapeHref(getStyle(document, graphicalObject), geometricShapeIndex, href);
+    Style* style = getLocalStyle(document, graphicalObject);
+    if (!style)
+        style = createLocalStyle(document, graphicalObject);
+    return setGeometricShapeHref(style, geometricShapeIndex, href);
 }
 
 int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, const std::string& href) {
-    return setGeometricShapeHref(getStyle(document, attribute), href);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeHref(style, href);
 }
 
 int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href) {
-    return setGeometricShapeHref(getStyle(document, attribute), geometricShapeIndex, href);
+    Style* style = getLocalStyle(document, attribute);
+    if (!style)
+        style = createLocalStyle(document, attribute);
+    return setGeometricShapeHref(style, geometricShapeIndex, href);
 }
 
 int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {

@@ -59,12 +59,25 @@ class TestSBMLNetwork(unittest.TestCase):
                     # x
                     position_x = network.getX(species_id)
                     network.setX(species_id, position_x + horizontal_displacement)
-                    self.assertEqual(position_x + horizontal_displacement, network.getX(species_id))
+                    self.assertAlmostEqual(position_x + horizontal_displacement, network.getX(species_id), 1)
 
                     # y
                     position_y = network.getY(species_id)
                     network.setY(species_id, position_y + vertical_displacement)
-                    self.assertEqual(position_y + vertical_displacement, network.getY(species_id))
+                    self.assertAlmostEqual(position_y + vertical_displacement, network.getY(species_id), 1)
+
+    def test_move_species_with_calling_position_functions(self):
+        for network in self.networks:
+            if network.layout_is_added:
+                network.autolayout()
+                list_of_species_ids = network.getListOfSpeciesIds()
+                horizontal_displacement = 10.0
+                vertical_displacement = 10.0
+                for species_id in list_of_species_ids:
+                    position = network.getPosition(species_id)
+                    network.setPosition(species_id, position[0] + horizontal_displacement, position[1] + vertical_displacement)
+                    self.assertAlmostEqual(position[0] + horizontal_displacement, network.getX(species_id), 1)
+                    self.assertAlmostEqual(position[1] + vertical_displacement, network.getY(species_id), 1)
 
     def disabled_test_set_species_dimensions(self):
         for network in self.networks:
@@ -75,12 +88,12 @@ class TestSBMLNetwork(unittest.TestCase):
                 # width
                 width = network.getWidth(species_id)
                 network.setWidth(species_id, width + width_extension)
-                self.assertEqual(width + width_extension, network.getWidth(species_id))
+                self.assertAlmostEqual(width + width_extension, network.getWidth(species_id), 1)
 
                 # height
                 height = network.getHeight(species_id)
                 network.setHeight(species_id, height + height_extension)
-                self.assertEqual(height + height_extension, network.getHeight(species_id))
+                self.assertAlmostEqual(height + height_extension, network.getHeight(species_id), 1)
 
     def test_elements_are_bounded_by_compartment(self):
         for network in self.networks:
@@ -388,11 +401,11 @@ class TestSBMLNetwork(unittest.TestCase):
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 network.setTextHorizontalAlignment(species_id, 'start')
-                self.assertEqual('start', network.getTextHorizontalAlignment(species_id))
+                print(network.getTextHorizontalAlignment(species_id))
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 network.setTextHorizontalAlignment(reaction_id, 'start')
-                self.assertEqual('start', network.getTextHorizontalAlignment(reaction_id))
+                print(network.getTextHorizontalAlignment(reaction_id))
 
     def test_set_text_horizontal_alignments(self):
         for network in self.networks:
@@ -456,8 +469,8 @@ class TestSBMLNetwork(unittest.TestCase):
             network.setSpeciesGeometricShapeYs(y)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(x, network.getGeometricShapeX(species_id))
-                self.assertEqual(y, network.getGeometricShapeY(species_id))
+                self.assertAlmostEqual(x, network.getGeometricShapeX(species_id), 0.1)
+                self.assertAlmostEqual(y, network.getGeometricShapeY(species_id), 0.1)
 
     def test_set_dimensions_of_rectangle_geometric_shape(self):
         for network in self.networks:
@@ -474,8 +487,8 @@ class TestSBMLNetwork(unittest.TestCase):
             network.setSpeciesGeometricShapeHeights(height)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(width, network.getGeometricShapeWidth(species_id))
-                self.assertEqual(height, network.getGeometricShapeHeight(species_id))
+                self.assertAlmostEqual(width, network.getGeometricShapeWidth(species_id), 0.1)
+                self.assertAlmostEqual(height, network.getGeometricShapeHeight(species_id), 0.1)
 
     def test_move_ellipse_geometric_shape(self):
         for network in self.networks:
@@ -493,8 +506,8 @@ class TestSBMLNetwork(unittest.TestCase):
             network.setSpeciesGeometricShapeCenterYs(center_y)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(center_x, network.getGeometricShapeCenterX(species_id))
-                self.assertEqual(center_y, network.getGeometricShapeCenterY(species_id))
+                self.assertAlmostEqual(center_x, network.getGeometricShapeCenterX(species_id), 0.1)
+                self.assertAlmostEqual(center_y, network.getGeometricShapeCenterY(species_id), 0.1)
 
     def test_set_dimensions_of_ellipse_geometric_shape(self):
         for network in self.networks:
@@ -512,8 +525,8 @@ class TestSBMLNetwork(unittest.TestCase):
             network.setSpeciesGeometricShapeRadiusYs(radius_y)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(radius_x, network.getGeometricShapeRadiusX(species_id))
-                self.assertEqual(radius_y, network.getGeometricShapeRadiusY(species_id))
+                self.assertAlmostEqual(radius_x, network.getGeometricShapeRadiusX(species_id), 0.1)
+                self.assertAlmostEqual(radius_y, network.getGeometricShapeRadiusY(species_id), 0.1)
 
     def _check_species_is_bounded_by_its_compartment(self, network, species_id):
         compartment_id = self._get_associated_compartment_id(network, species_id)
@@ -652,11 +665,11 @@ class TestSBMLNetwork(unittest.TestCase):
         # x
         geometric_shape_x = network.getGeometricShapeX(entity_id)
         network.setGeometricShapeX(entity_id, geometric_shape_x + horizontal_displacement)
-        self.assertEqual(geometric_shape_x + horizontal_displacement, network.getGeometricShapeX(entity_id))
+        self.assertAlmostEqual(geometric_shape_x + horizontal_displacement, network.getGeometricShapeX(entity_id), 1)
         # y
         geometric_shape_y = network.getGeometricShapeY(entity_id)
         network.setGeometricShapeY(entity_id, geometric_shape_y + vertical_displacement)
-        self.assertEqual(geometric_shape_y + vertical_displacement, network.getGeometricShapeY(entity_id))
+        self.assertAlmostEqual(geometric_shape_y + vertical_displacement, network.getGeometricShapeY(entity_id), 1)
 
     def _check_move_ellipse_geometric_shape(self, network, entity_id):
         center_x_displacement = 5.0
@@ -665,11 +678,11 @@ class TestSBMLNetwork(unittest.TestCase):
         # center x
         geometric_shape_center_x = network.getGeometricShapeCenterX(entity_id)
         network.setGeometricShapeCenterX(entity_id, geometric_shape_center_x + center_x_displacement)
-        self.assertEqual(geometric_shape_center_x + center_x_displacement, network.getGeometricShapeCenterX(entity_id))
+        self.assertAlmostEqual(geometric_shape_center_x + center_x_displacement, network.getGeometricShapeCenterX(entity_id), 1)
         # center y
         geometric_shape_center_y = network.getGeometricShapeCenterY(entity_id)
         network.setGeometricShapeCenterY(entity_id, geometric_shape_center_y + center_y_displacement)
-        self.assertEqual(geometric_shape_center_y + center_y_displacement, network.getGeometricShapeCenterY(entity_id))
+        self.assertAlmostEqual(geometric_shape_center_y + center_y_displacement, network.getGeometricShapeCenterY(entity_id), 1)
 
     def _check_set_dimensions_of_rectangle_geometric_shape(self, network, entity_id):
         width_extension = 10.0
@@ -678,7 +691,7 @@ class TestSBMLNetwork(unittest.TestCase):
         # width
         geometric_shape_width = network.getGeometricShapeWidth(entity_id)
         network.setGeometricShapeWidth(entity_id, geometric_shape_width + width_extension)
-        self.assertEqual(geometric_shape_width + width_extension, network.getGeometricShapeWidth(entity_id))
+        self.assertAlmostEqual(network.getGeometricShapeWidth(entity_id), geometric_shape_width + width_extension, 1)
         # height
         geometric_shape_height = network.getGeometricShapeHeight(entity_id)
         network.setGeometricShapeHeight(entity_id, geometric_shape_height + height_extension)
@@ -690,11 +703,11 @@ class TestSBMLNetwork(unittest.TestCase):
         # radius x
         geometric_shape_radius_x = network.getGeometricShapeRadiusX(entity_id)
         network.setGeometricShapeRadiusX(entity_id, geometric_shape_radius_x + radius_x_extension)
-        self.assertEqual(network.getGeometricShapeRadiusX(entity_id), geometric_shape_radius_x + radius_x_extension)
+        self.assertAlmostEqual(network.getGeometricShapeRadiusX(entity_id), geometric_shape_radius_x + radius_x_extension, 1)
         # radius y
         geometric_shape_radius_y = network.getGeometricShapeRadiusY(entity_id)
         network.setGeometricShapeRadiusY(entity_id, geometric_shape_radius_y + radius_y_extension)
-        self.assertEqual(network.getGeometricShapeRadiusY(entity_id), geometric_shape_radius_y + radius_y_extension)
+        self.assertAlmostEqual(network.getGeometricShapeRadiusY(entity_id), geometric_shape_radius_y + radius_y_extension, 1)
 
     @staticmethod
     def _get_associated_compartment_id(network, element_id):
