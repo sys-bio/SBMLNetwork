@@ -103,7 +103,7 @@ jobs:
           fi
 
       - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v4
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Get Host Architecture
         shell: bash
@@ -155,7 +155,7 @@ jobs:
 
       - name: Cache ccache files on non-Windows
         if: matrix.platform.os_type != 'windows'
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${RUNNER_WORKSPACE}/.ccache
           key:
