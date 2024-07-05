@@ -55,13 +55,13 @@ jobs:
             os_name: windows-latest
             build_type: Debug
             build_python: OFF
-          - name: manylinux2014-release
+          - name: manylinux_2_28-release
             os_type: manylinux
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux_2_28_x86_64
             build_type: Release
             build_python: ON
-          - name: manylinux2014-debug
+          - name: manylinux_2_28-debug
             os_type: manylinux
             os_name: ubuntu-latest
             container_image: quay.io/pypa/manylinux_2_28_x86_64
@@ -70,7 +70,7 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.1.1" ]
+        libroadrunner_deps_release_version: [ "v2.1.2" ]
         python_version: [ "3.11" ]
     runs-on: ${{ matrix.platform.os_name }}
     container:
@@ -78,7 +78,7 @@ jobs:
 
     steps:
       - name: Checkout libSBMLNetwork
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
@@ -103,7 +103,7 @@ jobs:
           fi
 
       - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v4
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Get Host Architecture
         shell: bash
@@ -155,7 +155,7 @@ jobs:
 
       - name: Cache ccache files on non-Windows
         if: matrix.platform.os_type != 'windows'
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${RUNNER_WORKSPACE}/.ccache
           key:
@@ -308,7 +308,7 @@ jobs:
           if [ "${{ matrix.platform.os_type }}" == 'macos' ]; then
             mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/universal2/${host_architecture}/g")
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
-            mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/linux/manylinux2014/g")
+            mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/linux/manylinux_2_28/g")
           fi
           python_version_number=$(echo "${{ matrix.python_version }}" | tr -d '.')
           mv dist/libsbmlnetwork*.whl $(echo dist/libsbmlnetwork*.whl | sed "s/cp${python_version_number}-cp${python_version_number}/py3-none/g")
