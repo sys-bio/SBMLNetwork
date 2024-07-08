@@ -1,3 +1,3 @@
-site_name: My Documentation
-nav:
-  - Home: docs/source/index.md
+site_name: My Project Documentation
+theme:
+  name: readthedocs
