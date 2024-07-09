@@ -15,9 +15,9 @@ def replace_placeholder_in_file(input_file, output_file, placeholder, replacemen
         fout.write(content)
 
 if __name__ == "__main__":
-    version_file = "VERSION.txt"
-    input_file = "docs/Doxyfile.in"
-    output_file = "docs/Doxyfile"
+    version_file = "../VERSION.txt"
+    input_file = "Doxyfile.in"
+    output_file = "Doxyfile"
     placeholder = "@LIBSBMLNETWORK_DOTTED_VERSION@"
     version = read_version_from_file(version_file)
     replace_placeholder_in_file(input_file, output_file, placeholder, version)

@@ -6,8 +6,8 @@ build:
     python: "3.12"
   jobs:
     pre_build:
-      - python docs/configure.py
-      - doxygen docs/Doxyfile
+      - cd docs && python configure.py
+      - cd docs && doxygen Doxyfile
 
 mkdocs:
   configuration: mkdocs.yml
