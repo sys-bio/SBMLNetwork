@@ -4,9 +4,11 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
-
-sphinx:
-  configuration: docs/configure.py
+  jobs:
+    pre_install:
+      - bash -c python configure.py
+    post_build:
+      - bash -c python configure.py
 
 mkdocs:
   configuration: mkdocs.yml
