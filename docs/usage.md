@@ -112,7 +112,7 @@ xml_output_file_path = "path/to/output_example.xml"
 network.save(xml_output_file_path)
 ```
 
-# Draw
+## Draw
 Another feature of SBMLNetwork is its capability to render an image of the graphical representation of the SBML model by making use of its Layout and Render data and leveraging Skia, a powerful graphics library developed by Google. Users can call the `draw` function to display the image on the console or export the image by passing the `file_name` argument, which contains the directory, name, and format of the image to be exported, to the draw function. Exporting to PDF, JPG, and PNG formats is currently supported. Export tp PDF is a vector format enabling resolution-independent rendering. Below is a demonstration of utilizing the `draw` function.
 
 ```python
