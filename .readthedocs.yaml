@@ -8,10 +8,6 @@ build:
     pre_build:
       - python docs/configure.py
       - doxygen docs/Doxyfile
-      - ls -l
-      - ls -l docs
-      - ls -l docs/doxygen
-      - ls -l docs/doxygen/html
 
 mkdocs:
   configuration: mkdocs.yml
