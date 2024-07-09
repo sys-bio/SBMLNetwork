@@ -21,4 +21,3 @@ if __name__ == "__main__":
     placeholder = "@LIBSBMLNETWORK_DOTTED_VERSION@"
     version = read_version_from_file(version_file)
     replace_placeholder_in_file(input_file, output_file, placeholder, version)
-    print(f"Version {version} has been written to {output_file}")
