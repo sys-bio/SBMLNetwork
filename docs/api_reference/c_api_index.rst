@@ -61,8 +61,6 @@ This is the API reference for the C API of the SBMLNetwork library.
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthReactionId(SBMLDocument* document, int reactionIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumAllReactionsGlyphs(SBMLDocument* document, int layoutIndex = 0)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumReactionGlyphs(SBMLDocument* document, const char* reactionId, int layoutIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0)
@@ -243,7 +241,7 @@ This is the API reference for the C API of the SBMLNetwork library.
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getCurveSegmentBasePoint2Y(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSegmentCurveBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setCurveSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumGlobalRenderInformation(SBMLDocument* document)
 
@@ -469,27 +467,27 @@ This is the API reference for the C API of the SBMLNetwork library.
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string &id, const double height, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string &id, const double ratio, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const std::string &id, const double rx, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double rx, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const std::string &id, const double ry, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double ry, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string &id, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
