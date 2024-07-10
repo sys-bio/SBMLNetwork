@@ -4,9 +4,11 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
+    doxygen: "1.9.3"
   jobs:
     pre_build:
-      - cd docs && python conf.py
+      - pip install -r docs/requirements.txt
+      - cd docs && python configure_doxyfile.py
       - cd docs && doxygen Doxyfile
 
 sphinx:
