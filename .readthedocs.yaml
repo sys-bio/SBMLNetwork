@@ -6,8 +6,17 @@ build:
     python: "3.12"
   jobs:
     pre_build:
-      - cd docs && python configure.py
+      - cd docs && python conf.py
       - cd docs && doxygen Doxyfile
 
-mkdocs:
-  configuration: mkdocs.yml
+sphinx:
+    configuration: docs/conf.py
+    python_version: 3.12
+    builder: html
+    fail_on_warning: false
+    fail_on_error: true
+    output_dir: docs/_build/html
+    source_dir: docs
+    build_dir: docs/_build
+    clean: true
+    requirements_file: docs/requirements.txt
