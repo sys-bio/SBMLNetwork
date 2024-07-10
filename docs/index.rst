@@ -13,9 +13,9 @@ Welcome to SBMLNetwork's documentation!
    installation
    building
    usage
-   api_reference/python_api_index
-   api_reference/cpp_api_index
    api_reference/c_api_index
+   api_reference/cpp_api_index
+   api_reference/python_api_index
 
 
 Overview
