@@ -1,9 +1,0 @@
-site_name: SBMLNetwork Documentation
-theme:
-  name: readthedocs
-nav:
-  - Home: index.md
-  - "Installation": installation.md
-  - "Build from source": building.md
-  - "Usage": usage.md
-  - "API": doxygen/html/index.html
