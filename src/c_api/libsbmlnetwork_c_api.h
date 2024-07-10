@@ -188,13 +188,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the number of CompartmentGlyphs of this Layout object, or @c 0 if the object is @c NULL
     LIBSBMLNETWORK_EXTERN const int c_api_getNumAllCompartmentGlyphs(SBMLDocument* document, int layoutIndex = 0);
 
-    /// @brief Returns a list of the ids of the CompartmentGlyph objects of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return a list of the ids of the CompartmentGlyph objects of this Layout object, or an empty list if the object is @c NULL or contains
-    /// no CompartmentGlyph objects
-    LIBSBMLNETWORK_EXTERN char** c_api_getListOfCompartmentGlyphIds(SBMLDocument* document, int layoutIndex = 0);
-
     /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document
     /// associated with the entered compartment id.
     /// @param document a pointer to the SBMLDocument object.
@@ -299,7 +292,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of ReactionGlyphs of this Layout object, or @c 0 if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const int c_api_getNumAllReactionsGlyphs(SBMLDocument* document, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const int c_api_getNumAllReactionGlyphs(SBMLDocument* document, int layoutIndex = 0);
 
     /// @brief Returns the number of ReactionGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document
     /// associated with the entered reaction id.
@@ -1242,7 +1235,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param curveSegmentIndex an int representing the index of the curve segment to retrieve.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSegmentCurveBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCurveSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int graphicalObjectIndex = 0, int curveSegmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the number of items in the ListOfGlobalRenderInformation of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -2400,7 +2393,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
     /// @param renderIndex the index number of the RenderInformationBase object.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeSegmentHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int renderIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int renderIndex = 0);
 
     /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -3206,7 +3199,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param shape a string value indicating the shape of the geometric shape to be set.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

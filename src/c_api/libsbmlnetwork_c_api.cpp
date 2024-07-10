@@ -832,7 +832,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setStopColor(document, renderIndex, id, gradientStopIndex, stopColor);
     }
 
-    int c_isSetLinearGradientX1(SBMLDocument* document, const char* id, int renderIndex) {
+    bool c_api_isSetLinearGradientX1(SBMLDocument* document, const char* id, int renderIndex) {
         return isSetLinearGradientX1(document, renderIndex, id);
     }
 
@@ -2450,6 +2450,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         RelAbsVector segmentBasePoint2YVector;
         segmentBasePoint2YVector.setAbsoluteValue(y);
         return setGeometricShapeBasePoint2Y(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, segmentIndex, segmentBasePoint2YVector);
+    }
+
+    int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2YVector;
+        segmentBasePoint2YVector.setAbsoluteValue(y);
+        return setCompartmentGeometricShapeBasePoint2Y(document, layoutIndex, segmentIndex, segmentBasePoint2YVector);
+    }
+
+    int c_api_setSpeciesGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2YVector;
+        segmentBasePoint2YVector.setAbsoluteValue(y);
+        return setSpeciesGeometricShapeBasePoint2Y(document, layoutIndex, segmentIndex, segmentBasePoint2YVector);
+    }
+
+    int c_api_setReactionsGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2YVector;
+        segmentBasePoint2YVector.setAbsoluteValue(y);
+        return setReactionGeometricShapeBasePoint2Y(document, layoutIndex, segmentIndex, segmentBasePoint2YVector);
+    }
+
+    int c_api_setGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex, int layoutIndex) {
+        RelAbsVector segmentBasePoint2YVector;
+        segmentBasePoint2YVector.setAbsoluteValue(y);
+        return setGeometricShapeBasePoint2Y(document, layoutIndex, segmentIndex, segmentBasePoint2YVector);
     }
 
     bool c_api_isSetGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
