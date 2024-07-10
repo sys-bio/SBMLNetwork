@@ -1561,15 +1561,21 @@ Style* getStyle(SBMLDocument* document, const std::string& attribute) {
 }
 
 Style* getLocalStyle(SBMLDocument* document, const std::string& attribute) {
-    Style* style = getStyle(getLocalRenderInformation(document), attribute);
-    if (!style)
-        style = getStyle(getLocalRenderInformation(document), getGraphicalObject(document, attribute));
+    for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+        if (getStyle(getLocalRenderInformation(document, i), attribute))
+            return getStyle(getLocalRenderInformation(document, i), attribute);
+    }
 
-    return style;
+    return getLocalStyle(document, getGraphicalObject(document, attribute));
 }
 
 Style* getGlobalStyle(SBMLDocument* document, const std::string& attribute) {
-    return getStyle(getGlobalRenderInformation(document), attribute);
+    for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+        if (getStyle(getGlobalRenderInformation(document, i), attribute))
+            return getStyle(getGlobalRenderInformation(document, i), attribute);
+    }
+
+    return getGlobalStyle(document, getGraphicalObject(document, attribute));
 }
 
 Style* createLocalStyle(SBMLDocument* document, const std::string& attribute) {
@@ -1579,7 +1585,7 @@ Style* createLocalStyle(SBMLDocument* document, const std::string& attribute) {
 
 Style* getStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& attribute) {
     Style* style = getLocalStyle(document, renderIndex, attribute);
-    if (style)
+    if (!style)
         style = getGlobalStyle(document, renderIndex, attribute);
 
     return style;
