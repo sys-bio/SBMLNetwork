@@ -231,7 +231,7 @@ LIBSBMLNETWORK_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* docume
 /// @param layoutIndex the index number of the Layout to return.
 /// @param compartmentGlyphIndex the index number of the CompartmentGlyph object to return.
 /// @return a pointer to the CompartmentGlyph object with the given index in the ListOfCompartmentGlyphs of the Layout object.
-LIBSBMLNETWORK_EXTERN  CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, const unsigned int& compartmentGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN  CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int compartmentGlyphIndex = 0);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the first Layout object of the SBML document is of type CompartmentGlyph.
 /// @param document a pointer to the SBMLDocument object.
@@ -353,7 +353,7 @@ LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsi
 /// @param layoutIndex the index number of the Layout to return.
 /// @param speciesGlyphIndex the index number of the SpeciesGlyph object to return.
 /// @return a pointer to the nth SpeciesGlyph object with the given index in the ListOfSpeciesGlyphs of the Layout object.
-LIBSBMLNETWORK_EXTERN  SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, const unsigned int& speciesGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN  SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int speciesGlyphIndex = 0);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the first Layout object of the SBML document is of type SpeciesGlyph.
 /// @param document a pointer to the SBMLDocument object.
@@ -433,7 +433,7 @@ LIBSBMLNETWORK_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, un
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
 /// @return a pointer to the nth ReactionGlyph object with the given index in the ListOfReactionGlyphs of the Layout object.
-LIBSBMLNETWORK_EXTERN  ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, const unsigned int& reactionGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN  ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the first Layout object of the SBML document is of type ReactionGlyph.
 /// @param document a pointer to the SBMLDocument object.
@@ -1671,13 +1671,12 @@ LIBSBMLNETWORK_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned 
 /// @brief Sets the id of the associated graphical object of the TextGlyph object with the given index associated with the given id in
 /// the first Layout object of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject.
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @param graphicalObjectId a string value to be set as id of the associated graphical object of the TextGlyph object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
+LIBSBMLNETWORK_EXTERN int setGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const std::string& graphicalObjectId);
 
 /// @brief Sets the id of the associated graphical object of the TextGlyph object with the given index associated with the given id
 /// in the Layout object with the given index of the SBML document.
@@ -1713,7 +1712,7 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(SBMLDocument* document, unsigned int layo
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @return a pointer to the BoundingBox object of the GraphicalObject object associated with the entered id, or @c NULL if
 /// the GraphicalObject object does not exits or the object is @c NULL
-    LIBSBMLNETWORK_EXTERN BoundingBox* getBoundingBox(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0);
+    LIBSBMLNETWORK_EXTERN BoundingBox* getBoundingBox(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// Returns the BoundingBox object of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -1722,14 +1721,14 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(SBMLDocument* document, unsigned int layo
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return a pointer to the BoundingBox object of the GraphicalObject object associated with the entered id, or @c NULL if
 /// the GraphicalObject object does not exits or the object is @c NULL
-LIBSBMLNETWORK_EXTERN BoundingBox* getBoundingBox(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN BoundingBox* getBoundingBox(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the bounding box of the GraphicalObject with the given index associated with
 /// the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @return the "x" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const double getPositionX(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN const double getPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the bounding box of the GraphicalObject with the given index associated with
 /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -1737,7 +1736,7 @@ LIBSBMLNETWORK_EXTERN const double getPositionX(SBMLDocument* document, const st
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @return the "x" attribute of the bounding box of the GraphicalObject object, or @c 0.0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const double getPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN const double getPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Sets the value of the "x" attribute of the bounding box of the first GraphicalObject associated with the model entity with
 /// the given id of the first Layout object in the SBML document.
@@ -1975,80 +1974,371 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
 
-LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+/// @brief Retrieves the "x" position of a TextGlyph object within a specific layout.
+/// This function fetches the "x" coordinate of the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object or the layout does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The "x" position of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
-LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+/// @brief Retrieves the "x" position of a TextGlyph object within a specific layout.
+/// This function fetches the "x" coordinate of the bounding box of a TextGlyph object, identified by its index and associated with a model entity identified by its ID, within a specified layout of the SBML document. The layout is determined by its index. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object or the layout does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document from which to retrieve the TextGlyph object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The "x" position of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
+LIBSBMLNETWORK_EXTERN const double getTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
+/// @brief Sets the "x" position of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns a new "x" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, const double& x);
 
+/// @brief Sets the "x" position of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns a new "x" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x);
 
+/// @brief Sets the "x" position of a TextGlyph object, identified by graphical object index, within the first layout of the SBML document.
+/// This function assigns a new "x" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
 
+/// @brief Sets the "x" position of a TextGlyph object, identified by graphical object index, within a specific layout of the SBML document.
+/// This function assigns a new "x" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
 
+/// @brief Sets the "x" position of a TextGlyph object, identified by both graphical and text glyph indices, within the first layout of the SBML document.
+/// This function assigns a new "x" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x);
 
+/// @brief Sets the "x" position of a TextGlyph object, identified by both graphical and text glyph indices, within a specific layout of the SBML document.
+/// This function assigns a new "x" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x);
 
-LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+/// @brief Retrieves the "y" position of a TextGlyph object within the first layout of the SBML document.
+/// This function fetches the "y" coordinate of the bounding box of a TextGlyph object, identified by its index and associated with a model entity identified by its ID, within the first layout of the SBML document. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The "y" position of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
-LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const unsigned int graphicalObjectIndex = 0, const unsigned int textGlyphIndex = 0);
+/// @brief Retrieves the "y" position of a TextGlyph object within a specific layout of the SBML document.
+/// This function fetches the "y" coordinate of the bounding box of a TextGlyph object, identified by its index and associated with a model entity identified by its ID, within a specified layout of the SBML document. The layout is determined by its index. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object or the layout does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document from which to retrieve the TextGlyph object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The "y" position of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
+LIBSBMLNETWORK_EXTERN const double getTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
+/// @brief Sets the "y" position of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns a new "y" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, const double& y);
 
+/// @brief Sets the "y" position of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns a new "y" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& y);
 
+/// @brief Sets the "y" position of a TextGlyph object, identified by graphical object index, within the first layout of the SBML document.
+/// This function assigns a new "y" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
 
+/// @brief Sets the "y" position of a TextGlyph object, identified by graphical object index, within a specific layout of the SBML document.
+/// This function assigns a new "y" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
 
+/// @brief Sets the "y" position of a TextGlyph object, identified by both graphical and text glyph indices, within the first layout of the SBML document.
+/// This function assigns a new "y" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y);
 
+/// @brief Sets the "y" position of a TextGlyph object, identified by both graphical and text glyph indices, within a specific layout of the SBML document.
+/// This function assigns a new "y" coordinate to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& y);
 
+/// @brief Sets both the "x" and "y" positions of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns new "x" and "y" coordinates to the bounding box of a TextGlyph object, identified by its associated model entity ID. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y);
 
+/// @brief Sets both the "x" and "y" positions of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns new "x" and "y" coordinates to the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y);
 
+/// @brief Sets both the "x" and "y" positions of a TextGlyph object, identified by graphical object index, within the first layout of the SBML document.
+/// This function assigns new "x" and "y" coordinates to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
 
+/// @brief Sets both the "x" and "y" positions of a TextGlyph object, identified by graphical object index, within a specific layout of the SBML document.
+/// This function assigns new "x" and "y" coordinates to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
 
+/// @brief Sets both the "x" and "y" positions of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns new "x" and "y" coordinates to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y);
 
+/// @brief Sets both the "x" and "y" positions of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns new "x" and "y" coordinates to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param x The new "x" position to set for the bounding box of the TextGlyph object.
+/// @param y The new "y" position to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& x, const double& y);
 
+/// @brief Retrieves the width of the bounding box of a TextGlyph object within the first layout of the SBML document.
+/// This function fetches the width of the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within the first layout of the SBML document. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The width of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
+/// @brief Retrieves the width of the bounding box of a TextGlyph object within a specific layout of the SBML document.
+/// This function fetches the width of the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object or the layout does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document from which to retrieve the TextGlyph object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The width of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
+/// @brief Sets the width of the bounding box of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns a new width to the bounding box of a TextGlyph object, identified by its associated model entity ID. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param width The new width to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, const double& width);
 
+/// @brief Sets the width of the bounding box of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns a new width to the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param width The new width to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& width);
 
+/// @brief Sets the width of the bounding box of a TextGlyph object, identified by graphical object index, within the first layout of the SBML document.
+/// This function assigns a new width to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param width The new width to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
 
+/// @brief Sets the width of the bounding box of a TextGlyph object, identified by graphical object index, within a specific layout of the SBML document.
+/// This function assigns a new width to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param width The new width to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
 
-LIBSBMLNETWORK_EXTERN const double getTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
+/// @brief Sets the width of the bounding box of a TextGlyph object, identified by both graphical and text glyph indices, within the first layout of the SBML document.
+/// This function assigns a new width to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param width The new width to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
+LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
 
+/// @brief Sets the width of the bounding box of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns a new width to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param width The new width to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& width);
 
+/// @brief Retrieves the height of the bounding box of a TextGlyph object within the first layout of the SBML document.
+/// This function fetches the height of the bounding box of a TextGlyph object, identified by its index and associated with a model entity identified by its ID, within the first layout of the SBML document. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The height of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
+/// @brief Retrieves the height of the bounding box of a TextGlyph object within a specific layout of the SBML document.
+/// This function fetches the height of the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object or the layout does not exist, the function returns 0.0.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document from which to retrieve the TextGlyph object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be retrieved.
+/// @param graphicalObjectIndex (Optional) The index of the GraphicalObject within the layout. Defaults to 0.
+/// @param textGlyphIndex (Optional) The index of the TextGlyph within the graphical object. Defaults to 0.
+/// @return The height of the bounding box of the specified TextGlyph object, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
+/// @brief Sets the height of the bounding box of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns a new height to the bounding box of a TextGlyph object, identified by its associated model entity ID. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param height The new height to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, const double& height);
 
+/// @brief Sets the height of the bounding box of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns a new height to the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param height The new height to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& height);
 
+/// @brief Sets the height of the bounding box of a TextGlyph object, identified by graphical object index, within the first layout of the SBML document.
+/// This function assigns a new height to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param height The new height to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
 
+/// @brief Sets the height of the bounding box of a TextGlyph object, identified by graphical object index, within a specific layout of the SBML document.
+/// This function assigns a new height to the bounding box of a TextGlyph object, identified by its associated model entity ID and graphical object index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param height The new height to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
 
+/// @brief Sets the height of the bounding box of a TextGlyph object within the first layout of the SBML document.
+/// This function assigns a new height to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index. This operation is performed within the first layout of the SBML document.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param height The new height to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height);
 
+/// @brief Sets the height of the bounding box of a TextGlyph object within a specific layout of the SBML document.
+/// This function assigns a new height to the bounding box of a TextGlyph object, identified by its associated model entity ID, graphical object index, and text glyph index, within a specified layout of the SBML document. The layout is determined by its index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param layoutIndex The index of the layout within the SBML document in which the TextGlyph object is located.
+/// @param id The ID of the model entity associated with the TextGlyph object to be modified.
+/// @param graphicalObjectIndex The index of the GraphicalObject within the layout.
+/// @param textGlyphIndex The index of the TextGlyph within the graphical object.
+/// @param height The new height to set for the bounding box of the TextGlyph object.
+/// @return An integer value indicating success (non-zero) or failure (zero).
 LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, const double& height);
 
 /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of
