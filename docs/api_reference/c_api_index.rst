@@ -469,14 +469,6 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex = 0, int renderIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int renderIndex = 0)
-
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
@@ -545,7 +537,7 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeSegmentHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
@@ -745,7 +737,7 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setReactionGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex = 0)
 
