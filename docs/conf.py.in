@@ -17,6 +17,7 @@ release = '@LIBSBMLNETWORK_DOTTED_VERSION@'
 extensions = ["breathe", "sphinx.ext.autosectionlabel", "sphinx.ext.autodoc"]
 breathe_projects = {'SBMLNetwork': "doxygen/xml"}
 breathe_default_project = "SBMLNetwork"
+autodoc_member_order = 'bysource'
 
 templates_path = ['_templates']
 exclude_patterns = []

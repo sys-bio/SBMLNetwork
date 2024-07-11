@@ -3,6 +3,10 @@ C API Reference
 
 This is the API reference for the C API of the SBMLNetwork library.
 
+**********
+Functions
+**********
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getVersion()
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_readSBML(const char* sbml)
@@ -30,8 +34,6 @@ This is the API reference for the C API of the SBMLNetwork library.
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthCompartmentId(SBMLDocument* document, int compartmentIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumAllCompartmentGlyphs(SBMLDocument* document, int layoutIndex = 0)
-
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getListOfCompartmentGlyphIds(SBMLDocument* document, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumCompartmentGlyphs(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0)
 

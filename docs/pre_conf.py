@@ -1,3 +1,6 @@
+import shutil
+
+
 def read_version_from_file(version_file):
     with open(version_file, 'r') as f:
         version = f.read().strip()
@@ -15,6 +18,9 @@ def replace_placeholder_in_file(input_file, output_file, placeholder, replacemen
 
 
 if __name__ == "__main__":
+    # sbmlnetwork
+    shutil.copy("../src/bindings/python/ctypes/sbmlnetwork/src/sbmlnetwork/sbmlnetwork.py", "./sbmlnetwork.py")
+
     version_file = "../VERSION.txt"
     version = read_version_from_file(version_file)
     # libsbmlnetwork

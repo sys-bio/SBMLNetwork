@@ -3,9 +3,9 @@ C++ API Reference
 
 This is the API reference for the C++ API of the SBMLNetwork library.
 
-*************
-SBMLDocument
-*************
+************************
+SBMLDocument Functions
+************************
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getVersion()
 
@@ -90,9 +90,9 @@ SBMLDocument
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId)
 
 
-*******
-Layout
-*******
+*****************
+Layout Functions
+*****************
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getListOfLayouts(SBMLDocument* document)
 
@@ -728,9 +728,9 @@ Layout
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex, const double& y)
 
-*******
-Render
-*******
+*****************
+Render Functions
+*****************
 
 .. doxygenfunction::  LIBSBMLNETWORK_CPP_NAMESPACE::getListOfGlobalRenderInformation(SBMLDocument* document)
 
