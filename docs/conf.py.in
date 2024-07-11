@@ -9,12 +9,12 @@
 project = 'SBMLNetwork'
 copyright = '2024, Adel Heydarabadipour'
 author = 'Adel Heydarabadipour'
-release = '0.0.23'
+release = '@LIBSBMLNETWORK_DOTTED_VERSION@'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["breathe", "sphinx.ext.autosectionlabel"]
+extensions = ["breathe", "sphinx.ext.autosectionlabel", "sphinx.ext.autodoc"]
 breathe_projects = {'SBMLNetwork': "doxygen/xml"}
 breathe_default_project = "SBMLNetwork"
 
