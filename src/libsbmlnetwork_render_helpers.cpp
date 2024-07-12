@@ -445,14 +445,16 @@ void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformati
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject) {
     Style* localStyle = createLocalStyle(localRenderInformation, graphicalObject);
-    localStyle->setGroup(globalStyle->getGroup()->clone());
+    if (localStyle && globalStyle)
+        localStyle->setGroup(globalStyle->getGroup()->clone());
+
     return localStyle;
 }
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, GraphicalObject* graphicalObject) {
     LocalStyle* localStyle = NULL;
-    if (localRenderInformation->isLocalRenderInformation()) {
-        localStyle = ((LocalRenderInformation*)localRenderInformation)->createLocalStyle();
+    if (localRenderInformation && graphicalObject) {
+        localStyle = localRenderInformation->createLocalStyle();
         localStyle->addId(graphicalObject->getId());
         localStyle->setId(graphicalObject->getId() + "_style");
     }
