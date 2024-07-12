@@ -453,7 +453,7 @@ class TestSBMLNetwork(unittest.TestCase):
             network.setSpeciesGeometricShapesType('square')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(True, bool(network.isSqaure(species_id)))
+                self.assertEqual(True, bool(network.isSquare(species_id)))
                 self.assertEqual("square", network.getGeometricShapeType(species_id))
 
     def test_move_rectangle_geometric_shape(self):
@@ -466,7 +466,7 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             x = 10.0
             y = 15.0
-            network.setSpeciesGeometricShapes('rectangle')
+            network.setSpeciesGeometricShapesType('rectangle')
             network.setSpeciesGeometricShapeXs(x)
             network.setSpeciesGeometricShapeYs(y)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -484,7 +484,7 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             width = 10.0
             height = 15.0
-            network.setSpeciesGeometricShapes('rectangle')
+            network.setSpeciesGeometricShapesType('rectangle')
             network.setSpeciesGeometricShapeWidths(width)
             network.setSpeciesGeometricShapeHeights(height)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -503,7 +503,7 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             center_x = 5.0
             center_y = 7.5
-            network.setSpeciesGeometricShapes('ellipse')
+            network.setSpeciesGeometricShapesType('ellipse')
             network.setSpeciesGeometricShapeCenterXs(center_x)
             network.setSpeciesGeometricShapeCenterYs(center_y)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -522,7 +522,7 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             radius_x = 5.0
             radius_y = 7.5
-            network.setSpeciesGeometricShapes('ellipse')
+            network.setSpeciesGeometricShapesType('ellipse')
             network.setSpeciesGeometricShapeRadiusXs(radius_x)
             network.setSpeciesGeometricShapeRadiusYs(radius_y)
             list_of_species_ids = network.getListOfSpeciesIds()

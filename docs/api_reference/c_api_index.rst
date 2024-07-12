@@ -743,7 +743,11 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSquare(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isCircle(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
