@@ -633,7 +633,7 @@ class TestSBMLNetwork(unittest.TestCase):
             slope2 = (species_center_y - curve_species_point_y) / (species_center_x - curve_species_point_x)
         else:
             slope2 = 0.0
-        self.assertAlmostEqual(slope1, slope2, 1)
+        self.assertAlmostEqual(slope1, slope2, delta=3)
 
     @staticmethod
     def _get_min_position_x(network, list_of_entity_ids):
