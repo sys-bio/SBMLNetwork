@@ -1734,17 +1734,17 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeType(SBMLDocument* document, const std::string& attribute, const std::string& shape)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setReactionGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isRectangle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0)
 
