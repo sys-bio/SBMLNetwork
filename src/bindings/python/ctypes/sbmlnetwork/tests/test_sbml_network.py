@@ -440,13 +440,28 @@ class TestSBMLNetwork(unittest.TestCase):
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('bottom', network.getTextVerticalAlignment(reaction_id))
 
-    def test_set_geometric_shape(self):
+    def test_set_geometric_shape_type(self):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 network.setGeometricShapeType(species_id, 'ellipse')
                 self.assertEqual(True, bool(network.isEllipse(species_id)))
                 self.assertEqual("ellipse", network.getGeometricShapeType(species_id))
+
+    def test_set_geometric_shapes_feature(self):
+        border_color = 'blue'
+        border_width = 4.0
+        fill_color = 'yellow'
+        for network in self.networks:
+            list_of_species_ids = network.getListOfSpeciesIds()
+            for species_id in list_of_species_ids:
+                network.setBorderColor(species_id, border_color)
+                network.setBorderWidth(species_id, border_width)
+                network.setFillColor(species_id, fill_color)
+                network.setGeometricShapeType(species_id, 'ellipse')
+                self.assertEqual(border_color, network.getBorderColor(species_id))
+                self.assertEqual(border_width, network.getBorderWidth(species_id))
+                self.assertEqual(fill_color, network.getFillColor(species_id))
 
     def test_set_geometric_shapes(self):
         for network in self.networks:

@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_render_helpers.h"
 #include "libsbmlnetwork_layout.h"
+#include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_sbmldocument_render.h"
 #include "libsbmlnetwork_layout_helpers.h"
 
@@ -781,6 +782,37 @@ void setDefaultImageShapeFeatures(Image* image) {
     image->setY(RelAbsVector(0.0, 0.0));
     image->setWidth(RelAbsVector(0.0, 100.0));
     image->setHeight(RelAbsVector(0.0, 100.0));
+}
+
+void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup) {
+    if (renderGroup && getNumGeometricShapes(renderGroup) > 1) {
+        std::string strokeColor = "black";
+        bool foundStrokeColor = false;
+        double strokeWidth = 2.0;
+        bool foundStrokeWidth = false;
+        std::string fillColor = "white";
+        bool foundFillColor = false;
+        for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+            if (isSetStrokeColor(getGeometricShape(renderGroup, i)) && !foundStrokeColor) {
+                strokeColor = getStrokeColor(getGeometricShape(renderGroup, i));
+                foundStrokeColor = true;
+            }
+            if (isSetStrokeWidth(getGeometricShape(renderGroup, i)) && !foundStrokeWidth) {
+                strokeWidth = getStrokeWidth(getGeometricShape(renderGroup, i));
+                foundStrokeWidth = true;
+            }
+            if (isSetFillColor(getGeometricShape(renderGroup, i)) && !foundFillColor) {
+                fillColor = getFillColor(getGeometricShape(renderGroup, i));
+                foundFillColor = true;
+            }
+        }
+
+        for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
+            setStrokeColor(getGeometricShape(renderGroup, i), strokeColor);
+            setStrokeWidth(getGeometricShape(renderGroup, i), strokeWidth);
+            setFillColor(getGeometricShape(renderGroup, i), fillColor);
+        }
+    }
 }
 
 const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type) {
