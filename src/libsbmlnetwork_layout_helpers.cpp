@@ -145,8 +145,12 @@ SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layou
 }
 
 SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    std::string dummySpeciesGlyphId = reactionGlyph->getId() + "_DummySpeciesGlyph";
+    if (layout->getSpeciesGlyph(dummySpeciesGlyphId))
+        return layout->getSpeciesGlyph(dummySpeciesGlyphId);
+
     SpeciesGlyph* dummySpeciesGlyph = layout->createSpeciesGlyph();
-    dummySpeciesGlyph->setId(reactionGlyph->getId() + "_DummySpeciesGlyph");
+    dummySpeciesGlyph->setId(dummySpeciesGlyphId);
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
     // we store the compartment id of dummy species glyphs in the metaid of the species glyph
     if (compartmentGlyph)
