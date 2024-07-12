@@ -3663,47 +3663,61 @@ LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(SBMLDocument* docum
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
 LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
+/// @brief Returns the value the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, const std::string& shape);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all SpeciesGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all GraphicalObject objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
 /// @param document a pointer to the SBMLDocument object.
@@ -3721,6 +3735,22 @@ LIBSBMLNETWORK_EXTERN bool isRectangle(SBMLDocument* document, GraphicalObject* 
 /// it is not of type Rectangle or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isRectangle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Square.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Square, @c false if
+/// it is not of type Square or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Square.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Square, @c false if
+/// it is not of type Square or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3736,6 +3766,22 @@ LIBSBMLNETWORK_EXTERN bool isEllipse(SBMLDocument* document, GraphicalObject* gr
 /// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse, @c false if
 /// it is not of type Ellipse or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isEllipse(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Circle.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Circle, @c false if
+/// it is not of type Circle or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Circle.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Circle, @c false if
+/// it is not of type Circle or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon.
 /// @param document a pointer to the SBMLDocument object.

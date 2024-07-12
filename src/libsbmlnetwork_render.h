@@ -2074,26 +2074,64 @@ LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(RenderGroup* render
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int addGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
 
-/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @brief Returns the geometric shape as a string based on the RenderInformationBase and GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an optional unsigned int representing the index of the Transformation2D to retrieve.
+/// @return A string representing the geometric shape, or an empty string if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the geometric shape as a string based on the RenderInformationBase and a specific attribute.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param shape a string value indicating the shape of the geometric shape to be added.
-/// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape);
+/// @param geometricShapeIndex an optional unsigned int representing the index of the Transformation2D to retrieve.
+/// @return A string representing the geometric shape, or an empty string if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
-/// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of this Style object.
+/// @brief Returns the geometric shape as a string for a specific Style.
 /// @param style a pointer to the Style object.
-/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @param geometricShapeIndex an optional unsigned int representing the index of the Transformation2D to retrieve.
+/// @return A string representing the geometric shape, or an empty string if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the geometric shape as a string for a specific RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an optional unsigned int representing the index of the Transformation2D to retrieve.
+/// @return A string representing the geometric shape, or an empty string if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the geometric shape as a string for a specific Transformation2D object.
+/// @param shape a pointer to the Transformation2D object.
+/// @return A string representing the geometric shape, or an empty string if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(Transformation2D* shape);
+
+/// @brief Sets the geometric shape for a GraphicalObject based on RenderInformationBase.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
+
+/// @brief Sets the geometric shape for a GraphicalObject based on its attribute.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape);
+
+/// @brief Sets the geometric shape for a specific Style.
+/// @param style a pointer to the Style object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int setGeometricShape(Style* style, const std::string& shape);
 
-/// @brief Sets the geometric shape as the single geometric shape of this RenderGroup.
+/// @brief Sets the geometric shape for a specific RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param shape a string value indicating the shape of the geometric shape to be added.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderGroup* renderGroup, const std::string& shape);
 
-/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Rectangle.
+/// @brief Checks if the Transformation2D at the given index of the RenderGroup of the Style for a GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
@@ -2127,6 +2165,41 @@ LIBSBMLNETWORK_EXTERN bool isRectangle(RenderGroup* renderGroup, unsigned int ge
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type Rectangle, @c false if either it is not of type Rectangle or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isRectangle(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Square.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Square, @c false if
+/// it is not of type Square or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Square.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Square, @c false if
+/// it is not of type Square or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Square.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Square, @c false if
+/// it is not of type Square or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Square.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Square, @c false if
+/// it is not of type Square or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Square.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Square, @c false if either it is not of type Square or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSquare(Transformation2D* shape);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Ellipse.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2162,6 +2235,41 @@ LIBSBMLNETWORK_EXTERN bool isEllipse(RenderGroup* renderGroup, unsigned int geom
 /// @param shape a pointer to the Transformation2D object.
 /// @return @c true if this abstract Transformation2D is of type Ellipse, @c false if either it is not of type Ellipse or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isEllipse(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Circle.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Circle, @c false if
+/// it is not of type Circle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Circle.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Circle, @c false if
+/// it is not of type Circle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Circle.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Circle, @c false if
+/// it is not of type Circle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Circle.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Circle, @c false if
+/// it is not of type Circle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Circle.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Circle, @c false if either it is not of type Circle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isCircle(Transformation2D* shape);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Polygon.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
