@@ -1840,9 +1840,19 @@ int addGeometricShape(Style* style, const std::string& shape) {
 
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
-        if (stringCompare(shape, "rectangle")) {
+        if (stringCompare(shape, "square")) {
+            Rectangle* square = renderGroup->createRectangle();
+            setDefaultSquareShapeFeatures(square);
+            return 0;
+        }
+        else if (stringCompare(shape, "rectangle")) {
             Rectangle* rectangle = renderGroup->createRectangle();
             setDefaultRectangleShapeFeatures(rectangle);
+            return 0;
+        }
+        else if (stringCompare(shape, "circle")) {
+            Ellipse* circle = renderGroup->createEllipse();
+            setDefaultCircleShapeFeatures(circle);
             return 0;
         }
         else if (stringCompare(shape, "ellipse")) {
@@ -1909,6 +1919,41 @@ Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int ge
     return NULL;
 }
 
+const std::string getGeometricShapeType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeType(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeType(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeType(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeType(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeType(getRenderGroup(style), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeType(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeType(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const std::string getGeometricShapeType(Transformation2D* shape) {
+    if (isSquare(shape))
+        return "square";
+    else if (isRectangle(shape))
+        return "rectangle";
+    else if (isCircle(shape))
+        return "circle";
+    else if (isEllipse(shape))
+        return "ellipse";
+    else if (isPolygon(shape))
+        return "polygon";
+    else if (isRenderCurve(shape))
+        return "rendercurve";
+    else if (isImage(shape))
+        return "image";
+
+    return "";
+}
+
 int setGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape) {
     return setGeometricShape(getStyle(renderInformationBase, graphicalObject), shape);
 }
@@ -1955,6 +2000,29 @@ bool isRectangle(Transformation2D* shape) {
     return false;
 }
 
+bool isSquare(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSquare(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSquare(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSquare(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSquare(Style* style, unsigned int geometricShapeIndex) {
+    return isSquare(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSquare(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSquare(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSquare(Transformation2D* shape) {
+    if (shape)
+        return isRectangle(shape) && ((Rectangle*)shape)->getRatio() == 1.0;
+
+    return false;
+}
+
 bool isEllipse(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isEllipse(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -1974,6 +2042,29 @@ bool isEllipse(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
 bool isEllipse(Transformation2D* shape) {
     if (shape)
         return shape->isEllipse();
+
+    return false;
+}
+
+bool isCircle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isCircle(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isCircle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isCircle(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isCircle(Style* style, unsigned int geometricShapeIndex) {
+    return isCircle(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isCircle(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isCircle(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isCircle(Transformation2D* shape) {
+    if (shape)
+        return isEllipse(shape) && ((Ellipse*)shape)->getRatio() == 1.0;
 
     return false;
 }

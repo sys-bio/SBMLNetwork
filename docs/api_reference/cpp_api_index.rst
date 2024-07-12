@@ -1750,9 +1750,17 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isRectangle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSquare(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSquare(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isEllipse(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isEllipse(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCircle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isCircle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isPolygon(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0)
 

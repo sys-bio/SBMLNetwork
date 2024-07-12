@@ -444,15 +444,17 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                network.setGeometricShape(species_id, 'ellipse')
+                network.setGeometricShapeType(species_id, 'ellipse')
                 self.assertEqual(True, bool(network.isEllipse(species_id)))
+                self.assertEqual("ellipse", network.getGeometricShapeType(species_id))
 
     def test_set_geometric_shapes(self):
         for network in self.networks:
-            network.setSpeciesGeometricShapes('rectangle')
+            network.setSpeciesGeometricShapesType('square')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                self.assertEqual(True, bool(network.isRectangle(species_id)))
+                self.assertEqual(True, bool(network.isSquare(species_id)))
+                self.assertEqual("square", network.getGeometricShapeType(species_id))
 
     def test_move_rectangle_geometric_shape(self):
         for network in self.networks:
@@ -464,7 +466,7 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             x = 10.0
             y = 15.0
-            network.setSpeciesGeometricShapes('rectangle')
+            network.setSpeciesGeometricShapesType('rectangle')
             network.setSpeciesGeometricShapeXs(x)
             network.setSpeciesGeometricShapeYs(y)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -482,7 +484,7 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             width = 10.0
             height = 15.0
-            network.setSpeciesGeometricShapes('rectangle')
+            network.setSpeciesGeometricShapesType('rectangle')
             network.setSpeciesGeometricShapeWidths(width)
             network.setSpeciesGeometricShapeHeights(height)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -494,14 +496,14 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                network.setGeometricShape(species_id, 'ellipse')
+                network.setGeometricShapeType(species_id, 'ellipse')
                 self._check_move_ellipse_geometric_shape(network, species_id)
 
     def test_move_ellipse_geometric_shapes(self):
         for network in self.networks:
             center_x = 5.0
             center_y = 7.5
-            network.setSpeciesGeometricShapes('ellipse')
+            network.setSpeciesGeometricShapesType('ellipse')
             network.setSpeciesGeometricShapeCenterXs(center_x)
             network.setSpeciesGeometricShapeCenterYs(center_y)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -513,14 +515,14 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
-                network.setGeometricShape(species_id, 'ellipse')
+                network.setGeometricShapeType(species_id, 'ellipse')
                 self._check_set_dimensions_of_ellipse_geometric_shape(network, species_id)
 
     def test_set_dimensions_of_ellipse_geometric_shapes(self):
         for network in self.networks:
             radius_x = 5.0
             radius_y = 7.5
-            network.setSpeciesGeometricShapes('ellipse')
+            network.setSpeciesGeometricShapesType('ellipse')
             network.setSpeciesGeometricShapeRadiusXs(radius_x)
             network.setSpeciesGeometricShapeRadiusYs(radius_y)
             list_of_species_ids = network.getListOfSpeciesIds()
@@ -661,7 +663,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def _check_move_rectangle_geometric_shape(self, network, entity_id):
         horizontal_displacement = 10.0
         vertical_displacement = 10.0
-        network.setGeometricShape(entity_id, 'rectangle')
+        network.setGeometricShapeType(entity_id, 'rectangle')
         # x
         geometric_shape_x = network.getGeometricShapeX(entity_id)
         network.setGeometricShapeX(entity_id, geometric_shape_x + horizontal_displacement)
@@ -674,7 +676,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def _check_move_ellipse_geometric_shape(self, network, entity_id):
         center_x_displacement = 5.0
         center_y_displacement = 5.0
-        network.setGeometricShape(entity_id, 'ellipse')
+        network.setGeometricShapeType(entity_id, 'ellipse')
         # center x
         geometric_shape_center_x = network.getGeometricShapeCenterX(entity_id)
         network.setGeometricShapeCenterX(entity_id, geometric_shape_center_x + center_x_displacement)
@@ -687,7 +689,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def _check_set_dimensions_of_rectangle_geometric_shape(self, network, entity_id):
         width_extension = 10.0
         height_extension = 10.0
-        network.setGeometricShape(entity_id, 'rectangle')
+        network.setGeometricShapeType(entity_id, 'rectangle')
         # width
         geometric_shape_width = network.getGeometricShapeWidth(entity_id)
         network.setGeometricShapeWidth(entity_id, geometric_shape_width + width_extension)
@@ -699,7 +701,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def _check_set_dimensions_of_ellipse_geometric_shape(self, network, entity_id):
         radius_x_extension = 5.0
         radius_y_extension = 5.0
-        network.setGeometricShape(entity_id, 'ellipse')
+        network.setGeometricShapeType(entity_id, 'ellipse')
         # radius x
         geometric_shape_radius_x = network.getGeometricShapeRadiusX(entity_id)
         network.setGeometricShapeRadiusX(entity_id, geometric_shape_radius_x + radius_x_extension)

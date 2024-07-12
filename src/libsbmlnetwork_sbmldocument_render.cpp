@@ -3233,7 +3233,15 @@ Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string
     return removeGeometricShape(style, geometricShapeIndex);
 }
 
-int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
+const std::string getGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeType(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeType(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeType(getStyle(document, attribute), geometricShapeIndex);
+}
+
+int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
     Style* style = getLocalStyle(document, graphicalObject);
     if (!style)
         style = createLocalStyle(document, graphicalObject);
@@ -3249,7 +3257,7 @@ int setGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, 
     return -1;
 }
 
-int setGeometricShape(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
+int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
     Style* style = getLocalStyle(document, attribute);
     if (!style)
         style = createLocalStyle(document, attribute);
@@ -3265,42 +3273,42 @@ int setGeometricShape(SBMLDocument* document, const std::string& attribute, cons
     return -1;
 }
 
-int setCompartmentGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+int setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShape(document, layout->getCompartmentGlyph(i), shape))
+        if (setGeometricShapeType(document, layout->getCompartmentGlyph(i), shape))
             return -1;
     }
 
     return 0;
 }
 
-int setSpeciesGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+int setSpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShape(document, layout->getSpeciesGlyph(i), shape))
+        if (setGeometricShapeType(document, layout->getSpeciesGlyph(i), shape))
             return -1;
     }
 
     return 0;
 }
 
-int setReactionGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+int setReactionGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     Layout* layout = getLayout(document, layoutIndex);
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShape(document, layout->getReactionGlyph(i), shape))
+        if (setGeometricShapeType(document, layout->getReactionGlyph(i), shape))
             return -1;
     }
 
     return 0;
 }
 
-int setGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
-    if (setCompartmentGeometricShape(document, layoutIndex, shape))
+int setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
+    if (setCompartmentGeometricShapeType(document, layoutIndex, shape))
         return -1;
-    if (setSpeciesGeometricShape(document, layoutIndex, shape))
+    if (setSpeciesGeometricShapeType(document, layoutIndex, shape))
         return -1;
-    if (setReactionGeometricShape(document, layoutIndex, shape))
+    if (setReactionGeometricShapeType(document, layoutIndex, shape))
         return -1;
 
     return 0;
@@ -3314,12 +3322,28 @@ bool isRectangle(SBMLDocument* document, const std::string& attribute, unsigned 
     return isRectangle(getStyle(document, attribute), geometricShapeIndex);
 }
 
+bool isSquare(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSquare(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isSquare(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSquare(getStyle(document, attribute), geometricShapeIndex);
+}
+
 bool isEllipse(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isEllipse(getStyle(document, graphicalObject), geometricShapeIndex);
 }
 
 bool isEllipse(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     return isEllipse(getStyle(document, attribute), geometricShapeIndex);
+}
+
+bool isCircle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isCircle(getStyle(document, graphicalObject), geometricShapeIndex);
+}
+
+bool isCircle(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isCircle(getStyle(document, attribute), geometricShapeIndex);
 }
 
 bool isPolygon(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {

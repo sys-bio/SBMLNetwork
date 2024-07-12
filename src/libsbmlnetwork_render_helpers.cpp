@@ -445,13 +445,15 @@ void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformati
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject) {
     Style* localStyle = createLocalStyle(localRenderInformation, graphicalObject);
-    localStyle->setGroup(globalStyle->getGroup()->clone());
+    if (localStyle && globalStyle)
+        localStyle->setGroup(globalStyle->getGroup()->clone());
+
     return localStyle;
 }
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, GraphicalObject* graphicalObject) {
     LocalStyle* localStyle = NULL;
-    if (localRenderInformation->isLocalRenderInformation()) {
+    if (localRenderInformation && graphicalObject) {
         localStyle = ((LocalRenderInformation*)localRenderInformation)->createLocalStyle();
         localStyle->addId(graphicalObject->getId());
         localStyle->setId(graphicalObject->getId() + "_style");
@@ -627,6 +629,16 @@ void setDefaultRectangleShapeFeatures(Rectangle* rectangle) {
     rectangle->setRY(RelAbsVector(0.0, 10.0));
 }
 
+void setDefaultSquareShapeFeatures(Rectangle* square) {
+    setDefault2DShapeFeatures(square);
+    square->setX(RelAbsVector(0.0, 0.0));
+    square->setY(RelAbsVector(0.0, 0.0));
+    square->setWidth(RelAbsVector(0.0, 100.0));
+    square->setRatio(1.0);
+    square->setRX(RelAbsVector(0.0, 0.0));
+    square->setRY(RelAbsVector(0.0, 0.0));
+}
+
 void setDefaultEllipseShapeFeatures(Ellipse* ellipse) {
     setDefault2DShapeFeatures(ellipse);
     ellipse->setCX(RelAbsVector(0.0, 50.0));
@@ -635,6 +647,16 @@ void setDefaultEllipseShapeFeatures(Ellipse* ellipse) {
     ellipse->setRY(RelAbsVector(0.0, 50.0));
     ellipse->setStroke("black");
     ellipse->setStrokeWidth(2.0);
+}
+
+void setDefaultCircleShapeFeatures(Ellipse* circle) {
+    setDefault2DShapeFeatures(circle);
+    circle->setCX(RelAbsVector(0.0, 50.0));
+    circle->setCY(RelAbsVector(0.0, 50.0));
+    circle->setRX(RelAbsVector(0.0, 50.0));
+    circle->setRatio(1.0);
+    circle->setStroke("black");
+    circle->setStrokeWidth(2.0);
 }
 
 void setDefaultTriangleShapeFeatures(Polygon* triangle) {
@@ -1312,7 +1334,9 @@ std::vector<std::string> getValidFillRuleValues() {
 std::vector<std::string> getValidGeometricShapeNameValues() {
     std::vector <std::string> geometricShapeNames;
     geometricShapeNames.push_back("rectangle");
+    geometricShapeNames.push_back("square");
     geometricShapeNames.push_back("ellipse");
+    geometricShapeNames.push_back("circle");
     geometricShapeNames.push_back("triangle");
     geometricShapeNames.push_back("diamond");
     geometricShapeNames.push_back("pentagon");

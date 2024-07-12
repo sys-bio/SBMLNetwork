@@ -163,7 +163,11 @@ void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D);
 
 void setDefaultRectangleShapeFeatures(Rectangle* rectangle);
 
+void setDefaultSquareShapeFeatures(Rectangle* square);
+
 void setDefaultEllipseShapeFeatures(Ellipse* ellipse);
+
+void setDefaultCircleShapeFeatures(Ellipse* circle);
 
 void setDefaultTriangleShapeFeatures(Polygon* triangle);
 

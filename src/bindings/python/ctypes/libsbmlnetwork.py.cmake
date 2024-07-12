@@ -6120,7 +6120,25 @@ class LibSBMLNetwork:
         """
         return lib.c_api_removeGeometricShape(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
-    def setGeometricShape(self, id, geometric_shape, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+    def getGeometricShapeType(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns the type of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the type of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeType.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGeometricShapeType(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)).value.decode()
+
+    def setGeometricShapeType(self, id, geometric_shape, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Sets the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
 
@@ -6136,9 +6154,9 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setGeometricShape(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), geometric_shape_index, graphical_object_index, layout_index)
+        return lib.c_api_setGeometricShapeType(self.sbml_object, str(id).encode(), str(geometric_shape).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
-    def setCompartmentsGeometricShapes(self, geometric_shape, layout_index=0):
+    def setCompartmentsGeometricShapesType(self, geometric_shape, layout_index=0):
         """
         Sets the GeometricShape object associated with the compartments in the given SBMLDocument
 
@@ -6151,9 +6169,9 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setCompartmentsGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+        return lib.c_api_setCompartmentsGeometricShapesType(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
-    def setSpeciesGeometricShapes(self, geometric_shape, layout_index=0):
+    def setSpeciesGeometricShapesType(self, geometric_shape, layout_index=0):
         """
         Sets the GeometricShape object associated with the species in the given SBMLDocument
 
@@ -6166,9 +6184,9 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setSpeciesGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+        return lib.c_api_setSpeciesGeometricShapesType(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
-    def setReactionsGeometricShapes(self, geometric_shape, layout_index=0):
+    def setReactionsGeometricShapesType(self, geometric_shape, layout_index=0):
         """
         Sets the GeometricShape object associated with the reaction in the given SBMLDocument
 
@@ -6181,9 +6199,9 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionsGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+        return lib.c_api_setReactionsGeometricShapesType(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
-    def setGeometricShapes(self, geometric_shape, layout_index=0):
+    def setGeometricShapesType(self, geometric_shape, layout_index=0):
         """
         Sets the GeometricShape object associated with the model entity in the given SBMLDocument
 
@@ -6196,7 +6214,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GeometricShape object could not be set
         """
-        return lib.c_api_setGeometricShapes(self.sbml_object, str(geometric_shape).encode(), layout_index)
+        return lib.c_api_setGeometricShapesType(self.sbml_object, str(geometric_shape).encode(), layout_index)
 
     def isRectangle(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
@@ -6215,6 +6233,23 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isRectangle(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
+    def isSquare(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Square object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Square object and false otherwise
+        """
+        return lib.c_api_isSquare(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
     def isEllipse(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Ellipse object
@@ -6231,6 +6266,23 @@ class LibSBMLNetwork:
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Ellipse object and false otherwise
         """
         return lib.c_api_isEllipse(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def isCircle(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Circle object
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Circle object and false otherwise
+        """
+        return lib.c_api_isCircle(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isPolygon(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """

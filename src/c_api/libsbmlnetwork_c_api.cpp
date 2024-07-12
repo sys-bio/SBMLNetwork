@@ -1796,32 +1796,44 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return -1;
     }
 
-    int c_api_setGeometricShape(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex, int layoutIndex) {
-        return setGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
+    const char* c_api_getGeometricShapeType(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getGeometricShapeType(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex).c_str());
     }
 
-    int c_api_setCompartmentsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
-        return setCompartmentGeometricShape(document, layoutIndex, shape);
+    int c_api_setGeometricShapeType(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex, int layoutIndex) {
+        return setGeometricShapeType(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
     }
 
-    int c_api_setSpeciesGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
-        return setSpeciesGeometricShape(document, layoutIndex, shape);
+    int c_api_setCompartmentsGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setCompartmentGeometricShapeType(document, layoutIndex, shape);
     }
 
-    int c_api_setReactionsGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
-        return setReactionGeometricShape(document, layoutIndex, shape);
+    int c_api_setSpeciesGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setSpeciesGeometricShapeType(document, layoutIndex, shape);
     }
 
-    int c_api_setGeometricShapes(SBMLDocument* document, const char* shape, int layoutIndex) {
-        return setGeometricShape(document, layoutIndex, shape);
+    int c_api_setReactionsGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setReactionGeometricShapeType(document, layoutIndex, shape);
+    }
+
+    int c_api_setGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex) {
+        return setGeometricShapeType(document, layoutIndex, shape);
     }
 
     bool c_api_isRectangle(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isRectangle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
+    bool c_api_isSquare(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isSquare(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
     bool c_api_isEllipse(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return isEllipse(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
+    }
+
+    bool c_api_isCircle(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return isCircle(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
     bool c_api_isPolygon(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
