@@ -183,6 +183,8 @@ void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
 
 void setDefaultImageShapeFeatures(Image* image);
 
+void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
+
 const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type);
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);

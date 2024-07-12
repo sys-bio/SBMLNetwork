@@ -1840,59 +1840,55 @@ int addGeometricShape(Style* style, const std::string& shape) {
 
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
+        Transformation2D* shapeObject = NULL;
         if (stringCompare(shape, "square")) {
-            Rectangle* square = renderGroup->createRectangle();
-            setDefaultSquareShapeFeatures(square);
-            return 0;
+            shapeObject = renderGroup->createRectangle();
+            setDefaultSquareShapeFeatures((Rectangle*)shapeObject);
         }
         else if (stringCompare(shape, "rectangle")) {
-            Rectangle* rectangle = renderGroup->createRectangle();
-            setDefaultRectangleShapeFeatures(rectangle);
-            return 0;
+            shapeObject = renderGroup->createRectangle();
+            setDefaultRectangleShapeFeatures((Rectangle*)shapeObject);
         }
         else if (stringCompare(shape, "circle")) {
-            Ellipse* circle = renderGroup->createEllipse();
-            setDefaultCircleShapeFeatures(circle);
-            return 0;
+            shapeObject = renderGroup->createEllipse();
+            setDefaultCircleShapeFeatures((Ellipse*)shapeObject);
         }
         else if (stringCompare(shape, "ellipse")) {
-            Ellipse* ellipse = renderGroup->createEllipse();
-            setDefaultEllipseShapeFeatures(ellipse);
-            return 0;
+            shapeObject = renderGroup->createEllipse();
+            setDefaultEllipseShapeFeatures((Ellipse*)shapeObject);
         }
         else if (stringCompare(shape, "triangle")) {
-            Polygon* triangle = renderGroup->createPolygon();
-            setDefaultTriangleShapeFeatures(triangle);
-            return 0;
+            shapeObject = renderGroup->createPolygon();
+            setDefaultTriangleShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "diamond")) {
-            Polygon* diamond = renderGroup->createPolygon();
-            setDefaultDiamondShapeFeatures(diamond);
-            return 0;
+            shapeObject = renderGroup->createPolygon();
+            setDefaultDiamondShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "pentagon")) {
-            Polygon* pentagon = renderGroup->createPolygon();
-            setDefaultPentagonShapeFeatures(pentagon);
-            return 0;
+            shapeObject = renderGroup->createPolygon();
+            setDefaultPentagonShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "hexagon")) {
-            Polygon* hexagon = renderGroup->createPolygon();
-            setDefaultHexagonShapeFeatures(hexagon);
-            return 0;
+            shapeObject = renderGroup->createPolygon();
+            setDefaultHexagonShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "octagon")) {
-            Polygon* octagon = renderGroup->createPolygon();
-            setDefaultOctagonShapeFeatures(octagon);
-            return 0;
+            shapeObject = renderGroup->createPolygon();
+            setDefaultOctagonShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "rendercurve")) {
-            RenderCurve* renderCurve = renderGroup->createCurve();
-            setDefaultRenderCurveShapeFeatures(renderCurve);
-            return 0;
+            shapeObject = renderGroup->createCurve();
+            setDefaultRenderCurveShapeFeatures((RenderCurve*)shapeObject);
         }
         else if (stringCompare(shape, "image")) {
-            Image* image = renderGroup->createImage();
-            setDefaultImageShapeFeatures(image);
+            shapeObject = renderGroup->createImage();
+            setDefaultImageShapeFeatures((Image*)shapeObject);
+        }
+
+        if (shapeObject) {
+            if (renderGroup->getNumElements() == 2)
+                unifyGeometricShapeMutualFeatures(renderGroup);
             return 0;
         }
     }
@@ -1968,10 +1964,12 @@ int setGeometricShape(Style* style, const std::string& shape) {
 
 int setGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (getNumGeometricShapes(renderGroup) && isValidGeometricShapeName(shape)) {
-        while (getNumGeometricShapes(renderGroup))
-            removeGeometricShape(renderGroup, 0);
+        if (!addGeometricShape(renderGroup, shape)) {
+            while (getNumGeometricShapes(renderGroup) > 1)
+                removeGeometricShape(renderGroup, 0);
 
-        return addGeometricShape(renderGroup, shape);
+            return 0;
+        }
     }
 
     return -1;
