@@ -17,6 +17,8 @@ Welcome to SBMLNetwork's documentation!
    api_reference/c_api_index
    api_reference/cpp_api_index
    api_reference/python_api_index
+   contributing
+   license
 
 Indices and tables
 ==================

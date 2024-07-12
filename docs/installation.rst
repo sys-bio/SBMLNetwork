@@ -21,7 +21,7 @@ Also, you can install Python bindings of the backend library using the following
 Installing C++ library
 -----------------------
 
-You can procure precompiled binary files for the libSBMLNetwork C++ library from the designated repository's releases page at `https://github.com/adelhpour/SBMLNetwork/releases <https://github.com/adelhpour/SBMLNetwork/releases>`_. After downloading the binary files, you can link the library to your project and include th following header files in your source code as follows:
+You can procure precompiled binary files for the libSBMLNetwork C++ library from the designated repository's releases page at `https://github.com/adelhpour/SBMLNetwork/releases <https://github.com/adelhpour/SBMLNetwork/releases>`_. After downloading the binary files, you can link the library to your project and include the following header files in your source code as follows:
 
 Including C api:
 ^^^^^^^^^^^^^^^^
