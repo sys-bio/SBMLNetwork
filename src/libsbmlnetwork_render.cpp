@@ -1840,24 +1840,24 @@ int addGeometricShape(Style* style, const std::string& shape) {
 
 int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     if (renderGroup) {
-        if (stringCompare(shape, "rectangle")) {
-            Rectangle* rectangle = renderGroup->createRectangle();
-            setDefaultRectangleShapeFeatures(rectangle);
-            return 0;
-        }
-        else if (stringCompare(shape, "square")) {
+        if (stringCompare(shape, "square")) {
             Rectangle* square = renderGroup->createRectangle();
             setDefaultSquareShapeFeatures(square);
             return 0;
         }
-        else if (stringCompare(shape, "ellipse")) {
-            Ellipse* ellipse = renderGroup->createEllipse();
-            setDefaultEllipseShapeFeatures(ellipse);
+        else if (stringCompare(shape, "rectangle")) {
+            Rectangle* rectangle = renderGroup->createRectangle();
+            setDefaultRectangleShapeFeatures(rectangle);
             return 0;
         }
         else if (stringCompare(shape, "circle")) {
             Ellipse* circle = renderGroup->createEllipse();
             setDefaultCircleShapeFeatures(circle);
+            return 0;
+        }
+        else if (stringCompare(shape, "ellipse")) {
+            Ellipse* ellipse = renderGroup->createEllipse();
+            setDefaultEllipseShapeFeatures(ellipse);
             return 0;
         }
         else if (stringCompare(shape, "triangle")) {
@@ -1936,14 +1936,14 @@ const std::string getGeometricShapeType(RenderGroup* renderGroup, unsigned int g
 }
 
 const std::string getGeometricShapeType(Transformation2D* shape) {
-    if (isRectangle(shape))
-        return "rectangle";
-    else if (isSquare(shape))
+    if (isSquare(shape))
         return "square";
-    else if (isEllipse(shape))
-        return "ellipse";
+    else if (isRectangle(shape))
+        return "rectangle";
     else if (isCircle(shape))
         return "circle";
+    else if (isEllipse(shape))
+        return "ellipse";
     else if (isPolygon(shape))
         return "polygon";
     else if (isRenderCurve(shape))
