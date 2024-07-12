@@ -1,0 +1,5 @@
+sphinx_rtd_theme
+breathe
+libsbmlnetwork
+networkinfotranslator
+IPython

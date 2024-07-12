@@ -1502,204 +1502,816 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingText(SBMLDocument* document, const std::s
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingText(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the X coordinate of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the X coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the X coordinate of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the X coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param x the new X coordinate as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
+/// @brief Sets the X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param x the new X coordinate as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& x);
 
+/// @brief Checks if the Y coordinate of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the Y coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the Y coordinate of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the Y coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param y the new Y coordinate as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& y);
 
+/// @brief Sets the Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param y the new Y coordinate as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& y);
 
+/// @brief Checks if the width of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the width is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the width of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the width is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the width of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the width as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the width of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the width as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the width of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param width the new width as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& width);
 
+/// @brief Sets the width of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param width the new width as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& width);
 
+/// @brief Checks if the height of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the height is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the height of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to check.
+/// @return true if the height is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the height of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the height as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the height of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the height as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the height of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param height the new height as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& height);
 
+/// @brief Sets the height of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param height the new height as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& height);
 
+/// @brief Checks if the ratio of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return true if the ratio is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the ratio of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return true if the ratio is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the ratio of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the ratio as a double.
 LIBSBMLNETWORK_EXTERN const double getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the ratio of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the ratio as a double.
 LIBSBMLNETWORK_EXTERN const double getLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the ratio of the geometric shape for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param ratio the new ratio as a double.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, double ratio);
 
+/// @brief Sets the ratio of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param ratio the new ratio as a double.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, double ratio);
 
+/// @brief Checks if the X curvature radius of the geometric shape corner for the LineEnding with the given identifier is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return true if the X curvature radius is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the X curvature radius of the geometric shape corner for the LineEnding with the given identifier and render index is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return true if the X curvature radius is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the X curvature radius of the geometric shape corner for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the X curvature radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the X curvature radius of the geometric shape corner for the LineEnding with the given identifier and render index.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape.
+/// @return the X curvature radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the X curvature radius of the geometric shape corner for the LineEnding with the given identifier.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex an unsigned int representing the index of the geometric shape to modify.
+/// @param CornerCurvatureRadiusX the new X curvature radius as a RelAbsVector.
+/// @return an integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX);
 
+/// @brief Sets the X curvature radius of the geometric shape corner for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param CornerCurvatureRadiusX The new X curvature radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusX);
 
+/// @brief Checks if the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the Y curvature radius is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier and render index is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the Y curvature radius is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The Y curvature radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The Y curvature radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param CornerCurvatureRadiusY The new Y curvature radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY);
 
+/// @brief Sets the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param CornerCurvatureRadiusY The new Y curvature radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& CornerCurvatureRadiusY);
 
+/// @brief Checks if the center X coordinate of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the center X coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the center X coordinate of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the center X coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the center X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The center X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the center X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The center X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the center X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param centerX The new center X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerX);
 
+/// @brief Sets the center X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param centerX The new center X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerX);
 
+/// @brief Checks if the center Y coordinate of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the center Y coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the center Y coordinate of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the center Y coordinate is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the center Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The center Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the center Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The center Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the center Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param centerY The new center Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerY);
 
+/// @brief Sets the center Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param centerY The new center Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& centerY);
 
+/// @brief Checks if the radius X of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the radius X is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the radius X of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the radius X is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the X radius of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The X radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the X radius of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The X radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the X radius of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param radiusX The new X radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
 
+/// @brief Sets the X radius of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param radiusX The new X radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
 
+/// @brief Checks if the Y radius of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the Y radius is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the Y radius of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the Y radius is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Y radius of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The Y radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Y radius of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The Y radius as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the Y radius of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param radiusY The new Y radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
 
+/// @brief Sets the Y radius of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param radiusY The new Y radius as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
 
+/// @brief Gets the number of elements in the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The number of elements as an unsigned int.
 LIBSBMLNETWORK_EXTERN const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the number of elements in the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The number of elements as an unsigned int.
 LIBSBMLNETWORK_EXTERN const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the geometric shape element for the LineEnding with the given identifier is a CubicBezier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @param elementIndex An unsigned int representing the index of the element.
+/// @return True if the element is a CubicBezier, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Checks if the geometric shape element for the LineEnding with the given identifier and render index is a CubicBezier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @param elementIndex An unsigned int representing the index of the element.
+/// @return True if the element is a CubicBezier, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the X coordinate of the geometric shape element for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @param elementIndex An unsigned int representing the index of the element.
+/// @return The X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the X coordinate of the geometric shape element for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @param elementIndex An unsigned int representing the index of the element.
+/// @return The X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Sets the X coordinate of the geometric shape element for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param x The new X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the X coordinate of the geometric shape element for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param x The new X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Gets the Y coordinate of the geometric shape element for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @param elementIndex An unsigned int representing the index of the element.
+/// @return The Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the Y coordinate of the geometric shape element for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @param elementIndex An unsigned int representing the index of the element.
+/// @return The Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Sets the Y coordinate of the geometric shape element for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param y The new Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the Y coordinate of the geometric shape element for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param y The new Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Gets the base point 1 X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 1 X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the base point 1 X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 1 X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Sets the base point 1 X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint1X The new base point 1 X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
 
+/// @brief Sets the base point 1 X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint1X The new base point 1 X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
 
+/// @brief Gets the base point 1 Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 1 Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the base point 1 Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 1 Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Sets the base point 1 Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint1Y The new base point 1 Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
 
+/// @brief Sets the base point 1 Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint1Y The new base point 1 Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
 
+/// @brief Gets the base point 2 X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 2 X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the base point 2 X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 2 X coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Sets the base point 2 X coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint2X The new base point 2 X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
 
+/// @brief Sets the base point 2 X coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint2X The new base point 2 X coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
 
+/// @brief Gets the base point 2 Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 2 Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Gets the base point 2 Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape, defaulting to 0.
+/// @param elementIndex An unsigned int representing the index of the element, defaulting to 0.
+/// @return The base point 2 Y coordinate as a RelAbsVector.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
+/// @brief Sets the base point 2 Y coordinate of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint2Y The new base point 2 Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
 
+/// @brief Sets the base point 2 Y coordinate of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param elementIndex An unsigned int representing the index of the element to modify.
+/// @param basePoint2Y The new base point 2 Y coordinate as a RelAbsVector.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int renderIndex, const std::string& id,  unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
 
+/// @brief Checks if the Href attribute of the geometric shape for the LineEnding with the given identifier is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the Href attribute is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Checks if the Href attribute of the geometric shape for the LineEnding with the given identifier and render index is set.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return True if the Href attribute is set, false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Href attribute of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The Href attribute as a string.
 LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Gets the Href attribute of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape.
+/// @return The Href attribute as a string.
 LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
+/// @brief Sets the Href attribute of the geometric shape for the LineEnding with the given identifier.
+/// @param document A pointer to the SBMLDocument object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param href The new Href attribute as a string.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id,  unsigned int geometricShapeIndex, const std::string& href);
 
+/// @brief Sets the Href attribute of the geometric shape for the LineEnding with the given identifier and render index.
+/// @param document A pointer to the SBMLDocument object.
+/// @param renderIndex The index number of the RenderInformationBase object.
+/// @param id A string representing the identifier of the LineEnding to modify.
+/// @param geometricShapeIndex An unsigned int representing the index of the geometric shape to modify.
+/// @param href The new Href attribute as a string.
+/// @return An integer indicating success (0) or failure (non-zero).
 LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
@@ -2400,12 +3012,32 @@ LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, const std::string&
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const RelAbsVector& fontSize);
 
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontSize a RelAbsVector value to use as the value of the "font-size" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontSize a RelAbsVector value to use as the value of the "font-size" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontSize a RelAbsVector value to use as the value of the "font-size" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
+/// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontSize a RelAbsVector value to use as the value of the "font-size" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
@@ -2468,12 +3100,32 @@ LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, const std::strin
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontWeight);
 
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
+/// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
@@ -2537,12 +3189,32 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, const std::string
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontStyle);
 
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
+/// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
@@ -2605,12 +3277,32 @@ LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, const std::strin
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& textAnchor);
 
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
+/// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
@@ -2659,12 +3351,32 @@ LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, GraphicalObject
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& vtextAnchor);
 
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
+/// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of these Style objects.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3151,12 +3863,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeX(SBMLDocument* document, const std::
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3221,12 +3953,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeY(SBMLDocument* document, const std::
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3291,12 +4043,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(SBMLDocument* document, const s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
+/// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
+/// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
+/// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
+/// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param width a RelAbsVector to use as the value of the "width" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3361,12 +4133,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(SBMLDocument* document, const 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& height);
 
+/// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
+/// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
+/// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
+/// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param height a RelAbsVector to use as the value of the "height" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3431,12 +4223,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, const s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& ratio);
 
+/// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ratio a double to use as the value of the "ratio" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
 
+/// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ratio a double to use as the value of the "ratio" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
 
+/// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ratio a double to use as the value of the "ratio" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
 
+/// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ratio a double to use as the value of the "ratio" attribute of the geometric shape.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3501,12 +4313,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3571,12 +4403,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape corner curvature radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3641,12 +4493,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
+/// @brief Sets the "cx" attribute of the geometric shape center for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
+/// @brief Sets the "cx" attribute of the geometric shape center for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
+/// @brief Sets the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
+/// @brief Sets the "cx" attribute of the geometric shape center for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cx a RelAbsVector to use as the value of the "cx" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3711,12 +4583,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& cy);
 
+/// @brief Sets the "cy" attribute of the geometric shape center for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
+/// @brief Sets the "cy" attribute of the geometric shape center for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
+/// @brief Sets the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
+/// @brief Sets the "cy" attribute of the geometric shape center for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param cy a RelAbsVector to use as the value of the "cy" attribute of the geometric shape center.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3781,12 +4673,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Sets the "rx" attribute of the geometric shape radius for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param rx a RelAbsVector to use as the value of the "rx" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
@@ -3851,12 +4763,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Sets the "ry" attribute of the geometric shape radius for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param ry a RelAbsVector to use as the value of the "ry" attribute of the geometric shape radius.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
 /// @brief Returns the number of elements of the RenderGroup of the Style for this GraphicalObject.
@@ -3959,12 +4891,36 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(SBMLDocument* document, cons
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the geometric shape element for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -4033,12 +4989,36 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(SBMLDocument* document, cons
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the geometric shape element for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -4107,12 +5087,36 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -4181,12 +5185,36 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -4254,12 +5282,36 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -4328,12 +5380,36 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all GraphicalObject objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param elementIndex an unsigned int representing the index of the element to retrieve.
+/// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the geometric shape element.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -4460,12 +5536,32 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, const st
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href);
 
+/// @brief Sets the "href" attribute of the geometric shape element for all CompartmentGlyph objects in the specified layout.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param href a string representing the "href" attribute value.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
+/// @brief Sets the "href" attribute of the geometric shape element for all SpeciesGlyph objects in the specified layout.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param href a string representing the "href" attribute value.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
+/// @brief Sets the "href" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects in the specified layout.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param href a string representing the "href" attribute value.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
+/// @brief Sets the "href" attribute of the geometric shape element for all GraphicalObject objects in the specified layout.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param href a string representing the "href" attribute value.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
 }

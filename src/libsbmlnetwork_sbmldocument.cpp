@@ -5,6 +5,10 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
+    const std::string getVersion() {
+        return getLibraryVersion();
+    }
+
     SBMLDocument* readSBML(const std::string& sbml) {
         SBMLDocument* document = readSBMLFromFile(sbml.c_str());
         if (document && document->isSetModel())
@@ -54,9 +58,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity,
-                   bool useMagnetism, bool useBoundary, bool useGrid,
-                   bool useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
+    int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
         const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
@@ -184,7 +186,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return 0;
     }
 
-    const std::string getNthCompartmentId(SBMLDocument* document, const unsigned int& index) {
+    const std::string getNthCompartmentId(SBMLDocument* document, unsigned int index) {
         if (document && document->isSetModel())
             return document->getModel()->getCompartment(index)->getId();
 
@@ -205,7 +207,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return 0;
     }
 
-    const std::string getNthSpeciesId(SBMLDocument* document, const unsigned int& index) {
+    const std::string getNthSpeciesId(SBMLDocument* document, unsigned int index) {
         if (document && document->isSetModel())
             return document->getModel()->getSpecies(index)->getId();
 
@@ -226,7 +228,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return 0;
     }
 
-    const std::string getNthReactionId(SBMLDocument* document, const unsigned int& index) {
+    const std::string getNthReactionId(SBMLDocument* document, unsigned int index) {
         if (document && document->isSetModel())
             return document->getModel()->getReaction(index)->getId();
 
@@ -280,7 +282,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return 0;
     }
 
-    const std::string getNthReactantId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index) {
+    const std::string getNthReactantId(SBMLDocument* document, const std::string& reactionId, unsigned int index) {
         if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);
             if (reaction)
@@ -290,7 +292,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return "";
     }
 
-    const std::string getNthProductId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index) {
+    const std::string getNthProductId(SBMLDocument* document, const std::string& reactionId, unsigned int index) {
         if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);
             if (reaction)
@@ -300,7 +302,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return "";
     }
 
-    const std::string getNthModifierId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index) {
+    const std::string getNthModifierId(SBMLDocument* document, const std::string& reactionId, unsigned int index) {
         if (document && document->isSetModel()) {
             Reaction* reaction = getReaction(document, reactionId);
             if (reaction)

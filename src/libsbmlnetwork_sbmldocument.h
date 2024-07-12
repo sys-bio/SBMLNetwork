@@ -67,9 +67,7 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
-                                                bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
-                                                bool useNameAsTextLabel = true, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
+LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0, bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel = true, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief lock all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.
@@ -164,7 +162,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumCompartments(SBMLDocument* docume
 /// @param document a pointer to the SBMLDocument object.
 /// @param index the index of the Compartment object.
 /// @return the id of the nth Compartment object in the given SBML document, or @c "" if the object does not exists.
-LIBSBMLNETWORK_EXTERN const std::string getNthCompartmentId(SBMLDocument* document, const unsigned int& index);
+LIBSBMLNETWORK_EXTERN const std::string getNthCompartmentId(SBMLDocument* document, unsigned int index);
 
 /// @brief Returns a pointer to the Compartment object with the given id.
 /// @param document a pointer to the SBMLDocument object.
@@ -181,7 +179,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumSpecies(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param index the index of the Species object.
 /// @return the id of the nth Species object in the given SBML document, or @c "" if the object does not exists.
-LIBSBMLNETWORK_EXTERN const std::string getNthSpeciesId(SBMLDocument* document, const unsigned int& index);
+LIBSBMLNETWORK_EXTERN const std::string getNthSpeciesId(SBMLDocument* document, unsigned int index);
 
 /// @brief Returns a pointer to the Species object with the given id.
 /// @param document a pointer to the SBMLDocument object.
@@ -198,7 +196,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumReactions(SBMLDocument* document)
 /// @param document a pointer to the SBMLDocument object.
 /// @param index the index of the Reaction object.
 /// @return the id of the nth Reaction object in the given SBML document, or @c "" if the object does not exists.
-LIBSBMLNETWORK_EXTERN const std::string getNthReactionId(SBMLDocument* document, const unsigned int& index);
+LIBSBMLNETWORK_EXTERN const std::string getNthReactionId(SBMLDocument* document, unsigned int index);
 
 /// @brief Returns a pointer to the Reaction object with the given id.
 /// @param document a pointer to the SBMLDocument object.
@@ -235,21 +233,21 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumModifiers(SBMLDocument* document,
 /// @param reactionId the id of the Reaction object.
 /// @param index the index of the reactant species.
 /// @return the id of the nth reactant species in the Reaction object with the given id, or @c "" if the object does not exists.
-LIBSBMLNETWORK_EXTERN const std::string getNthReactantId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index);
+LIBSBMLNETWORK_EXTERN const std::string getNthReactantId(SBMLDocument* document, const std::string& reactionId, unsigned int index);
 
 /// @brief Returns the id of the nth product species in the Reaction object with the given id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the Reaction object.
 /// @param index the index of the product species.
 /// @return the id of the nth product species in the Reaction object with the given id, or @c "" if the object does not exists.
-LIBSBMLNETWORK_EXTERN const std::string getNthProductId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index);
+LIBSBMLNETWORK_EXTERN const std::string getNthProductId(SBMLDocument* document, const std::string& reactionId, unsigned int index);
 
 /// @brief Returns the id of the nth modifier species in the Reaction object with the given id.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the Reaction object.
 /// @param index the index of the modifier species.
 /// @return the id of the nth modifier species in the Reaction object with the given id, or @c "" if the object does not exists.
-LIBSBMLNETWORK_EXTERN const std::string getNthModifierId(SBMLDocument* document, const std::string& reactionId, const unsigned int& index);
+LIBSBMLNETWORK_EXTERN const std::string getNthModifierId(SBMLDocument* document, const std::string& reactionId, unsigned int index);
 
 /// @brief Returns a pointer to the SpeciesReference object associated with the given reactant/product species id in the Reaction object with the given id.
 /// @param document a pointer to the SBMLDocument object.

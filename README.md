@@ -71,6 +71,10 @@ c_api_writeSBMLToFile(document, 'path/to/model_with_graphical_representation.xml
 c_api_freeSBMLDocument(document);
 ```
 
+## Documentation
+
+For more information on how to use SBMLNetwork, please refer to the [documentation](https://sbmlnetwork.readthedocs.io/en/latest/).
+
 ## License
 
 SBMLNetwork is distributed under the [MIT License](https://github.com/adelhpour/SBMLNetwork/blob/develop/LICENSE).
