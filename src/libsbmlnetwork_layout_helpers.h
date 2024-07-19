@@ -28,9 +28,19 @@ void setDefaultLayoutDimensions(Layout* layout);
 
 void setCompartmentGlyphs(Model* model, Layout* layout);
 
+void clearCompartmentGlyphs(Layout* layout);
+
 void setSpeciesGlyphs(Model* model, Layout* layout);
 
+void clearSpeciesGlyphs(Layout* layout);
+
 void setReactionGlyphs(Model* model, Layout* layout);
+
+void clearReactionGlyphs(Layout* layout);
+
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
@@ -38,13 +48,27 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* getDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
+SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
+SpeciesGlyph* createDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
+
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
+
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges);
+
+std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
+
+int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxNumConnectedEdges);
+
+void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs);
+
+void setTextGlyphs(Layout* layout);
+
+void clearTextGlyphs(Layout* layout);
 
 void setCompartmentTextGlyphs(Layout* layout);
 
@@ -52,31 +76,27 @@ void setSpeciesTextGlyphs(Layout* layout);
 
 void setReactionTextGlyphs(Layout* layout);
 
-CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
+CompartmentGlyph* createCompartmentGlyph(Layout* layout, Compartment* compartment);
 
-SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
+SpeciesGlyph* createSpeciesGlyph(Layout* layout, Species* species);
 
-ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
+ReactionGlyph* createReactionGlyph(Layout* layout, Reaction* reaction);
 
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
 CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
 
-SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
 
 const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const std::string& speciesId);
 
 const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
 
-TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
+TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
-
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
-
-void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 

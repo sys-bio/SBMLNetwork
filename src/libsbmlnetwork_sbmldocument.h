@@ -62,12 +62,13 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param stiffness the stiffness value used in the autolayout algorithm.
 /// @param gravity the gravity value used in the autolayout algorithm.
+/// @param maxNumConnectedEdges the maximum number of connected edges to a node in the autolayout algorithm.
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0, bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel = true, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
+LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3, bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel = true, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief lock all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.

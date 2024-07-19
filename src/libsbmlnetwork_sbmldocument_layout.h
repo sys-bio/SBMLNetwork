@@ -49,29 +49,31 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param layout a pointer to the Layout object.
 /// @param stiffness the stiffness value used in the autolayout algorithm.
 /// @param gravity the gravity value used in the autolayout algorithm.
+/// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @param lockedNodeIds a vector of ids of the model entities that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
+LIBSBMLNETWORK_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
                                                           bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
-                                                          bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
+                                                          bool useNameAsTextLabel = true, const std::vector<std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
 /// set all the necessary features for it
 /// @param document a pointer to the SBMLDocument object.
 /// @param stiffness the stiffness value used in the autolayout algorithm.
 /// @param gravity the gravity value used in the autolayout algorithm.
+/// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createDefaultLayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
+LIBSBMLNETWORK_EXTERN int createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
                                                      bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
-                                                     bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
+                                                     bool useNameAsTextLabel = true, const std::vector<std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.

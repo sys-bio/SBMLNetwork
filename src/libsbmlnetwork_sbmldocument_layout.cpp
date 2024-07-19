@@ -56,9 +56,9 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness, const double& gravity,
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness, const double gravity, const int maxNumConnectedEdges,
                              bool useMagnetism, bool useBoundary, bool useGrid,
-                             bool useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
+                             bool useNameAsTextLabel, const std::vector<std::string> lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
@@ -67,10 +67,9 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
             setCompartmentGlyphs(model, layout);
             setSpeciesGlyphs(model, layout);
             setReactionGlyphs(model, layout);
+            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges);
             locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
-            setCompartmentTextGlyphs(layout);
-            setSpeciesTextGlyphs(layout);
-            setReactionTextGlyphs(layout);
+            setTextGlyphs(layout);
             return 0;
         }
     }
@@ -78,14 +77,14 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document, const double& stiffness, const double& gravity,
+int createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges,
                         bool useMagnetism, bool useBoundary, bool useGrid,
-                        bool useNameAsTextLabel, const std::vector<std::string>& lockedNodeIds) {
+                        bool useNameAsTextLabel, const std::vector<std::string> lockedNodeIds) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
+    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {

@@ -40,14 +40,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, const char **lockedNodeIds, const int lockedNodesSize) {
+    int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
 
-        return autolayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
+        return autolayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
     }
 
     int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool isLayoutAdded) {
@@ -88,7 +88,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return removeAllLayouts(document);
     }
 
-    int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, bool useMagnetism,
+    int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism,
                                   bool useBoundary, bool useGrid, bool useNameAsTextLabel,
                                   const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
@@ -96,7 +96,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
-        return createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
+        return createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {

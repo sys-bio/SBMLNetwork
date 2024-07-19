@@ -91,12 +91,16 @@ void initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox,
 void updateCompartmentExtents(Model *model, Layout *layout, const double &padding) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         Compartment *compartment = findSpeciesGlyphCompartment(model, layout->getSpeciesGlyph(i));
-        if (compartment && getCompartmentGlyph(layout, compartment)) {
-            if (i == 0)
-                initializeCompartmentGlyphExtents(getCompartmentGlyph(layout, compartment)->getBoundingBox(),
-                                                  layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
-            updateCompartmentExtents(getCompartmentGlyph(layout, compartment)->getBoundingBox(),
-                                     layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+        if (compartment) {
+            std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartment->getId());
+            for (int j = 0; j < compartmentGlyphs.size(); j++) {
+                CompartmentGlyph* compartmentGlyph = compartmentGlyphs.at(j);
+                if (i == 0)
+                    initializeCompartmentGlyphExtents(compartmentGlyph->getBoundingBox(),
+                                                      layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+                updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
+                                         layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+            }
         }
     }
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {

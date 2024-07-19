@@ -57,6 +57,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param stiffness the stiffness value used in the autolayout algorithm.
     /// @param gravity the gravity value used in the autolayout algorithm.
+    /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
@@ -64,7 +65,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
+    LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
                                                 bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
                                                 bool useNameAsTextLabel = true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
@@ -102,6 +103,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param stiffness the stiffness value used in the autolayout algorithm.
     /// @param gravity the gravity value used in the autolayout algorithm.
+    /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
@@ -109,7 +111,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0,
+    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
                                                                bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
                                                                bool useNameAsTextLabel= true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 

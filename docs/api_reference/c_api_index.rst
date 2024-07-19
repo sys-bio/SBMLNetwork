@@ -23,6 +23,8 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetModel(SBMLDocument* document)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3, bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel = true, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumGraphicalObjects(SBMLDocument* document, const char* id, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthGraphicalObjectId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0)

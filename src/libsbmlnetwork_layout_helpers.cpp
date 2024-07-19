@@ -74,45 +74,66 @@ void setDefaultLayoutDimensions(Layout* layout) {
 }
 
 void setCompartmentGlyphs(Model* model, Layout* layout) {
+    clearCompartmentGlyphs(layout);
     for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
         Compartment* compartment = model->getCompartment(i);
-        CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(layout, compartment);
+        CompartmentGlyph* compartmentGlyph = createCompartmentGlyph(layout, compartment);
         setGraphicalObjectBoundingBox(compartmentGlyph);
     }
 }
 
+void clearCompartmentGlyphs(Layout* layout) {
+    while (layout->getNumCompartmentGlyphs())
+        delete layout->removeCompartmentGlyph(0);
+}
+
 void setSpeciesGlyphs(Model* model, Layout* layout) {
+    clearSpeciesGlyphs(layout);
     for (unsigned int i = 0; i < model->getNumSpecies(); i++) {
         Species* species = model->getSpecies(i);
-        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(layout, species);
+        SpeciesGlyph* speciesGlyph = createSpeciesGlyph(layout, species);
         setGraphicalObjectBoundingBox(speciesGlyph);
     }
 }
 
+void clearSpeciesGlyphs(Layout* layout) {
+    while (layout->getNumSpeciesGlyphs())
+        delete layout->removeSpeciesGlyph(0);
+}
+
 void setReactionGlyphs(Model* model, Layout* layout) {
+    clearReactionGlyphs(layout);
     for (unsigned int i = 0; i < model->getNumReactions(); i++) {
         Reaction* reaction = model->getReaction(i);
-        ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reaction);
+        ReactionGlyph* reactionGlyph = createReactionGlyph(layout, reaction);
         setReactionGlyphCurve(reactionGlyph);
         clearReactionGlyphSpeciesReferenceGlyphs(reactionGlyph);
         setReactantGlyphs(layout, reaction, reactionGlyph);
         setProductGlyphs(layout, reaction, reactionGlyph);
         setModifierGlyphs(layout, reaction, reactionGlyph);
-        if (reaction->getNumReactants() == 0) {
-            SpeciesReferenceGlyph* dummyReactantGlyph = getDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
-            dummyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-        }
-        else if (reaction->getNumProducts() == 0) {
-            SpeciesReferenceGlyph* dummyProductGlyph = getDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
-            dummyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
-        }
+        setDummySpeciesReferenceGlyphs(model, layout, reactionGlyph);
     }
+}
+
+void clearReactionGlyphs(Layout* layout) {
+    while (layout->getNumReactionGlyphs())
+        delete layout->removeReactionGlyph(0);
+}
+
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
+    if (!reactionGlyph->isSetCurve())
+        setCurveCubicBezier(reactionGlyph->getCurve());
+}
+
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
+        reactionGlyph->removeSpeciesReferenceGlyph(0);
 }
 
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
+        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
@@ -121,7 +142,7 @@ void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
 void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
+        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
@@ -130,7 +151,7 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
+        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
         if (speciesReference->getSBOTermID() == "SBO:0000020")
             speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
         else
@@ -139,16 +160,25 @@ void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
     }
 }
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    SpeciesGlyph* dummySpeciesGlyph = getDummySpeciesGlyph(model, layout, reactionGlyph);
-    return getDummySpeciesReferenceGlyph(layout, reactionGlyph, dummySpeciesGlyph);
+void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    Reaction* reaction = findReactionGlyphReaction(model, reactionGlyph);
+    if (reaction->getNumReactants() == 0) {
+        SpeciesReferenceGlyph* dummyReactantGlyph = createDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
+        dummyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
+    }
+    else if (reaction->getNumProducts() == 0) {
+        SpeciesReferenceGlyph* dummyProductGlyph = createDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
+        dummyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
+    }
 }
 
-SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    std::string dummySpeciesGlyphId = reactionGlyph->getId() + "_DummySpeciesGlyph";
-    if (layout->getSpeciesGlyph(dummySpeciesGlyphId))
-        return layout->getSpeciesGlyph(dummySpeciesGlyphId);
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    SpeciesGlyph* dummySpeciesGlyph = createDummySpeciesGlyph(model, layout, reactionGlyph);
+    return createDummySpeciesReferenceGlyph(layout, reactionGlyph, dummySpeciesGlyph);
+}
 
+SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    std::string dummySpeciesGlyphId = reactionGlyph->getId() + "_DummySpeciesGlyph";
     SpeciesGlyph* dummySpeciesGlyph = layout->createSpeciesGlyph();
     dummySpeciesGlyph->setId(dummySpeciesGlyphId);
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
@@ -160,7 +190,7 @@ SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* 
     return dummySpeciesGlyph;
 }
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph) {
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph) {
     SpeciesReferenceGlyph* dummySpeciesReferenceGlyph = layout->createSpeciesReferenceGlyph();
     dummySpeciesReferenceGlyph->setId(reactionGlyph->getId() + "_DummySpeciesReferenceGlyph");
     dummySpeciesReferenceGlyph->setSpeciesGlyphId(dummySpeciesGlyph->getId());
@@ -169,16 +199,76 @@ SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGly
     return dummySpeciesReferenceGlyph;
 }
 
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
+        std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferences = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
+        int numRequiredAliasSpeciesGlyphs = getNumRequiredAliasSpeciesGlyphs(connectedSpeciesGlyphReferences.size(), maxNumConnectedEdges);
+        if (numRequiredAliasSpeciesGlyphs > 0)
+            createAliasSpeciesGlyphs(layout, speciesGlyph, connectedSpeciesGlyphReferences, maxNumConnectedEdges, numRequiredAliasSpeciesGlyphs);
+    }
+}
+
+std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph) {
+    std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+        for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(j);
+            if (speciesReferenceGlyph->getSpeciesGlyphId() == speciesGlyph->getId())
+                speciesGlyphReferences.push_back(speciesReferenceGlyph);
+        }
+    }
+
+    return speciesGlyphReferences;
+}
+
+int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxNumConnectedEdges) {
+    int numRequiredAliasSpeciesGlyphs = 0;
+    if (numConnectedEdges > maxNumConnectedEdges)
+        numRequiredAliasSpeciesGlyphs = numConnectedEdges / maxNumConnectedEdges;
+    if (numConnectedEdges % maxNumConnectedEdges == 0)
+        numRequiredAliasSpeciesGlyphs--;
+
+    return numRequiredAliasSpeciesGlyphs;
+}
+
+void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs) {
+    for (int i = 0; i < numRequiredAliasSpeciesGlyphs; i++) {
+        SpeciesGlyph* aliasSpeciesGlyph = layout->createSpeciesGlyph();
+        aliasSpeciesGlyph->setId(speciesGlyph->getSpeciesId() + "_Glyph_" + std::to_string(i + 2));
+        aliasSpeciesGlyph->setSpeciesId(speciesGlyph->getSpeciesId());
+        setGraphicalObjectBoundingBox(aliasSpeciesGlyph);
+        while (speciesGlyphReferences.size() > (numRequiredAliasSpeciesGlyphs - i) * maxNumConnectedEdges) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
+            speciesReferenceGlyph->setSpeciesGlyphId(aliasSpeciesGlyph->getId());
+            speciesGlyphReferences.pop_back();
+        }
+    }
+}
+
+void setTextGlyphs(Layout* layout) {
+    clearTextGlyphs(layout);
+    setCompartmentTextGlyphs(layout);
+    setSpeciesTextGlyphs(layout);
+    setReactionTextGlyphs(layout);
+}
+
+void clearTextGlyphs(Layout* layout) {
+    while (layout->getNumTextGlyphs())
+        delete layout->removeTextGlyph(0);
+}
+
 void setCompartmentTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getCompartmentGlyph(i));
+        TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getCompartmentGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getCompartmentGlyph(i));
     }
 }
 
 void setSpeciesTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getSpeciesGlyph(i));
+        TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getSpeciesGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getSpeciesGlyph(i));
     }
 }
@@ -186,16 +276,12 @@ void setSpeciesTextGlyphs(Layout* layout) {
 void setReactionTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         double padding = 5.0;
-        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
+        TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getReactionGlyph(i), padding);
     }
 }
 
-CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment) {
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (compartmentGlyphBelongs(layout->getCompartmentGlyph(i), compartment))
-            return layout->getCompartmentGlyph(i);
-    }
+CompartmentGlyph* createCompartmentGlyph(Layout* layout, Compartment* compartment) {
     CompartmentGlyph* compartmentGlyph = layout->createCompartmentGlyph();
     compartmentGlyph->setId(compartment->getId() + "_Glyph_1");
     compartmentGlyph->setCompartmentId(compartment->getId());
@@ -203,23 +289,15 @@ CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment) 
     return compartmentGlyph;
 }
 
-SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species) {
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (speciesGlyphBelongs(layout->getSpeciesGlyph(i), species))
-            return layout->getSpeciesGlyph(i);
-    }
-    SpeciesGlyph* speciesGlyph = layout->createSpeciesGlyph();
+SpeciesGlyph* createSpeciesGlyph(Layout* layout, Species* species) {
+    SpeciesGlyph *speciesGlyph = layout->createSpeciesGlyph();
     speciesGlyph->setId(species->getId() + "_Glyph_1");
     speciesGlyph->setSpeciesId(species->getId());
-    
+
     return speciesGlyph;
 }
 
-ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (reactionGlyphBelongs(layout->getReactionGlyph(i), reaction))
-            return layout->getReactionGlyph(i);
-    }
+ReactionGlyph* createReactionGlyph(Layout* layout, Reaction* reaction) {
     ReactionGlyph* reactionGlyph = layout->createReactionGlyph();
     reactionGlyph->setId(reaction->getId() + "_Glyph_1");
     reactionGlyph->setReactionId(reaction->getId());
@@ -230,9 +308,9 @@ ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
     Compartment* compartment = findReactionGlyphCompartment(model, reactionGlyph);
     if (compartment) {
-        CompartmentGlyph* compartmentGlyph =  getCompartmentGlyph(layout, compartment);
-        if (compartmentGlyph)
-            return compartmentGlyph;
+        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartment->getId());
+        if (compartmentGlyphs.size() == 1)
+            return compartmentGlyphs.at(0);
     }
 
     return getDefaultCompartmentGlyph(layout);
@@ -245,7 +323,7 @@ CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
     return NULL;
 }
 
-SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
+SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->createSpeciesReferenceGlyph();
     if (!speciesReference->getId().empty()) {
         speciesReferenceGlyph->setId(speciesReference->getId() + "_Glyph_1");
@@ -290,11 +368,7 @@ const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, Rea
 }
 
 
-TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject) {
-    for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
-        if (textGlyphBelongs(layout->getTextGlyph(i), graphicalObject))
-            return layout->getTextGlyph(i);
-    }
+TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject) {
     TextGlyph* textGlyph = layout->createTextGlyph();
     textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
     textGlyph->setGraphicalObjectId(graphicalObject->getId());
@@ -315,16 +389,6 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
     textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y() + padding);
     textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
     textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
-}
-
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
-    if (!reactionGlyph->isSetCurve())
-        setCurveCubicBezier(reactionGlyph->getCurve());
-}
-
-void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
-    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
-        reactionGlyph->removeSpeciesReferenceGlyph(0);
 }
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph) {

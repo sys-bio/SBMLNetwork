@@ -79,11 +79,11 @@ const unsigned int getNumGraphicalObjects(Layout* layout, const std::string& id)
 std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::string& id) {
     std::vector<GraphicalObject*> graphicalObjects;
     if (layout) {
-        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, id);
+        std::vector<CompartmentGlyph*> compartmentGlyphs = getCompartmentGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), compartmentGlyphs.begin(), compartmentGlyphs.end());
-        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
+        std::vector<SpeciesGlyph*> speciesGlyphs = getSpeciesGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
-        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, id);
+        std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
     }
 
@@ -175,7 +175,7 @@ const unsigned int getNumSpeciesGlyphs(Layout* layout, const std::string& id) {
 
 std::vector<SpeciesGlyph*> getSpeciesGlyphs(Layout* layout, const std::string& id) {
     if (layout)
-        return getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
+        return getSpeciesGlyphs(layout, id);
 
     return std::vector<SpeciesGlyph*>();
 }

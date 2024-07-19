@@ -58,8 +58,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const double& stiffness, const double& gravity, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
-        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
+    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
+        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;
@@ -68,11 +68,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     }
 
     int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updatedGraphicalObject) {
-        return autolayout(document, 10, 15, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
+        return autolayout(document, 10, 15, 3, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
     }
 
     int updateLayoutCurves(SBMLDocument* document, std::vector<GraphicalObject*> updatedGraphicalObjects) {
-        return autolayout(document, 10, 15, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
+        return autolayout(document, 10, 15, 3, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
     }
 
     int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {

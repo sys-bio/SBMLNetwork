@@ -111,8 +111,8 @@ class LibSBMLNetwork:
         """
 
         return self.save(file_name)
-        
-    def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
+
+    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
@@ -120,6 +120,7 @@ class LibSBMLNetwork:
 
             - stiffness (float, optional): a float (default: 10.0) that determines the stiffness value used in the autolayout algorithm (can affect the canvas dimensions).
             - gravity (float, optional): a float (default: 15.0) that determines the gravity value used in the autolayout algorithm (can affect the how densely nodes are distributed).
+            - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
             - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
             - use_boundary (boolean, optional): a boolean (default: False) that determines whether to use boundary restriction in the autolayout algorithm.
             - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
@@ -136,7 +137,7 @@ class LibSBMLNetwork:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, self.use_name_as_text_label, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), ctypes.c_int(max_num_connected_edges), use_magnetism, use_boundary, use_grid, locked_nodes_ptr, len(locked_nodes))
 
     def align(self, nodes, alignment="center"):
         """
@@ -8621,7 +8622,7 @@ class LibSBMLNetwork:
                         if 'background_color' in style.keys():
                             self.setBackgroundColor(style['background_color'])
                         if 'compartment_geometric_shape' in style.keys():
-                            self.setCompartmentsGeometricShapes(style['compartment_geometric_shape'])
+                            self.setCompartmentsGeometricShapesType(style['compartment_geometric_shape'])
                         if 'compartment_geometric_shape_ratio' in style.keys():
                             self.setCompartmentsGeometricShapeRatios(style['compartment_geometric_shape_ratio'])
                         if 'compartment_border_color' in style.keys():
@@ -8639,7 +8640,7 @@ class LibSBMLNetwork:
                         if 'compartment_font_weight' in style.keys():
                             self.setCompartmentsFontWeights(style['compartment_font_weight'])
                         if 'species_geometric_shape' in style.keys():
-                            self.setSpeciesGeometricShapes(style['species_geometric_shape'])
+                            self.setSpeciesGeometricShapesType(style['species_geometric_shape'])
                         if 'species_geometric_shape_ratio' in style.keys():
                             self.setSpeciesGeometricShapeRatios(style['species_geometric_shape_ratio'])
                         if 'species_border_color' in style.keys():
@@ -8657,7 +8658,7 @@ class LibSBMLNetwork:
                         if 'species_font_weight' in style.keys():
                             self.setSpeciesFontWeights(style['species_font_weight'])
                         if 'reaction_geometric_shape' in style.keys():
-                            self.setReactionsGeometricShapes(style['reaction_geometric_shape'])
+                            self.setReactionsGeometricShapesType(style['reaction_geometric_shape'])
                         if 'reaction_geometric_shape_ratio' in style.keys():
                             self.setReactionsGeometricShapeRatios(style['reaction_geometric_shape_ratio'])
                         if 'reaction_geometric_shape_center_x' in style.keys():
