@@ -73,13 +73,11 @@ void setDefaultLayoutDimensions(Layout* layout) {
         dimensions->setHeight(1024.0);
 }
 
-void setCompartmentGlyphs(Model* model, Layout* layout) {
+void clearGraphicalObjects(Layout* layout) {
     clearCompartmentGlyphs(layout);
-    for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
-        Compartment* compartment = model->getCompartment(i);
-        CompartmentGlyph* compartmentGlyph = createCompartmentGlyph(layout, compartment);
-        setGraphicalObjectBoundingBox(compartmentGlyph);
-    }
+    clearSpeciesGlyphs(layout);
+    clearReactionGlyphs(layout);
+    clearTextGlyphs(layout);
 }
 
 void clearCompartmentGlyphs(Layout* layout) {
@@ -87,8 +85,35 @@ void clearCompartmentGlyphs(Layout* layout) {
         delete layout->removeCompartmentGlyph(0);
 }
 
+void clearSpeciesGlyphs(Layout* layout) {
+    while (layout->getNumSpeciesGlyphs())
+        delete layout->removeSpeciesGlyph(0);
+}
+
+void clearReactionGlyphs(Layout* layout) {
+    while (layout->getNumReactionGlyphs())
+        delete layout->removeReactionGlyph(0);
+}
+
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
+        reactionGlyph->removeSpeciesReferenceGlyph(0);
+}
+
+void clearTextGlyphs(Layout* layout) {
+    while (layout->getNumTextGlyphs())
+        delete layout->removeTextGlyph(0);
+}
+
+void setCompartmentGlyphs(Model* model, Layout* layout) {
+    for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
+        Compartment *compartment = model->getCompartment(i);
+        CompartmentGlyph *compartmentGlyph = createCompartmentGlyph(layout, compartment);
+        setGraphicalObjectBoundingBox(compartmentGlyph);
+    }
+}
+
 void setSpeciesGlyphs(Model* model, Layout* layout) {
-    clearSpeciesGlyphs(layout);
     for (unsigned int i = 0; i < model->getNumSpecies(); i++) {
         Species* species = model->getSpecies(i);
         SpeciesGlyph* speciesGlyph = createSpeciesGlyph(layout, species);
@@ -96,13 +121,7 @@ void setSpeciesGlyphs(Model* model, Layout* layout) {
     }
 }
 
-void clearSpeciesGlyphs(Layout* layout) {
-    while (layout->getNumSpeciesGlyphs())
-        delete layout->removeSpeciesGlyph(0);
-}
-
 void setReactionGlyphs(Model* model, Layout* layout) {
-    clearReactionGlyphs(layout);
     for (unsigned int i = 0; i < model->getNumReactions(); i++) {
         Reaction* reaction = model->getReaction(i);
         ReactionGlyph* reactionGlyph = createReactionGlyph(layout, reaction);
@@ -115,19 +134,9 @@ void setReactionGlyphs(Model* model, Layout* layout) {
     }
 }
 
-void clearReactionGlyphs(Layout* layout) {
-    while (layout->getNumReactionGlyphs())
-        delete layout->removeReactionGlyph(0);
-}
-
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
     if (!reactionGlyph->isSetCurve())
         setCurveCubicBezier(reactionGlyph->getCurve());
-}
-
-void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
-    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
-        reactionGlyph->removeSpeciesReferenceGlyph(0);
 }
 
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
@@ -248,15 +257,9 @@ void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::v
 }
 
 void setTextGlyphs(Layout* layout) {
-    clearTextGlyphs(layout);
     setCompartmentTextGlyphs(layout);
     setSpeciesTextGlyphs(layout);
     setReactionTextGlyphs(layout);
-}
-
-void clearTextGlyphs(Layout* layout) {
-    while (layout->getNumTextGlyphs())
-        delete layout->removeTextGlyph(0);
 }
 
 void setCompartmentTextGlyphs(Layout* layout) {

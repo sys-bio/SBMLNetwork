@@ -175,7 +175,7 @@ const unsigned int getNumSpeciesGlyphs(Layout* layout, const std::string& id) {
 
 std::vector<SpeciesGlyph*> getSpeciesGlyphs(Layout* layout, const std::string& id) {
     if (layout)
-        return getSpeciesGlyphs(layout, id);
+        return getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
 
     return std::vector<SpeciesGlyph*>();
 }

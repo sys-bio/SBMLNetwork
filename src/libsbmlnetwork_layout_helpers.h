@@ -26,21 +26,23 @@ void setDefaultLayoutId(Layout* layout);
 
 void setDefaultLayoutDimensions(Layout* layout);
 
-void setCompartmentGlyphs(Model* model, Layout* layout);
+void clearGraphicalObjects(Layout* layout);
 
 void clearCompartmentGlyphs(Layout* layout);
 
-void setSpeciesGlyphs(Model* model, Layout* layout);
-
 void clearSpeciesGlyphs(Layout* layout);
-
-void setReactionGlyphs(Model* model, Layout* layout);
 
 void clearReactionGlyphs(Layout* layout);
 
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
-
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
+
+void setCompartmentGlyphs(Model* model, Layout* layout);
+
+void setSpeciesGlyphs(Model* model, Layout* layout);
+
+void setReactionGlyphs(Model* model, Layout* layout);
+
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 

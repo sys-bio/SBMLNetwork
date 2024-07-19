@@ -64,6 +64,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
         setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
+            clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout);
             setSpeciesGlyphs(model, layout);
             setReactionGlyphs(model, layout);
