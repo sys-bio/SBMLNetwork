@@ -51,6 +51,20 @@ void FruchtermanReingoldAlgorithm::setNodesDegrees() {
     }
 }
 
+void FruchtermanReingoldAlgorithm::setWidth(Layout* layout) {
+    if (layout->getDimensions())
+        _width = layout->getDimensions()->getWidth();
+    else
+        _width = std::sqrt(_nodes.size() - _connections.size()) * _stiffness * 5;
+}
+
+void FruchtermanReingoldAlgorithm::setHeight(Layout* layout) {
+    if (layout->getDimensions())
+        _height = layout->getDimensions()->getHeight();
+    else
+        _height = _width;
+}
+
 void FruchtermanReingoldAlgorithm::setStiffness(const double &stiffness) {
     _stiffness = stiffness;
 }
@@ -97,8 +111,6 @@ void FruchtermanReingoldAlgorithm::initialize() {
     _time = 0.0;
     _alpha = std::log(_initialTemperature) - std::log(0.25);
     _timeIncrement = 1.0 / double(_maximumIterations);
-    _width = std::sqrt(_nodes.size() - _connections.size()) * _stiffness * 5;
-    _height = _width;
 }
 
 void FruchtermanReingoldAlgorithm::iterate() {

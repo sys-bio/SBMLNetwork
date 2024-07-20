@@ -32,6 +32,10 @@ void applyAutolayout(Model* model, Layout* layout, const double& stiffness = 10.
                      const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
                      const bool& useNameAsTextLabel=true, const std::vector <std::string> &lockedNodeIds = std::vector<std::string>(), const double& padding = 0.0);
 
+void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
+                     const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
+                     const bool& useNameAsTextLabel, const std::vector <std::string> &speciesGlyphIds);
+
 void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
 
 void updateCompartmentExtents(Model *model, Layout *layout, const double &padding);

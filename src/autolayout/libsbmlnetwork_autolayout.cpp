@@ -19,6 +19,16 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     updateLayoutDimensions(layout, padding);
 }
 
+void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
+                  const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
+                  const bool& useNameAsTextLabel, const std::vector <std::string> &speciesGlyphIds) {
+    double padding = 30.0;
+    applyAutolayout(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, speciesGlyphIds, padding);
+    updateCompartmentExtents(model, layout, padding);
+    updateLayoutDimensions(layout, padding);
+}
+
+
 void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding,
                               const std::vector <std::string> &lockedNodeIds) {
     double canvasWidth = layout->getDimensions()->width();
@@ -77,6 +87,8 @@ void applyAutolayout(Model *model, Layout *layout, const double &stiffness, cons
     fruchtermanReingoldAlgorithm->setUseGrid(useGrid);
     fruchtermanReingoldAlgorithm->setNodesLockedStatus(layout, lockedNodeIds);
     fruchtermanReingoldAlgorithm->setPadding(padding);
+    fruchtermanReingoldAlgorithm->setWidth(layout);
+    fruchtermanReingoldAlgorithm->setHeight(layout);
     fruchtermanReingoldAlgorithm->apply();
 }
 

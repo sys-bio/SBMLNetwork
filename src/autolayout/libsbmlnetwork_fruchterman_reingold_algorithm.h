@@ -19,6 +19,10 @@ public:
 
     void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
+    void setWidth(Layout* layout);
+
+    void setHeight(Layout* layout);
+
     void setStiffness(const double& stiffness);
 
     void setGravity(const double& gravity);

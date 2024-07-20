@@ -24,6 +24,10 @@ LayoutPkgNamespaces* getLayoutPkgNamespaces(Layout* layout);
 
 void setDefaultLayoutId(Layout* layout);
 
+const std::string getDefaultLayoutId();
+
+const bool canUpdateLayoutCurves(Layout* layout);
+
 void setDefaultLayoutDimensions(Layout* layout);
 
 void clearGraphicalObjects(Layout* layout);

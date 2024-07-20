@@ -112,7 +112,7 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
+    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=True, use_grid=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
@@ -122,7 +122,7 @@ class LibSBMLNetwork:
             - gravity (float, optional): a float (default: 15.0) that determines the gravity value used in the autolayout algorithm (can affect the how densely nodes are distributed).
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
             - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
-            - use_boundary (boolean, optional): a boolean (default: False) that determines whether to use boundary restriction in the autolayout algorithm.
+            - use_boundary (boolean, optional): a boolean (default: True) that determines whether to use boundary restriction in the autolayout algorithm.
             - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
             - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
@@ -156,7 +156,7 @@ class LibSBMLNetwork:
         for i in range(len(nodes)):
             nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
 
-        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), self.layout_is_added)
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode())
 
     def distribute(self, nodes, direction="horizontal", spacing=-1):
         """
@@ -177,7 +177,7 @@ class LibSBMLNetwork:
         for i in range(len(nodes)):
             nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
 
-        return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing), self.layout_is_added)
+        return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing))
 
     def getSBMLLevel(self):
         """
@@ -1597,7 +1597,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index)
 
     def getY(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1631,7 +1631,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index)
 
     def getPosition(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1667,7 +1667,7 @@ class LibSBMLNetwork:
 
             true on success and false if the position of the GraphicalObject could not be set
         """
-        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index)
 
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1701,7 +1701,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the GraphicalObject could not be set
         """
-        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index)
 
     def getHeight(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1735,7 +1735,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the GraphicalObject could not be set
         """
-        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
 
     def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """

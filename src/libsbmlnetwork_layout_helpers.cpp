@@ -60,7 +60,15 @@ void enableLayoutPlugin(SBMLDocument* document) {
 
 void setDefaultLayoutId(Layout* layout) {
     if (!layout->isSetId())
-        layout->setId("libSBMLNetwork_Layout");
+        layout->setId(getDefaultLayoutId());
+}
+
+const std::string getDefaultLayoutId() {
+    return  "libSBMLNetwork_Layout";
+}
+
+const bool canUpdateLayoutCurves(Layout* layout) {
+    return layout->getId() == getDefaultLayoutId();
 }
 
 void setDefaultLayoutDimensions(Layout* layout) {

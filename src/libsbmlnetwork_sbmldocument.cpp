@@ -67,12 +67,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int updateLayoutCurves(SBMLDocument* document, GraphicalObject* updatedGraphicalObject) {
-        return autolayout(document, 10, 15, 3, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document),  updatedGraphicalObject));
-    }
-
-    int updateLayoutCurves(SBMLDocument* document, std::vector<GraphicalObject*> updatedGraphicalObjects) {
-        return autolayout(document, 10, 15, 3, false, false, false, true, getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(getLayout(document), updatedGraphicalObjects));
+    int updateLayoutCurves(SBMLDocument* document) {
+        return updateLayoutCurves(document, getLayout(document));
     }
 
     int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {
@@ -83,7 +79,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             alignGraphicalObjects(allGraphicalObjects, alignment);
-            return updateLayoutCurves(document, allGraphicalObjects);
+            return updateLayoutCurves(document);
         }
 
         return -1;
@@ -97,7 +93,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             distributeGraphicalObjects(allGraphicalObjects, direction, spacing);
-            return updateLayoutCurves(document, allGraphicalObjects);
+            return updateLayoutCurves(document);
         }
 
         return -1;

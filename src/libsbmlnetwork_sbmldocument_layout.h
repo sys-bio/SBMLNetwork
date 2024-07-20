@@ -57,7 +57,7 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param lockedNodeIds a vector of ids of the model entities that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
-                                                          bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
+                                                          bool useMagnetism = false, bool useBoundary = true, bool useGrid = false,
                                                           bool useNameAsTextLabel = true, const std::vector<std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
@@ -72,8 +72,22 @@ LIBSBMLNETWORK_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layou
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
-                                                     bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
+                                                     bool useMagnetism = false, bool useBoundary = true, bool useGrid = false,
                                                      bool useNameAsTextLabel = true, const std::vector<std::string> lockedNodeIds = std::vector<std::string>());
+
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @param layout a pointer to the Layout object.
+/// @param updatedGraphicalObject a pointer to the GraphicalObject object the position of which has been updated recently.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, Layout* layout);
+
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param updatedGraphicalObject a pointer to the GraphicalObject object the position of which has been updated recently.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex);
 
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
