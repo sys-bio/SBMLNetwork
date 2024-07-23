@@ -523,19 +523,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const double c_api_getTextWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return getDimensionWidth(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex));
+        return getTextDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
     int c_api_setTextWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return setDimensionWidth(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex), width);
+        return setTextDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, width);
     }
 
     const double c_api_getTextHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return getDimensionHeight(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex));
+        return getTextDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
     int c_api_setTextHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return setDimensionHeight(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex), height);
+        return setTextDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, height);
     }
 
     bool c_api_isSetCurve(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {

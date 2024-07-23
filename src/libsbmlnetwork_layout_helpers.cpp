@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_common.h"
+#include "libsbmlnetwork_layout.h"
 
 #include <cmath>
 #include <climits>
@@ -641,123 +642,152 @@ const bool layoutContainsGlyphs(Layout* layout) {
     return layout->getNumCompartmentGlyphs() + layout->getNumSpeciesGlyphs() + layout->getNumReactionGlyphs() > 0 ? true : false;
 }
 
-void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
+void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setX(textGlyphs.at(i)->getBoundingBox()->x() + movedDistanceX);
+}
+
+void updateAssociatedTextGlyphsPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceY) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setY(textGlyphs.at(i)->getBoundingBox()->y() + movedDistanceY);
+}
+
+void updateAssociatedTextGlyphsPosition(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX, const double& movedDistanceY) {
+    updateAssociatedTextGlyphsPositionX(layout, graphicalObject, movedDistanceX);
+    updateAssociatedTextGlyphsPositionY(layout, graphicalObject, movedDistanceY);
+}
+
+void updateAssociatedTextGlyphsDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& changedWidth) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setWidth(textGlyphs.at(i)->getBoundingBox()->width() + changedWidth);
+}
+
+void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& changedHeight) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
+}
+
+void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
-            alignGraphicalObjectsToTop(graphicalObjects);
+            alignGraphicalObjectsToTop(layout, graphicalObjects);
         else if (stringCompare(alignment, "center"))
-            alignGraphicalObjectsToCenter(graphicalObjects);
+            alignGraphicalObjectsToCenter(layout, graphicalObjects);
         else if (stringCompare(alignment, "bottom"))
-            alignGraphicalObjectsToBottom(graphicalObjects);
+            alignGraphicalObjectsToBottom(layout, graphicalObjects);
         else if (stringCompare(alignment, "left"))
-            alignGraphicalObjectsToLeft(graphicalObjects);
+            alignGraphicalObjectsToLeft(layout, graphicalObjects);
         else if (stringCompare(alignment, "middle"))
-            alignGraphicalObjectsToMiddle(graphicalObjects);
+            alignGraphicalObjectsToMiddle(layout, graphicalObjects);
         else if (stringCompare(alignment, "right"))
-            alignGraphicalObjectsToRight(graphicalObjects);
-        else if (stringCompare(alignment, "circular"))
-            alignGraphicalObjectsCircularly(graphicalObjects);
+            alignGraphicalObjectsToRight(layout, graphicalObjects);
+        else if (stringCompare(alignment, "circular") || stringCompare(alignment, "circle"))
+            alignGraphicalObjectsCircularly(layout, graphicalObjects);
     }
 }
 
-void alignGraphicalObjectsToTop(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double minY = getMinPositionY(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(minY);
+        setPositionY(layout, graphicalObjects.at(i), minY);
 }
 
-void alignGraphicalObjectsToCenter(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double centerX = 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(centerX);
+        setPositionX(layout, graphicalObjects.at(i), centerX);
 }
 
-void alignGraphicalObjectsToBottom(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double maxY = getMaxPositionY(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(maxY);
+        setPositionY(layout, graphicalObjects.at(i), maxY);
 }
 
-void alignGraphicalObjectsToLeft(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double minX = getMinPositionX(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(minX);
+        setPositionX(layout, graphicalObjects.at(i), minX);
 }
 
-void alignGraphicalObjectsToMiddle(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double centerY = 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(centerY);
+        setPositionY(layout, graphicalObjects.at(i), centerY);
 }
 
-void alignGraphicalObjectsToRight(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double maxX = getMaxPositionX(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(maxX);
+        setPositionX(layout, graphicalObjects.at(i), maxX);
 }
 
-void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double radius = graphicalObjects.size() * 50.0;
     double angle = 2 * M_PI / graphicalObjects.size();
     double centerX = std::max(radius, 0.5 * (getMinCenterX(graphicalObjects) + getMaxCenterX(graphicalObjects)));
     double centerY = std::max(radius, 0.5 * (getMinCenterY(graphicalObjects) + getMaxCenterY(graphicalObjects)));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
-        graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->width());
-        graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->height());
+        setPositionX(layout, graphicalObjects.at(i), centerX + radius * cos(i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->width());
+        setPositionY(layout, graphicalObjects.at(i), centerY + radius * sin(i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->height());
     }
 }
 
-void distributeGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
+void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
     if (isValidDistributionDirection(direction)) {
         if (stringCompare(direction, "horizontal"))
-            distributeGraphicalObjectsHorizontally(graphicalObjects, spacing);
+            distributeGraphicalObjectsHorizontally(layout, graphicalObjects, spacing);
         else if (stringCompare(direction, "vertical"))
-            distributeGraphicalObjectsVertically(graphicalObjects, spacing);
+            distributeGraphicalObjectsVertically(layout, graphicalObjects, spacing);
     }
 }
 
-void distributeGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
+void distributeGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
     if (graphicalObjects.size() < 2)
         return;
     double minX = getMinPositionX(graphicalObjects);
     double maxX = getMaxPositionX(graphicalObjects);
     double distance = findDistributionDistance(minX, maxX, graphicalObjects.size(), spacing);
     if (graphicalObjects.size() % 2 == 0)
-        distributeEvenGraphicalObjectsHorizontally(graphicalObjects, minX, maxX, distance);
+        distributeEvenGraphicalObjectsHorizontally(layout, graphicalObjects, minX, maxX, distance);
     else
-        distributeOddGraphicalObjectsHorizontally(graphicalObjects, minX, maxX, distance);
+        distributeOddGraphicalObjectsHorizontally(layout, graphicalObjects, minX, maxX, distance);
 }
 
-void distributeEvenGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
+void distributeEvenGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(minX + i * distance);
+        setPositionX(layout, graphicalObjects.at(i), minX + i * distance);
 }
 
-void distributeOddGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
+void distributeOddGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+        setPositionX(layout, graphicalObjects.at(i), 0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
 }
 
-void distributeGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
-    if (graphicalObjects.size() < 2)
+void distributeGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
+    if (graphicalObjects.size() > 2)
         return;
     double minY = getMinPositionY(graphicalObjects);
     double maxY = getMaxPositionY(graphicalObjects);
     double distance = findDistributionDistance(minY, maxY, graphicalObjects.size(), spacing);
     if (graphicalObjects.size() % 2 == 0)
-        distributeEvenGraphicalObjectsVertically(graphicalObjects, minY, maxY, distance);
+        distributeEvenGraphicalObjectsVertically(layout, graphicalObjects, minY, maxY, distance);
     else
-        distributeOddGraphicalObjectsVertically(graphicalObjects, minY, maxY, distance);
+        distributeOddGraphicalObjectsVertically(layout, graphicalObjects, minY, maxY, distance);
 }
 
-void distributeEvenGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
+void distributeEvenGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(minY + i * distance);
+        setPositionY(layout, graphicalObjects.at(i), minY + i * distance);
 }
 
-void distributeOddGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
+void distributeOddGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+        setPositionY(layout, graphicalObjects.at(i), 0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
 }
 
 const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing) {

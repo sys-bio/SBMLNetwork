@@ -718,10 +718,11 @@ LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, const std::string& id, co
 LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x);
 
 /// @brief Sets the value of the "x" attribute of the bounding box of this GraphicalObject object associated with the object with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setPositionX(GraphicalObject* graphicalObject, const double& x);
+LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x);
 
 /// @brief Sets the value of the "x" attribute of this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
@@ -762,10 +763,11 @@ LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, const std::string& id, co
 LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& y);
 
 /// @brief Sets the value of the "y" attribute of the bounding box this GraphicalObject object.
+/// @param layout a pointer to the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setPositionY(GraphicalObject* graphicalObject, const double& y);
+LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y);
 
 /// @brief Sets the value of the "y" attribute of this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
@@ -791,11 +793,12 @@ LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, con
 LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y);
 
 /// @brief Sets the value of "x" and "y" attributes of the bounding box this GraphicalObject object.
+/// @param layout a pointer to the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setPosition(GraphicalObject* graphicalObject, const double& x, const double& y);
+LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y);
 
 /// @brief Sets the value of "x" and "y" attributes of the bounding box this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
@@ -837,10 +840,11 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const std::string& i
     LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
 
 /// @brief Sets the value of the "width" attribute of the bounding box this GraphicalObject object.
+/// @param layout a pointer to the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setDimensionWidth(GraphicalObject* graphicalObject, const double& width);
+LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width);
 
 /// @brief Sets the value of the "width" attribute of this BoundingBox object.
 /// @param boundingBox a pointer to the BoundingBox object.
@@ -881,12 +885,14 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, const std::string& 
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
 
 /// @brief Sets the value of the "height" attribute of this GraphicalObject object associated with the object with the given id of the Layout object.
+/// @param layout a pointer to the Layout object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param width a double value to use as the value of the "height" attribute of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setDimensionHeight(GraphicalObject* graphicalObject, const double& height);
+LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height);
 
 /// @brief Sets the value of the "height" attribute of this BoundingBox object.
+/// @param layout a pointer to the Layout object.
 /// @param boundingBox a pointer to the BoundingBox object.
 /// @param width a double value to use as the value of the "height" attribute of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.

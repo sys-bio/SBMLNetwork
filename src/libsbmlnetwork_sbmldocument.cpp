@@ -74,7 +74,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
-            alignGraphicalObjects(allGraphicalObjects, alignment);
+            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment);
             return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 
@@ -88,7 +88,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
-            distributeGraphicalObjects(allGraphicalObjects, direction, spacing);
+            distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
             return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 
