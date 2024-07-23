@@ -184,6 +184,8 @@ const bool compare(std::vector<std::string> strings1, std::vector<std::string> s
 
 const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::vector<LockedNodeInfo>& lockedNodesInfo);
 
+void setLockedNodePositions(AutoLayoutObjectBase* node, const LockedNodeInfo &lockedNodeInfo);
+
 }
 
 

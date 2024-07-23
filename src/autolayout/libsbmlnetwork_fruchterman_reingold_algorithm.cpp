@@ -732,14 +732,24 @@ const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, con
         std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, lockedNodesInfo[i].getEntityId());
         unsigned int graphicalObjectIndex = lockedNodesInfo[i].getGraphicalObjectIndex();
         if (graphicalObjectIndex < speciesGlyphs.size() && speciesGlyphs[graphicalObjectIndex]->getId() == node->getId()) {
-            ((AutoLayoutNodeBase*)node)->setX(lockedNodesInfo[i].getX());
-            ((AutoLayoutNodeBase*)node)->setY(lockedNodesInfo[i].getY());
-            ((AutoLayoutNodeBase*)node)->getGraphicalObject()->setMetaId("locked");
+            setLockedNodePositions(node, lockedNodesInfo[i]);
+            return true;
+        }
+        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, lockedNodesInfo[i].getEntityId());
+        graphicalObjectIndex = lockedNodesInfo[i].getGraphicalObjectIndex();
+        if (graphicalObjectIndex < reactionGlyphs.size() && reactionGlyphs[graphicalObjectIndex]->getId() == node->getId()) {
+            setLockedNodePositions(node, lockedNodesInfo[i]);
             return true;
         }
     }
 
     return false;
+}
+
+void setLockedNodePositions(AutoLayoutObjectBase* node, const LockedNodeInfo &lockedNodeInfo) {
+    ((AutoLayoutNodeBase*)node)->setX(lockedNodeInfo.getX());
+    ((AutoLayoutNodeBase*)node)->setY(lockedNodeInfo.getY());
+    ((AutoLayoutNodeBase*)node)->getGraphicalObject()->setMetaId("locked");
 }
 
 }

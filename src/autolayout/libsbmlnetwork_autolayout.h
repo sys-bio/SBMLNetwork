@@ -54,7 +54,11 @@ std::vector<LockedNodeInfo> getLockedNodesInfo(Layout* layout, const std::vector
 
 void unlockNodes(Layout *layout);
 
-LockedNodeInfo createLockedNodeInfo(SpeciesGlyph *speciesGlyph);
+std::vector <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds);
+
+std::vector <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds);
+
+LockedNodeInfo createLockedNodeInfo(Layout* layout, GraphicalObject* graphicalObject);
 
 }
 
