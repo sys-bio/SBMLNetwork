@@ -191,6 +191,20 @@ class TestSBMLNetwork(unittest.TestCase):
                 for reaction_id in list_of_reaction_ids:
                     self._check_curves_direction_towards_species_center(network, reaction_id)
 
+    def test_autolayout_remember_locked_nodes(self):
+        for network in self.networks:
+            if network.layout_is_added:
+                network.autolayout()
+                list_of_species_ids = network.getListOfSpeciesIds()
+                species_id_index = 0
+                for species_id in list_of_species_ids:
+                    network.setX(species_id, species_id_index * 100)
+                    network.setY(species_id, species_id_index * 100)
+                    network.autolayout()
+                    self.assertAlmostEqual(species_id_index * 100, network.getX(species_id), 1)
+                    self.assertAlmostEqual(species_id_index * 100, network.getY(species_id), 1)
+                    species_id_index += 1
+
     def test_set_background_color(self):
         for network in self.networks:
             if network.render_is_added:

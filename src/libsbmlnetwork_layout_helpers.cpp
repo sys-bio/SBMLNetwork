@@ -378,7 +378,6 @@ const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, Rea
     return numSpeciesReferencesGlyphsAssociatedWithSpecies;
 }
 
-
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject) {
     TextGlyph* textGlyph = layout->createTextGlyph();
     textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
@@ -519,35 +518,14 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     return NULL;
 }
 
-std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    std::vector<std::string> graphicalObjectsIds;
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
-    /*
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        bool isIndependentReaction = true;
-        for (unsigned int j = 0; j < graphicalObjects.size(); j++) {
-            if (graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObjects.at(j))) {
-                isIndependentReaction = false;
-                break;
-            }
-        }
-        if (isIndependentReaction)
-            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
-    }
-     */
-
-    return graphicalObjectsIds;
+std::vector<std::string> getListOfGraphicalObjectIds(GraphicalObject* graphicalObject) {
+    return std::vector<std::string>(1, graphicalObject->getId());
 }
 
-std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
+std::vector<std::string> getListOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects) {
     std::vector<std::string> graphicalObjectsIds;
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
-    //for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        //if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
-            //graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
-    //}
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        graphicalObjectsIds.push_back(graphicalObjects.at(i)->getId());
 
     return graphicalObjectsIds;
 }

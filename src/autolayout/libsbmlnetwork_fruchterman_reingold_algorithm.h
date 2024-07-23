@@ -8,14 +8,16 @@
 
 #include "libsbmlnetwork_autolayout_object_base.h"
 #include "libsbmlnetwork_autolayout_point.h"
+#include "libsbmlnetwork_locked_node_info.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-class FruchtermanReingoldAlgorithm {
+class FruchtermanReingoldAlgorithmBase {
 
 public:
 
-    FruchtermanReingoldAlgorithm();
+
+    FruchtermanReingoldAlgorithmBase();
 
     void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
@@ -33,7 +35,7 @@ public:
 
     void setUseGrid(const bool& useGrid);
 
-    void setNodesLockedStatus(Layout *layout, const std::vector<std::string>& lockedNodeIds);
+    void setNodesLockedStatus(Layout *layout, const std::vector<LockedNodeInfo>& lockedNodesInfo);
 
     void setPadding(const double& padding);
 
@@ -85,7 +87,7 @@ protected:
 
     void setConnections(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
-    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+    virtual void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel) = 0;
 
     void setNodesDegrees();
 
@@ -109,6 +111,29 @@ protected:
     double _height;
     AutoLayoutPoint _barycenter;
     AutoLayoutPoint _centerControlPoint;
+};
+
+class FruchtermanReingoldAutoLayoutAlgorithm : public FruchtermanReingoldAlgorithmBase {
+
+public:
+
+    FruchtermanReingoldAutoLayoutAlgorithm();
+
+protected:
+
+    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+
+};
+
+class FruchtermanReingoldUpdateCurvesAlgorithm : public FruchtermanReingoldAlgorithmBase {
+
+public:
+
+    FruchtermanReingoldUpdateCurvesAlgorithm();
+
+protected:
+
+    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 };
 
 const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2);
@@ -157,7 +182,7 @@ AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::ve
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
 
-const bool whetherGraphicalObjectIsLocked(Layout* layout, GraphicalObject* graphicalObject, const std::vector<std::string>& lockedNodeIds);
+const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::vector<LockedNodeInfo>& lockedNodesInfo);
 
 }
 

@@ -58,17 +58,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, std::vector <std::string> lockedNodeIds) {
-        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIds);
+    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, bool resetLockedNodes, std::vector <std::string> lockedNodeIds) {
+        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;
 
         return -1;
-    }
-
-    int updateLayoutCurves(SBMLDocument* document) {
-        return updateLayoutCurves(document, getLayout(document));
     }
 
     int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {
@@ -79,7 +75,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             alignGraphicalObjects(allGraphicalObjects, alignment);
-            return updateLayoutCurves(document);
+            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 
         return -1;
@@ -93,7 +89,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             distributeGraphicalObjects(allGraphicalObjects, direction, spacing);
-            return updateLayoutCurves(document);
+            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 
         return -1;

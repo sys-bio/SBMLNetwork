@@ -112,7 +112,7 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=True, use_grid=False, locked_nodes=[]):
+    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=True, use_grid=False, reset_locked_nodes=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
@@ -124,6 +124,7 @@ class LibSBMLNetwork:
             - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
             - use_boundary (boolean, optional): a boolean (default: True) that determines whether to use boundary restriction in the autolayout algorithm.
             - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
+            - reset_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to reset the locked nodes before applying the autolayout algorithm.
             - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
@@ -137,7 +138,7 @@ class LibSBMLNetwork:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), ctypes.c_int(max_num_connected_edges), use_magnetism, use_boundary, use_grid, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), ctypes.c_int(max_num_connected_edges), use_magnetism, use_boundary, use_grid, self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
 
     def align(self, nodes, alignment="center"):
         """
