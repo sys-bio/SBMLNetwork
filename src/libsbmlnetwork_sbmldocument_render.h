@@ -2596,7 +2596,7 @@ LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigne
 /// @param layoutIndex the index number of the Layout object.
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setLineEndingsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all GraphicalObject objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -2672,7 +2672,7 @@ LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigne
 /// @param layoutIndex the index number of the Layout object.
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setLineEndingsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
+LIBSBMLNETWORK_EXTERN int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all GraphicalObject objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -3445,7 +3445,7 @@ LIBSBMLNETWORK_EXTERN int setReactionFillColor(SBMLDocument* document, unsigned 
 /// @param layoutIndex the index number of the Layout object.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setLineEndingsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all GraphicalObject objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -3520,7 +3520,7 @@ LIBSBMLNETWORK_EXTERN int setReactionFillRule(SBMLDocument* document, unsigned i
 /// @param layoutIndex the index number of the Layout object.
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setLineEndingsFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
+LIBSBMLNETWORK_EXTERN int setLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style for all GraphicalObject objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -5609,6 +5609,10 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(SBMLDocument* document, 
 /// @param href a string representing the "href" attribute value.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& style);
+
+LIBSBMLNETWORK_EXTERN bool whetherDisplayReactionTextLabel(const std::string& style);
 
 }
 

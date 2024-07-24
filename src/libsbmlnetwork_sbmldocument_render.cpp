@@ -1786,7 +1786,7 @@ int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, con
     return 0;
 }
 
-int setLineEndingsStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
+int setLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
             if (setLineEndingStrokeColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), stroke))
@@ -1900,7 +1900,7 @@ int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, con
     return 0;
 }
 
-int setLineEndingsStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
+int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
             if (setLineEndingStrokeWidth(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), strokeWidth))
@@ -2945,7 +2945,7 @@ int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const
     return 0;
 }
 
-int setLineEndingsFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
             if (setLineEndingFillColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), fillColor))
@@ -3051,13 +3051,13 @@ int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const 
         if (setFillRule(document, layout->getReactionGlyph(i), fillRule))
             return -1;
     }
-    if (setLineEndingsFillRule(document, layoutIndex, fillRule))
+    if (setLineEndingFillRule(document, layoutIndex, fillRule))
         return -1;
 
     return 0;
 }
 
-int setLineEndingsFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
+int setLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
             if (setLineEndingFillRule(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), fillRule))
@@ -5008,6 +5008,100 @@ int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, cons
         return -1;
 
     return 0;
+}
+
+int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& style) {
+    std::vector<std::map<std::string, std::string>> data = getPredefinedStyles();
+    for (const auto& record : data) {
+        if (record.find("name") != record.end() && record.find("name")->second == style) {
+            if (record.find("background-color") != record.end())
+                setBackgroundColor(document, layoutIndex, record.find("background-color")->second);
+            if (record.find("compartment-geometric-shape") != record.end())
+                setCompartmentGeometricShapeType(document, layoutIndex, record.find("compartment-geometric-shape")->second);
+            if (record.find("compartment-geometric-shape-ratio") != record.end())
+                setCompartmentGeometricShapeRatio(document, layoutIndex, std::stod(record.find("compartment-geometric-shape-ratio")->second));
+            if (record.find("compartment-border-color") != record.end())
+                setCompartmentStrokeColor(document, layoutIndex, record.find("compartment-border-color")->second);
+            if (record.find("compartment-border-width") != record.end())
+                setCompartmentStrokeWidth(document, layoutIndex, std::stod(record.find("compartment-border-width")->second));
+            if (record.find("compartment-fill-color") != record.end())
+                setCompartmentFillColor(document, layoutIndex, record.find("compartment-fill-color")->second);
+            if (record.find("compartment-font-color") != record.end())
+                setCompartmentFontColor(document, layoutIndex, record.find("compartment-font-color")->second);
+            if (record.find("compartment-font-size") != record.end())
+                setCompartmentFontSize(document, layoutIndex, record.find("compartment-font-size")->second);
+            if (record.find("compartment-font-style") != record.end())
+                setCompartmentFontStyle(document, layoutIndex, record.find("compartment-font-style")->second);
+            if (record.find("compartment-font-weight") != record.end())
+                setCompartmentFontWeight(document, layoutIndex, record.find("compartment-font-weight")->second);
+            if (record.find("species-geometric-shape") != record.end())
+                setSpeciesGeometricShapeType(document, layoutIndex, record.find("species-geometric-shape")->second);
+            if (record.find("species-geometric-shape-ratio") != record.end())
+                setSpeciesGeometricShapeRatio(document, layoutIndex, std::stod(record.find("species-geometric-shape-ratio")->second));
+            if (record.find("species-border-color") != record.end())
+                setSpeciesStrokeColor(document, layoutIndex, record.find("species-border-color")->second);
+            if (record.find("species-border-width") != record.end())
+                setSpeciesStrokeWidth(document, layoutIndex, std::stod(record.find("species-border-width")->second));
+            if (record.find("species-fill-color") != record.end())
+                setSpeciesFillColor(document, layoutIndex, record.find("species-fill-color")->second);
+            if (record.find("species-font-color") != record.end())
+                setSpeciesFontColor(document, layoutIndex, record.find("species-font-color")->second);
+            if (record.find("species-font-size") != record.end())
+                setSpeciesFontSize(document, layoutIndex, record.find("species-font-size")->second);
+            if (record.find("species-font-style") != record.end())
+                setSpeciesFontStyle(document, layoutIndex, record.find("species-font-style")->second);
+            if (record.find("species-font-weight") != record.end())
+                setSpeciesFontWeight(document, layoutIndex, record.find("species-font-weight")->second);
+            if (record.find("reaction-geometric-shape") != record.end())
+                setReactionGeometricShapeType(document, layoutIndex, record.find("reaction-geometric-shape")->second);
+            if (record.find("reaction-geometric-shape-ratio") != record.end())
+                setReactionGeometricShapeRatio(document, layoutIndex, std::stod(record.find("reaction-geometric-shape-ratio")->second));
+            if (record.find("reaction-geometric-shape-center-x") != record.end())
+                setReactionGeometricShapeCenterX(document, layoutIndex, record.find("reaction-geometric-shape-center-x")->second);
+            if (record.find("reaction-geometric-shape-center-y") != record.end())
+                setReactionGeometricShapeCenterY(document, layoutIndex, record.find("reaction-geometric-shape-center-y")->second);
+            if (record.find("reaction-geometric-shape-radius-x") != record.end())
+                setReactionGeometricShapeRadiusX(document, layoutIndex, record.find("reaction-geometric-shape-radius-x")->second);
+            if (record.find("reaction-geometric-shape-radius-y") != record.end())
+                setReactionGeometricShapeRadiusY(document, layoutIndex, record.find("reaction-geometric-shape-radius-y")->second);
+            if (record.find("reaction-line-color") != record.end())
+                setReactionStrokeColor(document, layoutIndex, record.find("reaction-line-color")->second);
+            if (record.find("reaction-line-width") != record.end())
+                setReactionStrokeWidth(document, layoutIndex, std::stod(record.find("reaction-line-width")->second));
+            if (record.find("reaction-fill-color") != record.end())
+                setReactionFillColor(document, layoutIndex, record.find("reaction-fill-color")->second);
+            if (record.find("reaction-font-color") != record.end())
+                setReactionFontColor(document, layoutIndex, record.find("reaction-font-color")->second);
+            if (record.find("reaction-font-size") != record.end())
+                setReactionFontSize(document, layoutIndex, record.find("reaction-font-size")->second);
+            if (record.find("reaction-font-style") != record.end())
+                setReactionFontStyle(document, layoutIndex, record.find("reaction-font-style")->second);
+            if (record.find("reaction-font-weight") != record.end())
+                setReactionFontWeight(document, layoutIndex, record.find("reaction-font-weight")->second);
+            if (record.find("line-ending-border-color") != record.end())
+                setLineEndingStrokeColor(document, layoutIndex, record.find("line-ending-border-color")->second);
+            if (record.find("line-ending-border-width") != record.end())
+                setLineEndingStrokeWidth(document, layoutIndex, std::stod(record.find("line-ending-border-width")->second));
+            if (record.find("line-ending-fill-color") != record.end())
+                setLineEndingFillColor(document, layoutIndex, record.find("line-ending-fill-color")->second);
+
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool whetherDisplayReactionTextLabel(const std::string& style) {
+    std::vector<std::map<std::string, std::string>> data = getPredefinedStyles();
+    for (const auto& record : data) {
+        if (record.find("name") != record.end() && record.find("name")->second == style) {
+            if (record.find("display-reaction-text-label") != record.end())
+                return record.find("display-reaction-text-label")->second == "true";
+        }
+    }
+
+    return false;
 }
 
 }

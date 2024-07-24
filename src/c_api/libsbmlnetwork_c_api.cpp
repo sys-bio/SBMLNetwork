@@ -12,6 +12,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return strdup(getLibraryVersion().c_str());
     }
 
+    const char* c_api_getCurrentDirectoryOfLibrary() {
+        return strdup(getCurrentDirectoryOfLibrary().c_str());
+    }
+
     SBMLDocument* c_api_readSBML(const char* sbml) {
         return readSBML(sbml);
     }
@@ -1337,7 +1341,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
-        return setLineEndingsStrokeColor(document, layoutIndex, borderColor);
+        return setLineEndingStrokeColor(document, layoutIndex, borderColor);
     }
 
     int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
@@ -1398,7 +1402,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
-        return setLineEndingsStrokeWidth(document, layoutIndex, borderWidth);
+        return setLineEndingStrokeWidth(document, layoutIndex, borderWidth);
     }
 
     int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
@@ -1446,7 +1450,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLineEndingsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
-        return setLineEndingsFillColor(document, layoutIndex, fillColor);
+        return setLineEndingFillColor(document, layoutIndex, fillColor);
     }
 
     int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
@@ -2442,6 +2446,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex) {
         return setGeometricShapeHref(document, layoutIndex, href);
+    }
+
+    int c_api_setStyle(SBMLDocument* document, const char* styleName, int layoutIndex) {
+        return setStyle(document, layoutIndex, styleName);
+    }
+
+    bool c_api_whetherDisplayReactionTextLabel(const char* styleName) {
+        return whetherDisplayReactionTextLabel(styleName);
+    }
+
+    int c_api_getNumPredefinedStyles() {
+        return getPredefinedStyles().size();
+    }
+
+    const char* c_api_getNthPredefinedStyleName(int index) {
+        if (index >= 0 && index < c_api_getNumPredefinedStyles())
+            return strdup(getPredefinedStyleNames().at(index).c_str());
+
+        return "";
     }
 
     int c_api_getNumValidRoleValues() {

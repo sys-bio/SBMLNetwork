@@ -15,6 +15,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the version of the library.
     LIBSBMLNETWORK_EXTERN const char* c_api_getVersion();
 
+    /// @brief Returns the directory of the library.
+    /// @return the directory of the library.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCurrentDirectoryOfLibrary();
+
     /// @brief Reads an SBML document from the given file name or the given text string
     /// @param sbml either the name or full pathname of the file to be read or a string containing a full SBML model.
     /// @return a pointer to the SBMLDocument structure created from the SBML content in the given file name or
@@ -4336,6 +4340,27 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    /// @brief Sets the render features using the predefined style with the given name.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param styleName a string representing the name of the predefined style to use.
+    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setStyle(SBMLDocument* document, const char* styleName, int layoutIndex = 0);
+
+    /// @brief Sets the render features using the predefined style with the given name for all CompartmentGlyph object in this Layout object.
+    /// @param styleName a string representing the name of the predefined style to use.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN bool c_api_whetherDisplayReactionTextLabel(const char* styleName);
+
+    /// @brief Returns the number of predefined styles that can be used in for c_api_setStyle function.
+    /// @return the number of predefined styles.
+    LIBSBMLNETWORK_EXTERN int c_api_getNumPredefinedStyles();
+
+    /// @brief Returns the nth predefined style name that can be used in for c_api_setStyle function.
+    /// @param index an int representing the index of the predefined style name to retrieve.
+    /// @return the nth predefined style name.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getNthPredefinedStyleName(int index);
 
     /// @brief Returns the number of valid values for the "role" attribute that can be used in for c_api_SetSpeciesReferenceRole function.
     /// @return the number of valid values for the "role" attribute.

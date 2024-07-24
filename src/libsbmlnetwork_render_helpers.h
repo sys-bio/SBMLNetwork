@@ -187,6 +187,10 @@ void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 
 const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type);
 
+std::vector<std::map<std::string, std::string>> getPredefinedStyles();
+
+std::vector<std::string> getPredefinedStyleNames();
+
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
 
 const bool isValidColorValue(const std::string& value);

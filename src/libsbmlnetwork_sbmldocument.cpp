@@ -9,6 +9,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return getLibraryVersion();
     }
 
+    const std::string getCurrentDirectoryOfLibrary() {
+        return getLibraryDirectory();
+    }
+
     SBMLDocument* readSBML(const std::string& sbml) {
         SBMLDocument* document = readSBMLFromFile(sbml.c_str());
         if (document && document->isSetModel())

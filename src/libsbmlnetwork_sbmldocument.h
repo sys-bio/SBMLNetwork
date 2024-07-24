@@ -20,6 +20,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 /// @return the version of the library.
 LIBSBMLNETWORK_EXTERN const std::string getVersion();
 
+/// @brief Returns the current directory of the library.
+/// @return the current directory of the library.
+LIBSBMLNETWORK_EXTERN const std::string getCurrentDirectoryOfLibrary();
+
 /// @brief Reads an SBML document from the given file name or the given text string
 /// @param sbml either the name or full pathname of the file to be read or a string containing a full SBML model.
 /// @return a pointer to the SBMLDocument structure created from the SBML content in the given file name or

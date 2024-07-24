@@ -52,6 +52,18 @@ class LibSBMLNetwork:
         lib.c_api_getVersion.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getVersion()).value.decode()
 
+    def getCurrentDirectoryOfLibrary(self):
+        """
+        Returns the current directory of the back-end library
+
+        :Returns:
+
+            a string that determines the current directory of the back-end library
+
+        """
+        lib.c_api_getLibraryCurrentDirectory.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getCurrentDirectoryOfLibrary()).value.decode()
+
     def load(self, sbml):
         """
         Reads an SBML document from the given file directory or the given text string
@@ -8593,16 +8605,14 @@ class LibSBMLNetwork:
             a list of strings that determines the available style names
 
         """
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, "resources/styles.json")
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File '{filename}' not found in the current directory.")
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            if 'style' in data.keys():
-                return [style['name'] for style in data['styles']]
+        lib.c_api_getNthPredefinedStyleName.restype = ctypes.c_char_p
+        list_of_styles = []
+        for n in range(lib.c_api_getNumPredefinedStyles()):
+            list_of_styles.append(ctypes.c_char_p(lib.c_api_getNthPredefinedStyleName(n)).value.decode())
 
-    def setStyle(self, style_name):
+        return list_of_styles
+
+    def setStyle(self, style_name, layout_index=0):
         """
         Set the a predefined style for the styles of the GraphicalObjects
 
@@ -8611,94 +8621,25 @@ class LibSBMLNetwork:
             - style_name (string): a string that determines the name of the predefined style for the styles of the GraphicalObjects
 
         """
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, "resources/styles.json")
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File '{filename}' not found in the current directory for styles.")
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            if 'styles' in data.keys():
-                for style in data['styles']:
-                    if style['name'].lower() == style_name.lower():
-                        if 'background_color' in style.keys():
-                            self.setBackgroundColor(style['background_color'])
-                        if 'compartment_geometric_shape' in style.keys():
-                            self.setCompartmentsGeometricShapesType(style['compartment_geometric_shape'])
-                        if 'compartment_geometric_shape_ratio' in style.keys():
-                            self.setCompartmentsGeometricShapeRatios(style['compartment_geometric_shape_ratio'])
-                        if 'compartment_border_color' in style.keys():
-                            self.setCompartmentsBorderColors(style['compartment_border_color'])
-                        if 'compartment_border_width' in style.keys():
-                            self.setCompartmentsBorderWidths(style['compartment_border_width'])
-                        if 'compartment_fill_color' in style.keys():
-                            self.setCompartmentsFillColors(style['compartment_fill_color'])
-                        if 'compartment_font_color' in style.keys():
-                            self.setCompartmentsFontColors(style['compartment_font_color'])
-                        if 'compartment_font_size' in style.keys():
-                            self.setCompartmentsFontSizes(style['compartment_font_size'])
-                        if 'compartment_font_style' in style.keys():
-                            self.setCompartmentsFontStyles(style['compartment_font_style'])
-                        if 'compartment_font_weight' in style.keys():
-                            self.setCompartmentsFontWeights(style['compartment_font_weight'])
-                        if 'species_geometric_shape' in style.keys():
-                            self.setSpeciesGeometricShapesType(style['species_geometric_shape'])
-                        if 'species_geometric_shape_ratio' in style.keys():
-                            self.setSpeciesGeometricShapeRatios(style['species_geometric_shape_ratio'])
-                        if 'species_border_color' in style.keys():
-                            self.setSpeciesBorderColors(style['species_border_color'])
-                        if 'species_border_width' in style.keys():
-                            self.setSpeciesBorderWidths(style['species_border_width'])
-                        if 'species_fill_color' in style.keys():
-                            self.setSpeciesFillColors(style['species_fill_color'])
-                        if 'species_font_color' in style.keys():
-                            self.setSpeciesFontColors(style['species_font_color'])
-                        if 'species_font_size' in style.keys():
-                            self.setSpeciesFontSizes(style['species_font_size'])
-                        if 'species_font_style' in style.keys():
-                            self.setSpeciesFontStyles(style['species_font_style'])
-                        if 'species_font_weight' in style.keys():
-                            self.setSpeciesFontWeights(style['species_font_weight'])
-                        if 'reaction_geometric_shape' in style.keys():
-                            self.setReactionsGeometricShapesType(style['reaction_geometric_shape'])
-                        if 'reaction_geometric_shape_ratio' in style.keys():
-                            self.setReactionsGeometricShapeRatios(style['reaction_geometric_shape_ratio'])
-                        if 'reaction_geometric_shape_center_x' in style.keys():
-                            self.setReactionsGeometricShapeCenterXs(style['reaction_geometric_shape_center_x'])
-                        if 'reaction_geometric_shape_center_y' in style.keys():
-                            self.setReactionsGeometricShapeCenterYs(style['reaction_geometric_shape_center_y'])
-                        if 'reaction_geometric_shape_radius_x' in style.keys():
-                            self.setReactionsGeometricShapeRadiusXs(style['reaction_geometric_shape_radius_x'])
-                        if 'reaction_geometric_shape_radius_y' in style.keys():
-                            self.setReactionsGeometricShapeRadiusYs(style['reaction_geometric_shape_radius_y'])
-                        if 'reaction_line_color' in style.keys():
-                            self.setReactionsLineColors(style['reaction_line_color'])
-                        if 'reaction_line_width' in style.keys():
-                            self.setReactionsLineWidths(style['reaction_line_width'])
-                        if 'reaction_border_color' in style.keys():
-                            self.setReactionsBorderColors(style['reaction_border_color'])
-                        if 'reaction_border_width' in style.keys():
-                            self.setReactionsBorderWidths(style['reaction_border_width'])
-                        if 'reaction_fill_color' in style.keys():
-                            self.setReactionsFillColors(style['reaction_fill_color'])
-                        if 'display_reaction_text_label' in style.keys():
-                            self.enableDisplayReactionsTextLabel(style['display_reaction_text_label'])
-                        if 'reaction_font_color' in style.keys():
-                            self.setReactionsFontColors(style['reaction_font_color'])
-                        if 'reaction_font_size' in style.keys():
-                            self.setReactionsFontSizes(style['reaction_font_size'])
-                        if 'reaction_font_style' in style.keys():
-                            self.setReactionsFontStyles(style['reaction_font_style'])
-                        if 'reaction_font_weight' in style.keys():
-                            self.setReactionsFontWeights(style['reaction_font_weight'])
-                        if 'line_ending_border_color' in style.keys():
-                            self.setLineEndingsBorderColors(style['line_ending_border_color'])
-                        if 'line_ending_border_width' in style.keys():
-                            self.setLineEndingsBorderWidths(style['line_ending_border_width'])
-                        if 'line_ending_fill_color' in style.keys():
-                            self.setLineEndingsFillColors(style['line_ending_fill_color'])
-                        return
+        if lib.c_api_setStyle(self.sbml_object, str(style_name).encode(), layout_index) == 0:
+            self.enableDisplayReactionsTextLabel(self.whetherDisplayReactionTextLabel(style_name))
+            return 0;
 
         raise ValueError(f"Style '{style_name}' not found in list of available styles. Available predefined styles are: {self.getListOfStyles()}")
+
+    def whetherDisplayReactionTextLabel(self, style_name):
+        """
+        Returns whether the text labels of the reactions must be displayed in the layout based on the style
+
+        :Parameters:
+
+            - style_name (string): a string that determines the name of the predefined style for the styles of the GraphicalObjects
+
+        :Returns:
+
+            a boolean that determines whether the text labels of the reactions are displayed in the layout
+        """
+        return lib.c_api_whetherDisplayReactionTextLabel(str(style_name).encode())
 
     def _layout_is_specified(self):
         if self.getNumLayouts():
