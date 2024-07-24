@@ -1505,8 +1505,9 @@ Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
 
 Style* getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
-        if (getStyle(getLocalRenderInformation(document, i), graphicalObject))
-            return getStyle(getLocalRenderInformation(document, i), graphicalObject);
+        Style* style = getStyle(getLocalRenderInformation(document, i), graphicalObject);
+        if (style)
+            return style;
     }
 
     return NULL;
@@ -1514,8 +1515,9 @@ Style* getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
 
 Style* getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
-        if (getStyle(getGlobalRenderInformation(document, i), graphicalObject))
-            return getStyle(getGlobalRenderInformation(document, i), graphicalObject);
+        Style* style = getStyle(getGlobalRenderInformation(document, i), graphicalObject);
+        if (style)
+            return style;
     }
 
     return NULL;
@@ -1562,8 +1564,9 @@ Style* getStyle(SBMLDocument* document, const std::string& attribute) {
 
 Style* getLocalStyle(SBMLDocument* document, const std::string& attribute) {
     for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
-        if (getStyle(getLocalRenderInformation(document, i), attribute))
-            return getStyle(getLocalRenderInformation(document, i), attribute);
+        Style* style = getStyle(getLocalRenderInformation(document, i), attribute);
+        if (style)
+            return style;
     }
 
     return getLocalStyle(document, getGraphicalObject(document, attribute));
@@ -1571,8 +1574,9 @@ Style* getLocalStyle(SBMLDocument* document, const std::string& attribute) {
 
 Style* getGlobalStyle(SBMLDocument* document, const std::string& attribute) {
     for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
-        if (getStyle(getGlobalRenderInformation(document, i), attribute))
-            return getStyle(getGlobalRenderInformation(document, i), attribute);
+        Style* style = getStyle(getGlobalRenderInformation(document, i), attribute);
+        if (style)
+            return style;
     }
 
     return getGlobalStyle(document, getGraphicalObject(document, attribute));
@@ -1625,57 +1629,65 @@ Style* getStyleById(SBMLDocument* document, unsigned int renderIndex, const std:
 }
 
 Style* getStyleByRole(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (getStyleByRole(getLocalRenderInformation(document), graphicalObject))
-        return getStyleByRole(getLocalRenderInformation(document), graphicalObject);
+    Style* style = getStyleByRole(getLocalRenderInformation(document), graphicalObject);
+    if (style)
+        return style;
 
     return getStyleByRole(getGlobalRenderInformation(document), graphicalObject);
 }
 
 Style* getStyleByRole(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
-    if (getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), graphicalObject))
-        return getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+    Style* style = getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+    if (style)
+        return style;
 
     return getStyleByRole(getGlobalRenderInformation(document, renderIndex), graphicalObject);
 }
 
 Style* getStyleByRole(SBMLDocument* document, const std::string& role) {
-    if (getStyleByRole(getLocalRenderInformation(document), role))
-        return getStyleByRole(getLocalRenderInformation(document), role);
+    Style* style = getStyleByRole(getLocalRenderInformation(document), role);
+    if (style)
+        return style;
 
     return getStyleByRole(getGlobalRenderInformation(document), role);
 }
 
 Style* getStyleByRole(SBMLDocument* document, unsigned int renderIndex, const std::string& role) {
-    if (getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), role))
-        return getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), role);
+    Style* style = getStyleByRole(getLocalRenderInformation(document, 0, renderIndex), role);
+    if (style)
+        return style;
 
     return getStyleByRole(getGlobalRenderInformation(document, renderIndex), role);
 }
 
 Style* getStyleByType(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (getStyleByType(getLocalRenderInformation(document), graphicalObject))
-        return getStyleByType(getLocalRenderInformation(document), graphicalObject);
+    Style* style = getStyleByType(getLocalRenderInformation(document), graphicalObject);
+    if (style)
+        return style;
 
     return getStyleByType(getGlobalRenderInformation(document), graphicalObject);
 }
 
 Style* getStyleByType(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject) {
-    if (getStyleByType(getLocalRenderInformation(document, 0, renderIndex), graphicalObject))
-        return getStyleByType(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+    Style* style = getStyleByType(getLocalRenderInformation(document, 0, renderIndex), graphicalObject);
+    if (style)
+        return style;
 
     return getStyleByType(getGlobalRenderInformation(document, renderIndex), graphicalObject);
 }
 
 Style* getStyleByType(SBMLDocument* document, const std::string& type) {
-    if (getStyleByType(getLocalRenderInformation(document), type))
-        return getStyleByType(getLocalRenderInformation(document), type);
+    Style* style = getStyleByType(getLocalRenderInformation(document), type);
+    if (style)
+        return style;
 
     return getStyleByType(getGlobalRenderInformation(document), type);
 }
 
 Style* getStyleByType(SBMLDocument* document, unsigned int renderIndex, const std::string& type) {
-    if (getStyleByType(getLocalRenderInformation(document, 0, renderIndex), type))
-    return getStyleByType(getLocalRenderInformation(document, 0, renderIndex), type);
+    Style* style = getStyleByType(getLocalRenderInformation(document, 0, renderIndex), type);
+    if (style)
+        return style;
 
     return getStyleByType(getGlobalRenderInformation(document, renderIndex), type);
 }
