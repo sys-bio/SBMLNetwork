@@ -43,6 +43,22 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
 
 const std::string getStyleType(GraphicalObject* graphicalObject);
 
+const std::string getCompartmentGlyphStyleType();
+
+const std::string getSpeciesGlyphStyleType();
+
+const std::string getReactionGlyphStyleType();
+
+const std::string getSpeciesReferenceGlyphStyleType();
+
+const std::string getSpeciesReferenceGlyphStyleType();
+
+const std::string getTextGlyphStyleType();
+
+const std::string getGraphicalObjectStyleType();
+
+std::vector<std::pair<SpeciesReferenceRole_t, std::string>> getStyleRoles();
+
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation);

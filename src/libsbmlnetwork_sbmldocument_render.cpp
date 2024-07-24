@@ -1745,9 +1745,6 @@ int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, con
     if (!style)
         style = createLocalStyle(document, graphicalObject);
     addColor(document, style, stroke);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeColor(getGeometricShape(style), stroke);
-
     return setStrokeColor(style, stroke);
 }
 
@@ -1756,46 +1753,40 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
     if (!style)
         style = createLocalStyle(document, attribute);
     addColor(document, style, stroke);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeColor(getGeometricShape(style), stroke);
-
     return setStrokeColor(style, stroke);
 }
 
 int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setStrokeColor(document, layout->getCompartmentGlyph(i), stroke))
-            return -1;
-    }
+    if (!setCompartmentStrokeColor(getGlobalRenderInformation(document), stroke) && !setCompartmentStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setStrokeColor(document, layout->getSpeciesGlyph(i), stroke))
-            return -1;
-    }
+    if (!setSpeciesStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setStrokeColor(document, layout->getReactionGlyph(i), stroke))
-            return -1;
+    if (!setReactionStrokeColor(getGlobalRenderInformation(document), stroke) && !setReactionStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke)) {
         if (setSpeciesReferenceGlyphs) {
-            for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
-                if (setStrokeColor(document, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j), stroke))
-                    return -1;
-            }
+            if (!setSpeciesReferenceStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesReferenceStrokeColor(
+                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
+                return 0;
+
+            return -1;
         }
+
+        return 0;
     }
 
-    return 0;
+    return -1;
 }
 
 int setLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
@@ -1860,9 +1851,6 @@ int setStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, con
     Style* style = getLocalStyle(document, graphicalObject);
     if (!style)
         style = createLocalStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeWidth(getGeometricShape(style), strokeWidth);
-
     return setStrokeWidth(style, strokeWidth);
 }
 
@@ -1870,46 +1858,40 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
     Style* style = getLocalStyle(document, attribute);
     if (!style)
         style = createLocalStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeWidth(getGeometricShape(style), strokeWidth);
-
     return setStrokeWidth(style, strokeWidth);
 }
 
 int setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setStrokeWidth(document, layout->getCompartmentGlyph(i), strokeWidth))
-            return -1;
-    }
+    if (!setCompartmentStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setCompartmentStrokeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setStrokeWidth(document, layout->getSpeciesGlyph(i), strokeWidth))
-            return -1;
-    }
+    if (!setSpeciesStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setSpeciesStrokeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setStrokeWidth(document, layout->getReactionGlyph(i), strokeWidth))
-            return -1;
+    if (!setReactionStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setReactionStrokeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth)) {
         if (setSpeciesReferenceGlyphs) {
-            for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
-                if (setStrokeWidth(document, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j), strokeWidth))
-                    return -1;
-            }
+            if (!setSpeciesReferenceStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setSpeciesReferenceStrokeWidth(
+                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
+                return 0;
+
+            return -1;
         }
+
+        return 0;
     }
 
-    return 0;
+    return -1;
 }
 
 int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
@@ -1976,9 +1958,6 @@ int setStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject,
     Style* style = getLocalStyle(document, graphicalObject);
     if (!style)
         style = createLocalStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDashArray(getGeometricShape(style), strokeDashArray);
-
     return setStrokeDashArray(style, strokeDashArray);
 }
 
@@ -1986,9 +1965,6 @@ int setStrokeDashArray(SBMLDocument* document, const std::string& attribute, con
     Style* style = getLocalStyle(document, attribute);
     if (!style)
         style = createLocalStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDashArray(getGeometricShape(style), strokeDashArray);
-
     return setStrokeDashArray(style, strokeDashArray);
 }
 
@@ -2010,27 +1986,18 @@ unsigned int getNumStrokeDashes(SBMLDocument* document, const std::string& attri
 
 unsigned int getStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dashIndex) {
     Style* style = getStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
-        return getStrokeDash(getGeometricShape(style), dashIndex);
 
     return getStrokeDash(style, dashIndex);
 }
 
 unsigned int getStrokeDash(SBMLDocument* document, const std::string& attribute, unsigned int dashIndex) {
-    Style* style = getStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
-        return getStrokeDash(getGeometricShape(style), dashIndex);
-
-    return getStrokeDash(style, dashIndex);
+    return getStrokeDash(getStyle(document, attribute), dashIndex);
 }
 
 unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int dash) {
     Style* style = getLocalStyle(document, graphicalObject);
     if (!style)
         style = createLocalStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), dash);
-
     return setStrokeDash(style, dash);
 }
 
@@ -2038,9 +2005,6 @@ unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObj
     Style* style = getLocalStyle(document, graphicalObject);
     if (!style)
         style = createLocalStyle(document, graphicalObject);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), dashIndex, dash);
-
     return setStrokeDash(style, dashIndex, dash);
 }
 
@@ -2048,9 +2012,6 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
     Style* style = getLocalStyle(document, attribute);
     if (!style)
         style = createLocalStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), dash);
-
     return setStrokeDash(style, dash);
 }
 
@@ -2058,9 +2019,6 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
     Style* style = getLocalStyle(document, attribute);
     if (!style)
         style = createLocalStyle(document, attribute);
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), dashIndex, dash);
-
     return setStrokeDash(style, dashIndex, dash);
 }
 
@@ -2135,39 +2093,27 @@ int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned 
 }
 
 int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setFontColor(document, layout->getCompartmentGlyph(i), j, fontColor))
-                return -1;
-        }
-    }
+    if (!setCompartmentFontColor(getGlobalRenderInformation(document), fontColor) && !setCompartmentFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setFontColor(document, layout->getSpeciesGlyph(i), j, fontColor))
-                return -1;
-        }
-    }
+    if (!setSpeciesFontColor(getGlobalRenderInformation(document), fontColor) && !setSpeciesFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setFontColor(document, layout->getReactionGlyph(i), j, fontColor))
-                return -1;
-        }
-    }
+    if (!setReactionFontColor(getGlobalRenderInformation(document), fontColor) && !setReactionFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
@@ -2250,39 +2196,27 @@ int setFontFamily(SBMLDocument* document, const std::string& attribute, unsigned
 }
 
 int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setFontFamily(document, layout->getCompartmentGlyph(i), j, fontFamily))
-                return -1;
-        }
-    }
+    if (!setCompartmentFontFamily(getGlobalRenderInformation(document), fontFamily) && !setCompartmentFontFamily(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontFamily))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setFontFamily(document, layout->getSpeciesGlyph(i), j, fontFamily))
-                return -1;
-        }
-    }
+    if (!setSpeciesFontFamily(getGlobalRenderInformation(document), fontFamily) && !setSpeciesFontFamily(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontFamily))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setFontFamily(document, layout->getReactionGlyph(i), j, fontFamily))
-                return -1;
-        }
-    }
+    if (!setReactionFontFamily(getGlobalRenderInformation(document), fontFamily) && !setReactionFontFamily(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontFamily))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
@@ -2365,41 +2299,28 @@ int setFontSize(SBMLDocument* document, const std::string& attribute, unsigned i
 }
 
 int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setFontSize(document, layout->getCompartmentGlyph(i), j, fontSize))
-                return -1;
-        }
-    }
+    if (!setCompartmentFontSize(getGlobalRenderInformation(document), fontSize) && !setCompartmentFontSize(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setFontSize(document, layout->getSpeciesGlyph(i), j, fontSize))
-                return -1;
-        }
-    }
+    if (!setSpeciesFontSize(getGlobalRenderInformation(document), fontSize) && !setSpeciesFontSize(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setFontSize(document, layout->getReactionGlyph(i), j, fontSize))
-                return -1;
-        }
-    }
+    if (!setReactionFontSize(getGlobalRenderInformation(document), fontSize) && !setReactionFontSize(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
+        return 0;
 
-    return 0;
+    return -1;
 }
-
 
 int setFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     if (setSpeciesFontSize(document, layoutIndex, fontSize))
@@ -2482,39 +2403,27 @@ int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned
 }
 
 int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setFontWeight(document, layout->getCompartmentGlyph(i), j, fontWeight))
-                return -1;
-        }
-    }
+    if (!setCompartmentFontWeight(getGlobalRenderInformation(document), fontWeight) && !setCompartmentFontWeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontWeight))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setFontWeight(document, layout->getSpeciesGlyph(i), j, fontWeight))
-                return -1;
-        }
-    }
+    if (!setSpeciesFontWeight(getGlobalRenderInformation(document), fontWeight) && !setSpeciesFontWeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontWeight))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setFontWeight(document, layout->getReactionGlyph(i), j, fontWeight))
-                return -1;
-        }
-    }
+    if (!setReactionFontWeight(getGlobalRenderInformation(document), fontWeight) && !setReactionFontWeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontWeight))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
@@ -2597,39 +2506,27 @@ int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned 
 }
 
 int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setFontStyle(document, layout->getCompartmentGlyph(i), j, fontStyle))
-                return -1;
-        }
-    }
+    if (!setCompartmentFontStyle(getGlobalRenderInformation(document), fontStyle) && !setCompartmentFontStyle(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontStyle))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setFontStyle(document, layout->getSpeciesGlyph(i), j, fontStyle))
-                return -1;
-        }
-    }
+    if (!setSpeciesFontStyle(getGlobalRenderInformation(document), fontStyle) && !setSpeciesFontStyle(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontStyle))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setFontStyle(document, layout->getReactionGlyph(i), j, fontStyle))
-                return -1;
-        }
-    }
+    if (!setReactionFontStyle(getGlobalRenderInformation(document), fontStyle) && !setReactionFontStyle(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontStyle))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
@@ -2712,39 +2609,27 @@ int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned
 }
 
 int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setTextAnchor(document, layout->getCompartmentGlyph(i), j, textAnchor))
-                return -1;
-        }
-    }
+    if (!setCompartmentTextAnchor(getGlobalRenderInformation(document), textAnchor) && !setCompartmentTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), textAnchor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setTextAnchor(document, layout->getSpeciesGlyph(i), j, textAnchor))
-                return -1;
-        }
-    }
+    if (!setSpeciesTextAnchor(getGlobalRenderInformation(document), textAnchor) && !setSpeciesTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), textAnchor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setTextAnchor(document, layout->getReactionGlyph(i), j, textAnchor))
-                return -1;
-        }
-    }
+    if (!setReactionTextAnchor(getGlobalRenderInformation(document), textAnchor) && !setReactionTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), textAnchor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
@@ -2827,39 +2712,27 @@ int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigne
 }
 
 int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getCompartmentGlyph(i)); j++) {
-            if (setVTextAnchor(document, layout->getCompartmentGlyph(i), j, vtextAnchor))
-                return -1;
-        }
-    }
+    if (!setCompartmentVTextAnchor(getGlobalRenderInformation(document), vtextAnchor) && !setCompartmentVTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), vtextAnchor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getSpeciesGlyph(i)); j++) {
-            if (setVTextAnchor(document, layout->getSpeciesGlyph(i), j, vtextAnchor))
-                return -1;
-        }
-    }
+    if (!setSpeciesVTextAnchor(getGlobalRenderInformation(document), vtextAnchor) && !setSpeciesVTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), vtextAnchor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        for (unsigned int j =0; j < getNumTextGlyphs(layout, layout->getReactionGlyph(i)); j++) {
-            if (setVTextAnchor(document, layout->getReactionGlyph(i), j, vtextAnchor))
-                return -1;
-        }
-    }
+    if (!setReactionVTextAnchor(getGlobalRenderInformation(document), vtextAnchor) && !setReactionVTextAnchor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), vtextAnchor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
@@ -2910,9 +2783,6 @@ int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
     if (!style)
         style = createLocalStyle(document, graphicalObject);
     addColor(document, style, fillColor);
-    if (getNumGeometricShapes(style) == 1)
-        return setFillColor(getGeometricShape(style), fillColor);
-
     return setFillColor(style, fillColor);
 }
 
@@ -2921,40 +2791,31 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
     if (!style)
         style = createLocalStyle(document, attribute);
     addColor(document, style, fillColor);
-    if (getNumGeometricShapes(style) == 1)
-        return setFillColor(getGeometricShape(style), fillColor);
-
     return setFillColor(style, fillColor);
 }
 
 int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFillColor(document, layout->getCompartmentGlyph(i), fillColor))
-            return -1;
-    }
+    if (!setCompartmentFillColor(getGlobalRenderInformation(document), fillColor) && !setCompartmentFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFillColor(document, layout->getSpeciesGlyph(i), fillColor))
-            return -1;
-    }
+    if (!setSpeciesFillColor(getGlobalRenderInformation(document), fillColor) && !setSpeciesFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFillColor(document, layout->getReactionGlyph(i), fillColor))
-            return -1;
-    }
+    if (!setReactionFillColor(getGlobalRenderInformation(document), fillColor) && !setReactionFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
@@ -3038,35 +2899,27 @@ int setFillRule(SBMLDocument* document, const std::string& attribute, const std:
 }
 
 int setCompartmentFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setFillRule(document, layout->getCompartmentGlyph(i), fillRule))
-            return -1;
-    }
+    if (!setCompartmentFillRule(getGlobalRenderInformation(document), fillRule) && !setCompartmentFillRule(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillRule))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setFillRule(document, layout->getSpeciesGlyph(i), fillRule))
-            return -1;
-    }
+    if (!setSpeciesFillRule(getGlobalRenderInformation(document), fillRule) && !setSpeciesFillRule(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillRule))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setFillRule(document, layout->getReactionGlyph(i), fillRule))
-            return -1;
-    }
-    if (setLineEndingFillRule(document, layoutIndex, fillRule))
-        return -1;
+    if (!setReactionFillRule(getGlobalRenderInformation(document), fillRule) && !setReactionFillRule(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillRule))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
@@ -3257,7 +3110,7 @@ int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObje
     Style* style = getLocalStyle(document, graphicalObject);
     if (!style)
         style = createLocalStyle(document, graphicalObject);
-    if (!setGeometricShape(style, shape)) {
+    if (!setGeometricShapeType(style, shape)) {
         if (getGlobalRenderInformation(document))
             addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
         else
@@ -3273,7 +3126,7 @@ int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, 
     Style* style = getLocalStyle(document, attribute);
     if (!style)
         style = createLocalStyle(document, attribute);
-    if (setGeometricShape(style, shape)) {
+    if (setGeometricShapeType(style, shape)) {
         if (getGlobalRenderInformation(document))
             addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
         else
@@ -3286,33 +3139,27 @@ int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, 
 }
 
 int setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeType(document, layout->getCompartmentGlyph(i), shape))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeType(getGlobalRenderInformation(document), shape) && !setCompartmentGeometricShapeType(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), shape))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeType(document, layout->getSpeciesGlyph(i), shape))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeType(getGlobalRenderInformation(document), shape) && !setSpeciesGeometricShapeType(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), shape))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeType(document, layout->getReactionGlyph(i), shape))
-            return -1;
-    }
+    if (!setReactionGeometricShapeType(getGlobalRenderInformation(document), shape) && !setReactionGeometricShapeType(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), shape))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
@@ -3423,6 +3270,7 @@ int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject,
 int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, const RelAbsVector& x) {
     Style* style = getLocalStyle(document, attribute);
     if (!style)
+    if (!style)
         style = createLocalStyle(document, attribute);
     return setGeometricShapeX(style, 0, x);
 }
@@ -3435,33 +3283,27 @@ int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, uns
 }
 
 int setCompartmentGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeX(document, layout->getCompartmentGlyph(i), x))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeX(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeX(document, layout->getSpeciesGlyph(i), x))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeX(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeX(document, layout->getReactionGlyph(i), x))
-            return -1;
-    }
+    if (!setReactionGeometricShapeX(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
@@ -3520,33 +3362,27 @@ int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, uns
 }
 
 int setCompartmentGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeY(document, layout->getCompartmentGlyph(i), y))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeY(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeY(document, layout->getSpeciesGlyph(i), y))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeY(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeY(document, layout->getReactionGlyph(i), y))
-            return -1;
-    }
+    if (!setReactionGeometricShapeY(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
@@ -3605,33 +3441,27 @@ int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute,
 }
 
 int setCompartmentGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeWidth(document, layout->getCompartmentGlyph(i), width))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeWidth(getGlobalRenderInformation(document), width) && !setCompartmentGeometricShapeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), width))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeWidth(document, layout->getSpeciesGlyph(i), width))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeWidth(getGlobalRenderInformation(document), width) && !setSpeciesGeometricShapeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), width))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeWidth(document, layout->getReactionGlyph(i), width))
-            return -1;
-    }
+    if (!setReactionGeometricShapeWidth(getGlobalRenderInformation(document), width) && !setReactionGeometricShapeWidth(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), width))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
@@ -3690,33 +3520,27 @@ int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute
 }
 
 int setCompartmentGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeHeight(document, layout->getCompartmentGlyph(i), height))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeHeight(getGlobalRenderInformation(document), height) && !setCompartmentGeometricShapeHeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), height))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeHeight(document, layout->getSpeciesGlyph(i), height))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeHeight(getGlobalRenderInformation(document), height) && !setSpeciesGeometricShapeHeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), height))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeHeight(document, layout->getReactionGlyph(i), height))
-            return -1;
-    }
+    if (!setReactionGeometricShapeHeight(getGlobalRenderInformation(document), height) && !setReactionGeometricShapeHeight(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), height))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
@@ -3775,33 +3599,27 @@ int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute,
 }
 
 int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeRatio(document, layout->getCompartmentGlyph(i), ratio))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeRatio(getGlobalRenderInformation(document), ratio) && !setCompartmentGeometricShapeRatio(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ratio))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeRatio(document, layout->getSpeciesGlyph(i), ratio))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeRatio(getGlobalRenderInformation(document), ratio) && !setSpeciesGeometricShapeRatio(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ratio))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeRatio(document, layout->getReactionGlyph(i), ratio))
-            return -1;
-    }
+    if (!setReactionGeometricShapeRatio(getGlobalRenderInformation(document), ratio) && !setReactionGeometricShapeRatio(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ratio))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
@@ -3860,33 +3678,27 @@ int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::s
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeCornerCurvatureRadiusX(document, layout->getCompartmentGlyph(i), rx))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document), rx) && !setCompartmentGeometricShapeCornerCurvatureRadiusX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeCornerCurvatureRadiusX(document, layout->getSpeciesGlyph(i), rx))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document), rx) && !setSpeciesGeometricShapeCornerCurvatureRadiusX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeCornerCurvatureRadiusX(document, layout->getReactionGlyph(i), rx))
-            return -1;
-    }
+    if (!setReactionGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document), rx) && !setReactionGeometricShapeCornerCurvatureRadiusX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
@@ -3945,33 +3757,27 @@ int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::s
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeCornerCurvatureRadiusY(document, layout->getCompartmentGlyph(i), ry))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document), ry) && !setCompartmentGeometricShapeCornerCurvatureRadiusY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeCornerCurvatureRadiusY(document, layout->getSpeciesGlyph(i), ry))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document), ry) && !setSpeciesGeometricShapeCornerCurvatureRadiusY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeCornerCurvatureRadiusY(document, layout->getReactionGlyph(i), ry))
-            return -1;
-    }
+    if (!setReactionGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document), ry) && !setReactionGeometricShapeCornerCurvatureRadiusY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
@@ -4030,33 +3836,27 @@ int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribut
 }
 
 int setCompartmentGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeCenterX(document, layout->getCompartmentGlyph(i), cx))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeCenterX(getGlobalRenderInformation(document), cx) && !setCompartmentGeometricShapeCenterX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeCenterX(document, layout->getSpeciesGlyph(i), cx))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeCenterX(getGlobalRenderInformation(document), cx) && !setSpeciesGeometricShapeCenterX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeCenterX(document, layout->getReactionGlyph(i), cx))
-            return -1;
-    }
+    if (!setReactionGeometricShapeCenterX(getGlobalRenderInformation(document), cx) && !setReactionGeometricShapeCenterX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
@@ -4115,33 +3915,27 @@ int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribut
 }
 
 int setCompartmentGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeCenterY(document, layout->getCompartmentGlyph(i), cy))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeCenterY(getGlobalRenderInformation(document), cy) && !setCompartmentGeometricShapeCenterY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cy))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeCenterY(document, layout->getSpeciesGlyph(i), cy))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeCenterY(getGlobalRenderInformation(document), cy) && !setSpeciesGeometricShapeCenterY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cy))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeCenterY(document, layout->getReactionGlyph(i), cy))
-            return -1;
-    }
+    if (!setReactionGeometricShapeCenterY(getGlobalRenderInformation(document), cy) && !setReactionGeometricShapeCenterY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cy))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
@@ -4200,33 +3994,27 @@ int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribut
 }
 
 int setCompartmentGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeRadiusX(document, layout->getCompartmentGlyph(i), rx))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeRadiusX(getGlobalRenderInformation(document), rx) && !setCompartmentGeometricShapeRadiusX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeRadiusX(document, layout->getSpeciesGlyph(i), rx))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeRadiusX(getGlobalRenderInformation(document), rx) && !setSpeciesGeometricShapeRadiusX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeRadiusX(document, layout->getReactionGlyph(i), rx))
-            return -1;
-    }
+    if (!setReactionGeometricShapeRadiusX(getGlobalRenderInformation(document), rx) && !setReactionGeometricShapeRadiusX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
@@ -4285,33 +4073,27 @@ int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribut
 }
 
 int setCompartmentGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeRadiusY(document, layout->getCompartmentGlyph(i), ry))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeRadiusY(getGlobalRenderInformation(document), ry) && !setCompartmentGeometricShapeRadiusY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeRadiusY(document, layout->getSpeciesGlyph(i), ry))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeRadiusY(getGlobalRenderInformation(document), ry) && !setSpeciesGeometricShapeRadiusY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeRadiusY(document, layout->getReactionGlyph(i), ry))
-            return -1;
-    }
+    if (!setReactionGeometricShapeRadiusY(getGlobalRenderInformation(document), ry) && !setReactionGeometricShapeRadiusY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
  int setGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
@@ -4392,33 +4174,27 @@ int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribu
 }
 
 int setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeElementX(document, layout->getCompartmentGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeElementX(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeElementX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeElementX(document, layout->getSpeciesGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeElementX(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeElementX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeElementX(document, layout->getReactionGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setReactionGeometricShapeElementX(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeElementX(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -4483,33 +4259,27 @@ int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribu
 }
 
 int setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeElementY(document, layout->getCompartmentGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeElementY(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeElementY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeElementY(document, layout->getSpeciesGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeElementY(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeElementY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeElementY(document, layout->getReactionGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setReactionGeometricShapeElementY(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeElementY(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -4574,33 +4344,27 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attr
 }
 
 int setCompartmentGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeBasePoint1X(document, layout->getCompartmentGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeBasePoint1X(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeBasePoint1X(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeBasePoint1X(document, layout->getSpeciesGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeBasePoint1X(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeBasePoint1X(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeBasePoint1X(document, layout->getReactionGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setReactionGeometricShapeBasePoint1X(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeBasePoint1X(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -4665,33 +4429,27 @@ int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attr
 }
 
 int setCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeBasePoint1Y(document, layout->getCompartmentGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeBasePoint1Y(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeBasePoint1Y(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeBasePoint1Y(document, layout->getSpeciesGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeBasePoint1Y(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeBasePoint1Y(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeBasePoint1Y(document, layout->getReactionGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setReactionGeometricShapeBasePoint1Y(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeBasePoint1Y(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -4756,33 +4514,27 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attr
 }
 
 int setCompartmentGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeBasePoint2X(document, layout->getCompartmentGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeBasePoint2X(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeBasePoint2X(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeBasePoint2X(document, layout->getSpeciesGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeBasePoint2X(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeBasePoint2X(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeBasePoint2X(document, layout->getReactionGlyph(i), elementIndex, x))
-            return -1;
-    }
+    if (!setReactionGeometricShapeBasePoint2X(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeBasePoint2X(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -4847,33 +4599,27 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attr
 }
 
 int setCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeBasePoint2Y(document, layout->getCompartmentGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeBasePoint2Y(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeBasePoint2Y(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeBasePoint2Y(document, layout->getSpeciesGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeBasePoint2Y(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeBasePoint2Y(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
-    Layout* layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeBasePoint2Y(document, layout->getReactionGlyph(i), elementIndex, y))
-            return -1;
-    }
+    if (!setReactionGeometricShapeBasePoint2Y(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeBasePoint2Y(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -4982,33 +4728,27 @@ int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, 
 }
 
 int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {
-    Layout *layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (setGeometricShapeHref(document, layout->getCompartmentGlyph(i), href))
-            return -1;
-    }
+    if (!setCompartmentGeometricShapeHref(getGlobalRenderInformation(document), href) && !setCompartmentGeometricShapeHref(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), href))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {
-    Layout *layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (setGeometricShapeHref(document, layout->getSpeciesGlyph(i), href))
-            return -1;
-    }
+    if (!setSpeciesGeometricShapeHref(getGlobalRenderInformation(document), href) && !setSpeciesGeometricShapeHref(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), href))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setReactionGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {
-    Layout *layout = getLayout(document, layoutIndex);
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (setGeometricShapeHref(document, layout->getReactionGlyph(i), href))
-            return -1;
-    }
+    if (!setReactionGeometricShapeHref(getGlobalRenderInformation(document), href) && !setReactionGeometricShapeHref(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), href))
+        return 0;
 
-    return 0;
+    return -1;
 }
 
 int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {

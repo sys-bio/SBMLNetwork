@@ -865,6 +865,9 @@ int setStrokeColor(RenderInformationBase* renderInformationBase, const std::stri
 }
 
 int setStrokeColor(Style* style, const std::string& stroke) {
+    if (getNumGeometricShapes(style) == 1)
+        return setStrokeColor(getGeometricShape(style), stroke);
+
     return setStrokeColor(getRenderGroup(style), stroke);
 }
 
@@ -875,6 +878,56 @@ int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke
     }
 
     return -1;
+}
+
+int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, stroke);
+        return setStrokeColor(style, stroke);
+    }
+
+    return 0;
+}
+
+int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, stroke);
+        return setStrokeColor(style, stroke);
+    }
+
+    return 0;
+}
+
+int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, stroke);
+        return setStrokeColor(style, stroke);
+    }
+
+    return 0;
+}
+
+int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, stroke);
+        if (setStrokeColor(style, stroke))
+            return -1;
+    }
+    std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
+    for (unsigned int i = 0; i < styleRoles.size(); i++) {
+        Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
+        if (style) {
+            addColor(globalRenderInformation, stroke);
+            if (setStrokeColor(style, stroke))
+                return -1;
+        }
+    }
+
+    return 0;
 }
 
 bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -924,6 +977,9 @@ int setStrokeWidth(RenderInformationBase* renderInformationBase, const std::stri
 }
 
 int setStrokeWidth(Style* style, const double& strokeWidth) {
+    if (getNumGeometricShapes(style) == 1)
+        return setStrokeWidth(getGeometricShape(style), strokeWidth);
+
     return setStrokeWidth(getRenderGroup(style), strokeWidth);
 }
 
@@ -934,6 +990,48 @@ int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth
     }
 
     return -1;
+}
+
+int setCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setStrokeWidth(style, strokeWidth);
+
+    return 0;
+}
+
+int setSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setStrokeWidth(style, strokeWidth);
+
+    return 0;
+}
+
+int setReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setStrokeWidth(style, strokeWidth);
+
+    return 0;
+}
+
+int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
+    if (style) {
+        if (setStrokeWidth(style, strokeWidth))
+            return -1;
+    }
+    std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
+    for (unsigned int i = 0; i < styleRoles.size(); i++) {
+        Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
+        if (style) {
+            if (setStrokeWidth(style, strokeWidth))
+                return -1;
+        }
+    }
+
+    return 0;
 }
 
 bool isSetStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -983,6 +1081,9 @@ int setStrokeDashArray(RenderInformationBase* renderInformationBase, const std::
 }
 
 int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray) {
+    if (getNumGeometricShapes(style) == 1)
+        return setStrokeDashArray(getGeometricShape(style), strokeDashArray);
+
     return setStrokeDashArray(getRenderGroup(style), strokeDashArray);
 }
 
@@ -993,6 +1094,30 @@ int setStrokeDashArray(Transformation2D* transformation2D, const std::vector<uns
     }
 
     return -1;
+}
+
+int setCompartmentStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setStrokeDashArray(style, strokeDashArray);
+
+    return 0;
+}
+
+int setSpeciesStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setStrokeDashArray(style, strokeDashArray);
+
+    return 0;
+}
+
+int setReactionStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setStrokeDashArray(style, strokeDashArray);
+
+    return 0;
 }
 
 unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1020,7 +1145,10 @@ unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, const s
 }
 
 unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex) {
-    return getStrokeDash(getRenderGroup(style), strokeDashIndex);
+    if (getNumGeometricShapes(style) == 1)
+        return setStrokeDash(getGeometricShape(style), strokeDashIndex);
+
+    return setStrokeDash(getRenderGroup(style), strokeDashIndex);
 }
 
 unsigned int getStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex) {
@@ -1030,41 +1158,68 @@ unsigned int getStrokeDash(Transformation2D* transformation2D, unsigned int stro
     return 0;
 }
 
-unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash) {
+int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash) {
     return setStrokeDash(renderInformationBase, graphicalObject, 0, dash);
 }
 
-unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash) {
+int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash) {
     return setStrokeDash(getStyle(renderInformationBase, graphicalObject), strokeDashIndex, dash);
 }
 
-unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dash) {
+int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dash) {
     return setStrokeDash(renderInformationBase, attribute, 0, dash);
 }
 
-unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash) {
+int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash) {
     return setStrokeDash(getStyle(renderInformationBase, attribute), strokeDashIndex, dash);
 }
 
-unsigned int setStrokeDash(Style* style, unsigned int dash) {
+int setStrokeDash(Style* style, unsigned int dash) {
     return setStrokeDash(style, 0, dash);
 }
 
-unsigned int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash) {
+int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash) {
+    if (getNumGeometricShapes(style) == 1)
+        return setStrokeDash(getGeometricShape(style), strokeDashIndex, dash);
+
     return setStrokeDash(getRenderGroup(style), strokeDashIndex, dash);
 }
 
-unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int dash) {
+int setStrokeDash(Transformation2D* transformation2D, unsigned int dash) {
     return setStrokeDash(transformation2D, 0, dash);
 }
 
-unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash) {
+int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash) {
     if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeDashValue(dash)) {
         ((GraphicalPrimitive1D*)transformation2D)->setDashByIndex(strokeDashIndex, dash);
         return 0;
     }
 
     return -1;
+}
+
+int setCompartmentStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setStrokeDash(style, dash);
+
+    return 0;
+}
+
+int setSpeciesStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setStrokeDash(style, dash);
+
+    return 0;
+}
+
+int setReactionStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setStrokeDash(style, dash);
+
+    return 0;
 }
 
 bool isSetFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1116,6 +1271,36 @@ int setFontColor(Transformation2D* transformation2D, const std::string& fontColo
         return setStrokeColor(transformation2D, fontColor);
 
     return -1;
+}
+
+int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, fontColor);
+    }
+
+    return 0;
+}
+
+int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, fontColor);
+    }
+
+    return 0;
+}
+
+int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, fontColor);
+    }
+
+    return 0;
 }
 
 bool isSetFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1187,6 +1372,30 @@ int setFontFamily(Transformation2D* transformation2D, const std::string& fontFam
     return -1;
 }
 
+int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setFontFamily(style, fontFamily);
+
+    return 0;
+}
+
+int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setFontFamily(style, fontFamily);
+
+    return 0;
+}
+
+int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFontFamily(style, fontFamily);
+
+    return 0;
+}
+
 bool isSetFontSize(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetFontSize(getStyle(renderInformationBase, graphicalObject));
 }
@@ -1254,6 +1463,30 @@ int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize
     }
 
     return -1;
+}
+
+int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setFontSize(style, fontSize);
+
+    return 0;
+}
+
+int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setFontSize(style, fontSize);
+
+    return 0;
+}
+
+int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFontSize(style, fontSize);
+
+    return 0;
 }
 
 bool isSetFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1325,6 +1558,30 @@ int setFontWeight(Transformation2D* transformation2D, const std::string& fontWei
     return -1;
 }
 
+int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setFontWeight(style, fontWeight);
+
+    return 0;
+}
+
+int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setFontWeight(style, fontWeight);
+
+    return 0;
+}
+
+int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFontWeight(style, fontWeight);
+
+    return 0;
+}
+
 bool isSetFontStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetFontStyle(getStyle(renderInformationBase, graphicalObject));
 }
@@ -1392,6 +1649,30 @@ int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyl
     }
 
     return -1;
+}
+
+int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setFontStyle(style, fontStyle);
+
+    return 0;
+}
+
+int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setFontStyle(style, fontStyle);
+
+    return 0;
+}
+
+int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFontStyle(style, fontStyle);
+
+    return 0;
 }
 
 bool isSetTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1463,6 +1744,30 @@ int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnc
     return -1;
 }
 
+int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setTextAnchor(style, textAnchor);
+
+    return 0;
+}
+
+int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setTextAnchor(style, textAnchor);
+
+    return 0;
+}
+
+int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setTextAnchor(style, textAnchor);
+
+    return 0;
+}
+
 bool isSetVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetVTextAnchor(getStyle(renderInformationBase, graphicalObject));
 }
@@ -1532,6 +1837,30 @@ int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextA
     return -1;
 }
 
+int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setVTextAnchor(style, vtextAnchor);
+
+    return 0;
+}
+
+int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setVTextAnchor(style, vtextAnchor);
+
+    return 0;
+}
+
+int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setVTextAnchor(style, vtextAnchor);
+
+    return 0;
+}
+
 bool isSetFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     return isSetFillColor(getStyle(renderInformationBase, graphicalObject));
 }
@@ -1579,6 +1908,9 @@ int setFillColor(RenderInformationBase* renderInformationBase, const std::string
 }
 
 int setFillColor(Style* style, const std::string& fillColor) {
+    if (getNumGeometricShapes(style) == 1)
+        return setFillColor(getGeometricShape(style), fillColor);
+
     return setFillColor(getRenderGroup(style), fillColor);
 }
 
@@ -1589,6 +1921,36 @@ int setFillColor(Transformation2D* transformation2D, const std::string& fillColo
     }
 
     return -1;
+}
+
+int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, fillColor);
+    }
+
+    return 0;
+}
+
+int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, fillColor);
+    }
+
+    return 0;
+}
+
+int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style) {
+        addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, fillColor);
+    }
+
+    return 0;
 }
 
 bool isSetFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1648,6 +2010,30 @@ int setFillRule(Transformation2D* transformation2D, const std::string& fillRule)
     }
 
     return -1;
+}
+
+int setCompartmentFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setFillRule(style, fillRule);
+
+    return 0;
+}
+
+int setSpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setFillRule(style, fillRule);
+
+    return 0;
+}
+
+int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setFillRule(style, fillRule);
+
+    return 0;
 }
 
 bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1950,19 +2336,19 @@ const std::string getGeometricShapeType(Transformation2D* shape) {
     return "";
 }
 
-int setGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape) {
-    return setGeometricShape(getStyle(renderInformationBase, graphicalObject), shape);
+int setGeometricShapeType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape) {
+    return setGeometricShapeType(getStyle(renderInformationBase, graphicalObject), shape);
 }
 
-int setGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape) {
-    return setGeometricShape(getStyle(renderInformationBase, attribute), shape);
+int setGeometricShapeType(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape) {
+    return setGeometricShapeType(getStyle(renderInformationBase, attribute), shape);
 }
 
-int setGeometricShape(Style* style, const std::string& shape) {
-    return setGeometricShape(getRenderGroup(style), shape);
+int setGeometricShapeType(Style* style, const std::string& shape) {
+    return setGeometricShapeType(getRenderGroup(style), shape);
 }
 
-int setGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
+int setGeometricShapeType(RenderGroup* renderGroup, const std::string& shape) {
     if (getNumGeometricShapes(renderGroup) && isValidGeometricShapeName(shape)) {
         if (!addGeometricShape(renderGroup, shape)) {
             while (getNumGeometricShapes(renderGroup) > 1)
@@ -1973,6 +2359,30 @@ int setGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeType(style, shape);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeType(style, shape);
+
+    return 0;
+}
+
+int setReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeType(style, shape);
+
+    return 0;
 }
 
 bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -2264,6 +2674,30 @@ int setGeometricShapeX(Transformation2D* shape, const RelAbsVector& x) {
     return -1;
 }
 
+int setCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeX(style, x);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeX(style, x);
+
+    return 0;
+}
+
+int setReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeX(style, x);
+
+    return 0;
+}
+
 bool isSetGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -2369,6 +2803,30 @@ int setGeometricShapeY(Transformation2D* shape, const RelAbsVector& y) {
     return -1;
 }
 
+int setCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeY(style, y);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeY(style, y);
+
+    return 0;
+}
+
+int setReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeY(style, y);
+
+    return 0;
+}
+
 bool isSetGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -2464,6 +2922,30 @@ int setGeometricShapeWidth(Transformation2D* shape, const RelAbsVector& width) {
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeWidth(style, width);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeWidth(style, width);
+
+    return 0;
+}
+
+int setReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeWidth(style, width);
+
+    return 0;
 }
 
 bool isSetGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -2563,6 +3045,30 @@ int setGeometricShapeHeight(Transformation2D* shape, const RelAbsVector& height)
     return -1;
 }
 
+int setCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeHeight(style, height);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeHeight(style, height);
+
+    return 0;
+}
+
+int setReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeHeight(style, height);
+
+    return 0;
+}
+
 bool isSetGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeRatio(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -2660,6 +3166,30 @@ int setGeometricShapeRatio(Transformation2D* shape, const double& ratio) {
     return -1;
 }
 
+int setCompartmentGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeRatio(style, ratio);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeRatio(style, ratio);
+
+    return 0;
+}
+
+int setReactionGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeRatio(style, ratio);
+
+    return 0;
+}
+
 bool isSetGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeCornerCurvatureRadiusX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -2745,6 +3275,30 @@ int setGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape, const RelAb
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeCornerCurvatureRadiusX(style, rx);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeCornerCurvatureRadiusX(style, rx);
+
+    return 0;
+}
+
+int setReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeCornerCurvatureRadiusX(style, rx);
+
+    return 0;
 }
 
 bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -2834,6 +3388,30 @@ int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAb
     return -1;
 }
 
+int setCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeCornerCurvatureRadiusY(style, ry);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeCornerCurvatureRadiusY(style, ry);
+
+    return 0;
+}
+
+int setReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeCornerCurvatureRadiusY(style, ry);
+
+    return 0;
+}
+
 bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeCenterX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -2919,6 +3497,30 @@ int setGeometricShapeCenterX(Transformation2D* shape, const RelAbsVector& cx) {
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeCenterX(style, cx);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeCenterX(style, cx);
+
+    return 0;
+}
+
+int setReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeCenterX(style, cx);
+
+    return 0;
 }
 
 bool isSetGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -3008,6 +3610,30 @@ int setGeometricShapeCenterY(Transformation2D* shape, const RelAbsVector& cy) {
     return -1;
 }
 
+int setCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeCenterY(style, cy);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeCenterY(style, cy);
+
+    return 0;
+}
+
+int setReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeCenterY(style, cy);
+
+    return 0;
+}
+
 bool isSetGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeRadiusX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -3095,6 +3721,30 @@ int setGeometricShapeRadiusX(Transformation2D* shape, const RelAbsVector& rx) {
     return -1;
 }
 
+int setCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeRadiusX(style, rx);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeRadiusX(style, rx);
+
+    return 0;
+}
+
+int setReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeRadiusX(style, rx);
+
+    return 0;
+}
+
 bool isSetGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeRadiusY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
@@ -3180,6 +3830,30 @@ int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry) {
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeRadiusY(style, ry);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeRadiusY(style, ry);
+
+    return 0;
+}
+
+int setReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeRadiusY(style, ry);
+
+    return 0;
 }
 
 const unsigned int getGeometricShapeNumElements(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -3305,6 +3979,30 @@ int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex
     return -1;
 }
 
+int setCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeElementX(style, x);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeElementX(style, x);
+
+    return 0;
+}
+
+int setReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeElementX(style, x);
+
+    return 0;
+}
+
 const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     return getGeometricShapeElementY(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex);
 }
@@ -3401,6 +4099,30 @@ int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeElementY(style, y);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeElementY(style, y);
+
+    return 0;
+}
+
+int setReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeElementY(style, y);
+
+    return 0;
 }
 
 const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -3501,6 +4223,30 @@ int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIn
     return -1;
 }
 
+int setCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint1X(style, x);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint1X(style, x);
+
+    return 0;
+}
+
+int setReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint1X(style, x);
+
+    return 0;
+}
+
 const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     return getGeometricShapeBasePoint1Y(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex);
 }
@@ -3597,6 +4343,30 @@ int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIn
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint1Y(style, y);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint1Y(style, y);
+
+    return 0;
+}
+
+int setReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint1Y(style, y);
+
+    return 0;
 }
 
 const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -3697,6 +4467,30 @@ int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIn
     return -1;
 }
 
+int setCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint2X(style, x);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint2X(style, x);
+
+    return 0;
+}
+
+int setReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint2X(style, x);
+
+    return 0;
+}
+
 const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     return getGeometricShapeBasePoint2Y(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, elementIndex);
 }
@@ -3793,6 +4587,30 @@ int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIn
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint2Y(style, y);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint2Y(style, y);
+
+    return 0;
+}
+
+int setReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeBasePoint2Y(style, y);
+
+    return 0;
 }
 
 int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -3987,6 +4805,30 @@ int setGeometricShapeHref(Transformation2D* shape, const std::string& href) {
     }
 
     return -1;
+}
+
+int setCompartmentGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style)
+        return setGeometricShapeHref(style, href);
+
+    return 0;
+}
+
+int setSpeciesGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style)
+        return setGeometricShapeHref(style, href);
+
+    return 0;
+}
+
+int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style)
+        return setGeometricShapeHref(style, href);
+
+    return 0;
 }
 
 const double getAbsoluteValue(const RelAbsVector& relAbsVector) {

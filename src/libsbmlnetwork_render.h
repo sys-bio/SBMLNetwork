@@ -902,6 +902,14 @@ LIBSBMLNETWORK_EXTERN int setStrokeColor(Style* style, const std::string& stroke
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -975,6 +983,14 @@ LIBSBMLNETWORK_EXTERN int setStrokeWidth(Style* style, const double& strokeWidth
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
 
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1103,7 +1119,7 @@ LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(Transformation2D* transformatio
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int dash);
 
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1111,14 +1127,14 @@ LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderIn
 /// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int strokeDashIndex, unsigned int dash);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int dash);
 
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1126,34 +1142,40 @@ LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderIn
 /// @param strokeDashIndex an unsigned int representing the index of the stroke dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int strokeDashIndex, unsigned int dash);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
 /// @param dash a unsigned int value to use as the first dash of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(Style* style, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(Style* style, unsigned int dash);
 
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @param dash a unsigned int value to use as the fist dash of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(Transformation2D* transformation2D, unsigned int dash);
 
 /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @param strokeDashIndex an unsigned int representing the index of the dash to set.
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN unsigned int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash);
+LIBSBMLNETWORK_EXTERN int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex, unsigned int dash);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeDash(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeDash(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray);
+
+LIBSBMLNETWORK_EXTERN int setReactionStrokeDash(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1229,6 +1251,12 @@ LIBSBMLNETWORK_EXTERN int setFontColor(Style* style, const std::string& fontColo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(Transformation2D* transformation2D, const std::string& fontColor);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
+
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1302,6 +1330,12 @@ LIBSBMLNETWORK_EXTERN int setFontFamily(Style* style, const std::string& fontFam
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(Transformation2D* transformation2D, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
 
 /// @brief Predicates returning @c true if the "font-size" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1377,6 +1411,12 @@ LIBSBMLNETWORK_EXTERN int setFontSize(Style* style, const RelAbsVector& fontSize
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1450,6 +1490,12 @@ LIBSBMLNETWORK_EXTERN int setFontWeight(Style* style, const std::string& fontWei
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(Transformation2D* transformation2D, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
 
 /// @brief Predicates returning @c true if the "font-style" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1525,6 +1571,12 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(Style* style, const std::string& fontStyl
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyle);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
+
 /// @brief Predicates returning @c true if the "text-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1598,6 +1650,12 @@ LIBSBMLNETWORK_EXTERN int setTextAnchor(Style* style, const std::string& textAnc
 /// @param textAnchor a string value to use as the value of the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
 
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1673,6 +1731,12 @@ LIBSBMLNETWORK_EXTERN int setVTextAnchor(Style* style, const std::string& vtextA
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
+
+LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
+
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1747,6 +1811,12 @@ LIBSBMLNETWORK_EXTERN int setFillColor(Style* style, const std::string& fillColo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(Transformation2D* transformation2D, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1820,6 +1890,12 @@ LIBSBMLNETWORK_EXTERN int setFillRule(Style* style, const std::string& fillRule)
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillRule(Transformation2D* transformation2D, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
 
 /// @brief Predicates returning @c true if the "startHead" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2110,26 +2186,32 @@ LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeType(Transformation2D* 
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
 
 /// @brief Sets the geometric shape for a GraphicalObject based on its attribute.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeType(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& shape);
 
 /// @brief Sets the geometric shape for a specific Style.
 /// @param style a pointer to the Style object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int setGeometricShape(Style* style, const std::string& shape);
+    LIBSBMLNETWORK_EXTERN int setGeometricShapeType(Style* style, const std::string& shape);
 
 /// @brief Sets the geometric shape for a specific RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param shape a string value indicating the shape of the geometric shape to be set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setGeometricShape(RenderGroup* renderGroup, const std::string& shape);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeType(RenderGroup* renderGroup, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
 
 /// @brief Checks if the Transformation2D at the given index of the RenderGroup of the Style for a GraphicalObject is of type Rectangle.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2512,6 +2594,8 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeX(RenderInformationBase* renderInform
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeX(Style* style, const RelAbsVector& x);
+
 /// @brief Sets the value of the "x" attribute the Transformation2D at the given index of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
@@ -2537,6 +2621,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeX(RenderGroup* renderGroup, unsigned 
 /// @param x a RelAbsVector to use as the value of the "x" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeX(Transformation2D* shape, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
 
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2671,6 +2761,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeY(RenderGroup* renderGroup, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeY(Transformation2D* shape, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -2803,6 +2899,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(RenderGroup* renderGroup, unsig
 /// @param width a RelAbsVector to use as the value of the "width" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(Transformation2D* shape, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
 
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2937,6 +3039,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(RenderGroup* renderGroup, unsi
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(Transformation2D* shape, const RelAbsVector& height);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3069,6 +3177,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(RenderGroup* renderGroup, unsig
 /// @param ratio a double value to use as the value of the "ratio" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(Transformation2D* shape, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3203,6 +3317,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderGroup* r
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3336,6 +3456,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderGroup* r
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAbsVector& ry);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3422,7 +3548,6 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(RenderInformationBase* render
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const RelAbsVector& cx);
 
-
 /// @brief Sets the value of the "cx" attribute of the first Transformation2D of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
@@ -3469,6 +3594,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(RenderGroup* renderGroup, uns
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(Transformation2D* shape, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3603,6 +3734,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(RenderGroup* renderGroup, uns
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(Transformation2D* shape, const RelAbsVector& cy);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3736,6 +3873,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(RenderGroup* renderGroup, uns
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(Transformation2D* shape, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -3868,6 +4011,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(RenderGroup* renderGroup, uns
 /// @param ry a RelAbsVector to use as the value of the "ry" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
 
 /// @brief Returns the number of elements of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4048,6 +4197,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(Transformation2D* shape, con
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -4191,6 +4346,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(Transformation2D* shape, con
 /// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4336,6 +4497,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* shape, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -4478,6 +4645,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, 
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4622,6 +4795,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(RenderGroup* renderGroup,
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -4765,6 +4944,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, 
 /// @param y a RelAbsVector to use as the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -5042,6 +5227,12 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup, unsign
 /// @param href a string value to use as the value of the "href" attribute of this Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
 
 /// @brief Returns the absolute coordinate value of this RelAbsVector.
 /// @param relAbsVector a RelAbsVector.

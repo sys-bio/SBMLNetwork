@@ -151,20 +151,56 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
 const std::string getStyleType(GraphicalObject* graphicalObject) {
     if (graphicalObject) {
         if (isCompartmentGlyph(graphicalObject))
-            return "COMPARTMENTGLYPH";
+            return getCompartmentGlyphStyleType();
         else if (isSpeciesGlyph(graphicalObject))
-            return "SPECIESGLYPH";
+            return getSpeciesGlyphStyleType();
         else if (isReactionGlyph(graphicalObject))
-            return "REACTIONGLYPH";
+            return getReactionGlyphStyleType();
         else if (isSpeciesReferenceGlyph(graphicalObject))
-            return "SPECIESREFERENCEGLYPH";
+            return getSpeciesReferenceGlyphStyleType();
         else if (isTextGlyph(graphicalObject))
-            return "TEXTGLYPH";
+            return getTextGlyphStyleType();
 
-        return "GRAPHICALOBJECT";
+        return getGraphicalObjectStyleType();
     }
 
     return "";
+}
+
+const std::string getCompartmentGlyphStyleType() {
+    return "COMPARTMENTGLYPH";
+}
+
+const std::string getSpeciesGlyphStyleType() {
+    return "SPECIESGLYPH";
+}
+
+const std::string getReactionGlyphStyleType() {
+    return "REACTIONGLYPH";
+}
+
+const std::string getSpeciesReferenceGlyphStyleType() {
+    return "SPECIESREFERENCEGLYPH";
+}
+
+const std::string getTextGlyphStyleType() {
+    return "TEXTGLYPH";
+}
+
+const std::string getGraphicalObjectStyleType() {
+    return "GRAPHICALOBJECT";
+}
+
+std::vector<std::pair<SpeciesReferenceRole_t, std::string>> getStyleRoles() {
+    std::vector<std::pair<SpeciesReferenceRole_t, std::string>> roles;
+    roles.push_back(std::make_pair(SPECIES_ROLE_SUBSTRATE, "substrate"));
+    roles.push_back(std::make_pair(SPECIES_ROLE_SIDESUBSTRATE, "sidesubstrate"));
+    roles.push_back(std::make_pair(SPECIES_ROLE_PRODUCT, "product"));
+    roles.push_back(std::make_pair(SPECIES_ROLE_SIDEPRODUCT, "sideproduct"));
+    roles.push_back(std::make_pair(SPECIES_ROLE_MODIFIER, "modifier"));
+    roles.push_back(std::make_pair(SPECIES_ROLE_ACTIVATOR, "activator"));
+    roles.push_back(std::make_pair(SPECIES_ROLE_INHIBITOR, "inhibitor"));
+    return roles;
 }
 
 void addDefaultColors(GlobalRenderInformation* globalRenderInformation) {
@@ -381,8 +417,8 @@ GlobalStyle* createGlobalStyleByRole(GlobalRenderInformation* globalRenderInform
 }
 
 void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
-    if (!findStyleByTypeList(globalRenderInformation, "COMPARTMENTGLYPH")) {
-        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, "COMPARTMENTGLYPH");
+    if (!findStyleByTypeList(globalRenderInformation, getCompartmentGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setCompartmentGlyphRenderGroupFeatures(renderGroup);
         setCompartmentTextGlyphRenderGroupFeatures(renderGroup);
@@ -390,8 +426,8 @@ void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInforma
 }
 
 void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
-    if (!findStyleByTypeList(globalRenderInformation, "SPECIESGLYPH")) {
-        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, "SPECIESGLYPH");
+    if (!findStyleByTypeList(globalRenderInformation, getSpeciesGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setSpeciesGlyphRenderGroupFeatures(renderGroup);
         setSpeciesTextGlyphRenderGroupFeatures(renderGroup);
@@ -399,8 +435,8 @@ void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation
 }
 
 void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
-    if (!findStyleByTypeList(globalRenderInformation, "REACTIONGLYPH")) {
-        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, "REACTIONGLYPH");
+    if (!findStyleByTypeList(globalRenderInformation, getReactionGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getReactionGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setReactionGlyphRenderGroupFeatures(renderGroup);
         setReactionTextGlyphRenderGroupFeatures(renderGroup);
@@ -408,33 +444,12 @@ void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformatio
 }
 
 void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
-    if (!findStyleByRoleList(globalRenderInformation, "substrate")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "substrate");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_SUBSTRATE);
-    }
-    if (!findStyleByRoleList(globalRenderInformation, "sidesubstrate")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "sidesubstrate");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_SIDESUBSTRATE);
-    }
-    if (!findStyleByRoleList(globalRenderInformation, "product")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "product");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_PRODUCT);
-    }
-    if (!findStyleByRoleList(globalRenderInformation, "sideproduct")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "sideproduct");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_SIDEPRODUCT);
-    }
-    if (!findStyleByRoleList(globalRenderInformation, "modifier")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "modifier");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_MODIFIER);
-    }
-    if (!findStyleByRoleList(globalRenderInformation, "activator")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "activator");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_ACTIVATOR);
-    }
-    if (!findStyleByRoleList(globalRenderInformation, "inhibitor")) {
-        GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, "inhibitor");
-        setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), SPECIES_ROLE_INHIBITOR);
+    std::vector<std::pair<SpeciesReferenceRole_t, std::string>> roles = getStyleRoles();
+    for (unsigned int i = 0; i < roles.size(); i++) {
+        if (!findStyleByRoleList(globalRenderInformation, roles[i].second)) {
+            GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, roles[i].second);
+            setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), roles[i].first);
+        }
     }
 }
 

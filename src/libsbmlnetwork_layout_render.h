@@ -52,6 +52,190 @@ LIBSBMLNETWORK_EXTERN int removeAllLocalRenderInformation(Layout* layout);
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontFamily(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontFamily(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontFamily(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontSize(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontSize(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontWeight(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontWeight(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontWeight(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontStyle(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFontStyle(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontStyle(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setReactionTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentVTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& vTextAnchor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesVTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& vTextAnchor);
+
+LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& vTextAnchor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFillRule(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesFillRule(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setReactionFillRule(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeType(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeType(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeType(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRatio(Layout* layout, LocalRenderInformation* localRenderInformation, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRatio(Layout* layout, LocalRenderInformation* localRenderInformation, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRatio(Layout* layout, LocalRenderInformation* localRenderInformation, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerX);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerX);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerX);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerY);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerY);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& centerY);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementX);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementX);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementX);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementY);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementY);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& elementY);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1X);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1X);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1X);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1Y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint1Y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2X);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2X);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2X);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2Y);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(Layout* layout, LocalRenderInformation* localRenderInformation, const RelAbsVector& basePoint2Y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHref(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHref(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& href);
+
 }
 
 #endif
