@@ -83,8 +83,10 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::
     if (document && layout) {
         Model* model = document->getModel();
         if (model) {
+            clearReactionTextGlyphs(layout);
             std::vector<LockedNodeInfo> lockedNodesInfo = getLockedNodesInfo(layout, updatedGraphicalObjectIds, false);
             locateReactions(model, layout, 10.0, 15.0, false, true, false, false, lockedNodesInfo);
+            setReactionTextGlyphs(layout);
             return 0;
         }
     }

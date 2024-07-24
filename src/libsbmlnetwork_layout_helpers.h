@@ -76,6 +76,8 @@ void setTextGlyphs(Layout* layout);
 
 void clearTextGlyphs(Layout* layout);
 
+void clearReactionTextGlyphs(Layout* layout);
+
 void setCompartmentTextGlyphs(Layout* layout);
 
 void setSpeciesTextGlyphs(Layout* layout);

@@ -114,6 +114,15 @@ void clearTextGlyphs(Layout* layout) {
         delete layout->removeTextGlyph(0);
 }
 
+void clearReactionTextGlyphs(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, reactionGlyph);
+        for (unsigned int j = 0; j < textGlyphs.size(); j++)
+            delete layout->removeTextGlyph(textGlyphs.at(j)->getId());
+    }
+}
+
 void setCompartmentGlyphs(Model* model, Layout* layout) {
     for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
         Compartment *compartment = model->getCompartment(i);
@@ -639,7 +648,9 @@ const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphica
 }
 
 const bool layoutContainsGlyphs(Layout* layout) {
-    return layout->getNumCompartmentGlyphs() + layout->getNumSpeciesGlyphs() + layout->getNumReactionGlyphs() > 0 ? true : false;
+    return (layout->getNumCompartmentGlyphs() > 0) ||
+           (layout->getNumSpeciesGlyphs() > 0) ||
+           (layout->getNumReactionGlyphs() > 0);
 }
 
 void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX) {
