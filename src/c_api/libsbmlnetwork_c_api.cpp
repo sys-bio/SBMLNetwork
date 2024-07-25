@@ -498,12 +498,36 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width);
     }
 
+    int c_api_setCompartmentsWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        return setCompartmentDimensionWidth(document, layoutIndex, width);
+    }
+
+    int c_api_setSpeciesWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        return setSpeciesDimensionWidth(document, layoutIndex, width);
+    }
+
+    int c_api_setReactionsWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        return setReactionDimensionWidth(document, layoutIndex, width);
+    }
+
     const double c_api_getHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex);
     }
 
     int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
         return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height);
+    }
+
+    int c_api_setCompartmentsHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        return setCompartmentDimensionHeight(document, layoutIndex, height);
+    }
+
+    int c_api_setSpeciesHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        return setSpeciesDimensionHeight(document, layoutIndex, height);
+    }
+
+    int c_api_setReactionsHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        return setReactionDimensionHeight(document, layoutIndex, height);
     }
 
     const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {

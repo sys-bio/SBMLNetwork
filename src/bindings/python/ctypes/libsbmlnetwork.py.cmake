@@ -1716,6 +1716,51 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index)
 
+    def setCompartmentsWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the Compartments in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the Compartments
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the Compartments could not be set
+        """
+        return lib.c_api_setCompartmentsWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setSpeciesWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the Species in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the Species
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the Species could not be set
+        """
+        return lib.c_api_setSpeciesWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setReactionsWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the Reactions in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the Reactions
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the Reactions could not be set
+        """
+        return lib.c_api_setReactionsWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
     def getHeight(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns the height of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
@@ -1749,6 +1794,52 @@ class LibSBMLNetwork:
             true on success and false if the height of the GraphicalObject could not be set
         """
         return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
+
+    def setCompartmentsHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the Compartments in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the Compartments
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the Compartments could not be set
+        """
+        return lib.c_api_setCompartmentsHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+
+    def setSpeciesHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the Species in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the Species
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the Species could not be set
+        """
+        return lib.c_api_setSpeciesHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+    def setReactionsHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the Reactions in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the Reactions
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the Reactions could not be set
+        """
+        return lib.c_api_setReactionsHeights(self.sbml_object, ctypes.c_double(height), layout_index)
 
     def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """

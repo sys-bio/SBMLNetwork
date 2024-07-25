@@ -816,6 +816,33 @@ int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
     return -1;
 }
 
+int setCompartmentDimensionWidth(Layout* layout, const double& width) {
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setDimensionWidth(layout, layout->getCompartmentGlyph(i), width))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setSpeciesDimensionWidth(Layout* layout, const double& width) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setDimensionWidth(layout, layout->getSpeciesGlyph(i), width))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionDimensionWidth(Layout* layout, const double& width) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setDimensionWidth(layout, layout->getReactionGlyph(i), width))
+            return -1;
+    }
+
+    return 0;
+}
+
 const double getDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
     return getDimensionHeight(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
@@ -856,6 +883,33 @@ int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
     }
 
     return -1;
+}
+
+int setCompartmentDimensionHeight(Layout* layout, const double& height) {
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setDimensionHeight(layout, layout->getCompartmentGlyph(i), height))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setSpeciesDimensionHeight(Layout* layout, const double& height) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setDimensionHeight(layout, layout->getSpeciesGlyph(i), height))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionDimensionHeight(Layout* layout, const double& height) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setDimensionHeight(layout, layout->getReactionGlyph(i), height))
+            return -1;
+    }
+
+    return 0;
 }
 
 const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {

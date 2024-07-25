@@ -1035,6 +1035,39 @@ int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const st
     return -1;
 }
 
+int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
+    Layout* layout = getLayout(document, layoutIndex);
+    if (!setCompartmentDimensionWidth(layout, width)) {
+        if (canUpdateLayoutCurves(layout))
+            updateLayoutCurves(document, layout);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
+    Layout* layout = getLayout(document, layoutIndex);
+    if (!setSpeciesDimensionWidth(layout, width)) {
+        if (canUpdateLayoutCurves(layout))
+            updateLayoutCurves(document, layout);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
+    Layout* layout = getLayout(document, layoutIndex);
+    if (!setReactionDimensionWidth(layout, width)) {
+        if (canUpdateLayoutCurves(layout))
+            updateLayoutCurves(document, layout);
+        return 0;
+    }
+
+    return -1;
+}
+
 const double getDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
     return getDimensionHeight(getLayout(document), id, graphicalObjectIndex);
 }
@@ -1081,6 +1114,39 @@ int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const s
     if (!setDimensionHeight(layout, id, graphicalObjectIndex, height)) {
         if (canUpdateLayoutCurves(layout))
             updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+        return 0;
+    }
+
+    return -1;
+}
+
+int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
+    Layout* layout = getLayout(document, layoutIndex);
+    if (!setCompartmentDimensionHeight(layout, height)) {
+        if (canUpdateLayoutCurves(layout))
+            updateLayoutCurves(document, layout);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
+    Layout* layout = getLayout(document, layoutIndex);
+    if (!setSpeciesDimensionHeight(layout, height)) {
+        if (canUpdateLayoutCurves(layout))
+            updateLayoutCurves(document, layout);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
+    Layout* layout = getLayout(document, layoutIndex);
+    if (!setReactionDimensionHeight(layout, height)) {
+        if (canUpdateLayoutCurves(layout))
+            updateLayoutCurves(document, layout);
         return 0;
     }
 

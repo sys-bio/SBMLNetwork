@@ -852,6 +852,12 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, GraphicalObject* gra
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(BoundingBox* boundingBox, const double& width);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentDimensionWidth(Layout* layout, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesDimensionWidth(Layout* layout, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionDimensionWidth(Layout* layout, const double& width);
+
 /// @brief Returns the value of the "height" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
@@ -897,6 +903,12 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(Layout* layout, GraphicalObject* gr
 /// @param width a double value to use as the value of the "height" attribute of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(BoundingBox* boundingBox, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentDimensionHeight(Layout* layout, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesDimensionHeight(Layout* layout, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionDimensionHeight(Layout* layout, const double& height);
 
 LIBSBMLNETWORK_EXTERN const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex = 0);
 
