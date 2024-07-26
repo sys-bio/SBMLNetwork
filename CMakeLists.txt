@@ -80,9 +80,6 @@ elseif(UNIX)
 	set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif()
 
-## gather resources
-file(GLOB_RECURSE RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/*")
-
 option(WITH_PYTHON "Generate the Python language interface for libsbmlnetwork." OFF)
 cmake_dependent_option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG." OFF "${WITH_PYTHON}" OFF)
 

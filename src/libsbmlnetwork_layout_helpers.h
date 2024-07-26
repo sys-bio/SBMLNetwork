@@ -24,7 +24,21 @@ LayoutPkgNamespaces* getLayoutPkgNamespaces(Layout* layout);
 
 void setDefaultLayoutId(Layout* layout);
 
+const std::string getDefaultLayoutId();
+
+const bool canUpdateLayoutCurves(Layout* layout);
+
 void setDefaultLayoutDimensions(Layout* layout);
+
+void clearGraphicalObjects(Layout* layout);
+
+void clearCompartmentGlyphs(Layout* layout);
+
+void clearSpeciesGlyphs(Layout* layout);
+
+void clearReactionGlyphs(Layout* layout);
+
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 void setCompartmentGlyphs(Model* model, Layout* layout);
 
@@ -32,19 +46,37 @@ void setSpeciesGlyphs(Model* model, Layout* layout);
 
 void setReactionGlyphs(Model* model, Layout* layout);
 
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
 void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* getDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
+SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
+SpeciesGlyph* createDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
+
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
+
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges);
+
+std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
+
+int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxNumConnectedEdges);
+
+void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs);
+
+void setTextGlyphs(Layout* layout);
+
+void clearTextGlyphs(Layout* layout);
+
+void clearReactionTextGlyphs(Layout* layout);
 
 void setCompartmentTextGlyphs(Layout* layout);
 
@@ -52,31 +84,27 @@ void setSpeciesTextGlyphs(Layout* layout);
 
 void setReactionTextGlyphs(Layout* layout);
 
-CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment);
+CompartmentGlyph* createCompartmentGlyph(Layout* layout, Compartment* compartment);
 
-SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species);
+SpeciesGlyph* createSpeciesGlyph(Layout* layout, Species* species);
 
-ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction);
+ReactionGlyph* createReactionGlyph(Layout* layout, Reaction* reaction);
 
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
 CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
 
-SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
 
 const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const std::string& speciesId);
 
 const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
 
-TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
+TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
-
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
-
-void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
@@ -112,9 +140,9 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
-std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+std::vector<std::string> getListOfGraphicalObjectIds(GraphicalObject* graphicalObject);
 
-std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
+std::vector<std::string> getListOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects);
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
 
@@ -138,35 +166,47 @@ const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphica
 
 const bool layoutContainsGlyphs(Layout* layout);
 
-void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
+void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX);
 
-void alignGraphicalObjectsToTop(std::vector<GraphicalObject*> graphicalObjects);
+void updateAssociatedTextGlyphsPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceY);
 
-void alignGraphicalObjectsToCenter(std::vector<GraphicalObject*> graphicalObjects);
+void updateAssociatedTextGlyphsPosition(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX, const double& movedDistanceY);
 
-void alignGraphicalObjectsToBottom(std::vector<GraphicalObject*> graphicalObjects);
+void updateAssociatedTextGlyphsPosition(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX, const double& movedDistanceY);
 
-void alignGraphicalObjectsToLeft(std::vector<GraphicalObject*> graphicalObjects);
+void updateAssociatedTextGlyphsDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& changedWidth);
 
-void alignGraphicalObjectsToMiddle(std::vector<GraphicalObject*> graphicalObjects);
+void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& changedHeight);
 
-void alignGraphicalObjectsToRight(std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
 
-void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing);
+void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
+void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeEvenGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
+void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeOddGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
+void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
+void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeEvenGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
+void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-void distributeOddGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
+void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing);
+
+void distributeGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
+
+void distributeEvenGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
+
+void distributeOddGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
+
+void distributeGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
+
+void distributeEvenGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
+
+void distributeOddGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
 
 const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing);
 

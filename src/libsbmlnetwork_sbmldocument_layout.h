@@ -49,29 +49,48 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param layout a pointer to the Layout object.
 /// @param stiffness the stiffness value used in the autolayout algorithm.
 /// @param gravity the gravity value used in the autolayout algorithm.
+/// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
+/// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
 /// @param lockedNodeIds a vector of ids of the model entities that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
-                                                          bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
-                                                          bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
+LIBSBMLNETWORK_EXTERN int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
+                                                          bool useMagnetism = false, bool useBoundary = true, bool useGrid = false, bool useNameAsTextLabel = true,
+                                                          bool resetLockedNodes = false, const std::vector<std::string> lockedNodeIds = std::vector<std::string>());
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
 /// set all the necessary features for it
 /// @param document a pointer to the SBMLDocument object.
 /// @param stiffness the stiffness value used in the autolayout algorithm.
 /// @param gravity the gravity value used in the autolayout algorithm.
+/// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
 /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
 /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
+/// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
+/// @param lockedNodeIds a vector of ids of the model entities that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createDefaultLayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0,
-                                                     bool useMagnetism = false, bool useBoundary = false, bool useGrid = false,
-                                                     bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>());
+LIBSBMLNETWORK_EXTERN int createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
+                                                     bool useMagnetism = false, bool useBoundary = true, bool useGrid = false, bool useNameAsTextLabel = true,
+                                                     bool resetLockedNodes = false, const std::vector<std::string> lockedNodeIds = std::vector<std::string>());
+
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @param layout a pointer to the Layout object.
+/// @param updatedGraphicalObject a vector of the ids of the GraphicalObject objects the position of which has been updated recently.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::string> updatedGraphicalObjectIds = std::vector<std::string>());
+
+/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param updatedGraphicalObject a vector of the ids of the GraphicalObject objects the position of which has been updated recently.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex, std::vector<std::string> updatedGraphicalObjectIds = std::vector<std::string>());
 
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -1921,6 +1940,27 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, const std::s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
 
+/// @brief Sets the value of the "width" attribute the bounding box of all the CompartmentGlyph objects in the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param width a double value to use as the value of the "width" attribute of the bounding box of all the CompartmentGlyph objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width);
+
+/// @brief Sets the value of the "width" attribute the bounding box of all the SpeciesGlyph objects in the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param width a double value to use as the value of the "width" attribute of the bounding box of all the SpeciesGlyph objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width);
+
+/// @brief Sets the value of the "width" attribute the bounding box of all the ReactionGlyph objects in the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param width a double value to use as the value of the "width" attribute of the bounding box of all the ReactionGlyph objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width);
+
 /// @brief Returns the value of the "height" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with
 /// the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -1973,6 +2013,27 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height);
+
+/// @brief Sets the value of the "height" attribute of the bounding box of all the CompartmentGlyph objects in the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param height a double value to use as the value of the "height" attribute of the bounding box of all the CompartmentGlyph objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height);
+
+/// @brief Sets the value of the "height" attribute of the bounding box of all the SpeciesGlyph objects in the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param height a double value to use as the value of the "height" attribute of the bounding box of all the SpeciesGlyph objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height);
+
+/// @brief Sets the value of the "height" attribute of the bounding box of all the ReactionGlyph objects in the Layout object with the given index in the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param height a double value to use as the value of the "height" attribute of the bounding box of all the ReactionGlyph objects.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height);
 
 /// @brief Retrieves the "x" position of a TextGlyph object within a specific layout.
 /// This function fetches the "x" coordinate of the bounding box of a TextGlyph object, identified by its associated model entity ID and within a specified layout of the SBML document. The layout is determined by its index. Defaults for graphicalObjectIndex and textGlyphIndex are 0. If the TextGlyph object or the layout does not exist, the function returns 0.0.

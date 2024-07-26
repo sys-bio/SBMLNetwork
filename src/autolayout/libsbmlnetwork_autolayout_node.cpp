@@ -3,9 +3,9 @@
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel) : AutoLayoutObjectBase(model, layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
-    _locked = false;
+    _locked = locked;
     _useNameAsTextLabel = useNameAsTextLabel;
 }
 
@@ -66,7 +66,7 @@ const bool AutoLayoutNodeBase::isLocked() {
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel, locked) {
     _speciesGlyph = speciesGlyph;
 }
 
@@ -134,7 +134,7 @@ const double AutoLayoutNode::calculateHeight() {
 // AutoLayoutCentroidNode
 
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel) {
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel, locked) {
     _reactionGlyph = reactionGlyph;
 }
 

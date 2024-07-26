@@ -7,7 +7,7 @@
 class AutoLayoutNodeBase : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+    AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel, const bool& locked = false);
 
     virtual GraphicalObject* getGraphicalObject() = 0;
 
@@ -73,7 +73,7 @@ protected:
 class AutoLayoutNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel);
+    AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel, const bool& locked = false);
 
     const std::string getId() override;
 
@@ -111,7 +111,7 @@ protected:
 class AutoLayoutCentroidNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel);
+    AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel, const bool& locked = false);
 
     const std::string getId() override;
 

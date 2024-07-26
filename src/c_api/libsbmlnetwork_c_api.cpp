@@ -12,6 +12,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return strdup(getLibraryVersion().c_str());
     }
 
+    const char* c_api_getCurrentDirectoryOfLibrary() {
+        return strdup(getCurrentDirectoryOfLibrary().c_str());
+    }
+
     SBMLDocument* c_api_readSBML(const char* sbml) {
         return readSBML(sbml);
     }
@@ -40,44 +44,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, const char **lockedNodeIds, const int lockedNodesSize) {
+    int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, bool resetLockedNodes, const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
 
-        return autolayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
+        return autolayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
     }
 
-    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            std::vector <std::string> nodeIdsVector = std::vector<std::string>();
-            if (nodeIds) {
-                for (int i = 0; i < nodesSize; i++)
-                    nodeIdsVector.emplace_back(nodeIds[i]);
-            }
-            return align(document, nodeIdsVector, alignment);
+    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment) {
+        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+        if (nodeIds) {
+            for (int i = 0; i < nodesSize; i++)
+                nodeIdsVector.emplace_back(nodeIds[i]);
         }
-        else
-            std::cerr << "Align function does not apply as the layout is not set by the autolayout algorithm." << std::endl;
-
-        return -1;
+        return align(document, nodeIdsVector, alignment);
     }
 
-    int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            std::vector <std::string> nodeIdsVector = std::vector<std::string>();
-            if (nodeIds) {
-                for (int i = 0; i < nodesSize; i++)
-                    nodeIdsVector.emplace_back(nodeIds[i]);
-            }
-            return distribute(document, nodeIdsVector, direction, spacing);
+    int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing) {
+        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+        if (nodeIds) {
+            for (int i = 0; i < nodesSize; i++)
+                nodeIdsVector.emplace_back(nodeIds[i]);
         }
-        else
-            std::cerr << "Distribute function does not apply as the layout is not set by the autolayout algorithm." << std::endl;
-
-        return -1;
+        return distribute(document, nodeIdsVector, direction, spacing);
     }
 
     const int c_api_getNumLayouts(SBMLDocument* document) {
@@ -88,15 +80,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return removeAllLayouts(document);
     }
 
-    int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, bool useMagnetism,
+    int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism,
                                   bool useBoundary, bool useGrid, bool useNameAsTextLabel,
-                                  const char **lockedNodeIds, const int lockedNodesSize) {
+                                  bool resetLockedNodes, const char **lockedNodeIds, const int lockedNodesSize) {
         std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
                 lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
-        return createDefaultLayout(document, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodeIdsVector);
+        return createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {
@@ -482,96 +474,60 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            if (!setPositionX(document, layoutIndex, id, graphicalObjectIndex, x) && updateLayoutCurves(document,
-                                                                                                        getGraphicalObject(
-                                                                                                                document,
-                                                                                                                layoutIndex,
-                                                                                                                id,
-                                                                                                                graphicalObjectIndex)))
-                return 0;
-        }
-        else
-            std::cerr << "X cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
-
-        return -1;
+    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex) {
+        return setPositionX(document, layoutIndex, id, graphicalObjectIndex, x);
     }
 
     const double c_api_getY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getPositionY(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            if (!setPositionY(document, layoutIndex, id, graphicalObjectIndex, y) && updateLayoutCurves(document,
-                                                                                                        getGraphicalObject(
-                                                                                                                document,
-                                                                                                                layoutIndex,
-                                                                                                                id,
-                                                                                                                graphicalObjectIndex)))
-                return 0;
-        }
-        else
-            std::cerr << "Y cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
-
-        return -1;
+    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex) {
+        return setPositionY(document, layoutIndex, id, graphicalObjectIndex, y);
     }
 
-    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            if (!setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y) && updateLayoutCurves(document,
-                                                                                                        getGraphicalObject(
-                                                                                                                document,
-                                                                                                                layoutIndex,
-                                                                                                                id,
-                                                                                                                graphicalObjectIndex)))
-                return 0;
-        }
-        else
-            std::cerr << "Position cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
-
-        return -1;
+    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex) {
+        return setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y);
     }
 
     const double c_api_getWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            if (!setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width) && updateLayoutCurves(document,
-                                                                                                        getGraphicalObject(
-                                                                                                                document,
-                                                                                                                layoutIndex,
-                                                                                                                id,
-                                                                                                                graphicalObjectIndex)))
-                return 0;
-        }
-        else
-            std::cerr << "Width cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
+    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex) {
+        return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width);
+    }
 
-        return -1;
+    int c_api_setCompartmentsWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        return setCompartmentDimensionWidth(document, layoutIndex, width);
+    }
+
+    int c_api_setSpeciesWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        return setSpeciesDimensionWidth(document, layoutIndex, width);
+    }
+
+    int c_api_setReactionsWidths(SBMLDocument* document, const double width, int layoutIndex) {
+        return setReactionDimensionWidth(document, layoutIndex, width);
     }
 
     const double c_api_getHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex, bool isLayoutAdded) {
-        if (isLayoutAdded) {
-            if (!setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height) && updateLayoutCurves(document,
-                                                                                                        getGraphicalObject(
-                                                                                                                document,
-                                                                                                                layoutIndex,
-                                                                                                                id,
-                                                                                                                graphicalObjectIndex)))
-                return 0;
-        }
-        else
-            std::cerr << "Height cannot be set as the layout is not set by the autolayout algorithm." << std::endl;
+    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
+        return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height);
+    }
 
-        return -1;
+    int c_api_setCompartmentsHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        return setCompartmentDimensionHeight(document, layoutIndex, height);
+    }
+
+    int c_api_setSpeciesHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        return setSpeciesDimensionHeight(document, layoutIndex, height);
+    }
+
+    int c_api_setReactionsHeights(SBMLDocument* document, const double height, int layoutIndex) {
+        return setReactionDimensionHeight(document, layoutIndex, height);
     }
 
     const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
@@ -595,19 +551,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const double c_api_getTextWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return getDimensionWidth(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex));
+        return getTextDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
     int c_api_setTextWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return setDimensionWidth(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex), width);
+        return setTextDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, width);
     }
 
     const double c_api_getTextHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return getDimensionHeight(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex));
+        return getTextDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     }
 
     int c_api_setTextHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
-        return setDimensionHeight(getAssociatedTextGlyphsWithGraphicalObject(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex)).at(textGlyphIndex), height);
+        return setTextDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, height);
     }
 
     bool c_api_isSetCurve(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1409,7 +1365,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
-        return setLineEndingsStrokeColor(document, layoutIndex, borderColor);
+        return setLineEndingStrokeColor(document, layoutIndex, borderColor);
     }
 
     int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
@@ -1470,7 +1426,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
-        return setLineEndingsStrokeWidth(document, layoutIndex, borderWidth);
+        return setLineEndingStrokeWidth(document, layoutIndex, borderWidth);
     }
 
     int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
@@ -1518,7 +1474,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLineEndingsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
-        return setLineEndingsFillColor(document, layoutIndex, fillColor);
+        return setLineEndingFillColor(document, layoutIndex, fillColor);
     }
 
     int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
@@ -2514,6 +2470,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex) {
         return setGeometricShapeHref(document, layoutIndex, href);
+    }
+
+    int c_api_setStyle(SBMLDocument* document, const char* styleName, int layoutIndex) {
+        return setStyle(document, layoutIndex, styleName);
+    }
+
+    bool c_api_whetherDisplayReactionTextLabel(const char* styleName) {
+        return whetherDisplayReactionTextLabel(styleName);
+    }
+
+    int c_api_getNumPredefinedStyles() {
+        return getPredefinedStyles().size();
+    }
+
+    const char* c_api_getNthPredefinedStyleName(int index) {
+        if (index >= 0 && index < c_api_getNumPredefinedStyles())
+            return strdup(getPredefinedStyleNames().at(index).c_str());
+
+        return "";
     }
 
     int c_api_getNumValidRoleValues() {

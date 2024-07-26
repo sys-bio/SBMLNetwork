@@ -14,7 +14,9 @@
 #include <iostream>
 #include <vector>
 
-LIBSBMLNETWORK_EXTERN const std::string getLibraryVersion();
+ const std::string getLibraryVersion();
+
+const std::string getLibraryDirectory();
 
 bool compareChar(const char& c1, const char& c2);
 

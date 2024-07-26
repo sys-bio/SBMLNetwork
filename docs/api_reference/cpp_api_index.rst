@@ -106,9 +106,13 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeAllLayouts(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0, bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>())
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3, bool useMagnetism = false, bool useBoundary = true, bool useGrid = false, bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>())
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayout(SBMLDocument* document, const double& stiffness = 10.0, const double& gravity = 15.0, bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>())
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3, bool useMagnetism = false, bool useBoundary = true, bool useGrid = false, bool useNameAsTextLabel = true, const std::vector<std::string>& lockedNodeIds = std::vector<std::string>())
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE:: updateLayoutCurves(SBMLDocument* document, Layout* layout)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getDimensions(SBMLDocument* document, unsigned int layoutIndex = 0)
 

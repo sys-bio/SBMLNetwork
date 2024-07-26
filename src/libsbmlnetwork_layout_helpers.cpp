@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_common.h"
+#include "libsbmlnetwork_layout.h"
 
 #include <cmath>
 #include <climits>
@@ -60,7 +61,15 @@ void enableLayoutPlugin(SBMLDocument* document) {
 
 void setDefaultLayoutId(Layout* layout) {
     if (!layout->isSetId())
-        layout->setId("libSBMLNetwork_Layout");
+        layout->setId(getDefaultLayoutId());
+}
+
+const std::string getDefaultLayoutId() {
+    return  "libSBMLNetwork_Layout";
+}
+
+const bool canUpdateLayoutCurves(Layout* layout) {
+    return layout->getId() == getDefaultLayoutId();
 }
 
 void setDefaultLayoutDimensions(Layout* layout) {
@@ -73,10 +82,51 @@ void setDefaultLayoutDimensions(Layout* layout) {
         dimensions->setHeight(1024.0);
 }
 
+void clearGraphicalObjects(Layout* layout) {
+    clearCompartmentGlyphs(layout);
+    clearSpeciesGlyphs(layout);
+    clearReactionGlyphs(layout);
+    clearTextGlyphs(layout);
+}
+
+void clearCompartmentGlyphs(Layout* layout) {
+    while (layout->getNumCompartmentGlyphs())
+        delete layout->removeCompartmentGlyph(0);
+}
+
+void clearSpeciesGlyphs(Layout* layout) {
+    while (layout->getNumSpeciesGlyphs())
+        delete layout->removeSpeciesGlyph(0);
+}
+
+void clearReactionGlyphs(Layout* layout) {
+    while (layout->getNumReactionGlyphs())
+        delete layout->removeReactionGlyph(0);
+}
+
+void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
+    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
+        reactionGlyph->removeSpeciesReferenceGlyph(0);
+}
+
+void clearTextGlyphs(Layout* layout) {
+    while (layout->getNumTextGlyphs())
+        delete layout->removeTextGlyph(0);
+}
+
+void clearReactionTextGlyphs(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, reactionGlyph);
+        for (unsigned int j = 0; j < textGlyphs.size(); j++)
+            delete layout->removeTextGlyph(textGlyphs.at(j)->getId());
+    }
+}
+
 void setCompartmentGlyphs(Model* model, Layout* layout) {
     for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
-        Compartment* compartment = model->getCompartment(i);
-        CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(layout, compartment);
+        Compartment *compartment = model->getCompartment(i);
+        CompartmentGlyph *compartmentGlyph = createCompartmentGlyph(layout, compartment);
         setGraphicalObjectBoundingBox(compartmentGlyph);
     }
 }
@@ -84,7 +134,7 @@ void setCompartmentGlyphs(Model* model, Layout* layout) {
 void setSpeciesGlyphs(Model* model, Layout* layout) {
     for (unsigned int i = 0; i < model->getNumSpecies(); i++) {
         Species* species = model->getSpecies(i);
-        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(layout, species);
+        SpeciesGlyph* speciesGlyph = createSpeciesGlyph(layout, species);
         setGraphicalObjectBoundingBox(speciesGlyph);
     }
 }
@@ -92,27 +142,25 @@ void setSpeciesGlyphs(Model* model, Layout* layout) {
 void setReactionGlyphs(Model* model, Layout* layout) {
     for (unsigned int i = 0; i < model->getNumReactions(); i++) {
         Reaction* reaction = model->getReaction(i);
-        ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reaction);
+        ReactionGlyph* reactionGlyph = createReactionGlyph(layout, reaction);
         setReactionGlyphCurve(reactionGlyph);
         clearReactionGlyphSpeciesReferenceGlyphs(reactionGlyph);
         setReactantGlyphs(layout, reaction, reactionGlyph);
         setProductGlyphs(layout, reaction, reactionGlyph);
         setModifierGlyphs(layout, reaction, reactionGlyph);
-        if (reaction->getNumReactants() == 0) {
-            SpeciesReferenceGlyph* dummyReactantGlyph = getDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
-            dummyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-        }
-        else if (reaction->getNumProducts() == 0) {
-            SpeciesReferenceGlyph* dummyProductGlyph = getDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
-            dummyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
-        }
+        setDummySpeciesReferenceGlyphs(model, layout, reactionGlyph);
     }
+}
+
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
+    if (!reactionGlyph->isSetCurve())
+        setCurveCubicBezier(reactionGlyph->getCurve());
 }
 
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
+        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
@@ -121,7 +169,7 @@ void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
 void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
+        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
         speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
     }
@@ -130,7 +178,7 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
+        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
         if (speciesReference->getSBOTermID() == "SBO:0000020")
             speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
         else
@@ -139,16 +187,25 @@ void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
     }
 }
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    SpeciesGlyph* dummySpeciesGlyph = getDummySpeciesGlyph(model, layout, reactionGlyph);
-    return getDummySpeciesReferenceGlyph(layout, reactionGlyph, dummySpeciesGlyph);
+void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    Reaction* reaction = findReactionGlyphReaction(model, reactionGlyph);
+    if (reaction->getNumReactants() == 0) {
+        SpeciesReferenceGlyph* dummyReactantGlyph = createDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
+        dummyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
+    }
+    else if (reaction->getNumProducts() == 0) {
+        SpeciesReferenceGlyph* dummyProductGlyph = createDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
+        dummyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
+    }
 }
 
-SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    std::string dummySpeciesGlyphId = reactionGlyph->getId() + "_DummySpeciesGlyph";
-    if (layout->getSpeciesGlyph(dummySpeciesGlyphId))
-        return layout->getSpeciesGlyph(dummySpeciesGlyphId);
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    SpeciesGlyph* dummySpeciesGlyph = createDummySpeciesGlyph(model, layout, reactionGlyph);
+    return createDummySpeciesReferenceGlyph(layout, reactionGlyph, dummySpeciesGlyph);
+}
 
+SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+    std::string dummySpeciesGlyphId = reactionGlyph->getId() + "_DummySpeciesGlyph";
     SpeciesGlyph* dummySpeciesGlyph = layout->createSpeciesGlyph();
     dummySpeciesGlyph->setId(dummySpeciesGlyphId);
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
@@ -160,7 +217,7 @@ SpeciesGlyph* getDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* 
     return dummySpeciesGlyph;
 }
 
-SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph) {
+SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph) {
     SpeciesReferenceGlyph* dummySpeciesReferenceGlyph = layout->createSpeciesReferenceGlyph();
     dummySpeciesReferenceGlyph->setId(reactionGlyph->getId() + "_DummySpeciesReferenceGlyph");
     dummySpeciesReferenceGlyph->setSpeciesGlyphId(dummySpeciesGlyph->getId());
@@ -169,16 +226,70 @@ SpeciesReferenceGlyph* getDummySpeciesReferenceGlyph(Layout* layout, ReactionGly
     return dummySpeciesReferenceGlyph;
 }
 
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
+        std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferences = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
+        int numRequiredAliasSpeciesGlyphs = getNumRequiredAliasSpeciesGlyphs(connectedSpeciesGlyphReferences.size(), maxNumConnectedEdges);
+        if (numRequiredAliasSpeciesGlyphs > 0)
+            createAliasSpeciesGlyphs(layout, speciesGlyph, connectedSpeciesGlyphReferences, maxNumConnectedEdges, numRequiredAliasSpeciesGlyphs);
+    }
+}
+
+std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph) {
+    std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+        for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(j);
+            if (speciesReferenceGlyph->getSpeciesGlyphId() == speciesGlyph->getId())
+                speciesGlyphReferences.push_back(speciesReferenceGlyph);
+        }
+    }
+
+    return speciesGlyphReferences;
+}
+
+int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxNumConnectedEdges) {
+    int numRequiredAliasSpeciesGlyphs = 0;
+    if (numConnectedEdges > maxNumConnectedEdges)
+        numRequiredAliasSpeciesGlyphs = numConnectedEdges / maxNumConnectedEdges;
+    if (numConnectedEdges % maxNumConnectedEdges == 0)
+        numRequiredAliasSpeciesGlyphs--;
+
+    return numRequiredAliasSpeciesGlyphs;
+}
+
+void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs) {
+    for (int i = 0; i < numRequiredAliasSpeciesGlyphs; i++) {
+        SpeciesGlyph* aliasSpeciesGlyph = layout->createSpeciesGlyph();
+        aliasSpeciesGlyph->setId(speciesGlyph->getSpeciesId() + "_Glyph_" + std::to_string(i + 2));
+        aliasSpeciesGlyph->setSpeciesId(speciesGlyph->getSpeciesId());
+        setGraphicalObjectBoundingBox(aliasSpeciesGlyph);
+        while (speciesGlyphReferences.size() > (numRequiredAliasSpeciesGlyphs - i) * maxNumConnectedEdges) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
+            speciesReferenceGlyph->setSpeciesGlyphId(aliasSpeciesGlyph->getId());
+            speciesGlyphReferences.pop_back();
+        }
+    }
+}
+
+void setTextGlyphs(Layout* layout) {
+    setCompartmentTextGlyphs(layout);
+    setSpeciesTextGlyphs(layout);
+    setReactionTextGlyphs(layout);
+}
+
 void setCompartmentTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getCompartmentGlyph(i));
+        TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getCompartmentGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getCompartmentGlyph(i));
     }
 }
 
 void setSpeciesTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getSpeciesGlyph(i));
+        TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getSpeciesGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getSpeciesGlyph(i));
     }
 }
@@ -186,16 +297,12 @@ void setSpeciesTextGlyphs(Layout* layout) {
 void setReactionTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         double padding = 5.0;
-        TextGlyph* textGlyph = getAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
+        TextGlyph* textGlyph = createAssociatedTextGlyph(layout, layout->getReactionGlyph(i));
         setTextGlyphBoundingBox(textGlyph, layout->getReactionGlyph(i), padding);
     }
 }
 
-CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment) {
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
-        if (compartmentGlyphBelongs(layout->getCompartmentGlyph(i), compartment))
-            return layout->getCompartmentGlyph(i);
-    }
+CompartmentGlyph* createCompartmentGlyph(Layout* layout, Compartment* compartment) {
     CompartmentGlyph* compartmentGlyph = layout->createCompartmentGlyph();
     compartmentGlyph->setId(compartment->getId() + "_Glyph_1");
     compartmentGlyph->setCompartmentId(compartment->getId());
@@ -203,23 +310,15 @@ CompartmentGlyph* getCompartmentGlyph(Layout* layout, Compartment* compartment) 
     return compartmentGlyph;
 }
 
-SpeciesGlyph* getSpeciesGlyph(Layout* layout, Species* species) {
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        if (speciesGlyphBelongs(layout->getSpeciesGlyph(i), species))
-            return layout->getSpeciesGlyph(i);
-    }
-    SpeciesGlyph* speciesGlyph = layout->createSpeciesGlyph();
+SpeciesGlyph* createSpeciesGlyph(Layout* layout, Species* species) {
+    SpeciesGlyph *speciesGlyph = layout->createSpeciesGlyph();
     speciesGlyph->setId(species->getId() + "_Glyph_1");
     speciesGlyph->setSpeciesId(species->getId());
-    
+
     return speciesGlyph;
 }
 
-ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        if (reactionGlyphBelongs(layout->getReactionGlyph(i), reaction))
-            return layout->getReactionGlyph(i);
-    }
+ReactionGlyph* createReactionGlyph(Layout* layout, Reaction* reaction) {
     ReactionGlyph* reactionGlyph = layout->createReactionGlyph();
     reactionGlyph->setId(reaction->getId() + "_Glyph_1");
     reactionGlyph->setReactionId(reaction->getId());
@@ -230,9 +329,9 @@ ReactionGlyph* getReactionGlyph(Layout* layout, Reaction* reaction) {
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
     Compartment* compartment = findReactionGlyphCompartment(model, reactionGlyph);
     if (compartment) {
-        CompartmentGlyph* compartmentGlyph =  getCompartmentGlyph(layout, compartment);
-        if (compartmentGlyph)
-            return compartmentGlyph;
+        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartment->getId());
+        if (compartmentGlyphs.size() == 1)
+            return compartmentGlyphs.at(0);
     }
 
     return getDefaultCompartmentGlyph(layout);
@@ -245,7 +344,7 @@ CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
     return NULL;
 }
 
-SpeciesReferenceGlyph* getAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
+SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->createSpeciesReferenceGlyph();
     if (!speciesReference->getId().empty()) {
         speciesReferenceGlyph->setId(speciesReference->getId() + "_Glyph_1");
@@ -289,12 +388,7 @@ const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, Rea
     return numSpeciesReferencesGlyphsAssociatedWithSpecies;
 }
 
-
-TextGlyph* getAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject) {
-    for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++) {
-        if (textGlyphBelongs(layout->getTextGlyph(i), graphicalObject))
-            return layout->getTextGlyph(i);
-    }
+TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject) {
     TextGlyph* textGlyph = layout->createTextGlyph();
     textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
     textGlyph->setGraphicalObjectId(graphicalObject->getId());
@@ -315,16 +409,6 @@ void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObj
     textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y() + padding);
     textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
     textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
-}
-
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
-    if (!reactionGlyph->isSetCurve())
-        setCurveCubicBezier(reactionGlyph->getCurve());
-}
-
-void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
-    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
-        reactionGlyph->removeSpeciesReferenceGlyph(0);
 }
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph) {
@@ -444,35 +528,14 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     return NULL;
 }
 
-std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    std::vector<std::string> graphicalObjectsIds;
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
-    /*
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        bool isIndependentReaction = true;
-        for (unsigned int j = 0; j < graphicalObjects.size(); j++) {
-            if (graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObjects.at(j))) {
-                isIndependentReaction = false;
-                break;
-            }
-        }
-        if (isIndependentReaction)
-            graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
-    }
-     */
-
-    return graphicalObjectsIds;
+std::vector<std::string> getListOfGraphicalObjectIds(GraphicalObject* graphicalObject) {
+    return std::vector<std::string>(1, graphicalObject->getId());
 }
 
-std::vector<std::string> getGraphicalObjectsIdsWhosePositionIsNotDependentOnGraphicalObject(Layout* layout, GraphicalObject* graphicalObject) {
+std::vector<std::string> getListOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects) {
     std::vector<std::string> graphicalObjectsIds;
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        graphicalObjectsIds.push_back(layout->getSpeciesGlyph(i)->getId());
-    //for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        //if (!graphicalObjectBelongsToReactionGlyph(layout->getReactionGlyph(i), graphicalObject))
-            //graphicalObjectsIds.push_back(layout->getReactionGlyph(i)->getId());
-    //}
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        graphicalObjectsIds.push_back(graphicalObjects.at(i)->getId());
 
     return graphicalObjectsIds;
 }
@@ -585,126 +648,157 @@ const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphica
 }
 
 const bool layoutContainsGlyphs(Layout* layout) {
-    return layout->getNumCompartmentGlyphs() + layout->getNumSpeciesGlyphs() + layout->getNumReactionGlyphs() > 0 ? true : false;
+    return (layout->getNumCompartmentGlyphs() > 0) ||
+           (layout->getNumSpeciesGlyphs() > 0) ||
+           (layout->getNumReactionGlyphs() > 0);
 }
 
-void alignGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
+void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setX(textGlyphs.at(i)->getBoundingBox()->x() + movedDistanceX);
+}
+
+void updateAssociatedTextGlyphsPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceY) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setY(textGlyphs.at(i)->getBoundingBox()->y() + movedDistanceY);
+}
+
+void updateAssociatedTextGlyphsPosition(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX, const double& movedDistanceY) {
+    updateAssociatedTextGlyphsPositionX(layout, graphicalObject, movedDistanceX);
+    updateAssociatedTextGlyphsPositionY(layout, graphicalObject, movedDistanceY);
+}
+
+void updateAssociatedTextGlyphsDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& changedWidth) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setWidth(textGlyphs.at(i)->getBoundingBox()->width() + changedWidth);
+}
+
+void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& changedHeight) {
+    std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+    for (unsigned int i = 0; i < textGlyphs.size(); i++)
+        textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
+}
+
+void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
-            alignGraphicalObjectsToTop(graphicalObjects);
+            alignGraphicalObjectsToTop(layout, graphicalObjects);
         else if (stringCompare(alignment, "center"))
-            alignGraphicalObjectsToCenter(graphicalObjects);
+            alignGraphicalObjectsToCenter(layout, graphicalObjects);
         else if (stringCompare(alignment, "bottom"))
-            alignGraphicalObjectsToBottom(graphicalObjects);
+            alignGraphicalObjectsToBottom(layout, graphicalObjects);
         else if (stringCompare(alignment, "left"))
-            alignGraphicalObjectsToLeft(graphicalObjects);
+            alignGraphicalObjectsToLeft(layout, graphicalObjects);
         else if (stringCompare(alignment, "middle"))
-            alignGraphicalObjectsToMiddle(graphicalObjects);
+            alignGraphicalObjectsToMiddle(layout, graphicalObjects);
         else if (stringCompare(alignment, "right"))
-            alignGraphicalObjectsToRight(graphicalObjects);
-        else if (stringCompare(alignment, "circular"))
-            alignGraphicalObjectsCircularly(graphicalObjects);
+            alignGraphicalObjectsToRight(layout, graphicalObjects);
+        else if (stringCompare(alignment, "circular") || stringCompare(alignment, "circle"))
+            alignGraphicalObjectsCircularly(layout, graphicalObjects);
     }
 }
 
-void alignGraphicalObjectsToTop(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double minY = getMinPositionY(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(minY);
+        setPositionY(layout, graphicalObjects.at(i), minY);
 }
 
-void alignGraphicalObjectsToCenter(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double centerX = 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(centerX);
+        setPositionX(layout, graphicalObjects.at(i), centerX);
 }
 
-void alignGraphicalObjectsToBottom(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double maxY = getMaxPositionY(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(maxY);
+        setPositionY(layout, graphicalObjects.at(i), maxY);
 }
 
-void alignGraphicalObjectsToLeft(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double minX = getMinPositionX(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(minX);
+        setPositionX(layout, graphicalObjects.at(i), minX);
 }
 
-void alignGraphicalObjectsToMiddle(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double centerY = 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(centerY);
+        setPositionY(layout, graphicalObjects.at(i), centerY);
 }
 
-void alignGraphicalObjectsToRight(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double maxX = getMaxPositionX(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(maxX);
+        setPositionX(layout, graphicalObjects.at(i), maxX);
 }
 
-void alignGraphicalObjectsCircularly(std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
     double radius = graphicalObjects.size() * 50.0;
     double angle = 2 * M_PI / graphicalObjects.size();
     double centerX = std::max(radius, 0.5 * (getMinCenterX(graphicalObjects) + getMaxCenterX(graphicalObjects)));
     double centerY = std::max(radius, 0.5 * (getMinCenterY(graphicalObjects) + getMaxCenterY(graphicalObjects)));
     for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
-        graphicalObjects.at(i)->getBoundingBox()->setX(centerX + radius * cos(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->width());
-        graphicalObjects.at(i)->getBoundingBox()->setY(centerY + radius * sin(1.5 * M_PI + i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->height());
+        setPositionX(layout, graphicalObjects.at(i), centerX + radius * cos(i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->width());
+        setPositionY(layout, graphicalObjects.at(i), centerY + radius * sin(i * angle) - 0.5 * graphicalObjects.at(i)->getBoundingBox()->height());
     }
 }
 
-void distributeGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
+void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
     if (isValidDistributionDirection(direction)) {
         if (stringCompare(direction, "horizontal"))
-            distributeGraphicalObjectsHorizontally(graphicalObjects, spacing);
+            distributeGraphicalObjectsHorizontally(layout, graphicalObjects, spacing);
         else if (stringCompare(direction, "vertical"))
-            distributeGraphicalObjectsVertically(graphicalObjects, spacing);
+            distributeGraphicalObjectsVertically(layout, graphicalObjects, spacing);
     }
 }
 
-void distributeGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
+void distributeGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
     if (graphicalObjects.size() < 2)
         return;
     double minX = getMinPositionX(graphicalObjects);
     double maxX = getMaxPositionX(graphicalObjects);
     double distance = findDistributionDistance(minX, maxX, graphicalObjects.size(), spacing);
     if (graphicalObjects.size() % 2 == 0)
-        distributeEvenGraphicalObjectsHorizontally(graphicalObjects, minX, maxX, distance);
+        distributeEvenGraphicalObjectsHorizontally(layout, graphicalObjects, minX, maxX, distance);
     else
-        distributeOddGraphicalObjectsHorizontally(graphicalObjects, minX, maxX, distance);
+        distributeOddGraphicalObjectsHorizontally(layout, graphicalObjects, minX, maxX, distance);
 }
 
-void distributeEvenGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
+void distributeEvenGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(minX + i * distance);
+        setPositionX(layout, graphicalObjects.at(i), minX + i * distance);
 }
 
-void distributeOddGraphicalObjectsHorizontally(std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
+void distributeOddGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setX(0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+        setPositionX(layout, graphicalObjects.at(i), 0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
 }
 
-void distributeGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
-    if (graphicalObjects.size() < 2)
+void distributeGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
+    if (graphicalObjects.size() > 2)
         return;
     double minY = getMinPositionY(graphicalObjects);
     double maxY = getMaxPositionY(graphicalObjects);
     double distance = findDistributionDistance(minY, maxY, graphicalObjects.size(), spacing);
     if (graphicalObjects.size() % 2 == 0)
-        distributeEvenGraphicalObjectsVertically(graphicalObjects, minY, maxY, distance);
+        distributeEvenGraphicalObjectsVertically(layout, graphicalObjects, minY, maxY, distance);
     else
-        distributeOddGraphicalObjectsVertically(graphicalObjects, minY, maxY, distance);
+        distributeOddGraphicalObjectsVertically(layout, graphicalObjects, minY, maxY, distance);
 }
 
-void distributeEvenGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
+void distributeEvenGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(minY + i * distance);
+        setPositionY(layout, graphicalObjects.at(i), minY + i * distance);
 }
 
-void distributeOddGraphicalObjectsVertically(std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
+void distributeOddGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjects.at(i)->getBoundingBox()->setY(0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+        setPositionY(layout, graphicalObjects.at(i), 0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
 }
 
 const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing) {

@@ -52,6 +52,18 @@ class LibSBMLNetwork:
         lib.c_api_getVersion.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getVersion()).value.decode()
 
+    def getCurrentDirectoryOfLibrary(self):
+        """
+        Returns the current directory of the back-end library
+
+        :Returns:
+
+            a string that determines the current directory of the back-end library
+
+        """
+        lib.c_api_getLibraryCurrentDirectory.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getCurrentDirectoryOfLibrary()).value.decode()
+
     def load(self, sbml):
         """
         Reads an SBML document from the given file directory or the given text string
@@ -111,8 +123,8 @@ class LibSBMLNetwork:
         """
 
         return self.save(file_name)
-        
-    def autolayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
+
+    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=True, use_grid=False, reset_locked_nodes=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
@@ -120,9 +132,11 @@ class LibSBMLNetwork:
 
             - stiffness (float, optional): a float (default: 10.0) that determines the stiffness value used in the autolayout algorithm (can affect the canvas dimensions).
             - gravity (float, optional): a float (default: 15.0) that determines the gravity value used in the autolayout algorithm (can affect the how densely nodes are distributed).
+            - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
             - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
-            - use_boundary (boolean, optional): a boolean (default: False) that determines whether to use boundary restriction in the autolayout algorithm.
+            - use_boundary (boolean, optional): a boolean (default: True) that determines whether to use boundary restriction in the autolayout algorithm.
             - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
+            - reset_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to reset the locked nodes before applying the autolayout algorithm.
             - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
@@ -136,7 +150,7 @@ class LibSBMLNetwork:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, self.use_name_as_text_label, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), ctypes.c_int(max_num_connected_edges), use_magnetism, use_boundary, use_grid, self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
 
     def align(self, nodes, alignment="center"):
         """
@@ -155,7 +169,7 @@ class LibSBMLNetwork:
         for i in range(len(nodes)):
             nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
 
-        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), self.layout_is_added)
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode())
 
     def distribute(self, nodes, direction="horizontal", spacing=-1):
         """
@@ -176,7 +190,7 @@ class LibSBMLNetwork:
         for i in range(len(nodes)):
             nodes_ptr[i] = ctypes.c_char_p(nodes[i].encode())
 
-        return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing), self.layout_is_added)
+        return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing))
 
     def getSBMLLevel(self):
         """
@@ -1596,7 +1610,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index)
 
     def getY(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1630,7 +1644,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index)
 
     def getPosition(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1666,7 +1680,7 @@ class LibSBMLNetwork:
 
             true on success and false if the position of the GraphicalObject could not be set
         """
-        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index)
 
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1700,7 +1714,52 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the GraphicalObject could not be set
         """
-        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index)
+
+    def setCompartmentsWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the Compartments in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the Compartments
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the Compartments could not be set
+        """
+        return lib.c_api_setCompartmentsWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setSpeciesWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the Species in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the Species
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the Species could not be set
+        """
+        return lib.c_api_setSpeciesWidths(self.sbml_object, ctypes.c_double(width), layout_index)
+
+    def setReactionsWidths(self, width, layout_index=0):
+        """
+        Sets the width of all the Reactions in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - width (float): a float that determines the width of the Reactions
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the width of the Reactions could not be set
+        """
+        return lib.c_api_setReactionsWidths(self.sbml_object, ctypes.c_double(width), layout_index)
 
     def getHeight(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1734,7 +1793,53 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the GraphicalObject could not be set
         """
-        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index, self.layout_is_added)
+        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
+
+    def setCompartmentsHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the Compartments in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the Compartments
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the Compartments could not be set
+        """
+        return lib.c_api_setCompartmentsHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+
+    def setSpeciesHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the Species in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the Species
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the Species could not be set
+        """
+        return lib.c_api_setSpeciesHeights(self.sbml_object, ctypes.c_double(height), layout_index)
+
+    def setReactionsHeights(self, height, layout_index=0):
+        """
+        Sets the height of all the Reactions in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - height (float): a float that determines the height of the Reactions
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the height of the Reactions could not be set
+        """
+        return lib.c_api_setReactionsHeights(self.sbml_object, ctypes.c_double(height), layout_index)
 
     def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -8591,16 +8696,14 @@ class LibSBMLNetwork:
             a list of strings that determines the available style names
 
         """
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, "resources/styles.json")
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File '{filename}' not found in the current directory.")
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            if 'style' in data.keys():
-                return [style['name'] for style in data['styles']]
+        lib.c_api_getNthPredefinedStyleName.restype = ctypes.c_char_p
+        list_of_styles = []
+        for n in range(lib.c_api_getNumPredefinedStyles()):
+            list_of_styles.append(ctypes.c_char_p(lib.c_api_getNthPredefinedStyleName(n)).value.decode())
 
-    def setStyle(self, style_name):
+        return list_of_styles
+
+    def setStyle(self, style_name, layout_index=0):
         """
         Set the a predefined style for the styles of the GraphicalObjects
 
@@ -8609,94 +8712,25 @@ class LibSBMLNetwork:
             - style_name (string): a string that determines the name of the predefined style for the styles of the GraphicalObjects
 
         """
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(dir_path, "resources/styles.json")
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File '{filename}' not found in the current directory for styles.")
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            if 'styles' in data.keys():
-                for style in data['styles']:
-                    if style['name'].lower() == style_name.lower():
-                        if 'background_color' in style.keys():
-                            self.setBackgroundColor(style['background_color'])
-                        if 'compartment_geometric_shape' in style.keys():
-                            self.setCompartmentsGeometricShapes(style['compartment_geometric_shape'])
-                        if 'compartment_geometric_shape_ratio' in style.keys():
-                            self.setCompartmentsGeometricShapeRatios(style['compartment_geometric_shape_ratio'])
-                        if 'compartment_border_color' in style.keys():
-                            self.setCompartmentsBorderColors(style['compartment_border_color'])
-                        if 'compartment_border_width' in style.keys():
-                            self.setCompartmentsBorderWidths(style['compartment_border_width'])
-                        if 'compartment_fill_color' in style.keys():
-                            self.setCompartmentsFillColors(style['compartment_fill_color'])
-                        if 'compartment_font_color' in style.keys():
-                            self.setCompartmentsFontColors(style['compartment_font_color'])
-                        if 'compartment_font_size' in style.keys():
-                            self.setCompartmentsFontSizes(style['compartment_font_size'])
-                        if 'compartment_font_style' in style.keys():
-                            self.setCompartmentsFontStyles(style['compartment_font_style'])
-                        if 'compartment_font_weight' in style.keys():
-                            self.setCompartmentsFontWeights(style['compartment_font_weight'])
-                        if 'species_geometric_shape' in style.keys():
-                            self.setSpeciesGeometricShapes(style['species_geometric_shape'])
-                        if 'species_geometric_shape_ratio' in style.keys():
-                            self.setSpeciesGeometricShapeRatios(style['species_geometric_shape_ratio'])
-                        if 'species_border_color' in style.keys():
-                            self.setSpeciesBorderColors(style['species_border_color'])
-                        if 'species_border_width' in style.keys():
-                            self.setSpeciesBorderWidths(style['species_border_width'])
-                        if 'species_fill_color' in style.keys():
-                            self.setSpeciesFillColors(style['species_fill_color'])
-                        if 'species_font_color' in style.keys():
-                            self.setSpeciesFontColors(style['species_font_color'])
-                        if 'species_font_size' in style.keys():
-                            self.setSpeciesFontSizes(style['species_font_size'])
-                        if 'species_font_style' in style.keys():
-                            self.setSpeciesFontStyles(style['species_font_style'])
-                        if 'species_font_weight' in style.keys():
-                            self.setSpeciesFontWeights(style['species_font_weight'])
-                        if 'reaction_geometric_shape' in style.keys():
-                            self.setReactionsGeometricShapes(style['reaction_geometric_shape'])
-                        if 'reaction_geometric_shape_ratio' in style.keys():
-                            self.setReactionsGeometricShapeRatios(style['reaction_geometric_shape_ratio'])
-                        if 'reaction_geometric_shape_center_x' in style.keys():
-                            self.setReactionsGeometricShapeCenterXs(style['reaction_geometric_shape_center_x'])
-                        if 'reaction_geometric_shape_center_y' in style.keys():
-                            self.setReactionsGeometricShapeCenterYs(style['reaction_geometric_shape_center_y'])
-                        if 'reaction_geometric_shape_radius_x' in style.keys():
-                            self.setReactionsGeometricShapeRadiusXs(style['reaction_geometric_shape_radius_x'])
-                        if 'reaction_geometric_shape_radius_y' in style.keys():
-                            self.setReactionsGeometricShapeRadiusYs(style['reaction_geometric_shape_radius_y'])
-                        if 'reaction_line_color' in style.keys():
-                            self.setReactionsLineColors(style['reaction_line_color'])
-                        if 'reaction_line_width' in style.keys():
-                            self.setReactionsLineWidths(style['reaction_line_width'])
-                        if 'reaction_border_color' in style.keys():
-                            self.setReactionsBorderColors(style['reaction_border_color'])
-                        if 'reaction_border_width' in style.keys():
-                            self.setReactionsBorderWidths(style['reaction_border_width'])
-                        if 'reaction_fill_color' in style.keys():
-                            self.setReactionsFillColors(style['reaction_fill_color'])
-                        if 'display_reaction_text_label' in style.keys():
-                            self.enableDisplayReactionsTextLabel(style['display_reaction_text_label'])
-                        if 'reaction_font_color' in style.keys():
-                            self.setReactionsFontColors(style['reaction_font_color'])
-                        if 'reaction_font_size' in style.keys():
-                            self.setReactionsFontSizes(style['reaction_font_size'])
-                        if 'reaction_font_style' in style.keys():
-                            self.setReactionsFontStyles(style['reaction_font_style'])
-                        if 'reaction_font_weight' in style.keys():
-                            self.setReactionsFontWeights(style['reaction_font_weight'])
-                        if 'line_ending_border_color' in style.keys():
-                            self.setLineEndingsBorderColors(style['line_ending_border_color'])
-                        if 'line_ending_border_width' in style.keys():
-                            self.setLineEndingsBorderWidths(style['line_ending_border_width'])
-                        if 'line_ending_fill_color' in style.keys():
-                            self.setLineEndingsFillColors(style['line_ending_fill_color'])
-                        return
+        if lib.c_api_setStyle(self.sbml_object, str(style_name).encode(), layout_index) == 0:
+            self.enableDisplayReactionsTextLabel(self.whetherDisplayReactionTextLabel(style_name))
+            return 0;
 
         raise ValueError(f"Style '{style_name}' not found in list of available styles. Available predefined styles are: {self.getListOfStyles()}")
+
+    def whetherDisplayReactionTextLabel(self, style_name):
+        """
+        Returns whether the text labels of the reactions must be displayed in the layout based on the style
+
+        :Parameters:
+
+            - style_name (string): a string that determines the name of the predefined style for the styles of the GraphicalObjects
+
+        :Returns:
+
+            a boolean that determines whether the text labels of the reactions are displayed in the layout
+        """
+        return lib.c_api_whetherDisplayReactionTextLabel(str(style_name).encode())
 
     def _layout_is_specified(self):
         if self.getNumLayouts():

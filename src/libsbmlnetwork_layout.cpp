@@ -79,11 +79,11 @@ const unsigned int getNumGraphicalObjects(Layout* layout, const std::string& id)
 std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::string& id) {
     std::vector<GraphicalObject*> graphicalObjects;
     if (layout) {
-        std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, id);
+        std::vector<CompartmentGlyph*> compartmentGlyphs = getCompartmentGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), compartmentGlyphs.begin(), compartmentGlyphs.end());
-        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, id);
+        std::vector<SpeciesGlyph*> speciesGlyphs = getSpeciesGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
-        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, id);
+        std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
     }
 
@@ -354,7 +354,7 @@ const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesRefe
 }
 
 bool isSetRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return isSetRole(getSpeciesReferenceGlyph(layout, id, speciesReferenceGlyphIndex));
+    return isSetRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
 }
 
 bool isSetRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
@@ -677,15 +677,21 @@ const double getPositionX(BoundingBox* boundingBox) {
 }
 
 int setPositionX(Layout* layout, const std::string& id, const double& x) {
-    return setPositionX(getGraphicalObject(layout, id), x);
+    return setPositionX(layout, getGraphicalObject(layout, id), x);
 }
 
 int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x) {
-    return setPositionX(getGraphicalObject(layout, id, graphicalObjectIndex), x);
+    return setPositionX(layout, getGraphicalObject(layout, id, graphicalObjectIndex), x);
 }
 
-int setPositionX(GraphicalObject* graphicalObject, const double& x) {
-    return setPositionX(getBoundingBox(graphicalObject), x);
+int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x) {
+    double moveDistance = x - getPositionX(graphicalObject);
+    if (!setPositionX(getBoundingBox(graphicalObject), x)) {
+        updateAssociatedTextGlyphsPositionX(layout, graphicalObject, moveDistance);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setPositionX(BoundingBox* boundingBox, const double& x) {
@@ -713,15 +719,21 @@ const double getPositionY(BoundingBox* boundingBox) {
 }
 
 int setPositionY(Layout* layout, const std::string& id, const double& y) {
-    return setPositionY(getGraphicalObject(layout, id), y);
+    return setPositionY(layout, getGraphicalObject(layout, id), y);
 }
 
 int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& y) {
-    return setPositionY(getGraphicalObject(layout, id, graphicalObjectIndex), y);
+    return setPositionY(layout, getGraphicalObject(layout, id, graphicalObjectIndex), y);
 }
 
-int setPositionY(GraphicalObject* graphicalObject, const double& y) {
-    return setPositionY(getBoundingBox(graphicalObject), y);
+int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y) {
+    double moveDistance = y - getPositionY(graphicalObject);
+    if (!setPositionY(getBoundingBox(graphicalObject), y)) {
+        updateAssociatedTextGlyphsPositionY(layout, graphicalObject, moveDistance);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setPositionY(BoundingBox* boundingBox, const double& y) {
@@ -734,15 +746,22 @@ int setPositionY(BoundingBox* boundingBox, const double& y) {
 }
 
 int setPosition(Layout* layout, const std::string& id, const double& x, const double& y) {
-    return setPosition(getGraphicalObject(layout, id), x, y);
+    return setPosition(layout, getGraphicalObject(layout, id), x, y);
 }
 
 int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y) {
-    return setPosition(getGraphicalObject(layout, id, graphicalObjectIndex), x, y);
+    return setPosition(layout, getGraphicalObject(layout, id, graphicalObjectIndex), x, y);
 }
 
-int setPosition(GraphicalObject* graphicalObject, const double& x, const double& y) {
-    return setPosition(getBoundingBox(graphicalObject), x, y);
+int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y) {
+    double moveDistanceX = x - getPositionX(graphicalObject);
+    double moveDistanceY = y - getPositionY(graphicalObject);
+    if (!setPosition(getBoundingBox(graphicalObject), x, y)) {
+        updateAssociatedTextGlyphsPosition(layout, graphicalObject, moveDistanceX, moveDistanceY);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setPosition(BoundingBox* boundingBox, const double& x, const double& y) {
@@ -771,15 +790,21 @@ const double getDimensionWidth(BoundingBox* boundingBox) {
 }
 
 int setDimensionWidth(Layout* layout, const std::string& id, const double& width) {
-    return setDimensionWidth(getGraphicalObject(layout, id), width);
+    return setDimensionWidth(layout, getGraphicalObject(layout, id), width);
 }
 
 int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& width) {
-    return setDimensionWidth(getGraphicalObject(layout, id, graphicalObjectIndex), width);
+    return setDimensionWidth(layout, getGraphicalObject(layout, id, graphicalObjectIndex), width);
 }
 
-int setDimensionWidth(GraphicalObject* graphicalObject, const double& width) {
-    return setDimensionWidth(getBoundingBox(graphicalObject), width);
+int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
+    double changedWidth = width - getDimensionWidth(graphicalObject);
+    if (!setDimensionWidth(getBoundingBox(graphicalObject), width)) {
+        updateAssociatedTextGlyphsDimensionWidth(layout, graphicalObject, changedWidth);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
@@ -789,6 +814,33 @@ int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
     }
 
     return -1;
+}
+
+int setCompartmentDimensionWidth(Layout* layout, const double& width) {
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setDimensionWidth(layout, layout->getCompartmentGlyph(i), width))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setSpeciesDimensionWidth(Layout* layout, const double& width) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setDimensionWidth(layout, layout->getSpeciesGlyph(i), width))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionDimensionWidth(Layout* layout, const double& width) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setDimensionWidth(layout, layout->getReactionGlyph(i), width))
+            return -1;
+    }
+
+    return 0;
 }
 
 const double getDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
@@ -807,15 +859,21 @@ const double getDimensionHeight(BoundingBox* boundingBox) {
 }
 
 int setDimensionHeight(Layout* layout, const std::string& id, const double& height) {
-    return setDimensionHeight(getGraphicalObject(layout, id), height);
+    return setDimensionHeight(layout, getGraphicalObject(layout, id), height);
 }
 
 int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& height) {
-    return setDimensionHeight(getGraphicalObject(layout, id, graphicalObjectIndex), height);
+    return setDimensionHeight(layout, getGraphicalObject(layout, id, graphicalObjectIndex), height);
 }
 
-int setDimensionHeight(GraphicalObject* graphicalObject, const double& height) {
-    return setDimensionHeight(getBoundingBox(graphicalObject), height);
+int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {
+    double changedHeight = height - getDimensionHeight(graphicalObject);
+    if (!setDimensionHeight(getBoundingBox(graphicalObject), height)) {
+        updateAssociatedTextGlyphsDimensionHeight(layout, graphicalObject, changedHeight);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
@@ -825,6 +883,33 @@ int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
     }
 
     return -1;
+}
+
+int setCompartmentDimensionHeight(Layout* layout, const double& height) {
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        if (setDimensionHeight(layout, layout->getCompartmentGlyph(i), height))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setSpeciesDimensionHeight(Layout* layout, const double& height) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (setDimensionHeight(layout, layout->getSpeciesGlyph(i), height))
+            return -1;
+    }
+
+    return 0;
+}
+
+int setReactionDimensionHeight(Layout* layout, const double& height) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (setDimensionHeight(layout, layout->getReactionGlyph(i), height))
+            return -1;
+    }
+
+    return 0;
 }
 
 const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
@@ -838,7 +923,7 @@ const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, 
 int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphs.size())
-        return setPositionX(textGlyphs.at(0), x);
+        return setPositionX(layout, textGlyphs.at(0), x);
 
     return -1;
 }
@@ -846,7 +931,7 @@ int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, const dou
 int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& x) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-        return setPositionX(textGlyphs.at(textGlyphIndex), x);
+        return setPositionX(layout, textGlyphs.at(textGlyphIndex), x);
 
     return -1;
 }
@@ -862,7 +947,7 @@ const double getTextPositionY(Layout* layout, GraphicalObject* graphicalObject, 
 int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphs.size())
-        return setPositionY(textGlyphs.at(0), y);
+        return setPositionY(layout, textGlyphs.at(0), y);
 
     return -1;
 }
@@ -870,7 +955,7 @@ int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, const dou
 int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& y) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-        return setPositionY(textGlyphs.at(textGlyphIndex), y);
+        return setPositionY(layout, textGlyphs.at(textGlyphIndex), y);
 
     return -1;
 }
@@ -878,8 +963,8 @@ int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, unsigned 
 int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphs.size()) {
-        setPositionX(textGlyphs.at(0), x);
-        setPositionY(textGlyphs.at(0), y);
+        setPositionX(layout, textGlyphs.at(0), x);
+        setPositionY(layout, textGlyphs.at(0), y);
         return 0;
     }
 
@@ -889,8 +974,8 @@ int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, const doub
 int setTextPosition(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& x, const double& y) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size()) {
-        setPositionX(textGlyphs.at(textGlyphIndex), x);
-        setPositionY(textGlyphs.at(textGlyphIndex), y);
+        setPositionX(layout, textGlyphs.at(textGlyphIndex), x);
+        setPositionY(layout, textGlyphs.at(textGlyphIndex), y);
         return 0;
     }
 
@@ -908,7 +993,7 @@ const double getTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObj
 int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphs.size())
-        return setDimensionWidth(textGlyphs.at(0), width);
+        return setDimensionWidth(layout, textGlyphs.at(0), width);
 
     return -1;
 }
@@ -916,7 +1001,7 @@ int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, cons
 int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& width) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-        return setDimensionWidth(textGlyphs.at(textGlyphIndex), width);
+        return setDimensionWidth(layout, textGlyphs.at(textGlyphIndex), width);
 
     return -1;
 }
@@ -932,7 +1017,7 @@ const double getTextDimensionHeight(Layout* layout, GraphicalObject* graphicalOb
 int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphs.size())
-        return setDimensionHeight(textGlyphs.at(0), height);
+        return setDimensionHeight(layout, textGlyphs.at(0), height);
 
     return -1;
 }
@@ -940,7 +1025,7 @@ int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, con
 int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, unsigned int textGlyphIndex, const double& height) {
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
-        return setDimensionHeight(textGlyphs.at(textGlyphIndex), height);
+        return setDimensionHeight(layout, textGlyphs.at(textGlyphIndex), height);
 
     return -1;
 }

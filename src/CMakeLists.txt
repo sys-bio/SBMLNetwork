@@ -19,6 +19,7 @@ set(SOURCES
 		autolayout/libsbmlnetwork_autolayout_connection.cpp
 		autolayout/libsbmlnetwork_autolayout_curve.cpp
 		autolayout/libsbmlnetwork_autolayout_point.cpp
+		autolayout/libsbmlnetwork_locked_node_info.cpp
 		c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -40,6 +41,7 @@ set(HEADERS
 		autolayout/libsbmlnetwork_autolayout_connection.h
 		autolayout/libsbmlnetwork_autolayout_curve.h
 		autolayout/libsbmlnetwork_autolayout_point.h
+		autolayout/libsbmlnetwork_locked_node_info.h
 		c_api/libsbmlnetwork_c_api.h)
 
 ### shared library
@@ -91,9 +93,6 @@ file(GLOB C_API_HEADERS "${CMAKE_SOURCE_DIR}/src/c_api/*.h")
 install(FILES ${C_API_HEADERS} DESTINATION include/c_api COMPONENT libsbmlnetwork_api)
 if (WIN32)
 	include (InstallRequiredSystemLibraries)
-	install(FILES ${RESOURCES} DESTINATION bin/resources COMPONENT libsbmlnetwork_api)
-else ()
-	install(FILES ${RESOURCES} DESTINATION lib/resources COMPONENT libsbmlnetwork_api)
 endif()
 
 add_subdirectory(bindings)

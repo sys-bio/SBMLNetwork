@@ -1,13 +1,53 @@
 #include "libsbmlnetwork_common.h"
 
 #include <cmath>
+#include <cstring>
 
 #ifndef LIBSBMLNETWORK_VERSION
 #define LIBSBMLNETWORK_VERSION @LIBSBMLNETWORK_VERSION@
 #endif
 
+#if defined(_WIN32) || defined(_WIN64)
+    #include <Windows.h>
+    #define PATH_SEPARATOR '\\'
+#else
+#include <dlfcn.h>
+#define PATH_SEPARATOR '/'
+#endif
+
 const std::string getLibraryVersion() {
     return LIBSBMLNETWORK_VERSION;
+}
+
+const std::string getLibraryDirectory() {
+    char path[1024];
+#if defined(_WIN32) || defined(_WIN64)
+    HMODULE hModule = NULL;
+        GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                          reinterpret_cast<LPCSTR>(&getLibraryDirectory),
+                          &hModule);
+
+        if (GetModuleFileName(hModule, path, sizeof(path)) != 0) {
+            for (int i = 0; path[i] != '\0'; ++i) {
+                if (path[i] == '\\')
+                    path[i] = '/';
+            }
+        }
+        else
+            return "";
+#else
+    Dl_info dl_info;
+    if (dladdr((void*)getLibraryDirectory, &dl_info))
+        strncpy(path, dl_info.dli_fname, sizeof(path));
+    else
+        return "";
+#endif
+
+    char* lastSlash = strrchr(path, PATH_SEPARATOR);
+    if (lastSlash != nullptr)
+        *lastSlash = '\0';
+
+    return std::string(path);
 }
 
 bool compareChar(const char& c1, const char& c2) {
