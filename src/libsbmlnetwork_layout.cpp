@@ -354,7 +354,7 @@ const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesRefe
 }
 
 bool isSetRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return isSetRole(getSpeciesReferenceGlyph(layout, id, speciesReferenceGlyphIndex));
+    return isSetRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
 }
 
 bool isSetRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
