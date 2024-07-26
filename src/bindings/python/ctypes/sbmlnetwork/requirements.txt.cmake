@@ -1,3 +1,3 @@
 libsbmlnetwork>=${LIBSBMLNETWORK_DOTTED_VERSION}
-networkinfotranslator>=0.0.24
+networkinfotranslator>=${LIBSBMLNETWORK_DOTTED_VERSION}
 pillow
