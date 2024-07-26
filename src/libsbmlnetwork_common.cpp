@@ -32,6 +32,7 @@ const std::string getLibraryDirectory() {
                 if (path[i] == '\\')
                     path[i] = '/';
             }
+        }
         else
             return "";
 #else
@@ -43,9 +44,8 @@ const std::string getLibraryDirectory() {
 #endif
 
     char* lastSlash = strrchr(path, PATH_SEPARATOR);
-    if (lastSlash != nullptr) {
+    if (lastSlash != nullptr)
         *lastSlash = '\0';
-    }
 
     return std::string(path);
 }
