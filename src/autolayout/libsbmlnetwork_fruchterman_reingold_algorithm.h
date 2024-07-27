@@ -136,6 +136,8 @@ protected:
     void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 };
 
+const bool layoutDimensionsAreSet(Layout* layout);
+
 const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2);
 
 const double calculateEuclideanDistance(AutoLayoutPoint point);

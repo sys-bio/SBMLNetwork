@@ -47,14 +47,14 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 }
 
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
-    if (layout->getDimensions())
+    if (layoutDimensionsAreSet(layout))
         _width = layout->getDimensions()->getWidth();
     else
-        _width = std::sqrt(_nodes.size() - _connections.size()) * _stiffness * 5;
+        _width = _nodes.size() * _nodes.size() * _stiffness * 5;
 }
 
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
-    if (layout->getDimensions())
+    if (layoutDimensionsAreSet(layout))
         _height = layout->getDimensions()->getHeight();
     else
         _height = _width;
@@ -516,6 +516,14 @@ void FruchtermanReingoldUpdateCurvesAlgorithm::setNodes(Model* model, Layout* la
         _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), useNameAsTextLabel, true));
     for (int i = 0; i < _connections.size(); i++)
         _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
+}
+
+const bool layoutDimensionsAreSet(Layout* layout) {
+    const double defaultCanvasSize = 1024.0;
+    if (layout->getDimensions() && std::abs(layout->getDimensions()->getWidth() - defaultCanvasSize) > 0.001 && std::abs(layout->getDimensions()->getWidth() - layout->getDimensions()->getHeight()) > 0.001)
+        return true;
+
+    return false;
 }
 
 const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2) {
