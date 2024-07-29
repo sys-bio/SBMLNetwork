@@ -29,6 +29,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
         void setY(const double& y);
 
+        bool operator<(const LockedNodeInfo& lockedNodeInfo) const;
+
         protected:
 
         std::string entityId;

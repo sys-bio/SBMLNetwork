@@ -10,7 +10,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                   const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                  const bool &useNameAsTextLabel, const std::vector <LockedNodeInfo> &lockedNodesInfo) {
+                  const bool &useNameAsTextLabel, std::set<LockedNodeInfo> lockedNodesInfo) {
     double padding = 30.0;
     std::srand(time(0));
     randomizeGlyphsLocations(model, layout, padding);
@@ -32,7 +32,7 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
 
 void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool &useNameAsTextLabel, const std::vector <LockedNodeInfo> &lockedNodesInfo) {
+                     const bool &useNameAsTextLabel, std::set <LockedNodeInfo> lockedNodesInfo) {
     double padding = 30.0;
     FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
     autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
@@ -90,13 +90,6 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
     cubicBezier->getBasePoint1()->setY(randomPointY);
     cubicBezier->getBasePoint2()->setX(randomPointX);
     cubicBezier->getBasePoint2()->setY(randomPointY);
-}
-
-void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                     const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool &useNameAsTextLabel, const std::vector <LockedNodeInfo> &lockedNodesInfo,
-                     const double &padding) {
-
 }
 
 void
@@ -241,15 +234,15 @@ void extractExtents(Curve *reactionCurve, double &minX, double &minY, double &ma
     maxY = std::max(maxY, reactionCenterY);
 }
 
-std::vector <LockedNodeInfo> getLockedNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds, const bool& resetLockedNodes) {
-    std::vector <LockedNodeInfo> lockedNodesInfo;
+std::set <LockedNodeInfo> getLockedNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds, const bool& resetLockedNodes) {
+    std::set <LockedNodeInfo> lockedNodesInfo;
     if (resetLockedNodes)
         unlockNodes(layout);
     else {
-        std::vector <LockedNodeInfo> lockedSpeciesNodesInfo = getLockedSpeciesNodesInfo(layout, lockedNodeIds);
-        lockedNodesInfo.insert(lockedNodesInfo.end(), lockedSpeciesNodesInfo.begin(), lockedSpeciesNodesInfo.end());
-        std::vector <LockedNodeInfo> lockedReactionNodesInfo = getLockedReactionNodesInfo(layout, lockedNodeIds);
-        lockedNodesInfo.insert(lockedNodesInfo.end(), lockedReactionNodesInfo.begin(), lockedReactionNodesInfo.end());
+        std::set <LockedNodeInfo> lockedSpeciesNodesInfo = getLockedSpeciesNodesInfo(layout, lockedNodeIds);
+        lockedNodesInfo.insert(lockedSpeciesNodesInfo.begin(), lockedSpeciesNodesInfo.end());
+        std::set <LockedNodeInfo> lockedReactionNodesInfo = getLockedReactionNodesInfo(layout, lockedNodeIds);
+        lockedNodesInfo.insert(lockedReactionNodesInfo.begin(), lockedReactionNodesInfo.end());
     }
 
     return lockedNodesInfo;
@@ -263,35 +256,29 @@ void unlockNodes(Layout *layout) {
     }
 }
 
-std::vector <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds) {
-    std::vector <LockedNodeInfo> lockedSpeciesNodesInfo;
+std::set <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds) {
+    std::set <LockedNodeInfo> lockedSpeciesNodesInfo;
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
         if (speciesGlyph->getMetaId() == "locked")
-            lockedSpeciesNodesInfo.push_back(createLockedNodeInfo(layout, speciesGlyph));
-        else {
-            for (int j = 0; j < lockedNodeIds.size(); j++) {
-                if (speciesGlyph->getSpeciesId() == lockedNodeIds.at(j) || speciesGlyph->getId() == lockedNodeIds.at(j))
-                    lockedSpeciesNodesInfo.push_back(createLockedNodeInfo(layout, speciesGlyph));
-            }
-        }
+            lockedSpeciesNodesInfo.insert(createLockedNodeInfo(layout, speciesGlyph));
+        else if (lockedNodeIds.find(speciesGlyph->getSpeciesId()) != lockedNodeIds.end() ||
+                 lockedNodeIds.find(speciesGlyph->getId()) != lockedNodeIds.end())
+            lockedSpeciesNodesInfo.insert(createLockedNodeInfo(layout, speciesGlyph));
     }
 
     return lockedSpeciesNodesInfo;
 }
 
-std::vector <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds) {
-    std::vector <LockedNodeInfo> lockedReactionNodesInfo;
+std::set <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds) {
+    std::set <LockedNodeInfo> lockedReactionNodesInfo;
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         ReactionGlyph *reactionGlyph = layout->getReactionGlyph(i);
         if (reactionGlyph->getMetaId() == "locked")
-            lockedReactionNodesInfo.push_back(createLockedNodeInfo(layout, reactionGlyph));
-        else {
-            for (int j = 0; j < lockedNodeIds.size(); j++) {
-                if (reactionGlyph->getReactionId() == lockedNodeIds.at(j) || reactionGlyph->getId() == lockedNodeIds.at(j))
-                    lockedReactionNodesInfo.push_back(createLockedNodeInfo(layout, reactionGlyph));
-            }
-        }
+            lockedReactionNodesInfo.insert(createLockedNodeInfo(layout, reactionGlyph));
+        else if (lockedNodeIds.find(reactionGlyph->getReactionId()) != lockedNodeIds.end() ||
+                 lockedNodeIds.find(reactionGlyph->getId()) != lockedNodeIds.end())
+            lockedReactionNodesInfo.insert(createLockedNodeInfo(layout, reactionGlyph));
     }
 
     return lockedReactionNodesInfo;

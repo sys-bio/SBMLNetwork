@@ -528,14 +528,14 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     return NULL;
 }
 
-std::vector<std::string> getListOfGraphicalObjectIds(GraphicalObject* graphicalObject) {
-    return std::vector<std::string>(1, graphicalObject->getId());
+std::set<std::string> getSetOfGraphicalObjectIds(GraphicalObject* graphicalObject) {
+    return std::set<std::string>({graphicalObject->getId()});
 }
 
-std::vector<std::string> getListOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects) {
-    std::vector<std::string> graphicalObjectsIds;
+std::set<std::string> getSetOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects) {
+    std::set<std::string> graphicalObjectsIds;
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjectsIds.push_back(graphicalObjects.at(i)->getId());
+        graphicalObjectsIds.insert(graphicalObjects.at(i)->getId());
 
     return graphicalObjectsIds;
 }
