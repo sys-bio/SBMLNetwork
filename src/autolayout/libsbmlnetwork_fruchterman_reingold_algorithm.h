@@ -4,6 +4,7 @@
 #ifndef SWIG
 #include "sbml/SBMLTypes.h"
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
+#include <set>
 #endif
 
 #include "libsbmlnetwork_autolayout_object_base.h"
@@ -35,7 +36,7 @@ public:
 
     void setUseGrid(const bool& useGrid);
 
-    void setNodesLockedStatus(Layout *layout, const std::vector<LockedNodeInfo>& lockedNodesInfo);
+    void setNodesLockedStatus(Layout *layout, const std::set<LockedNodeInfo>& lockedNodesInfo);
 
     void setPadding(const double& padding);
 
@@ -184,7 +185,7 @@ AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::ve
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
 
-const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::vector<LockedNodeInfo>& lockedNodesInfo);
+const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::set<LockedNodeInfo>& lockedNodesInfo);
 
 void setLockedNodePositions(AutoLayoutObjectBase* node, const LockedNodeInfo &lockedNodeInfo);
 

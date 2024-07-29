@@ -47,4 +47,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     void LockedNodeInfo::setY(const double& y) {
         this->y = y;
     }
+
+    bool LockedNodeInfo::operator<(const LockedNodeInfo& lockedNodeInfo) const {
+        if (entityId < lockedNodeInfo.entityId)
+            return true;
+        else if (entityId == lockedNodeInfo.entityId)
+            return graphicalObjectIndex < lockedNodeInfo.graphicalObjectIndex;
+
+        return false;
+    }
 }

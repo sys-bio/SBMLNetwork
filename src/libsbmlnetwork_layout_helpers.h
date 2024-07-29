@@ -6,6 +6,8 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
+#include <set>
+
 using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
@@ -140,9 +142,9 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
-std::vector<std::string> getListOfGraphicalObjectIds(GraphicalObject* graphicalObject);
+std::set<std::string> getSetOfGraphicalObjectIds(GraphicalObject* graphicalObject);
 
-std::vector<std::string> getListOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects);
+std::set<std::string> getSetOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects);
 
 const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
 

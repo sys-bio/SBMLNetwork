@@ -80,7 +80,7 @@ void FruchtermanReingoldAlgorithmBase::setUseGrid(const bool &useGrid) {
     _useGrid = useGrid;
 }
 
-void FruchtermanReingoldAlgorithmBase::setNodesLockedStatus(Layout *layout, const std::vector<LockedNodeInfo> &lockedNodesInfo) {
+void FruchtermanReingoldAlgorithmBase::setNodesLockedStatus(Layout *layout, const std::set<LockedNodeInfo> &lockedNodesInfo) {
     for (int i = 0; i < _nodes.size(); i++) {
         if (setLockedNodePosition(layout, _nodes.at(i), lockedNodesInfo))
             ((AutoLayoutNodeBase *) _nodes.at(i))->setLocked(true);
@@ -735,18 +735,18 @@ const bool compare(std::vector<std::string> strings1, std::vector<std::string> s
     return true;
 }
 
-const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::vector<LockedNodeInfo>& lockedNodesInfo) {
-    for (int i = 0; i < lockedNodesInfo.size(); i++) {
-        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, lockedNodesInfo[i].getEntityId());
-        unsigned int graphicalObjectIndex = lockedNodesInfo[i].getGraphicalObjectIndex();
+const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::set <LockedNodeInfo>& lockedNodesInfo) {
+    for (std::set<LockedNodeInfo>::const_iterator lockedNodeIt = lockedNodesInfo.cbegin(); lockedNodeIt != lockedNodesInfo.cend(); ++lockedNodeIt) {
+        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, (*lockedNodeIt).getEntityId());
+        unsigned int graphicalObjectIndex = (*lockedNodeIt).getGraphicalObjectIndex();
         if (graphicalObjectIndex < speciesGlyphs.size() && speciesGlyphs[graphicalObjectIndex]->getId() == node->getId()) {
-            setLockedNodePositions(node, lockedNodesInfo[i]);
+            setLockedNodePositions(node, *lockedNodeIt);
             return true;
         }
-        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, lockedNodesInfo[i].getEntityId());
-        graphicalObjectIndex = lockedNodesInfo[i].getGraphicalObjectIndex();
+        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, (*lockedNodeIt).getEntityId());
+        graphicalObjectIndex = (*lockedNodeIt).getGraphicalObjectIndex();
         if (graphicalObjectIndex < reactionGlyphs.size() && reactionGlyphs[graphicalObjectIndex]->getId() == node->getId()) {
-            setLockedNodePositions(node, lockedNodesInfo[i]);
+            setLockedNodePositions(node, *lockedNodeIt);
             return true;
         }
     }

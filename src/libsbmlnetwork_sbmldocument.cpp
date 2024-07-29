@@ -62,7 +62,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, bool resetLockedNodes, std::vector <std::string> lockedNodeIds) {
+    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, bool resetLockedNodes, std::set <std::string> lockedNodeIds) {
         const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
@@ -71,29 +71,29 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {
+    int align(SBMLDocument* document, std::set <std::string> nodeIds, const std::string& alignment) {
         if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
-            for (unsigned int i = 0; i < nodeIds.size(); i++) {
-                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
+            for (std::set<std::string>::const_iterator nodeIdIt = nodeIds.cbegin(); nodeIdIt != nodeIds.cend(); nodeIdIt++) {
+                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, *nodeIdIt);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment);
-            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
+            return updateLayoutCurves(document, getLayout(document), getSetOfGraphicalObjectIds(allGraphicalObjects));
         }
 
         return -1;
     }
 
-    int distribute(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& direction, const double& spacing) {
+    int distribute(SBMLDocument* document, std::set <std::string> nodeIds, const std::string& direction, const double& spacing) {
         if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
-            for (unsigned int i = 0; i < nodeIds.size(); i++) {
-                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
+            for (std::set<std::string>::const_iterator nodeIdIt = nodeIds.cbegin(); nodeIdIt != nodeIds.cend(); nodeIdIt++) {
+                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, *nodeIdIt);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
-            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
+            return updateLayoutCurves(document, getLayout(document), getSetOfGraphicalObjectIds(allGraphicalObjects));
         }
 
         return -1;

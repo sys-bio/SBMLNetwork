@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 
  const std::string getLibraryVersion();
 
