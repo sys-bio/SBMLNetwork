@@ -387,6 +387,33 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
     LIBSBMLNETWORK_EXTERN const int c_api_getNumSpeciesReferenceGlyphs(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the id of the nth SpeciesReferenceGlyph associated with the given reaction id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the id of the nth SpeciesReferenceGlyph object associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the nth SpeciesReferenceGlyph associated with the given reaction id, or @c "" if the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getNthSpeciesReferenceGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the meta id of the nth SpeciesReferenceGlyph associated with the given reaction id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the meta id of the nth SpeciesReferenceGlyph object associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the meta id of the nth SpeciesReferenceGlyph associated with the given reaction id, or @c "" if the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getNthSpeciesReferenceGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the id of the SpeciesReference associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the "speciesReference" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+    LIBSBMLNETWORK_EXTERN const char* c_api_getNthSpeciesReferenceGlyphSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the id of the species glyph associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
