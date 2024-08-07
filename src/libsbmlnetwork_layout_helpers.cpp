@@ -59,6 +59,16 @@ void enableLayoutPlugin(SBMLDocument* document) {
     document->setPackageRequired("layout", false);
 }
 
+void freeUserData(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        if (layout->getSpeciesGlyph(i)->isSetUserData()) {
+            auto userData = (std::pair<std::string, std::string>*)layout->getSpeciesGlyph(i)->getUserData();
+            if (userData)
+                delete userData;
+        }
+    }
+}
+
 void setDefaultLayoutId(Layout* layout) {
     if (!layout->isSetId())
         layout->setId(getDefaultLayoutId());
@@ -209,9 +219,8 @@ SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyp
     SpeciesGlyph* dummySpeciesGlyph = layout->createSpeciesGlyph();
     dummySpeciesGlyph->setId(dummySpeciesGlyphId);
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
-    // we store the compartment id of dummy species glyphs in the metaid of the species glyph
     if (compartmentGlyph)
-        dummySpeciesGlyph->setMetaId(compartmentGlyph->getCompartmentId());
+        dummySpeciesGlyph->setUserData(new std::pair<std::string, std::string>("compartment", compartmentGlyph->getCompartmentId()));
     setGraphicalObjectBoundingBox(dummySpeciesGlyph);
 
     return dummySpeciesGlyph;
@@ -437,9 +446,11 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     Species* species = model->getSpecies(speciesGlyph->getSpeciesId());
     if (species)
         return model->getCompartment(species->getCompartment());
-    // we store the compartment id of dummy species glyphs in the metaid of the species glyph
-    else if (speciesGlyph->isSetMetaId())
-        return model->getCompartment(speciesGlyph->getMetaId());
+    else if (speciesGlyph->isSetUserData()) {
+        auto userData = (std::pair<std::string, std::string>*)speciesGlyph->getUserData();
+        if (userData->first == "compartment")
+            return model->getCompartment(userData->second);
+    }
 
     return NULL;
 }

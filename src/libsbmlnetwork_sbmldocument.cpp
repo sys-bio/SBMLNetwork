@@ -48,6 +48,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
     bool freeSBMLDocument(SBMLDocument* document) {
         if (document) {
+            const int numLayouts = getNumLayouts(document);
+            for (int i = 0; i < numLayouts; i++)
+                freeUserData(getLayout(document, i));
             delete document;
             return true;
         }

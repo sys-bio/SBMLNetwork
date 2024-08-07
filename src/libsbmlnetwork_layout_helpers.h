@@ -20,7 +20,7 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-LayoutPkgNamespaces* getLayoutPkgNamespaces(Layout* layout);
+void freeUserData(Layout* layout);
 
 void setDefaultLayoutId(Layout* layout);
 
