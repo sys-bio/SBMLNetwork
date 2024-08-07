@@ -757,13 +757,11 @@ const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, con
 void setLockedNodePositions(AutoLayoutObjectBase* node, const LockedNodeInfo &lockedNodeInfo) {
     ((AutoLayoutNodeBase*)node)->setX(lockedNodeInfo.getX());
     ((AutoLayoutNodeBase*)node)->setY(lockedNodeInfo.getY());
-    if (((AutoLayoutNodeBase*)node)->getGraphicalObject()->isSetUserData()) {
-        auto userData = (std::pair<std::string, std::string>*)((AutoLayoutNodeBase*)node)->getGraphicalObject()->getUserData();
-        if (userData->first == "locked")
-            userData->second = "true";
-    }
+    auto userData = getUserData(((AutoLayoutNodeBase*)node)->getGraphicalObject(), "locked");
+    if (!userData.first.empty())
+        userData.second = "true";
     else
-        ((AutoLayoutNodeBase*)node)->getGraphicalObject()->setUserData(new std::pair<std::string, std::string>("locked", "true"));
+        addUserData(((AutoLayoutNodeBase*)node)->getGraphicalObject(), "locked", "true");
 }
 
 }

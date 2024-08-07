@@ -22,6 +22,10 @@ void enableLayoutPlugin(SBMLDocument* document);
 
 void freeUserData(Layout* layout);
 
+std::pair<std::string, std::string> getUserData(SBase* sbase, const std::string& key);
+
+void addUserData(SBase* sbase, const std::string& key, const std::string& value);
+
 void setDefaultLayoutId(Layout* layout);
 
 const std::string getDefaultLayoutId();

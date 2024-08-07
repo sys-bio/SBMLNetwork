@@ -92,13 +92,6 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
     cubicBezier->getBasePoint2()->setY(randomPointY);
 }
 
-void applyAutolayout(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                     const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool &useNameAsTextLabel, const std::vector <LockedNodeInfo> &lockedNodesInfo,
-                     const double &padding) {
-
-}
-
 void
 initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox,
                                   const double &padding) {
@@ -258,11 +251,9 @@ std::vector <LockedNodeInfo> getLockedNodesInfo(Layout *layout, const std::vecto
 void unlockNodes(Layout *layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
-        if (speciesGlyph->isSetUserData()) {
-            auto userData = (std::pair<std::string, std::string> *) speciesGlyph->getUserData();
-            if (userData->first == "locked")
-                userData->second = "false";
-        }
+        auto userData = getUserData(speciesGlyph, "locked");
+        if (userData.first == "locked")
+            userData.second = "false";
     }
 }
 
@@ -270,11 +261,9 @@ std::vector <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std
     std::vector <LockedNodeInfo> lockedSpeciesNodesInfo;
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
-        if (speciesGlyph->isSetUserData()) {
-            auto userData = (std::pair<std::string, std::string> *) speciesGlyph->getUserData();
-            if (userData->first == "locked" && userData->second == "true")
-                lockedSpeciesNodesInfo.push_back(createLockedNodeInfo(layout, speciesGlyph));
-        }
+        auto userData = getUserData(speciesGlyph, "locked");
+        if (userData.first == "locked" && userData.second == "true")
+            lockedSpeciesNodesInfo.push_back(createLockedNodeInfo(layout, speciesGlyph));
         else {
             for (int j = 0; j < lockedNodeIds.size(); j++) {
                 if (speciesGlyph->getSpeciesId() == lockedNodeIds.at(j) || speciesGlyph->getId() == lockedNodeIds.at(j))
@@ -290,11 +279,9 @@ std::vector <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const st
     std::vector <LockedNodeInfo> lockedReactionNodesInfo;
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         ReactionGlyph *reactionGlyph = layout->getReactionGlyph(i);
-        if (reactionGlyph->isSetUserData()) {
-            auto userData = (std::pair<std::string, std::string> *) reactionGlyph->getUserData();
-            if (userData->first == "locked" && userData->second == "true")
-                lockedReactionNodesInfo.push_back(createLockedNodeInfo(layout, reactionGlyph));
-        }
+        auto userData = getUserData(reactionGlyph, "locked");
+        if (userData.first == "locked" && userData.second == "true")
+            lockedReactionNodesInfo.push_back(createLockedNodeInfo(layout, reactionGlyph));
         else {
             for (int j = 0; j < lockedNodeIds.size(); j++) {
                 if (reactionGlyph->getReactionId() == lockedNodeIds.at(j) || reactionGlyph->getId() == lockedNodeIds.at(j))

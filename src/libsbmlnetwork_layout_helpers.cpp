@@ -62,11 +62,31 @@ void enableLayoutPlugin(SBMLDocument* document) {
 void freeUserData(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         if (layout->getSpeciesGlyph(i)->isSetUserData()) {
-            auto userData = (std::pair<std::string, std::string>*)layout->getSpeciesGlyph(i)->getUserData();
+            auto userData = (std::vector<std::pair<std::string, std::string>>*)layout->getSpeciesGlyph(i)->getUserData();
             if (userData)
                 delete userData;
         }
     }
+}
+
+std::pair<std::string, std::string> getUserData(SBase* sbase, const std::string& key) {
+    if (sbase->isSetUserData()) {
+        auto userData = (std::vector<std::pair<std::string, std::string>>*)sbase->getUserData();
+        for (unsigned int i = 0; i < userData->size(); i++) {
+            if (userData->at(i).first == key)
+                return userData->at(i);
+        }
+    }
+
+    return std::make_pair("", "");
+}
+
+
+void addUserData(SBase* sbase, const std::string& key, const std::string& value) {
+    if (!sbase->isSetUserData())
+        sbase->setUserData(new std::vector<std::pair<std::string, std::string>>());
+    auto userData = (std::vector<std::pair<std::string, std::string>>*)sbase->getUserData();
+    userData->push_back(std::make_pair(key, value));
 }
 
 void setDefaultLayoutId(Layout* layout) {
@@ -220,7 +240,7 @@ SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyp
     dummySpeciesGlyph->setId(dummySpeciesGlyphId);
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
     if (compartmentGlyph)
-        dummySpeciesGlyph->setUserData(new std::pair<std::string, std::string>("compartment", compartmentGlyph->getCompartmentId()));
+        addUserData(dummySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
     setGraphicalObjectBoundingBox(dummySpeciesGlyph);
 
     return dummySpeciesGlyph;
@@ -446,10 +466,10 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     Species* species = model->getSpecies(speciesGlyph->getSpeciesId());
     if (species)
         return model->getCompartment(species->getCompartment());
-    else if (speciesGlyph->isSetUserData()) {
-        auto userData = (std::pair<std::string, std::string>*)speciesGlyph->getUserData();
-        if (userData->first == "compartment")
-            return model->getCompartment(userData->second);
+    else {
+        auto userData = getUserData(speciesGlyph, "compartment");
+        if (!userData.first.empty())
+            return model->getCompartment(userData.second);
     }
 
     return NULL;
