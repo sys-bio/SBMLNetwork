@@ -227,6 +227,10 @@ SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, Reaction
 }
 
 void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges) {
+    if (maxNumConnectedEdges < 1) {
+        std::cerr << "error: Maximum number of connected edges must be greater than 0\n";
+        return;
+    }
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
         std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferences = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
