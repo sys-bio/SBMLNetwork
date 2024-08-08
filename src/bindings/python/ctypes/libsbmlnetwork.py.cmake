@@ -780,6 +780,60 @@ class LibSBMLNetwork:
             """
         return lib.c_api_getNumSpeciesReferenceGlyphs(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
 
+    def getNthSpeciesReferenceGlyphId(self, reaction_id, reaction_glyph_index, index, layout_index=0):
+        """
+        Returns the id of the SpeciesReferenceGlyph with the given index associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - index (int): an integer that determines the index of the SpeciesReferenceGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the SpeciesReferenceGlyph with the given index associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthSpeciesReferenceGlyphId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthSpeciesReferenceGlyphId(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, index, layout_index)).value.decode()
+
+    def getNthSpeciesReferenceGlyphMetaId(self, reaction_id, reaction_glyph_index, index, layout_index=0):
+        """
+        Returns the meta id of the SpeciesReferenceGlyph with the given index associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - index (int): an integer that determines the index of the SpeciesReferenceGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the meta id of the SpeciesReferenceGlyph with the given index associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthSpeciesReferenceGlyphMetaId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthSpeciesReferenceGlyphMetaId(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, index, layout_index)).value.decode()
+
+    def getNthSpeciesReferenceGlyphSpeciesReferenceId(self, reaction_id, reaction_glyph_index, index, layout_index=0):
+        """
+        Returns the species reference id of the SpeciesReferenceGlyph with the given index associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - index (int): an integer that determines the index of the SpeciesReferenceGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the species reference id of the SpeciesReferenceGlyph with the given index associated with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getNthSpeciesReferenceGlyphSpeciesReferenceId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getNthSpeciesReferenceGlyphSpeciesReferenceId(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, index, layout_index)).value.decode()
+
     def getSpeciesReferenceSpeciesId(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the species id of the SpeciesReferenceGlyph with the given reaction_id, reaction_glyph_index, species_reference_glyph_index, and layout_index in the given SBMLDocument
