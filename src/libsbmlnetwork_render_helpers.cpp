@@ -912,6 +912,30 @@ std::vector<std::map<std::string, std::string>> getPredefinedStyles() {
     greenOmbreStyle["line-ending-border-width"] = "3";
     greenOmbreStyle["line-ending-fill-color"] = "FruitSalad";
     predefinedStyles.push_back(greenOmbreStyle);
+    // gray ombre style
+    std::map<std::string, std::string> grayOmbreStyle;
+    grayOmbreStyle["name"] = "gray ombre";
+    grayOmbreStyle["background-color"] = "White";
+    grayOmbreStyle["compartment-geometric-shape"] = "Rectangle";
+    grayOmbreStyle["compartment-border-color"] = "Nandor";
+    grayOmbreStyle["compartment-border-width"] = "3";
+    grayOmbreStyle["compartment-fill-color"] = "White";
+    grayOmbreStyle["compartment-font-color"] = "Nandor";
+    grayOmbreStyle["compartment-font-size"] = "10";
+    grayOmbreStyle["species-geometric-shape"] = "Rectangle";
+    grayOmbreStyle["species-fill-color"] = "Pumice";
+    grayOmbreStyle["species-border-color"] = "Nandor";
+    grayOmbreStyle["species-border-width"] = "3";
+    grayOmbreStyle["species-font-color"] = "Nandor";
+    grayOmbreStyle["species-font-size"] = "24";
+    grayOmbreStyle["reaction-line-color"] = "Gunsmoke";
+    grayOmbreStyle["reaction-line-width"] = "3";
+    grayOmbreStyle["reaction-font-color"] = "Nandor";
+    grayOmbreStyle["reaction-font-size"] = "12";
+    grayOmbreStyle["line-ending-border-color"] = "Gunsmoke";
+    grayOmbreStyle["line-ending-border-width"] = "3";
+    grayOmbreStyle["line-ending-fill-color"] = "Gunsmoke";
+    predefinedStyles.push_back(grayOmbreStyle);
     // grey ombre style
     std::map<std::string, std::string> greyOmbreStyle;
     greyOmbreStyle["name"] = "grey ombre";
@@ -1740,6 +1764,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("DarkFern", "#0A6906"));
     colors.push_back(std::make_pair("DarkGoldenRod", "#B8860B"));
     colors.push_back(std::make_pair("DarkGray", "#A9A9A9"));
+    colors.push_back(std::make_pair("DarkGrey", "#A9A9A9"));
     colors.push_back(std::make_pair("DarkGreen", "#006400"));
     colors.push_back(std::make_pair("DarkIndigo", "#4B0082"));
     colors.push_back(std::make_pair("DarkKhaki", "#BDB76B"));
@@ -1752,11 +1777,13 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("DarkSeaGreen", "#8FBC8F"));
     colors.push_back(std::make_pair("DarkSlateBlue", "#483D8B"));
     colors.push_back(std::make_pair("DarkSlateGray", "#2F4F4F"));
+    colors.push_back(std::make_pair("DarkSlateGrey", "#2F4F4F"));
     colors.push_back(std::make_pair("DarkTurquoise", "#00CED1"));
     colors.push_back(std::make_pair("DarkViolet", "#9400D3"));
     colors.push_back(std::make_pair("DeepPink", "#FF1493"));
     colors.push_back(std::make_pair("DeepSkyBlue", "#00BFFF"));
     colors.push_back(std::make_pair("DimGray", "#696969"));
+    colors.push_back(std::make_pair("DimGrey", "#696969"));
     colors.push_back(std::make_pair("DiSerria", "#DAA520"));
     colors.push_back(std::make_pair("DodgerBlue", "#1E90FF"));
     colors.push_back(std::make_pair("Domino", "#8A2008"));
@@ -1780,6 +1807,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("GoldenRod", "#DAA520"));
     colors.push_back(std::make_pair("Gondola", "#211916"));
     colors.push_back(std::make_pair("Gray", "#808080"));
+    colors.push_back(std::make_pair("Grey", "#808080"));
     colors.push_back(std::make_pair("GrannySmithApple", "#A8E4A0"));
     colors.push_back(std::make_pair("Green", "#008000"));
     colors.push_back(std::make_pair("GreenYellow", "#ADFF2F"));
@@ -1805,6 +1833,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("LightCyan", "#E0FFFF"));
     colors.push_back(std::make_pair("LightGoldenRodYellow", "#FAFAD2"));
     colors.push_back(std::make_pair("LightGray", "#D3D3D3"));
+    colors.push_back(std::make_pair("LightGrey", "#D3D3D3"));
     colors.push_back(std::make_pair("LightGreen", "#90EE90"));
     colors.push_back(std::make_pair("LightOrchid", "#E29CD2"));
     colors.push_back(std::make_pair("LightPink", "#FFB6C1"));
@@ -1812,6 +1841,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("LightSeaGreen", "#20B2AA"));
     colors.push_back(std::make_pair("LightSkyBlue", "#87CEFA"));
     colors.push_back(std::make_pair("LightSlateGray", "#778899"));
+    colors.push_back(std::make_pair("LightSlateGrey", "#778899"));
     colors.push_back(std::make_pair("LightSteelBlue", "#B0C4DE"));
     colors.push_back(std::make_pair("LightYellow", "#FFFFE0"));
     colors.push_back(std::make_pair("Lime", "#00FF00"));
@@ -1890,6 +1920,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("SkyBlue", "#87CEEB"));
     colors.push_back(std::make_pair("SlateBlue", "#6A5ACD"));
     colors.push_back(std::make_pair("SlateGray", "#708090"));
+    colors.push_back(std::make_pair("SlateGrey", "#708090"));
     colors.push_back(std::make_pair("Snow", "#FFFAFA"));
     colors.push_back(std::make_pair("SpringGreen", "#00FF7F"));
     colors.push_back(std::make_pair("SteelBlue", "#4682B4"));
@@ -1910,6 +1941,7 @@ std::vector<std::pair<std::string, std::string>> colorData() {
     colors.push_back(std::make_pair("Vesuvius", "#AD975A"));
     colors.push_back(std::make_pair("Violet", "#EE82EE"));
     colors.push_back(std::make_pair("WaikawaGray", "#5D7291"));
+    colors.push_back(std::make_pair("WaikawaGrey", "#5D7291"));
     colors.push_back(std::make_pair("Wheat", "#F5DEB3"));
     colors.push_back(std::make_pair("White", "#FFFFFF"));
     colors.push_back(std::make_pair("WhiteSmoke", "#F5F5F5"));
