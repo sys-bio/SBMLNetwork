@@ -4841,6 +4841,7 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         }
     }
 
+    std::cerr << "Error: The style '" << style << "' is not found." << std::endl;
     return -1;
 }
 

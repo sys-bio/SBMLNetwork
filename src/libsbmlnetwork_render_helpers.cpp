@@ -1467,6 +1467,14 @@ std::vector<std::string> getPredefinedStyleNames() {
     return predefinedStyleNames;
 }
 
+const bool isValidPredefinedStyleName(const std::string& predefinedStyleName) {
+    std::vector<std::string> getPredefinedStyleNames();
+    if (std::find(predefinedStyleNames.begin(), predefinedStyleNames.end(), predefinedStyleName) != predefinedStyleNames.end())
+        return true;
+
+    return false;
+}
+
 const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
     return isValidColorValue(backgroundColor);
 }
