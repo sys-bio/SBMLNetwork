@@ -668,10 +668,9 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(GraphicalObject* graphicalObject);
 LIBSBMLNETWORK_EXTERN const std::string getSBMLObjectId(Layout* layout, const std::string& graphicalObjectId);
 
 /// Returns the value of the "id" attribute of the SBML object associated with this GraphicalObject object.
-/// @param layout a pointer to the Layout object
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the "id" attribute of the SBML object associated with this GraphicalObject object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const std::string getSBMLObjectId(GraphicalObject* graphicalObject);
 
 /// Returns the BoundingBox object of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.

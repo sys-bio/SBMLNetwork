@@ -10,8 +10,16 @@ AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, const bool&
 }
 
 void AutoLayoutNodeBase::updateDimensions() {
-    setWidth(std::max(calculateWidth(), std::max(getWidth(), getDefaultWidth())));
-    setHeight(std::max(calculateHeight(), std::max(getHeight(), getDefaultHeight())));
+    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
+    if (fixedWidth.empty())
+        setWidth(std::max(calculateWidth(), std::max(getWidth(), getDefaultWidth())));
+    else
+        setWidth(std::stod(fixedWidth));
+    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
+    if (fixedHeight.empty())
+        setHeight(std::max(calculateHeight(), std::max(getHeight(), getDefaultHeight())));
+    else
+        setHeight(std::stod(fixedHeight));
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -56,10 +64,6 @@ void AutoLayoutNodeBase::incrementDegree() {
     _degree++;
 }
 
-void AutoLayoutNodeBase::setLocked(const bool& locked) {
-    _locked = locked;
-}
-
 const bool AutoLayoutNodeBase::isLocked() {
     return _locked;
 }
@@ -76,6 +80,16 @@ const std::string AutoLayoutNode::getId() {
 
 GraphicalObject* AutoLayoutNode::getGraphicalObject() {
     return _speciesGlyph;
+}
+
+void AutoLayoutNode::updateLockedStatus() {;
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesGlyph, "locked") == "true") {
+        _locked = true;
+        setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesGlyph, "x")));
+        setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesGlyph, "y")));
+    }
+    else
+        _locked = false;
 }
 
 const double AutoLayoutNode::getX() {
@@ -136,6 +150,16 @@ const double AutoLayoutNode::calculateHeight() {
 
 AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, useNameAsTextLabel, locked) {
     _reactionGlyph = reactionGlyph;
+}
+
+void AutoLayoutCentroidNode::updateLockedStatus() {
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_reactionGlyph, "locked") == "true") {
+        _locked = true;
+        setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_reactionGlyph, "x")));
+        setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_reactionGlyph, "y")));
+    }
+    else
+        _locked = false;
 }
 
 const std::string AutoLayoutCentroidNode::getId() {

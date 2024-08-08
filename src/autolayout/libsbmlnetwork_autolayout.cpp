@@ -10,7 +10,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                   const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                  const bool &useNameAsTextLabel, const std::vector <LockedNodeInfo> &lockedNodesInfo) {
+                  const bool &useNameAsTextLabel) {
     double padding = 30.0;
     std::srand(time(0));
     randomizeGlyphsLocations(model, layout, padding);
@@ -21,7 +21,7 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseBoundary(useBoundary);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->setNodesLockedStatus(layout, lockedNodesInfo);
+    autoLayoutAlgorithm->updateNodesLockedStatus();
     autoLayoutAlgorithm->setPadding(padding);
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
@@ -32,7 +32,7 @@ void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const d
 
 void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool &useNameAsTextLabel, const std::vector <LockedNodeInfo> &lockedNodesInfo) {
+                     const bool &useNameAsTextLabel) {
     double padding = 30.0;
     FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
     autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
@@ -41,7 +41,7 @@ void locateReactions(Model *model, Layout *layout, const double &stiffness, cons
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseBoundary(useBoundary);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->setNodesLockedStatus(layout, lockedNodesInfo);
+    autoLayoutAlgorithm->updateNodesLockedStatus();
     autoLayoutAlgorithm->setPadding(padding);
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
@@ -232,70 +232,6 @@ void extractExtents(Curve *reactionCurve, double &minX, double &minY, double &ma
     minY = std::min(minY, reactionCenterY);
     maxX = std::max(maxX, reactionCenterX);
     maxY = std::max(maxY, reactionCenterY);
-}
-
-std::vector <LockedNodeInfo> getLockedNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds, const bool& resetLockedNodes) {
-    std::vector <LockedNodeInfo> lockedNodesInfo;
-    if (resetLockedNodes)
-        unlockNodes(layout);
-    else {
-        std::vector <LockedNodeInfo> lockedSpeciesNodesInfo = getLockedSpeciesNodesInfo(layout, lockedNodeIds);
-        lockedNodesInfo.insert(lockedNodesInfo.end(), lockedSpeciesNodesInfo.begin(), lockedSpeciesNodesInfo.end());
-        std::vector <LockedNodeInfo> lockedReactionNodesInfo = getLockedReactionNodesInfo(layout, lockedNodeIds);
-        lockedNodesInfo.insert(lockedNodesInfo.end(), lockedReactionNodesInfo.begin(), lockedReactionNodesInfo.end());
-    }
-
-    return lockedNodesInfo;
-}
-
-void unlockNodes(Layout *layout) {
-    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
-        auto userData = getUserData(speciesGlyph, "locked");
-        if (userData.first == "locked")
-            userData.second = "false";
-    }
-}
-
-std::vector <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds) {
-    std::vector <LockedNodeInfo> lockedSpeciesNodesInfo;
-    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
-        auto userData = getUserData(speciesGlyph, "locked");
-        if (userData.first == "locked" && userData.second == "true")
-            lockedSpeciesNodesInfo.push_back(createLockedNodeInfo(layout, speciesGlyph));
-        else {
-            for (int j = 0; j < lockedNodeIds.size(); j++) {
-                if (speciesGlyph->getSpeciesId() == lockedNodeIds.at(j) || speciesGlyph->getId() == lockedNodeIds.at(j))
-                    lockedSpeciesNodesInfo.push_back(createLockedNodeInfo(layout, speciesGlyph));
-            }
-        }
-    }
-
-    return lockedSpeciesNodesInfo;
-}
-
-std::vector <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds) {
-    std::vector <LockedNodeInfo> lockedReactionNodesInfo;
-    for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        ReactionGlyph *reactionGlyph = layout->getReactionGlyph(i);
-        auto userData = getUserData(reactionGlyph, "locked");
-        if (userData.first == "locked" && userData.second == "true")
-            lockedReactionNodesInfo.push_back(createLockedNodeInfo(layout, reactionGlyph));
-        else {
-            for (int j = 0; j < lockedNodeIds.size(); j++) {
-                if (reactionGlyph->getReactionId() == lockedNodeIds.at(j) || reactionGlyph->getId() == lockedNodeIds.at(j))
-                    lockedReactionNodesInfo.push_back(createLockedNodeInfo(layout, reactionGlyph));
-            }
-        }
-    }
-
-    return lockedReactionNodesInfo;
-}
-
-LockedNodeInfo createLockedNodeInfo(Layout* layout, GraphicalObject *graphicalObject) {
-    return LockedNodeInfo(getEntityId(layout, graphicalObject), 0, graphicalObject->getBoundingBox()->x(),
-                          graphicalObject->getBoundingBox()->y());
 }
 
 }

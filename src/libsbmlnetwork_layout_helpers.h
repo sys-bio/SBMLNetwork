@@ -22,9 +22,13 @@ void enableLayoutPlugin(SBMLDocument* document);
 
 void freeUserData(Layout* layout);
 
-std::pair<std::string, std::string> getUserData(SBase* sbase, const std::string& key);
+void freeUserData(SBase* sbase);
 
-void addUserData(SBase* sbase, const std::string& key, const std::string& value);
+std::vector<std::map<std::string, std::string>> getUserData(Layout* layout);
+
+const std::string getUserData(SBase* sbase, const std::string& key);
+
+void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
 
 void setDefaultLayoutId(Layout* layout);
 
@@ -33,6 +37,20 @@ const std::string getDefaultLayoutId();
 const bool canUpdateLayoutCurves(Layout* layout);
 
 void setDefaultLayoutDimensions(Layout* layout);
+
+void lockGraphicalObjects(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+
+void lockSpeciesGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+
+void lockReactionGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+
+void lockGraphicalObject(GraphicalObject* graphicalObject);
+
+void unlockGraphicalObject(GraphicalObject* graphicalObject);
+
+void fixGraphicalObjectWidth(GraphicalObject* graphicalObject);
+
+void fixGraphicalObjectHeight(GraphicalObject* graphicalObject);
 
 void clearGraphicalObjects(Layout* layout);
 
@@ -44,11 +62,11 @@ void clearReactionGlyphs(Layout* layout);
 
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
-void setCompartmentGlyphs(Model* model, Layout* layout);
+void setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setSpeciesGlyphs(Model* model, Layout* layout);
+void setSpeciesGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setReactionGlyphs(Model* model, Layout* layout);
+void setReactionGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData);
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
@@ -68,7 +86,7 @@ SpeciesGlyph* createDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
 
 SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
 
-void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges);
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
 std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
 
@@ -105,6 +123,8 @@ const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const
 const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
 
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
+
+void setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData);
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
@@ -148,7 +168,7 @@ std::vector<std::string> getListOfGraphicalObjectIds(GraphicalObject* graphicalO
 
 std::vector<std::string> getListOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects);
 
-const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
+const std::string getEntityId(GraphicalObject* graphicalObject);
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);
 

@@ -8,7 +8,6 @@
 
 #include "libsbmlnetwork_autolayout_object_base.h"
 #include "libsbmlnetwork_autolayout_point.h"
-#include "libsbmlnetwork_locked_node_info.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
@@ -35,7 +34,7 @@ public:
 
     void setUseGrid(const bool& useGrid);
 
-    void setNodesLockedStatus(Layout *layout, const std::vector<LockedNodeInfo>& lockedNodesInfo);
+    void updateNodesLockedStatus();
 
     void setPadding(const double& padding);
 
@@ -183,10 +182,6 @@ const double getConnectionCenterPadding(std::vector<AutoLayoutObjectBase*> conne
 AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::vector<std::string> nodeIds);
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
-
-const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::vector<LockedNodeInfo>& lockedNodesInfo);
-
-void setLockedNodePositions(AutoLayoutObjectBase* node, const LockedNodeInfo &lockedNodeInfo);
 
 }
 

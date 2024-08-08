@@ -64,13 +64,14 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
         setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            std::vector<LockedNodeInfo> lockedNodesInfo = getLockedNodesInfo(layout, lockedNodeIds, resetLockedNodes);
+            lockGraphicalObjects(layout, lockedNodeIds, resetLockedNodes);
+            std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
             clearGraphicalObjects(layout);
-            setCompartmentGlyphs(model, layout);
-            setSpeciesGlyphs(model, layout);
-            setReactionGlyphs(model, layout);
-            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges);
-            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodesInfo);
+            setCompartmentGlyphs(model, layout, userData);
+            setSpeciesGlyphs(model, layout, userData);
+            setReactionGlyphs(model, layout, userData);
+            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges, userData);
+            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel);
             setTextGlyphs(layout);
             return 0;
         }
@@ -84,8 +85,8 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::
         Model* model = document->getModel();
         if (model) {
             clearReactionTextGlyphs(layout);
-            std::vector<LockedNodeInfo> lockedNodesInfo = getLockedNodesInfo(layout, updatedGraphicalObjectIds, false);
-            locateReactions(model, layout, 10.0, 15.0, false, true, false, false, lockedNodesInfo);
+            std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
+            locateReactions(model, layout, 10.0, 15.0, false, true, false, false);
             setReactionTextGlyphs(layout);
             return 0;
         }

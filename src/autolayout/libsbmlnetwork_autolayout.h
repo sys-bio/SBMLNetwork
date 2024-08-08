@@ -6,19 +6,17 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
-#include "libsbmlnetwork_locked_node_info.h"
-
 using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
 void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
                   const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                  const bool& useNameAsTextLabel = true, const std::vector<LockedNodeInfo>& lockedNodesInfo = std::vector<LockedNodeInfo>());
+                  const bool& useNameAsTextLabel = true);
 
 void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
                      const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool& useNameAsTextLabel, const std::vector<LockedNodeInfo>& lockedNodesInfo);
+                     const bool& useNameAsTextLabel);
 
 void randomizeGlyphsLocations(Model* model, Layout* layout, const double &padding);
 
@@ -49,16 +47,6 @@ void extractExtents(Layout* layout, double &minX, double &minY, double &maxX, do
 void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY);
 
 void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &maxX, double &maxY);
-
-std::vector<LockedNodeInfo> getLockedNodesInfo(Layout* layout, const std::vector<std::string>& lockedNodeIds, const bool& resetLockedNodes = false);
-
-void unlockNodes(Layout *layout);
-
-std::vector <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds);
-
-std::vector <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::vector <std::string> &lockedNodeIds);
-
-LockedNodeInfo createLockedNodeInfo(Layout* layout, GraphicalObject* graphicalObject);
 
 }
 
