@@ -48,6 +48,8 @@ void lockGraphicalObject(GraphicalObject* graphicalObject);
 
 void unlockGraphicalObject(GraphicalObject* graphicalObject);
 
+std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects);
+
 void fixGraphicalObjectWidth(GraphicalObject* graphicalObject);
 
 void fixGraphicalObjectHeight(GraphicalObject* graphicalObject);
@@ -208,9 +210,9 @@ void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> gr
 
 const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
-void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-const double getCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
+const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
 void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
@@ -220,9 +222,9 @@ void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> g
 
 const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
-void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
-const double getMiddleAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
+const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
 void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 

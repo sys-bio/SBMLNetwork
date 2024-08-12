@@ -186,6 +186,15 @@ void unlockGraphicalObject(GraphicalObject* graphicalObject) {
     setUserData(graphicalObject, "y", "");
 }
 
+std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects) {
+    std::vector<GraphicalObject*> lockedGraphicalObjects;
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        if (getUserData(graphicalObjects.at(i), "locked") == "true")
+            lockedGraphicalObjects.push_back(graphicalObjects.at(i));
+
+    return lockedGraphicalObjects;
+}
+
 void fixGraphicalObjectWidth(GraphicalObject* graphicalObject) {
     setUserData(graphicalObject, "width", std::to_string(graphicalObject->getBoundingBox()->width()));
 }
@@ -823,14 +832,14 @@ void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphic
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
             alignGraphicalObjectsToTop(layout, graphicalObjects);
-        else if (stringCompare(alignment, "center"))
-            alignGraphicalObjectsToCenter(layout, graphicalObjects);
+        else if (stringCompare(alignment, "vCenter"))
+            alignGraphicalObjectsToVerticalCenter(layout, graphicalObjects);
         else if (stringCompare(alignment, "bottom"))
             alignGraphicalObjectsToBottom(layout, graphicalObjects);
         else if (stringCompare(alignment, "left"))
             alignGraphicalObjectsToLeft(layout, graphicalObjects);
-        else if (stringCompare(alignment, "middle"))
-            alignGraphicalObjectsToMiddle(layout, graphicalObjects);
+        else if (stringCompare(alignment, "hCenter"))
+            alignGraphicalObjectsToHorizontalCenter(layout, graphicalObjects);
         else if (stringCompare(alignment, "right"))
             alignGraphicalObjectsToRight(layout, graphicalObjects);
         else if (stringCompare(alignment, "circular") || stringCompare(alignment, "circle"))
@@ -839,63 +848,129 @@ void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphic
 }
 
 void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double minY = getTopAlignmentPosition(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), minY);
+    try {
+        double minY = getTopAlignmentPosition(graphicalObjects);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionY(layout, graphicalObjects.at(i), minY);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
 const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
-    return getMinPositionY(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMinPositionY(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
 }
 
-void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double centerX = getCenterAlignmentPosition(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), centerX);
+void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+    try {
+        double centerX = getHorizontalCenterAlignmentPosition(graphicalObjects);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionX(layout, graphicalObjects.at(i), centerX);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
-const double getCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
-    return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
+const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
 }
 
 void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double maxY = getBottomAlignmentPosition(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), maxY);
+    try {
+        double maxY = getBottomAlignmentPosition(graphicalObjects);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionY(layout, graphicalObjects.at(i), maxY);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
 const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
-    return getMaxPositionY(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMaxPositionY(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
 }
 
 void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double minX = getLeftAlignmentPosition(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), minX);
+    try {
+        double minX = getLeftAlignmentPosition(graphicalObjects);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionX(layout, graphicalObjects.at(i), minX);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
 const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
-    return getMinPositionX(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMinPositionX(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
 }
 
-void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double centerY = getMiddleAlignmentPosition(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), centerY);
+void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+    try {
+        double centerY = getVerticalCenterAlignmentPosition(graphicalObjects);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionY(layout, graphicalObjects.at(i), centerY);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
-const double getMiddleAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
-    return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
+const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
 }
 
 void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double maxX = getRightAlignmentPosition(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), maxX);
+    try {
+        double maxX = getRightAlignmentPosition(graphicalObjects);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionX(layout, graphicalObjects.at(i), maxX);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
 const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
-    return getMaxPositionX(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMaxPositionX(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
 }
 
 void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
@@ -1169,10 +1244,10 @@ std::vector<std::string> getValidRoleValues() {
 std::vector<std::string> getValidAlignmentValues() {
     std::vector <std::string> alignmentValues;
     alignmentValues.push_back("top");
-    alignmentValues.push_back("center");
+    alignmentValues.push_back("vCenter");
     alignmentValues.push_back("bottom");
     alignmentValues.push_back("left");
-    alignmentValues.push_back("middle");
+    alignmentValues.push_back("hCenter");
     alignmentValues.push_back("right");
     alignmentValues.push_back("circular");
 

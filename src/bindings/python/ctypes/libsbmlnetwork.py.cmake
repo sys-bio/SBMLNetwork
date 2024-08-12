@@ -161,7 +161,7 @@ class LibSBMLNetwork:
         :Parameters:
 
             - nodes (list): a list that determines the nodes to be aligned
-            - alignment (string, optional): a string (default: "center") that determines the type of alignment to be applied ("top", "bottom", "left", "right", "center", "middle", "circular")
+            - alignment (string, optional): a string (default: "center") that determines the type of alignment to be applied ("top", "bottom", "left", "right", "vCenter", "hCenter", "circular")
 
         :Returns:
 
