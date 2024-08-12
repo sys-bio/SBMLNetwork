@@ -38,7 +38,7 @@ class LibSBMLNetwork:
         self.layout_is_added = False
         self.render_is_added = False
         self.use_name_as_text_label = True
-        self.display_compartments_text_label = False
+        self.display_compartments_text_label = True
         self.display_species_text_label = True
         self.display_reactions_text_label = False
         self.load(sbml)
@@ -8705,7 +8705,7 @@ class LibSBMLNetwork:
 
         :Parameters:
 
-            - display_reaction_text_labels (bool): a boolean that determines whether to display the text labels of the reactions in the layout
+            - display_reactions_text_label (bool): a boolean that determines whether to display the text labels of the reactions in the layout
 
         """
         self.display_reactions_text_label = display_reactions_text_label

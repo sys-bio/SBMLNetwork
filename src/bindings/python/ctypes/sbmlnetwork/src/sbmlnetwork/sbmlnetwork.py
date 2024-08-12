@@ -17,12 +17,12 @@ class SBMLNetwork(libsbmlnetwork.LibSBMLNetwork):
         """
         if file_name:
             networkinfotranslator.import_sbml_export_figure(self.save(), file_name, self.use_name_as_text_label,
-                                                            self.display_compartemnts_text_label,
+                                                            self.display_compartments_text_label,
                                                             self.display_species_text_label,
                                                             self.display_reactions_text_label)
         else:
             display(networkinfotranslator.import_sbml_export_pil_image(self.save(), self.use_name_as_text_label,
-                                                                       self.display_compartemnts_text_label,
+                                                                       self.display_compartments_text_label,
                                                                        self.display_species_text_label,
                                                                        self.display_reactions_text_label))
 
