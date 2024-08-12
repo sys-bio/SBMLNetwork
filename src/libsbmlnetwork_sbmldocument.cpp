@@ -74,14 +74,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment) {
+    int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment, const bool ignoreLockedNodes) {
         if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
             for (unsigned int i = 0; i < nodeIds.size(); i++) {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
-            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment);
+            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
             return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 

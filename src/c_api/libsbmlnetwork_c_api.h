@@ -79,8 +79,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param nodeIds an array of strings containing the ids of the nodes that should be aligned.
     /// @param nodesSize the size of nodeIds
     /// @param alignment determines how to align the nodes.
+    /// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment);
+    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes = false);
 
     /// @brief Distribute the nodes position in the SBML document in the given direction.
     /// @param document a pointer to the SBMLDocument object.

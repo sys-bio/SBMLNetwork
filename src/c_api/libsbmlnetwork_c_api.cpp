@@ -54,13 +54,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return autolayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
     }
 
-    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment) {
+    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes)
         std::vector <std::string> nodeIdsVector = std::vector<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
                 nodeIdsVector.emplace_back(nodeIds[i]);
         }
-        return align(document, nodeIdsVector, alignment);
+        return align(document, nodeIdsVector, alignment, ignoreLockedNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing) {

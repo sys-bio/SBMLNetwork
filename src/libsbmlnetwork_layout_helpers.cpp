@@ -828,28 +828,28 @@ void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* 
         textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
 }
 
-void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
+void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes) {
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
-            alignGraphicalObjectsToTop(layout, graphicalObjects);
+            alignGraphicalObjectsToTop(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "vCenter"))
-            alignGraphicalObjectsToVerticalCenter(layout, graphicalObjects);
+            alignGraphicalObjectsToVerticalCenter(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "bottom"))
-            alignGraphicalObjectsToBottom(layout, graphicalObjects);
+            alignGraphicalObjectsToBottom(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "left"))
-            alignGraphicalObjectsToLeft(layout, graphicalObjects);
+            alignGraphicalObjectsToLeft(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "hCenter"))
-            alignGraphicalObjectsToHorizontalCenter(layout, graphicalObjects);
+            alignGraphicalObjectsToHorizontalCenter(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "right"))
-            alignGraphicalObjectsToRight(layout, graphicalObjects);
+            alignGraphicalObjectsToRight(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "circular") || stringCompare(alignment, "circle"))
-            alignGraphicalObjectsCircularly(layout, graphicalObjects);
+            alignGraphicalObjectsCircularly(layout, graphicalObjects, ignoreLockedNodes);
     }
 }
 
-void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     try {
-        double minY = getTopAlignmentPosition(graphicalObjects);
+        double minY = getTopAlignmentPosition(graphicalObjects, ignoreLockedNodes);
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             setPositionY(layout, graphicalObjects.at(i), minY);
     }
@@ -858,19 +858,21 @@ void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> gr
     }
 }
 
-const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMinPositionY(graphicalObjects);
     std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
     if (lockedGraphicalObjects.size() == 0)
         return getMinPositionY(graphicalObjects);
     else if (lockedGraphicalObjects.size() == 1)
         return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
     else
-        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     try {
-        double centerX = getHorizontalCenterAlignmentPosition(graphicalObjects);
+        double centerX = getHorizontalCenterAlignmentPosition(graphicalObjects, ignoreLockedNodes);
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             setPositionX(layout, graphicalObjects.at(i), centerX);
     }
@@ -879,19 +881,21 @@ void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<Graphic
     }
 }
 
-const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
     std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
     if (lockedGraphicalObjects.size() == 0)
         return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
     else if (lockedGraphicalObjects.size() == 1)
         return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
     else
-        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     try {
-        double maxY = getBottomAlignmentPosition(graphicalObjects);
+        double maxY = getBottomAlignmentPosition(graphicalObjects, ignoreLockedNodes);
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             setPositionY(layout, graphicalObjects.at(i), maxY);
     }
@@ -900,19 +904,21 @@ void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*>
     }
 }
 
-const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMaxPositionY(graphicalObjects);
     std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
     if (lockedGraphicalObjects.size() == 0)
         return getMaxPositionY(graphicalObjects);
     else if (lockedGraphicalObjects.size() == 1)
         return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
     else
-        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     try {
-        double minX = getLeftAlignmentPosition(graphicalObjects);
+        double minX = getLeftAlignmentPosition(graphicalObjects, ignoreLockedNodes);
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             setPositionX(layout, graphicalObjects.at(i), minX);
     }
@@ -921,19 +927,21 @@ void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> g
     }
 }
 
-const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMinPositionX(graphicalObjects);
     std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
     if (lockedGraphicalObjects.size() == 0)
         return getMinPositionX(graphicalObjects);
     else if (lockedGraphicalObjects.size() == 1)
         return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
     else
-        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     try {
-        double centerY = getVerticalCenterAlignmentPosition(graphicalObjects);
+        double centerY = getVerticalCenterAlignmentPosition(graphicalObjects, ignoreLockedNodes);
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             setPositionY(layout, graphicalObjects.at(i), centerY);
     }
@@ -942,19 +950,21 @@ void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<Graphical
     }
 }
 
-const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
     std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
     if (lockedGraphicalObjects.size() == 0)
         return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
     else if (lockedGraphicalObjects.size() == 1)
         return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
     else
-        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     try {
-        double maxX = getRightAlignmentPosition(graphicalObjects);
+        double maxX = getRightAlignmentPosition(graphicalObjects, ignoreLockedNodes);
         for (unsigned int i = 0; i < graphicalObjects.size(); i++)
             setPositionX(layout, graphicalObjects.at(i), maxX);
     }
@@ -963,17 +973,19 @@ void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> 
     }
 }
 
-const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMaxPositionX(graphicalObjects);
     std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
     if (lockedGraphicalObjects.size() == 0)
         return getMaxPositionX(graphicalObjects);
     else if (lockedGraphicalObjects.size() == 1)
         return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
     else
-        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied.\n");
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     double radius = graphicalObjects.size() * 50.0;
     double angle = 2 * M_PI / graphicalObjects.size();
     double centerX = std::max(radius, 0.5 * (getMinCenterX(graphicalObjects) + getMaxCenterX(graphicalObjects)));

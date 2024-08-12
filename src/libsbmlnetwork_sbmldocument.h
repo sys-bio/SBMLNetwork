@@ -80,8 +80,9 @@ LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const double stiffn
 /// @param document a pointer to the SBMLDocument object.
 /// @param nodeIds an array of node ids to be aligned.
 /// @param alignment determines how to align the nodes.
+/// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the alignment algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment);
+LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment, const bool ignoreLockedNodes = false);
 
 /// @brief Distribute the nodes position in the SBML document in the given distribution direction.
 /// @param document a pointer to the SBMLDocument object.
