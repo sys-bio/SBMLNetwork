@@ -38,6 +38,8 @@ class LibSBMLNetwork:
         self.layout_is_added = False
         self.render_is_added = False
         self.use_name_as_text_label = True
+        self.display_compartments_text_label = False
+        self.display_species_text_label = True
         self.display_reactions_text_label = False
         self.load(sbml)
 
@@ -8673,6 +8675,28 @@ class LibSBMLNetwork:
         self.use_name_as_text_label = use_name_as_text_label
         if self.layout_is_added:
             self.autolayout(locked_nodes=self.getListOfSpeciesIds())
+            
+    def enableDisplayCompartmentsTextLabel(self, display_compartments_text_label):
+        """
+        Set the flag to display the text labels of the compartments in the layout
+
+        :Parameters:
+
+            - display_compartments_text_label (bool): a boolean that determines whether to display the text labels of the compartments in the layout
+
+        """
+        self.display_compartments_text_label = display_compartments_text_label
+
+    def enableDisplaySpeciesTextLabel(self, display_species_text_label):
+        """
+        Set the flag to display the text labels of the species in the layout
+
+        :Parameters:
+
+            - display_species_text_label (bool): a boolean that determines whether to display the text labels of the species in the layout
+
+        """
+        self.display_species_text_label = display_species_text_label
 
     def enableDisplayReactionsTextLabel(self, display_reactions_text_label):
         """
