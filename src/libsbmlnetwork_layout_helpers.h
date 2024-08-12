@@ -206,15 +206,27 @@ void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphic
 
 void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
+const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
+
 void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+
+const double getCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
 void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
+const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
+
 void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+
+const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
 void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 
+const double getMiddleAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
+
 void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+
+const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects);
 
 void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
 

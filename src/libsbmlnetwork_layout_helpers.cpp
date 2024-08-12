@@ -839,39 +839,63 @@ void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphic
 }
 
 void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double minY = getMinPositionY(graphicalObjects);
+    double minY = getTopAlignmentPosition(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
         setPositionY(layout, graphicalObjects.at(i), minY);
 }
 
+const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    return getMinPositionY(graphicalObjects);
+}
+
 void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double centerX = 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
+    double centerX = getCenterAlignmentPosition(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
         setPositionX(layout, graphicalObjects.at(i), centerX);
 }
 
+const double getCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
+}
+
 void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double maxY = getMaxPositionY(graphicalObjects);
+    double maxY = getBottomAlignmentPosition(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
         setPositionY(layout, graphicalObjects.at(i), maxY);
 }
 
+const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    return getMaxPositionY(graphicalObjects);
+}
+
 void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double minX = getMinPositionX(graphicalObjects);
+    double minX = getLeftAlignmentPosition(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
         setPositionX(layout, graphicalObjects.at(i), minX);
 }
 
+const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    return getMinPositionX(graphicalObjects);
+}
+
 void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double centerY = 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
+    double centerY = getMiddleAlignmentPosition(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
         setPositionY(layout, graphicalObjects.at(i), centerY);
 }
 
+const double getMiddleAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
+}
+
 void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double maxX = getMaxPositionX(graphicalObjects);
+    double maxX = getRightAlignmentPosition(graphicalObjects);
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
         setPositionX(layout, graphicalObjects.at(i), maxX);
+}
+
+const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects) {
+    return getMaxPositionX(graphicalObjects);
 }
 
 void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
