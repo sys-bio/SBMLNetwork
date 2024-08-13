@@ -82,7 +82,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
-            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
+            return updateLayoutCurves(document, getLayout(document));
         }
 
         return -1;
@@ -96,7 +96,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
-            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
+            return updateLayoutCurves(document, getLayout(document));
         }
 
         return -1;

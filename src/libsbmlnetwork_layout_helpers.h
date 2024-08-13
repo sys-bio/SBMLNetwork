@@ -168,10 +168,6 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
-std::set<std::string> getSetOfGraphicalObjectIds(GraphicalObject* graphicalObject);
-
-std::set<std::string> getSetOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects);
-
 const std::string getEntityId(GraphicalObject* graphicalObject);
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);

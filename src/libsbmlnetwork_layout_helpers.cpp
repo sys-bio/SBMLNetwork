@@ -678,18 +678,6 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     return NULL;
 }
 
-std::set<std::string> getSetOfGraphicalObjectIds(GraphicalObject* graphicalObject) {
-    return std::set<std::string>({graphicalObject->getId()});
-}
-
-std::set<std::string> getSetOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects) {
-    std::set<std::string> graphicalObjectsIds;
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        graphicalObjectsIds.insert(graphicalObjects.at(i)->getId());
-
-    return graphicalObjectsIds;
-}
-
 const std::string getEntityId(GraphicalObject* graphicalObject) {
     GraphicalObject* castedGraphicalObject = dynamic_cast<CompartmentGlyph*>(graphicalObject);
     if (castedGraphicalObject)
