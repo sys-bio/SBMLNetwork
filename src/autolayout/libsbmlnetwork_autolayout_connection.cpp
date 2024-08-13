@@ -8,6 +8,11 @@ AutoLayoutConnection::AutoLayoutConnection(Model* model, Layout* layout, Reactio
     setCurves();
 }
 
+AutoLayoutConnection::~AutoLayoutConnection() {
+    for (int i = 0; i < _curves.size(); i++)
+        delete _curves.at(i);
+}
+
 const std::string AutoLayoutConnection::getId() {
     return _reactionGlyph->getId();
 }

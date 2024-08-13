@@ -60,6 +60,7 @@ void enableLayoutPlugin(SBMLDocument* document) {
 }
 
 void freeUserData(Layout* layout) {
+    freeUserData(layout->getDimensions());
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
         freeUserData(layout->getCompartmentGlyph(i));
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
@@ -107,14 +108,16 @@ const std::string getUserData(SBase* sbase, const std::string& key) {
     return "";
 }
 
-
-void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value) {
-    if (!graphicalObject->isSetUserData()) {
-        graphicalObject->setUserData(new std::map<std::string, std::string>());
-        setUserData(graphicalObject, "id", graphicalObject->getId());
-        setUserData(graphicalObject, "entity_id", getEntityId(graphicalObject));
+void setUserData(SBase* sBase, const std::string& key, const std::string& value) {
+    if (!sBase->isSetUserData()) {
+        sBase->setUserData(new std::map<std::string, std::string>());
+        GraphicalObject* castedGraphicalObject = dynamic_cast<GraphicalObject*>(sBase);
+        if (castedGraphicalObject) {
+            setUserData(sBase, "id", castedGraphicalObject->getId());
+            setUserData(sBase, "entity_id", getEntityId(castedGraphicalObject));
+        }
     }
-    auto userData = (std::map<std::string, std::string>*)graphicalObject->getUserData();
+    auto userData = (std::map<std::string, std::string>*)sBase->getUserData();
     (*userData)[key] = value;
 }
 
@@ -1163,12 +1166,22 @@ const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects) {
     return 0.0;
 }
 
+const double getDefaultAutoLayoutPadding() {
+    return 30.0;
+}
+
 const bool isValidLayoutDimensionWidthValue(const double& width) {
-    return isValidDimensionValue(width);
+    if (isValidDimensionValue(width) && width > 6 * getDefaultAutoLayoutPadding())
+        return true;
+
+    return false;
 }
 
 const bool isValidLayoutDimensionHeightValue(const double& height) {
-    return isValidDimensionValue(height);
+    if (isValidDimensionValue(height) && height > 6 * getDefaultAutoLayoutPadding())
+        return true;
+
+    return false;
 }
 
 const bool isValidRoleValue(const std::string& role) {

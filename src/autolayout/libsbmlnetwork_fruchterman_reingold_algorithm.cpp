@@ -15,7 +15,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 // FruchtermanReingoldAlgorithmBase
 
 FruchtermanReingoldAlgorithmBase::FruchtermanReingoldAlgorithmBase() {
+    _useHorizontalBoundary = false;
+    _useVerticalBoundary = false;
+}
 
+FruchtermanReingoldAlgorithmBase::~FruchtermanReingoldAlgorithmBase() {
+    clearNodes();
+    clearConnections();
+}
+
+void FruchtermanReingoldAlgorithmBase::clearNodes() {
+    for (int i = 0; i < _nodes.size(); i++)
+        delete _nodes.at(i);
+    _nodes.clear();
+}
+
+void FruchtermanReingoldAlgorithmBase::clearConnections() {
+    for (int i = 0; i < _connections.size(); i++)
+        delete _connections.at(i);
+    _connections.clear();
 }
 
 void FruchtermanReingoldAlgorithmBase::setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
@@ -47,15 +65,21 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 }
 
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
-    if (layoutDimensionsAreSet(layout))
-        _width = layout->getDimensions()->getWidth();
+    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    if (!width.empty() && std::stod(width) > 0.0) {
+        _width = std::max(0.0, std::stod(width) - 6 * getDefaultAutoLayoutPadding());
+        _useHorizontalBoundary = true;
+    }
     else
         _width = _nodes.size() * _nodes.size() * _stiffness * 5;
 }
 
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
-    if (layoutDimensionsAreSet(layout))
-        _height = layout->getDimensions()->getHeight();
+    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    if (!height.empty() && std::stod(height) > 0.0) {
+        _height = std::max(0.0, std::stod(height) - 6 * getDefaultAutoLayoutPadding());
+        _useVerticalBoundary = true;
+    }
     else
         _height = _width;
 }
@@ -72,10 +96,6 @@ void FruchtermanReingoldAlgorithmBase::setUseMagnetism(const bool &useMagnetism)
     _useMagnetism = useMagnetism;
 }
 
-void FruchtermanReingoldAlgorithmBase::setUseBoundary(const bool &useBoundary) {
-    _useBoundary = useBoundary;
-}
-
 void FruchtermanReingoldAlgorithmBase::setUseGrid(const bool &useGrid) {
     _useGrid = useGrid;
 }
@@ -83,10 +103,6 @@ void FruchtermanReingoldAlgorithmBase::setUseGrid(const bool &useGrid) {
 void FruchtermanReingoldAlgorithmBase::updateNodesLockedStatus() {
     for (int i = 0; i < _nodes.size(); i++)
         ((AutoLayoutNodeBase *) _nodes.at(i))->updateLockedStatus();
-}
-
-void FruchtermanReingoldAlgorithmBase::setPadding(const double &padding) {
-    _padding = padding;
 }
 
 void FruchtermanReingoldAlgorithmBase::apply() {
@@ -258,22 +274,27 @@ void FruchtermanReingoldAlgorithmBase::adjustNodeCoordinates(AutoLayoutObjectBas
             ((AutoLayoutNodeBase*)node)->setX(((AutoLayoutNodeBase*)node)->getX() + (distanceX / distance) * _currentTemperature);
             ((AutoLayoutNodeBase*)node)->setY(((AutoLayoutNodeBase*)node)->getY() + (distanceY / distance) * _currentTemperature);
         }
-        if(_useBoundary)
-            adjustWithinTheBoundary(node);
+        if (_useHorizontalBoundary)
+            adjustWithinTheHorizontalBoundary(node);
+        if (_useVerticalBoundary)
+            adjustWithinTheVerticalBoundary(node);
         if (_useGrid && _currentTemperature < _stiffness)
             adjustOnTheGrids(node);
     }
 }
 
-void FruchtermanReingoldAlgorithmBase::adjustWithinTheBoundary(AutoLayoutObjectBase* node) {
+void FruchtermanReingoldAlgorithmBase::adjustWithinTheHorizontalBoundary(AutoLayoutObjectBase* node) {
     if (((AutoLayoutNodeBase*)node)->getX() > 0.5 * _width)
-        ((AutoLayoutNodeBase*)node)->setX(0.5 * _width - (_stiffness + std::rand() % int(0.25 * _width)));
-    if (((AutoLayoutNodeBase*)node)->getY() > 0.5 * _height)
-        ((AutoLayoutNodeBase*)node)->setY(0.5 * _height - (_stiffness + std::rand() % int(0.25 * _height)));
-    if (((AutoLayoutNodeBase*)node)->getX() < -0.5 * _width)
+        ((AutoLayoutNodeBase *) node)->setX(0.5 * _width - (_stiffness + std::rand() % int(0.25 * _width)));
+    else if (((AutoLayoutNodeBase*)node)->getX() < -0.5 * _width)
         ((AutoLayoutNodeBase*)node)->setX(-0.5 * _width + (_stiffness + std::rand() % int(0.25 * _width)));
-    if (((AutoLayoutNodeBase*)node)->getY() < -0.5 * _height)
-        ((AutoLayoutNodeBase*)node)->setY(-0.5 * _height + (_stiffness + std::rand() % int(0.25 * _height)));
+}
+
+void FruchtermanReingoldAlgorithmBase::adjustWithinTheVerticalBoundary(AutoLayoutObjectBase* node) {
+    if (((AutoLayoutNodeBase*)node)->getY() > 0.5 * _height)
+        ((AutoLayoutNodeBase *) node)->setY(0.5 * _height - (_stiffness + std::rand() % int(0.25 * _height)));
+    else if (((AutoLayoutNodeBase*)node)->getY() < -0.5 * _height)
+        ((AutoLayoutNodeBase *) node)->setY(-0.5 * _height + (_stiffness + std::rand() % int(0.25 * _height)));
 }
 
 void FruchtermanReingoldAlgorithmBase::adjustOnTheGrids(AutoLayoutObjectBase* node) {
@@ -296,8 +317,8 @@ void FruchtermanReingoldAlgorithmBase::adjustCoordinateOrigin() {
         if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < _origin.getY())
             _origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
     }
-    _origin.setX(_origin.getX() - _padding);
-    _origin.setY(_origin.getY() - _padding);
+    _origin.setX(_origin.getX() - getDefaultAutoLayoutPadding());
+    _origin.setY(_origin.getY() - getDefaultAutoLayoutPadding());
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
         if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isLocked()) {
             ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());
@@ -514,14 +535,6 @@ void FruchtermanReingoldUpdateCurvesAlgorithm::setNodes(Model* model, Layout* la
         _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), useNameAsTextLabel, true));
     for (int i = 0; i < _connections.size(); i++)
         _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
-}
-
-const bool layoutDimensionsAreSet(Layout* layout) {
-    const double defaultCanvasSize = 1024.0;
-    if (layout->getDimensions() && std::abs(layout->getDimensions()->getWidth() - defaultCanvasSize) > 0.001 && std::abs(layout->getDimensions()->getWidth() - layout->getDimensions()->getHeight()) > 0.001)
-        return true;
-
-    return false;
 }
 
 const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2) {

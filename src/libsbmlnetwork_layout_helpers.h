@@ -28,7 +28,7 @@ std::vector<std::map<std::string, std::string>> getUserData(Layout* layout);
 
 const std::string getUserData(SBase* sbase, const std::string& key);
 
-void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
+void setUserData(SBase* sBase, const std::string& key, const std::string& value);
 
 void setDefaultLayoutId(Layout* layout);
 
@@ -263,6 +263,8 @@ const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects);
 const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getDefaultAutoLayoutPadding();
 
 const bool isValidLayoutDimensionWidthValue(const double& width);
 

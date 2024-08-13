@@ -37,6 +37,7 @@ int setDimensionWidth(Layout* layout, const double& width) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setWidth(width);
+            setUserData(dimensions, "width", std::to_string(width));
             return 0;
         }
     }
@@ -57,6 +58,7 @@ int setDimensionHeight(Layout* layout, const double& height) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setHeight(height);
+            setUserData(dimensions, "height", std::to_string(height));
             return 0;
         }
     }

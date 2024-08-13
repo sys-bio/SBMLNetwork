@@ -126,18 +126,13 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, stiffness=10, gravity=15, max_num_connected_edges=3, use_magnetism=False, use_boundary=True, use_grid=False, reset_locked_nodes=False, locked_nodes=[]):
+    def autolayout(self, max_num_connected_edges=3, reset_locked_nodes=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
         :Parameters:
 
-            - stiffness (float, optional): a float (default: 10.0) that determines the stiffness value used in the autolayout algorithm (can affect the canvas dimensions).
-            - gravity (float, optional): a float (default: 15.0) that determines the gravity value used in the autolayout algorithm (can affect the how densely nodes are distributed).
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
-            - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
-            - use_boundary (boolean, optional): a boolean (default: True) that determines whether to use boundary restriction in the autolayout algorithm.
-            - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
             - reset_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to reset the locked nodes before applying the autolayout algorithm.
             - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
@@ -152,7 +147,7 @@ class LibSBMLNetwork:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), ctypes.c_int(max_num_connected_edges), use_magnetism, use_boundary, use_grid, self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
 
     def align(self, nodes, alignment="center", ignore_locked_nodes=False):
         """
@@ -320,17 +315,12 @@ class LibSBMLNetwork:
         """
         return lib.c_api_removeAllLayouts(self.sbml_object)
 
-    def createDefaultLayout(self, stiffness=10, gravity=15, use_magnetism=False, use_boundary=False, use_grid=False, locked_nodes=[]):
+    def createDefaultLayout(self, locked_nodes=[]):
         """
         Creates a default Layout object in the given SBMLDocument and sets all the necessary features for it
 
         :Parameters:
 
-            - stiffness (float, optional): a float (default: 10.0) that determines the stiffness value used in the autolayout algorithm (can affect the canvas dimensions).
-            - gravity (float, optional): a float (default: 15.0) that determines the gravity value used in the autolayout algorithm (can affect the how densely nodes are distributed).
-            - use_magnetism (boolean, optional): a boolean (default: False) that determines whether to use magnetism in the autolayout algorithm.
-            - use_boundary (boolean, optional): a boolean (default: False) that determines whether to use boundary restriction in the autolayout algorithm.
-            - use_grid (boolean, optional): a boolean (default: False) that determines whether to use grid restriction in the autolayout algorithm.
             - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
@@ -343,7 +333,7 @@ class LibSBMLNetwork:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayout(self.sbml_object, ctypes.c_double(stiffness), ctypes.c_double(gravity), use_magnetism, use_boundary, use_grid, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_createDefaultLayout(self.sbml_object, locked_nodes_ptr, len(locked_nodes))
 
     def getCanvasWidth(self, layout_index=0):
         """

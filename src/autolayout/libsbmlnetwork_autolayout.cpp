@@ -8,64 +8,66 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                  const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                  const bool &useNameAsTextLabel) {
-    double padding = 30.0;
+void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel, const double &stiffness, const double &gravity) {
+    bool useMagnetism = false;
+    bool useGrid = false;
     std::srand(time(0));
-    randomizeGlyphsLocations(model, layout, padding);
+    randomizeGlyphsLocations(model, layout);
     FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldAutoLayoutAlgorithm();
     autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
     autoLayoutAlgorithm->setStiffness(stiffness);
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
-    autoLayoutAlgorithm->setUseBoundary(useBoundary);
     autoLayoutAlgorithm->setUseGrid(useGrid);
     autoLayoutAlgorithm->updateNodesLockedStatus();
-    autoLayoutAlgorithm->setPadding(padding);
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout, padding);
-    updateLayoutDimensions(layout, padding);
+    updateCompartmentExtents(model, layout);
+    updateLayoutDimensions(layout);
+    delete autoLayoutAlgorithm;
+    if (!adjustLayoutDimensions(layout)) {
+        if (autolayoutMayStillConverge(stiffness, gravity))
+            locateGlyphs(model, layout, useNameAsTextLabel, 1.2 * stiffness, 0.95 * gravity);
+        else
+            throw std::runtime_error("AutoLayout failed to converge. Choose different layout dimensions.");
+    }
 }
 
-void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                     const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool &useNameAsTextLabel) {
-    double padding = 30.0;
-    FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
+void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabel, const double &stiffness, const double &gravity) {
+    bool useMagnetism = false;
+    bool useGrid = false;
+    FruchtermanReingoldAlgorithmBase* autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
     autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
     autoLayoutAlgorithm->setStiffness(stiffness);
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
-    autoLayoutAlgorithm->setUseBoundary(useBoundary);
     autoLayoutAlgorithm->setUseGrid(useGrid);
     autoLayoutAlgorithm->updateNodesLockedStatus();
-    autoLayoutAlgorithm->setPadding(padding);
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout, padding);
-    updateLayoutDimensions(layout, padding);
+    updateCompartmentExtents(model, layout);
+    updateLayoutDimensions(layout);
+    delete autoLayoutAlgorithm;
+    if (!adjustLayoutDimensions(layout))
+        locateReactions(model, layout, useNameAsTextLabel, 1.2 * stiffness, 0.5 * gravity);
 }
 
-void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding) {
+void randomizeGlyphsLocations(Model *model, Layout *layout) {
     double canvasWidth = layout->getDimensions()->width();
     double canvasHeight = layout->getDimensions()->height();
-    randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding);
-    randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding);
+    randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight);
+    randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight);
 }
 
 void
-randomizeSpeciesGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight,
-                                const double &padding) {
+randomizeSpeciesGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         randomizeBoundingBoxesPosition(layout->getSpeciesGlyph(i)->getBoundingBox(), canvasWidth, canvasHeight);
 }
 
-void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth,
-                                      const double &canvasHeight, const double &padding) {
+void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight) {
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
         randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
 }
@@ -93,15 +95,15 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
 }
 
 void
-initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox,
-                                  const double &padding) {
+initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
+    const double padding = getDefaultAutoLayoutPadding();
     compartmentGlyphBoundingBox->setX(speciesGlyphBoundingBox->x() - padding);
     compartmentGlyphBoundingBox->setY(speciesGlyphBoundingBox->y() - padding);
     compartmentGlyphBoundingBox->setWidth(speciesGlyphBoundingBox->width() + 2 * padding);
     compartmentGlyphBoundingBox->setHeight(speciesGlyphBoundingBox->height() + 2 * padding);
 }
 
-void updateCompartmentExtents(Model *model, Layout *layout, const double &padding) {
+void updateCompartmentExtents(Model *model, Layout *layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         Compartment *compartment = findSpeciesGlyphCompartment(model, layout->getSpeciesGlyph(i));
         if (compartment) {
@@ -111,9 +113,9 @@ void updateCompartmentExtents(Model *model, Layout *layout, const double &paddin
                 CompartmentGlyph *compartmentGlyph = compartmentGlyphs.at(j);
                 if (i == 0)
                     initializeCompartmentGlyphExtents(compartmentGlyph->getBoundingBox(),
-                                                      layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+                                                      layout->getSpeciesGlyph(i)->getBoundingBox());
                 updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
-                                         layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+                                         layout->getSpeciesGlyph(i)->getBoundingBox());
             }
         }
     }
@@ -122,12 +124,12 @@ void updateCompartmentExtents(Model *model, Layout *layout, const double &paddin
                                                                                 layout->getReactionGlyph(i));
         if (compartmentGlyph)
             updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
-                                     layout->getReactionGlyph(i)->getCurve(), padding);
+                                     layout->getReactionGlyph(i)->getCurve());
     }
 }
 
-void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox,
-                              const double &padding) {
+void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
+    const double padding = getDefaultAutoLayoutPadding();
     if (speciesGlyphBoundingBox->x() - padding < compartmentGlyphBoundingBox->x()) {
         compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
                                               (compartmentGlyphBoundingBox->x() -
@@ -160,7 +162,8 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Bounding
 }
 
 void
-updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve, const double &padding) {
+updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve) {
+    const double padding = getDefaultAutoLayoutPadding();
     double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() +
                                     reactionCurve->getCurveSegment(0)->getEnd()->x());
     double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() +
@@ -187,7 +190,8 @@ updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reacti
     }
 }
 
-void updateLayoutDimensions(Layout *layout, const double &padding) {
+void updateLayoutDimensions(Layout *layout) {
+    const double padding = getDefaultAutoLayoutPadding();
     if (!layoutContainsGlyphs(layout)) {
         layout->getDimensions()->setWidth(0);
         layout->getDimensions()->setHeight(0);
@@ -201,6 +205,34 @@ void updateLayoutDimensions(Layout *layout, const double &padding) {
         layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
         layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
     }
+}
+
+const bool adjustLayoutDimensions(Layout *layout) {
+    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    if (!width.empty()) {
+        double presetWidth = std::stod(width);
+        if (std::abs(presetWidth - layout->getDimensions()->width()) < 4 * getDefaultAutoLayoutPadding())
+            layout->getDimensions()->setWidth(presetWidth);
+        else
+            return false;
+    }
+    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    if (!height.empty()) {
+        double presetHeight = std::stod(height);
+        if (std::abs(presetHeight - layout->getDimensions()->height()) < 4 * getDefaultAutoLayoutPadding())
+            layout->getDimensions()->setHeight(presetHeight);
+        else
+            return false;
+    }
+
+    return true;
+}
+
+const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity) {
+    if (gravity > 1.0)
+        return true;
+
+    return false;
 }
 
 void extractExtents(Layout *layout, double &minX, double &minY, double &maxX, double &maxY) {

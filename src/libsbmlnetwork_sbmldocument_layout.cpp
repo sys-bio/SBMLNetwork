@@ -56,8 +56,7 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness, const double gravity, const int maxNumConnectedEdges,
-                             bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel,
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
                              bool resetLockedNodes, const std::vector<std::string> lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
@@ -71,7 +70,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
             setSpeciesGlyphs(model, layout, userData);
             setReactionGlyphs(model, layout, userData);
             setAliasSpeciesGlyphs(layout, maxNumConnectedEdges, userData);
-            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel);
+            locateGlyphs(model, layout, useNameAsTextLabel);
             setTextGlyphs(layout);
             return 0;
         }
@@ -86,7 +85,7 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::
         if (model) {
             clearReactionTextGlyphs(layout);
             std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
-            locateReactions(model, layout, 10.0, 15.0, false, true, false, false);
+            locateReactions(model, layout, false);
             setReactionTextGlyphs(layout);
             return 0;
         }
@@ -99,14 +98,13 @@ int updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex, std::ve
     return updateLayoutCurves(document, getLayout(document, layoutIndex), updatedGraphicalObjectIds);
 }
 
-int createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges,
-                        bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel,
+int createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
                         bool resetLockedNodes, const std::vector<std::string> lockedNodeIds) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
+    return setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {

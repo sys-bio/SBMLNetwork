@@ -59,19 +59,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @brief Create a Layout object, a GlobalRenderInformation object, and LocalRenderInformation resume object, add them
     /// to the the SBML document, and set all the necessary features for them.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param stiffness the stiffness value used in the autolayout algorithm.
-    /// @param gravity the gravity value used in the autolayout algorithm.
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
-    /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
-    /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
-    /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
     /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
-                                                bool useMagnetism = false, bool useBoundary = true, bool useGrid = false, bool useNameAsTextLabel = true,
+    LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
                                                 bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Align the nodes position in the SBML document in the given alignment type.
@@ -105,19 +99,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
     /// set all the necessary features for it
     /// @param document a pointer to the SBMLDocument object.
-    /// @param stiffness the stiffness value used in the autolayout algorithm.
-    /// @param gravity the gravity value used in the autolayout algorithm.
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
-    /// @param useBoundary a variable that determines whether to use boundary restriction in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
     /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness = 10.0, const double gravity = 15.0, const int maxNumConnectedEdges = 3,
-                                                               bool useMagnetism = false, bool useBoundary = false, bool useGrid = false, bool useNameAsTextLabel= true,
+    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
                                                                bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
