@@ -84,7 +84,6 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::
         Model* model = document->getModel();
         if (model) {
             clearReactionTextGlyphs(layout);
-            std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
             locateReactions(model, layout, false);
             setReactionTextGlyphs(layout);
             return 0;

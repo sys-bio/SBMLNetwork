@@ -8,7 +8,9 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel, const double &stiffness, const double &gravity) {
+void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) {
+    double stiffness = getStiffness(layout);
+    double gravity = getGravity(layout);
     bool useMagnetism = false;
     bool useGrid = false;
     std::srand(time(0));
@@ -27,14 +29,19 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel, 
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
     if (!adjustLayoutDimensions(layout)) {
-        if (autolayoutMayStillConverge(stiffness, gravity))
-            locateGlyphs(model, layout, useNameAsTextLabel, 1.2 * stiffness, 0.95 * gravity);
+        if (autolayoutMayStillConverge(stiffness, gravity)) {
+            setStiffness(layout, 1.2 * stiffness);
+            setGravity(layout, 0.95 * gravity);
+            locateGlyphs(model, layout, useNameAsTextLabel);
+        }
         else
             throw std::runtime_error("AutoLayout failed to converge. Choose different layout dimensions.");
     }
 }
 
-void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabel, const double &stiffness, const double &gravity) {
+void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabel) {
+    double stiffness = getStiffness(layout);
+    double gravity = getGravity(layout);
     bool useMagnetism = false;
     bool useGrid = false;
     FruchtermanReingoldAlgorithmBase* autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
@@ -43,15 +50,40 @@ void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabe
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->updateNodesLockedStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
     updateCompartmentExtents(model, layout);
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
-    if (!adjustLayoutDimensions(layout))
-        locateReactions(model, layout, useNameAsTextLabel, 1.2 * stiffness, 0.5 * gravity);
+}
+
+const double getStiffness(Layout *layout) {
+    std::string stiffness = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "stiffness");
+    if (stiffness.empty()) {
+        setStiffness(layout, 10.0);
+        return 10.0;
+    }
+
+    return std::stod(stiffness);
+}
+
+void setStiffness(Layout *layout, const double &stiffness) {
+    LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "stiffness", std::to_string(stiffness));
+}
+
+const double getGravity(Layout *layout) {
+    std::string gravity = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "gravity");
+    if (gravity.empty()) {
+        setGravity(layout, 15.0);
+        return 15.0;
+    }
+
+    return std::stod(gravity);
+}
+
+void setGravity(Layout *layout, const double &gravity) {
+    LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "gravity", std::to_string(gravity));
 }
 
 void randomizeGlyphsLocations(Model *model, Layout *layout) {

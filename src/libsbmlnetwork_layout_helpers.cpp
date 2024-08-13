@@ -60,6 +60,7 @@ void enableLayoutPlugin(SBMLDocument* document) {
 }
 
 void freeUserData(Layout* layout) {
+    freeUserData(layout);
     freeUserData(layout->getDimensions());
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
         freeUserData(layout->getCompartmentGlyph(i));

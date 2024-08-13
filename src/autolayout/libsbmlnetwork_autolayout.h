@@ -10,9 +10,17 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
-void locateGlyphs(Model* model, Layout* layout, const bool& useNameAsTextLabel = true, const double& stiffness = 10.0, const double& gravity = 15.0);
+void locateGlyphs(Model* model, Layout* layout, const bool& useNameAsTextLabel = true);
 
-void locateReactions(Model *model, Layout *layout, const bool& useNameAsTextLabel = false, const double &stiffness = 10.0, const double &gravity = 15.0);
+void locateReactions(Model *model, Layout *layout, const bool& useNameAsTextLabel = false);
+
+const double getStiffness(Layout *layout);
+
+void setStiffness(Layout *layout, const double& stiffness);
+
+const double getGravity(Layout *layout);
+
+void setGravity(Layout *layout, const double& gravity);
 
 void randomizeGlyphsLocations(Model* model, Layout* layout);
 

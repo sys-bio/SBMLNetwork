@@ -42,6 +42,8 @@ public:
 
     void updateNodesLockedStatus();
 
+    void lockNodes();
+
     void apply();
 
     void initialize();

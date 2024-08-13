@@ -61,6 +61,8 @@ public:
 
     const bool isLocked();
 
+    void setLocked(const bool& locked);
+
 protected:
 
     double _displacementX;
