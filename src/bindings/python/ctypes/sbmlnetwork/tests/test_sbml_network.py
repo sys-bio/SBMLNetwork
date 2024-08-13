@@ -134,7 +134,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 x_max = self._get_max_position_x(network, list_of_species_ids)
                 center_x = 0.5 * (x_min + x_max)
-                network.align(list_of_species_ids, 'center')
+                network.align(list_of_species_ids, 'hCenter')
                 for species_id in list_of_species_ids:
                     self.assertAlmostEqual(center_x, network.getX(species_id), 1)
 
@@ -166,7 +166,7 @@ class TestSBMLNetwork(unittest.TestCase):
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 y_max = self._get_max_position_y(network, list_of_species_ids)
                 middle_y = 0.5 * (y_min + y_max)
-                network.align(list_of_species_ids, 'middle')
+                network.align(list_of_species_ids, 'vCenter')
                 for species_id in list_of_species_ids:
                     self.assertAlmostEqual(middle_y, network.getY(species_id), 1)
 
