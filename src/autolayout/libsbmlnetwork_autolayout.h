@@ -6,26 +6,27 @@
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
 #endif
 
-#include <set>
-#include "libsbmlnetwork_locked_node_info.h"
-
 using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
-void locateGlyphs(Model* model, Layout* layout, const double& stiffness = 10.0, const double& gravity = 15.0,
-                  const bool& useMagnetism = false, const bool& useBoundary = false, const bool& useGrid = false,
-                  const bool& useNameAsTextLabel = true, std::set<LockedNodeInfo> lockedNodesInfo = std::set<LockedNodeInfo>());
+void locateGlyphs(Model* model, Layout* layout, const bool& useNameAsTextLabel = true);
 
-void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                     const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool& useNameAsTextLabel, std::set<LockedNodeInfo> lockedNodesInfo);
+void locateReactions(Model *model, Layout *layout, const bool& useNameAsTextLabel = false);
 
-void randomizeGlyphsLocations(Model* model, Layout* layout, const double &padding);
+const double getStiffness(Layout *layout);
 
-void randomizeSpeciesGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
+void setStiffness(Layout *layout, const double& stiffness);
 
-void randomizeReactionGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight, const double& padding);
+const double getGravity(Layout *layout);
+
+void setGravity(Layout *layout, const double& gravity);
+
+void randomizeGlyphsLocations(Model* model, Layout* layout);
+
+void randomizeSpeciesGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight);
+
+void randomizeReactionGlyphsLocations(Model* model, Layout* layout, const double& canvasWidth, const double& canvasHeight);
 
 void randomizeBoundingBoxesPosition(BoundingBox* boundingBox, const double& canvasWidth, const double& canvasHeight);
 
@@ -35,31 +36,25 @@ void setGlyphsDimensions(Model *model, Layout *layout);
 
 void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph* speciesGlyph);
 
-void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
+void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
 
-void updateCompartmentExtents(Model *model, Layout *layout, const double &padding);
+void updateCompartmentExtents(Model *model, Layout *layout);
 
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox, const double& padding);
+void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
 
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve, const double& padding);
+void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve);
 
-void updateLayoutDimensions(Layout* layout, const double &padding);
+void updateLayoutDimensions(Layout* layout);
+
+const bool adjustLayoutDimensions(Layout *layout);
+
+const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity);
 
 void extractExtents(Layout* layout, double &minX, double &minY, double &maxX, double &maxY);
 
 void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY);
 
 void extractExtents(Curve* reactionCurve, double &minX, double &minY, double &maxX, double &maxY);
-
-std::set<LockedNodeInfo> getLockedNodesInfo(Layout* layout, const std::set<std::string>& lockedNodeIds, const bool& resetLockedNodes = false);
-
-void unlockNodes(Layout *layout);
-
-std::set <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds);
-
-std::set <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds);
-
-LockedNodeInfo createLockedNodeInfo(Layout* layout, GraphicalObject* graphicalObject);
 
 }
 

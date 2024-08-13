@@ -19,8 +19,7 @@ set(SOURCES
 		autolayout/libsbmlnetwork_autolayout_connection.cpp
 		autolayout/libsbmlnetwork_autolayout_curve.cpp
 		autolayout/libsbmlnetwork_autolayout_point.cpp
-		autolayout/libsbmlnetwork_locked_node_info.cpp
-		c_api/libsbmlnetwork_c_api.cpp)
+        c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
 set(HEADERS 
@@ -41,7 +40,6 @@ set(HEADERS
 		autolayout/libsbmlnetwork_autolayout_connection.h
 		autolayout/libsbmlnetwork_autolayout_curve.h
 		autolayout/libsbmlnetwork_autolayout_point.h
-		autolayout/libsbmlnetwork_locked_node_info.h
 		c_api/libsbmlnetwork_c_api.h)
 
 ### shared library

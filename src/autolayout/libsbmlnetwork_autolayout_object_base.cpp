@@ -4,3 +4,7 @@ AutoLayoutObjectBase::AutoLayoutObjectBase(Model* model, Layout* layout) {
     _model = model;
     _layout = layout;
 }
+
+AutoLayoutObjectBase::~AutoLayoutObjectBase() {
+
+}

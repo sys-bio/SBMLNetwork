@@ -44,32 +44,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, bool resetLockedNodes, const char **lockedNodeIds, const int lockedNodesSize) {
-        std::set <std::string> lockedNodeIdsSet = std::set<std::string>();
+    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedNodes, const char **lockedNodeIds, const int lockedNodesSize) {
+        std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
-                lockedNodeIdsSet.insert(lockedNodeIds[i]);
+                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
 
-        return autolayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsSet);
+        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
     }
 
-    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment) {
-        std::set <std::string> nodeIdsSet = std::set<std::string>();
+    int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes) {
+        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsSet.insert(nodeIds[i]);
+                nodeIdsVector.emplace_back(nodeIds[i]);
         }
-        return align(document, nodeIdsSet, alignment);
+        return align(document, nodeIdsVector, alignment, ignoreLockedNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing) {
-        std::set <std::string> nodeIdsSet = std::set<std::string>();
+        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsSet.insert(nodeIds[i]);
+                nodeIdsVector.emplace_back(nodeIds[i]);
         }
-        return distribute(document, nodeIdsSet, direction, spacing);
+        return distribute(document, nodeIdsVector, direction, spacing);
     }
 
     const int c_api_getNumLayouts(SBMLDocument* document) {
@@ -80,15 +80,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return removeAllLayouts(document);
     }
 
-    int c_api_createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism,
-                                  bool useBoundary, bool useGrid, bool useNameAsTextLabel,
-                                  bool resetLockedNodes, const char **lockedNodeIds, const int lockedNodesSize) {
-        std::set <std::string> lockedNodeIdsSet = std::set<std::string>();
+    int c_api_createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges,
+                                  bool useNameAsTextLabel, bool resetLockedNodes,
+                                  const char **lockedNodeIds, const int lockedNodesSize) {
+        std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
-                lockedNodeIdsSet.insert(lockedNodeIds[i]);
+                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
         }
-        return createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsSet);
+        return createDefaultLayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {
@@ -273,30 +273,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     const int c_api_getNumSpeciesReferenceGlyphs(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
         return getNumSpeciesReferenceGlyphs(document, layoutIndex, reactionId, reactionGlyphIndex);
-    }
-
-    const char* c_api_getNthSpeciesReferenceGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
-        if (speciesReferenceGlyph)
-            return strdup(speciesReferenceGlyph->getId().c_str());
-
-        return "";
-    }
-
-    const char* c_api_getNthSpeciesReferenceGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
-        if (speciesReferenceGlyph)
-            return strdup(speciesReferenceGlyph->getMetaId().c_str());
-
-        return "";
-    }
-
-    const char* c_api_getNthSpeciesReferenceGlyphSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
-        SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
-        if (speciesReferenceGlyph)
-            return strdup(speciesReferenceGlyph->getSpeciesReferenceId().c_str());
-
-        return "";
     }
 
     const char* c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {

@@ -13,6 +13,8 @@ public:
 
     AutoLayoutObjectBase(Model* model, Layout* layout);
 
+    virtual ~AutoLayoutObjectBase();
+
     virtual const std::string getId() = 0;
 
 protected:

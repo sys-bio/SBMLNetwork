@@ -207,6 +207,8 @@ std::vector<std::map<std::string, std::string>> getPredefinedStyles();
 
 std::vector<std::string> getPredefinedStyleNames();
 
+const bool isValidPredefinedStyleName(const std::string& predefinedStyleName);
+
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
 
 const bool isValidColorValue(const std::string& value);

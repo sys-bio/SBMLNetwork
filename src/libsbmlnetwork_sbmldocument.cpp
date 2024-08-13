@@ -48,6 +48,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
     bool freeSBMLDocument(SBMLDocument* document) {
         if (document) {
+            const int numLayouts = getNumLayouts(document);
+            for (int i = 0; i < numLayouts; i++)
+                freeUserData(getLayout(document, i));
             delete document;
             return true;
         }
@@ -62,8 +65,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges, bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel, bool resetLockedNodes, std::set <std::string> lockedNodeIds) {
-        const bool layoutIsAdded = !createDefaultLayout(document, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
+    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedNodes, std::vector <std::string> lockedNodeIds) {
+        const bool layoutIsAdded = !createDefaultLayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;
@@ -71,29 +74,29 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int align(SBMLDocument* document, std::set <std::string> nodeIds, const std::string& alignment) {
+    int align(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& alignment, const bool ignoreLockedNodes) {
         if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
-            for (std::set<std::string>::const_iterator nodeIdIt = nodeIds.cbegin(); nodeIdIt != nodeIds.cend(); nodeIdIt++) {
-                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, *nodeIdIt);
+            for (unsigned int i = 0; i < nodeIds.size(); i++) {
+                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
-            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment);
-            return updateLayoutCurves(document, getLayout(document), getSetOfGraphicalObjectIds(allGraphicalObjects));
+            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
+            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 
         return -1;
     }
 
-    int distribute(SBMLDocument* document, std::set <std::string> nodeIds, const std::string& direction, const double& spacing) {
+    int distribute(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& direction, const double& spacing) {
         if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
-            for (std::set<std::string>::const_iterator nodeIdIt = nodeIds.cbegin(); nodeIdIt != nodeIds.cend(); nodeIdIt++) {
-                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, *nodeIdIt);
+            for (unsigned int i = 0; i < nodeIds.size(); i++) {
+                std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIds[i]);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }
             distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
-            return updateLayoutCurves(document, getLayout(document), getSetOfGraphicalObjectIds(allGraphicalObjects));
+            return updateLayoutCurves(document, getLayout(document), getListOfGraphicalObjectIds(allGraphicalObjects));
         }
 
         return -1;

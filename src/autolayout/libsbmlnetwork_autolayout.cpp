@@ -8,64 +8,98 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void locateGlyphs(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                  const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                  const bool &useNameAsTextLabel, std::set<LockedNodeInfo> lockedNodesInfo) {
-    double padding = 30.0;
+void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) {
+    double stiffness = getStiffness(layout);
+    double gravity = getGravity(layout);
+    bool useMagnetism = false;
+    bool useGrid = false;
     std::srand(time(0));
-    randomizeGlyphsLocations(model, layout, padding);
+    randomizeGlyphsLocations(model, layout);
     FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldAutoLayoutAlgorithm();
     autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
     autoLayoutAlgorithm->setStiffness(stiffness);
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
-    autoLayoutAlgorithm->setUseBoundary(useBoundary);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->setNodesLockedStatus(layout, lockedNodesInfo);
-    autoLayoutAlgorithm->setPadding(padding);
+    autoLayoutAlgorithm->updateNodesLockedStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout, padding);
-    updateLayoutDimensions(layout, padding);
+    updateCompartmentExtents(model, layout);
+    updateLayoutDimensions(layout);
+    delete autoLayoutAlgorithm;
+    if (!adjustLayoutDimensions(layout)) {
+        if (autolayoutMayStillConverge(stiffness, gravity)) {
+            setStiffness(layout, 1.2 * stiffness);
+            setGravity(layout, 0.95 * gravity);
+            locateGlyphs(model, layout, useNameAsTextLabel);
+        }
+        else
+            throw std::runtime_error("AutoLayout failed to converge. Choose different layout dimensions.");
+    }
 }
 
-void locateReactions(Model *model, Layout *layout, const double &stiffness, const double &gravity,
-                     const bool &useMagnetism, const bool &useBoundary, const bool &useGrid,
-                     const bool &useNameAsTextLabel, std::set <LockedNodeInfo> lockedNodesInfo) {
-    double padding = 30.0;
-    FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
+void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabel) {
+    double stiffness = getStiffness(layout);
+    double gravity = getGravity(layout);
+    bool useMagnetism = false;
+    bool useGrid = false;
+    FruchtermanReingoldAlgorithmBase* autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
     autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
     autoLayoutAlgorithm->setStiffness(stiffness);
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
-    autoLayoutAlgorithm->setUseBoundary(useBoundary);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->setNodesLockedStatus(layout, lockedNodesInfo);
-    autoLayoutAlgorithm->setPadding(padding);
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout, padding);
-    updateLayoutDimensions(layout, padding);
+    updateCompartmentExtents(model, layout);
+    updateLayoutDimensions(layout);
+    delete autoLayoutAlgorithm;
 }
 
-void randomizeGlyphsLocations(Model *model, Layout *layout, const double &padding) {
+const double getStiffness(Layout *layout) {
+    std::string stiffness = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "stiffness");
+    if (stiffness.empty()) {
+        setStiffness(layout, 10.0);
+        return 10.0;
+    }
+
+    return std::stod(stiffness);
+}
+
+void setStiffness(Layout *layout, const double &stiffness) {
+    LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "stiffness", std::to_string(stiffness));
+}
+
+const double getGravity(Layout *layout) {
+    std::string gravity = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "gravity");
+    if (gravity.empty()) {
+        setGravity(layout, 15.0);
+        return 15.0;
+    }
+
+    return std::stod(gravity);
+}
+
+void setGravity(Layout *layout, const double &gravity) {
+    LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "gravity", std::to_string(gravity));
+}
+
+void randomizeGlyphsLocations(Model *model, Layout *layout) {
     double canvasWidth = layout->getDimensions()->width();
     double canvasHeight = layout->getDimensions()->height();
-    randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding);
-    randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight, padding);
+    randomizeSpeciesGlyphsLocations(model, layout, canvasWidth, canvasHeight);
+    randomizeReactionGlyphsLocations(model, layout, canvasWidth, canvasHeight);
 }
 
 void
-randomizeSpeciesGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight,
-                                const double &padding) {
+randomizeSpeciesGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         randomizeBoundingBoxesPosition(layout->getSpeciesGlyph(i)->getBoundingBox(), canvasWidth, canvasHeight);
 }
 
-void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth,
-                                      const double &canvasHeight, const double &padding) {
+void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight) {
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
         randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
 }
@@ -93,15 +127,15 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
 }
 
 void
-initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox,
-                                  const double &padding) {
+initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
+    const double padding = getDefaultAutoLayoutPadding();
     compartmentGlyphBoundingBox->setX(speciesGlyphBoundingBox->x() - padding);
     compartmentGlyphBoundingBox->setY(speciesGlyphBoundingBox->y() - padding);
     compartmentGlyphBoundingBox->setWidth(speciesGlyphBoundingBox->width() + 2 * padding);
     compartmentGlyphBoundingBox->setHeight(speciesGlyphBoundingBox->height() + 2 * padding);
 }
 
-void updateCompartmentExtents(Model *model, Layout *layout, const double &padding) {
+void updateCompartmentExtents(Model *model, Layout *layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         Compartment *compartment = findSpeciesGlyphCompartment(model, layout->getSpeciesGlyph(i));
         if (compartment) {
@@ -111,9 +145,9 @@ void updateCompartmentExtents(Model *model, Layout *layout, const double &paddin
                 CompartmentGlyph *compartmentGlyph = compartmentGlyphs.at(j);
                 if (i == 0)
                     initializeCompartmentGlyphExtents(compartmentGlyph->getBoundingBox(),
-                                                      layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+                                                      layout->getSpeciesGlyph(i)->getBoundingBox());
                 updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
-                                         layout->getSpeciesGlyph(i)->getBoundingBox(), padding);
+                                         layout->getSpeciesGlyph(i)->getBoundingBox());
             }
         }
     }
@@ -122,12 +156,12 @@ void updateCompartmentExtents(Model *model, Layout *layout, const double &paddin
                                                                                 layout->getReactionGlyph(i));
         if (compartmentGlyph)
             updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
-                                     layout->getReactionGlyph(i)->getCurve(), padding);
+                                     layout->getReactionGlyph(i)->getCurve());
     }
 }
 
-void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox,
-                              const double &padding) {
+void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
+    const double padding = getDefaultAutoLayoutPadding();
     if (speciesGlyphBoundingBox->x() - padding < compartmentGlyphBoundingBox->x()) {
         compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
                                               (compartmentGlyphBoundingBox->x() -
@@ -160,7 +194,8 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Bounding
 }
 
 void
-updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve, const double &padding) {
+updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve) {
+    const double padding = getDefaultAutoLayoutPadding();
     double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() +
                                     reactionCurve->getCurveSegment(0)->getEnd()->x());
     double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() +
@@ -187,7 +222,8 @@ updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reacti
     }
 }
 
-void updateLayoutDimensions(Layout *layout, const double &padding) {
+void updateLayoutDimensions(Layout *layout) {
+    const double padding = getDefaultAutoLayoutPadding();
     if (!layoutContainsGlyphs(layout)) {
         layout->getDimensions()->setWidth(0);
         layout->getDimensions()->setHeight(0);
@@ -201,6 +237,34 @@ void updateLayoutDimensions(Layout *layout, const double &padding) {
         layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
         layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
     }
+}
+
+const bool adjustLayoutDimensions(Layout *layout) {
+    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    if (!width.empty()) {
+        double presetWidth = std::stod(width);
+        if (std::abs(presetWidth - layout->getDimensions()->width()) < 4 * getDefaultAutoLayoutPadding())
+            layout->getDimensions()->setWidth(presetWidth);
+        else
+            return false;
+    }
+    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    if (!height.empty()) {
+        double presetHeight = std::stod(height);
+        if (std::abs(presetHeight - layout->getDimensions()->height()) < 4 * getDefaultAutoLayoutPadding())
+            layout->getDimensions()->setHeight(presetHeight);
+        else
+            return false;
+    }
+
+    return true;
+}
+
+const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity) {
+    if (gravity > 1.0)
+        return true;
+
+    return false;
 }
 
 void extractExtents(Layout *layout, double &minX, double &minY, double &maxX, double &maxY) {
@@ -232,61 +296,6 @@ void extractExtents(Curve *reactionCurve, double &minX, double &minY, double &ma
     minY = std::min(minY, reactionCenterY);
     maxX = std::max(maxX, reactionCenterX);
     maxY = std::max(maxY, reactionCenterY);
-}
-
-std::set <LockedNodeInfo> getLockedNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds, const bool& resetLockedNodes) {
-    std::set <LockedNodeInfo> lockedNodesInfo;
-    if (resetLockedNodes)
-        unlockNodes(layout);
-    else {
-        std::set <LockedNodeInfo> lockedSpeciesNodesInfo = getLockedSpeciesNodesInfo(layout, lockedNodeIds);
-        lockedNodesInfo.insert(lockedSpeciesNodesInfo.begin(), lockedSpeciesNodesInfo.end());
-        std::set <LockedNodeInfo> lockedReactionNodesInfo = getLockedReactionNodesInfo(layout, lockedNodeIds);
-        lockedNodesInfo.insert(lockedReactionNodesInfo.begin(), lockedReactionNodesInfo.end());
-    }
-
-    return lockedNodesInfo;
-}
-
-void unlockNodes(Layout *layout) {
-    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
-        if (speciesGlyph->getMetaId() == "locked")
-            speciesGlyph->setMetaId("");
-    }
-}
-
-std::set <LockedNodeInfo> getLockedSpeciesNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds) {
-    std::set <LockedNodeInfo> lockedSpeciesNodesInfo;
-    for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(i);
-        if (speciesGlyph->getMetaId() == "locked")
-            lockedSpeciesNodesInfo.insert(createLockedNodeInfo(layout, speciesGlyph));
-        else if (lockedNodeIds.find(speciesGlyph->getSpeciesId()) != lockedNodeIds.end() ||
-                 lockedNodeIds.find(speciesGlyph->getId()) != lockedNodeIds.end())
-            lockedSpeciesNodesInfo.insert(createLockedNodeInfo(layout, speciesGlyph));
-    }
-
-    return lockedSpeciesNodesInfo;
-}
-
-std::set <LockedNodeInfo> getLockedReactionNodesInfo(Layout *layout, const std::set <std::string> &lockedNodeIds) {
-    std::set <LockedNodeInfo> lockedReactionNodesInfo;
-    for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        ReactionGlyph *reactionGlyph = layout->getReactionGlyph(i);
-        if (reactionGlyph->getMetaId() == "locked")
-            lockedReactionNodesInfo.insert(createLockedNodeInfo(layout, reactionGlyph));
-        else if (lockedNodeIds.find(reactionGlyph->getReactionId()) != lockedNodeIds.end() ||
-                 lockedNodeIds.find(reactionGlyph->getId()) != lockedNodeIds.end())
-            lockedReactionNodesInfo.insert(createLockedNodeInfo(layout, reactionGlyph));
-    }
-
-    return lockedReactionNodesInfo;
-}
-
-LockedNodeInfo createLockedNodeInfo(Layout* layout, GraphicalObject *graphicalObject) {
-    return LockedNodeInfo(getEntityId(layout, graphicalObject), 0, graphicalObject->getBoundingBox()->x(),
-                          graphicalObject->getBoundingBox()->y());
 }
 
 }

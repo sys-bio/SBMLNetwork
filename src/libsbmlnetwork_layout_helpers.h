@@ -22,7 +22,15 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-LayoutPkgNamespaces* getLayoutPkgNamespaces(Layout* layout);
+void freeUserData(Layout* layout);
+
+void freeUserData(SBase* sbase);
+
+std::vector<std::map<std::string, std::string>> getUserData(Layout* layout);
+
+const std::string getUserData(SBase* sbase, const std::string& key);
+
+void setUserData(SBase* sBase, const std::string& key, const std::string& value);
 
 void setDefaultLayoutId(Layout* layout);
 
@@ -31,6 +39,22 @@ const std::string getDefaultLayoutId();
 const bool canUpdateLayoutCurves(Layout* layout);
 
 void setDefaultLayoutDimensions(Layout* layout);
+
+void lockGraphicalObjects(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+
+void lockSpeciesGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+
+void lockReactionGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+
+void lockGraphicalObject(GraphicalObject* graphicalObject);
+
+void unlockGraphicalObject(GraphicalObject* graphicalObject);
+
+std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects);
+
+void fixGraphicalObjectWidth(GraphicalObject* graphicalObject);
+
+void fixGraphicalObjectHeight(GraphicalObject* graphicalObject);
 
 void clearGraphicalObjects(Layout* layout);
 
@@ -42,11 +66,11 @@ void clearReactionGlyphs(Layout* layout);
 
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
-void setCompartmentGlyphs(Model* model, Layout* layout);
+void setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setSpeciesGlyphs(Model* model, Layout* layout);
+void setSpeciesGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setReactionGlyphs(Model* model, Layout* layout);
+void setReactionGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData);
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
@@ -66,7 +90,7 @@ SpeciesGlyph* createDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
 
 SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
 
-void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges);
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
 std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
 
@@ -103,6 +127,8 @@ const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const
 const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
 
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
+
+void setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData);
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
@@ -146,7 +172,7 @@ std::set<std::string> getSetOfGraphicalObjectIds(GraphicalObject* graphicalObjec
 
 std::set<std::string> getSetOfGraphicalObjectIds(std::vector<GraphicalObject*> graphicalObjects);
 
-const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject);
+const std::string getEntityId(GraphicalObject* graphicalObject);
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);
 
@@ -180,21 +206,33 @@ void updateAssociatedTextGlyphsDimensionWidth(Layout* layout, GraphicalObject* g
 
 void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& changedHeight);
 
-void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment);
+void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
-void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects);
+void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+
+const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+
+void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+
+const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+
+void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+
+const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+
+void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
 
 void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing);
 
@@ -227,6 +265,8 @@ const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects);
 const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
+
+const double getDefaultAutoLayoutPadding();
 
 const bool isValidLayoutDimensionWidthValue(const double& width);
 

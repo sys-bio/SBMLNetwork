@@ -59,6 +59,69 @@ void enableLayoutPlugin(SBMLDocument* document) {
     document->setPackageRequired("layout", false);
 }
 
+void freeUserData(Layout* layout) {
+    freeUserData(layout);
+    freeUserData(layout->getDimensions());
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
+        freeUserData(layout->getCompartmentGlyph(i));
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+        freeUserData(layout->getSpeciesGlyph(i));
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++)
+        freeUserData(layout->getReactionGlyph(i));
+}
+
+void freeUserData(SBase* sbase) {
+    if (sbase->isSetUserData()) {
+        auto userData = (std::map<std::string, std::string>*)sbase->getUserData();
+        if (userData)
+            delete userData;
+    }
+}
+
+std::vector<std::map<std::string, std::string>> getUserData(Layout* layout) {
+    std::vector<std::map<std::string, std::string>> userData;
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        auto compartmentGlyphUserData = layout->getCompartmentGlyph(i)->getUserData();
+        if (compartmentGlyphUserData)
+            userData.push_back(*(std::map<std::string, std::string>*)compartmentGlyphUserData);
+    }
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        auto speciesGlyphUserData = layout->getSpeciesGlyph(i)->getUserData();
+        if (speciesGlyphUserData)
+            userData.push_back(*(std::map<std::string, std::string>*)speciesGlyphUserData);
+    }
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        auto reactionGlyphUserData = layout->getReactionGlyph(i)->getUserData();
+        if (reactionGlyphUserData)
+            userData.push_back(*(std::map<std::string, std::string>*)reactionGlyphUserData);
+    }
+
+    return userData;
+}
+
+const std::string getUserData(SBase* sbase, const std::string& key) {
+    if (sbase->isSetUserData()) {
+        auto userData = (std::map<std::string, std::string>*)sbase->getUserData();
+        if (userData->find(key) != userData->end())
+            return (*userData)[key];
+    }
+
+    return "";
+}
+
+void setUserData(SBase* sBase, const std::string& key, const std::string& value) {
+    if (!sBase->isSetUserData()) {
+        sBase->setUserData(new std::map<std::string, std::string>());
+        GraphicalObject* castedGraphicalObject = dynamic_cast<GraphicalObject*>(sBase);
+        if (castedGraphicalObject) {
+            setUserData(sBase, "id", castedGraphicalObject->getId());
+            setUserData(sBase, "entity_id", getEntityId(castedGraphicalObject));
+        }
+    }
+    auto userData = (std::map<std::string, std::string>*)sBase->getUserData();
+    (*userData)[key] = value;
+}
+
 void setDefaultLayoutId(Layout* layout) {
     if (!layout->isSetId())
         layout->setId(getDefaultLayoutId());
@@ -82,6 +145,68 @@ void setDefaultLayoutDimensions(Layout* layout) {
         dimensions->setHeight(1024.0);
 }
 
+void lockGraphicalObjects(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes) {
+    lockSpeciesGlyphs(layout, lockedNodeIds, resetLockedNodes);
+    lockReactionGlyphs(layout, lockedNodeIds, resetLockedNodes);
+}
+
+void lockSpeciesGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes) {
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
+        if (resetLockedNodes && getUserData(speciesGlyph, "locked") == "true")
+            unlockGraphicalObject(speciesGlyph);
+        for (int j = 0; j < lockedNodeIds.size(); j++) {
+            if (speciesGlyph->getSpeciesId() == lockedNodeIds.at(j) || speciesGlyph->getId() == lockedNodeIds.at(j)) {
+                lockGraphicalObject(speciesGlyph);
+                break;
+            }
+        }
+    }
+}
+
+void lockReactionGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+        if (resetLockedNodes && getUserData(reactionGlyph, "locked") == "true")
+            unlockGraphicalObject(reactionGlyph);
+        for (int j = 0; j < lockedNodeIds.size(); j++) {
+            if (reactionGlyph->getReactionId() == lockedNodeIds.at(j) || reactionGlyph->getId() == lockedNodeIds.at(j)) {
+                lockGraphicalObject(reactionGlyph);
+                break;
+            }
+        }
+    }
+}
+
+void lockGraphicalObject(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "locked", "true");
+    setUserData(graphicalObject, "x", std::to_string(graphicalObject->getBoundingBox()->x()));
+    setUserData(graphicalObject, "y", std::to_string(graphicalObject->getBoundingBox()->y()));
+}
+
+void unlockGraphicalObject(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "locked", "false");
+    setUserData(graphicalObject, "x", "");
+    setUserData(graphicalObject, "y", "");
+}
+
+std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects) {
+    std::vector<GraphicalObject*> lockedGraphicalObjects;
+    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+        if (getUserData(graphicalObjects.at(i), "locked") == "true")
+            lockedGraphicalObjects.push_back(graphicalObjects.at(i));
+
+    return lockedGraphicalObjects;
+}
+
+void fixGraphicalObjectWidth(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "width", std::to_string(graphicalObject->getBoundingBox()->width()));
+}
+
+void fixGraphicalObjectHeight(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "height", std::to_string(graphicalObject->getBoundingBox()->height()));
+}
+
 void clearGraphicalObjects(Layout* layout) {
     clearCompartmentGlyphs(layout);
     clearSpeciesGlyphs(layout);
@@ -90,60 +215,76 @@ void clearGraphicalObjects(Layout* layout) {
 }
 
 void clearCompartmentGlyphs(Layout* layout) {
-    while (layout->getNumCompartmentGlyphs())
+    while (layout->getNumCompartmentGlyphs()) {
+        freeUserData(layout->getCompartmentGlyph(0));
         delete layout->removeCompartmentGlyph(0);
+    }
 }
 
 void clearSpeciesGlyphs(Layout* layout) {
-    while (layout->getNumSpeciesGlyphs())
+    while (layout->getNumSpeciesGlyphs()) {
+        freeUserData(layout->getSpeciesGlyph(0));
         delete layout->removeSpeciesGlyph(0);
+    }
 }
 
 void clearReactionGlyphs(Layout* layout) {
-    while (layout->getNumReactionGlyphs())
+    while (layout->getNumReactionGlyphs()) {
+        freeUserData(layout->getReactionGlyph(0));
         delete layout->removeReactionGlyph(0);
+    }
+
 }
 
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
-    while (reactionGlyph->getNumSpeciesReferenceGlyphs())
-        reactionGlyph->removeSpeciesReferenceGlyph(0);
+    while (reactionGlyph->getNumSpeciesReferenceGlyphs()) {
+        freeUserData(reactionGlyph->getSpeciesReferenceGlyph(0));
+        delete reactionGlyph->removeSpeciesReferenceGlyph(0);
+    }
 }
 
 void clearTextGlyphs(Layout* layout) {
-    while (layout->getNumTextGlyphs())
+    while (layout->getNumTextGlyphs()) {
+        freeUserData(layout->getTextGlyph(0));
         delete layout->removeTextGlyph(0);
+    }
 }
 
 void clearReactionTextGlyphs(Layout* layout) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
         std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, reactionGlyph);
-        for (unsigned int j = 0; j < textGlyphs.size(); j++)
+        for (unsigned int j = 0; j < textGlyphs.size(); j++) {
+            freeUserData(textGlyphs.at(j));
             delete layout->removeTextGlyph(textGlyphs.at(j)->getId());
+        }
     }
 }
 
-void setCompartmentGlyphs(Model* model, Layout* layout) {
+void setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
         Compartment *compartment = model->getCompartment(i);
         CompartmentGlyph *compartmentGlyph = createCompartmentGlyph(layout, compartment);
         setGraphicalObjectBoundingBox(compartmentGlyph);
+        setGraphicalObjectUserData(compartmentGlyph, userData);
     }
 }
 
-void setSpeciesGlyphs(Model* model, Layout* layout) {
+void setSpeciesGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < model->getNumSpecies(); i++) {
         Species* species = model->getSpecies(i);
         SpeciesGlyph* speciesGlyph = createSpeciesGlyph(layout, species);
         setGraphicalObjectBoundingBox(speciesGlyph);
+        setGraphicalObjectUserData(speciesGlyph, userData);
     }
 }
 
-void setReactionGlyphs(Model* model, Layout* layout) {
+void setReactionGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < model->getNumReactions(); i++) {
         Reaction* reaction = model->getReaction(i);
         ReactionGlyph* reactionGlyph = createReactionGlyph(layout, reaction);
         setReactionGlyphCurve(reactionGlyph);
+        setGraphicalObjectUserData(reactionGlyph, userData);
         clearReactionGlyphSpeciesReferenceGlyphs(reactionGlyph);
         setReactantGlyphs(layout, reaction, reactionGlyph);
         setProductGlyphs(layout, reaction, reactionGlyph);
@@ -209,9 +350,8 @@ SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyp
     SpeciesGlyph* dummySpeciesGlyph = layout->createSpeciesGlyph();
     dummySpeciesGlyph->setId(dummySpeciesGlyphId);
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
-    // we store the compartment id of dummy species glyphs in the metaid of the species glyph
     if (compartmentGlyph)
-        dummySpeciesGlyph->setMetaId(compartmentGlyph->getCompartmentId());
+        setUserData(dummySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
     setGraphicalObjectBoundingBox(dummySpeciesGlyph);
 
     return dummySpeciesGlyph;
@@ -226,7 +366,11 @@ SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, Reaction
     return dummySpeciesReferenceGlyph;
 }
 
-void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges) {
+void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
+    if (maxNumConnectedEdges < 1) {
+        std::cerr << "error: Maximum number of connected edges must be greater than 0\n";
+        return;
+    }
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
         std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferences = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
@@ -392,11 +536,20 @@ TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalO
     TextGlyph* textGlyph = layout->createTextGlyph();
     textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
     textGlyph->setGraphicalObjectId(graphicalObject->getId());
-    textGlyph->setOriginOfTextId(getEntityId(layout, graphicalObject));
+    textGlyph->setOriginOfTextId(getEntityId(graphicalObject));
     
     return textGlyph;
 }
 
+void setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData) {
+    for (unsigned int i = 0; i < userData.size(); i++) {
+        if (userData.at(i).at("id") == graphicalObject->getId()) {
+            for (auto it = userData.at(i).begin(); it != userData.at(i).end(); it++)
+                setUserData(graphicalObject, it->first, it->second);
+            break;
+        }
+    }
+}
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
     if  (!graphicalObject->getBoundingBox()->isSetId())
@@ -433,11 +586,8 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     Species* species = model->getSpecies(speciesGlyph->getSpeciesId());
     if (species)
         return model->getCompartment(species->getCompartment());
-    // we store the compartment id of dummy species glyphs in the metaid of the species glyph
-    else if (speciesGlyph->isSetMetaId())
-        return model->getCompartment(speciesGlyph->getMetaId());
-
-    return NULL;
+    else
+        return model->getCompartment(getUserData(speciesGlyph, "compartment"));
 }
 
 Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph) {
@@ -540,7 +690,7 @@ std::set<std::string> getSetOfGraphicalObjectIds(std::vector<GraphicalObject*> g
     return graphicalObjectsIds;
 }
 
-const std::string getEntityId(Layout* layout, GraphicalObject* graphicalObject) {
+const std::string getEntityId(GraphicalObject* graphicalObject) {
     GraphicalObject* castedGraphicalObject = dynamic_cast<CompartmentGlyph*>(graphicalObject);
     if (castedGraphicalObject)
         return ((CompartmentGlyph*)castedGraphicalObject)->getCompartmentId();
@@ -682,62 +832,164 @@ void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* 
         textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
 }
 
-void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment) {
+void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes) {
     if (isValidAlignment(alignment)) {
         if (stringCompare(alignment, "top"))
-            alignGraphicalObjectsToTop(layout, graphicalObjects);
-        else if (stringCompare(alignment, "center"))
-            alignGraphicalObjectsToCenter(layout, graphicalObjects);
+            alignGraphicalObjectsToTop(layout, graphicalObjects, ignoreLockedNodes);
+        else if (stringCompare(alignment, "vCenter"))
+            alignGraphicalObjectsToVerticalCenter(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "bottom"))
-            alignGraphicalObjectsToBottom(layout, graphicalObjects);
+            alignGraphicalObjectsToBottom(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "left"))
-            alignGraphicalObjectsToLeft(layout, graphicalObjects);
-        else if (stringCompare(alignment, "middle"))
-            alignGraphicalObjectsToMiddle(layout, graphicalObjects);
+            alignGraphicalObjectsToLeft(layout, graphicalObjects, ignoreLockedNodes);
+        else if (stringCompare(alignment, "hCenter"))
+            alignGraphicalObjectsToHorizontalCenter(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "right"))
-            alignGraphicalObjectsToRight(layout, graphicalObjects);
+            alignGraphicalObjectsToRight(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "circular") || stringCompare(alignment, "circle"))
-            alignGraphicalObjectsCircularly(layout, graphicalObjects);
+            alignGraphicalObjectsCircularly(layout, graphicalObjects, ignoreLockedNodes);
     }
 }
 
-void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double minY = getMinPositionY(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), minY);
+void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    try {
+        double minY = getTopAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionY(layout, graphicalObjects.at(i), minY);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
-void alignGraphicalObjectsToCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double centerX = 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), centerX);
+const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMinPositionY(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMinPositionY(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double maxY = getMaxPositionY(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), maxY);
+void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    try {
+        double centerX = getHorizontalCenterAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionX(layout, graphicalObjects.at(i), centerX);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
-void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double minX = getMinPositionX(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), minX);
+const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return 0.5 * (getMinPositionX(graphicalObjects) + getMaxPositionX(graphicalObjects));
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsToMiddle(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double centerY = 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), centerY);
+void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    try {
+        double maxY = getBottomAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionY(layout, graphicalObjects.at(i), maxY);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
 }
 
-void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
-    double maxX = getMaxPositionX(graphicalObjects);
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), maxX);
+const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMaxPositionY(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMaxPositionY(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
 }
 
-void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects) {
+void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    try {
+        double minX = getLeftAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionX(layout, graphicalObjects.at(i), minX);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
+}
+
+const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMinPositionX(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMinPositionX(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+}
+
+void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    try {
+        double centerY = getVerticalCenterAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionY(layout, graphicalObjects.at(i), centerY);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
+}
+
+const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return 0.5 * (getMinPositionY(graphicalObjects) + getMaxPositionY(graphicalObjects));
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+}
+
+void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    try {
+        double maxX = getRightAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++)
+            setPositionX(layout, graphicalObjects.at(i), maxX);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cerr << e.what();
+    }
+}
+
+const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    if (ignoreLockedNodes)
+        return getMaxPositionX(graphicalObjects);
+    std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
+    if (lockedGraphicalObjects.size() == 0)
+        return getMaxPositionX(graphicalObjects);
+    else if (lockedGraphicalObjects.size() == 1)
+        return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+    else
+        throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+}
+
+void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
     double radius = graphicalObjects.size() * 50.0;
     double angle = 2 * M_PI / graphicalObjects.size();
     double centerX = std::max(radius, 0.5 * (getMinCenterX(graphicalObjects) + getMaxCenterX(graphicalObjects)));
@@ -915,12 +1167,22 @@ const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects) {
     return 0.0;
 }
 
+const double getDefaultAutoLayoutPadding() {
+    return 30.0;
+}
+
 const bool isValidLayoutDimensionWidthValue(const double& width) {
-    return isValidDimensionValue(width);
+    if (isValidDimensionValue(width) && width > 6 * getDefaultAutoLayoutPadding())
+        return true;
+
+    return false;
 }
 
 const bool isValidLayoutDimensionHeightValue(const double& height) {
-    return isValidDimensionValue(height);
+    if (isValidDimensionValue(height) && height > 6 * getDefaultAutoLayoutPadding())
+        return true;
+
+    return false;
 }
 
 const bool isValidRoleValue(const std::string& role) {
@@ -1008,10 +1270,10 @@ std::vector<std::string> getValidRoleValues() {
 std::vector<std::string> getValidAlignmentValues() {
     std::vector <std::string> alignmentValues;
     alignmentValues.push_back("top");
-    alignmentValues.push_back("center");
+    alignmentValues.push_back("vCenter");
     alignmentValues.push_back("bottom");
     alignmentValues.push_back("left");
-    alignmentValues.push_back("middle");
+    alignmentValues.push_back("hCenter");
     alignmentValues.push_back("right");
     alignmentValues.push_back("circular");
 

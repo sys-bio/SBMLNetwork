@@ -8,6 +8,8 @@ public:
 
     AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel);
 
+    ~AutoLayoutConnection();
+
     const std::string getId() override;
 
     void setCentroidNode(const bool& useNameAsTextLabel);

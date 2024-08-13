@@ -37,6 +37,7 @@ int setDimensionWidth(Layout* layout, const double& width) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setWidth(width);
+            setUserData(dimensions, "width", std::to_string(width));
             return 0;
         }
     }
@@ -57,6 +58,7 @@ int setDimensionHeight(Layout* layout, const double& height) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setHeight(height);
+            setUserData(dimensions, "height", std::to_string(height));
             return 0;
         }
     }
@@ -525,7 +527,7 @@ int addText(Layout* layout, GraphicalObject* graphicalObject, const std::string&
         textGlyph->setId(getTextGlyphUniqueId(layout, graphicalObject));
         textGlyph->setText(text);
         textGlyph->setGraphicalObjectId(graphicalObject->getId());
-        textGlyph->setOriginOfTextId(getEntityId(layout, graphicalObject));
+        textGlyph->setOriginOfTextId(getEntityId(graphicalObject));
         setTextGlyphBoundingBox(textGlyph, graphicalObject);
 
         return 0;
@@ -640,12 +642,12 @@ bool isTextGlyph(GraphicalObject* graphicalObject) {
 }
 
 const std::string getSBMLObjectId(Layout* layout, const std::string& graphicalObjectId) {
-    return getSBMLObjectId(layout, getGraphicalObjectUsingItsOwnId(layout, graphicalObjectId));
+    return getSBMLObjectId(getGraphicalObjectUsingItsOwnId(layout, graphicalObjectId));
 }
 
-const std::string getSBMLObjectId(Layout* layout, GraphicalObject* graphicalObject) {
-    if (layout && graphicalObject)
-        return getEntityId(layout, graphicalObject);
+const std::string getSBMLObjectId(GraphicalObject* graphicalObject) {
+    if (graphicalObject)
+        return getEntityId(graphicalObject);
 
     return "";
 }
@@ -688,6 +690,7 @@ int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double&
     double moveDistance = x - getPositionX(graphicalObject);
     if (!setPositionX(getBoundingBox(graphicalObject), x)) {
         updateAssociatedTextGlyphsPositionX(layout, graphicalObject, moveDistance);
+        lockGraphicalObject(graphicalObject);
         return 0;
     }
 
@@ -730,6 +733,7 @@ int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double&
     double moveDistance = y - getPositionY(graphicalObject);
     if (!setPositionY(getBoundingBox(graphicalObject), y)) {
         updateAssociatedTextGlyphsPositionY(layout, graphicalObject, moveDistance);
+        lockGraphicalObject(graphicalObject);
         return 0;
     }
 
@@ -800,6 +804,7 @@ int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphi
 int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
     double changedWidth = width - getDimensionWidth(graphicalObject);
     if (!setDimensionWidth(getBoundingBox(graphicalObject), width)) {
+        fixGraphicalObjectWidth(graphicalObject);
         updateAssociatedTextGlyphsDimensionWidth(layout, graphicalObject, changedWidth);
         return 0;
     }
@@ -869,6 +874,7 @@ int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graph
 int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {
     double changedHeight = height - getDimensionHeight(graphicalObject);
     if (!setDimensionHeight(getBoundingBox(graphicalObject), height)) {
+        fixGraphicalObjectHeight(graphicalObject);
         updateAssociatedTextGlyphsDimensionHeight(layout, graphicalObject, changedHeight);
         return 0;
     }

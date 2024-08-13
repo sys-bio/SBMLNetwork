@@ -57,9 +57,11 @@ public:
 
     void incrementDegree();
 
-    void setLocked(const bool& locked);
+    virtual void updateLockedStatus() = 0;
 
     const bool isLocked();
+
+    void setLocked(const bool& locked);
 
 protected:
 
@@ -103,6 +105,8 @@ public:
 
     const double calculateHeight() override;
 
+    void updateLockedStatus() override;
+
 protected:
 
     SpeciesGlyph* _speciesGlyph;
@@ -140,6 +144,8 @@ public:
     const double calculateWidth() override;
 
     const double calculateHeight() override;
+
+    void updateLockedStatus() override;
 
 protected:
 

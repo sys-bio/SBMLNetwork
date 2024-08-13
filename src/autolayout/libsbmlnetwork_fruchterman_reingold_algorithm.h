@@ -4,12 +4,10 @@
 #ifndef SWIG
 #include "sbml/SBMLTypes.h"
 #include "sbml/packages/layout/common/LayoutExtensionTypes.h"
-#include <set>
 #endif
 
 #include "libsbmlnetwork_autolayout_object_base.h"
 #include "libsbmlnetwork_autolayout_point.h"
-#include "libsbmlnetwork_locked_node_info.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
@@ -19,6 +17,12 @@ public:
 
 
     FruchtermanReingoldAlgorithmBase();
+
+    virtual ~FruchtermanReingoldAlgorithmBase();
+
+    void clearNodes();
+
+    void clearConnections();
 
     void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 
@@ -36,9 +40,9 @@ public:
 
     void setUseGrid(const bool& useGrid);
 
-    void setNodesLockedStatus(Layout *layout, const std::set<LockedNodeInfo>& lockedNodesInfo);
+    void updateNodesLockedStatus();
 
-    void setPadding(const double& padding);
+    void lockNodes();
 
     void apply();
 
@@ -60,7 +64,9 @@ public:
 
     void adjustNodeCoordinates(AutoLayoutObjectBase* node);
 
-    void adjustWithinTheBoundary(AutoLayoutObjectBase* node);
+    void adjustWithinTheHorizontalBoundary(AutoLayoutObjectBase* node);
+
+    void adjustWithinTheVerticalBoundary(AutoLayoutObjectBase* node);
 
     void adjustOnTheGrids(AutoLayoutObjectBase* node);
 
@@ -95,9 +101,9 @@ protected:
     double _stiffness;
     double _gravity;
     bool _useMagnetism;
-    bool _useBoundary;
     bool _useGrid;
-    double _padding;
+    bool _useHorizontalBoundary;
+    bool _useVerticalBoundary;
 
     std::vector<AutoLayoutObjectBase*> _connections;
     std::vector<AutoLayoutObjectBase*> _nodes;
@@ -136,8 +142,6 @@ protected:
 
     void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
 };
-
-const bool layoutDimensionsAreSet(Layout* layout);
 
 const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2);
 
@@ -184,10 +188,6 @@ const double getConnectionCenterPadding(std::vector<AutoLayoutObjectBase*> conne
 AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::vector<std::string> nodeIds);
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
-
-const bool setLockedNodePosition(Layout* layout, AutoLayoutObjectBase* node, const std::set<LockedNodeInfo>& lockedNodesInfo);
-
-void setLockedNodePositions(AutoLayoutObjectBase* node, const LockedNodeInfo &lockedNodeInfo);
 
 }
 

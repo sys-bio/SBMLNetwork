@@ -56,21 +56,21 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const double stiffness, const double gravity, const int maxNumConnectedEdges,
-                             bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel,
-                             bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+                             bool resetLockedNodes, const std::vector<std::string> lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            std::set <LockedNodeInfo> lockedNodesInfo = getLockedNodesInfo(layout, lockedNodeIds, resetLockedNodes);
+            lockGraphicalObjects(layout, lockedNodeIds, resetLockedNodes);
+            std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
             clearGraphicalObjects(layout);
-            setCompartmentGlyphs(model, layout);
-            setSpeciesGlyphs(model, layout);
-            setReactionGlyphs(model, layout);
-            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges);
-            locateGlyphs(model, layout, stiffness, gravity, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, lockedNodesInfo);
+            setCompartmentGlyphs(model, layout, userData);
+            setSpeciesGlyphs(model, layout, userData);
+            setReactionGlyphs(model, layout, userData);
+            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges, userData);
+            locateGlyphs(model, layout, useNameAsTextLabel);
             setTextGlyphs(layout);
             return 0;
         }
@@ -79,13 +79,12 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const doubl
     return -1;
 }
 
-int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::set <std::string> updatedGraphicalObjectIds) {
+int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::string> updatedGraphicalObjectIds) {
     if (document && layout) {
         Model* model = document->getModel();
         if (model) {
             clearReactionTextGlyphs(layout);
-            std::set <LockedNodeInfo> lockedNodesInfo = getLockedNodesInfo(layout, updatedGraphicalObjectIds, false);
-            locateReactions(model, layout, 10.0, 15.0, false, true, false, false, lockedNodesInfo);
+            locateReactions(model, layout, false);
             setReactionTextGlyphs(layout);
             return 0;
         }
@@ -94,18 +93,17 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::set <std::st
     return -1;
 }
 
-int updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex, std::set<std::string> updatedGraphicalObjectIds) {
+int updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex, std::vector<std::string> updatedGraphicalObjectIds) {
     return updateLayoutCurves(document, getLayout(document, layoutIndex), updatedGraphicalObjectIds);
 }
 
-int createDefaultLayout(SBMLDocument* document, const double stiffness, const double gravity, const int maxNumConnectedEdges,
-                        bool useMagnetism, bool useBoundary, bool useGrid, bool useNameAsTextLabel,
-                        bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
+int createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+                        bool resetLockedNodes, const std::vector<std::string> lockedNodeIds) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutFeatures(document, layout, stiffness, gravity, maxNumConnectedEdges, useMagnetism, useBoundary, useGrid, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
+    return setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
@@ -847,7 +845,7 @@ int setPositionX(SBMLDocument* document, const std::string& id, const double& x)
     Layout* layout = getLayout(document);
     if (!setPositionX(layout, id, x)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -858,7 +856,7 @@ int setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::st
     Layout* layout = getLayout(document, layoutIndex);
     if (!setPositionX(layout, id, x)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -869,7 +867,7 @@ int setPositionX(SBMLDocument* document, const std::string& id, unsigned int gra
     Layout* layout = getLayout(document);
     if (!setPositionX(layout, id, graphicalObjectIndex, x)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -880,7 +878,7 @@ int setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::st
     Layout* layout = getLayout(document, layoutIndex);
     if (!setPositionX(layout, id, graphicalObjectIndex, x)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -899,7 +897,7 @@ int setPositionY(SBMLDocument* document, const std::string& id, const double& y)
     Layout* layout = getLayout(document);
     if (!setPositionY(layout, id, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -910,7 +908,7 @@ int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::st
     Layout* layout = getLayout(document, layoutIndex);
     if (!setPositionY(layout, id, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -921,7 +919,7 @@ int setPositionY(SBMLDocument* document, const std::string& id, unsigned int gra
     Layout* layout = getLayout(document);
     if (!setPositionY(layout, id, graphicalObjectIndex, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -932,7 +930,7 @@ int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::st
     Layout* layout = getLayout(document, layoutIndex);
     if (!setPositionY(layout, id, graphicalObjectIndex, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -943,7 +941,7 @@ int setPosition(SBMLDocument* document, const std::string& id, const double& x, 
     Layout* layout = getLayout(document);
     if (!setPosition(layout, id, x, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -954,7 +952,7 @@ int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::str
     Layout* layout = getLayout(document, layoutIndex);
     if (!setPosition(layout, id, x, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -965,7 +963,7 @@ int setPosition(SBMLDocument* document, const std::string& id, unsigned int grap
     Layout* layout = getLayout(document);
     if (!setPosition(layout, id, graphicalObjectIndex, x, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -976,7 +974,7 @@ int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::str
     Layout* layout = getLayout(document, layoutIndex);
     if (!setPosition(layout, id, graphicalObjectIndex, x, y)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -995,7 +993,7 @@ int setDimensionWidth(SBMLDocument* document, const std::string& id, const doubl
     Layout* layout = getLayout(document);
     if (!setDimensionWidth(layout, id, width)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -1006,7 +1004,7 @@ int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const st
     Layout* layout = getLayout(document, layoutIndex);
     if (!setDimensionWidth(layout, id, width)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -1017,7 +1015,7 @@ int setDimensionWidth(SBMLDocument* document, const std::string& id, unsigned in
     Layout* layout = getLayout(document);
     if (!setDimensionWidth(layout, id, graphicalObjectIndex, width)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -1028,7 +1026,7 @@ int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const st
     Layout* layout = getLayout(document, layoutIndex);
     if (!setDimensionWidth(layout, id, graphicalObjectIndex, width)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -1080,7 +1078,7 @@ int setDimensionHeight(SBMLDocument* document, const std::string& id, const doub
     Layout* layout = getLayout(document);
     if (!setDimensionHeight(layout, id, height)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -1091,7 +1089,7 @@ int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const s
     Layout* layout = getLayout(document, layoutIndex);
     if (!setDimensionHeight(layout, id, height)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id)));
         return 0;
     }
 
@@ -1102,7 +1100,7 @@ int setDimensionHeight(SBMLDocument* document, const std::string& id, unsigned i
     Layout* layout = getLayout(document);
     if (!setDimensionHeight(layout, id, graphicalObjectIndex, height)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
@@ -1113,7 +1111,7 @@ int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const s
     Layout* layout = getLayout(document, layoutIndex);
     if (!setDimensionHeight(layout, id, graphicalObjectIndex, height)) {
         if (canUpdateLayoutCurves(layout))
-            updateLayoutCurves(document, layout, getSetOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
+            updateLayoutCurves(document, layout, getListOfGraphicalObjectIds(getGraphicalObject(layout, id, graphicalObjectIndex)));
         return 0;
     }
 
