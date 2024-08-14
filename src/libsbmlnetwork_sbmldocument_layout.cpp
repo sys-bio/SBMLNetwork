@@ -57,7 +57,7 @@ int removeAllLayouts(SBMLDocument* document) {
 }
 
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetLockedNodes, const std::vector<std::string> lockedNodeIds) {
+                             bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
@@ -79,7 +79,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
     return -1;
 }
 
-int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::string> updatedGraphicalObjectIds) {
+int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
     if (document && layout) {
         Model* model = document->getModel();
         if (model) {
@@ -93,12 +93,8 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout, std::vector<std::
     return -1;
 }
 
-int updateLayoutCurves(SBMLDocument* document, unsigned int layoutIndex, std::vector<std::string> updatedGraphicalObjectIds) {
-    return updateLayoutCurves(document, getLayout(document, layoutIndex), updatedGraphicalObjectIds);
-}
-
 int createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                        bool resetLockedNodes, const std::vector<std::string> lockedNodeIds) {
+                        bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);

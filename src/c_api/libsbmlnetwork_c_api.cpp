@@ -45,31 +45,31 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedNodes, const char **lockedNodeIds, const int lockedNodesSize) {
-        std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
+        std::set<std::string> lockedNodeIdsSet = std::set<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
-                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
+                lockedNodeIdsSet.insert(lockedNodeIds[i]);
         }
 
-        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
+        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsSet);
     }
 
     int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes) {
-        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+        std::set<std::string> nodeIdsSet = std::set<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsVector.emplace_back(nodeIds[i]);
+                nodeIdsSet.insert(nodeIds[i]);
         }
-        return align(document, nodeIdsVector, alignment, ignoreLockedNodes);
+        return align(document, nodeIdsSet, alignment, ignoreLockedNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing) {
-        std::vector <std::string> nodeIdsVector = std::vector<std::string>();
+        std::set<std::string> nodeIdsSet = std::set<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsVector.emplace_back(nodeIds[i]);
+                nodeIdsSet.insert(nodeIds[i]);
         }
-        return distribute(document, nodeIdsVector, direction, spacing);
+        return distribute(document, nodeIdsSet, direction, spacing);
     }
 
     const int c_api_getNumLayouts(SBMLDocument* document) {
@@ -83,12 +83,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     int c_api_createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges,
                                   bool useNameAsTextLabel, bool resetLockedNodes,
                                   const char **lockedNodeIds, const int lockedNodesSize) {
-        std::vector <std::string> lockedNodeIdsVector = std::vector<std::string>();
+        std::set<std::string> lockedNodeIdsSet = std::set<std::string>();
         if (lockedNodeIds) {
             for (int i = 0; i < lockedNodesSize; i++)
-                lockedNodeIdsVector.emplace_back(lockedNodeIds[i]);
+                lockedNodeIdsSet.insert(lockedNodeIds[i]);
         }
-        return createDefaultLayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsVector);
+        return createDefaultLayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsSet);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {

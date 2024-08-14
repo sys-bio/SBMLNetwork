@@ -40,11 +40,11 @@ const bool canUpdateLayoutCurves(Layout* layout);
 
 void setDefaultLayoutDimensions(Layout* layout);
 
-void lockGraphicalObjects(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+void lockGraphicalObjects(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
 
-void lockSpeciesGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+void lockSpeciesGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
 
-void lockReactionGlyphs(Layout* layout, std::vector<std::string> lockedNodeIds, const bool resetLockedNodes);
+void lockReactionGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
 
 void lockGraphicalObject(GraphicalObject* graphicalObject);
 
