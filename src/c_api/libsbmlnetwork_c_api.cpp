@@ -55,21 +55,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes) {
-        std::set<std::string> nodeIdsVector = std::set<std::string>();
+        std::set<std::string> nodeIdsSet = std::set<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsVector.insert(nodeIds[i]);
+                nodeIdsSet.insert(nodeIds[i]);
         }
-        return align(document, nodeIdsVector, alignment, ignoreLockedNodes);
+        return align(document, nodeIdsSet, alignment, ignoreLockedNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing) {
-        std::set<std::string> nodeIdsVector = std::set<std::string>();
+        std::set<std::string> nodeIdsSet = std::set<std::string>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsVector.insert(nodeIds[i]);
+                nodeIdsSet.insert(nodeIds[i]);
         }
-        return distribute(document, nodeIdsVector, direction, spacing);
+        return distribute(document, nodeIdsSet, direction, spacing);
     }
 
     const int c_api_getNumLayouts(SBMLDocument* document) {
