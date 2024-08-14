@@ -69,7 +69,7 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
 /// @param lockedNodeIds an array of node ids to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, std::vector <std::string> lockedNodeIds = std::vector<std::string>());
+LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, std::set<std::string>lockedNodeIds = std::set<std::string>());
 
 /// @brief Align the nodes position in the SBML document in the given alignment type.
 /// @param document a pointer to the SBMLDocument object.
@@ -77,7 +77,7 @@ LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumCon
 /// @param alignment determines how to align the nodes.
 /// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the alignment algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::vector <std::string> nodeIds,  const std::string& alignment, const bool ignoreLockedNodes = false);
+LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::set<std::string> nodeIds,  const std::string& alignment, const bool ignoreLockedNodes = false);
 
 /// @brief Distribute the nodes position in the SBML document in the given distribution direction.
 /// @param document a pointer to the SBMLDocument object.
@@ -85,7 +85,7 @@ LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::vector <std::string
 /// @param direction determines how to distribute the nodes.
 /// @param spacing the spacing between the distributed nodes.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int distribute(SBMLDocument* document, std::vector <std::string> nodeIds, const std::string& direction, const double& spacing = -1);
+LIBSBMLNETWORK_EXTERN int distribute(SBMLDocument* document, std::set<std::string> nodeIds, const std::string& direction, const double& spacing = -1);
 
 /// @brief Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
 /// @param document a pointer to the SBMLDocument object.
