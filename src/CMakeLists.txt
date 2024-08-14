@@ -42,35 +42,35 @@ set(HEADERS
 		autolayout/libsbmlnetwork_autolayout_point.h
 		c_api/libsbmlnetwork_c_api.h)
 
-### shared library
-add_library(sbmlnetwork SHARED ${SOURCES})
-set_target_properties(sbmlnetwork PROPERTIES
-		VERSION ${LIBSBMLNETWORK_DOTTED_VERSION}
-		SOVERSION ${LIBSBMLNETWORK_VERSION_MAJOR})
-
-#### link to dependencies
+#### dependencies
 add_library(libsbml STATIC IMPORTED)
 set_target_properties(libsbml PROPERTIES IMPORTED_LOCATION ${LIBSBML_LIBRARY})
-target_link_libraries(sbmlnetwork PUBLIC libsbml)
 add_library(libexpat STATIC IMPORTED)
 set_target_properties(libexpat PROPERTIES IMPORTED_LOCATION ${LIBEXPAT_LIBRARY})
-target_link_libraries(sbmlnetwork PUBLIC libexpat)
 add_library(libz STATIC IMPORTED)
 set_target_properties(libz PROPERTIES IMPORTED_LOCATION ${LIBZ_LIBRARY})
-target_link_libraries(sbmlnetwork PUBLIC libz)
-target_link_libraries(sbmlnetwork PUBLIC ${EXTRA_LIBS})
-target_include_directories(sbmlnetwork PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
-if (WIN32)
-	set_target_properties(sbmlnetwork PROPERTIES OUTPUT_NAME "libsbmlnetwork")
+
+### shared library
+if (BUILD_SHARED_LIBS)
+	add_library(sbmlnetwork SHARED ${SOURCES})
+	set_target_properties(sbmlnetwork PROPERTIES
+			VERSION ${LIBSBMLNETWORK_DOTTED_VERSION}
+			SOVERSION ${LIBSBMLNETWORK_VERSION_MAJOR})
+	target_link_libraries(sbmlnetwork PUBLIC libsbml)
+	target_link_libraries(sbmlnetwork PUBLIC libexpat)
+	target_link_libraries(sbmlnetwork PUBLIC libz)
+	target_link_libraries(sbmlnetwork PUBLIC ${EXTRA_LIBS})
+	target_include_directories(sbmlnetwork PUBLIC ${DEPENDENCIES_INCLUDE_DIR})
+	if (WIN32)
+		set_target_properties(sbmlnetwork PROPERTIES OUTPUT_NAME "libsbmlnetwork")
+	endif ()
+	install(TARGETS sbmlnetwork RUNTIME DESTINATION bin COMPONENT libsbmlnetwork_api
+			LIBRARY DESTINATION lib COMPONENT libsbmlnetwork_api
+			ARCHIVE DESTINATION lib COMPONENT libsbmlnetwork_api)
 endif ()
 
-## set library dist
-install(TARGETS sbmlnetwork RUNTIME DESTINATION bin COMPONENT libsbmlnetwork_api
-									LIBRARY DESTINATION lib COMPONENT libsbmlnetwork_api
-									ARCHIVE DESTINATION lib COMPONENT libsbmlnetwork_api)
-
 ### static library
-if (BUILD_STATIC_LIB)
+if (BUILD_STATIC_LIBS)
 	add_library(sbmlnetwork-static STATIC ${SOURCES})
 	target_link_libraries(sbmlnetwork-static ${LIBSBML_LIBRARY} ${EXTRA_LIBS})
 	target_include_directories(sbmlnetwork-static PUBLIC ${DEPENDENCIES_INCLUDE_DIR})

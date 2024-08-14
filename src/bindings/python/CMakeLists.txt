@@ -2,8 +2,10 @@
 set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python/site-packages)
 if (${WITH_SWIG})
     add_subdirectory(swig)
-else ()
+elseif (BUILD_SHARED_LIBS)
     add_subdirectory(ctypes)
+else ()
+    message(FATAL_ERROR "Python bindings require the shared library to be built. Please set BUILD_SHARED_LIBS to ON")
 endif ()
 
 cmake_dependent_option(PYTHON_INSTALL_IN_PREFIX "Install python binaries using the specified install prefix." OFF
