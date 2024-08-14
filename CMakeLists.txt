@@ -52,6 +52,9 @@ elseif(UNIX)
 endif()
 set(DEPENDENCIES_INCLUDE_DIR ${DEPENDENCIES_INSTALL_PREFIX}/include)
 
+## whether to build the dynamic version of the library
+set(BUILD_SHARED_LIB ON CACHE BOOL "Build the dynamic version of the library")
+
 ## whether to build the static version of the library
 set(BUILD_STATIC_LIB ON CACHE BOOL "Build the static version of the library")
 
@@ -83,4 +86,8 @@ endif()
 option(WITH_PYTHON "Generate the Python language interface for libsbmlnetwork." OFF)
 cmake_dependent_option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG." OFF "${WITH_PYTHON}" OFF)
 
-add_subdirectory(src)
+if (${BUILD_SHARED_LIB} OR ${BUILD_STATIC_LIB})
+	add_subdirectory(src)
+else()
+	message(FATAL_ERROR "No library type selected. Please select either BUILD_SHARED_LIB or BUILD_STATIC_LIB")
+endif()
