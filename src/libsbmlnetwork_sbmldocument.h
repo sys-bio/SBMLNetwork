@@ -67,13 +67,13 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param maxNumConnectedEdges the maximum number of connected edges to a node in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
 /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
-/// @param lockedNodeIds an array of node ids to be locked in the autolayout algorithm.
+/// @param lockedNodeIds a set of node ids to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, std::set<std::string>lockedNodeIds = std::set<std::string>());
 
 /// @brief Align the nodes position in the SBML document in the given alignment type.
 /// @param document a pointer to the SBMLDocument object.
-/// @param nodeIds an array of node ids to be aligned.
+/// @param nodeIds a set of node ids to be aligned.
 /// @param alignment determines how to align the nodes.
 /// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the alignment algorithm.
 /// @return integer value indicating success/failure of the function.
@@ -81,7 +81,7 @@ LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::set<std::string> no
 
 /// @brief Distribute the nodes position in the SBML document in the given distribution direction.
 /// @param document a pointer to the SBMLDocument object.
-/// @param nodeIds an array of node ids to be distributed.
+/// @param nodeIds a set of node ids to be distributed.
 /// @param direction determines how to distribute the nodes.
 /// @param spacing the spacing between the distributed nodes.
 /// @return integer value indicating success/failure of the function.
