@@ -51,7 +51,7 @@ add_library(libz STATIC IMPORTED)
 set_target_properties(libz PROPERTIES IMPORTED_LOCATION ${LIBZ_LIBRARY})
 
 ### shared library
-if (BUILD_SHARED_LIB)
+if (BUILD_SHARED_LIBS)
 	add_library(sbmlnetwork SHARED ${SOURCES})
 	set_target_properties(sbmlnetwork PROPERTIES
 			VERSION ${LIBSBMLNETWORK_DOTTED_VERSION}
@@ -70,7 +70,7 @@ if (BUILD_SHARED_LIB)
 endif ()
 
 ### static library
-if (BUILD_STATIC_LIB)
+if (BUILD_STATIC_LIBS)
 	add_library(sbmlnetwork-static STATIC ${SOURCES})
 	target_link_libraries(sbmlnetwork-static ${LIBSBML_LIBRARY} ${EXTRA_LIBS})
 	target_include_directories(sbmlnetwork-static PUBLIC ${DEPENDENCIES_INCLUDE_DIR})

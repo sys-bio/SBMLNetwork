@@ -26,7 +26,7 @@ endif()
 
 add_definitions(-DLIBSBMLNETWORK_VERSION="${LIBSBMLNETWORK_DOTTED_VERSION}")
 
-## find dependencies
+## find dependency libraries
 set(DEPENDENCIES_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml, libexpat, and libz installation directory")
 if(WIN32)
 	find_library(LIBSBML_LIBRARY NAMES libsbml-staticmd.lib libsbml-staticmdd.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
@@ -50,13 +50,17 @@ elseif(UNIX)
 	find_library(LIBZ_LIBRARY NAMES libz.so
 			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
 endif()
-set(DEPENDENCIES_INCLUDE_DIR ${DEPENDENCIES_INSTALL_PREFIX}/include)
+
+## set dependencies include directory if it is not set by a parent project
+if (NOT DEFINED DEPENDENCIES_INCLUDE_DIR)
+	set(DEPENDENCIES_INCLUDE_DIR ${DEPENDENCIES_INSTALL_PREFIX}/include)
+endif ()
 
 ## whether to build the dynamic version of the library
-set(BUILD_SHARED_LIB ON CACHE BOOL "Build the dynamic version of the library")
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build the dynamic version of the library")
 
 ## whether to build the static version of the library
-set(BUILD_STATIC_LIB ON CACHE BOOL "Build the static version of the library")
+set(BUILD_STATIC_LIBS ON CACHE BOOL "Build the static version of the library")
 
 if(WIN32)
 	## on windows Ws2_32.lib is needed to be included for the dll
@@ -86,8 +90,8 @@ endif()
 option(WITH_PYTHON "Generate the Python language interface for libsbmlnetwork." OFF)
 cmake_dependent_option(WITH_SWIG "Regenerate the programming language interface code (for Python) using SWIG." OFF "${WITH_PYTHON}" OFF)
 
-if (${BUILD_SHARED_LIB} OR ${BUILD_STATIC_LIB})
+if (${BUILD_SHARED_LIBS} OR ${BUILD_STATIC_LIBS})
 	add_subdirectory(src)
 else()
-	message(FATAL_ERROR "No library type selected. Please select either BUILD_SHARED_LIB or BUILD_STATIC_LIB")
+	message(FATAL_ERROR "No library type selected. Please select either BUILD_SHARED_LIBS or BUILD_STATIC_LIBS")
 endif()
