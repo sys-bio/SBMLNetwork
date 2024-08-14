@@ -275,6 +275,30 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getNumSpeciesReferenceGlyphs(document, layoutIndex, reactionId, reactionGlyphIndex);
     }
 
+    const char* c_api_getNthSpeciesReferenceGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
+        if (speciesReferenceGlyph)
+            return strdup(speciesReferenceGlyph->getId().c_str());
+
+        return "";
+    }
+
+    const char* c_api_getNthSpeciesReferenceGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
+        if (speciesReferenceGlyph)
+            return strdup(speciesReferenceGlyph->getMetaId().c_str());
+
+        return "";
+    }
+
+    const char* c_api_getNthSpeciesReferenceGlyphSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
+        if (speciesReferenceGlyph)
+            return strdup(speciesReferenceGlyph->getSpeciesReferenceId().c_str());
+
+        return "";
+    }
+
     const char* c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return strdup(getSpeciesReferenceSpeciesId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
     }
