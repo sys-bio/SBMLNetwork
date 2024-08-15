@@ -51,6 +51,12 @@ elseif(UNIX)
 			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
 endif()
 
+# in case the expat target is built in the parent project
+if (TARGET EXPAT::EXPAT)
+	find_package(expat REQUIRED)
+	set(LIBEXPAT_LIBRARY EXPAT::EXPAT)
+endif()
+
 ## set dependencies include directory if it is not set by a parent project
 if (NOT DEFINED DEPENDENCIES_INCLUDE_DIR)
 	set(DEPENDENCIES_INCLUDE_DIR ${DEPENDENCIES_INSTALL_PREFIX}/include)
