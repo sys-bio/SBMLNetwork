@@ -30,31 +30,19 @@ add_definitions(-DLIBSBMLNETWORK_VERSION="${LIBSBMLNETWORK_DOTTED_VERSION}")
 set(DEPENDENCIES_INSTALL_PREFIX "" CACHE PATH "Path to the libsbml, libexpat, and libz installation directory")
 if(WIN32)
 	find_library(LIBSBML_LIBRARY NAMES libsbml-staticmd.lib libsbml-staticmdd.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	if(NOT TARGET EXPAT::EXPAT)
-		find_library(LIBEXPAT_LIBRARY NAMES libexpatMD.lib libexpatdMD.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	endif()
+	find_library(LIBEXPAT_LIBRARY NAMES libexpatMD.lib libexpatdMD.lib expat PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 	find_library(LIBZ_LIBRARY NAMES zlibstatic.lib zlibstaticd.lib PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 elseif (APPLE)
 	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	if(NOT TARGET EXPAT::EXPAT)
-		find_library(LIBEXPAT_LIBRARY NAMES libexpat.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
-	endif()
+	find_library(LIBEXPAT_LIBRARY NAMES libexpat.a expat PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 	find_library(LIBZ_LIBRARY NAMES libz.a PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib REQUIRED)
 elseif(UNIX)
 	find_library(LIBSBML_LIBRARY NAMES libsbml-static.a libsbml-staticd.a
 			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-	if(NOT TARGET EXPAT::EXPAT)
-		find_library(LIBEXPAT_LIBRARY NAMES libexpat.a
-				PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-	endif()
+	find_library(LIBEXPAT_LIBRARY NAMES libexpat.a expat
+			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
 	find_library(LIBZ_LIBRARY NAMES libz.so
 			PATHS ${DEPENDENCIES_INSTALL_PREFIX}/lib ${DEPENDENCIES_INSTALL_PREFIX}/lib64 REQUIRED)
-endif()
-
-# in case the expat target is built in the parent project
-if (TARGET EXPAT::EXPAT)
-	find_package(expat REQUIRED)
-	set(LIBEXPAT_LIBRARY EXPAT::EXPAT)
 endif()
 
 ## set dependencies include directory if it is not set by a parent project
