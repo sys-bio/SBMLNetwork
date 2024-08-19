@@ -701,6 +701,11 @@ LIBSBMLNETWORK_EXTERN const double getPositionX(GraphicalObject* graphicalObject
 /// @return the "x" attribute of the BoundingBox object, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getPositionX(BoundingBox* boundingBox);
 
+/// @brief Returns the x value of the middle point of the Curve object.
+/// @param curve a pointer to the Curve object.
+/// @return the x value of the middle point of the Curve object, or @c 0.0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const double getPositionX(Curve* curve);
+
 /// @brief Sets the value of the "x" attribute of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
@@ -729,6 +734,12 @@ LIBSBMLNETWORK_EXTERN int setPositionX(Layout* layout, GraphicalObject* graphica
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionX(BoundingBox* boundingBox, const double& x);
 
+/// @brief Sets the x value of the middle point of the Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param x a double value to use as the x value of the middle point of the Curve object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPositionX(Curve* curve, const double& x);
+
 /// @brief Returns the value of the "y" attribute of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
@@ -745,6 +756,11 @@ LIBSBMLNETWORK_EXTERN const double getPositionY(GraphicalObject* graphicalObject
 /// @param boundingBox a pointer to the BoundingBox object.
 /// @return the "y" attribute of the BoundingBox object, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getPositionY(BoundingBox* boundingBox);
+
+/// @brief Returns the y value of the middle point of the Curve object.
+/// @param curve a pointer to the Curve object.
+/// @return the y value of the middle point of the Curve object, or @c 0.0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const double getPositionY(Curve* curve);
 
 /// @brief Sets the value of the "y" attribute of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
@@ -773,6 +789,12 @@ LIBSBMLNETWORK_EXTERN int setPositionY(Layout* layout, GraphicalObject* graphica
 /// @param y a double value to use as the value of the "y" attribute of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(BoundingBox* boundingBox, const double& y);
+
+/// @brief Sets the y value of the middle point of the Curve object.
+/// @param curve a pointer to the Curve object.
+/// @pram y a double value to use as the y value of the middle point of the Curve object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPositionY(Curve* curve, const double& y);
 
 /// @brief Sets the value of "x" and "y" attributes of the bounding box of the first GraphicalObject associated with the model entity with the given id of the Layout object.
 /// @param layout a pointer to the Layout object.
@@ -805,6 +827,13 @@ LIBSBMLNETWORK_EXTERN int setPosition(Layout* layout, GraphicalObject* graphical
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this BoundingBox object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPosition(BoundingBox* boundingBox, const double& x, const double& y);
+
+/// @brief Sets the x and y values of the middle point of the Curve object.
+/// @param curve a pointer to the Curve object.
+/// @param x a double value to use as the x value of the middle point of the Curve object.
+/// @param y a double value to use as the y value of the middle point of the Curve object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setPosition(Curve* curve, const double& x, const double& y);
 
 /// @brief Returns the value of the "width" attribute of the bounding box of the bounding box of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.

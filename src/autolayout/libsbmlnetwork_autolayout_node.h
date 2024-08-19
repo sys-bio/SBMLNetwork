@@ -7,7 +7,7 @@
 class AutoLayoutNodeBase : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutNodeBase(Model* model, Layout* layout, const bool& useNameAsTextLabel, const bool& locked = false);
+    AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked = false);
 
     virtual GraphicalObject* getGraphicalObject() = 0;
 
@@ -31,7 +31,7 @@ public:
 
     virtual void setHeight(const double& height) = 0;
 
-    void updateDimensions();
+    virtual void updateDimensions() = 0;
 
     virtual const double calculateWidth() = 0;
 
@@ -57,7 +57,7 @@ public:
 
     void incrementDegree();
 
-    virtual void updateLockedStatus() = 0;
+    void updateLockedStatus();
 
     const bool isLocked();
 
@@ -70,16 +70,19 @@ protected:
     int _degree;
     bool _locked;
     bool _useNameAsTextLabel;
+    GraphicalObject* _graphicalObject;
 };
 
 class AutoLayoutNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutNode(Model* model, Layout* layout, SpeciesGlyph* speciesGlyph, const bool& useNameAsTextLabel, const bool& locked = false);
+    AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked = false);
 
     const std::string getId() override;
 
     GraphicalObject* getGraphicalObject() override;
+
+    void updateDimensions() override;
 
     const double getX() override;
 
@@ -104,22 +107,18 @@ public:
     const double calculateWidth() override;
 
     const double calculateHeight() override;
-
-    void updateLockedStatus() override;
-
-protected:
-
-    SpeciesGlyph* _speciesGlyph;
 };
 
 class AutoLayoutCentroidNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutCentroidNode(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel, const bool& locked = false);
+    AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked = false);
 
     const std::string getId() override;
 
     GraphicalObject* getGraphicalObject() override;
+
+    void updateDimensions() override;
 
     const double getX() override;
 
@@ -135,21 +134,21 @@ public:
 
     void setWidth(const double& width) override;
 
+    void setBoundingBoxWidth(const double& width);
+
     const double getHeight() override;
 
     const double getDefaultHeight() override;
 
     void setHeight(const double& height) override;
 
+    void setBoundingBoxHeight(const double& height);
+
     const double calculateWidth() override;
 
     const double calculateHeight() override;
 
-    void updateLockedStatus() override;
-
-protected:
-
-    ReactionGlyph* _reactionGlyph;
+    Curve* getCurve();
 };
 
 const double calculateSpeciesGlyphDefaultWidth(Model *model, SpeciesGlyph *speciesGlyph);

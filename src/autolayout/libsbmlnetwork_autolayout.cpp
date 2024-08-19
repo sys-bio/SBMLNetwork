@@ -50,6 +50,7 @@ void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabe
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseGrid(useGrid);
+    autoLayoutAlgorithm->updateNodesLockedStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();

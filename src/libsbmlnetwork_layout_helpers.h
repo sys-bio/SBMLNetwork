@@ -202,6 +202,14 @@ void updateAssociatedTextGlyphsDimensionWidth(Layout* layout, GraphicalObject* g
 
 void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& changedHeight);
 
+const double getCurveMiddlePositionX(Curve* curve);
+
+const double getCurveMiddlePositionY(Curve* curve);
+
+int setCurveMiddlePositionX(Curve* curve, const double& x);
+
+int setCurveMiddlePositionY(Curve* curve, const double& y);
+
 void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes);
 
 void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);

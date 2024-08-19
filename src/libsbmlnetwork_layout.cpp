@@ -668,12 +668,22 @@ const double getPositionX(Layout* layout, const std::string& id, const unsigned 
 }
 
 const double getPositionX(GraphicalObject* graphicalObject) {
-    return getPositionX(getBoundingBox(graphicalObject));
+    if (getCurve(graphicalObject))
+        return getPositionX(getCurve(graphicalObject));
+    else
+        return getPositionX(getBoundingBox(graphicalObject));
 }
 
 const double getPositionX(BoundingBox* boundingBox) {
     if (boundingBox)
         return roundToTwoDecimalPlaces(boundingBox->x());
+
+    return 0.0;
+}
+
+const double getPositionX(Curve* curve) {
+    if (curve)
+        return roundToTwoDecimalPlaces(getCurveMiddlePositionX(curve));
 
     return 0.0;
 }
@@ -688,7 +698,7 @@ int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalOb
 
 int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x) {
     double moveDistance = x - getPositionX(graphicalObject);
-    if (!setPositionX(getBoundingBox(graphicalObject), x)) {
+    if (!setPositionX(getCurve(graphicalObject), x) || !setPositionX(getBoundingBox(graphicalObject), x)) {
         updateAssociatedTextGlyphsPositionX(layout, graphicalObject, moveDistance);
         lockGraphicalObject(graphicalObject);
         return 0;
@@ -706,17 +716,36 @@ int setPositionX(BoundingBox* boundingBox, const double& x) {
     return -1;
 }
 
+int setPositionX(Curve* curve, const double& x) {
+    if (curve && isValidBoundingBoxXValue(x)) {
+        setCurveMiddlePositionX(curve, x);
+        return 0;
+    }
+
+    return -1;
+}
+
 const double getPositionY(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
     return getPositionY(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
 const double getPositionY(GraphicalObject* graphicalObject) {
-    return getPositionY(getBoundingBox(graphicalObject));
+    if (getCurve(graphicalObject))
+        return getPositionY(getCurve(graphicalObject));
+    else
+        return getPositionY(getBoundingBox(graphicalObject));
 }
 
 const double getPositionY(BoundingBox* boundingBox) {
     if (boundingBox)
         return roundToTwoDecimalPlaces(boundingBox->y());
+
+    return 0.0;
+}
+
+const double getPositionY(Curve* curve) {
+    if (curve)
+        return roundToTwoDecimalPlaces(getCurveMiddlePositionY(curve));
 
     return 0.0;
 }
@@ -731,7 +760,7 @@ int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalOb
 
 int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y) {
     double moveDistance = y - getPositionY(graphicalObject);
-    if (!setPositionY(getBoundingBox(graphicalObject), y)) {
+    if (!setPositionY(getCurve(graphicalObject), y) || !setPositionY(getBoundingBox(graphicalObject), y)) {
         updateAssociatedTextGlyphsPositionY(layout, graphicalObject, moveDistance);
         lockGraphicalObject(graphicalObject);
         return 0;
@@ -741,8 +770,17 @@ int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double&
 }
 
 int setPositionY(BoundingBox* boundingBox, const double& y) {
-    if (boundingBox && isValidBoundingBoxXValue(y)) {
+    if (boundingBox && isValidBoundingBoxYValue(y)) {
         boundingBox->setY(y);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setPositionY(Curve* curve, const double& y) {
+    if (curve && isValidBoundingBoxYValue(y)) {
+        setCurveMiddlePositionY(curve, y);
         return 0;
     }
 
@@ -760,7 +798,7 @@ int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObj
 int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y) {
     double moveDistanceX = x - getPositionX(graphicalObject);
     double moveDistanceY = y - getPositionY(graphicalObject);
-    if (!setPosition(getBoundingBox(graphicalObject), x, y)) {
+    if (!setPosition(getCurve(graphicalObject), x, y) || !setPosition(getBoundingBox(graphicalObject), x, y)) {
         updateAssociatedTextGlyphsPosition(layout, graphicalObject, moveDistanceX, moveDistanceY);
         return 0;
     }
@@ -772,6 +810,16 @@ int setPosition(BoundingBox* boundingBox, const double& x, const double& y) {
     if (boundingBox && isValidBoundingBoxXValue(x) && isValidBoundingBoxYValue(y)) {
         boundingBox->setX(x);
         boundingBox->setY(y);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setPosition(Curve* curve, const double& x, const double& y) {
+    if (curve && isValidBoundingBoxXValue(x) && isValidBoundingBoxYValue(y)) {
+        setCurveMiddlePositionX(curve, x);
+        setCurveMiddlePositionY(curve, y);
         return 0;
     }
 
