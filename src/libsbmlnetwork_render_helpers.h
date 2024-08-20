@@ -217,6 +217,8 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod);
 
 const bool isValidOffsetValue(const RelAbsVector& offset);
 
+const bool isValidOffsetValue(const double& offset);
+
 const bool isValidStopColorValue(const std::string& stopColor);
 
 const bool isValidGradientX1Value(const RelAbsVector& x1);
@@ -308,6 +310,8 @@ const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y);
 const bool isValidGeometricShapeHref(const std::string& href);
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
+
+const bool isValidRelAbsVectorRelativeValue(const double& value);
 
 std::vector<std::pair<std::string, std::string>> colorData();
 

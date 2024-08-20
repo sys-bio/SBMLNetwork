@@ -240,6 +240,12 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getOffset(GradientBase* gradientBase , 
 /// @return the "offset" attribute of the GradientStop object, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getOffset(GradientStop* gradientStop);
 
+LIBSBMLNETWORK_EXTERN const double getOffsetAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getOffsetAsDouble(GradientBase* gradientBase, unsigned int gradientStopIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const double getOffsetAsDouble(GradientStop* gradientStop);
+
 /// @brief Sets the value of the "offset" attribute of the first GradientStop of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -273,6 +279,16 @@ LIBSBMLNETWORK_EXTERN int setOffset(GradientBase* gradientBase, unsigned int gra
 /// @param offset a RelAbsVector to use as the value of the "offset" attribute of this GradientStop object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setOffset(GradientStop* gradientStop, const RelAbsVector& offset);
+
+LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& offset);
+
+LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const double& offset);
+
+LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(GradientBase* gradientBase, const double& offset);
+
+LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(GradientBase* gradientBase, unsigned int gradientStopIndex, const double& offset);
+
+LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(GradientStop* gradientStop, const double& offset);
 
 /// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -369,6 +385,12 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientX1(RenderInformationBa
 /// @return the "x1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientX1(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getLinearGradientX1AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getLinearGradientX1AsDouble(GradientBase* gradientBase);
+
+LIBSBMLNETWORK_EXTERN const double getLinearGradientX1AsDouble(GradientStop* gradientStop);
+
 /// @brief Sets the value of the "x1" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -381,6 +403,10 @@ LIBSBMLNETWORK_EXTERN int setLinearGradientX1(RenderInformationBase* renderInfor
 /// @param x1 a RelAbsVector to use as the value of the "x1" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLinearGradientX1(GradientBase* gradientBase, const RelAbsVector& x1);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientX1AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& x1);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientX1AsDouble(GradientBase* gradientBase, const double& x1);
 
 /// @brief Predicates returning @c true if the "x2" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -406,6 +432,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientX2(RenderInformationBa
 /// @return the "x2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientX2(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getLinearGradientX2AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getLinearGradientX2AsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "x2" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -418,6 +448,10 @@ LIBSBMLNETWORK_EXTERN int setLinearGradientX2(RenderInformationBase* renderInfor
 /// @param x2 a RelAbsVector to use as the value of the "x2" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLinearGradientX2(GradientBase* gradientBase, const RelAbsVector& x2);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientX2AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& x2);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientX2AsDouble(GradientBase* gradientBase, const double& x2);
 
 /// @brief Predicates returning @c true if the "y1" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -443,6 +477,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientY1(RenderInformationBa
 /// @return the "y1" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientY1(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getLinearGradientY1AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getLinearGradientY1AsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "y1" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -455,6 +493,10 @@ LIBSBMLNETWORK_EXTERN int setLinearGradientY1(RenderInformationBase* renderInfor
 /// @param y1 a RelAbsVector to use as the value of the "y1" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLinearGradientY1(GradientBase* gradientBase, const RelAbsVector& y1);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientY1AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& y1);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientY1AsDouble(GradientBase* gradientBase, const double& y1);
 
 /// @brief Predicates returning @c true if the "y2" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -480,6 +522,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientY2(RenderInformationBa
 /// @return the "y2" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type LinearGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getLinearGradientY2(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getLinearGradientY2AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getLinearGradientY2AsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "y2" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -492,6 +538,10 @@ LIBSBMLNETWORK_EXTERN int setLinearGradientY2(RenderInformationBase* renderInfor
 /// @param y2 a RelAbsVector to use as the value of the "y2" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLinearGradientY2(GradientBase* gradientBase, const RelAbsVector& y2);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientY2AsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& y2);
+
+LIBSBMLNETWORK_EXTERN int setLinearGradientY2AsDouble(GradientBase* gradientBase, const double& y2);
 
 /// @brief Predicates returning @c true if the "cx" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -517,6 +567,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientCx(RenderInformationBa
 /// @return the "cx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientCx(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getRadialGradientCxAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getRadialGradientCxAsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "cx" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -529,6 +583,10 @@ LIBSBMLNETWORK_EXTERN int setRadialGradientCx(RenderInformationBase* renderInfor
 /// @param cx a RelAbsVector to use as the value of the "cx" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientCxAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientCxAsDouble(GradientBase* gradientBase, const double& cx);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -554,6 +612,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientCy(RenderInformationBa
 /// @return the "cy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientCy(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getRadialGradientCyAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getRadialGradientCyAsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "cy" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -566,6 +628,10 @@ LIBSBMLNETWORK_EXTERN int setRadialGradientCy(RenderInformationBase* renderInfor
 /// @param cy a RelAbsVector to use as the value of the "cy" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientCyAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientCyAsDouble(GradientBase* gradientBase, const double& cy);
 
 /// @brief Predicates returning @c true if the "fx" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -591,6 +657,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientFx(RenderInformationBa
 /// @return the "fx" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientFx(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getRadialGradientFxAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getRadialGradientFxAsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "fx" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -603,6 +673,10 @@ LIBSBMLNETWORK_EXTERN int setRadialGradientFx(RenderInformationBase* renderInfor
 /// @param fx a RelAbsVector to use as the value of the "fx" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientFxAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& fx);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientFxAsDouble(GradientBase* gradientBase, const double& fx);
 
 /// @brief Predicates returning @c true if the "fy" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -628,6 +702,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientFy(RenderInformationBa
 /// @return the "fy" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientFy(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getRadialGradientFyAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getRadialGradientFyAsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "fy" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -640,6 +718,10 @@ LIBSBMLNETWORK_EXTERN int setRadialGradientFy(RenderInformationBase* renderInfor
 /// @param fy a RelAbsVector to use as the value of the "fy" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientFyAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& fy);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientFyAsDouble(GradientBase* gradientBase, const double& fy);
 
 /// @brief Predicates returning @c true if the "r" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -663,6 +745,10 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientR(RenderInformationBas
 /// @return the "r" attribute of the GradientBase object, or @c RelAbsVector() if the object is @c NULL or not of type RadialGradient.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getRadialGradientR(GradientBase* gradientBase);
 
+LIBSBMLNETWORK_EXTERN const double getRadialGradientRAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid);
+
+LIBSBMLNETWORK_EXTERN const double getRadialGradientRAsDouble(GradientBase* gradientBase);
+
 /// @brief Sets the value of the "r" attribute of the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
@@ -675,6 +761,10 @@ LIBSBMLNETWORK_EXTERN int setRadialGradientR(RenderInformationBase* renderInform
 /// @param r a RelAbsVector to use as the value of the "r" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientRAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& r);
+
+LIBSBMLNETWORK_EXTERN int setRadialGradientRAsDouble(GradientBase* gradientBase, const double& r);
 
 /// @brief Returns the number of LineEndings of this RenderInformationBase object.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1411,11 +1501,25 @@ LIBSBMLNETWORK_EXTERN int setFontSize(Style* style, const RelAbsVector& fontSize
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize);
 
+LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(Style* style, const double& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(Transformation2D* transformation2D, const double& fontSize);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
+
 LIBSBMLNETWORK_EXTERN int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
 
 /// @brief Predicates returning @c true if the "font-weight" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2622,11 +2726,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeX(RenderGroup* renderGroup, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeX(Transformation2D* shape, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(Style* style, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(Style* style, unsigned int geometricShapeIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderGroup* renderGroup, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(Transformation2D* shape, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 /// @brief Predicates returning @c true if the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2761,11 +2889,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeY(RenderGroup* renderGroup, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeY(Transformation2D* shape, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(Style* style, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(Style* style, unsigned int geometricShapeIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderGroup* renderGroup, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(Transformation2D* shape, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 /// @brief Predicates returning @c true if the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2900,11 +3052,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(RenderGroup* renderGroup, unsig
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidth(Transformation2D* shape, const RelAbsVector& width);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(Style* style, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(Style* style, unsigned int geometricShapeIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderGroup* renderGroup, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(Transformation2D* shape, const double& width);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width);
 
 /// @brief Predicates returning @c true if the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3039,11 +3215,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(RenderGroup* renderGroup, unsi
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeight(Transformation2D* shape, const RelAbsVector& height);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(Style* style, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(Style* style, unsigned int geometricShapeIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderGroup* renderGroup, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(Transformation2D* shape, const double& height);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height);
 
 /// @brief Predicates returning @c true if the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3317,11 +3517,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(RenderGroup* r
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusX(Transformation2D* shape, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(Style* style, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(Style* style, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(RenderGroup* renderGroup, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(Transformation2D* shape, const double& rx);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3456,11 +3680,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(RenderGroup* r
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusY(Transformation2D* shape, const RelAbsVector& ry);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(Style* style, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(Style* style, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(RenderGroup* renderGroup, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(Transformation2D* shape, const double& ry);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
 /// @brief Predicates returning @c true if the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3595,11 +3843,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(RenderGroup* renderGroup, uns
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterX(Transformation2D* shape, const RelAbsVector& cx);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(Style* style, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(Style* style, unsigned int geometricShapeIndex, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderGroup* renderGroup, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& cx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(Transformation2D* shape, const double& cx);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx);
 
 /// @brief Predicates returning @c true if the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3734,11 +4006,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(RenderGroup* renderGroup, uns
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterY(Transformation2D* shape, const RelAbsVector& cy);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(Style* style, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(Style* style, unsigned int geometricShapeIndex, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderGroup* renderGroup, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& cy);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(Transformation2D* shape, const double& cy);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy);
 
 /// @brief Predicates returning @c true if the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3873,11 +4169,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(RenderGroup* renderGroup, uns
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusX(Transformation2D* shape, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(Style* style, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(Style* style, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderGroup* renderGroup, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& rx);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(Transformation2D* shape, const double& rx);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
 /// @brief Predicates returning @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4012,11 +4332,35 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(RenderGroup* renderGroup, uns
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusY(Transformation2D* shape, const RelAbsVector& ry);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(Style* style, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(Style* style, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderGroup* renderGroup, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& ry);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(Transformation2D* shape, const double& ry);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
 /// @brief Returns the number of elements of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4197,11 +4541,43 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(Transformation2D* shape, con
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(Style* style, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(Style* style, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderGroup* renderGroup, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderGroup* renderGroup, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(Transformation2D* shape, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4347,11 +4723,43 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(Transformation2D* shape, con
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(Style* style, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(Style* style, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderGroup* renderGroup, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderGroup* renderGroup, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(Transformation2D* shape, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 /// @brief Returns the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4497,11 +4905,43 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* shape, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(Style* style, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(Style* style, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderGroup* renderGroup, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderGroup* renderGroup, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(Transformation2D* shape, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 /// @brief Returns the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4646,11 +5086,43 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(Style* style, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(Style* style, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderGroup* renderGroup, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderGroup* renderGroup, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(Transformation2D* shape, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 /// @brief Returns the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4795,11 +5267,43 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(RenderGroup* renderGroup,
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(Style* style, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(Style* style, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderGroup* renderGroup, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderGroup* renderGroup, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(Transformation2D* shape, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
 /// @brief Returns the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -4945,11 +5449,43 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(Style* style, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(Style* style, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(Style* style, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderGroup* renderGroup, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderGroup* renderGroup, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderGroup* renderGroup, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(Transformation2D* shape, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
 /// @brief Add a render point to the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

@@ -1487,6 +1487,10 @@ const bool isValidOffsetValue(const RelAbsVector& offset) {
     return isValidRelAbsVectorPositiveValue(offset);
 }
 
+const bool isValidOffsetValue(const double& offset) {
+    return isValidRelAbsVectorRelativeValue(offset);
+}
+
 const bool isValidStopColorValue(const std::string& stopColor) {
     return isValidColorValue(stopColor);
 }
@@ -1688,6 +1692,13 @@ const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValu
     if (relAbsVectorValue.getAbsoluteValue() > 0.000)
         return true;
     std::cerr << "error: the absolute value of the entered value must be greater than 0" << std::endl;
+    return false;
+}
+
+const bool isValidRelAbsVectorRelativeValue(const double& value) {
+    if (value >= 0.0 && value <= 100.0)
+        return true;
+    std::cerr << "error: the entered value must be between 0 and 100" << std::endl;
     return false;
 }
 
