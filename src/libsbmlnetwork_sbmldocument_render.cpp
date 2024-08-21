@@ -6549,6 +6549,8 @@ int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, cons
 }
 
 int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& styleName) {
+    if (!isValidPredefinedStyleName(styleName))
+        return -1;
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
     if (styleFeatures.find("background-color") != styleFeatures.end())
         setBackgroundColor(document, layoutIndex, styleFeatures.find("background-color")->second);
@@ -6562,6 +6564,10 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         setCompartmentStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("compartment-border-width")->second));
     if (styleFeatures.find("compartment-fill-color") != styleFeatures.end())
         setCompartmentFillColor(document, layoutIndex, styleFeatures.find("compartment-fill-color")->second);
+    if (styleFeatures.find("compartment-border-radius-x") != styleFeatures.end())
+        setCompartmentGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("compartment-border-radius-x")->second);
+    if (styleFeatures.find("compartment-border-radius-y") != styleFeatures.end())
+        setCompartmentGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("compartment-border-radius-y")->second);
     if (styleFeatures.find("compartment-font-color") != styleFeatures.end())
         setCompartmentFontColor(document, layoutIndex, styleFeatures.find("compartment-font-color")->second);
     if (styleFeatures.find("compartment-font-size") != styleFeatures.end())
@@ -6570,6 +6576,10 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         setCompartmentFontStyle(document, layoutIndex, styleFeatures.find("compartment-font-style")->second);
     if (styleFeatures.find("compartment-font-weight") != styleFeatures.end())
         setCompartmentFontWeight(document, layoutIndex, styleFeatures.find("compartment-font-weight")->second);
+    if (styleFeatures.find("compartment-text-horizontal-alignment") != styleFeatures.end())
+        setCompartmentTextAnchor(document, layoutIndex, styleFeatures.find("compartment-text-horizontal-alignment")->second);
+    if (styleFeatures.find("compartment-text-vertical-alignment") != styleFeatures.end())
+        setCompartmentVTextAnchor(document, layoutIndex, styleFeatures.find("compartment-text-vertical-alignment")->second);
     if (styleFeatures.find("species-geometric-shape") != styleFeatures.end())
         setSpeciesGeometricShapeType(document, layoutIndex, styleFeatures.find("species-geometric-shape")->second);
     if (styleFeatures.find("species-geometric-shape-ratio") != styleFeatures.end())
@@ -6580,6 +6590,10 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         setSpeciesStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("species-border-width")->second));
     if (styleFeatures.find("species-fill-color") != styleFeatures.end())
         setSpeciesFillColor(document, layoutIndex, styleFeatures.find("species-fill-color")->second);
+    if (styleFeatures.find("species-border-radius-x") != styleFeatures.end())
+        setSpeciesGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("species-border-radius-x")->second);
+    if (styleFeatures.find("species-border-radius-y") != styleFeatures.end())
+        setSpeciesGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("species-border-radius-y")->second);
     if (styleFeatures.find("species-font-color") != styleFeatures.end())
         setSpeciesFontColor(document, layoutIndex, styleFeatures.find("species-font-color")->second);
     if (styleFeatures.find("species-font-size") != styleFeatures.end())
@@ -6590,6 +6604,10 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         setSpeciesFontWeight(document, layoutIndex, styleFeatures.find("species-font-weight")->second);
     if (styleFeatures.find("reaction-geometric-shape") != styleFeatures.end())
         setReactionGeometricShapeType(document, layoutIndex, styleFeatures.find("reaction-geometric-shape")->second);
+    if (styleFeatures.find("species-text-horizontal-alignment") != styleFeatures.end())
+        setSpeciesTextAnchor(document, layoutIndex, styleFeatures.find("species-text-horizontal-alignment")->second);
+    if (styleFeatures.find("species-text-vertical-alignment") != styleFeatures.end())
+        setSpeciesVTextAnchor(document, layoutIndex, styleFeatures.find("species-text-vertical-alignment")->second);
     if (styleFeatures.find("reaction-geometric-shape-ratio") != styleFeatures.end())
         setReactionGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("reaction-geometric-shape-ratio")->second));
     if (styleFeatures.find("reaction-geometric-shape-center-x") != styleFeatures.end())
@@ -6606,6 +6624,10 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         setReactionStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("reaction-line-width")->second));
     if (styleFeatures.find("reaction-fill-color") != styleFeatures.end())
         setReactionFillColor(document, layoutIndex, styleFeatures.find("reaction-fill-color")->second);
+    if (styleFeatures.find("reaction-border-radius-x") != styleFeatures.end())
+        setReactionGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("reaction-border-radius-x")->second);
+    if (styleFeatures.find("reaction-border-radius-y") != styleFeatures.end())
+        setReactionGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("reaction-border-radius-y")->second);
     if (styleFeatures.find("reaction-font-color") != styleFeatures.end())
         setReactionFontColor(document, layoutIndex, styleFeatures.find("reaction-font-color")->second);
     if (styleFeatures.find("reaction-font-size") != styleFeatures.end())
@@ -6614,6 +6636,10 @@ int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string
         setReactionFontStyle(document, layoutIndex, styleFeatures.find("reaction-font-style")->second);
     if (styleFeatures.find("reaction-font-weight") != styleFeatures.end())
         setReactionFontWeight(document, layoutIndex, styleFeatures.find("reaction-font-weight")->second);
+    if (styleFeatures.find("species-text-horizontal-alignment") != styleFeatures.end())
+        setReactionTextAnchor(document, layoutIndex, styleFeatures.find("reaction-text-horizontal-alignment")->second);
+    if (styleFeatures.find("reaction-text-vertical-alignment") != styleFeatures.end())
+        setReactionVTextAnchor(document, layoutIndex, styleFeatures.find("reaction-text-vertical-alignment")->second);
     if (styleFeatures.find("line-ending-border-color") != styleFeatures.end())
         setLineEndingStrokeColor(document, layoutIndex, styleFeatures.find("line-ending-border-color")->second);
     if (styleFeatures.find("line-ending-border-width") != styleFeatures.end())

@@ -564,32 +564,32 @@ void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceG
 void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
-    rectangle->setStroke("darkcyan");
-    rectangle->setStrokeWidth(2.0);
-    rectangle->setFill("lightgray");
-    rectangle->setRX(RelAbsVector(0.0, 5.0));
-    rectangle->setRY(RelAbsVector(0.0, 5.0));
+    rectangle->setStroke(getDefaultPredefinedStyleFeatures()["compartment-border-color"]);
+    rectangle->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-width"]));
+    rectangle->setFill(getDefaultPredefinedStyleFeatures()["compartment-fill-color"]);
+    rectangle->setRX(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-radius-x"]), 0.0));
+    rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-radius-y"]), 0.0));
 }
 
 void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
-    renderGroup->setStroke("darkcyan");
-    renderGroup->setFontSize(RelAbsVector(10.0, 0.0));
-    renderGroup->setTextAnchor("middle");
-    renderGroup->setVTextAnchor("bottom");
+    renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["compartment-font-color"]);
+    renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-font-size"]), 0.0));
+    renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-horizontal-alignment"]);
+    renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["compartment-text-vertical-alignment"]);
 }
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
     setDefaultRectangleShapeFeatures(rectangle);
-    rectangle->setRX(RelAbsVector(6, 0.0));
-    rectangle->setRY(RelAbsVector(3.6, 0.0));
+    rectangle->setRX(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-x"]), 0.0));
+    rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-y"]), 0.0));
 }
 
 
 void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
-    renderGroup->setFontSize(RelAbsVector(24.0, 0.0));
+    renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-font-size"]), 0.0));
 }
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
@@ -599,8 +599,8 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 
 void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
-    renderGroup->setStroke("darkslategray");
-    renderGroup->setFontSize(RelAbsVector(12.0, 0.0));
+    renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["reaction-font-color"]);
+    renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["reaction-font-size"]), 0.0));
 }
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role) {
@@ -868,56 +868,54 @@ std::vector<std::string> getPredefinedStyleNames() {
 }
 
 std::map<std::string, std::string> getPredefinedStyleFeatures(const std::string styleName) {
-    if (isValidPredefinedStyleName(styleName)) {
-        if (stringCompare(styleName, "default"))
-            return getDefaultPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "blue ombre"))
-            return getBlueOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "green ombre"))
-            return getGreenOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "gray ombre") || stringCompare(styleName, "grey ombre"))
-            return getGrayOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "red ombre"))
-            return getRedOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "orange ombre"))
-            return getOrangeOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "brown ombre"))
-            return getBrownOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "purple ombre"))
-            return getPurpleOmbrePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "purple ombre 2"))
-            return getPurpleOmbre2PredefinedStyleFeatures();
-        else if (stringCompare(styleName, "black and white"))
-            return getBlackAndWhitePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "orange and blue"))
-            return getOrangeAndBluePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "purple and yellow"))
-            return getPurpleAndYellowPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "green and red"))
-            return getGreenAndRedPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "power"))
-            return getPowerPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "calm"))
-            return getCalmPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "sunset"))
-            return getSunsetPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "electric"))
-            return getElectricPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "midnight"))
-            return getMidnightPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "vibrance"))
-            return getVibrancePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "ocean"))
-            return getOceanPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "forest"))
-            return getForestPredefinedStyleFeatures();
-        else if (stringCompare(styleName, "warm tone"))
-            return getWarmTonePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "cool tone"))
-            return getCoolTonePredefinedStyleFeatures();
-        else if (stringCompare(styleName, "escher"))
-            return getEscherPredefinedStyleFeatures();
-    }
+    if (stringCompare(styleName, "default"))
+        return getDefaultPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "blue ombre"))
+        return getBlueOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "green ombre"))
+        return getGreenOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "gray ombre") || stringCompare(styleName, "grey ombre"))
+        return getGrayOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "red ombre"))
+        return getRedOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "orange ombre"))
+        return getOrangeOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "brown ombre"))
+        return getBrownOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "purple ombre"))
+        return getPurpleOmbrePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "purple ombre 2"))
+        return getPurpleOmbre2PredefinedStyleFeatures();
+    else if (stringCompare(styleName, "black and white"))
+        return getBlackAndWhitePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "orange and blue"))
+        return getOrangeAndBluePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "purple and yellow"))
+        return getPurpleAndYellowPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "green and red"))
+        return getGreenAndRedPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "power"))
+        return getPowerPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "calm"))
+        return getCalmPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "sunset"))
+        return getSunsetPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "electric"))
+        return getElectricPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "midnight"))
+        return getMidnightPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "vibrance"))
+        return getVibrancePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "ocean"))
+        return getOceanPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "forest"))
+        return getForestPredefinedStyleFeatures();
+    else if (stringCompare(styleName, "warm tone"))
+        return getWarmTonePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "cool tone"))
+        return getCoolTonePredefinedStyleFeatures();
+    else if (stringCompare(styleName, "escher"))
+        return getEscherPredefinedStyleFeatures();
 
     return std::map<std::string, std::string>();
 }
@@ -928,21 +926,33 @@ std::map<std::string, std::string> getDefaultPredefinedStyleFeatures() {
     styleFeatures["background-color"] = "white";
     styleFeatures["compartment-geometric-shape"] = "rectangle";
     styleFeatures["compartment-border-color"] = "darkcyan";
-    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-border-width"] = "2";
     styleFeatures["compartment-fill-color"] = "lightgray";
     styleFeatures["compartment-font-color"] = "darkcyan";
     styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["compartment-font-style"] = "normal";
+    styleFeatures["compartment-font-weight"] = "normal";
+    styleFeatures["compartment-border-radius-x"] = "25";
+    styleFeatures["compartment-border-radius-y"] = "25";
+    styleFeatures["compartment-text-horizontal-alignment"] = "middle";
+    styleFeatures["compartment-text-vertical-alignment"] = "bottom";
     styleFeatures["species-geometric-shape"] = "rectangle";
     styleFeatures["species-border-color"] = "black";
-    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-border-width"] = "2";
     styleFeatures["species-fill-color"] = "white";
     styleFeatures["species-font-color"] = "black";
     styleFeatures["species-font-size"] = "24";
+    styleFeatures["species-font-style"] = "normal";
+    styleFeatures["species-font-weight"] = "normal";
+    styleFeatures["species-border-radius-x"] = "6";
+    styleFeatures["species-border-radius-y"] = "3.6";
     styleFeatures["reaction-geometric-shape"] = "rectangle";
     styleFeatures["reaction-line-color"] = "black";
-    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-line-width"] = "2";
     styleFeatures["reaction-font-color"] = "darkslategray";
     styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["reaction-font-style"] = "normal";
+    styleFeatures["reaction-font-weight"] = "normal";
     styleFeatures["line-ending-border-color"] = "black";
     styleFeatures["line-ending-border-width"] = "3";
     styleFeatures["line-ending-fill-color"] = "black";
@@ -1565,9 +1575,12 @@ std::map<std::string, std::string> getEscherPredefinedStyleFeatures() {
 
 const bool isValidPredefinedStyleName(const std::string& predefinedStyleName) {
     std::vector<std::string> predefinedStyleNames = getPredefinedStyleNames();
-    if (std::find(predefinedStyleNames.begin(), predefinedStyleNames.end(), predefinedStyleName) != predefinedStyleNames.end())
-        return true;
+    for (unsigned int i = 0; i < predefinedStyleNames.size(); i++) {
+        if (stringCompare(predefinedStyleNames.at(i), predefinedStyleName))
+            return true;
+    }
 
+    std::cerr << "error: predefined style name is not valid" << std::endl;
     return false;
 }
 
