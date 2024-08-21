@@ -35,7 +35,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
             locateGlyphs(model, layout, useNameAsTextLabel);
         }
         else
-            throw std::runtime_error("AutoLayout failed to converge. Choose different layout dimensions.");
+            std::cerr << "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again." << std::endl;
     }
 }
 
