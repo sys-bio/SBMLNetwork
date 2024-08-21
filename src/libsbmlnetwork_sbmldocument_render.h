@@ -6197,9 +6197,9 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(SBMLDocument* document, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
-LIBSBMLNETWORK_EXTERN int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& style);
+LIBSBMLNETWORK_EXTERN int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& styleName);
 
-LIBSBMLNETWORK_EXTERN bool whetherDisplayReactionTextLabel(const std::string& style);
+LIBSBMLNETWORK_EXTERN bool whetherDisplayReactionTextLabel(const std::string& styleName);
 
 }
 

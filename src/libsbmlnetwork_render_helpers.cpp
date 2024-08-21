@@ -837,634 +837,730 @@ const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderIn
     return type + "_style_" + std::to_string(global_style_iterator);
 }
 
-std::vector<std::map<std::string, std::string>> getPredefinedStyles() {
-    std::vector<std::map<std::string, std::string>> predefinedStyles;
-    // default style
-    std::map<std::string, std::string> defaultStyle;
-    defaultStyle["name"] = "default";
-    defaultStyle["background-color"] = "white";
-    defaultStyle["compartment-geometric-shape"] = "rectangle";
-    defaultStyle["compartment-border-color"] = "darkcyan";
-    defaultStyle["compartment-border-width"] = "3";
-    defaultStyle["compartment-fill-color"] = "lightgray";
-    defaultStyle["compartment-font-color"] = "darkcyan";
-    defaultStyle["compartment-font-size"] = "10";
-    defaultStyle["species-geometric-shape"] = "rectangle";
-    defaultStyle["species-border-color"] = "black";
-    defaultStyle["species-border-width"] = "3";
-    defaultStyle["species-fill-color"] = "white";
-    defaultStyle["species-font-color"] = "black";
-    defaultStyle["species-font-size"] = "24";
-    defaultStyle["reaction-geometric-shape"] = "rectangle";
-    defaultStyle["reaction-line-color"] = "black";
-    defaultStyle["reaction-line-width"] = "3";
-    defaultStyle["reaction-font-color"] = "darkslategray";
-    defaultStyle["reaction-font-size"] = "12";
-    defaultStyle["line-ending-border-color"] = "black";
-    defaultStyle["line-ending-border-width"] = "3";
-    defaultStyle["line-ending-fill-color"] = "black";
-    predefinedStyles.push_back(defaultStyle);
-    // blue ombre style
-    std::map<std::string, std::string> blueOmbreStyle;
-    blueOmbreStyle["name"] = "blue ombre";
-    blueOmbreStyle["background-color"] = "white";
-    blueOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    blueOmbreStyle["compartment-border-color"] = "arapawa";
-    blueOmbreStyle["compartment-border-width"] = "3";
-    blueOmbreStyle["compartment-fill-color"] = "white";
-    blueOmbreStyle["compartment-font-color"] = "arapawa";
-    blueOmbreStyle["compartment-font-size"] = "10";
-    blueOmbreStyle["species-geometric-shape"] = "rectangle";
-    blueOmbreStyle["species-fill-color"] = "perano";
-    blueOmbreStyle["species-border-color"] = "arapawa";
-    blueOmbreStyle["species-border-width"] = "3";
-    blueOmbreStyle["species-font-color"] = "arapawa";
-    blueOmbreStyle["species-font-size"] = "24";
-    blueOmbreStyle["reaction-line-color"] = "indigo";
-    blueOmbreStyle["reaction-line-width"] = "3";
-    blueOmbreStyle["reaction-font-color"] = "arapawa";
-    blueOmbreStyle["reaction-font-size"] = "12";
-    blueOmbreStyle["line-ending-border-color"] = "indigo";
-    blueOmbreStyle["line-ending-border-width"] = "3";
-    blueOmbreStyle["line-ending-fill-color"] = "indigo";
-    predefinedStyles.push_back(blueOmbreStyle);
-    // green ombre style
-    std::map<std::string, std::string> greenOmbreStyle;
-    greenOmbreStyle["name"] = "green ombre";
-    greenOmbreStyle["background-color"] = "white";
-    greenOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    greenOmbreStyle["compartment-border-color"] = "darkfern";
-    greenOmbreStyle["compartment-border-width"] = "3";
-    greenOmbreStyle["compartment-fill-color"] = "white";
-    greenOmbreStyle["compartment-font-color"] = "darkfern";
-    greenOmbreStyle["compartment-font-size"] = "10";
-    greenOmbreStyle["species-geometric-shape"] = "rectangle";
-    greenOmbreStyle["species-fill-color"] = "grannysmithapple";
-    greenOmbreStyle["species-border-color"] = "darkfern";
-    greenOmbreStyle["species-border-width"] = "3";
-    greenOmbreStyle["species-font-color"] = "darkfern";
-    greenOmbreStyle["species-font-size"] = "24";
-    greenOmbreStyle["reaction-line-color"] = "fruitsalad";
-    greenOmbreStyle["reaction-line-width"] = "3";
-    greenOmbreStyle["reaction-font-color"] = "darkfern";
-    greenOmbreStyle["reaction-font-size"] = "12";
-    greenOmbreStyle["line-ending-border-color"] = "fruitsalad";
-    greenOmbreStyle["line-ending-border-width"] = "3";
-    greenOmbreStyle["line-ending-fill-color"] = "fruitsalad";
-    predefinedStyles.push_back(greenOmbreStyle);
-    // gray ombre style
-    std::map<std::string, std::string> grayOmbreStyle;
-    grayOmbreStyle["name"] = "gray ombre";
-    grayOmbreStyle["background-color"] = "white";
-    grayOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    grayOmbreStyle["compartment-border-color"] = "nandor";
-    grayOmbreStyle["compartment-border-width"] = "3";
-    grayOmbreStyle["compartment-fill-color"] = "white";
-    grayOmbreStyle["compartment-font-color"] = "nandor";
-    grayOmbreStyle["compartment-font-size"] = "10";
-    grayOmbreStyle["species-geometric-shape"] = "rectangle";
-    grayOmbreStyle["species-fill-color"] = "pumice";
-    grayOmbreStyle["species-border-color"] = "nandor";
-    grayOmbreStyle["species-border-width"] = "3";
-    grayOmbreStyle["species-font-color"] = "nandor";
-    grayOmbreStyle["species-font-size"] = "24";
-    grayOmbreStyle["reaction-line-color"] = "gunsmoke";
-    grayOmbreStyle["reaction-line-width"] = "3";
-    grayOmbreStyle["reaction-font-color"] = "nandor";
-    grayOmbreStyle["reaction-font-size"] = "12";
-    grayOmbreStyle["line-ending-border-color"] = "gunsmoke";
-    grayOmbreStyle["line-ending-border-width"] = "3";
-    grayOmbreStyle["line-ending-fill-color"] = "gunsmoke";
-    predefinedStyles.push_back(grayOmbreStyle);
-    // grey ombre style
-    std::map<std::string, std::string> greyOmbreStyle;
-    greyOmbreStyle["name"] = "grey ombre";
-    greyOmbreStyle["background-color"] = "white";
-    greyOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    greyOmbreStyle["compartment-border-color"] = "nandor";
-    greyOmbreStyle["compartment-border-width"] = "3";
-    greyOmbreStyle["compartment-fill-color"] = "white";
-    greyOmbreStyle["compartment-font-color"] = "nandor";
-    greyOmbreStyle["compartment-font-size"] = "10";
-    greyOmbreStyle["species-geometric-shape"] = "rectangle";
-    greyOmbreStyle["species-fill-color"] = "pumice";
-    greyOmbreStyle["species-border-color"] = "nandor";
-    greyOmbreStyle["species-border-width"] = "3";
-    greyOmbreStyle["species-font-color"] = "nandor";
-    greyOmbreStyle["species-font-size"] = "24";
-    greyOmbreStyle["reaction-line-color"] = "gunsmoke";
-    greyOmbreStyle["reaction-line-width"] = "3";
-    greyOmbreStyle["reaction-font-color"] = "nandor";
-    greyOmbreStyle["reaction-font-size"] = "12";
-    greyOmbreStyle["line-ending-border-color"] = "gunsmoke";
-    greyOmbreStyle["line-ending-border-width"] = "3";
-    greyOmbreStyle["line-ending-fill-color"] = "gunsmoke";
-    predefinedStyles.push_back(greyOmbreStyle);
-    // red ombre
-    std::map<std::string, std::string> redOmbreStyle;
-    redOmbreStyle["name"] = "red ombre";
-    redOmbreStyle["background-color"] = "white";
-    redOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    redOmbreStyle["compartment-border-color"] = "totempole";
-    redOmbreStyle["compartment-border-width"] = "3";
-    redOmbreStyle["compartment-fill-color"] = "white";
-    redOmbreStyle["compartment-font-color"] = "mexicanred";
-    redOmbreStyle["compartment-font-size"] = "10";
-    redOmbreStyle["species-geometric-shape"] = "rectangle";
-    redOmbreStyle["species-fill-color"] = "apricot";
-    redOmbreStyle["species-border-color"] = "totempole";
-    redOmbreStyle["species-border-width"] = "3";
-    redOmbreStyle["species-font-color"] = "mexicanred";
-    redOmbreStyle["species-font-size"] = "24";
-    redOmbreStyle["reaction-line-color"] = "crimson";
-    redOmbreStyle["reaction-line-width"] = "3";
-    redOmbreStyle["reaction-font-color"] = "mexicanred";
-    redOmbreStyle["reaction-font-size"] = "12";
-    redOmbreStyle["line-ending-border-color"] = "crimson";
-    redOmbreStyle["line-ending-border-width"] = "3";
-    redOmbreStyle["line-ending-fill-color"] = "crimson";
-    predefinedStyles.push_back(redOmbreStyle);
-    // orange ombre style
-    std::map<std::string, std::string> orangeOmbreStyle;
-    orangeOmbreStyle["name"] = "orange ombre";
-    orangeOmbreStyle["background-color"] = "white";
-    orangeOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    orangeOmbreStyle["compartment-border-color"] = "vesuvius";
-    orangeOmbreStyle["compartment-border-width"] = "3";
-    orangeOmbreStyle["compartment-fill-color"] = "white";
-    orangeOmbreStyle["compartment-font-color"] = "vesuvius";
-    orangeOmbreStyle["compartment-font-size"] = "10";
-    orangeOmbreStyle["species-geometric-shape"] = "rectangle";
-    orangeOmbreStyle["species-fill-color"] = "diserria";
-    orangeOmbreStyle["species-border-color"] = "vesuvius";
-    orangeOmbreStyle["species-border-width"] = "3";
-    orangeOmbreStyle["species-font-color"] = "vesuvius";
-    orangeOmbreStyle["species-font-size"] = "24";
-    orangeOmbreStyle["reaction-line-color"] = "reddamask";
-    orangeOmbreStyle["reaction-line-width"] = "3";
-    orangeOmbreStyle["reaction-font-color"] = "vesuvius";
-    orangeOmbreStyle["reaction-font-size"] = "12";
-    orangeOmbreStyle["line-ending-border-color"] = "reddamask";
-    orangeOmbreStyle["line-ending-border-width"] = "3";
-    orangeOmbreStyle["line-ending-fill-color"] = "reddamask";
-    predefinedStyles.push_back(orangeOmbreStyle);
-    // brown ombre style
-    std::map<std::string, std::string> brownOmbreStyle;
-    brownOmbreStyle["name"] = "brown ombre";
-    brownOmbreStyle["background-color"] = "white";
-    brownOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    brownOmbreStyle["compartment-border-color"] = "mondo";
-    brownOmbreStyle["compartment-border-width"] = "3";
-    brownOmbreStyle["compartment-fill-color"] = "white";
-    brownOmbreStyle["compartment-font-color"] = "mondo";
-    brownOmbreStyle["compartment-font-size"] = "10";
-    brownOmbreStyle["species-geometric-shape"] = "rectangle";
-    brownOmbreStyle["species-fill-color"] = "domino";
-    brownOmbreStyle["species-border-color"] = "mondo";
-    brownOmbreStyle["species-border-width"] = "3";
-    brownOmbreStyle["species-font-color"] = "mondo";
-    brownOmbreStyle["species-font-size"] = "24";
-    brownOmbreStyle["reaction-line-color"] = "hemlock";
-    brownOmbreStyle["reaction-line-width"] = "3";
-    brownOmbreStyle["reaction-font-color"] = "mondo";
-    brownOmbreStyle["reaction-font-size"] = "12";
-    brownOmbreStyle["line-ending-border-color"] = "hemlock";
-    brownOmbreStyle["line-ending-border-width"] = "3";
-    brownOmbreStyle["line-ending-fill-color"] = "hemlock";
-    predefinedStyles.push_back(brownOmbreStyle);
-    // purple ombre style
-    std::map<std::string, std::string> purpleOmbreStyle;
-    purpleOmbreStyle["name"] = "purple ombre";
-    purpleOmbreStyle["background-color"] = "white";
-    purpleOmbreStyle["compartment-geometric-shape"] = "rectangle";
-    purpleOmbreStyle["compartment-border-color"] = "rebeccapurple";
-    purpleOmbreStyle["compartment-border-width"] = "3";
-    purpleOmbreStyle["compartment-fill-color"] = "purple";
-    purpleOmbreStyle["compartment-font-color"] = "white";
-    purpleOmbreStyle["compartment-font-size"] = "10";
-    purpleOmbreStyle["species-geometric-shape"] = "rectangle";
-    purpleOmbreStyle["species-fill-color"] = "mediumpurple";
-    purpleOmbreStyle["species-border-color"] = "purpleheart";
-    purpleOmbreStyle["species-border-width"] = "3";
-    purpleOmbreStyle["species-font-color"] = "white";
-    purpleOmbreStyle["species-font-size"] = "24";
-    purpleOmbreStyle["reaction-line-color"] = "white";
-    purpleOmbreStyle["reaction-line-width"] = "3";
-    purpleOmbreStyle["reaction-font-color"] = "white";
-    purpleOmbreStyle["reaction-font-size"] = "12";
-    purpleOmbreStyle["line-ending-border-color"] = "white";
-    purpleOmbreStyle["line-ending-border-width"] = "3";
-    purpleOmbreStyle["line-ending-fill-color"] = "white";
-    predefinedStyles.push_back(purpleOmbreStyle);
-    // purple ombre 2 style
-    std::map<std::string, std::string> purpleOmbre2Style;
-    purpleOmbre2Style["name"] = "purple ombre 2";
-    purpleOmbre2Style["background-color"] = "white";
-    purpleOmbre2Style["compartment-geometric-shape"] = "rectangle";
-    purpleOmbre2Style["compartment-border-color"] = "seance";
-    purpleOmbre2Style["compartment-border-width"] = "3";
-    purpleOmbre2Style["compartment-fill-color"] = "white";
-    purpleOmbre2Style["compartment-font-color"] = "seance";
-    purpleOmbre2Style["compartment-font-size"] = "10";
-    purpleOmbre2Style["species-geometric-shape"] = "rectangle";
-    purpleOmbre2Style["species-fill-color"] = "eastside";
-    purpleOmbre2Style["species-border-color"] = "seance";
-    purpleOmbre2Style["species-border-width"] = "3";
-    purpleOmbre2Style["species-font-color"] = "seance";
-    purpleOmbre2Style["species-font-size"] = "24";
-    purpleOmbre2Style["reaction-line-color"] = "studio";
-    purpleOmbre2Style["reaction-line-width"] = "3";
-    purpleOmbre2Style["reaction-font-color"] = "seance";
-    purpleOmbre2Style["reaction-font-size"] = "12";
-    purpleOmbre2Style["line-ending-border-color"] = "studio";
-    purpleOmbre2Style["line-ending-border-width"] = "3";
-    purpleOmbre2Style["line-ending-fill-color"] = "studio";
-    predefinedStyles.push_back(purpleOmbre2Style);
-    // black and white style
-    std::map<std::string, std::string> blackAndWhiteStyle;
-    blackAndWhiteStyle["name"] = "black and white";
-    blackAndWhiteStyle["background-color"] = "white";
-    blackAndWhiteStyle["compartment-geometric-shape"] = "rectangle";
-    blackAndWhiteStyle["compartment-border-color"] = "white";
-    blackAndWhiteStyle["compartment-border-width"] = "3";
-    blackAndWhiteStyle["compartment-fill-color"] = "white";
-    blackAndWhiteStyle["compartment-font-color"] = "black";
-    blackAndWhiteStyle["compartment-font-size"] = "10";
-    blackAndWhiteStyle["species-geometric-shape"] = "rectangle";
-    blackAndWhiteStyle["species-fill-color"] = "white";
-    blackAndWhiteStyle["species-border-color"] = "black";
-    blackAndWhiteStyle["species-border-width"] = "3";
-    blackAndWhiteStyle["species-font-color"] = "black";
-    blackAndWhiteStyle["species-font-size"] = "24";
-    blackAndWhiteStyle["reaction-line-color"] = "black";
-    blackAndWhiteStyle["reaction-line-width"] = "3";
-    blackAndWhiteStyle["reaction-font-color"] = "black";
-    blackAndWhiteStyle["reaction-font-size"] = "12";
-    blackAndWhiteStyle["line-ending-border-color"] = "black";
-    blackAndWhiteStyle["line-ending-border-width"] = "3";
-    blackAndWhiteStyle["line-ending-fill-color"] = "black";
-    predefinedStyles.push_back(blackAndWhiteStyle);
-    // orange blue
-    std::map<std::string, std::string> orangeBlueStyle;
-    orangeBlueStyle["name"] = "orange blue";
-    orangeBlueStyle["background-color"] = "white";
-    orangeBlueStyle["compartment-geometric-shape"] = "rectangle";
-    orangeBlueStyle["compartment-border-color"] = "jaffa";
-    orangeBlueStyle["compartment-border-width"] = "3";
-    orangeBlueStyle["compartment-fill-color"] = "white";
-    orangeBlueStyle["compartment-font-color"] = "ceruleanblue";
-    orangeBlueStyle["compartment-font-size"] = "10";
-    orangeBlueStyle["species-geometric-shape"] = "rectangle";
-    orangeBlueStyle["species-fill-color"] = "picton blue";
-    orangeBlueStyle["species-border-color"] = "jaffa";
-    orangeBlueStyle["species-border-width"] = "3";
-    orangeBlueStyle["species-font-color"] = "ceruleanblue";
-    orangeBlueStyle["species-font-size"] = "24";
-    orangeBlueStyle["reaction-line-color"] = "jaffa";
-    orangeBlueStyle["reaction-line-width"] = "3";
-    orangeBlueStyle["reaction-font-color"] = "ceruleanblue";
-    orangeBlueStyle["reaction-font-size"] = "12";
-    orangeBlueStyle["line-ending-border-color"] = "jaffa";
-    orangeBlueStyle["line-ending-border-width"] = "3";
-    orangeBlueStyle["line-ending-fill-color"] = "jaffa";
-    predefinedStyles.push_back(orangeBlueStyle);
-    // purple yellow
-    std::map<std::string, std::string> purpleYellowStyle;
-    purpleYellowStyle["name"] = "purple yellow";
-    purpleYellowStyle["background-color"] = "white";
-    purpleYellowStyle["compartment-geometric-shape"] = "rectangle";
-    purpleYellowStyle["compartment-border-color"] = "daisybush";
-    purpleYellowStyle["compartment-border-width"] = "3";
-    purpleYellowStyle["compartment-fill-color"] = "white";
-    purpleYellowStyle["compartment-font-color"] = "daisybush";
-    purpleYellowStyle["compartment-font-size"] = "10";
-    purpleYellowStyle["species-geometric-shape"] = "rectangle";
-    purpleYellowStyle["species-fill-color"] = "khaki";
-    purpleYellowStyle["species-border-color"] = "daisybush";
-    purpleYellowStyle["species-border-width"] = "3";
-    purpleYellowStyle["species-font-color"] = "daisybush";
-    purpleYellowStyle["species-font-size"] = "24";
-    purpleYellowStyle["reaction-line-color"] = "royalpurple";
-    purpleYellowStyle["reaction-line-width"] = "3";
-    purpleYellowStyle["reaction-font-color"] = "daisybush";
-    purpleYellowStyle["reaction-font-size"] = "12";
-    purpleYellowStyle["line-ending-border-color"] = "royalpurple";
-    purpleYellowStyle["line-ending-border-width"] = "3";
-    purpleYellowStyle["line-ending-fill-color"] = "royalpurple";
-    predefinedStyles.push_back(purpleYellowStyle);
-    // green red style
-    std::map<std::string, std::string> greenRedStyle;
-    greenRedStyle["name"] = "green red";
-    greenRedStyle["background-color"] = "white";
-    greenRedStyle["compartment-geometric-shape"] = "rectangle";
-    greenRedStyle["compartment-border-color"] = "forestgreen";
-    greenRedStyle["compartment-border-width"] = "3";
-    greenRedStyle["compartment-fill-color"] = "white";
-    greenRedStyle["compartment-font-color"] = "thunderbird";
-    greenRedStyle["compartment-font-size"] = "10";
-    greenRedStyle["species-geometric-shape"] = "rectangle";
-    greenRedStyle["species-fill-color"] = "fern";
-    greenRedStyle["species-border-color"] = "everglade";
-    greenRedStyle["species-border-width"] = "3";
-    greenRedStyle["species-font-color"] = "thunderbird";
-    greenRedStyle["species-font-size"] = "24";
-    greenRedStyle["reaction-line-color"] = "thunderbird";
-    greenRedStyle["reaction-line-width"] = "3";
-    greenRedStyle["reaction-font-color"] = "thunderbird";
-    greenRedStyle["reaction-font-size"] = "12";
-    greenRedStyle["line-ending-border-color"] = "thunderbird";
-    greenRedStyle["line-ending-border-width"] = "3";
-    greenRedStyle["line-ending-fill-color"] = "thunderbird";
-    predefinedStyles.push_back(greenRedStyle);
-    // power style
-    std::map<std::string, std::string> powerStyle;
-    powerStyle["name"] = "power";
-    powerStyle["background-color"] = "white";
-    powerStyle["compartment-geometric-shape"] = "rectangle";
-    powerStyle["compartment-border-color"] = "mandy";
-    powerStyle["compartment-border-width"] = "3";
-    powerStyle["compartment-fill-color"] = "pewter";
-    powerStyle["compartment-font-color"] = "gondola";
-    powerStyle["compartment-font-size"] = "10";
-    powerStyle["species-geometric-shape"] = "rectangle";
-    powerStyle["species-fill-color"] = "carnation";
-    powerStyle["species-border-color"] = "gondola";
-    powerStyle["species-border-width"] = "3";
-    powerStyle["species-font-color"] = "gondola";
-    powerStyle["species-font-size"] = "24";
-    powerStyle["reaction-line-color"] = "gondola";
-    powerStyle["reaction-line-width"] = "3";
-    powerStyle["reaction-font-color"] = "gondola";
-    powerStyle["reaction-font-size"] = "12";
-    powerStyle["line-ending-border-color"] = "gondola";
-    powerStyle["line-ending-border-width"] = "3";
-    powerStyle["line-ending-fill-color"] = "gondola";
-    predefinedStyles.push_back(powerStyle);
-    // calm style
-    std::map<std::string, std::string> calmStyle;
-    calmStyle["name"] = "calm";
-    calmStyle["background-color"] = "white";
-    calmStyle["compartment-geometric-shape"] = "rectangle";
-    calmStyle["compartment-border-color"] = "paradiso";
-    calmStyle["compartment-border-width"] = "3";
-    calmStyle["compartment-fill-color"] = "montecarlo";
-    calmStyle["compartment-font-color"] = "totempole";
-    calmStyle["compartment-font-size"] = "10";
-    calmStyle["species-geometric-shape"] = "rectangle";
-    calmStyle["species-fill-color"] = "jaffa";
-    calmStyle["species-border-color"] = "goldengrass";
-    calmStyle["species-border-width"] = "3";
-    calmStyle["species-font-color"] = "totempole";
-    calmStyle["species-font-size"] = "24";
-    calmStyle["reaction-line-color"] = "paradiso";
-    calmStyle["reaction-line-width"] = "3";
-    calmStyle["reaction-font-color"] = "totempole";
-    calmStyle["reaction-font-size"] = "12";
-    calmStyle["line-ending-border-color"] = "paradiso";
-    calmStyle["line-ending-border-width"] = "3";
-    calmStyle["line-ending-fill-color"] = "paradiso";
-    predefinedStyles.push_back(calmStyle);
-    // sunset style
-    std::map<std::string, std::string> sunsetStyle;
-    sunsetStyle["name"] = "sunset";
-    sunsetStyle["background-color"] = "white";
-    sunsetStyle["compartment-geometric-shape"] = "rectangle";
-    sunsetStyle["compartment-border-color"] = "hibiscus";
-    sunsetStyle["compartment-border-width"] = "3";
-    sunsetStyle["compartment-fill-color"] = "orangepeel";
-    sunsetStyle["compartment-font-color"] = "purpleheart";
-    sunsetStyle["compartment-font-size"] = "10";
-    sunsetStyle["species-geometric-shape"] = "rectangle";
-    sunsetStyle["species-fill-color"] = "hibiscus";
-    sunsetStyle["species-border-color"] = "purpleheart";
-    sunsetStyle["species-border-width"] = "3";
-    sunsetStyle["species-font-color"] = "purpleheart";
-    sunsetStyle["species-font-size"] = "24";
-    sunsetStyle["reaction-line-color"] = "frenchrose";
-    sunsetStyle["reaction-line-width"] = "3";
-    sunsetStyle["reaction-font-color"] = "purpleheart";
-    sunsetStyle["reaction-font-size"] = "12";
-    sunsetStyle["line-ending-border-color"] = "frenchrose";
-    sunsetStyle["line-ending-border-width"] = "3";
-    sunsetStyle["line-ending-fill-color"] = "frenchrose";
-    predefinedStyles.push_back(sunsetStyle);
-        // electric style
-    std::map<std::string, std::string> electricStyle;
-    electricStyle["name"] = "electric";
-    electricStyle["background-color"] = "white";
-    electricStyle["compartment-geometric-shape"] = "rectangle";
-    electricStyle["compartment-border-color"] = "java";
-    electricStyle["compartment-border-width"] = "3";
-    electricStyle["compartment-fill-color"] = "riptide";
-    electricStyle["compartment-font-color"] = "cerise";
-    electricStyle["compartment-font-size"] = "10";
-    electricStyle["species-geometric-shape"] = "rectangle";
-    electricStyle["species-fill-color"] = "lightorchid";
-    electricStyle["species-border-color"] = "java";
-    electricStyle["species-border-width"] = "3";
-    electricStyle["species-font-color"] = "cerise";
-    electricStyle["species-font-size"] = "24";
-    electricStyle["reaction-line-color"] = "hopbush";
-    electricStyle["reaction-line-width"] = "3";
-    electricStyle["reaction-font-color"] = "cerise";
-    electricStyle["reaction-font-size"] = "12";
-    electricStyle["line-ending-border-color"] = "hopbush";
-    electricStyle["line-ending-border-width"] = "3";
-    electricStyle["line-ending-fill-color"] = "hopbush";
-    predefinedStyles.push_back(electricStyle);
-        // midnight style
-    std::map<std::string, std::string> midnightStyle;
-    midnightStyle["name"] = "midnight";
-    midnightStyle["background-color"] = "white";
-    midnightStyle["compartment-geometric-shape"] = "rectangle";
-    midnightStyle["compartment-border-color"] = "thunderbird";
-    midnightStyle["compartment-border-width"] = "3";
-    midnightStyle["compartment-fill-color"] = "dulllavender";
-    midnightStyle["compartment-font-color"] = "thunderbird";
-    midnightStyle["compartment-font-size"] = "10";
-    midnightStyle["species-geometric-shape"] = "rectangle";
-    midnightStyle["species-fill-color"] = "sunglo";
-    midnightStyle["species-border-color"] = "bayofmany";
-    midnightStyle["species-border-width"] = "3";
-    midnightStyle["species-font-color"] = "thunderbird";
-    midnightStyle["species-font-size"] = "24";
-    midnightStyle["reaction-line-color"] = "thunderbird";
-    midnightStyle["reaction-line-width"] = "3";
-    midnightStyle["reaction-font-color"] = "thunderbird";
-    midnightStyle["reaction-font-size"] = "12";
-    midnightStyle["line-ending-border-color"] = "thunderbird";
-        // vibrance style
-    std::map<std::string, std::string> vibranceStyle;
-    vibranceStyle["name"] = "vibrance";
-    vibranceStyle["background-color"] = "white";
-    vibranceStyle["compartment-geometric-shape"] = "rectangle";
-    vibranceStyle["compartment-border-color"] = "casal";
-    vibranceStyle["compartment-border-width"] = "3";
-    vibranceStyle["compartment-fill-color"] = "carrotorange";
-    vibranceStyle["compartment-font-color"] = "shiraz";
-    vibranceStyle["compartment-font-size"] = "10";
-    vibranceStyle["species-geometric-shape"] = "rectangle";
-    vibranceStyle["species-fill-color"] = "shiraz";
-    vibranceStyle["species-border-color"] = "cannonpink";
-    vibranceStyle["species-border-width"] = "3";
-    vibranceStyle["species-font-color"] = "shiraz";
-    vibranceStyle["species-font-size"] = "24";
-    vibranceStyle["reaction-line-color"] = "buttercup";
-    vibranceStyle["reaction-line-width"] = "3";
-    vibranceStyle["reaction-font-color"] = "shiraz";
-    vibranceStyle["reaction-font-size"] = "12";
-    vibranceStyle["line-ending-border-color"] = "buttercup";
-    vibranceStyle["line-ending-border-width"] = "3";
-    vibranceStyle["line-ending-fill-color"] = "buttercup";
-    predefinedStyles.push_back(vibranceStyle);
-    // ocean style
-    std::map<std::string, std::string> oceanStyle;
-    oceanStyle["name"] = "ocean";
-    oceanStyle["background-color"] = "white";
-    oceanStyle["compartment-geometric-shape"] = "rectangle";
-    oceanStyle["compartment-border-color"] = "elm";
-    oceanStyle["compartment-border-width"] = "3";
-    oceanStyle["compartment-fill-color"] = "yuma";
-    oceanStyle["compartment-font-color"] = "riverbed";
-    oceanStyle["compartment-font-size"] = "10";
-    oceanStyle["species-geometric-shape"] = "rectangle";
-    oceanStyle["species-fill-color"] = "aquaisland";
-    oceanStyle["species-border-color"] = "elm";
-    oceanStyle["species-border-width"] = "3";
-    oceanStyle["species-font-color"] = "riverbed";
-    oceanStyle["species-font-size"] = "24";
-    oceanStyle["reaction-line-color"] = "chino";
-    oceanStyle["reaction-line-width"] = "3";
-    oceanStyle["reaction-font-color"] = "riverbed";
-    oceanStyle["reaction-font-size"] = "12";
-    oceanStyle["line-ending-border-color"] = "chino";
-    oceanStyle["line-ending-border-width"] = "3";
-    oceanStyle["line-ending-fill-color"] = "chino";
-    predefinedStyles.push_back(oceanStyle);
-        // forest style
-    std::map<std::string, std::string> forestStyle;
-    forestStyle["name"] = "forest";
-    forestStyle["background-color"] = "white";
-    forestStyle["compartment-geometric-shape"] = "rectangle";
-    forestStyle["compartment-border-color"] = "lunargreen";
-    forestStyle["compartment-border-width"] = "3";
-    forestStyle["compartment-fill-color"] = "tobaccobrown";
-    forestStyle["compartment-font-color"] = "gladegreen";
-    forestStyle["compartment-font-size"] = "10";
-    forestStyle["species-geometric-shape"] = "rectangle";
-    forestStyle["species-fill-color"] = "sage";
-    forestStyle["species-border-color"] = "tomthumb";
-    forestStyle["species-border-width"] = "3";
-    forestStyle["species-font-color"] = "gladegreen";
-    forestStyle["species-font-size"] = "24";
-    forestStyle["reaction-line-color"] = "tobaccobrown";
-    forestStyle["reaction-line-width"] = "3";
-    forestStyle["reaction-font-color"] = "gladegreen";
-    forestStyle["reaction-font-size"] = "12";
-    forestStyle["line-ending-border-color"] = "tobaccobrown";
-    forestStyle["line-ending-border-width"] = "3";
-    forestStyle["line-ending-fill-color"] = "tobaccobrown";
-    predefinedStyles.push_back(forestStyle);
-    // warm tone style
-    std::map<std::string, std::string> warmToneStyle;
-    warmToneStyle["name"] = "warm tone";
-    warmToneStyle["background-color"] = "white";
-    warmToneStyle["compartment-geometric-shape"] = "rectangle";
-    warmToneStyle["compartment-border-color"] = "mondo";
-    warmToneStyle["compartment-border-width"] = "3";
-    warmToneStyle["compartment-fill-color"] = "tiamaria";
-    warmToneStyle["compartment-font-color"] = "ochre";
-    warmToneStyle["compartment-font-size"] = "10";
-    warmToneStyle["species-geometric-shape"] = "rectangle";
-    warmToneStyle["species-fill-color"] = "creamcan";
-    warmToneStyle["species-border-color"] = "tiamaria";
-    warmToneStyle["species-border-width"] = "3";
-    warmToneStyle["species-font-color"] = "ochre";
-    warmToneStyle["species-font-size"] = "24";
-    warmToneStyle["reaction-line-color"] = "christine";
-    warmToneStyle["reaction-line-width"] = "3";
-    warmToneStyle["reaction-font-color"] = "ochre";
-    warmToneStyle["reaction-font-size"] = "12";
-    warmToneStyle["line-ending-border-color"] = "christine";
-    warmToneStyle["line-ending-border-width"] = "3";
-    warmToneStyle["line-ending-fill-color"] = "christine";
-    predefinedStyles.push_back(warmToneStyle);
-    // cool tone style
-    std::map<std::string, std::string> coolToneStyle;
-    coolToneStyle["name"] = "cool tone";
-    coolToneStyle["background-color"] = "white";
-    coolToneStyle["compartment-geometric-shape"] = "rectangle";
-    coolToneStyle["compartment-border-color"] = "blueribbon";
-    coolToneStyle["compartment-border-width"] = "3";
-    coolToneStyle["compartment-fill-color"] = "purpleheart";
-    coolToneStyle["compartment-font-color"] = "blueribbon";
-    coolToneStyle["compartment-font-size"] = "10";
-    coolToneStyle["species-geometric-shape"] = "rectangle";
-    coolToneStyle["species-fill-color"] = "purpleheart";
-    coolToneStyle["species-border-color"] = "azureradiance";
-    coolToneStyle["species-border-width"] = "3";
-    coolToneStyle["species-font-color"] = "blueribbon";
-    coolToneStyle["species-font-size"] = "24";
-    coolToneStyle["reaction-line-color"] = "puertorico";
-    coolToneStyle["reaction-line-width"] = "3";
-    coolToneStyle["reaction-font-color"] = "blueribbon";
-    coolToneStyle["reaction-font-size"] = "12";
-    coolToneStyle["line-ending-border-color"] = "puertorico";
-    coolToneStyle["line-ending-border-width"] = "3";
-    coolToneStyle["line-ending-fill-color"] = "puertorico";
-    predefinedStyles.push_back(coolToneStyle);
-    // escher style
-    std::map<std::string, std::string> escherStyle;
-    escherStyle["name"] = "escher";
-    escherStyle["background-color"] = "white";
-    escherStyle["compartment-geometric-shape"] = "rectangle";
-    escherStyle["compartment-border-color"] = "black";
-    escherStyle["compartment-border-width"] = "3";
-    escherStyle["compartment-fill-color"] = "white";
-    escherStyle["compartment-font-color"] = "black";
-    escherStyle["compartment-font-size"] = "10";
-    escherStyle["compartment-font-style"] = "italic";
-    escherStyle["compartment-font-weight"] = "bold";
-    escherStyle["species-geometric-shape"] = "ellipse";
-    escherStyle["species-geometric-shape-ratio"] = "1";
-    escherStyle["species-border-color"] = "hawaiiantan";
-    escherStyle["species-border-width"] = "5";
-    escherStyle["species-fill-color"] = "terracotta";
-    escherStyle["species-font-color"] = "black";
-    escherStyle["species-font-size"] = "12";
-    escherStyle["species-font-style"] = "italic";
-    escherStyle["species-font-weight"] = "bold";
-    escherStyle["reaction-geometric-shape"] = "ellipse";
-    escherStyle["reaction-geometric-shape-center-x"] = "0.0";
-    escherStyle["reaction-geometric-shape-center-y"] = "0.0";
-    escherStyle["reaction-geometric-shape-radius-x"] = "4";
-    escherStyle["reaction-geometric-shape-radius-y"] = "4";
-    escherStyle["reaction-line-color"] = "sanjuan";
-    escherStyle["reaction-line-width"] = "9";
-    escherStyle["reaction-border-color"] = "mineshaft";
-    escherStyle["reaction-border-width"] = "3";
-    escherStyle["reaction-fill-color"] = "waikawagray";
-    escherStyle["reaction-font-color"] = "luckypoint";
-    escherStyle["reaction-font-size"] = "24";
-    escherStyle["reaction-font-style"] = "italic";
-    escherStyle["reaction-font-weight"] = "bold";
-    escherStyle["line-ending-border-color"] = "sanjuan";
-    escherStyle["line-ending-border-width"] = "6";
-    escherStyle["line-ending-fill-color"] = "sanjuan";
-    escherStyle["display-reaction-text-label"] = "true";
-    predefinedStyles.push_back(escherStyle);
-
-    return predefinedStyles;
-}
-
 std::vector<std::string> getPredefinedStyleNames() {
     std::vector<std::string> predefinedStyleNames;
-    std::vector<std::map<std::string, std::string>> predefinedStyles = getPredefinedStyles();
-    for (const auto& predefinedStyle : predefinedStyles) {
-        if (predefinedStyle.find("name") != predefinedStyle.end())
-            predefinedStyleNames.push_back(predefinedStyle.find("name")->second);
-    }
+    predefinedStyleNames.push_back("default");
+    predefinedStyleNames.push_back("blue ombre");
+    predefinedStyleNames.push_back("green ombre");
+    predefinedStyleNames.push_back("gray ombre");
+    predefinedStyleNames.push_back("red ombre");
+    predefinedStyleNames.push_back("orange ombre");
+    predefinedStyleNames.push_back("brown ombre");
+    predefinedStyleNames.push_back("purple ombre");
+    predefinedStyleNames.push_back("purple ombre 2");
+    predefinedStyleNames.push_back("black and white");
+    predefinedStyleNames.push_back("orange and blue");
+    predefinedStyleNames.push_back("purple and yellow");
+    predefinedStyleNames.push_back("green and red");
+    predefinedStyleNames.push_back("power");
+    predefinedStyleNames.push_back("calm");
+    predefinedStyleNames.push_back("sunset");
+    predefinedStyleNames.push_back("electric");
+    predefinedStyleNames.push_back("midnight");
+    predefinedStyleNames.push_back("vibrance");
+    predefinedStyleNames.push_back("ocean");
+    predefinedStyleNames.push_back("forest");
+    predefinedStyleNames.push_back("warm tone");
+    predefinedStyleNames.push_back("cool tone");
+    predefinedStyleNames.push_back("escher");
+
     return predefinedStyleNames;
+}
+
+std::map<std::string, std::string> getPredefinedStyleFeatures(const std::string styleName) {
+    if (isValidPredefinedStyleName(styleName)) {
+        if (stringCompare(styleName, "default"))
+            return getDefaultPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "blue ombre"))
+            return getBlueOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "green ombre"))
+            return getGreenOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "gray ombre") || stringCompare(styleName, "grey ombre"))
+            return getGrayOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "red ombre"))
+            return getRedOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "orange ombre"))
+            return getOrangeOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "brown ombre"))
+            return getBrownOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "purple ombre"))
+            return getPurpleOmbrePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "purple ombre 2"))
+            return getPurpleOmbre2PredefinedStyleFeatures();
+        else if (stringCompare(styleName, "black and white"))
+            return getBlackAndWhitePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "orange and blue"))
+            return getOrangeAndBluePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "purple and yellow"))
+            return getPurpleAndYellowPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "green and red"))
+            return getGreenAndRedPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "power"))
+            return getPowerPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "calm"))
+            return getCalmPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "sunset"))
+            return getSunsetPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "electric"))
+            return getElectricPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "midnight"))
+            return getMidnightPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "vibrance"))
+            return getVibrancePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "ocean"))
+            return getOceanPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "forest"))
+            return getForestPredefinedStyleFeatures();
+        else if (stringCompare(styleName, "warm tone"))
+            return getWarmTonePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "cool tone"))
+            return getCoolTonePredefinedStyleFeatures();
+        else if (stringCompare(styleName, "escher"))
+            return getEscherPredefinedStyleFeatures();
+    }
+
+    return std::map<std::string, std::string>();
+}
+
+std::map<std::string, std::string> getDefaultPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "default";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "darkcyan";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "lightgray";
+    styleFeatures["compartment-font-color"] = "darkcyan";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-border-color"] = "black";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-fill-color"] = "white";
+    styleFeatures["species-font-color"] = "black";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-geometric-shape"] = "rectangle";
+    styleFeatures["reaction-line-color"] = "black";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "darkslategray";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "black";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "black";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getBlueOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "blue ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "arapawa";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "arapawa";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "perano";
+    styleFeatures["species-border-color"] = "arapawa";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "arapawa";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "indigo";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "arapawa";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "indigo";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "indigo";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getGreenOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "green ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "darkfern";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "darkfern";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "grannysmithapple";
+    styleFeatures["species-border-color"] = "darkfern";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "darkfern";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "fruitsalad";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "darkfern";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "fruitsalad";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "fruitsalad";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getGrayOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "gray ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "nandor";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "nandor";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "pumice";
+    styleFeatures["species-border-color"] = "nandor";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "nandor";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "gunsmoke";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "nandor";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "gunsmoke";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "gunsmoke";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getRedOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "red ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "totempole";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "mexicanred";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "apricot";
+    styleFeatures["species-border-color"] = "totempole";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "mexicanred";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "crimson";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "mexicanred";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "crimson";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "crimson";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getOrangeOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "orange ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "vesuvius";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "vesuvius";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "diserria";
+    styleFeatures["species-border-color"] = "vesuvius";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "vesuvius";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "reddamask";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "vesuvius";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "reddamask";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "reddamask";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getBrownOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "brown ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "mondo";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "mondo";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "domino";
+    styleFeatures["species-border-color"] = "mondo";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "mondo";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "hemlock";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "mondo";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "hemlock";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "hemlock";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getPurpleOmbrePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "purple ombre";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "rebeccapurple";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "purple";
+    styleFeatures["compartment-font-color"] = "white";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "mediumpurple";
+    styleFeatures["species-border-color"] = "purpleheart";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "white";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "white";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "white";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "white";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "white";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getPurpleOmbre2PredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "purple ombre 2";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "seance";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "seance";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "eastside";
+    styleFeatures["species-border-color"] = "seance";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "seance";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "studio";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "seance";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "studio";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "studio";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getBlackAndWhitePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "black and white";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "white";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "black";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "white";
+    styleFeatures["species-border-color"] = "black";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "black";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "black";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "black";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "black";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "black";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getOrangeAndBluePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "orange and blue";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "jaffa";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "ceruleanblue";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "picton blue";
+    styleFeatures["species-border-color"] = "jaffa";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "ceruleanblue";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "jaffa";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "ceruleanblue";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "jaffa";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "jaffa";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getPurpleAndYellowPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "purple and yellow";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "daisybush";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "daisybush";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "khaki";
+    styleFeatures["species-border-color"] = "daisybush";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "daisybush";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "royalpurple";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "daisybush";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "royalpurple";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "royalpurple";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getGreenAndRedPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "green and red";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "forestgreen";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "thunderbird";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "fern";
+    styleFeatures["species-border-color"] = "everglade";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "thunderbird";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "thunderbird";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "thunderbird";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "thunderbird";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "thunderbird";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getPowerPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "power";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "mandy";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "pewter";
+    styleFeatures["compartment-font-color"] = "gondola";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "carnation";
+    styleFeatures["species-border-color"] = "gondola";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "gondola";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "gondola";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "gondola";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "gondola";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "gondola";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getCalmPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "calm";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "paradiso";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "montecarlo";
+    styleFeatures["compartment-font-color"] = "totempole";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "jaffa";
+    styleFeatures["species-border-color"] = "goldengrass";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "totempole";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "paradiso";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "totempole";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "paradiso";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "paradiso";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getSunsetPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "sunset";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "hibiscus";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "orangepeel";
+    styleFeatures["compartment-font-color"] = "purpleheart";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "hibiscus";
+    styleFeatures["species-border-color"] = "purpleheart";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "purpleheart";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "frenchrose";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "purpleheart";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "frenchrose";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "frenchrose";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getElectricPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "electric";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "java";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "riptide";
+    styleFeatures["compartment-font-color"] = "cerise";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "lightorchid";
+    styleFeatures["species-border-color"] = "java";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "cerise";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "hopbush";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "cerise";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "hopbush";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "hopbush";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getMidnightPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "midnight";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "thunderbird";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "dulllavender";
+    styleFeatures["compartment-font-color"] = "thunderbird";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "sunglo";
+    styleFeatures["species-border-color"] = "bayofmany";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "thunderbird";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "thunderbird";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "thunderbird";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "thunderbird";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "thunderbird";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getVibrancePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "vibrance";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "casal";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "carrotorange";
+    styleFeatures["compartment-font-color"] = "shiraz";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "shiraz";
+    styleFeatures["species-border-color"] = "cannonpink";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "shiraz";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "buttercup";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "shiraz";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "buttercup";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "buttercup";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getOceanPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "ocean";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "elm";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "yuma";
+    styleFeatures["compartment-font-color"] = "riverbed";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "aquaisland";
+    styleFeatures["species-border-color"] = "elm";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "riverbed";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "chino";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "riverbed";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "chino";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "chino";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getForestPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "forest";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "lunargreen";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "tobaccobrown";
+    styleFeatures["compartment-font-color"] = "gladegreen";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "sage";
+    styleFeatures["species-border-color"] = "tomthumb";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "gladegreen";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "tobaccobrown";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "gladegreen";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "tobaccobrown";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "tobaccobrown";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getWarmTonePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "warm tone";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "mondo";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "tiamaria";
+    styleFeatures["compartment-font-color"] = "ochre";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "creamcan";
+    styleFeatures["species-border-color"] = "tiamaria";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "ochre";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "christine";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "ochre";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "christine";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "christine";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getCoolTonePredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "cool tone";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "blueribbon";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "purpleheart";
+    styleFeatures["compartment-font-color"] = "blueribbon";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["species-geometric-shape"] = "rectangle";
+    styleFeatures["species-fill-color"] = "purpleheart";
+    styleFeatures["species-border-color"] = "azureradiance";
+    styleFeatures["species-border-width"] = "3";
+    styleFeatures["species-font-color"] = "blueribbon";
+    styleFeatures["species-font-size"] = "24";
+    styleFeatures["reaction-line-color"] = "puertorico";
+    styleFeatures["reaction-line-width"] = "3";
+    styleFeatures["reaction-font-color"] = "blueribbon";
+    styleFeatures["reaction-font-size"] = "12";
+    styleFeatures["line-ending-border-color"] = "puertorico";
+    styleFeatures["line-ending-border-width"] = "3";
+    styleFeatures["line-ending-fill-color"] = "puertorico";
+    return styleFeatures;
+}
+
+std::map<std::string, std::string> getEscherPredefinedStyleFeatures() {
+    std::map<std::string, std::string> styleFeatures;
+    styleFeatures["name"] = "escher";
+    styleFeatures["background-color"] = "white";
+    styleFeatures["compartment-geometric-shape"] = "rectangle";
+    styleFeatures["compartment-border-color"] = "black";
+    styleFeatures["compartment-border-width"] = "3";
+    styleFeatures["compartment-fill-color"] = "white";
+    styleFeatures["compartment-font-color"] = "black";
+    styleFeatures["compartment-font-size"] = "10";
+    styleFeatures["compartment-font-style"] = "italic";
+    styleFeatures["compartment-font-weight"] = "bold";
+    styleFeatures["species-geometric-shape"] = "ellipse";
+    styleFeatures["species-geometric-shape-ratio"] = "1";
+    styleFeatures["species-border-color"] = "hawaiiantan";
+    styleFeatures["species-border-width"] = "5";
+    styleFeatures["species-fill-color"] = "terracotta";
+    styleFeatures["species-font-color"] = "black";
+    styleFeatures["species-font-size"] = "12";
+    styleFeatures["species-font-style"] = "italic";
+    styleFeatures["species-font-weight"] = "bold";
+    styleFeatures["reaction-geometric-shape"] = "ellipse";
+    styleFeatures["reaction-geometric-shape-center-x"] = "0.0";
+    styleFeatures["reaction-geometric-shape-center-y"] = "0.0";
+    styleFeatures["reaction-geometric-shape-radius-x"] = "4";
+    styleFeatures["reaction-geometric-shape-radius-y"] = "4";
+    styleFeatures["reaction-line-color"] = "sanjuan";
+    styleFeatures["reaction-line-width"] = "9";
+    styleFeatures["reaction-border-color"] = "mineshaft";
+    styleFeatures["reaction-border-width"] = "3";
+    styleFeatures["reaction-fill-color"] = "waikawagray";
+    styleFeatures["reaction-font-color"] = "luckypoint";
+    styleFeatures["reaction-font-size"] = "24";
+    styleFeatures["reaction-font-style"] = "italic";
+    styleFeatures["reaction-font-weight"] = "bold";
+    styleFeatures["line-ending-border-color"] = "sanjuan";
+    styleFeatures["line-ending-border-width"] = "6";
+    styleFeatures["line-ending-fill-color"] = "sanjuan";
+    styleFeatures["display-reaction-text-label"] = "true";
+    return styleFeatures;
 }
 
 const bool isValidPredefinedStyleName(const std::string& predefinedStyleName) {

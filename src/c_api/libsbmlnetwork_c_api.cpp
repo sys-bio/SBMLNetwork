@@ -2239,7 +2239,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_getNumPredefinedStyles() {
-        return getPredefinedStyles().size();
+        return getPredefinedStyleNames().size();
     }
 
     const char* c_api_getNthPredefinedStyleName(int index) {

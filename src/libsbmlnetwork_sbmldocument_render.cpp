@@ -6548,97 +6548,86 @@ int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& style) {
-    std::vector<std::map<std::string, std::string>> data = getPredefinedStyles();
-    for (const auto& record : data) {
-        if (record.find("name") != record.end() && record.find("name")->second == style) {
-            if (record.find("background-color") != record.end())
-                setBackgroundColor(document, layoutIndex, record.find("background-color")->second);
-            if (record.find("compartment-geometric-shape") != record.end())
-                setCompartmentGeometricShapeType(document, layoutIndex, record.find("compartment-geometric-shape")->second);
-            if (record.find("compartment-geometric-shape-ratio") != record.end())
-                setCompartmentGeometricShapeRatio(document, layoutIndex, std::stod(record.find("compartment-geometric-shape-ratio")->second));
-            if (record.find("compartment-border-color") != record.end())
-                setCompartmentStrokeColor(document, layoutIndex, record.find("compartment-border-color")->second);
-            if (record.find("compartment-border-width") != record.end())
-                setCompartmentStrokeWidth(document, layoutIndex, std::stod(record.find("compartment-border-width")->second));
-            if (record.find("compartment-fill-color") != record.end())
-                setCompartmentFillColor(document, layoutIndex, record.find("compartment-fill-color")->second);
-            if (record.find("compartment-font-color") != record.end())
-                setCompartmentFontColor(document, layoutIndex, record.find("compartment-font-color")->second);
-            if (record.find("compartment-font-size") != record.end())
-                setCompartmentFontSize(document, layoutIndex, record.find("compartment-font-size")->second);
-            if (record.find("compartment-font-style") != record.end())
-                setCompartmentFontStyle(document, layoutIndex, record.find("compartment-font-style")->second);
-            if (record.find("compartment-font-weight") != record.end())
-                setCompartmentFontWeight(document, layoutIndex, record.find("compartment-font-weight")->second);
-            if (record.find("species-geometric-shape") != record.end())
-                setSpeciesGeometricShapeType(document, layoutIndex, record.find("species-geometric-shape")->second);
-            if (record.find("species-geometric-shape-ratio") != record.end())
-                setSpeciesGeometricShapeRatio(document, layoutIndex, std::stod(record.find("species-geometric-shape-ratio")->second));
-            if (record.find("species-border-color") != record.end())
-                setSpeciesStrokeColor(document, layoutIndex, record.find("species-border-color")->second);
-            if (record.find("species-border-width") != record.end())
-                setSpeciesStrokeWidth(document, layoutIndex, std::stod(record.find("species-border-width")->second));
-            if (record.find("species-fill-color") != record.end())
-                setSpeciesFillColor(document, layoutIndex, record.find("species-fill-color")->second);
-            if (record.find("species-font-color") != record.end())
-                setSpeciesFontColor(document, layoutIndex, record.find("species-font-color")->second);
-            if (record.find("species-font-size") != record.end())
-                setSpeciesFontSize(document, layoutIndex, record.find("species-font-size")->second);
-            if (record.find("species-font-style") != record.end())
-                setSpeciesFontStyle(document, layoutIndex, record.find("species-font-style")->second);
-            if (record.find("species-font-weight") != record.end())
-                setSpeciesFontWeight(document, layoutIndex, record.find("species-font-weight")->second);
-            if (record.find("reaction-geometric-shape") != record.end())
-                setReactionGeometricShapeType(document, layoutIndex, record.find("reaction-geometric-shape")->second);
-            if (record.find("reaction-geometric-shape-ratio") != record.end())
-                setReactionGeometricShapeRatio(document, layoutIndex, std::stod(record.find("reaction-geometric-shape-ratio")->second));
-            if (record.find("reaction-geometric-shape-center-x") != record.end())
-                setReactionGeometricShapeCenterX(document, layoutIndex, record.find("reaction-geometric-shape-center-x")->second);
-            if (record.find("reaction-geometric-shape-center-y") != record.end())
-                setReactionGeometricShapeCenterY(document, layoutIndex, record.find("reaction-geometric-shape-center-y")->second);
-            if (record.find("reaction-geometric-shape-radius-x") != record.end())
-                setReactionGeometricShapeRadiusX(document, layoutIndex, record.find("reaction-geometric-shape-radius-x")->second);
-            if (record.find("reaction-geometric-shape-radius-y") != record.end())
-                setReactionGeometricShapeRadiusY(document, layoutIndex, record.find("reaction-geometric-shape-radius-y")->second);
-            if (record.find("reaction-line-color") != record.end())
-                setReactionStrokeColor(document, layoutIndex, record.find("reaction-line-color")->second);
-            if (record.find("reaction-line-width") != record.end())
-                setReactionStrokeWidth(document, layoutIndex, std::stod(record.find("reaction-line-width")->second));
-            if (record.find("reaction-fill-color") != record.end())
-                setReactionFillColor(document, layoutIndex, record.find("reaction-fill-color")->second);
-            if (record.find("reaction-font-color") != record.end())
-                setReactionFontColor(document, layoutIndex, record.find("reaction-font-color")->second);
-            if (record.find("reaction-font-size") != record.end())
-                setReactionFontSize(document, layoutIndex, record.find("reaction-font-size")->second);
-            if (record.find("reaction-font-style") != record.end())
-                setReactionFontStyle(document, layoutIndex, record.find("reaction-font-style")->second);
-            if (record.find("reaction-font-weight") != record.end())
-                setReactionFontWeight(document, layoutIndex, record.find("reaction-font-weight")->second);
-            if (record.find("line-ending-border-color") != record.end())
-                setLineEndingStrokeColor(document, layoutIndex, record.find("line-ending-border-color")->second);
-            if (record.find("line-ending-border-width") != record.end())
-                setLineEndingStrokeWidth(document, layoutIndex, std::stod(record.find("line-ending-border-width")->second));
-            if (record.find("line-ending-fill-color") != record.end())
-                setLineEndingFillColor(document, layoutIndex, record.find("line-ending-fill-color")->second);
+int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& styleName) {
+    std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
+    if (styleFeatures.find("background-color") != styleFeatures.end())
+        setBackgroundColor(document, layoutIndex, styleFeatures.find("background-color")->second);
+    if (styleFeatures.find("compartment-geometric-shape") != styleFeatures.end())
+        setCompartmentGeometricShapeType(document, layoutIndex, styleFeatures.find("compartment-geometric-shape")->second);
+    if (styleFeatures.find("compartment-geometric-shape-ratio") != styleFeatures.end())
+        setCompartmentGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("compartment-geometric-shape-ratio")->second));
+    if (styleFeatures.find("compartment-border-color") != styleFeatures.end())
+        setCompartmentStrokeColor(document, layoutIndex, styleFeatures.find("compartment-border-color")->second);
+    if (styleFeatures.find("compartment-border-width") != styleFeatures.end())
+        setCompartmentStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("compartment-border-width")->second));
+    if (styleFeatures.find("compartment-fill-color") != styleFeatures.end())
+        setCompartmentFillColor(document, layoutIndex, styleFeatures.find("compartment-fill-color")->second);
+    if (styleFeatures.find("compartment-font-color") != styleFeatures.end())
+        setCompartmentFontColor(document, layoutIndex, styleFeatures.find("compartment-font-color")->second);
+    if (styleFeatures.find("compartment-font-size") != styleFeatures.end())
+        setCompartmentFontSize(document, layoutIndex, styleFeatures.find("compartment-font-size")->second);
+    if (styleFeatures.find("compartment-font-style") != styleFeatures.end())
+        setCompartmentFontStyle(document, layoutIndex, styleFeatures.find("compartment-font-style")->second);
+    if (styleFeatures.find("compartment-font-weight") != styleFeatures.end())
+        setCompartmentFontWeight(document, layoutIndex, styleFeatures.find("compartment-font-weight")->second);
+    if (styleFeatures.find("species-geometric-shape") != styleFeatures.end())
+        setSpeciesGeometricShapeType(document, layoutIndex, styleFeatures.find("species-geometric-shape")->second);
+    if (styleFeatures.find("species-geometric-shape-ratio") != styleFeatures.end())
+        setSpeciesGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("species-geometric-shape-ratio")->second));
+    if (styleFeatures.find("species-border-color") != styleFeatures.end())
+        setSpeciesStrokeColor(document, layoutIndex, styleFeatures.find("species-border-color")->second);
+    if (styleFeatures.find("species-border-width") != styleFeatures.end())
+        setSpeciesStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("species-border-width")->second));
+    if (styleFeatures.find("species-fill-color") != styleFeatures.end())
+        setSpeciesFillColor(document, layoutIndex, styleFeatures.find("species-fill-color")->second);
+    if (styleFeatures.find("species-font-color") != styleFeatures.end())
+        setSpeciesFontColor(document, layoutIndex, styleFeatures.find("species-font-color")->second);
+    if (styleFeatures.find("species-font-size") != styleFeatures.end())
+        setSpeciesFontSize(document, layoutIndex, styleFeatures.find("species-font-size")->second);
+    if (styleFeatures.find("species-font-style") != styleFeatures.end())
+        setSpeciesFontStyle(document, layoutIndex, styleFeatures.find("species-font-style")->second);
+    if (styleFeatures.find("species-font-weight") != styleFeatures.end())
+        setSpeciesFontWeight(document, layoutIndex, styleFeatures.find("species-font-weight")->second);
+    if (styleFeatures.find("reaction-geometric-shape") != styleFeatures.end())
+        setReactionGeometricShapeType(document, layoutIndex, styleFeatures.find("reaction-geometric-shape")->second);
+    if (styleFeatures.find("reaction-geometric-shape-ratio") != styleFeatures.end())
+        setReactionGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("reaction-geometric-shape-ratio")->second));
+    if (styleFeatures.find("reaction-geometric-shape-center-x") != styleFeatures.end())
+        setReactionGeometricShapeCenterX(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-center-x")->second);
+    if (styleFeatures.find("reaction-geometric-shape-center-y") != styleFeatures.end())
+        setReactionGeometricShapeCenterY(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-center-y")->second);
+    if (styleFeatures.find("reaction-geometric-shape-radius-x") != styleFeatures.end())
+        setReactionGeometricShapeRadiusX(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-radius-x")->second);
+    if (styleFeatures.find("reaction-geometric-shape-radius-y") != styleFeatures.end())
+        setReactionGeometricShapeRadiusY(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-radius-y")->second);
+    if (styleFeatures.find("reaction-line-color") != styleFeatures.end())
+        setReactionStrokeColor(document, layoutIndex, styleFeatures.find("reaction-line-color")->second);
+    if (styleFeatures.find("reaction-line-width") != styleFeatures.end())
+        setReactionStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("reaction-line-width")->second));
+    if (styleFeatures.find("reaction-fill-color") != styleFeatures.end())
+        setReactionFillColor(document, layoutIndex, styleFeatures.find("reaction-fill-color")->second);
+    if (styleFeatures.find("reaction-font-color") != styleFeatures.end())
+        setReactionFontColor(document, layoutIndex, styleFeatures.find("reaction-font-color")->second);
+    if (styleFeatures.find("reaction-font-size") != styleFeatures.end())
+        setReactionFontSize(document, layoutIndex, styleFeatures.find("reaction-font-size")->second);
+    if (styleFeatures.find("reaction-font-style") != styleFeatures.end())
+        setReactionFontStyle(document, layoutIndex, styleFeatures.find("reaction-font-style")->second);
+    if (styleFeatures.find("reaction-font-weight") != styleFeatures.end())
+        setReactionFontWeight(document, layoutIndex, styleFeatures.find("reaction-font-weight")->second);
+    if (styleFeatures.find("line-ending-border-color") != styleFeatures.end())
+        setLineEndingStrokeColor(document, layoutIndex, styleFeatures.find("line-ending-border-color")->second);
+    if (styleFeatures.find("line-ending-border-width") != styleFeatures.end())
+        setLineEndingStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("line-ending-border-width")->second));
+    if (styleFeatures.find("line-ending-fill-color") != styleFeatures.end())
+        setLineEndingFillColor(document, layoutIndex, styleFeatures.find("line-ending-fill-color")->second);
 
-            return 0;
-        }
-    }
-
-    std::cerr << "Error: The style '" << style << "' is not found." << std::endl;
-    return -1;
+    return 0;
 }
 
-bool whetherDisplayReactionTextLabel(const std::string& style) {
-    std::vector<std::map<std::string, std::string>> data = getPredefinedStyles();
-    for (const auto& record : data) {
-        if (record.find("name") != record.end() && record.find("name")->second == style) {
-            if (record.find("display-reaction-text-label") != record.end())
-                return record.find("display-reaction-text-label")->second == "true";
-        }
-    }
+bool whetherDisplayReactionTextLabel(const std::string& styleName) {
+    std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
+    if (styleFeatures.find("display-reaction-text-label") != styleFeatures.end())
+        return styleFeatures.find("display-reaction-text-label")->second == "true";
 
     return false;
 }
