@@ -51,7 +51,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_move_species(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 horizontal_displacement = 10.0
                 vertical_displacement = 10.0
@@ -69,7 +69,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_move_species_with_calling_position_functions(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 horizontal_displacement = 10.0
                 vertical_displacement = 10.0
@@ -98,7 +98,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_elements_are_bounded_by_compartment(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 for species_id in list_of_species_ids:
                     self._check_species_is_bounded_by_its_compartment(network, species_id)
@@ -109,7 +109,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_left(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'left', ignore_locked_nodes=True)
@@ -119,7 +119,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_right(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 x_max = self._get_max_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'right', ignore_locked_nodes=True)
@@ -129,7 +129,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_hcenter(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 x_max = self._get_max_position_x(network, list_of_species_ids)
@@ -141,7 +141,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_top(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'top', ignore_locked_nodes=True)
@@ -151,7 +151,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_bottom(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 y_max = self._get_max_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'bottom', ignore_locked_nodes=True)
@@ -161,7 +161,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_vcenter(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 y_max = self._get_max_position_y(network, list_of_species_ids)
@@ -173,7 +173,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_circular(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 network.align(list_of_species_ids, 'circular', ignore_locked_nodes=True)
                 radius = self._get_radius_of_positions(network, list_of_species_ids)
@@ -186,7 +186,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_curves_direction_towards_species_center(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout()
+                network.autolayout(reset_locked_nodes=True)
                 list_of_reaction_ids = network.getListOfReactionIds()
                 for reaction_id in list_of_reaction_ids:
                     self._check_curves_direction_towards_species_center(network, reaction_id)
@@ -231,7 +231,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_border_colors(self):
         for network in self.networks:
-            network.setSpeciesBorderColors('orange')
+            network.setSpeciesBorderColor('orange')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('orange', network.getBorderColor(species_id))
@@ -245,7 +245,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_line_colors(self):
         for network in self.networks:
-            network.setReactionsLineColors('orange')
+            network.setReactionsLineColor('orange')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('orange', network.getLineColor(reaction_id))
@@ -263,7 +263,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_border_widths(self):
         for network in self.networks:
-            network.setSpeciesBorderWidths(4.0)
+            network.setSpeciesBorderWidth(4.0)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual(4.0, network.getBorderWidth(species_id))
@@ -277,7 +277,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_line_widths(self):
         for network in self.networks:
-            network.setReactionsLineWidths(4.0)
+            network.setReactionsLineWidth(4.0)
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual(4.0, network.getLineWidth(reaction_id))
@@ -295,7 +295,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_fill_colors(self):
         for network in self.networks:
-            network.setSpeciesFillColors('yellow')
+            network.setSpeciesFillColor('yellow')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('yellow', network.getFillColor(species_id))
@@ -313,11 +313,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_font_colors(self):
         for network in self.networks:
-            network.setSpeciesFontColors('purple')
+            network.setSpeciesFontColor('purple')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('purple', network.getFontColor(species_id))
-            network.setReactionsFontColors('purple')
+            network.setReactionsFontColor('purple')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('purple', network.getFontColor(reaction_id))
@@ -335,11 +335,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_font_sizes(self):
         for network in self.networks:
-            network.setSpeciesFontSizes(17)
+            network.setSpeciesFontSize(17)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual(17, network.getFontSize(species_id))
-            network.setReactionsFontSizes(17)
+            network.setReactionsFontSize(17)
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual(17, network.getFontSize(reaction_id))
@@ -357,11 +357,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_font_families(self):
         for network in self.networks:
-            network.setSpeciesFontFamilies('Times New Roman')
+            network.setSpeciesFontFamily('Times New Roman')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('Times New Roman', network.getFontFamily(species_id))
-            network.setReactionsFontFamilies('Times New Roman')
+            network.setReactionsFontFamily('Times New Roman')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('Times New Roman', network.getFontFamily(reaction_id))
@@ -379,11 +379,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_font_styles(self):
         for network in self.networks:
-            network.setSpeciesFontStyles('normal')
+            network.setSpeciesFontStyle('normal')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('normal', network.getFontStyle(species_id))
-            network.setReactionsFontStyles('normal')
+            network.setReactionsFontStyle('normal')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('normal', network.getFontStyle(reaction_id))
@@ -401,11 +401,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_font_weights(self):
         for network in self.networks:
-            network.setSpeciesFontWeights('normal')
+            network.setSpeciesFontWeight('normal')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('normal', network.getFontWeight(species_id))
-            network.setReactionsFontWeights('normal')
+            network.setReactionsFontWeight('normal')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('normal', network.getFontWeight(reaction_id))
@@ -421,11 +421,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_text_horizontal_alignments(self):
         for network in self.networks:
-            network.setSpeciesTextHorizontalAlignments('end')
+            network.setSpeciesTextHorizontalAlignment('end')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('end', network.getTextHorizontalAlignment(species_id))
-            network.setReactionsTextHorizontalAlignments('end')
+            network.setReactionsTextHorizontalAlignment('end')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('end', network.getTextHorizontalAlignment(reaction_id))
@@ -443,11 +443,11 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_text_vertical_alignments(self):
         for network in self.networks:
-            network.setSpeciesTextVerticalAlignments('bottom')
+            network.setSpeciesTextVerticalAlignment('bottom')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual('bottom', network.getTextVerticalAlignment(species_id))
-            network.setReactionsTextVerticalAlignments('bottom')
+            network.setReactionsTextVerticalAlignment('bottom')
             list_of_reaction_ids = network.getListOfReactionIds()
             for reaction_id in list_of_reaction_ids:
                 self.assertEqual('bottom', network.getTextVerticalAlignment(reaction_id))
@@ -477,7 +477,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     def test_set_geometric_shapes(self):
         for network in self.networks:
-            network.setSpeciesGeometricShapesType('square')
+            network.setSpeciesGeometricShapeType('square')
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertEqual(True, bool(network.isSquare(species_id)))
@@ -493,9 +493,9 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             x = 10.0
             y = 15.0
-            network.setSpeciesGeometricShapesType('rectangle')
-            network.setSpeciesGeometricShapeXs(x)
-            network.setSpeciesGeometricShapeYs(y)
+            network.setSpeciesGeometricShapeType('rectangle')
+            network.setSpeciesGeometricShapeX(x)
+            network.setSpeciesGeometricShapeY(y)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertAlmostEqual(x, network.getGeometricShapeX(species_id), 0.1)
@@ -511,9 +511,9 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             width = 10.0
             height = 15.0
-            network.setSpeciesGeometricShapesType('rectangle')
-            network.setSpeciesGeometricShapeWidths(width)
-            network.setSpeciesGeometricShapeHeights(height)
+            network.setSpeciesGeometricShapeType('rectangle')
+            network.setSpeciesGeometricShapeWidth(width)
+            network.setSpeciesGeometricShapeHeight(height)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertAlmostEqual(width, network.getGeometricShapeWidth(species_id), 0.1)
@@ -530,9 +530,9 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             center_x = 5.0
             center_y = 7.5
-            network.setSpeciesGeometricShapesType('ellipse')
-            network.setSpeciesGeometricShapeCenterXs(center_x)
-            network.setSpeciesGeometricShapeCenterYs(center_y)
+            network.setSpeciesGeometricShapeType('ellipse')
+            network.setSpeciesGeometricShapeCenterX(center_x)
+            network.setSpeciesGeometricShapeCenterY(center_y)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertAlmostEqual(center_x, network.getGeometricShapeCenterX(species_id), 0.1)
@@ -549,9 +549,9 @@ class TestSBMLNetwork(unittest.TestCase):
         for network in self.networks:
             radius_x = 5.0
             radius_y = 7.5
-            network.setSpeciesGeometricShapesType('ellipse')
-            network.setSpeciesGeometricShapeRadiusXs(radius_x)
-            network.setSpeciesGeometricShapeRadiusYs(radius_y)
+            network.setSpeciesGeometricShapeType('ellipse')
+            network.setSpeciesGeometricShapeRadiusX(radius_x)
+            network.setSpeciesGeometricShapeRadiusY(radius_y)
             list_of_species_ids = network.getListOfSpeciesIds()
             for species_id in list_of_species_ids:
                 self.assertAlmostEqual(radius_x, network.getGeometricShapeRadiusX(species_id), 0.1)
