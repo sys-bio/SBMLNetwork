@@ -3329,7 +3329,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param shape a string value indicating the shape of the geometric shape to be set.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
