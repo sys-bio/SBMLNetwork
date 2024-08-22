@@ -3418,6 +3418,9 @@ LIBSBMLNETWORK_EXTERN int setStrokeColor(SBMLDocument* document, GraphicalObject
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& stroke);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -3427,6 +3430,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -3436,6 +3442,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(SBMLDocument* docu
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -3500,6 +3509,9 @@ LIBSBMLNETWORK_EXTERN int setStrokeWidth(SBMLDocument* document, GraphicalObject
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth);
 
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke-width" attribute of the RenderGroup of the Style for the Compartment, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentStrokeWidth(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -3509,6 +3521,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentStrokeWidth(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
 
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke-width" attribute of the RenderGroup of the Style for the Species, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesStrokeWidth(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -3518,6 +3533,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesStrokeWidth(SBMLDocument* document)
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth);
 
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke-width" attribute of the RenderGroup of the Style for the Reaction, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionStrokeWidth(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -3697,6 +3715,9 @@ LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, const std::string
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontColor);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -3706,6 +3727,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontColor(SBMLDocument* do
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -3715,6 +3739,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontColor(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "stroke" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionFontColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects
@@ -3791,6 +3818,9 @@ LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, const std::strin
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontFamily);
 
+/// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-family" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontFamily(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -3800,6 +3830,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontFamily(SBMLDocument* d
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily);
 
+/// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-family" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontFamily(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -3809,6 +3842,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontFamily(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily);
 
+/// @brief Returns the value of the "font-family" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-family" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionFontFamily(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
@@ -3929,6 +3965,9 @@ LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(SBMLDocument* document, const std:
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const double& fontSize);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for the Compartment, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentFontSize(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -3938,6 +3977,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentFontSize(SBMLDocument* do
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for the Compartment as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for the Compartment as a double, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentFontSizeAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all CompartmentGlyph objects as a double.
@@ -3947,6 +3989,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentFontSizeAsDouble(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for the Species, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesFontSize(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -3956,6 +4001,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesFontSize(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for the Species as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for the Species as a double, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesFontSizeAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all SpeciesGlyph objects as a double.
@@ -3965,6 +4013,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesFontSizeAsDouble(SBMLDocument* docu
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for the Reaction, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionFontSize(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
@@ -3974,6 +4025,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionFontSize(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize);
 
+/// @brief Returns the value of the "font-size" attribute of the RenderGroup of the Style for the Reaction as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-size" attribute of the RenderGroup of the Style for the Reaction as a double, or 0.0 if the object is NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionFontSizeAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style for all ReactionGlyph objects as a double.
@@ -4057,6 +4111,9 @@ LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, const std::strin
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontWeight);
 
+/// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-weight" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontWeight(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4066,6 +4123,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontWeight(SBMLDocument* d
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
+/// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-weight" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontWeight(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4075,6 +4135,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontWeight(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight);
 
+/// @brief Returns the value of the "font-weight" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-weight" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionFontWeight(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
@@ -4152,6 +4215,9 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, const std::string
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& fontStyle);
 
+/// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-style" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontStyle(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4161,6 +4227,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontStyle(SBMLDocument* do
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
+/// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-style" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontStyle(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4170,6 +4239,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontStyle(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle);
 
+/// @brief Returns the value of the "font-style" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "font-style" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionFontStyle(SBMLDocument* document);
 
 /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
@@ -4246,6 +4318,9 @@ LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, const std::strin
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& textAnchor);
 
+/// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "text-anchor" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentTextAnchor(SBMLDocument* document);
 
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4255,6 +4330,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentTextAnchor(SBMLDocument* d
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
+/// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "text-anchor" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesTextAnchor(SBMLDocument* document);
 
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4264,6 +4342,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesTextAnchor(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor);
 
+/// @brief Returns the value of the "text-anchor" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "text-anchor" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionTextAnchor(SBMLDocument* document);
 
 /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
@@ -4326,6 +4407,9 @@ LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, GraphicalObject
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex, const std::string& vtextAnchor);
 
+/// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "vtext-anchor" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentVTextAnchor(SBMLDocument* document);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4335,6 +4419,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentVTextAnchor(SBMLDocument* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
+/// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "vtext-anchor" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesVTextAnchor(SBMLDocument* document);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4344,6 +4431,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesVTextAnchor(SBMLDocument* docu
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor);
 
+/// @brief Returns the value of the "vtext-anchor" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "vtext-anchor" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionVTextAnchor(SBMLDocument* document);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
@@ -4400,6 +4490,9 @@ LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, GraphicalObject* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
 
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "fill" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4409,6 +4502,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillColor(SBMLDocument* do
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "fill" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4418,6 +4514,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillColor(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "fill" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(SBMLDocument* document);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -4481,6 +4580,9 @@ LIBSBMLNETWORK_EXTERN int setFillRule(SBMLDocument* document, GraphicalObject* g
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillRule(SBMLDocument* document, const std::string& attribute, const std::string& fillRule);
 
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "fill-rule" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillRule(SBMLDocument* document);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4490,6 +4592,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillRule(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
 
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "fill-rule" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillRule(SBMLDocument* document);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4499,6 +4604,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillRule(SBMLDocument* documen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
 
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "fill-rule" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionFillRule(SBMLDocument* document);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -4684,6 +4792,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeType(SBMLDocument* document, Graphica
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, const std::string& shape);
 
+/// @brief Returns the value of the "geometric-shape" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "geometric-shape" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentGeometricShapeType(SBMLDocument* document);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4693,6 +4804,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentGeometricShapeType(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
+/// @brief Returns the value of the "geometric-shape" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "geometric-shape" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesGeometricShapeType(SBMLDocument* document);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all SpeciesGlyph objects.
@@ -4702,6 +4816,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesGeometricShapeType(SBMLDocumen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape);
 
+/// @brief Returns the value of the "geometric-shape" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "geometric-shape" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionGeometricShapeType(SBMLDocument* document);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -4878,10 +4995,19 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeX(SBMLDocument* docume
 /// either Transformation2D object does not exists, does not have "x" attribute, it is not set, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for this GraphicalObject as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "x" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
-
 /// @brief Sets the value of the "x" attribute of the first Transformation2D of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -4942,6 +5068,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(SBMLDocument* document, Gra
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(SBMLDocument* document, const std::string& attribute, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the RenderGroup of the Style for the Compartment, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeX(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -4951,6 +5080,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeX(SBMLDocum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for the Compartment as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the RenderGroup of the Style for the Compartment as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects as a double.
@@ -4960,6 +5092,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeXAsDouble(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the RenderGroup of the Style for the Species, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeX(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -4969,6 +5104,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeX(SBMLDocument*
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for the Species as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the RenderGroup of the Style for the Species as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects as a double.
@@ -4978,6 +5116,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeXAsDouble(SBMLDocumen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the RenderGroup of the Style for the Reaction, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeX(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -4987,6 +5128,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeX(SBMLDocument
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the RenderGroup of the Style for the Reaction as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the RenderGroup of the Style for the Reaction as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -5118,6 +5262,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(SBMLDocument* document, Gra
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(SBMLDocument* document, const std::string& attribute, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the RenderGroup of the Style for the Compartment, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeY(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -5127,6 +5274,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeY(SBMLDocum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for the Compartment as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the RenderGroup of the Style for the Compartment as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects as a double.
@@ -5136,6 +5286,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeYAsDouble(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the RenderGroup of the Style for the Species, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeY(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -5145,6 +5298,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeY(SBMLDocument*
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for the Species as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the RenderGroup of the Style for the Species as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects as a double.
@@ -5154,6 +5310,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeYAsDouble(SBMLDocumen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the RenderGroup of the Style for the Reaction, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeY(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -5163,6 +5322,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeY(SBMLDocument
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the RenderGroup of the Style for the Reaction as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the RenderGroup of the Style for the Reaction as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -5294,6 +5456,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(SBMLDocument* document,
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& attribute, const double& width);
 
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "width" attribute of the RenderGroup of the Style for the Compartment, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeWidth(SBMLDocument* document);
 
 /// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -5303,6 +5468,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeWidth(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for the Compartment as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "width" attribute of the RenderGroup of the Style for the Compartment as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeWidthAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "width" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects as a double.
@@ -5312,6 +5480,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeWidthAsDouble(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& width);
 
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "width" attribute of the RenderGroup of the Style for the Species, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeWidth(SBMLDocument* document);
 
 /// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -5321,6 +5492,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeWidth(SBMLDocum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for the Species as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "width" attribute of the RenderGroup of the Style for the Species as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeWidthAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "width" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects as a double.
@@ -5330,6 +5504,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeWidthAsDouble(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& width);
 
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "width" attribute of the RenderGroup of the Style for the Reaction, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeWidth(SBMLDocument* document);
 
 /// @brief Sets the "width" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -5339,6 +5516,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeWidth(SBMLDocu
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width);
 
+/// @brief Returns the value of the "width" attribute of the RenderGroup of the Style for the Reaction as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "width" attribute of the RenderGroup of the Style for the Reaction as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeWidthAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "width" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -5456,6 +5636,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(SBMLDocument* document
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& height);
 
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "height" attribute of the RenderGroup of the Style for the Compartment, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeHeight(SBMLDocument* document);
 
 /// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -5465,6 +5648,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeHeight(SBML
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for the Compartment as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "height" attribute of the RenderGroup of the Style for the Compartment as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeHeightAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "height" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects as a double.
@@ -5474,6 +5660,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeHeightAsDouble(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& height);
 
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "height" attribute of the RenderGroup of the Style for the Species, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeHeight(SBMLDocument* document);
 
 /// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -5483,6 +5672,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeHeight(SBMLDocu
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for the Species as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "height" attribute of the RenderGroup of the Style for the Species as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeHeightAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "height" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects as a double.
@@ -5492,6 +5684,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeHeightAsDouble(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& height);
 
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "height" attribute of the RenderGroup of the Style for the Reaction, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeHeight(SBMLDocument* document);
 
 /// @brief Sets the "height" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -5501,6 +5696,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeHeight(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height);
 
+/// @brief Returns the value of the "height" attribute of the RenderGroup of the Style for the Reaction as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "height" attribute of the RenderGroup of the Style for the Reaction as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeHeightAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "height" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -5586,6 +5784,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, const s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& ratio);
 
+/// @brief Returns the value of the "ratio" attribute of the RenderGroup of the Style for the Compartment.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ratio" attribute of the RenderGroup of the Style for the Compartment as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRatio(SBMLDocument* document);
 
 /// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects.
@@ -5595,6 +5796,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRatio(SBMLDocumen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
 
+/// @brief Returns the value of the "ratio" attribute of the RenderGroup of the Style for the Species.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ratio" attribute of the RenderGroup of the Style for the Species as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRatio(SBMLDocument* document);
 
 /// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects.
@@ -5604,6 +5808,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRatio(SBMLDocument* d
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio);
 
+/// @brief Returns the value of the "ratio" attribute of the RenderGroup of the Style for the Reaction.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ratio" attribute of the RenderGroup of the Style for the Reaction as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeRatio(SBMLDocument* document);
 
 /// @brief Sets the "ratio" attribute of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -5728,6 +5935,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& attribute, const double& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects.
@@ -5737,6 +5947,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCornerCurva
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects as a double.
@@ -5746,6 +5959,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCornerCurvatureRa
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects.
@@ -5755,6 +5971,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCornerCurvature
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "rx" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects as a double.
@@ -5764,6 +5983,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCornerCurvatureRadius
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -5773,6 +5995,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCornerCurvatur
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "rx" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -5904,6 +6129,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& attribute, const double& ry);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects.
@@ -5913,6 +6141,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCornerCurva
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "ry" attribute of the geometric shape corner curvature radius for all CompartmentGlyph objects as a double.
@@ -5922,6 +6153,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCornerCurvatureRa
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document);
 
 /// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects.
@@ -5931,6 +6165,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCornerCurvature
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "ry" attribute of the geometric shape corner curvature radius for all SpeciesGlyph objects as a double.
@@ -5940,6 +6177,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCornerCurvatureRadius
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document);
 
 /// @brief Sets the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -5949,6 +6189,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCornerCurvatur
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "ry" attribute of the geometric shape corner curvature radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -6080,6 +6323,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(SBMLDocument* documen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& attribute, const double& cx);
 
+/// @brief Returns the value of the "cx" attribute of the geometric shape center for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cx" attribute of the geometric shape center for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCenterX(SBMLDocument* document);
 
 /// @brief Sets the "cx" attribute of the geometric shape center for all CompartmentGlyph objects.
@@ -6089,6 +6335,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCenterX(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
+/// @brief Returns the value of the "cx" attribute of the geometric shape center for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cx" attribute of the geometric shape center for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCenterXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "cx" attribute of the geometric shape center for all CompartmentGlyph objects as a double.
@@ -6098,6 +6347,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCenterXAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cx);
 
+/// @brief Returns the value of the "cx" attribute of the geometric shape center for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cx" attribute of the geometric shape center for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCenterX(SBMLDocument* document);
 
 /// @brief Sets the "cx" attribute of the geometric shape center for all SpeciesGlyph objects.
@@ -6107,6 +6359,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCenterX(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
+/// @brief Returns the value of the "cx" attribute of the geometric shape center for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cx" attribute of the geometric shape center for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCenterXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "cx" attribute of the geometric shape center for all SpeciesGlyph objects as a double.
@@ -6116,6 +6371,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCenterXAsDouble(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cx);
 
+/// @brief Returns the value of the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCenterX(SBMLDocument* document);
 
 /// @brief Sets the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -6125,6 +6383,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCenterX(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx);
 
+/// @brief Returns the value of the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCenterXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "cx" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -6256,6 +6517,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(SBMLDocument* documen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& attribute, const double& cy);
 
+/// @brief Returns the value of the "cy" attribute of the geometric shape center for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cy" attribute of the geometric shape center for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCenterY(SBMLDocument* document);
 
 /// @brief Sets the "cy" attribute of the geometric shape center for all CompartmentGlyph objects.
@@ -6265,6 +6529,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCenterY(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
+/// @brief Returns the value of the "cy" attribute of the geometric shape center for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cy" attribute of the geometric shape center for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCenterYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "cy" attribute of the geometric shape center for all CompartmentGlyph objects as a double.
@@ -6274,6 +6541,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCenterYAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cy);
 
+/// @brief Returns the value of the "cy" attribute of the geometric shape center for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cy" attribute of the geometric shape center for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCenterY(SBMLDocument* document);
 
 /// @brief Sets the "cy" attribute of the geometric shape center for all SpeciesGlyph objects.
@@ -6283,6 +6553,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCenterY(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
+/// @brief Returns the value of the "cy" attribute of the geometric shape center for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cy" attribute of the geometric shape center for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCenterYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "cy" attribute of the geometric shape center for all SpeciesGlyph objects as a double.
@@ -6292,6 +6565,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCenterYAsDouble(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cy);
 
+/// @brief Returns the value of the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCenterY(SBMLDocument* document);
 
 /// @brief Sets the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -6301,6 +6577,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCenterY(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy);
 
+/// @brief Returns the value of the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCenterYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "cy" attribute of the geometric shape center for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -6432,6 +6711,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(SBMLDocument* documen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& attribute, const double& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects.
@@ -6441,6 +6723,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeRadiusX(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRadiusXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects as a double.
@@ -6450,6 +6735,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRadiusXAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects.
@@ -6459,6 +6747,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeRadiusX(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRadiusXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "rx" attribute of the geometric shape radius for all SpeciesGlyph objects as a double.
@@ -6468,6 +6759,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRadiusXAsDouble(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -6477,6 +6771,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeRadiusX(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeRadiusXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "rx" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -6608,6 +6905,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(SBMLDocument* documen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& attribute, const double& ry);
 
+/// @brief Returns the value of the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "rx" attribute of the geometric shape radius for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeRadiusX(SBMLDocument* document);
 
 /// @brief Sets the "ry" attribute of the geometric shape radius for all CompartmentGlyph objects.
@@ -6617,6 +6917,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeRadiusX(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape radius for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape radius for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRadiusYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "ry" attribute of the geometric shape radius for all CompartmentGlyph objects as a double.
@@ -6626,6 +6929,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRadiusYAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeRadiusY(SBMLDocument* document);
 
 /// @brief Sets the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects.
@@ -6635,6 +6941,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeRadiusY(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRadiusYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "ry" attribute of the geometric shape radius for all SpeciesGlyph objects as a double.
@@ -6644,6 +6953,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRadiusYAsDouble(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeRadiusY(SBMLDocument* document);
 
 /// @brief Sets the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -6653,6 +6965,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeRadiusY(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry);
 
+/// @brief Returns the value of the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeRadiusYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "ry" attribute of the geometric shape radius for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -6842,6 +7157,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeElementX(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape element for all CompartmentGlyph objects.
@@ -6852,6 +7170,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeElementX(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the geometric shape element for all CompartmentGlyph objects as a double.
@@ -6862,6 +7183,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeElementXAsDouble(
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeElementX(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape element for all SpeciesGlyph objects.
@@ -6872,6 +7196,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeElementX(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the geometric shape element for all SpeciesGlyph objects as a double.
@@ -6882,6 +7209,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeElementXAsDouble(SBML
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeElementX(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -6892,6 +7222,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeElementX(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeElementXAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -7050,6 +7383,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeElementX(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the geometric shape element for all CompartmentGlyph objects.
@@ -7060,6 +7396,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeElementX(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the geometric shape element for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the geometric shape element for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the geometric shape element for all CompartmentGlyph objects as a double.
@@ -7070,6 +7409,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeElementYAsDouble(
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeElementX(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the geometric shape element for all SpeciesGlyph objects.
@@ -7080,6 +7422,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeElementX(SBMLDo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the geometric shape element for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the geometric shape element for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the geometric shape element for all SpeciesGlyph objects as a double.
@@ -7090,6 +7435,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeElementYAsDouble(SBML
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeElementX(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -7100,6 +7448,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeElementX(SBMLD
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeElementYAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -7258,6 +7609,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint1X(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects.
@@ -7268,6 +7622,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint1X
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint1XAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects as a double.
@@ -7278,6 +7635,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint1XAsDoub
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint1X(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
@@ -7288,6 +7648,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint1X(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint1XAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects as a double.
@@ -7298,6 +7661,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint1XAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint1X(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -7308,6 +7674,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint1X(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint1XAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -7466,6 +7835,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects.
@@ -7476,6 +7848,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint1Y
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint1YAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the geometric shape element for all CompartmentGlyph objects as a double.
@@ -7484,10 +7859,14 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint1YAsDoub
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
 /// @param y a double value to use as the value of the "y" attribute of the base point 1 of the geometric shape element.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);/// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
+LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document);
 
+/// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
@@ -7495,6 +7874,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint1Y(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint1YAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the geometric shape element for all SpeciesGlyph objects as a double.
@@ -7505,6 +7887,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint1YAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint1Y(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -7515,6 +7900,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint1Y(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint1YAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the base point 1 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -7672,6 +8060,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint2X(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects.
@@ -7682,6 +8073,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint2X
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint2XAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects as a double.
@@ -7692,6 +8086,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint2XAsDoub
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint2X(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects.
@@ -7702,6 +8099,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint2X(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint2XAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects as a double.
@@ -7712,6 +8112,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint2XAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint2X(SBMLDocument* document);
 
 /// @brief Sets the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -7722,6 +8125,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint2X(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+/// @brief Returns the value of the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint2XAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "x" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -7880,6 +8286,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects.
@@ -7890,6 +8299,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint2Y
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint2YAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the geometric shape element for all CompartmentGlyph objects as a double.
@@ -7900,6 +8312,9 @@ LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint2YAsDoub
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects.
@@ -7910,6 +8325,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint2Y(SBM
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint2YAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the geometric shape element for all SpeciesGlyph objects as a double.
@@ -7920,6 +8338,9 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint2YAsDouble(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects, or @c RelAbsVector() if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint2Y(SBMLDocument* document);
 
 /// @brief Sets the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
@@ -7930,6 +8351,9 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint2Y(SB
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+/// @brief Returns the value of the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double, or @c 0.0 if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint2YAsDouble(SBMLDocument* document);
 
 /// @brief Sets the value of the "y" attribute of the base point 2 of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a double.
@@ -8080,6 +8504,9 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, const st
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& href);
 
+/// @brief Returns the value of the "href" attribute of the geometric shape element for all CompartmentGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "href" attribute of the geometric shape element for all CompartmentGlyph objects, or an empty string if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentGeometricShapeHref(SBMLDocument* document);
 
 /// @brief Sets the "href" attribute of the geometric shape element for all CompartmentGlyph objects in the specified layout.
@@ -8089,6 +8516,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentGeometricShapeHref(SBMLDoc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
+/// @brief Returns the value of the "href" attribute of the geometric shape element for all SpeciesGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "href" attribute of the geometric shape element for all SpeciesGlyph objects, or an empty string if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesGeometricShapeHref(SBMLDocument* document);
 
 /// @brief Sets the "href" attribute of the geometric shape element for all SpeciesGlyph objects in the specified layout.
@@ -8098,6 +8528,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesGeometricShapeHref(SBMLDocumen
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
+/// @brief Returns the value of the "href" attribute of the geometric shape element for all ReactionGlyph objects.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the "href" attribute of the geometric shape element for all ReactionGlyph objects, or an empty string if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionGeometricShapeHref(SBMLDocument* document);
 
 /// @brief Sets the "href" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects in the specified layout.
