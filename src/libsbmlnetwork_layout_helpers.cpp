@@ -180,8 +180,8 @@ void lockReactionGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, con
 
 void lockGraphicalObject(GraphicalObject* graphicalObject) {
     setUserData(graphicalObject, "locked", "true");
-    setUserData(graphicalObject, "x", std::to_string(graphicalObject->getBoundingBox()->x()));
-    setUserData(graphicalObject, "y", std::to_string(graphicalObject->getBoundingBox()->y()));
+    setUserData(graphicalObject, "x", std::to_string(getPositionX(graphicalObject)));
+    setUserData(graphicalObject, "y", std::to_string(getPositionY(graphicalObject)));
 }
 
 void unlockGraphicalObject(GraphicalObject* graphicalObject) {
@@ -818,6 +818,56 @@ void updateAssociatedTextGlyphsDimensionHeight(Layout* layout, GraphicalObject* 
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     for (unsigned int i = 0; i < textGlyphs.size(); i++)
         textGlyphs.at(i)->getBoundingBox()->setHeight(textGlyphs.at(i)->getBoundingBox()->height() + changedHeight);
+}
+
+const double getCurveMiddlePositionX(Curve* curve) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment* lineSegment = curve->getCurveSegment(0);
+        return 0.5 * (lineSegment->getStart()->x() + lineSegment->getEnd()->x());
+    }
+
+    return 0.0;
+}
+
+const double getCurveMiddlePositionY(Curve* curve) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment* lineSegment = curve->getCurveSegment(0);
+        return 0.5 * (lineSegment->getStart()->y() + lineSegment->getEnd()->y());
+    }
+
+    return 0.0;
+}
+
+int setCurveMiddlePositionX(Curve* curve, const double& x) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment *lineSegment = curve->getCurveSegment(0);
+        lineSegment->getStart()->setX(x);
+        lineSegment->getEnd()->setX(x);
+        if (isCubicBezier(lineSegment)) {
+            ((CubicBezier *) lineSegment)->getBasePoint1()->setX(x);
+            ((CubicBezier *) lineSegment)->getBasePoint2()->setX(x);
+        }
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int setCurveMiddlePositionY(Curve* curve, const double& y) {
+    if (curve->getNumCurveSegments() == 1) {
+        LineSegment *lineSegment = curve->getCurveSegment(0);
+        lineSegment->getStart()->setY(y);
+        lineSegment->getEnd()->setY(y);
+        if (isCubicBezier(lineSegment)) {
+            ((CubicBezier *) lineSegment)->getBasePoint1()->setY(y);
+            ((CubicBezier *) lineSegment)->getBasePoint2()->setY(y);
+        }
+
+        return 0;
+    }
+
+    return -1;
 }
 
 void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes) {

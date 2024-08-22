@@ -943,7 +943,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param width a double value to be set as "width" attribute of the bounding box of the Compartments object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
 
     /// @brief Sets the values of the "width" attribute of the bounding box of all the Species of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -981,7 +981,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param height a double value to be set as "height" attribute of the bounding box of the Compartments object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
 
     /// @brief Sets the values of the "height" attribute of the bounding box of all the Species of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -2506,33 +2506,39 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineColor(SBMLDocument* document, const char* id, const char* lineColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsBorderColor(SBMLDocument* document);
+
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesBorderColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsLineColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param lineColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsLineColors(SBMLDocument* document, const char* lineColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsLineColor(SBMLDocument* document, const char* lineColor, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex);
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2591,33 +2597,39 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lineWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
     LIBSBMLNETWORK_EXTERN int c_api_setLineWidth(SBMLDocument* document, const char* id, const double lineWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsBorderWidth(SBMLDocument* document);
+
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesBorderWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsLineWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param lineWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsLineWidths(SBMLDocument* document, const double lineWidth, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsLineWidth(SBMLDocument* document, const double lineWidth, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex);
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2679,33 +2691,39 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFillColor(SBMLDocument* document);
+
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFillColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFillColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex);
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2740,19 +2758,27 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillRule(SBMLDocument* document, const char* id, const char* fillRule, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFillRule(SBMLDocument* document);
+
     /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFillRule(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFillRule(SBMLDocument* document);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2791,26 +2817,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontColor(SBMLDocument* document, const char* id, const char* fontColor, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFontColor(SBMLDocument* document);
+
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontColor(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFontColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontColor(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFontColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontColors(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontColor(SBMLDocument* document, const char* fontColor, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2848,26 +2880,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontFamily(SBMLDocument* document, const char* id, const char* fontFamily, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFontFamily(SBMLDocument* document);
+
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontFamily(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFontFamily(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontFamily(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFontFamily(SBMLDocument* document);
 
     /// @breif Sets the value of the "font-family" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontFamilies(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontFamily(SBMLDocument* document, const char* fontFamily, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-family" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2905,26 +2943,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontSize(SBMLDocument* document, const char* id, const double fontSize, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsFontSize(SBMLDocument* document);
+
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontSize(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesFontSize(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontSize(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsFontSize(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontSizes(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontSize(SBMLDocument* document, const double fontSize, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-size" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -2962,25 +3006,31 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontWeight(SBMLDocument* document, const char* id, const char* fontWeight, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFontWeight(SBMLDocument* document);
+
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontWeight(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFontWeight(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontWeight(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFontWeight(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontWeights(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontWeight(SBMLDocument* document, const char* fontWeight, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-weight" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3018,26 +3068,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFontStyle(SBMLDocument* document, const char* id, const char* fontStyle, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFontStyle(SBMLDocument* document);
+
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFontStyle(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFontStyle(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFontStyle(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFontStyle(SBMLDocument* document);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontStyles(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFontStyle(SBMLDocument* document, const char* fontStyle, int layoutIndex = 0);
 
     /// @brief Sets the value of the "font-style" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3075,26 +3131,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setTextHorizontalAlignment(SBMLDocument* document, const char* id, const char* textHorizontalAlignment, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsTextHorizontalAlignment(SBMLDocument* document);
+
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsTextHorizontalAlignment(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesTextHorizontalAlignment(SBMLDocument* document);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesTextHorizontalAlignment(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsTextHorizontalAlignment(SBMLDocument* document);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textHorizontalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsTextHorizontalAlignments(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsTextHorizontalAlignment(SBMLDocument* document, const char* textHorizontalAlignment, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3132,26 +3194,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setTextVerticalAlignment(SBMLDocument* document, const char* id, const char* textVerticalAlignment, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsTextVerticalAlignment(SBMLDocument* document);
+
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsTextVerticalAlignment(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesTextVerticalAlignment(SBMLDocument* document);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesTextVerticalAlignment(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsTextVerticalAlignment(SBMLDocument* document);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param textVerticalAlignment a string value to use as the value of the "text-anchor" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsTextVerticalAlignments(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsTextVerticalAlignment(SBMLDocument* document, const char* textVerticalAlignment, int layoutIndex = 0);
 
     /// @brief Sets the value of the "text-anchor" attribute of the RenderGroup of the the Style of the TextGlyph objects associated with of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3261,7 +3329,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param shape a string value indicating the shape of the geometric shape to be set.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3387,26 +3455,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeX(SBMLDocument* document, const char* id, const double x, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeX(SBMLDocument* document);
+
     /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeX(SBMLDocument* document, const double x, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeX(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeX(SBMLDocument* document, const double x, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeX(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param x a double to use as the value of the "x" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeXs(SBMLDocument* document, const double x, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeX(SBMLDocument* document, const double x, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3445,12 +3519,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeY(SBMLDocument* document, const char* id, const double y, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeY(SBMLDocument* document);
+
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeY(SBMLDocument* document, const double y, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeY(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3458,14 +3536,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeY(SBMLDocument* document, const double y, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeY(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeYs(SBMLDocument* document, const double y, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeY(SBMLDocument* document, const double y, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getGeometricShapeYs(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3504,26 +3586,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeWidth(SBMLDocument* document, const char* id, const double width, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeWidth(SBMLDocument* document);
+
     /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double to use as the value of the "width" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
 
     /// @brief Sets the value of the "width" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3562,26 +3650,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHeight(SBMLDocument* document, const char* id, const double height, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeHeight(SBMLDocument* document);
+
     /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeHeight(SBMLDocument* document);
 
     /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeHeight(SBMLDocument* document);
 
     /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double to use as the value of the "height" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
 
     /// @brief Sets the value of the "height" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3620,26 +3714,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRatio(SBMLDocument* document, const char* id, const double ratio, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeRatio(SBMLDocument* document);
+
     /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRatio(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeRatio(SBMLDocument* document);
 
     /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRatio(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeRatio(SBMLDocument* document);
 
     /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param ratio a double to use as the value of the "ratio" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRatios(SBMLDocument* document, const double ratio, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRatio(SBMLDocument* document, const double ratio, int layoutIndex = 0);
 
     /// @brief Sets the value of the "ratio" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3678,26 +3778,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, const double borderRadiusX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeBorderRadiusX(SBMLDocument* document);
+
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeBorderRadiusX(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeBorderRadiusX(SBMLDocument* document);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeBorderRadiusX(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeBorderRadiusX(SBMLDocument* document);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderRadiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeBorderRadiusXs(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeBorderRadiusX(SBMLDocument* document, const double borderRadiusX, int layoutIndex = 0);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3736,26 +3842,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, const double borderRadiusY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeBorderRadiusY(SBMLDocument* document);
+
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeBorderRadiusY(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeBorderRadiusY(SBMLDocument* document);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeBorderRadiusY(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeBorderRadiusY(SBMLDocument* document);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderRadiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeBorderRadiusYs(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeBorderRadiusY(SBMLDocument* document, const double borderRadiusY, int layoutIndex = 0);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3794,26 +3906,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeCenterX(SBMLDocument* document, const char* id, const double centerX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeCenterX(SBMLDocument* document);
+
     /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeCenterX(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeCenterX(SBMLDocument* document);
 
     /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeCenterX(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeCenterX(SBMLDocument* document);
 
     /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param centerX a double to use as the value of the "cx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeCenterXs(SBMLDocument* document, const double centerX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeCenterX(SBMLDocument* document, const double centerX, int layoutIndex = 0);
 
     /// @brief Sets the value of the "cx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3852,26 +3970,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeCenterY(SBMLDocument* document, const char* id, const double centerY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeCenterY(SBMLDocument* document);
+
     /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeCenterY(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeCenterY(SBMLDocument* document);
 
     /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeCenterY(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeCenterY(SBMLDocument* document);
 
     /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param centerY a double to use as the value of the "cy" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeCenterYs(SBMLDocument* document, const double centerY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeCenterY(SBMLDocument* document, const double centerY, int layoutIndex = 0);
 
     /// @brief Sets the value of the "cy" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3910,26 +4034,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRadiusX(SBMLDocument* document, const char* id, const double radiusX, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeRadiusX(SBMLDocument* document);
+
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRadiusX(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeRadiusX(SBMLDocument* document);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRadiusX(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeRadiusX(SBMLDocument* document);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param radiusX a double to use as the value of the "rx" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRadiusXs(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRadiusX(SBMLDocument* document, const double radiusX, int layoutIndex = 0);
 
     /// @brief Sets the value of the "rx" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3968,19 +4098,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeRadiusY(SBMLDocument* document, const char* id, const double radiusY, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeRadiusY(SBMLDocument* document);
+
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeRadiusY(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeRadiusY(SBMLDocument* document);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param radiusY a double to use as the value of the "ry" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeRadiusY(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeRadiusY(SBMLDocument* document);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3988,7 +4124,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRadiusYs(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeRadiusY(SBMLDocument* document, const double radiusY, int layoutIndex = 0);
 
     /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4039,13 +4175,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeSegmentX(SBMLDocument* document);
+
     /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param x a double to use as the value of the "x" attribute of this element.
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentX(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeSegmentX(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4053,7 +4193,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentX(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeSegmentX(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4061,7 +4203,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentXs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentX(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4094,13 +4236,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeSegmentY(SBMLDocument* document);
+
     /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param y a double to use as the value of the "y" attribute of this element.
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentY(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeSegmentY(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4108,7 +4254,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentY(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeSegmentY(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4116,7 +4264,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentYs(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentY(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4149,13 +4297,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeSegmentBasePoint1X(SBMLDocument* document);
+
     /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param x a double to use as the value of the "x" attribute of base point 1 of this element.
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeSegmentBasePoint1X(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4163,7 +4315,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeSegmentBasePoint1X(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4171,7 +4325,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint1Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint1X(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4203,13 +4357,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeSegmentBasePoint1Y(SBMLDocument* document);
+
     /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param y a double to use as the value of the "y" attribute of base point 1 of this element.
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeSegmentBasePoint1Y(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4217,7 +4375,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeSegmentBasePoint1Y(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4225,7 +4385,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint1Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint1Y(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4257,13 +4417,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeSegmentBasePoint2X(SBMLDocument* document);
+
     /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param x a double to use as the value of the "x" attribute of base point 2 of this element.
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeSegmentBasePoint2X(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4271,7 +4435,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeSegmentBasePoint2X(SBMLDocument* document);
 
     /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4279,7 +4445,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint2Xs(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint2X(SBMLDocument* document, const double x, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "x" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4311,13 +4477,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsGeometricShapeSegmentBasePoint2Y(SBMLDocument* document);
+
     /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param y a double to use as the value of the "y" attribute of base point 2 of this element.
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesGeometricShapeSegmentBasePoint2Y(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4325,7 +4495,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsGeometricShapeSegmentBasePoint2Y(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4333,7 +4505,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param segmentIndex an int representing the index of the element to retrieve.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint2Ys(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeSegmentBasePoint2Y(SBMLDocument* document, const double y, int segmentIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "y" attribute of base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4373,26 +4545,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsGeometricShapeHref(SBMLDocument* document);
+
     /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeHref(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesGeometricShapeHref(SBMLDocument* document);
 
     /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeHref(SBMLDocument* document, const char* href, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsGeometricShapeHref(SBMLDocument* document);
 
     /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param href a string to use as the value of the "href" attribute of this Transformation2D object.
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeHref(SBMLDocument* document, const char* href, int layoutIndex = 0);
 
     /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

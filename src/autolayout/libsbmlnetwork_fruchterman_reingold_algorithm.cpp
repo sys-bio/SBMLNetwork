@@ -214,7 +214,7 @@ void FruchtermanReingoldAlgorithmBase::applyMagnetism() {
             for (int firstCurveIndex = 0; firstCurveIndex < ((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().size(); firstCurveIndex++) {
                 firstCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().at(firstCurveIndex));
                 vNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
-                if (vNode && !vNode->isLocked()) {
+                if (vNode) {
                     for (int secondCurveIndex = 0; secondCurveIndex < ((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().size(); secondCurveIndex++) {
                         secondCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)_connections.at(connectionIndex))->getCurves().at(secondCurveIndex));
                         uNode = (AutoLayoutNodeBase*)findObject(_nodes, secondCurve->getNodeId());
@@ -477,7 +477,7 @@ void FruchtermanReingoldAlgorithmBase::adjustCurvePoints(AutoLayoutObjectBase* c
 }
 
 void FruchtermanReingoldAlgorithmBase::adjustUniUniConnections(AutoLayoutObjectBase* connection) {
-    if (((AutoLayoutConnection*)connection)->getCurves().size() == 2) {
+    if (((AutoLayoutConnection*)connection)->getCurves().size() == 2 && !((AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode())->isLocked()) {
         double slope = getNodePairSlope(_nodes, ((AutoLayoutConnection*)connection)->getNodeIds().at(0), ((AutoLayoutConnection*)connection)->getNodeIds().at(1));
         if (slope < 0.0)
                 slope += M_PI;
