@@ -2212,6 +2212,10 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
     return setStrokeColor(style, stroke);
 }
 
+const std::string getCompartmentStrokeColor(SBMLDocument* document) {
+    return getCompartmentStrokeColor(getGlobalRenderInformation(document));
+}
+
 int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
     if (!setCompartmentStrokeColor(getGlobalRenderInformation(document), stroke) && !setCompartmentStrokeColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
@@ -2220,12 +2224,20 @@ int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, 
     return -1;
 }
 
+const std::string getSpeciesStrokeColor(SBMLDocument* document) {
+    return getSpeciesStrokeColor(getGlobalRenderInformation(document));
+}
+
 int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
     if (!setSpeciesStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesStrokeColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionStrokeColor(SBMLDocument* document) {
+    return getReactionStrokeColor(getGlobalRenderInformation(document));
 }
 
 int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs) {
@@ -2317,6 +2329,10 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
     return setStrokeWidth(style, strokeWidth);
 }
 
+const double getCompartmentStrokeWidth(SBMLDocument* document) {
+    return getCompartmentStrokeWidth(getGlobalRenderInformation(document));
+}
+
 int setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
     if (!setCompartmentStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setCompartmentStrokeWidth(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
@@ -2325,12 +2341,20 @@ int setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, 
     return -1;
 }
 
+const double getSpeciesStrokeWidth(SBMLDocument* document) {
+    return getSpeciesStrokeWidth(getGlobalRenderInformation(document));
+}
+
 int setSpeciesStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
     if (!setSpeciesStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setSpeciesStrokeWidth(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
         return 0;
 
     return -1;
+}
+
+const double getReactionStrokeWidth(SBMLDocument* document) {
+    return getReactionStrokeWidth(getGlobalRenderInformation(document));
 }
 
 int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs) {
@@ -2548,6 +2572,10 @@ int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned 
     return setFontColor(style, fontColor);
 }
 
+const std::string getCompartmentFontColor(SBMLDocument* document) {
+    return getCompartmentFontColor(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
     if (!setCompartmentFontColor(getGlobalRenderInformation(document), fontColor) && !setCompartmentFontColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
@@ -2556,12 +2584,20 @@ int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
+const std::string getSpeciesFontColor(SBMLDocument* document) {
+    return getSpeciesFontColor(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
     if (!setSpeciesFontColor(getGlobalRenderInformation(document), fontColor) && !setSpeciesFontColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionFontColor(SBMLDocument* document) {
+    return getReactionFontColor(getGlobalRenderInformation(document));
 }
 
 int setReactionFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
@@ -2651,6 +2687,10 @@ int setFontFamily(SBMLDocument* document, const std::string& attribute, unsigned
     return setFontFamily(style, fontFamily);
 }
 
+const std::string getCompartmentFontFamily(SBMLDocument* document) {
+    return getCompartmentFontFamily(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
     if (!setCompartmentFontFamily(getGlobalRenderInformation(document), fontFamily) && !setCompartmentFontFamily(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontFamily))
@@ -2659,12 +2699,20 @@ int setCompartmentFontFamily(SBMLDocument* document, unsigned int layoutIndex, c
     return -1;
 }
 
+const std::string getSpeciesFontFamily(SBMLDocument* document) {
+    return getSpeciesFontFamily(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
     if (!setSpeciesFontFamily(getGlobalRenderInformation(document), fontFamily) && !setSpeciesFontFamily(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontFamily))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionFontFamily(SBMLDocument* document) {
+    return getReactionFontFamily(getGlobalRenderInformation(document));
 }
 
 int setReactionFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontFamily) {
@@ -2792,12 +2840,20 @@ int setFontSizeAsDouble(SBMLDocument* document, const std::string& attribute, un
     return setFontSizeAsDouble(style, fontSize);
 }
 
+const RelAbsVector getCompartmentFontSize(SBMLDocument* document) {
+    return getCompartmentFontSize(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     if (!setCompartmentFontSize(getGlobalRenderInformation(document), fontSize) && !setCompartmentFontSize(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentFontSizeAsDouble(SBMLDocument* document) {
+    return getCompartmentFontSizeAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize) {
@@ -2808,12 +2864,20 @@ int setCompartmentFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIn
     return -1;
 }
 
+const RelAbsVector getSpeciesFontSize(SBMLDocument* document) {
+    return getSpeciesFontSize(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     if (!setSpeciesFontSize(getGlobalRenderInformation(document), fontSize) && !setSpeciesFontSize(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesFontSizeAsDouble(SBMLDocument* document) {
+    return getSpeciesFontSizeAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize) {
@@ -2824,12 +2888,20 @@ int setSpeciesFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex,
     return -1;
 }
 
+const RelAbsVector getReactionFontSize(SBMLDocument* document) {
+    return getReactionFontSize(getGlobalRenderInformation(document));
+}
+
 int setReactionFontSize(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& fontSize) {
     if (!setReactionFontSize(getGlobalRenderInformation(document), fontSize) && !setReactionFontSize(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontSize))
         return 0;
 
     return -1;
+}
+
+const double getReactionFontSizeAsDouble(SBMLDocument* document) {
+    return getReactionFontSizeAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& fontSize) {
@@ -2930,6 +3002,10 @@ int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned
     return setFontWeight(style, fontWeight);
 }
 
+const std::string getCompartmentFontWeight(SBMLDocument* document) {
+    return getCompartmentFontWeight(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
     if (!setCompartmentFontWeight(getGlobalRenderInformation(document), fontWeight) && !setCompartmentFontWeight(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontWeight))
@@ -2938,12 +3014,20 @@ int setCompartmentFontWeight(SBMLDocument* document, unsigned int layoutIndex, c
     return -1;
 }
 
+const std::string getSpeciesFontWeight(SBMLDocument* document) {
+    return getSpeciesFontWeight(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
     if (!setSpeciesFontWeight(getGlobalRenderInformation(document), fontWeight) && !setSpeciesFontWeight(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontWeight))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionFontWeight(SBMLDocument* document) {
+    return getReactionFontWeight(getGlobalRenderInformation(document));
 }
 
 int setReactionFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontWeight) {
@@ -3033,6 +3117,10 @@ int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned 
     return setFontStyle(style, fontStyle);
 }
 
+const std::string getCompartmentFontStyle(SBMLDocument* document) {
+    return getCompartmentFontStyle(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
     if (!setCompartmentFontStyle(getGlobalRenderInformation(document), fontStyle) && !setCompartmentFontStyle(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontStyle))
@@ -3041,12 +3129,20 @@ int setCompartmentFontStyle(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
+const std::string getSpeciesFontStyle(SBMLDocument* document) {
+    return getSpeciesFontStyle(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
     if (!setSpeciesFontStyle(getGlobalRenderInformation(document), fontStyle) && !setSpeciesFontStyle(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontStyle))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionFontStyle(SBMLDocument* document) {
+    return getReactionFontStyle(getGlobalRenderInformation(document));
 }
 
 int setReactionFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontStyle) {
@@ -3136,6 +3232,10 @@ int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned
     return setTextAnchor(style, textAnchor);
 }
 
+const std::string getCompartmentTextAnchor(SBMLDocument* document) {
+    return getCompartmentTextAnchor(getGlobalRenderInformation(document));
+}
+
 int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
     if (!setCompartmentTextAnchor(getGlobalRenderInformation(document), textAnchor) && !setCompartmentTextAnchor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), textAnchor))
@@ -3144,12 +3244,20 @@ int setCompartmentTextAnchor(SBMLDocument* document, unsigned int layoutIndex, c
     return -1;
 }
 
+const std::string getSpeciesTextAnchor(SBMLDocument* document) {
+    return getSpeciesTextAnchor(getGlobalRenderInformation(document));
+}
+
 int setSpeciesTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
     if (!setSpeciesTextAnchor(getGlobalRenderInformation(document), textAnchor) && !setSpeciesTextAnchor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), textAnchor))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionTextAnchor(SBMLDocument* document) {
+    return getReactionTextAnchor(getGlobalRenderInformation(document));
 }
 
 int setReactionTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& textAnchor) {
@@ -3239,6 +3347,10 @@ int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigne
     return setVTextAnchor(style, vtextAnchor);
 }
 
+const std::string getCompartmentVTextAnchor(SBMLDocument* document) {
+    return getCompartmentVTextAnchor(getGlobalRenderInformation(document));
+}
+
 int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
     if (!setCompartmentVTextAnchor(getGlobalRenderInformation(document), vtextAnchor) && !setCompartmentVTextAnchor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), vtextAnchor))
@@ -3247,12 +3359,20 @@ int setCompartmentVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, 
     return -1;
 }
 
+const std::string getSpeciesVTextAnchor(SBMLDocument* document) {
+    return getSpeciesVTextAnchor(getGlobalRenderInformation(document));
+}
+
 int setSpeciesVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
     if (!setSpeciesVTextAnchor(getGlobalRenderInformation(document), vtextAnchor) && !setSpeciesVTextAnchor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), vtextAnchor))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionVTextAnchor(SBMLDocument* document) {
+    return getReactionVTextAnchor(getGlobalRenderInformation(document));
 }
 
 int setReactionVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::string& vtextAnchor) {
@@ -3322,6 +3442,10 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
     return setFillColor(style, fillColor);
 }
 
+const std::string getCompartmentFillColor(SBMLDocument* document) {
+    return getCompartmentFillColor(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     if (!setCompartmentFillColor(getGlobalRenderInformation(document), fillColor) && !setCompartmentFillColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
@@ -3330,12 +3454,20 @@ int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
+const std::string getSpeciesFillColor(SBMLDocument* document) {
+    return getSpeciesFillColor(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     if (!setSpeciesFillColor(getGlobalRenderInformation(document), fillColor) && !setSpeciesFillColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionFillColor(SBMLDocument* document) {
+    return getReactionFillColor(getGlobalRenderInformation(document));
 }
 
 int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
@@ -3426,6 +3558,10 @@ int setFillRule(SBMLDocument* document, const std::string& attribute, const std:
     return setFillRule(style, fillRule);
 }
 
+const std::string getCompartmentFillRule(SBMLDocument* document) {
+    return getCompartmentFillRule(getGlobalRenderInformation(document));
+}
+
 int setCompartmentFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
     if (!setCompartmentFillRule(getGlobalRenderInformation(document), fillRule) && !setCompartmentFillRule(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillRule))
@@ -3434,12 +3570,20 @@ int setCompartmentFillRule(SBMLDocument* document, unsigned int layoutIndex, con
     return -1;
 }
 
+const std::string getSpeciesFillRule(SBMLDocument* document) {
+    return getSpeciesFillRule(getGlobalRenderInformation(document));
+}
+
 int setSpeciesFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
     if (!setSpeciesFillRule(getGlobalRenderInformation(document), fillRule) && !setSpeciesFillRule(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillRule))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionFillRule(SBMLDocument* document) {
+    return getReactionFillRule(getGlobalRenderInformation(document));
 }
 
 int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
@@ -3666,6 +3810,10 @@ int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, 
     return -1;
 }
 
+const std::string getCompartmentGeometricShapeType(SBMLDocument* document) {
+    return getCompartmentGeometricShapeType(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     if (!setCompartmentGeometricShapeType(getGlobalRenderInformation(document), shape) && !setCompartmentGeometricShapeType(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), shape))
@@ -3674,12 +3822,20 @@ int setCompartmentGeometricShapeType(SBMLDocument* document, unsigned int layout
     return -1;
 }
 
+const std::string getSpeciesGeometricShapeType(SBMLDocument* document) {
+    return getSpeciesGeometricShapeType(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
     if (!setSpeciesGeometricShapeType(getGlobalRenderInformation(document), shape) && !setSpeciesGeometricShapeType(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), shape))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionGeometricShapeType(SBMLDocument* document) {
+    return getReactionGeometricShapeType(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& shape) {
@@ -3848,12 +4004,20 @@ int setGeometricShapeXAsDouble(SBMLDocument* document, const std::string& attrib
     return setGeometricShapeXAsDouble(style, geometricShapeIndex, x);
 }
 
+const RelAbsVector getCompartmentGeometricShapeX(SBMLDocument* document) {
+    return getCompartmentGeometricShapeX(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
     if (!setCompartmentGeometricShapeX(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeXAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& x) {
@@ -3864,12 +4028,20 @@ int setCompartmentGeometricShapeXAsDouble(SBMLDocument* document, unsigned int l
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeX(SBMLDocument* document) {
+    return getSpeciesGeometricShapeX(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
     if (!setSpeciesGeometricShapeX(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeXAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& x) {
@@ -3880,12 +4052,20 @@ int setSpeciesGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layou
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeX(SBMLDocument* document) {
+    return getReactionGeometricShapeX(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& x) {
     if (!setReactionGeometricShapeX(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeXAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& x) {
@@ -4000,12 +4180,20 @@ int setGeometricShapeYAsDouble(SBMLDocument* document, const std::string& attrib
     return setGeometricShapeYAsDouble(style, geometricShapeIndex, y);
 }
 
+const RelAbsVector getCompartmentGeometricShapeY(SBMLDocument* document) {
+    return getCompartmentGeometricShapeY(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
     if (!setCompartmentGeometricShapeY(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeYAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& y) {
@@ -4016,12 +4204,20 @@ int setCompartmentGeometricShapeYAsDouble(SBMLDocument* document, unsigned int l
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeY(SBMLDocument* document) {
+    return getSpeciesGeometricShapeY(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
     if (!setSpeciesGeometricShapeY(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeYAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& y) {
@@ -4032,12 +4228,20 @@ int setSpeciesGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layou
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeY(SBMLDocument* document) {
+    return getReactionGeometricShapeY(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& y) {
     if (!setReactionGeometricShapeY(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeYAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& y) {
@@ -4152,12 +4356,20 @@ int setGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& at
     return setGeometricShapeWidthAsDouble(style, geometricShapeIndex, width);
 }
 
+const RelAbsVector getCompartmentGeometricShapeWidth(SBMLDocument* document) {
+    return getCompartmentGeometricShapeWidth(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
     if (!setCompartmentGeometricShapeWidth(getGlobalRenderInformation(document), width) && !setCompartmentGeometricShapeWidth(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), width))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeWidthAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeWidthAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
@@ -4168,12 +4380,20 @@ int setCompartmentGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned i
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeWidth(SBMLDocument* document) {
+    return getSpeciesGeometricShapeWidth(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
     if (!setSpeciesGeometricShapeWidth(getGlobalRenderInformation(document), width) && !setSpeciesGeometricShapeWidth(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), width))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeWidthAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeWidthAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
@@ -4184,12 +4404,20 @@ int setSpeciesGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int l
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeWidth(SBMLDocument* document) {
+    return getReactionGeometricShapeWidth(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& width) {
     if (!setReactionGeometricShapeWidth(getGlobalRenderInformation(document), width) && !setReactionGeometricShapeWidth(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), width))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeWidthAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeWidthAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
@@ -4304,12 +4532,20 @@ int setGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& a
     return setGeometricShapeHeightAsDouble(style, geometricShapeIndex, height);
 }
 
+const RelAbsVector getCompartmentGeometricShapeHeight(SBMLDocument* document) {
+    return getCompartmentGeometricShapeHeight(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
     if (!setCompartmentGeometricShapeHeight(getGlobalRenderInformation(document), height) && !setCompartmentGeometricShapeHeight(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), height))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeHeightAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeHeightAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
@@ -4320,12 +4556,20 @@ int setCompartmentGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned 
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeHeight(SBMLDocument* document) {
+    return getSpeciesGeometricShapeHeight(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
     if (!setSpeciesGeometricShapeHeight(getGlobalRenderInformation(document), height) && !setSpeciesGeometricShapeHeight(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), height))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeHeightAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeHeightAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
@@ -4336,12 +4580,20 @@ int setSpeciesGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int 
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeHeight(SBMLDocument* document) {
+    return getReactionGeometricShapeHeight(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& height) {
     if (!setReactionGeometricShapeHeight(getGlobalRenderInformation(document), height) && !setReactionGeometricShapeHeight(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), height))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeHeightAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeHeightAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
@@ -4418,6 +4670,10 @@ int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute,
     return setGeometricShapeRatio(style, geometricShapeIndex, ratio);
 }
 
+const double getCompartmentGeometricShapeRatio(SBMLDocument* document) {
+    return getCompartmentGeometricShapeRatio(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
     if (!setCompartmentGeometricShapeRatio(getGlobalRenderInformation(document), ratio) && !setCompartmentGeometricShapeRatio(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ratio))
@@ -4426,12 +4682,20 @@ int setCompartmentGeometricShapeRatio(SBMLDocument* document, unsigned int layou
     return -1;
 }
 
+const double getSpeciesGeometricShapeRatio(SBMLDocument* document) {
+    return getSpeciesGeometricShapeRatio(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
     if (!setSpeciesGeometricShapeRatio(getGlobalRenderInformation(document), ratio) && !setSpeciesGeometricShapeRatio(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ratio))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeRatio(SBMLDocument* document) {
+    return getReactionGeometricShapeRatio(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const double& ratio) {
@@ -4535,12 +4799,20 @@ int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, cons
     return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, geometricShapeIndex, rx);
 }
 
+const RelAbsVector getCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
     if (!setCompartmentGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document), rx) && !setCompartmentGeometricShapeCornerCurvatureRadiusX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx) {
@@ -4551,12 +4823,20 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* doc
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
     if (!setSpeciesGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document), rx) && !setSpeciesGeometricShapeCornerCurvatureRadiusX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx) {
@@ -4567,12 +4847,20 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* documen
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document) {
+    return getReactionGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
     if (!setReactionGeometricShapeCornerCurvatureRadiusX(getGlobalRenderInformation(document), rx) && !setReactionGeometricShapeCornerCurvatureRadiusX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx) {
@@ -4687,12 +4975,20 @@ int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, cons
     return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, geometricShapeIndex, ry);
 }
 
+const RelAbsVector getCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
     if (!setCompartmentGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document), ry) && !setCompartmentGeometricShapeCornerCurvatureRadiusY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry) {
@@ -4703,12 +4999,20 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* doc
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
     if (!setSpeciesGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document), ry) && !setSpeciesGeometricShapeCornerCurvatureRadiusY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry) {
@@ -4719,12 +5023,20 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* documen
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document) {
+    return getReactionGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
     if (!setReactionGeometricShapeCornerCurvatureRadiusY(getGlobalRenderInformation(document), ry) && !setReactionGeometricShapeCornerCurvatureRadiusY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry) {
@@ -4839,12 +5151,20 @@ int setGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& 
     return setGeometricShapeCenterXAsDouble(style, geometricShapeIndex, cx);
 }
 
+const RelAbsVector getCompartmentGeometricShapeCenterX(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCenterX(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
     if (!setCompartmentGeometricShapeCenterX(getGlobalRenderInformation(document), cx) && !setCompartmentGeometricShapeCenterX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cx))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeCenterXAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCenterXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cx) {
@@ -4855,12 +5175,20 @@ int setCompartmentGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeCenterX(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCenterX(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
     if (!setSpeciesGeometricShapeCenterX(getGlobalRenderInformation(document), cx) && !setSpeciesGeometricShapeCenterX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cx))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeCenterXAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCenterXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cx) {
@@ -4871,12 +5199,20 @@ int setSpeciesGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeCenterX(SBMLDocument* document) {
+    return getReactionGeometricShapeCenterX(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cx) {
     if (!setReactionGeometricShapeCenterX(getGlobalRenderInformation(document), cx) && !setReactionGeometricShapeCenterX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cx))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeCenterXAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeCenterXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cx) {
@@ -4991,12 +5327,20 @@ int setGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& 
     return setGeometricShapeCenterYAsDouble(style, geometricShapeIndex, cy);
 }
 
+const RelAbsVector getCompartmentGeometricShapeCenterY(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCenterY(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
     if (!setCompartmentGeometricShapeCenterY(getGlobalRenderInformation(document), cy) && !setCompartmentGeometricShapeCenterY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cy))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeCenterYAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeCenterYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cy) {
@@ -5008,12 +5352,20 @@ int setCompartmentGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeCenterY(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCenterY(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
     if (!setSpeciesGeometricShapeCenterY(getGlobalRenderInformation(document), cy) && !setSpeciesGeometricShapeCenterY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cy))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeCenterYAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeCenterYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cy) {
@@ -5024,12 +5376,20 @@ int setSpeciesGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeCenterY(SBMLDocument* document) {
+    return getReactionGeometricShapeCenterY(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& cy) {
     if (!setReactionGeometricShapeCenterY(getGlobalRenderInformation(document), cy) && !setReactionGeometricShapeCenterY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), cy))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeCenterYAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeCenterYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& cy) {
@@ -5144,12 +5504,20 @@ int setGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& 
     return setGeometricShapeRadiusXAsDouble(style, geometricShapeIndex, rx);
 }
 
+const RelAbsVector getCompartmentGeometricShapeRadiusX(SBMLDocument* document) {
+    return getCompartmentGeometricShapeRadiusX(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
     if (!setCompartmentGeometricShapeRadiusX(getGlobalRenderInformation(document), rx) && !setCompartmentGeometricShapeRadiusX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeRadiusXAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeRadiusXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx) {
@@ -5160,12 +5528,20 @@ int setCompartmentGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeRadiusX(SBMLDocument* document) {
+    return getSpeciesGeometricShapeRadiusX(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
     if (!setSpeciesGeometricShapeRadiusX(getGlobalRenderInformation(document), rx) && !setSpeciesGeometricShapeRadiusX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeRadiusXAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeRadiusXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx) {
@@ -5176,12 +5552,20 @@ int setSpeciesGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeRadiusX(SBMLDocument* document) {
+    return getReactionGeometricShapeRadiusX(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& rx) {
     if (!setReactionGeometricShapeRadiusX(getGlobalRenderInformation(document), rx) && !setReactionGeometricShapeRadiusX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), rx))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeRadiusXAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeRadiusXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& rx) {
@@ -5296,12 +5680,20 @@ int setGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& 
     return setGeometricShapeRadiusYAsDouble(style, geometricShapeIndex, ry);
 }
 
+const RelAbsVector getCompartmentGeometricShapeRadiusY(SBMLDocument* document) {
+    return getCompartmentGeometricShapeRadiusY(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
     if (!setCompartmentGeometricShapeRadiusY(getGlobalRenderInformation(document), ry) && !setCompartmentGeometricShapeRadiusY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeRadiusYAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeRadiusYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry) {
@@ -5312,12 +5704,20 @@ int setCompartmentGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeRadiusY(SBMLDocument* document) {
+    return getSpeciesGeometricShapeRadiusY(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
     if (!setSpeciesGeometricShapeRadiusY(getGlobalRenderInformation(document), ry) && !setSpeciesGeometricShapeRadiusY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeRadiusYAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeRadiusYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry) {
@@ -5328,12 +5728,20 @@ int setSpeciesGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeRadiusY(SBMLDocument* document) {
+    return getReactionGeometricShapeRadiusY(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const RelAbsVector& ry) {
     if (!setReactionGeometricShapeRadiusY(getGlobalRenderInformation(document), ry) && !setReactionGeometricShapeRadiusY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), ry))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeRadiusYAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeRadiusYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const double& ry) {
@@ -5485,12 +5893,20 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string&
     return setGeometricShapeElementXAsDouble(style, geometricShapeIndex, elementIndex, x);
 }
 
+const RelAbsVector getCompartmentGeometricShapeElementX(SBMLDocument* document) {
+    return getCompartmentGeometricShapeElementX(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setCompartmentGeometricShapeElementX(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeElementX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeElementXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -5501,12 +5917,20 @@ int setCompartmentGeometricShapeElementXAsDouble(SBMLDocument* document, unsigne
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeElementX(SBMLDocument* document) {
+    return getSpeciesGeometricShapeElementX(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setSpeciesGeometricShapeElementX(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeElementX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeElementXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -5517,12 +5941,20 @@ int setSpeciesGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned in
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeElementX(SBMLDocument* document) {
+    return getReactionGeometricShapeElementX(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setReactionGeometricShapeElementX(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeElementX(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeElementXAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeElementXAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -5657,12 +6089,20 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string&
     return setGeometricShapeElementYAsDouble(style, geometricShapeIndex, elementIndex, y);
 }
 
+const RelAbsVector getCompartmentGeometricShapeElementY(SBMLDocument* document) {
+    return getCompartmentGeometricShapeElementY(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setCompartmentGeometricShapeElementY(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeElementY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeElementYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -5673,12 +6113,20 @@ int setCompartmentGeometricShapeElementYAsDouble(SBMLDocument* document, unsigne
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeElementY(SBMLDocument* document) {
+    return getSpeciesGeometricShapeElementY(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setSpeciesGeometricShapeElementY(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeElementY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeElementYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -5689,12 +6137,20 @@ int setSpeciesGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned in
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeElementY(SBMLDocument* document) {
+    return getReactionGeometricShapeElementY(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setReactionGeometricShapeElementY(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeElementY(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeElementYAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeElementYAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -5829,12 +6285,20 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::stri
     return setGeometricShapeBasePoint1XAsDouble(style, geometricShapeIndex, elementIndex, x);
 }
 
+const RelAbsVector getCompartmentGeometricShapeBasePoint1X(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint1X(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setCompartmentGeometricShapeBasePoint1X(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeBasePoint1X(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeBasePoint1XAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint1XAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -5845,12 +6309,20 @@ int setCompartmentGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsi
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeBasePoint1X(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint1X(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setSpeciesGeometricShapeBasePoint1X(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeBasePoint1X(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeBasePoint1XAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint1XAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -5861,12 +6333,20 @@ int setSpeciesGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeBasePoint1X(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint1X(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setReactionGeometricShapeBasePoint1X(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeBasePoint1X(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeBasePoint1XAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint1XAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -6002,12 +6482,20 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::stri
     return setGeometricShapeBasePoint1YAsDouble(style, geometricShapeIndex, elementIndex, y);
 }
 
+const RelAbsVector getCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint1Y(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setCompartmentGeometricShapeBasePoint1Y(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeBasePoint1Y(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeBasePoint1YAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint1YAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -6018,12 +6506,20 @@ int setCompartmentGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsi
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint1Y(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setSpeciesGeometricShapeBasePoint1Y(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeBasePoint1Y(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeBasePoint1YAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint1YAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -6034,12 +6530,20 @@ int setSpeciesGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeBasePoint1Y(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint1Y(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setReactionGeometricShapeBasePoint1Y(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeBasePoint1Y(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeBasePoint1YAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint1YAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -6175,12 +6679,20 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::stri
     return setGeometricShapeBasePoint2XAsDouble(style, geometricShapeIndex, elementIndex, x);
 }
 
+const RelAbsVector getCompartmentGeometricShapeBasePoint2X(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint2X(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setCompartmentGeometricShapeBasePoint2X(getGlobalRenderInformation(document), x) && !setCompartmentGeometricShapeBasePoint2X(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeBasePoint2XAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint2XAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -6191,12 +6703,20 @@ int setCompartmentGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsi
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeBasePoint2X(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint2X(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setSpeciesGeometricShapeBasePoint2X(getGlobalRenderInformation(document), x) && !setSpeciesGeometricShapeBasePoint2X(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeBasePoint2XAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint2XAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -6207,12 +6727,20 @@ int setSpeciesGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeBasePoint2X(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint2X(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& x) {
     if (!setReactionGeometricShapeBasePoint2X(getGlobalRenderInformation(document), x) && !setReactionGeometricShapeBasePoint2X(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), x))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeBasePoint2XAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint2XAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& x) {
@@ -6348,12 +6876,20 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::stri
     return setGeometricShapeBasePoint2YAsDouble(style, geometricShapeIndex, elementIndex, y);
 }
 
+const RelAbsVector getCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint2Y(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setCompartmentGeometricShapeBasePoint2Y(getGlobalRenderInformation(document), y) && !setCompartmentGeometricShapeBasePoint2Y(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getCompartmentGeometricShapeBasePoint2YAsDouble(SBMLDocument* document) {
+    return getCompartmentGeometricShapeBasePoint2YAsDouble(getGlobalRenderInformation(document));
 }
 
 int setCompartmentGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -6364,12 +6900,20 @@ int setCompartmentGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsi
     return -1;
 }
 
+const RelAbsVector getSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint2Y(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setSpeciesGeometricShapeBasePoint2Y(getGlobalRenderInformation(document), y) && !setSpeciesGeometricShapeBasePoint2Y(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getSpeciesGeometricShapeBasePoint2YAsDouble(SBMLDocument* document) {
+    return getSpeciesGeometricShapeBasePoint2YAsDouble(getGlobalRenderInformation(document));
 }
 
 int setSpeciesGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -6380,12 +6924,20 @@ int setSpeciesGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned
     return -1;
 }
 
+const RelAbsVector getReactionGeometricShapeBasePoint2Y(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint2Y(getGlobalRenderInformation(document));
+}
+
 int setReactionGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const RelAbsVector& y) {
     if (!setReactionGeometricShapeBasePoint2Y(getGlobalRenderInformation(document), y) && !setReactionGeometricShapeBasePoint2Y(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), y))
         return 0;
 
     return -1;
+}
+
+const double getReactionGeometricShapeBasePoint2YAsDouble(SBMLDocument* document) {
+    return getReactionGeometricShapeBasePoint2YAsDouble(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, unsigned int elementIndex, const double& y) {
@@ -6513,6 +7065,10 @@ int setGeometricShapeHref(SBMLDocument* document, const std::string& attribute, 
     return setGeometricShapeHref(style, geometricShapeIndex, href);
 }
 
+const std::string getCompartmentGeometricShapeHref(SBMLDocument* document) {
+    return getCompartmentGeometricShapeHref(getGlobalRenderInformation(document));
+}
+
 int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {
     if (!setCompartmentGeometricShapeHref(getGlobalRenderInformation(document), href) && !setCompartmentGeometricShapeHref(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), href))
@@ -6521,12 +7077,20 @@ int setCompartmentGeometricShapeHref(SBMLDocument* document, unsigned int layout
     return -1;
 }
 
+const std::string getSpeciesGeometricShapeHref(SBMLDocument* document) {
+    return getSpeciesGeometricShapeHref(getGlobalRenderInformation(document));
+}
+
 int setSpeciesGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {
     if (!setSpeciesGeometricShapeHref(getGlobalRenderInformation(document), href) && !setSpeciesGeometricShapeHref(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), href))
         return 0;
 
     return -1;
+}
+
+const std::string getReactionGeometricShapeHref(SBMLDocument* document) {
+    return getReactionGeometricShapeHref(getGlobalRenderInformation(document));
 }
 
 int setReactionGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href) {

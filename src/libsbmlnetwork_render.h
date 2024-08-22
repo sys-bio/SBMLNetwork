@@ -992,9 +992,15 @@ LIBSBMLNETWORK_EXTERN int setStrokeColor(Style* style, const std::string& stroke
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
 
@@ -1074,9 +1080,15 @@ LIBSBMLNETWORK_EXTERN int setStrokeWidth(Style* style, const double& strokeWidth
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth);
 
+LIBSBMLNETWORK_EXTERN const double getCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
 
+const double getSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
+
+const double getReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth);
 
@@ -1341,9 +1353,15 @@ LIBSBMLNETWORK_EXTERN int setFontColor(Style* style, const std::string& fontColo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(Transformation2D* transformation2D, const std::string& fontColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
 
@@ -1421,9 +1439,15 @@ LIBSBMLNETWORK_EXTERN int setFontFamily(Style* style, const std::string& fontFam
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(Transformation2D* transformation2D, const std::string& fontFamily);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily);
 
@@ -1509,15 +1533,27 @@ LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(Style* style, const double& fontSi
 
 LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(Transformation2D* transformation2D, const double& fontSize);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize);
+
+LIBSBMLNETWORK_EXTERN const double getReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize);
 
@@ -1595,9 +1631,15 @@ LIBSBMLNETWORK_EXTERN int setFontWeight(Style* style, const std::string& fontWei
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(Transformation2D* transformation2D, const std::string& fontWeight);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight);
 
@@ -1675,9 +1717,15 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(Style* style, const std::string& fontStyl
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyle);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle);
 
@@ -1755,9 +1803,15 @@ LIBSBMLNETWORK_EXTERN int setTextAnchor(Style* style, const std::string& textAnc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnchor);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor);
 
@@ -1835,9 +1889,15 @@ LIBSBMLNETWORK_EXTERN int setVTextAnchor(Style* style, const std::string& vtextA
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor);
 
@@ -1915,9 +1975,15 @@ LIBSBMLNETWORK_EXTERN int setFillColor(Style* style, const std::string& fillColo
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(Transformation2D* transformation2D, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillColor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillColor(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
 
@@ -1995,9 +2061,15 @@ LIBSBMLNETWORK_EXTERN int setFillRule(Style* style, const std::string& fillRule)
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillRule(Transformation2D* transformation2D, const std::string& fillRule);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillRule(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillRule(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionFillRule(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule);
 
@@ -2311,9 +2383,15 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeType(RenderInformationBase* renderInf
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeType(RenderGroup* renderGroup, const std::string& shape);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentGeometricShapeType(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation, const std::string& shape);
 
@@ -2744,15 +2822,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(RenderGroup* renderGroup, u
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeXAsDouble(Transformation2D* shape, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
@@ -2907,15 +2997,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(RenderGroup* renderGroup, u
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeYAsDouble(Transformation2D* shape, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
@@ -3070,15 +3172,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(RenderGroup* renderGrou
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeWidthAsDouble(Transformation2D* shape, const double& width);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width);
 
@@ -3233,15 +3347,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(RenderGroup* renderGro
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHeightAsDouble(Transformation2D* shape, const double& height);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height);
 
@@ -3378,9 +3504,15 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(RenderGroup* renderGroup, unsig
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRatio(Transformation2D* shape, const double& ratio);
 
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio);
 
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation, const double& ratio);
 
@@ -3535,15 +3667,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(Render
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusXAsDouble(Transformation2D* shape, const double& rx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
@@ -3698,15 +3842,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(Render
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCornerCurvatureRadiusYAsDouble(Transformation2D* shape, const double& ry);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
@@ -3861,15 +4017,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(RenderGroup* renderGr
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterXAsDouble(Transformation2D* shape, const double& cx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cx);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx);
 
@@ -4024,15 +4192,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(RenderGroup* renderGr
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeCenterYAsDouble(Transformation2D* shape, const double& cy);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& cy);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy);
 
@@ -4187,15 +4367,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(RenderGroup* renderGr
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusXAsDouble(Transformation2D* shape, const double& rx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& rx);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx);
 
@@ -4350,15 +4542,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(RenderGroup* renderGr
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeRadiusYAsDouble(Transformation2D* shape, const double& ry);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& ry);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry);
 
@@ -4567,15 +4771,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(RenderGroup* renderG
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(Transformation2D* shape, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
@@ -4749,15 +4965,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(RenderGroup* renderG
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(Transformation2D* shape, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
@@ -4931,15 +5159,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(RenderGroup* rend
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(Transformation2D* shape, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
@@ -5112,15 +5352,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(RenderGroup* rend
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(Transformation2D* shape, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
@@ -5293,15 +5545,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(RenderGroup* rend
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(Transformation2D* shape, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x);
 
@@ -5475,15 +5739,27 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(RenderGroup* rend
 
 LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2YAsDouble(Transformation2D* shape, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
+LIBSBMLNETWORK_EXTERN const RelAbsVector getReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN const double getReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y);
 
@@ -5764,9 +6040,15 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(RenderGroup* renderGroup, unsign
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(Transformation2D* shape, const std::string& href);
 
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentGeometricShapeHref(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setCompartmentGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesGeometricShapeHref(GlobalRenderInformation* globalRenderInformation);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN const std::string getReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformation);
 
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
 
