@@ -145,6 +145,22 @@ void setDefaultLayoutDimensions(Layout* layout) {
         dimensions->setHeight(1024.0);
 }
 
+const double getSpeciesDefaultWidth() {
+    return 60.0;
+}
+
+const double getSpeciesDefaultHeight() {
+    return 36.0;
+}
+
+const double getReactionDefaultWidth() {
+    return 30.0;
+}
+
+const double getReactionDefaultHeight() {
+    return 20.0;
+}
+
 void lockGraphicalObjects(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes) {
     lockSpeciesGlyphs(layout, lockedNodeIds, resetLockedNodes);
     lockReactionGlyphs(layout, lockedNodeIds, resetLockedNodes);

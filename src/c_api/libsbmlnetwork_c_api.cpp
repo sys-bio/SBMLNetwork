@@ -526,8 +526,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setCompartmentDimensionWidth(document, layoutIndex, width);
     }
 
+    const double c_api_getSpeciesWidth() {
+        return getSpeciesDimensionWidth();
+    }
+
     int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex) {
         return setSpeciesDimensionWidth(document, layoutIndex, width);
+    }
+
+    const double c_api_getReactionsWidth() {
+        return getReactionDimensionWidth();
     }
 
     int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex) {
@@ -546,8 +554,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setCompartmentDimensionHeight(document, layoutIndex, height);
     }
 
+    const double c_api_getSpeciesHeight() {
+        return getSpeciesDimensionHeight();
+    }
+
     int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex) {
         return setSpeciesDimensionHeight(document, layoutIndex, height);
+    }
+
+    const double c_api_getReactionsHeight() {
+        return getReactionDimensionHeight();
     }
 
     int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex) {

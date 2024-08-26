@@ -40,6 +40,14 @@ const bool canUpdateLayoutCurves(Layout* layout);
 
 void setDefaultLayoutDimensions(Layout* layout);
 
+const double getSpeciesDefaultWidth();
+
+const double getSpeciesDefaultHeight();
+
+const double getReactionDefaultWidth();
+
+const double getReactionDefaultHeight();
+
 void lockGraphicalObjects(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
 
 void lockSpeciesGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);

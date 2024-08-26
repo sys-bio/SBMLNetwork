@@ -1040,6 +1040,11 @@ int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutInde
     return -1;
 }
 
+const double getSpeciesDimensionWidth() {
+    return getSpeciesDefaultWidth();
+}
+
+
 int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
     Layout* layout = getLayout(document, layoutIndex);
     if (!setSpeciesDimensionWidth(layout, width)) {
@@ -1049,6 +1054,10 @@ int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, c
     }
 
     return -1;
+}
+
+const double getReactionDimensionWidth() {
+    return getReactionDefaultWidth();
 }
 
 int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width) {
@@ -1125,6 +1134,10 @@ int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutInd
     return -1;
 }
 
+const double getSpeciesDimensionHeight() {
+    return getSpeciesDefaultHeight();
+}
+
 int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {
     Layout* layout = getLayout(document, layoutIndex);
     if (!setSpeciesDimensionHeight(layout, height)) {
@@ -1134,6 +1147,10 @@ int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, 
     }
 
     return -1;
+}
+
+const double getReactionDimensionHeight() {
+    return getReactionDefaultHeight();
 }
 
 int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height) {

@@ -119,7 +119,7 @@ const double AutoLayoutNode::getWidth() {
 }
 
 const double AutoLayoutNode::getDefaultWidth() {
-    return 60.0;
+    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultWidth();
 }
 
 void AutoLayoutNode::setWidth(const double& width) {
@@ -132,7 +132,7 @@ const double AutoLayoutNode::getHeight() {
 }
 
 const double AutoLayoutNode::getDefaultHeight() {
-    return 36.0;
+    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultHeight();
 }
 
 void AutoLayoutNode::setHeight(const double& height) {
@@ -265,11 +265,11 @@ const double AutoLayoutCentroidNode::calculateWidth() {
     if (reaction && reaction->isSetName() && _useNameAsTextLabel)
         displayedText = reaction->getName();
 
-    return std::max(30.0, displayedText.size() * 9.0);
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultWidth(), displayedText.size() * 9.0);
 }
 
 const double AutoLayoutCentroidNode::calculateHeight() {
-    return std::max(20.0, getHeight());
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultHeight(), getHeight());
 }
 
 Curve* AutoLayoutCentroidNode::getCurve() {

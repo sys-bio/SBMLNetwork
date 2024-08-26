@@ -945,19 +945,27 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
 
+    /// @brief Returns the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
+    /// @return the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
+    LIBSBMLNETWORK_EXTERN const double getSpeciesWidth();
+
     /// @brief Sets the values of the "width" attribute of the bounding box of all the Species of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double value to be set as "width" attribute of the bounding box of the Species object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
+
+    /// @brief Returns the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
+    /// @return the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
+    LIBSBMLNETWORK_EXTERN const double getReactionsWidth();
 
     /// @brief Sets the values of the "width" attribute of the bounding box of all the Reactions of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double value to be set as "width" attribute of the bounding box of the Reactions object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsWidths(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
 
     /// @brief Returns the value of the "height" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -983,12 +991,20 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
 
+    /// @brief Returns the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
+    /// @return the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
+    LIBSBMLNETWORK_EXTERN const double getSpeciesHeight();
+
     /// @brief Sets the values of the "height" attribute of the bounding box of all the Species of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double value to be set as "height" attribute of the bounding box of the Species object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+
+    /// @brief Returns the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
+    /// @return the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
+    LIBSBMLNETWORK_EXTERN const double getReactionsHeight();
 
     /// @brief Sets the values of the "height" attribute of the bounding box of all the Reactions of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
