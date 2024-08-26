@@ -1,4 +1,5 @@
 #include "libsbmlnetwork_autolayout_point.h"
+#include "libsbmlnetwork_common.h"
 
 #include "iostream"
 
@@ -7,16 +8,16 @@ AutoLayoutPoint::AutoLayoutPoint(const double& x, const double& y) {
     _y = y;
 }
 
-const double& AutoLayoutPoint::getX() const {
-    return _x;
+const double AutoLayoutPoint::getX() const {
+    return roundToTwoDecimalPlaces(_x);
 };
 
 void AutoLayoutPoint::setX(const double& x) {
     _x = x;
 }
 
-const double& AutoLayoutPoint::getY() const {
-    return _y;
+const double AutoLayoutPoint::getY() const {
+    return roundToTwoDecimalPlaces(_y);
 };
 
 void AutoLayoutPoint::setY(const double& y) {
