@@ -654,7 +654,10 @@ const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesRefer
 }
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
-    return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
+    if (textGlyph && graphicalObject)
+        return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
+
+    return false;
 }
 
 bool graphicalObjectBelongsToReactionGlyph(ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject) {
