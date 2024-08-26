@@ -73,6 +73,12 @@ const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::s
 
 const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color);
 
+const bool addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue);
+
+const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInformationBase, const std::string &hexColorCode);
+
+const std::string getUniqueColorId(RenderInformationBase* renderInformationBase);
+
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
@@ -366,6 +372,10 @@ std::vector<std::pair<std::string, std::string>> colorData();
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
 const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
+
+const bool isValidHexColorCode(const std::string& value);
+
+const bool isxdigit(const char& c);
 
 std::vector<std::string> getValidHtmlColorNames();
 

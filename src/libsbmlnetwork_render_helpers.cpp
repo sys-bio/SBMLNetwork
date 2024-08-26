@@ -266,22 +266,37 @@ const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::s
 }
 
 const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color) {
-    if (!renderInformationBase->getColorDefinition(color) || !renderInformationBase->getColorDefinition(getHtmlColorNameFromHexColorCode(color))) {
-        std::string colorId = color;
-        std::string colorValue = getHexColorCodeFromHtmlColorName(color);
-        if (colorValue.empty()) {
-            colorId = getHtmlColorNameFromHexColorCode(color);
-            if (!colorId.empty())
-                colorValue = color;
-        }
-        if (!colorId.empty() && !colorValue.empty()) {
-            RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
-            renderInformationBase->addColorDefinition(createColorDefinition(renderPkgNamespaces, toLowerCase(colorId), colorValue));
-            return true;
-        }
+    if (isValidHexColorCode(color))
+        return addColor(renderInformationBase, getColorIdFromHexColorCode(renderInformationBase, color), color);
+    else
+        return addColor(renderInformationBase, color, getHexColorCodeFromHtmlColorName(color));
+}
+
+const bool addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue) {
+    if (!colorId.empty() && !colorValue.empty() && !renderInformationBase->getColorDefinition(colorId)) {
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
+        renderInformationBase->addColorDefinition(createColorDefinition(renderPkgNamespaces, toLowerCase(colorId), colorValue));
+        return true;
     }
 
     return false;
+}
+
+const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInformationBase, const std::string &hexColorCode) {
+    std::string colorId = getHtmlColorNameFromHexColorCode(hexColorCode);
+    if (colorId.empty())
+        colorId = getUniqueColorId(renderInformationBase);
+
+    return colorId;
+}
+
+const std::string getUniqueColorId(RenderInformationBase* renderInformationBase) {
+    std::string uniqueColorId = "color_0";
+    unsigned int i = 0;
+    while (renderInformationBase->getColorDefinition(uniqueColorId))
+        uniqueColorId = "color_" + std::to_string(i++);
+
+    return uniqueColorId;
 }
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
@@ -1822,8 +1837,8 @@ const bool isValidColorValue(const std::string& value) {
         if (stringCompare(hexColorCodes.at(i), value))
             return true;
     }
-    std::cerr << "error: entered value (" << value << ") is not a valid color value" << std::endl;
-    return false;
+
+    return isValidHexColorCode(value);
 }
 
 const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName) {
@@ -1846,6 +1861,22 @@ const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCo
     }
 
     return "";
+}
+
+const bool isValidHexColorCode(const std::string& value) {
+    if (value.size() != 7 || value.at(0) != '#')
+        return false;
+
+    for (unsigned int i = 1; i < value.size(); i++) {
+        if (!isxdigit(value.at(i)))
+            return false;
+    }
+
+    return true;
+}
+
+const bool isxdigit(const char& c) {
+    return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
 }
 
 std::vector<std::pair<std::string, std::string>> colorData() {
