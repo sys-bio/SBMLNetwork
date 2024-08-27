@@ -7112,104 +7112,108 @@ int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& styleName) {
+const std::string getStyle(SBMLDocument* document, unsigned int renderIndex) {
+    return getStyle(getGlobalRenderInformation(document, renderIndex));
+}
+
+int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName) {
     if (!isValidPredefinedStyleName(styleName))
         return -1;
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
     if (styleFeatures.find("background-color") != styleFeatures.end())
-        setBackgroundColor(document, layoutIndex, styleFeatures.find("background-color")->second);
+    setBackgroundColor(document, renderIndex, styleFeatures.find("background-color")->second);
     if (styleFeatures.find("compartment-geometric-shape") != styleFeatures.end())
-        setCompartmentGeometricShapeType(document, layoutIndex, styleFeatures.find("compartment-geometric-shape")->second);
+        setCompartmentGeometricShapeType(document, renderIndex, styleFeatures.find("compartment-geometric-shape")->second);
     if (styleFeatures.find("compartment-geometric-shape-ratio") != styleFeatures.end())
-        setCompartmentGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("compartment-geometric-shape-ratio")->second));
+        setCompartmentGeometricShapeRatio(document, renderIndex, std::stod(styleFeatures.find("compartment-geometric-shape-ratio")->second));
     if (styleFeatures.find("compartment-border-color") != styleFeatures.end())
-        setCompartmentStrokeColor(document, layoutIndex, styleFeatures.find("compartment-border-color")->second);
+        setCompartmentStrokeColor(document, renderIndex, styleFeatures.find("compartment-border-color")->second);
     if (styleFeatures.find("compartment-border-width") != styleFeatures.end())
-        setCompartmentStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("compartment-border-width")->second));
+        setCompartmentStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("compartment-border-width")->second));
     if (styleFeatures.find("compartment-fill-color") != styleFeatures.end())
-        setCompartmentFillColor(document, layoutIndex, styleFeatures.find("compartment-fill-color")->second);
+        setCompartmentFillColor(document, renderIndex, styleFeatures.find("compartment-fill-color")->second);
     if (styleFeatures.find("compartment-border-radius-x") != styleFeatures.end())
-        setCompartmentGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("compartment-border-radius-x")->second);
+        setCompartmentGeometricShapeCornerCurvatureRadiusX(document, renderIndex, styleFeatures.find("compartment-border-radius-x")->second);
     if (styleFeatures.find("compartment-border-radius-y") != styleFeatures.end())
-        setCompartmentGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("compartment-border-radius-y")->second);
+        setCompartmentGeometricShapeCornerCurvatureRadiusY(document, renderIndex, styleFeatures.find("compartment-border-radius-y")->second);
     if (styleFeatures.find("compartment-font-color") != styleFeatures.end())
-        setCompartmentFontColor(document, layoutIndex, styleFeatures.find("compartment-font-color")->second);
+        setCompartmentFontColor(document, renderIndex, styleFeatures.find("compartment-font-color")->second);
     if (styleFeatures.find("compartment-font-size") != styleFeatures.end())
-        setCompartmentFontSize(document, layoutIndex, styleFeatures.find("compartment-font-size")->second);
+        setCompartmentFontSize(document, renderIndex, styleFeatures.find("compartment-font-size")->second);
     if (styleFeatures.find("compartment-font-style") != styleFeatures.end())
-        setCompartmentFontStyle(document, layoutIndex, styleFeatures.find("compartment-font-style")->second);
+        setCompartmentFontStyle(document, renderIndex, styleFeatures.find("compartment-font-style")->second);
     if (styleFeatures.find("compartment-font-weight") != styleFeatures.end())
-        setCompartmentFontWeight(document, layoutIndex, styleFeatures.find("compartment-font-weight")->second);
+        setCompartmentFontWeight(document, renderIndex, styleFeatures.find("compartment-font-weight")->second);
     if (styleFeatures.find("compartment-text-horizontal-alignment") != styleFeatures.end())
-        setCompartmentTextAnchor(document, layoutIndex, styleFeatures.find("compartment-text-horizontal-alignment")->second);
+        setCompartmentTextAnchor(document, renderIndex, styleFeatures.find("compartment-text-horizontal-alignment")->second);
     if (styleFeatures.find("compartment-text-vertical-alignment") != styleFeatures.end())
-        setCompartmentVTextAnchor(document, layoutIndex, styleFeatures.find("compartment-text-vertical-alignment")->second);
+        setCompartmentVTextAnchor(document, renderIndex, styleFeatures.find("compartment-text-vertical-alignment")->second);
     if (styleFeatures.find("species-geometric-shape") != styleFeatures.end())
-        setSpeciesGeometricShapeType(document, layoutIndex, styleFeatures.find("species-geometric-shape")->second);
+        setSpeciesGeometricShapeType(document, renderIndex, styleFeatures.find("species-geometric-shape")->second);
     if (styleFeatures.find("species-geometric-shape-ratio") != styleFeatures.end())
-        setSpeciesGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("species-geometric-shape-ratio")->second));
+        setSpeciesGeometricShapeRatio(document, renderIndex, std::stod(styleFeatures.find("species-geometric-shape-ratio")->second));
     if (styleFeatures.find("species-border-color") != styleFeatures.end())
-        setSpeciesStrokeColor(document, layoutIndex, styleFeatures.find("species-border-color")->second);
+        setSpeciesStrokeColor(document, renderIndex, styleFeatures.find("species-border-color")->second);
     if (styleFeatures.find("species-border-width") != styleFeatures.end())
-        setSpeciesStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("species-border-width")->second));
+        setSpeciesStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("species-border-width")->second));
     if (styleFeatures.find("species-fill-color") != styleFeatures.end())
-        setSpeciesFillColor(document, layoutIndex, styleFeatures.find("species-fill-color")->second);
+        setSpeciesFillColor(document, renderIndex, styleFeatures.find("species-fill-color")->second);
     if (styleFeatures.find("species-border-radius-x") != styleFeatures.end())
-        setSpeciesGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("species-border-radius-x")->second);
+        setSpeciesGeometricShapeCornerCurvatureRadiusX(document, renderIndex, styleFeatures.find("species-border-radius-x")->second);
     if (styleFeatures.find("species-border-radius-y") != styleFeatures.end())
-        setSpeciesGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("species-border-radius-y")->second);
+        setSpeciesGeometricShapeCornerCurvatureRadiusY(document, renderIndex, styleFeatures.find("species-border-radius-y")->second);
     if (styleFeatures.find("species-font-color") != styleFeatures.end())
-        setSpeciesFontColor(document, layoutIndex, styleFeatures.find("species-font-color")->second);
+        setSpeciesFontColor(document, renderIndex, styleFeatures.find("species-font-color")->second);
     if (styleFeatures.find("species-font-size") != styleFeatures.end())
-        setSpeciesFontSize(document, layoutIndex, styleFeatures.find("species-font-size")->second);
+        setSpeciesFontSize(document, renderIndex, styleFeatures.find("species-font-size")->second);
     if (styleFeatures.find("species-font-style") != styleFeatures.end())
-        setSpeciesFontStyle(document, layoutIndex, styleFeatures.find("species-font-style")->second);
+        setSpeciesFontStyle(document, renderIndex, styleFeatures.find("species-font-style")->second);
     if (styleFeatures.find("species-font-weight") != styleFeatures.end())
-        setSpeciesFontWeight(document, layoutIndex, styleFeatures.find("species-font-weight")->second);
+        setSpeciesFontWeight(document, renderIndex, styleFeatures.find("species-font-weight")->second);
     if (styleFeatures.find("reaction-geometric-shape") != styleFeatures.end())
-        setReactionGeometricShapeType(document, layoutIndex, styleFeatures.find("reaction-geometric-shape")->second);
+        setReactionGeometricShapeType(document, renderIndex, styleFeatures.find("reaction-geometric-shape")->second);
     if (styleFeatures.find("species-text-horizontal-alignment") != styleFeatures.end())
-        setSpeciesTextAnchor(document, layoutIndex, styleFeatures.find("species-text-horizontal-alignment")->second);
+        setSpeciesTextAnchor(document, renderIndex, styleFeatures.find("species-text-horizontal-alignment")->second);
     if (styleFeatures.find("species-text-vertical-alignment") != styleFeatures.end())
-        setSpeciesVTextAnchor(document, layoutIndex, styleFeatures.find("species-text-vertical-alignment")->second);
+        setSpeciesVTextAnchor(document, renderIndex, styleFeatures.find("species-text-vertical-alignment")->second);
     if (styleFeatures.find("reaction-geometric-shape-ratio") != styleFeatures.end())
-        setReactionGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("reaction-geometric-shape-ratio")->second));
+        setReactionGeometricShapeRatio(document, renderIndex, std::stod(styleFeatures.find("reaction-geometric-shape-ratio")->second));
     if (styleFeatures.find("reaction-geometric-shape-center-x") != styleFeatures.end())
-        setReactionGeometricShapeCenterX(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-center-x")->second);
+        setReactionGeometricShapeCenterX(document, renderIndex, styleFeatures.find("reaction-geometric-shape-center-x")->second);
     if (styleFeatures.find("reaction-geometric-shape-center-y") != styleFeatures.end())
-        setReactionGeometricShapeCenterY(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-center-y")->second);
+        setReactionGeometricShapeCenterY(document, renderIndex, styleFeatures.find("reaction-geometric-shape-center-y")->second);
     if (styleFeatures.find("reaction-geometric-shape-radius-x") != styleFeatures.end())
-        setReactionGeometricShapeRadiusX(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-radius-x")->second);
+        setReactionGeometricShapeRadiusX(document, renderIndex, styleFeatures.find("reaction-geometric-shape-radius-x")->second);
     if (styleFeatures.find("reaction-geometric-shape-radius-y") != styleFeatures.end())
-        setReactionGeometricShapeRadiusY(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-radius-y")->second);
+        setReactionGeometricShapeRadiusY(document, renderIndex, styleFeatures.find("reaction-geometric-shape-radius-y")->second);
     if (styleFeatures.find("reaction-line-color") != styleFeatures.end())
-        setReactionStrokeColor(document, layoutIndex, styleFeatures.find("reaction-line-color")->second);
+        setReactionStrokeColor(document, renderIndex, styleFeatures.find("reaction-line-color")->second);
     if (styleFeatures.find("reaction-line-width") != styleFeatures.end())
-        setReactionStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("reaction-line-width")->second));
+        setReactionStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("reaction-line-width")->second));
     if (styleFeatures.find("reaction-fill-color") != styleFeatures.end())
-        setReactionFillColor(document, layoutIndex, styleFeatures.find("reaction-fill-color")->second);
+        setReactionFillColor(document, renderIndex, styleFeatures.find("reaction-fill-color")->second);
     if (styleFeatures.find("reaction-border-radius-x") != styleFeatures.end())
-        setReactionGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("reaction-border-radius-x")->second);
+        setReactionGeometricShapeCornerCurvatureRadiusX(document, renderIndex, styleFeatures.find("reaction-border-radius-x")->second);
     if (styleFeatures.find("reaction-border-radius-y") != styleFeatures.end())
-        setReactionGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("reaction-border-radius-y")->second);
+        setReactionGeometricShapeCornerCurvatureRadiusY(document, renderIndex, styleFeatures.find("reaction-border-radius-y")->second);
     if (styleFeatures.find("reaction-font-color") != styleFeatures.end())
-        setReactionFontColor(document, layoutIndex, styleFeatures.find("reaction-font-color")->second);
+        setReactionFontColor(document, renderIndex, styleFeatures.find("reaction-font-color")->second);
     if (styleFeatures.find("reaction-font-size") != styleFeatures.end())
-        setReactionFontSize(document, layoutIndex, styleFeatures.find("reaction-font-size")->second);
+        setReactionFontSize(document, renderIndex, styleFeatures.find("reaction-font-size")->second);
     if (styleFeatures.find("reaction-font-style") != styleFeatures.end())
-        setReactionFontStyle(document, layoutIndex, styleFeatures.find("reaction-font-style")->second);
+        setReactionFontStyle(document, renderIndex, styleFeatures.find("reaction-font-style")->second);
     if (styleFeatures.find("reaction-font-weight") != styleFeatures.end())
-        setReactionFontWeight(document, layoutIndex, styleFeatures.find("reaction-font-weight")->second);
+        setReactionFontWeight(document, renderIndex, styleFeatures.find("reaction-font-weight")->second);
     if (styleFeatures.find("species-text-horizontal-alignment") != styleFeatures.end())
-        setReactionTextAnchor(document, layoutIndex, styleFeatures.find("reaction-text-horizontal-alignment")->second);
+        setReactionTextAnchor(document, renderIndex, styleFeatures.find("reaction-text-horizontal-alignment")->second);
     if (styleFeatures.find("reaction-text-vertical-alignment") != styleFeatures.end())
-        setReactionVTextAnchor(document, layoutIndex, styleFeatures.find("reaction-text-vertical-alignment")->second);
+        setReactionVTextAnchor(document, renderIndex, styleFeatures.find("reaction-text-vertical-alignment")->second);
     if (styleFeatures.find("line-ending-border-color") != styleFeatures.end())
-        setLineEndingStrokeColor(document, layoutIndex, styleFeatures.find("line-ending-border-color")->second);
+        setLineEndingStrokeColor(document, renderIndex, styleFeatures.find("line-ending-border-color")->second);
     if (styleFeatures.find("line-ending-border-width") != styleFeatures.end())
-        setLineEndingStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("line-ending-border-width")->second));
+        setLineEndingStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("line-ending-border-width")->second));
     if (styleFeatures.find("line-ending-fill-color") != styleFeatures.end())
-        setLineEndingFillColor(document, layoutIndex, styleFeatures.find("line-ending-fill-color")->second);
+        setLineEndingFillColor(document, renderIndex, styleFeatures.find("line-ending-fill-color")->second);
 
     return 0;
 }

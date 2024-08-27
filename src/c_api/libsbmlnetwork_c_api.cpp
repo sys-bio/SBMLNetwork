@@ -3,6 +3,8 @@
 #include "../libsbmlnetwork_layout.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
+#include "../colors/libsbmlnetwork_colors.h"
+#include "../styles/libsbmlnetwork_styles.h"
 
 extern "C" {
 
@@ -1407,6 +1409,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setReactionStrokeWidth(document, layoutIndex, borderWidth, false);
     }
 
+    const double c_api_getReactionsLineWidth(SBMLDocument* document) {
+        return getReactionStrokeWidth(document);
+    }
+
     int c_api_setReactionsLineWidth(SBMLDocument* document, const double lineWidth, int layoutIndex) {
         return setReactionStrokeWidth(document, layoutIndex, lineWidth);
     }
@@ -2610,8 +2616,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeHref(document, layoutIndex, href);
     }
 
-    int c_api_setStyle(SBMLDocument* document, const char* styleName, int layoutIndex) {
-        return setStyle(document, layoutIndex, styleName);
+    const char* c_api_getStyle(SBMLDocument* document, int renderIndex) {
+        return strdup(getStyle(document, renderIndex).c_str());
+    }
+
+    int c_api_setStyle(SBMLDocument* document, const char* styleName, int renderIndex) {
+        return setStyle(document, renderIndex, styleName);
     }
 
     bool c_api_whetherDisplayReactionTextLabel(const char* styleName) {

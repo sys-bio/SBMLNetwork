@@ -265,8 +265,6 @@ const bool isValidPredefinedStyleName(const std::string& predefinedStyleName);
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
 
-const bool isValidColorValue(const std::string& value);
-
 const bool isValidSpreadMethodValue(const std::string& spreadMethod);
 
 const bool isValidOffsetValue(const RelAbsVector& offset);
@@ -366,20 +364,6 @@ const bool isValidGeometricShapeHref(const std::string& href);
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
 
 const bool isValidRelAbsVectorRelativeValue(const double& value);
-
-std::vector<std::pair<std::string, std::string>> colorData();
-
-const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
-
-const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
-
-const bool isValidHexColorCode(const std::string& value);
-
-const bool isxdigit(const char& c);
-
-std::vector<std::string> getValidHtmlColorNames();
-
-std::vector<std::string> getValidHexColorCodes();
 
 std::vector<std::string> getValidSpreadMethodValues();
 

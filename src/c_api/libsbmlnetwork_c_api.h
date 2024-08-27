@@ -4595,12 +4595,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeHrefs(SBMLDocument* document, const char* href, int layoutIndex = 0);
 
+    /// @brief Returns the name of the predefined style that is used for the render features.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param renderIndex an int representing the index of the Render object to retrieve.
+    /// @return the name of the predefined style that is used for the render features, or @c "" if the object is @c NULL or no predefined style is used.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getStyle(SBMLDocument* document, int renderIndex = 0);
+
     /// @brief Sets the render features using the predefined style with the given name.
     /// @param document a pointer to the SBMLDocument object.
     /// @param styleName a string representing the name of the predefined style to use.
-    /// @param layoutIndex an int representing the index of the Layout to retrieve.
+    /// @param renderIndex an int representing the index of the Render object to retrieve.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setStyle(SBMLDocument* document, const char* styleName, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setStyle(SBMLDocument* document, const char* styleName, int renderIndex = 0);
 
     /// @brief Sets the render features using the predefined style with the given name for all CompartmentGlyph object in this Layout object.
     /// @param styleName a string representing the name of the predefined style to use.

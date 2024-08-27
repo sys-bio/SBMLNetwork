@@ -1,6 +1,8 @@
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "colors/libsbmlnetwork_colors.h"
+#include "styles/libsbmlnetwork_styles.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -1141,6 +1143,8 @@ const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRende
     if (style) {
         if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
             return getStrokeColor(getGeometricShape(style));
+        else
+            return getStrokeColor(style);
     }
 
     return "";
@@ -1161,6 +1165,8 @@ const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInf
     if (style) {
         if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
             return getStrokeColor(getGeometricShape(style));
+        else
+            return getStrokeColor(style);
     }
 
     return "";
@@ -1181,6 +1187,8 @@ const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderIn
     if (style) {
         if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
             return getStrokeColor(getGeometricShape(style));
+        else
+            return getStrokeColor(style);
     }
 
     return "";
@@ -1283,6 +1291,8 @@ const double getCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInfo
     if (style) {
         if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
             return getStrokeWidth(getGeometricShape(style));
+        else
+            return getStrokeWidth(style);
     }
 
     return 0.00;
@@ -1301,6 +1311,8 @@ const double getSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformat
     if (style) {
         if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
             return getStrokeWidth(getGeometricShape(style));
+        else
+            return getStrokeWidth(style);
     }
 
     return 0.00;
@@ -1319,6 +1331,8 @@ const double getReactionStrokeWidth(GlobalRenderInformation* globalRenderInforma
     if (style) {
         if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
             return getStrokeWidth(getGeometricShape(style));
+        else
+            return getStrokeWidth(style);
     }
 
     return 0.00;
@@ -1590,7 +1604,9 @@ int setFontColor(Transformation2D* transformation2D, const std::string& fontColo
 }
 
 const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontColor(style);
 
@@ -1598,7 +1614,9 @@ const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, fontColor);
         return setFontColor(style, fontColor);
@@ -1608,7 +1626,9 @@ int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, co
 }
 
 const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontColor(style);
 
@@ -1616,7 +1636,9 @@ const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, fontColor);
         return setFontColor(style, fontColor);
@@ -1626,7 +1648,9 @@ int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontColor(style);
 
@@ -1634,7 +1658,9 @@ const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, fontColor);
         return setFontColor(style, fontColor);
@@ -1713,7 +1739,9 @@ int setFontFamily(Transformation2D* transformation2D, const std::string& fontFam
 }
 
 const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontFamily(style);
 
@@ -1721,7 +1749,9 @@ const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -1729,7 +1759,9 @@ int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontFamily(style);
 
@@ -1737,7 +1769,9 @@ const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -1745,7 +1779,9 @@ int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontFamily(style);
 
@@ -1753,7 +1789,9 @@ const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -1848,7 +1886,9 @@ int setFontSizeAsDouble(Transformation2D* transformation2D, const double& fontSi
 }
 
 const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontSize(style);
 
@@ -1856,7 +1896,9 @@ const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontSize(style, fontSize);
 
@@ -1868,15 +1910,19 @@ const double getCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRende
 }
 
 int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return 0;
+    return 0.0;
 }
 
 const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontSize(style);
 
@@ -1884,7 +1930,9 @@ const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontSize(style, fontSize);
 
@@ -1896,15 +1944,19 @@ const double getSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInf
 }
 
 int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return 0;
+    return 0.0;
 }
 
 const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontSize(style);
 
@@ -1912,7 +1964,9 @@ const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontSize(style, fontSize);
 
@@ -1924,11 +1978,13 @@ const double getReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderIn
 }
 
 int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return 0;
+    return 0.0;
 }
 
 bool isSetFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2001,7 +2057,9 @@ int setFontWeight(Transformation2D* transformation2D, const std::string& fontWei
 }
 
 const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontWeight(style);
 
@@ -2009,7 +2067,9 @@ const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2017,7 +2077,9 @@ int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontWeight(style);
 
@@ -2025,7 +2087,9 @@ const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2033,7 +2097,9 @@ int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontWeight(style);
 
@@ -2041,7 +2107,9 @@ const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2118,7 +2186,9 @@ int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyl
 }
 
 const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontStyle(style);
 
@@ -2126,7 +2196,9 @@ const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontStyle(style, fontStyle);
 
@@ -2134,7 +2206,9 @@ int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, co
 }
 
 const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontStyle(style);
 
@@ -2142,7 +2216,9 @@ const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontStyle(style, fontStyle);
 
@@ -2150,7 +2226,9 @@ int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontStyle(style);
 
@@ -2158,7 +2236,9 @@ const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontStyle(style, fontStyle);
 
@@ -2235,7 +2315,9 @@ int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnc
 }
 
 const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getTextAnchor(style);
 
@@ -2243,7 +2325,9 @@ const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setTextAnchor(style, textAnchor);
 
@@ -2251,7 +2335,9 @@ int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getTextAnchor(style);
 
@@ -2259,7 +2345,9 @@ const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setTextAnchor(style, textAnchor);
 
@@ -2267,7 +2355,9 @@ int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getTextAnchor(style);
 
@@ -2275,7 +2365,9 @@ const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setTextAnchor(style, textAnchor);
 
@@ -2352,7 +2444,9 @@ int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextA
 }
 
 const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getVTextAnchor(style);
 
@@ -2360,7 +2454,9 @@ const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRende
 }
 
 int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -2368,7 +2464,9 @@ int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, 
 }
 
 const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getVTextAnchor(style);
 
@@ -2376,7 +2474,9 @@ const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInf
 }
 
 int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -2384,7 +2484,9 @@ int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, cons
 }
 
 const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getVTextAnchor(style);
 
@@ -2392,7 +2494,9 @@ const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderIn
 }
 
 int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -7395,6 +7499,57 @@ int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformati
         return setGeometricShapeHref(style, href);
 
     return 0;
+}
+
+const std::string getStyle(GlobalRenderInformation* globalRenderInformation) {
+    std::map<std::string, std::string> renderFeatures = {
+            {"background-color", getBackgroundColor(globalRenderInformation)},
+            {"compartment-border-color", getCompartmentStrokeColor(globalRenderInformation)},
+            {"compartment-border-width", std::to_string(getCompartmentStrokeWidth(globalRenderInformation))},
+            {"compartment-fill-color", getCompartmentFillColor(globalRenderInformation)},
+            {"compartment-font-color", getCompartmentFontColor(globalRenderInformation)},
+            {"compartment-font-size", std::to_string(getCompartmentFontSizeAsDouble(globalRenderInformation))},
+            {"compartment-font-style", getCompartmentFontStyle(globalRenderInformation)},
+            {"compartment-font-weight", getCompartmentFontWeight(globalRenderInformation)},
+            {"compartment-text-anchor", getCompartmentTextAnchor(globalRenderInformation)},
+            {"compartment-vtext-anchor", getCompartmentVTextAnchor(globalRenderInformation)},
+            {"compartment-geometric-shape", getCompartmentGeometricShapeType(globalRenderInformation)},
+            {"compartment-geometric-shape-ratio", std::to_string(getCompartmentGeometricShapeRatio(globalRenderInformation))},
+            {"compartment-geometric-shape-corner-curvature-radius-x", std::to_string(getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(globalRenderInformation))},
+            {"compartment-geometric-shape-corner-curvature-radius-y", std::to_string(getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(globalRenderInformation))},
+            {"species-border-color", getSpeciesStrokeColor(globalRenderInformation)},
+            {"species-border-width", std::to_string(getSpeciesStrokeWidth(globalRenderInformation))},
+            {"species-fill-color", getSpeciesFillColor(globalRenderInformation)},
+            {"species-font-color", getSpeciesFontColor(globalRenderInformation)},
+            {"species-font-size", std::to_string(getSpeciesFontSizeAsDouble(globalRenderInformation))},
+            {"species-font-style", getSpeciesFontStyle(globalRenderInformation)},
+            {"species-font-weight", getSpeciesFontWeight(globalRenderInformation)},
+            {"species-text-anchor", getSpeciesTextAnchor(globalRenderInformation)},
+            {"species-vtext-anchor", getSpeciesVTextAnchor(globalRenderInformation)},
+            {"species-geometric-shape", getSpeciesGeometricShapeType(globalRenderInformation)},
+            {"species-geometric-shape-ratio", std::to_string(getSpeciesGeometricShapeRatio(globalRenderInformation))},
+            {"species-geometric-shape-corner-curvature-radius-x", std::to_string(getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(globalRenderInformation))},
+            {"species-geometric-shape-corner-curvature-radius-y", std::to_string(getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(globalRenderInformation))},
+            {"reaction-line-color", getReactionStrokeColor(globalRenderInformation)},
+            {"reaction-line-width", std::to_string(getReactionStrokeWidth(globalRenderInformation))},
+            {"reaction-fill-color", getReactionFillColor(globalRenderInformation)},
+            {"reaction-font-color", getReactionFontColor(globalRenderInformation)},
+            {"reaction-font-size", std::to_string(getReactionFontSizeAsDouble(globalRenderInformation))},
+            {"reaction-font-style", getReactionFontStyle(globalRenderInformation)},
+            {"reaction-font-weight", getReactionFontWeight(globalRenderInformation)},
+            {"reaction-text-anchor", getReactionTextAnchor(globalRenderInformation)},
+            {"reaction-vtext-anchor", getReactionVTextAnchor(globalRenderInformation)},
+            {"reaction-geometric-shape", getReactionGeometricShapeType(globalRenderInformation)},
+            {"reaction-geometric-shape-ratio", std::to_string(getReactionGeometricShapeRatio(globalRenderInformation))},
+            {"reaction-geometric-shape-corner-curvature-radius-x", std::to_string(getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-corner-curvature-radius-y", std::to_string(getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-center-x", std::to_string(getReactionGeometricShapeCenterXAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-center-y", std::to_string(getReactionGeometricShapeCenterYAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-radius-x", std::to_string(getReactionGeometricShapeRadiusXAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-radius-y", std::to_string(getReactionGeometricShapeRadiusYAsDouble(globalRenderInformation))}
+    };
+
+    return findStyle(renderFeatures);
 }
 
 const double getAbsoluteValue(const RelAbsVector& relAbsVector) {

@@ -8124,6 +8124,8 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionGeometricShapeHref(GlobalRend
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformation, const std::string& href);
 
+LIBSBMLNETWORK_EXTERN const std::string getStyle(GlobalRenderInformation* globalRenderInformation);
+
 /// @brief Returns the absolute coordinate value of this RelAbsVector.
 /// @param relAbsVector a RelAbsVector.
 /// @return the absolute coordinate value of this RelAbsVector
