@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <string>
+#include <vector>
 #include <map>
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
