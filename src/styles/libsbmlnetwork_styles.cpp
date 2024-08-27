@@ -1,6 +1,8 @@
 #include "libsbmlnetwork_styles.h"
 #include "../libsbmlnetwork_common.h"
 
+#include <algorithm>
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     std::vector<std::string> getPredefinedStyleNames() {

@@ -2,6 +2,7 @@
 #define __LIBSBMLNETWORK_COLORS_H
 
 #include <cstdlib>
+#include <string>
 #include <vector>
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {

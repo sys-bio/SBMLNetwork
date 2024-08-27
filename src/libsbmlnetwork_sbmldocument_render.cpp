@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "styles/libsbmlnetwork_styles.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 

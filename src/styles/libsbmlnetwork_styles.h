@@ -2,9 +2,11 @@
 #define __LIBSBMLNETWORK_STYLES_H
 
 #include <cstdlib>
+#include <string>
 #include <map>
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
+
     std::vector<std::string> getPredefinedStyleNames();
 
     std::map<std::string, std::string> getPredefinedStyleFeatures(const std::string styleName);
