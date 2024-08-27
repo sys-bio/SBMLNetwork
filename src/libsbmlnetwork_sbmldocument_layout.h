@@ -1928,12 +1928,20 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width);
 
+/// @brief Returns the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
+/// @return the default "width" attribute of the bounding box of the SpeciesGlyph objects.
+LIBSBMLNETWORK_EXTERN const double getSpeciesDimensionWidth();
+
 /// @brief Sets the value of the "width" attribute the bounding box of all the SpeciesGlyph objects in the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of all the SpeciesGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width);
+
+/// @brief Returns the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
+/// @return the default "width" attribute of the bounding box of the ReactionGlyph objects.
+LIBSBMLNETWORK_EXTERN const double getReactionDimensionWidth();
 
 /// @brief Sets the value of the "width" attribute the bounding box of all the ReactionGlyph objects in the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -2002,12 +2010,20 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned in
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height);
 
+/// @brief Returns the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
+/// @return the default "height" attribute of the bounding box of the SpeciesGlyph objects.
+LIBSBMLNETWORK_EXTERN const double getSpeciesDimensionHeight();
+
 /// @brief Sets the value of the "height" attribute of the bounding box of all the SpeciesGlyph objects in the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of all the SpeciesGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height);
+
+/// @brief Returns the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
+/// @return the default "height" attribute of the bounding box of the ReactionGlyph objects.
+LIBSBMLNETWORK_EXTERN const double getReactionDimensionHeight();
 
 /// @brief Sets the value of the "height" attribute of the bounding box of all the ReactionGlyph objects in the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.

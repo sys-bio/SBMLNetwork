@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_autolayout_node.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_common.h"
 
 // AutoLayoutNodeBase
 
@@ -96,43 +97,47 @@ void AutoLayoutNode::updateDimensions() {
 }
 
 const double AutoLayoutNode::getX() {
-    return _graphicalObject->getBoundingBox()->x();
+    return roundToTwoDecimalPlaces(_graphicalObject->getBoundingBox()->x());
 }
 
 void AutoLayoutNode::setX(const double& x) {
-    _graphicalObject->getBoundingBox()->setX(x);
+    const double roundedX = roundToTwoDecimalPlaces(x);
+    _graphicalObject->getBoundingBox()->setX(roundedX);
 }
 
 const double AutoLayoutNode::getY() {
-    return _graphicalObject->getBoundingBox()->y();
+    return roundToTwoDecimalPlaces(_graphicalObject->getBoundingBox()->y());
 }
 
 void AutoLayoutNode::setY(const double& y) {
-    _graphicalObject->getBoundingBox()->setY(y);
+    const double roundedY = roundToTwoDecimalPlaces(y);
+    _graphicalObject->getBoundingBox()->setY(roundedY);
 }
 
 const double AutoLayoutNode::getWidth() {
-    return _graphicalObject->getBoundingBox()->width();
+    return roundToTwoDecimalPlaces(_graphicalObject->getBoundingBox()->width());
 }
 
 const double AutoLayoutNode::getDefaultWidth() {
-    return 60.0;
+    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultWidth();
 }
 
 void AutoLayoutNode::setWidth(const double& width) {
-    _graphicalObject->getBoundingBox()->setWidth(width);
+    const double roundedWidth = roundToTwoDecimalPlaces(width);
+    _graphicalObject->getBoundingBox()->setWidth(roundedWidth);
 }
 
 const double AutoLayoutNode::getHeight() {
-    return _graphicalObject->getBoundingBox()->height();
+    return roundToTwoDecimalPlaces(_graphicalObject->getBoundingBox()->height());
 }
 
 const double AutoLayoutNode::getDefaultHeight() {
-    return 36.0;
+    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultHeight();
 }
 
 void AutoLayoutNode::setHeight(const double& height) {
-    _graphicalObject->getBoundingBox()->setHeight(height);
+    const double roundedHeight = roundToTwoDecimalPlaces(height);
+    _graphicalObject->getBoundingBox()->setHeight(roundToTwoDecimalPlaces(roundedHeight));
 }
 
 const double AutoLayoutNode::calculateWidth() {
@@ -182,31 +187,33 @@ void AutoLayoutCentroidNode::updateDimensions() {
 }
 
 const double AutoLayoutCentroidNode::getX() {
-    return 0.5 * (getCurve()->getCurveSegment(0)->getStart()->x() + getCurve()->getCurveSegment(0)->getEnd()->x());
+    return roundToTwoDecimalPlaces(0.5 * (getCurve()->getCurveSegment(0)->getStart()->x() + getCurve()->getCurveSegment(0)->getEnd()->x()));
 }
 
 void AutoLayoutCentroidNode::setX(const double& x) {
-    getCurve()->getCurveSegment(0)->getStart()->setX(x);
-    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(x);
-    getCurve()->getCurveSegment(0)->getEnd()->setX(x);
-    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(x);
-    _graphicalObject->getBoundingBox()->setX(x);
+    const double roundedX = roundToTwoDecimalPlaces(x);
+    getCurve()->getCurveSegment(0)->getStart()->setX(roundedX);
+    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(roundedX);
+    getCurve()->getCurveSegment(0)->getEnd()->setX(roundedX);
+    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(roundedX);
+    _graphicalObject->getBoundingBox()->setX(roundedX);
 }
 
 const double AutoLayoutCentroidNode::getY() {
-    return 0.5 * (getCurve()->getCurveSegment(0)->getStart()->y() + getCurve()->getCurveSegment(0)->getEnd()->y());
+    return roundToTwoDecimalPlaces(0.5 * (getCurve()->getCurveSegment(0)->getStart()->y() + getCurve()->getCurveSegment(0)->getEnd()->y()));
 }
 
 void AutoLayoutCentroidNode::setY(const double& y) {
-    getCurve()->getCurveSegment(0)->getStart()->setY(y);
-    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(y);
-    getCurve()->getCurveSegment(0)->getEnd()->setY(y);
-    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(y);
-    _graphicalObject->getBoundingBox()->setY(y);
+    const double roundedY = roundToTwoDecimalPlaces(y);
+    getCurve()->getCurveSegment(0)->getStart()->setY(roundedY);
+    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(roundedY);
+    getCurve()->getCurveSegment(0)->getEnd()->setY(roundedY);
+    ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(roundedY);
+    _graphicalObject->getBoundingBox()->setY(roundedY);
 }
 
 const double AutoLayoutCentroidNode::getWidth() {
-    return getCurve()->getCurveSegment(0)->getEnd()->x() - getCurve()->getCurveSegment(0)->getStart()->x();
+    return roundToTwoDecimalPlaces(getCurve()->getCurveSegment(0)->getEnd()->x() - getCurve()->getCurveSegment(0)->getStart()->x());
 }
 
 const double AutoLayoutCentroidNode::getDefaultWidth() {
@@ -214,20 +221,22 @@ const double AutoLayoutCentroidNode::getDefaultWidth() {
 }
 
 void AutoLayoutCentroidNode::setWidth(const double& width) {
-    if (std::abs(width - getWidth())) {
-        getCurve()->getCurveSegment(0)->getStart()->setX(getCurve()->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
-        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(width - getWidth()));
-        getCurve()->getCurveSegment(0)->getEnd()->setX(getCurve()->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
-        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(width - getWidth()));
+    const double roundedWidth = roundToTwoDecimalPlaces(width);
+    if (std::abs(roundedWidth - getWidth())) {
+        getCurve()->getCurveSegment(0)->getStart()->setX(getCurve()->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(roundedWidth - getWidth()));
+        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(roundedWidth - getWidth()));
+        getCurve()->getCurveSegment(0)->getEnd()->setX(getCurve()->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(roundedWidth - getWidth()));
+        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(roundedWidth - getWidth()));
     }
 }
 
 void AutoLayoutCentroidNode::setBoundingBoxWidth(const double& width) {
-    _graphicalObject->getBoundingBox()->setWidth(width);
+    const double roundedWidth = roundToTwoDecimalPlaces(width);
+    _graphicalObject->getBoundingBox()->setWidth(roundedWidth);
 }
 
 const double AutoLayoutCentroidNode::getHeight() {
-    return getCurve()->getCurveSegment(0)->getEnd()->y() - getCurve()->getCurveSegment(0)->getStart()->y();
+    return roundToTwoDecimalPlaces(getCurve()->getCurveSegment(0)->getEnd()->y() - getCurve()->getCurveSegment(0)->getStart()->y());
 }
 
 const double AutoLayoutCentroidNode::getDefaultHeight() {
@@ -235,16 +244,18 @@ const double AutoLayoutCentroidNode::getDefaultHeight() {
 }
 
 void AutoLayoutCentroidNode::setHeight(const double& height) {
-    if (std::abs(height - getHeight())) {
-        getCurve()->getCurveSegment(0)->getStart()->setY(getCurve()->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
-        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(height - getHeight()));
-        getCurve()->getCurveSegment(0)->getEnd()->setY(getCurve()->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
-        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(height - getHeight()));
+    const double roundedHeight = roundToTwoDecimalPlaces(height);
+    if (std::abs(roundedHeight - getHeight())) {
+        getCurve()->getCurveSegment(0)->getStart()->setY(getCurve()->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(roundedHeight - getHeight()));
+        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(roundedHeight - getHeight()));
+        getCurve()->getCurveSegment(0)->getEnd()->setY(getCurve()->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(roundedHeight - getHeight()));
+        ((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(getCurve()->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(roundedHeight - getHeight()));
     }
 }
 
 void AutoLayoutCentroidNode::setBoundingBoxHeight(const double& height) {
-    _graphicalObject->getBoundingBox()->setHeight(height);
+    const double roundedHeight = roundToTwoDecimalPlaces(height);
+    _graphicalObject->getBoundingBox()->setHeight(roundedHeight);
 }
 
 const double AutoLayoutCentroidNode::calculateWidth() {
@@ -254,11 +265,11 @@ const double AutoLayoutCentroidNode::calculateWidth() {
     if (reaction && reaction->isSetName() && _useNameAsTextLabel)
         displayedText = reaction->getName();
 
-    return std::max(30.0, displayedText.size() * 9.0);
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultWidth(), displayedText.size() * 9.0);
 }
 
 const double AutoLayoutCentroidNode::calculateHeight() {
-    return std::max(20.0, getHeight());
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultHeight(), getHeight());
 }
 
 Curve* AutoLayoutCentroidNode::getCurve() {

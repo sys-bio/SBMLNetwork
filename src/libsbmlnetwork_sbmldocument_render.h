@@ -8547,12 +8547,14 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeHref(SBMLDocument* document, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& href);
 
+LIBSBMLNETWORK_EXTERN const std::string getStyle(SBMLDocument* document, unsigned int renderIndex = 0);
+
 /// @brief Sets the general style features of the SBMLDocument object.
 /// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout object.
+/// @param renderIndex the index number of the Render object.
 /// @param styleName a string representing the name of the style to set.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& styleName);
+LIBSBMLNETWORK_EXTERN int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName);
 
 /// @brief Determines whether the style allows the display of the reaction text label.
 /// @param styleName a string representing the name of the style.

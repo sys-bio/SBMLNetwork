@@ -4,7 +4,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SOURCES 
 		libsbmlnetwork_common.cpp
 		libsbmlnetwork_layout.cpp
-        autolayout/libsbmlnetwork_autolayout.cpp
 		libsbmlnetwork_layout_helpers.cpp
 		libsbmlnetwork_render.cpp
 		libsbmlnetwork_render_helpers.cpp
@@ -12,6 +11,8 @@ set(SOURCES
 		libsbmlnetwork_sbmldocument_layout.cpp
 		libsbmlnetwork_layout_render.cpp
 		libsbmlnetwork_sbmldocument_render.cpp
+		colors/libsbmlnetwork_colors.cpp
+		styles/libsbmlnetwork_styles.cpp
         autolayout/libsbmlnetwork_autolayout.cpp
 		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.cpp
 		autolayout/libsbmlnetwork_autolayout_object_base.cpp
@@ -22,10 +23,9 @@ set(SOURCES
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
-set(HEADERS 
+set(HEADERS
 		libsbmlnetwork_common.h
 		libsbmlnetwork_layout.h
-		autolayout/libsbmlnetwork_autolayout.h
 		libsbmlnetwork_layout_helpers.h
 		libsbmlnetwork_render.h
 		libsbmlnetwork_render_helpers.h
@@ -33,6 +33,8 @@ set(HEADERS
 		libsbmlnetwork_sbmldocument_layout.h
 		libsbmlnetwork_layout_render.h
 		libsbmlnetwork_sbmldocument_render.h
+		colors/libsbmlnetwork_colors.h
+		styles/libsbmlnetwork_styles.h
 		autolayout/libsbmlnetwork_autolayout.h
 		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.h
 		autolayout/libsbmlnetwork_autolayout_object_base.h
@@ -87,6 +89,10 @@ file(GLOB SOURCE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 install(FILES ${SOURCE_HEADERS} DESTINATION include COMPONENT libsbmlnetwork_api)
 file(GLOB AUTOLAYOUT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/autolayout/*.h")
 install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/autolayout COMPONENT libsbmlnetwork_api)
+file(GLOB COLORS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/colors/*.h")
+install(FILES ${COLORS_HEADERS} DESTINATION include/colors COMPONENT libsbmlnetwork_api)
+file(GLOB STYLES_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/styles/*.h")
+install(FILES ${STYLES_HEADERS} DESTINATION include/styles COMPONENT libsbmlnetwork_api)
 file(GLOB C_API_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/c_api/*.h")
 install(FILES ${C_API_HEADERS} DESTINATION include/c_api COMPONENT libsbmlnetwork_api)
 if (WIN32)

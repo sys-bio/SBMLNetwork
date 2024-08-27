@@ -73,6 +73,12 @@ const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::s
 
 const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color);
 
+const bool addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue);
+
+const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInformationBase, const std::string &hexColorCode);
+
+const std::string getUniqueColorId(RenderInformationBase* renderInformationBase);
+
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
@@ -203,63 +209,7 @@ void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 
 const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type);
 
-std::vector<std::string> getPredefinedStyleNames();
-
-std::map<std::string, std::string> getPredefinedStyleFeatures(const std::string styleName);
-
-std::map<std::string, std::string> getDefaultPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getBlueOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getGreenOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getGrayOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getRedOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getOrangeOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getBrownOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getPurpleOmbrePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getPurpleOmbre2PredefinedStyleFeatures();
-
-std::map<std::string, std::string> getBlackAndWhitePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getOrangeAndBluePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getPurpleAndYellowPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getGreenAndRedPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getPowerPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getCalmPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getSunsetPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getElectricPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getMidnightPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getVibrancePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getOceanPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getForestPredefinedStyleFeatures();
-
-std::map<std::string, std::string> getWarmTonePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getCoolTonePredefinedStyleFeatures();
-
-std::map<std::string, std::string> getEscherPredefinedStyleFeatures();
-
-const bool isValidPredefinedStyleName(const std::string& predefinedStyleName);
-
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
-
-const bool isValidColorValue(const std::string& value);
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod);
 
@@ -360,16 +310,6 @@ const bool isValidGeometricShapeHref(const std::string& href);
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
 
 const bool isValidRelAbsVectorRelativeValue(const double& value);
-
-std::vector<std::pair<std::string, std::string>> colorData();
-
-const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
-
-const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
-
-std::vector<std::string> getValidHtmlColorNames();
-
-std::vector<std::string> getValidHexColorCodes();
 
 std::vector<std::string> getValidSpreadMethodValues();
 

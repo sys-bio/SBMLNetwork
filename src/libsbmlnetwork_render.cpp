@@ -1,6 +1,8 @@
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "colors/libsbmlnetwork_colors.h"
+#include "styles/libsbmlnetwork_styles.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -251,7 +253,7 @@ const double getOffsetAsDouble(GradientBase* gradientBase, unsigned int gradient
 
 const double getOffsetAsDouble(GradientStop* gradientStop) {
     if (gradientStop)
-        return gradientStop->getOffset().getRelativeValue();
+        return getRelativeValue(gradientStop->getOffset());
 
     return 0.0;
 }
@@ -389,7 +391,7 @@ const double getLinearGradientX1AsDouble(RenderInformationBase* renderInformatio
 
 const double getLinearGradientX1AsDouble(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        return ((LinearGradient*)gradientBase)->getX1().getRelativeValue();
+        return getRelativeValue(((LinearGradient*)gradientBase)->getX1());
 
     return 0.0;
 }
@@ -448,7 +450,7 @@ const double getLinearGradientX2AsDouble(RenderInformationBase* renderInformatio
 
 const double getLinearGradientX2AsDouble(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        return ((LinearGradient*)gradientBase)->getX2().getRelativeValue();
+        return getRelativeValue(((LinearGradient*)gradientBase)->getX2());
 
     return 0.0;
 }
@@ -507,7 +509,7 @@ const double getLinearGradientY1AsDouble(RenderInformationBase* renderInformatio
 
 const double getLinearGradientY1AsDouble(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        return ((LinearGradient*)gradientBase)->getY1().getRelativeValue();
+        return getRelativeValue(((LinearGradient*)gradientBase)->getY1());
 
     return 0.0;
 }
@@ -566,7 +568,7 @@ const double getLinearGradientY2AsDouble(RenderInformationBase* renderInformatio
 
 const double getLinearGradientY2AsDouble(GradientBase* gradientBase) {
     if (isLinearGradient(gradientBase))
-        return ((LinearGradient*)gradientBase)->getY2().getRelativeValue();
+        return getRelativeValue(((LinearGradient*)gradientBase)->getY2());
 
     return 0.0;
 }
@@ -625,7 +627,7 @@ const double getRadialGradientCxAsDouble(RenderInformationBase* renderInformatio
 
 const double getRadialGradientCxAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return ((RadialGradient*)gradientBase)->getCx().getRelativeValue();
+        return getRelativeValue(((RadialGradient*)gradientBase)->getCx());
 
     return 0.0;
 }
@@ -684,7 +686,7 @@ const double getRadialGradientCyAsDouble(RenderInformationBase* renderInformatio
 
 const double getRadialGradientCyAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return ((RadialGradient*)gradientBase)->getCy().getRelativeValue();
+        return getRelativeValue(((RadialGradient*)gradientBase)->getCy());
 
     return 0.0;
 }
@@ -743,7 +745,7 @@ const double getRadialGradientFxAsDouble(RenderInformationBase* renderInformatio
 
 const double getRadialGradientFxAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return ((RadialGradient*)gradientBase)->getFx().getRelativeValue();
+        return getRelativeValue(((RadialGradient*)gradientBase)->getFx());
 
     return 0.0;
 }
@@ -802,7 +804,7 @@ const double getRadialGradientFyAsDouble(RenderInformationBase* renderInformatio
 
 const double getRadialGradientFyAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return ((RadialGradient*)gradientBase)->getFy().getRelativeValue();
+        return getRelativeValue(((RadialGradient*)gradientBase)->getFy());
 
     return 0.0;
 }
@@ -861,7 +863,7 @@ const double getRadialGradientRAsDouble(RenderInformationBase* renderInformation
 
 const double getRadialGradientRAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return ((RadialGradient*)gradientBase)->getR().getRelativeValue();
+        return getRelativeValue(((RadialGradient*)gradientBase)->getR());
 
     return 0.0;
 }
@@ -1141,6 +1143,8 @@ const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRende
     if (style) {
         if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
             return getStrokeColor(getGeometricShape(style));
+        else
+            return getStrokeColor(style);
     }
 
     return "";
@@ -1161,6 +1165,8 @@ const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInf
     if (style) {
         if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
             return getStrokeColor(getGeometricShape(style));
+        else
+            return getStrokeColor(style);
     }
 
     return "";
@@ -1181,6 +1187,8 @@ const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderIn
     if (style) {
         if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
             return getStrokeColor(getGeometricShape(style));
+        else
+            return getStrokeColor(style);
     }
 
     return "";
@@ -1249,7 +1257,7 @@ const double getStrokeWidth(Style* style) {
 
 const double getStrokeWidth(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive1D(transformation2D))
-        return roundToTwoDecimalPlaces(((GraphicalPrimitive1D*)transformation2D)->getStrokeWidth());
+        return ((GraphicalPrimitive1D*)transformation2D)->getStrokeWidth();
 
     return 0.00;
 }
@@ -1283,6 +1291,8 @@ const double getCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInfo
     if (style) {
         if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
             return getStrokeWidth(getGeometricShape(style));
+        else
+            return getStrokeWidth(style);
     }
 
     return 0.00;
@@ -1301,6 +1311,8 @@ const double getSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformat
     if (style) {
         if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
             return getStrokeWidth(getGeometricShape(style));
+        else
+            return getStrokeWidth(style);
     }
 
     return 0.00;
@@ -1319,6 +1331,8 @@ const double getReactionStrokeWidth(GlobalRenderInformation* globalRenderInforma
     if (style) {
         if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
             return getStrokeWidth(getGeometricShape(style));
+        else
+            return getStrokeWidth(style);
     }
 
     return 0.00;
@@ -1590,7 +1604,9 @@ int setFontColor(Transformation2D* transformation2D, const std::string& fontColo
 }
 
 const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontColor(style);
 
@@ -1598,7 +1614,9 @@ const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, fontColor);
         return setFontColor(style, fontColor);
@@ -1608,7 +1626,9 @@ int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, co
 }
 
 const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontColor(style);
 
@@ -1616,7 +1636,9 @@ const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, fontColor);
         return setFontColor(style, fontColor);
@@ -1626,7 +1648,9 @@ int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontColor(style);
 
@@ -1634,7 +1658,9 @@ const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, fontColor);
         return setFontColor(style, fontColor);
@@ -1713,7 +1739,9 @@ int setFontFamily(Transformation2D* transformation2D, const std::string& fontFam
 }
 
 const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontFamily(style);
 
@@ -1721,7 +1749,9 @@ const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -1729,7 +1759,9 @@ int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontFamily(style);
 
@@ -1737,7 +1769,9 @@ const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -1745,7 +1779,9 @@ int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontFamily(style);
 
@@ -1753,7 +1789,9 @@ const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontFamily(style, fontFamily);
 
@@ -1848,7 +1886,9 @@ int setFontSizeAsDouble(Transformation2D* transformation2D, const double& fontSi
 }
 
 const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontSize(style);
 
@@ -1856,7 +1896,9 @@ const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontSize(style, fontSize);
 
@@ -1864,20 +1906,23 @@ int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, con
 }
 
 const double getCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector fontSize = getCompartmentFontSize(globalRenderInformation);
-    return fontSize.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentFontSize(globalRenderInformation));
 }
 
 int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return 0;
+    return 0.0;
 }
 
 const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontSize(style);
 
@@ -1885,7 +1930,9 @@ const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontSize(style, fontSize);
 
@@ -1893,20 +1940,23 @@ int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const R
 }
 
 const double getSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector fontSize = getSpeciesFontSize(globalRenderInformation);
-    return fontSize.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesFontSize(globalRenderInformation));
 }
 
 int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return 0;
+    return 0.0;
 }
 
 const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontSize(style);
 
@@ -1914,7 +1964,9 @@ const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontSize(style, fontSize);
 
@@ -1922,16 +1974,17 @@ int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const double getReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector fontSize = getReactionFontSize(globalRenderInformation);
-    return fontSize.getAbsoluteValue();
+    return getAbsoluteValue(getReactionFontSize(globalRenderInformation));
 }
 
 int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return 0;
+    return 0.0;
 }
 
 bool isSetFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2004,7 +2057,9 @@ int setFontWeight(Transformation2D* transformation2D, const std::string& fontWei
 }
 
 const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontWeight(style);
 
@@ -2012,7 +2067,9 @@ const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2020,7 +2077,9 @@ int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontWeight(style);
 
@@ -2028,7 +2087,9 @@ const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2036,7 +2097,9 @@ int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontWeight(style);
 
@@ -2044,7 +2107,9 @@ const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontWeight(style, fontWeight);
 
@@ -2121,7 +2186,9 @@ int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyl
 }
 
 const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getFontStyle(style);
 
@@ -2129,7 +2196,9 @@ const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setFontStyle(style, fontStyle);
 
@@ -2137,7 +2206,9 @@ int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, co
 }
 
 const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getFontStyle(style);
 
@@ -2145,7 +2216,9 @@ const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setFontStyle(style, fontStyle);
 
@@ -2153,7 +2226,9 @@ int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getFontStyle(style);
 
@@ -2161,7 +2236,9 @@ const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setFontStyle(style, fontStyle);
 
@@ -2238,7 +2315,9 @@ int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnc
 }
 
 const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getTextAnchor(style);
 
@@ -2246,7 +2325,9 @@ const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setTextAnchor(style, textAnchor);
 
@@ -2254,7 +2335,9 @@ int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getTextAnchor(style);
 
@@ -2262,7 +2345,9 @@ const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setTextAnchor(style, textAnchor);
 
@@ -2270,7 +2355,9 @@ int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getTextAnchor(style);
 
@@ -2278,7 +2365,9 @@ const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setTextAnchor(style, textAnchor);
 
@@ -2355,7 +2444,9 @@ int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextA
 }
 
 const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return getVTextAnchor(style);
 
@@ -2363,7 +2454,9 @@ const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRende
 }
 
 int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -2371,7 +2464,9 @@ int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, 
 }
 
 const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return getVTextAnchor(style);
 
@@ -2379,7 +2474,9 @@ const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInf
 }
 
 int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -2387,7 +2484,9 @@ int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, cons
 }
 
 const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return getVTextAnchor(style);
 
@@ -2395,7 +2494,9 @@ const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderIn
 }
 
 int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    if (!style)
+        style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
@@ -3382,8 +3483,7 @@ int setCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformati
 }
 
 const double getCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getCompartmentGeometricShapeX(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeX(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -3415,8 +3515,7 @@ int setSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation, 
 }
 
 const double getSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getSpeciesGeometricShapeX(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeX(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -3448,8 +3547,7 @@ int setReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation,
 }
 
 const double getReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getReactionGeometricShapeX(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeX(globalRenderInformation));
 }
 
 int setReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -3624,8 +3722,7 @@ int setCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformati
 }
 
 const double getCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getCompartmentGeometricShapeY(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeY(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -3657,8 +3754,7 @@ int setSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation, 
 }
 
 const double getSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getSpeciesGeometricShapeY(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeY(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -3690,8 +3786,7 @@ int setReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation,
 }
 
 const double getReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getReactionGeometricShapeY(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeY(globalRenderInformation));
 }
 
 int setReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -3858,8 +3953,7 @@ int setCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInfor
 }
 
 const double getCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector width = getCompartmentGeometricShapeWidth(globalRenderInformation);
-    return width.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeWidth(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width) {
@@ -3891,8 +3985,7 @@ int setSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformati
 }
 
 const double getSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector width = getSpeciesGeometricShapeWidth(globalRenderInformation);
-    return width.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeWidth(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width) {
@@ -3924,8 +4017,7 @@ int setReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformat
 }
 
 const double getReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector width = getReactionGeometricShapeWidth(globalRenderInformation);
-    return width.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeWidth(globalRenderInformation));
 }
 
 int setReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation, const double& width) {
@@ -4092,8 +4184,7 @@ int setCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInfo
 }
 
 const double getCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector height = getCompartmentGeometricShapeHeight(globalRenderInformation);
-    return height.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeHeight(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height) {
@@ -4125,8 +4216,7 @@ int setSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformat
 }
 
 const double getSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector height = getSpeciesGeometricShapeHeight(globalRenderInformation);
-    return height.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeHeight(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height) {
@@ -4158,8 +4248,7 @@ int setReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInforma
 }
 
 const double getReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector height = getReactionGeometricShapeHeight(globalRenderInformation);
-    return height.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeHeight(globalRenderInformation));
 }
 
 int setReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation, const double& height) {
@@ -4213,9 +4302,9 @@ const double getGeometricShapeRatio(RenderGroup* renderGroup, unsigned int geome
 
 const double getGeometricShapeRatio(Transformation2D* shape) {
     if (isRectangle(shape))
-        return roundToTwoDecimalPlaces(((Rectangle*)shape)->getRatio());
+        return ((Rectangle*)shape)->getRatio();
     else if (isEllipse(shape))
-        return roundToTwoDecimalPlaces(((Ellipse*)shape)->getRatio());
+        return ((Ellipse*)shape)->getRatio();
 
     return 0.00;
 }
@@ -4473,8 +4562,7 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* 
 }
 
 const double getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector rx = getCompartmentGeometricShapeCornerCurvatureRadiusX(globalRenderInformation);
-    return rx.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeCornerCurvatureRadiusX(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx) {
@@ -4506,8 +4594,7 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* glob
 }
 
 const double getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector rx = getSpeciesGeometricShapeCornerCurvatureRadiusX(globalRenderInformation);
-    return rx.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeCornerCurvatureRadiusX(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx) {
@@ -4539,8 +4626,7 @@ int setReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* glo
 }
 
 const double getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector rx = getReactionGeometricShapeCornerCurvatureRadiusX(globalRenderInformation);
-    return rx.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeCornerCurvatureRadiusX(globalRenderInformation));
 }
 
 int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx) {
@@ -4697,8 +4783,7 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* 
 }
 
 const double getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector ry = getCompartmentGeometricShapeCornerCurvatureRadiusY(globalRenderInformation);
-    return ry.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeCornerCurvatureRadiusY(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry) {
@@ -4730,8 +4815,7 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* glob
 }
 
 const double getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector ry = getSpeciesGeometricShapeCornerCurvatureRadiusY(globalRenderInformation);
-    return ry.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeCornerCurvatureRadiusY(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry) {
@@ -4763,8 +4847,7 @@ int setReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* glo
 }
 
 const double getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector ry = getReactionGeometricShapeCornerCurvatureRadiusY(globalRenderInformation);
-    return ry.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeCornerCurvatureRadiusY(globalRenderInformation));
 }
 
 int setReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry) {
@@ -4921,8 +5004,7 @@ int setCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInf
 }
 
 const double getCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector cx = getCompartmentGeometricShapeCenterX(globalRenderInformation);
-    return cx.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeCenterX(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx) {
@@ -4954,8 +5036,7 @@ int setSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInforma
 }
 
 const double getSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector cx = getSpeciesGeometricShapeCenterX(globalRenderInformation);
-    return cx.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeCenterX(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx) {
@@ -4987,8 +5068,7 @@ int setReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInform
 }
 
 const double getReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector cx = getReactionGeometricShapeCenterX(globalRenderInformation);
-    return cx.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeCenterX(globalRenderInformation));
 }
 
 int setReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cx) {
@@ -5145,8 +5225,7 @@ int setCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInf
 }
 
 const double getCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector cy = getCompartmentGeometricShapeCenterY(globalRenderInformation);
-    return cy.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeCenterY(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy) {
@@ -5178,8 +5257,7 @@ int setSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInforma
 }
 
 const double getSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector cy = getSpeciesGeometricShapeCenterY(globalRenderInformation);
-    return cy.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeCenterY(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy) {
@@ -5211,8 +5289,7 @@ int setReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInform
 }
 
 const double getReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector cy = getReactionGeometricShapeCenterY(globalRenderInformation);
-    return cy.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeCenterY(globalRenderInformation));
 }
 
 int setReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& cy) {
@@ -5369,8 +5446,7 @@ int setCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInf
 }
 
 const double getCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector rx = getCompartmentGeometricShapeRadiusX(globalRenderInformation);
-    return rx.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeRadiusX(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx) {
@@ -5402,8 +5478,7 @@ int setSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInforma
 }
 
 const double getSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector rx = getSpeciesGeometricShapeRadiusX(globalRenderInformation);
-    return rx.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeRadiusX(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx) {
@@ -5435,8 +5510,7 @@ int setReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInform
 }
 
 const double getReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector rx = getReactionGeometricShapeRadiusX(globalRenderInformation);
-    return rx.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeRadiusX(globalRenderInformation));
 }
 
 int setReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& rx) {
@@ -5593,8 +5667,7 @@ int setCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInf
 }
 
 const double getCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector ry = getCompartmentGeometricShapeRadiusY(globalRenderInformation);
-    return ry.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeRadiusY(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry) {
@@ -5626,8 +5699,7 @@ int setSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInforma
 }
 
 const double getSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector ry = getSpeciesGeometricShapeRadiusY(globalRenderInformation);
-    return ry.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeRadiusY(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry) {
@@ -5659,8 +5731,7 @@ int setReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInform
 }
 
 const double getReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector ry = getReactionGeometricShapeRadiusY(globalRenderInformation);
-    return ry.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeRadiusY(globalRenderInformation));
 }
 
 int setReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& ry) {
@@ -5869,8 +5940,7 @@ int setCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderIn
 }
 
 const double getCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getCompartmentGeometricShapeElementX(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeElementX(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -5902,8 +5972,7 @@ int setSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInform
 }
 
 const double getSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getSpeciesGeometricShapeElementX(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeElementX(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -5935,8 +6004,7 @@ int setReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInfor
 }
 
 const double getReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getReactionGeometricShapeElementX(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeElementX(globalRenderInformation));
 }
 
 int setReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -6120,8 +6188,7 @@ int setCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderIn
 }
 
 const double getCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getCompartmentGeometricShapeElementY(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeElementY(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -6153,8 +6220,7 @@ int setSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInform
 }
 
 const double getSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getSpeciesGeometricShapeElementY(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeElementY(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -6186,8 +6252,7 @@ int setReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInfor
 }
 
 const double getReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getReactionGeometricShapeElementY(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeElementY(globalRenderInformation));
 }
 
 int setReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -6371,8 +6436,7 @@ int setCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRende
 }
 
 const double getCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getCompartmentGeometricShapeBasePoint1X(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeBasePoint1X(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -6404,8 +6468,7 @@ int setSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInf
 }
 
 const double getSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getSpeciesGeometricShapeBasePoint1X(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeBasePoint1X(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -6437,8 +6500,7 @@ int setReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderIn
 }
 
 const double getReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getReactionGeometricShapeBasePoint1X(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeBasePoint1X(globalRenderInformation));
 }
 
 int setReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -6622,8 +6684,7 @@ int setCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRende
 }
 
 const double getCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getCompartmentGeometricShapeBasePoint1Y(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeBasePoint1Y(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -6655,8 +6716,7 @@ int setSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInf
 }
 
 const double getSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getSpeciesGeometricShapeBasePoint1Y(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeBasePoint1Y(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -6688,8 +6748,7 @@ int setReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderIn
 }
 
 const double getReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getReactionGeometricShapeBasePoint1Y(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeBasePoint1Y(globalRenderInformation));
 }
 
 int setReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -6873,8 +6932,7 @@ int setCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRende
 }
 
 const double getCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getCompartmentGeometricShapeBasePoint2X(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeBasePoint2X(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -6906,8 +6964,7 @@ int setSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInf
 }
 
 const double getSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getSpeciesGeometricShapeBasePoint2X(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeBasePoint2X(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -6939,8 +6996,7 @@ int setReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderIn
 }
 
 const double getReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector x = getReactionGeometricShapeBasePoint2X(globalRenderInformation);
-    return x.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeBasePoint2X(globalRenderInformation));
 }
 
 int setReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation, const double& x) {
@@ -7116,8 +7172,7 @@ int setCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRende
 }
 
 const double getCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getCompartmentGeometricShapeBasePoint2Y(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getCompartmentGeometricShapeBasePoint2Y(globalRenderInformation));
 }
 
 int setCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -7149,8 +7204,7 @@ int setSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInf
 }
 
 const double getSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getSpeciesGeometricShapeBasePoint2Y(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getSpeciesGeometricShapeBasePoint2Y(globalRenderInformation));
 }
 
 int setSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -7182,8 +7236,7 @@ int setReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderIn
 }
 
 const double getReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation) {
-    RelAbsVector y = getReactionGeometricShapeBasePoint2Y(globalRenderInformation);
-    return y.getAbsoluteValue();
+    return getAbsoluteValue(getReactionGeometricShapeBasePoint2Y(globalRenderInformation));
 }
 
 int setReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation, const double& y) {
@@ -7448,8 +7501,59 @@ int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformati
     return 0;
 }
 
+const std::string getStyle(GlobalRenderInformation* globalRenderInformation) {
+    std::map<std::string, std::string> renderFeatures = {
+            {"background-color", getBackgroundColor(globalRenderInformation)},
+            {"compartment-border-color", getCompartmentStrokeColor(globalRenderInformation)},
+            {"compartment-border-width", std::to_string(getCompartmentStrokeWidth(globalRenderInformation))},
+            {"compartment-fill-color", getCompartmentFillColor(globalRenderInformation)},
+            {"compartment-font-color", getCompartmentFontColor(globalRenderInformation)},
+            {"compartment-font-size", std::to_string(getCompartmentFontSizeAsDouble(globalRenderInformation))},
+            {"compartment-font-style", getCompartmentFontStyle(globalRenderInformation)},
+            {"compartment-font-weight", getCompartmentFontWeight(globalRenderInformation)},
+            {"compartment-text-anchor", getCompartmentTextAnchor(globalRenderInformation)},
+            {"compartment-vtext-anchor", getCompartmentVTextAnchor(globalRenderInformation)},
+            {"compartment-geometric-shape", getCompartmentGeometricShapeType(globalRenderInformation)},
+            {"compartment-geometric-shape-ratio", std::to_string(getCompartmentGeometricShapeRatio(globalRenderInformation))},
+            {"compartment-geometric-shape-corner-curvature-radius-x", std::to_string(getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(globalRenderInformation))},
+            {"compartment-geometric-shape-corner-curvature-radius-y", std::to_string(getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(globalRenderInformation))},
+            {"species-border-color", getSpeciesStrokeColor(globalRenderInformation)},
+            {"species-border-width", std::to_string(getSpeciesStrokeWidth(globalRenderInformation))},
+            {"species-fill-color", getSpeciesFillColor(globalRenderInformation)},
+            {"species-font-color", getSpeciesFontColor(globalRenderInformation)},
+            {"species-font-size", std::to_string(getSpeciesFontSizeAsDouble(globalRenderInformation))},
+            {"species-font-style", getSpeciesFontStyle(globalRenderInformation)},
+            {"species-font-weight", getSpeciesFontWeight(globalRenderInformation)},
+            {"species-text-anchor", getSpeciesTextAnchor(globalRenderInformation)},
+            {"species-vtext-anchor", getSpeciesVTextAnchor(globalRenderInformation)},
+            {"species-geometric-shape", getSpeciesGeometricShapeType(globalRenderInformation)},
+            {"species-geometric-shape-ratio", std::to_string(getSpeciesGeometricShapeRatio(globalRenderInformation))},
+            {"species-geometric-shape-corner-curvature-radius-x", std::to_string(getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(globalRenderInformation))},
+            {"species-geometric-shape-corner-curvature-radius-y", std::to_string(getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(globalRenderInformation))},
+            {"reaction-line-color", getReactionStrokeColor(globalRenderInformation)},
+            {"reaction-line-width", std::to_string(getReactionStrokeWidth(globalRenderInformation))},
+            {"reaction-fill-color", getReactionFillColor(globalRenderInformation)},
+            {"reaction-font-color", getReactionFontColor(globalRenderInformation)},
+            {"reaction-font-size", std::to_string(getReactionFontSizeAsDouble(globalRenderInformation))},
+            {"reaction-font-style", getReactionFontStyle(globalRenderInformation)},
+            {"reaction-font-weight", getReactionFontWeight(globalRenderInformation)},
+            {"reaction-text-anchor", getReactionTextAnchor(globalRenderInformation)},
+            {"reaction-vtext-anchor", getReactionVTextAnchor(globalRenderInformation)},
+            {"reaction-geometric-shape", getReactionGeometricShapeType(globalRenderInformation)},
+            {"reaction-geometric-shape-ratio", std::to_string(getReactionGeometricShapeRatio(globalRenderInformation))},
+            {"reaction-geometric-shape-corner-curvature-radius-x", std::to_string(getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-corner-curvature-radius-y", std::to_string(getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-center-x", std::to_string(getReactionGeometricShapeCenterXAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-center-y", std::to_string(getReactionGeometricShapeCenterYAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-radius-x", std::to_string(getReactionGeometricShapeRadiusXAsDouble(globalRenderInformation))},
+            {"reaction-geometric-shape-radius-y", std::to_string(getReactionGeometricShapeRadiusYAsDouble(globalRenderInformation))}
+    };
+
+    return findStyle(renderFeatures);
+}
+
 const double getAbsoluteValue(const RelAbsVector& relAbsVector) {
-    return roundToTwoDecimalPlaces(relAbsVector.getAbsoluteValue());
+    return relAbsVector.getAbsoluteValue();
 }
 
 int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs) {
@@ -7457,7 +7561,7 @@ int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs) {
 }
 
 const double getRelativeValue(const RelAbsVector& relAbsVector) {
-    return roundToTwoDecimalPlaces(relAbsVector.getRelativeValue());
+    return relAbsVector.getRelativeValue();
 }
 
 int setRelativeValue(RelAbsVector relAbsVector, const double& rel) {

@@ -865,7 +865,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const std::string& i
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
 /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
+LIBSBMLNETWORK_EXTERN int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, const double& width);
 
 /// @brief Sets the value of the "width" attribute of the bounding box this GraphicalObject object.
 /// @param layout a pointer to the Layout object.

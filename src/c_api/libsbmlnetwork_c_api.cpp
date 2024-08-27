@@ -3,6 +3,8 @@
 #include "../libsbmlnetwork_layout.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
+#include "../colors/libsbmlnetwork_colors.h"
+#include "../styles/libsbmlnetwork_styles.h"
 
 extern "C" {
 
@@ -526,8 +528,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setCompartmentDimensionWidth(document, layoutIndex, width);
     }
 
+    const double c_api_getSpeciesWidth() {
+        return getSpeciesDimensionWidth();
+    }
+
     int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex) {
         return setSpeciesDimensionWidth(document, layoutIndex, width);
+    }
+
+    const double c_api_getReactionsWidth() {
+        return getReactionDimensionWidth();
     }
 
     int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex) {
@@ -546,8 +556,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setCompartmentDimensionHeight(document, layoutIndex, height);
     }
 
+    const double c_api_getSpeciesHeight() {
+        return getSpeciesDimensionHeight();
+    }
+
     int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex) {
         return setSpeciesDimensionHeight(document, layoutIndex, height);
+    }
+
+    const double c_api_getReactionsHeight() {
+        return getReactionDimensionHeight();
     }
 
     int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex) {
@@ -1389,6 +1407,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setReactionsBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex) {
         return setReactionStrokeWidth(document, layoutIndex, borderWidth, false);
+    }
+
+    const double c_api_getReactionsLineWidth(SBMLDocument* document) {
+        return getReactionStrokeWidth(document);
     }
 
     int c_api_setReactionsLineWidth(SBMLDocument* document, const double lineWidth, int layoutIndex) {
@@ -2594,8 +2616,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeHref(document, layoutIndex, href);
     }
 
-    int c_api_setStyle(SBMLDocument* document, const char* styleName, int layoutIndex) {
-        return setStyle(document, layoutIndex, styleName);
+    const char* c_api_getStyle(SBMLDocument* document, int renderIndex) {
+        return strdup(getStyle(document, renderIndex).c_str());
+    }
+
+    int c_api_setStyle(SBMLDocument* document, const char* styleName, int renderIndex) {
+        return setStyle(document, renderIndex, styleName);
     }
 
     bool c_api_whetherDisplayReactionTextLabel(const char* styleName) {

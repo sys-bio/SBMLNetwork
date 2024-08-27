@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "styles/libsbmlnetwork_styles.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -1281,12 +1282,12 @@ const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, unsigned
 
 const double getLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector xVector = getLineEndingGeometricShapeX(document, id, geometricShapeIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(xVector);
 }
 
 const double getLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector xVector = getLineEndingGeometricShapeX(document, renderIndex, id, geometricShapeIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(xVector);
 }
 
 int setLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x) {
@@ -1323,12 +1324,12 @@ const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, unsigned
 
 const double getLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getLineEndingGeometricShapeY(document, id, geometricShapeIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(yVector);
 }
 
 const double getLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getLineEndingGeometricShapeY(document, renderIndex, id, geometricShapeIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(yVector);
 }
 
 int setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y) {
@@ -1365,12 +1366,12 @@ const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, unsi
 
 const double getLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector widthVector = getLineEndingGeometricShapeWidth(document, id, geometricShapeIndex);
-    return widthVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * widthVector.getRelativeValue();
+    return getAbsoluteValue(widthVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(widthVector);
 }
 
 const double getLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector widthVector = getLineEndingGeometricShapeWidth(document, renderIndex, id, geometricShapeIndex);
-    return widthVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * widthVector.getRelativeValue();
+    return getAbsoluteValue(widthVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(widthVector);
 }
 
 int setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& width) {
@@ -1407,12 +1408,12 @@ const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, uns
 
 const double getLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector heightVector = getLineEndingGeometricShapeHeight(document, id, geometricShapeIndex);
-    return heightVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * heightVector.getRelativeValue();
+    return getAbsoluteValue(heightVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(heightVector);
 }
 
 const double getLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector heightVector = getLineEndingGeometricShapeHeight(document, renderIndex, id, geometricShapeIndex);
-    return heightVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * heightVector.getRelativeValue();
+    return getAbsoluteValue(heightVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(heightVector);
 }
 
 int setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& height) {
@@ -1473,12 +1474,12 @@ const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocumen
 
 const double getLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusXVector = getLineEndingGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex);
-    return cornerCurvatureRadiusXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * cornerCurvatureRadiusXVector.getRelativeValue();
+    return getAbsoluteValue(cornerCurvatureRadiusXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(cornerCurvatureRadiusXVector);
 }
 
 const double getLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusXVector = getLineEndingGeometricShapeCornerCurvatureRadiusX(document, renderIndex, id, geometricShapeIndex);
-    return cornerCurvatureRadiusXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * cornerCurvatureRadiusXVector.getRelativeValue();
+    return getAbsoluteValue(cornerCurvatureRadiusXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(cornerCurvatureRadiusXVector);
 }
 
 int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusX) {
@@ -1515,12 +1516,12 @@ const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocumen
 
 const double getLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusYVector = getLineEndingGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex);
-    return cornerCurvatureRadiusYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * cornerCurvatureRadiusYVector.getRelativeValue();
+    return getAbsoluteValue(cornerCurvatureRadiusYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(cornerCurvatureRadiusYVector);
 }
 
 const double getLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusYVector = getLineEndingGeometricShapeCornerCurvatureRadiusY(document, renderIndex, id, geometricShapeIndex);
-    return cornerCurvatureRadiusYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * cornerCurvatureRadiusYVector.getRelativeValue();
+    return getAbsoluteValue(cornerCurvatureRadiusYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(cornerCurvatureRadiusYVector);
 }
 
 int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusY) {
@@ -1557,12 +1558,12 @@ const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, un
 
 const double getLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cXVector = getLineEndingGeometricShapeCenterX(document, id, geometricShapeIndex);
-    return cXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * cXVector.getRelativeValue();
+    return getAbsoluteValue(cXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(cXVector);
 }
 
 const double getLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
    RelAbsVector xVector = getLineEndingGeometricShapeCenterX(document, renderIndex, id, geometricShapeIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(xVector);
 }
 
 int setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
@@ -1599,12 +1600,12 @@ const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, un
 
 const double getLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cYVector = getLineEndingGeometricShapeCenterY(document, id, geometricShapeIndex);
-    return cYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * cYVector.getRelativeValue();
+    return getAbsoluteValue(cYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(cYVector);
 }
 
 const double getLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getLineEndingGeometricShapeCenterY(document, renderIndex, id, geometricShapeIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(yVector);
 }
 
 int setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
@@ -1641,12 +1642,12 @@ const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, un
 
 const double getLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rXVector = getLineEndingGeometricShapeRadiusX(document, id, geometricShapeIndex);
-    return rXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * rXVector.getRelativeValue();
+    return getAbsoluteValue(rXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(rXVector);
 }
 
 const double getLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rXVector = getLineEndingGeometricShapeRadiusX(document, renderIndex, id, geometricShapeIndex);
-    return rXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * rXVector.getRelativeValue();
+    return getAbsoluteValue(rXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(rXVector);
 }
 
 int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
@@ -1683,12 +1684,12 @@ const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, un
 
 const double getLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rYVector = getLineEndingGeometricShapeRadiusY(document, id, geometricShapeIndex);
-    return rYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * rYVector.getRelativeValue();
+    return getAbsoluteValue(rYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(rYVector);
 }
 
 const double getLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rYVector = getLineEndingGeometricShapeRadiusY(document, renderIndex, id, geometricShapeIndex);
-    return rYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * rYVector.getRelativeValue();
+    return getAbsoluteValue(rYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(rYVector);
 }
 
 int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
@@ -1733,12 +1734,12 @@ const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, u
 
 const double getLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementXVector = getLineEndingGeometricShapeElementX(document, id, geometricShapeIndex, elementIndex);
-    return elementXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * elementXVector.getRelativeValue();
+    return getAbsoluteValue(elementXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(elementXVector);
 }
 
 const double getLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementXVector = getLineEndingGeometricShapeElementX(document, renderIndex, id, geometricShapeIndex, elementIndex);
-    return elementXVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * elementXVector.getRelativeValue();
+    return getAbsoluteValue(elementXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(elementXVector);
 }
 
 int setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -1767,12 +1768,12 @@ const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, u
 
 const double getLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementYVector = getLineEndingGeometricShapeElementY(document, id, geometricShapeIndex, elementIndex);
-    return elementYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * elementYVector.getRelativeValue();
+    return getAbsoluteValue(elementYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(elementYVector);
 }
 
 const double getLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementYVector = getLineEndingGeometricShapeElementY(document, renderIndex, id, geometricShapeIndex, elementIndex);
-    return elementYVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * elementYVector.getRelativeValue();
+    return getAbsoluteValue(elementYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(elementYVector);
 }
 
 int setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -1801,12 +1802,12 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document
 
 const double getLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1XVector = getLineEndingGeometricShapeBasePoint1X(document, id, geometricShapeIndex);
-    return basePoint1XVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * basePoint1XVector.getRelativeValue();
+    return getAbsoluteValue(basePoint1XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint1XVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1XVector = getLineEndingGeometricShapeBasePoint1X(document, renderIndex, id, geometricShapeIndex);
-    return basePoint1XVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * basePoint1XVector.getRelativeValue();
+    return getAbsoluteValue(basePoint1XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint1XVector);
 }
 
 int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
@@ -1835,12 +1836,12 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document
 
 const double getLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1YVector = getLineEndingGeometricShapeBasePoint1Y(document, id, geometricShapeIndex);
-    return basePoint1YVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * basePoint1YVector.getRelativeValue();
+    return getAbsoluteValue(basePoint1YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint1YVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1YVector = getLineEndingGeometricShapeBasePoint1Y(document, renderIndex, id, geometricShapeIndex);
-    return basePoint1YVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * basePoint1YVector.getRelativeValue();
+    return getAbsoluteValue(basePoint1YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint1YVector);
 }
 
 int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
@@ -1869,12 +1870,12 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document
 
 const double getLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2XVector = getLineEndingGeometricShapeBasePoint2X(document, id, geometricShapeIndex);
-    return basePoint2XVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * basePoint2XVector.getRelativeValue();
+    return getAbsoluteValue(basePoint2XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint2XVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2XVector = getLineEndingGeometricShapeBasePoint2X(document, renderIndex, id, geometricShapeIndex);
-    return basePoint2XVector.getAbsoluteValue() + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * basePoint2XVector.getRelativeValue();
+    return getAbsoluteValue(basePoint2XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint2XVector);
 }
 
 int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
@@ -1903,12 +1904,12 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document
 
 const double getLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2YVector = getLineEndingGeometricShapeBasePoint2Y(document, id, geometricShapeIndex);
-    return basePoint2YVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * basePoint2YVector.getRelativeValue();
+    return getAbsoluteValue(basePoint2YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint2YVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2YVector = getLineEndingGeometricShapeBasePoint2Y(document, renderIndex, id, geometricShapeIndex);
-    return basePoint2YVector.getAbsoluteValue() + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * basePoint2YVector.getRelativeValue();
+    return getAbsoluteValue(basePoint2YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint2YVector);
 }
 
 int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
@@ -2776,12 +2777,12 @@ const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attrib
 
 const double getFontSizeAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     RelAbsVector fontSizeVector = getFontSize(document, graphicalObject, textGlyphIndex);
-    return fontSizeVector.getAbsoluteValue() + 0.5 * (getTextDimensionWidth(getLayout(document), graphicalObject, textGlyphIndex) + getTextDimensionHeight(getLayout(document), graphicalObject, textGlyphIndex)) * fontSizeVector.getRelativeValue();
+    return getAbsoluteValue(fontSizeVector) + 0.5 * (getTextDimensionWidth(getLayout(document), graphicalObject, textGlyphIndex) + getTextDimensionHeight(getLayout(document), graphicalObject, textGlyphIndex)) * getRelativeValue(fontSizeVector);
 }
 
 const double getFontSizeAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     RelAbsVector fontSizeVector = getFontSize(document, attribute, textGlyphIndex);
-    return fontSizeVector.getAbsoluteValue() + 0.5 * (getTextDimensionWidth(document, attribute, 0, textGlyphIndex) + getTextDimensionWidth(document, attribute, 0, textGlyphIndex)) * fontSizeVector.getRelativeValue();
+    return getAbsoluteValue(fontSizeVector) + 0.5 * (getTextDimensionWidth(document, attribute, 0, textGlyphIndex) + getTextDimensionWidth(document, attribute, 0, textGlyphIndex)) * getRelativeValue(fontSizeVector);
 }
 
 int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& fontSize) {
@@ -3939,12 +3940,12 @@ const RelAbsVector getGeometricShapeX(SBMLDocument* document, const std::string&
 
 const double getGeometricShapeXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector xVector = getGeometricShapeX(document, graphicalObject, geometricShapeIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(xVector);
 }
 
 const double getGeometricShapeXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex ) {
     RelAbsVector xVector = getGeometricShapeX(document, attribute, geometricShapeIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(xVector);
 }
 
 int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
@@ -4116,12 +4117,12 @@ const RelAbsVector getGeometricShapeY(SBMLDocument* document, const std::string&
 
 const double getGeometricShapeYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getGeometricShapeY(document, graphicalObject, geometricShapeIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(yVector);
 }
 
 const double getGeometricShapeYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getGeometricShapeY(document, attribute, geometricShapeIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(yVector);
 }
 
 int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
@@ -4292,12 +4293,12 @@ const RelAbsVector getGeometricShapeWidth(SBMLDocument* document, const std::str
 
 const double getGeometricShapeWidthAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector widthVector = getGeometricShapeWidth(document, graphicalObject, geometricShapeIndex);
-    return widthVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * widthVector.getRelativeValue();
+    return getAbsoluteValue(widthVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(widthVector);
 }
 
 const double getGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector widthVector = getGeometricShapeWidth(document, attribute, geometricShapeIndex);
-    return widthVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * widthVector.getRelativeValue();
+    return getAbsoluteValue(widthVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(widthVector);
 }
 
 int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& width) {
@@ -4468,12 +4469,12 @@ const RelAbsVector getGeometricShapeHeight(SBMLDocument* document, const std::st
 
 const double getGeometricShapeHeightAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector heightVector = getGeometricShapeHeight(document, graphicalObject, geometricShapeIndex);
-    return heightVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * heightVector.getRelativeValue();
+    return getAbsoluteValue(heightVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(heightVector);
 }
 
 const double getGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector heightVector = getGeometricShapeHeight(document, attribute, geometricShapeIndex);
-    return heightVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * heightVector.getRelativeValue();
+    return getAbsoluteValue(heightVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(heightVector);
 }
 
 int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& height) {
@@ -4735,12 +4736,12 @@ const RelAbsVector getGeometricShapeCornerCurvatureRadiusX(SBMLDocument* documen
 
 const double getGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector rxVector = getGeometricShapeCornerCurvatureRadiusX(document, graphicalObject, geometricShapeIndex);
-    return rxVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * rxVector.getRelativeValue();
+    return getAbsoluteValue(rxVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(rxVector);
 }
 
 const double getGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector rxVector = getGeometricShapeCornerCurvatureRadiusX(document, attribute, geometricShapeIndex);
-    return rxVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * rxVector.getRelativeValue();
+    return getAbsoluteValue(rxVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(rxVector);
 }
 
 int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
@@ -4911,12 +4912,12 @@ const RelAbsVector getGeometricShapeCornerCurvatureRadiusY(SBMLDocument* documen
 
 const double getGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector ryVector = getGeometricShapeCornerCurvatureRadiusY(document, graphicalObject, geometricShapeIndex);
-    return ryVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * ryVector.getRelativeValue();
+    return getAbsoluteValue(ryVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(ryVector);
 }
 
 const double getGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector ryVector = getGeometricShapeCornerCurvatureRadiusY(document, attribute, geometricShapeIndex);
-    return ryVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * ryVector.getRelativeValue();
+    return getAbsoluteValue(ryVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(ryVector);
 }
 
 int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
@@ -5087,12 +5088,12 @@ const RelAbsVector getGeometricShapeCenterX(SBMLDocument* document, const std::s
 
 const double getGeometricShapeCenterXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector cxVector = getGeometricShapeCenterX(document, graphicalObject, geometricShapeIndex);
-    return cxVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * cxVector.getRelativeValue();
+    return getAbsoluteValue(cxVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(cxVector);
 }
 
 const double getGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector cxVector = getGeometricShapeCenterX(document, attribute, geometricShapeIndex);
-    return cxVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * cxVector.getRelativeValue();
+    return getAbsoluteValue(cxVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(cxVector);
 }
 
 int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& cx) {
@@ -5263,12 +5264,12 @@ const RelAbsVector getGeometricShapeCenterY(SBMLDocument* document, const std::s
 
 const double getGeometricShapeCenterYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector cyVector = getGeometricShapeCenterY(document, graphicalObject, geometricShapeIndex);
-    return cyVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * cyVector.getRelativeValue();
+    return getAbsoluteValue(cyVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(cyVector);
 }
 
 const double getGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector cyVector = getGeometricShapeCenterY(document, attribute, geometricShapeIndex);
-    return cyVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * cyVector.getRelativeValue();
+    return getAbsoluteValue(cyVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(cyVector);
 }
 
 int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& cy) {
@@ -5440,12 +5441,12 @@ const RelAbsVector getGeometricShapeRadiusX(SBMLDocument* document, const std::s
 
 const double getGeometricShapeRadiusXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector rxVector = getGeometricShapeRadiusX(document, graphicalObject, geometricShapeIndex);
-    return rxVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * rxVector.getRelativeValue();
+    return getAbsoluteValue(rxVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(rxVector);
 }
 
 const double getGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector rxVector = getGeometricShapeRadiusX(document, attribute, geometricShapeIndex);
-    return rxVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * rxVector.getRelativeValue();
+    return getAbsoluteValue(rxVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(rxVector);
 }
 
 int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& rx) {
@@ -5616,12 +5617,12 @@ const RelAbsVector getGeometricShapeRadiusY(SBMLDocument* document, const std::s
 
 const double getGeometricShapeRadiusYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     RelAbsVector ryVector = getGeometricShapeRadiusY(document, graphicalObject, geometricShapeIndex);
-    return ryVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * ryVector.getRelativeValue();
+    return getAbsoluteValue(ryVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(ryVector);
 }
 
 const double getGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
     RelAbsVector ryVector = getGeometricShapeRadiusY(document, attribute, geometricShapeIndex);
-    return ryVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * ryVector.getRelativeValue();
+    return getAbsoluteValue(ryVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(ryVector);
 }
 
 int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& ry) {
@@ -5801,12 +5802,12 @@ const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, const std::
 
 const double getGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector xVector = getGeometricShapeElementX(document, graphicalObject, geometricShapeIndex, elementIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(xVector);
 }
 
 const double getGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector xVector = getGeometricShapeElementX(document, attribute, geometricShapeIndex, elementIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(xVector);
 }
 
 int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
@@ -5997,12 +5998,12 @@ const RelAbsVector getGeometricShapeElementY(SBMLDocument* document, const std::
 
 const double getGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector yVector = getGeometricShapeElementY(document, graphicalObject, geometricShapeIndex, elementIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(yVector);
 }
 
 const double getGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector yVector = getGeometricShapeElementY(document, attribute, geometricShapeIndex, elementIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(yVector);
 }
 
 int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
@@ -6193,12 +6194,12 @@ const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocument* document, const st
 
 const double getGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector xVector = getGeometricShapeBasePoint1X(document, graphicalObject, geometricShapeIndex, elementIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(xVector);
 }
 
 const double getGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector xVector = getGeometricShapeBasePoint1X(document, attribute, geometricShapeIndex, elementIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(xVector);
 }
 
 int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
@@ -6390,12 +6391,12 @@ const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocument* document, const st
 
 const double getGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector yVector = getGeometricShapeBasePoint1Y(document, graphicalObject, geometricShapeIndex, elementIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(graphicalObject) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(graphicalObject) * getRelativeValue(yVector);
 }
 
 const double getGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector yVector = getGeometricShapeBasePoint1Y(document, attribute, geometricShapeIndex, elementIndex);
-    return yVector.getAbsoluteValue() + 0.01 * getDimensionHeight(document, attribute) * yVector.getRelativeValue();
+    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(document, attribute) * getRelativeValue(yVector);
 }
 
 int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
@@ -6587,12 +6588,12 @@ const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocument* document, const st
 
 const double getGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector xVector = getGeometricShapeBasePoint2X(document, graphicalObject, geometricShapeIndex, elementIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(xVector);
 }
 
 const double getGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector xVector = getGeometricShapeBasePoint2X(document, attribute, geometricShapeIndex, elementIndex);
-    return xVector.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * xVector.getRelativeValue();
+    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(xVector);
 }
 
 int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& x) {
@@ -6784,12 +6785,12 @@ const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocument* document, const st
 
 const double getGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2Y = getGeometricShapeBasePoint2Y(getStyle(document, graphicalObject), geometricShapeIndex, elementIndex);
-    return basePoint2Y.getAbsoluteValue() + 0.01 * getDimensionWidth(graphicalObject) * basePoint2Y.getRelativeValue();
+    return getAbsoluteValue(basePoint2Y) + 0.01 * getDimensionWidth(graphicalObject) * getRelativeValue(basePoint2Y);
 }
 
 const double getGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2Y = getGeometricShapeBasePoint2Y(getStyle(document, attribute), geometricShapeIndex, elementIndex);
-    return basePoint2Y.getAbsoluteValue() + 0.01 * getDimensionWidth(document, attribute) * basePoint2Y.getRelativeValue();
+    return getAbsoluteValue(basePoint2Y) + 0.01 * getDimensionWidth(document, attribute) * getRelativeValue(basePoint2Y);
 }
 
 int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, const RelAbsVector& y) {
@@ -7112,104 +7113,108 @@ int setGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, cons
     return 0;
 }
 
-int setStyle(SBMLDocument* document, unsigned int layoutIndex, const std::string& styleName) {
+const std::string getStyle(SBMLDocument* document, unsigned int renderIndex) {
+    return getStyle(getGlobalRenderInformation(document, renderIndex));
+}
+
+int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName) {
     if (!isValidPredefinedStyleName(styleName))
         return -1;
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
     if (styleFeatures.find("background-color") != styleFeatures.end())
-        setBackgroundColor(document, layoutIndex, styleFeatures.find("background-color")->second);
+    setBackgroundColor(document, renderIndex, styleFeatures.find("background-color")->second);
     if (styleFeatures.find("compartment-geometric-shape") != styleFeatures.end())
-        setCompartmentGeometricShapeType(document, layoutIndex, styleFeatures.find("compartment-geometric-shape")->second);
+        setCompartmentGeometricShapeType(document, renderIndex, styleFeatures.find("compartment-geometric-shape")->second);
     if (styleFeatures.find("compartment-geometric-shape-ratio") != styleFeatures.end())
-        setCompartmentGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("compartment-geometric-shape-ratio")->second));
+        setCompartmentGeometricShapeRatio(document, renderIndex, std::stod(styleFeatures.find("compartment-geometric-shape-ratio")->second));
     if (styleFeatures.find("compartment-border-color") != styleFeatures.end())
-        setCompartmentStrokeColor(document, layoutIndex, styleFeatures.find("compartment-border-color")->second);
+        setCompartmentStrokeColor(document, renderIndex, styleFeatures.find("compartment-border-color")->second);
     if (styleFeatures.find("compartment-border-width") != styleFeatures.end())
-        setCompartmentStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("compartment-border-width")->second));
+        setCompartmentStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("compartment-border-width")->second));
     if (styleFeatures.find("compartment-fill-color") != styleFeatures.end())
-        setCompartmentFillColor(document, layoutIndex, styleFeatures.find("compartment-fill-color")->second);
+        setCompartmentFillColor(document, renderIndex, styleFeatures.find("compartment-fill-color")->second);
     if (styleFeatures.find("compartment-border-radius-x") != styleFeatures.end())
-        setCompartmentGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("compartment-border-radius-x")->second);
+        setCompartmentGeometricShapeCornerCurvatureRadiusX(document, renderIndex, styleFeatures.find("compartment-border-radius-x")->second);
     if (styleFeatures.find("compartment-border-radius-y") != styleFeatures.end())
-        setCompartmentGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("compartment-border-radius-y")->second);
+        setCompartmentGeometricShapeCornerCurvatureRadiusY(document, renderIndex, styleFeatures.find("compartment-border-radius-y")->second);
     if (styleFeatures.find("compartment-font-color") != styleFeatures.end())
-        setCompartmentFontColor(document, layoutIndex, styleFeatures.find("compartment-font-color")->second);
+        setCompartmentFontColor(document, renderIndex, styleFeatures.find("compartment-font-color")->second);
     if (styleFeatures.find("compartment-font-size") != styleFeatures.end())
-        setCompartmentFontSize(document, layoutIndex, styleFeatures.find("compartment-font-size")->second);
+        setCompartmentFontSize(document, renderIndex, styleFeatures.find("compartment-font-size")->second);
     if (styleFeatures.find("compartment-font-style") != styleFeatures.end())
-        setCompartmentFontStyle(document, layoutIndex, styleFeatures.find("compartment-font-style")->second);
+        setCompartmentFontStyle(document, renderIndex, styleFeatures.find("compartment-font-style")->second);
     if (styleFeatures.find("compartment-font-weight") != styleFeatures.end())
-        setCompartmentFontWeight(document, layoutIndex, styleFeatures.find("compartment-font-weight")->second);
+        setCompartmentFontWeight(document, renderIndex, styleFeatures.find("compartment-font-weight")->second);
     if (styleFeatures.find("compartment-text-horizontal-alignment") != styleFeatures.end())
-        setCompartmentTextAnchor(document, layoutIndex, styleFeatures.find("compartment-text-horizontal-alignment")->second);
+        setCompartmentTextAnchor(document, renderIndex, styleFeatures.find("compartment-text-horizontal-alignment")->second);
     if (styleFeatures.find("compartment-text-vertical-alignment") != styleFeatures.end())
-        setCompartmentVTextAnchor(document, layoutIndex, styleFeatures.find("compartment-text-vertical-alignment")->second);
+        setCompartmentVTextAnchor(document, renderIndex, styleFeatures.find("compartment-text-vertical-alignment")->second);
     if (styleFeatures.find("species-geometric-shape") != styleFeatures.end())
-        setSpeciesGeometricShapeType(document, layoutIndex, styleFeatures.find("species-geometric-shape")->second);
+        setSpeciesGeometricShapeType(document, renderIndex, styleFeatures.find("species-geometric-shape")->second);
     if (styleFeatures.find("species-geometric-shape-ratio") != styleFeatures.end())
-        setSpeciesGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("species-geometric-shape-ratio")->second));
+        setSpeciesGeometricShapeRatio(document, renderIndex, std::stod(styleFeatures.find("species-geometric-shape-ratio")->second));
     if (styleFeatures.find("species-border-color") != styleFeatures.end())
-        setSpeciesStrokeColor(document, layoutIndex, styleFeatures.find("species-border-color")->second);
+        setSpeciesStrokeColor(document, renderIndex, styleFeatures.find("species-border-color")->second);
     if (styleFeatures.find("species-border-width") != styleFeatures.end())
-        setSpeciesStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("species-border-width")->second));
+        setSpeciesStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("species-border-width")->second));
     if (styleFeatures.find("species-fill-color") != styleFeatures.end())
-        setSpeciesFillColor(document, layoutIndex, styleFeatures.find("species-fill-color")->second);
+        setSpeciesFillColor(document, renderIndex, styleFeatures.find("species-fill-color")->second);
     if (styleFeatures.find("species-border-radius-x") != styleFeatures.end())
-        setSpeciesGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("species-border-radius-x")->second);
+        setSpeciesGeometricShapeCornerCurvatureRadiusX(document, renderIndex, styleFeatures.find("species-border-radius-x")->second);
     if (styleFeatures.find("species-border-radius-y") != styleFeatures.end())
-        setSpeciesGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("species-border-radius-y")->second);
+        setSpeciesGeometricShapeCornerCurvatureRadiusY(document, renderIndex, styleFeatures.find("species-border-radius-y")->second);
     if (styleFeatures.find("species-font-color") != styleFeatures.end())
-        setSpeciesFontColor(document, layoutIndex, styleFeatures.find("species-font-color")->second);
+        setSpeciesFontColor(document, renderIndex, styleFeatures.find("species-font-color")->second);
     if (styleFeatures.find("species-font-size") != styleFeatures.end())
-        setSpeciesFontSize(document, layoutIndex, styleFeatures.find("species-font-size")->second);
+        setSpeciesFontSize(document, renderIndex, styleFeatures.find("species-font-size")->second);
     if (styleFeatures.find("species-font-style") != styleFeatures.end())
-        setSpeciesFontStyle(document, layoutIndex, styleFeatures.find("species-font-style")->second);
+        setSpeciesFontStyle(document, renderIndex, styleFeatures.find("species-font-style")->second);
     if (styleFeatures.find("species-font-weight") != styleFeatures.end())
-        setSpeciesFontWeight(document, layoutIndex, styleFeatures.find("species-font-weight")->second);
+        setSpeciesFontWeight(document, renderIndex, styleFeatures.find("species-font-weight")->second);
     if (styleFeatures.find("reaction-geometric-shape") != styleFeatures.end())
-        setReactionGeometricShapeType(document, layoutIndex, styleFeatures.find("reaction-geometric-shape")->second);
+        setReactionGeometricShapeType(document, renderIndex, styleFeatures.find("reaction-geometric-shape")->second);
     if (styleFeatures.find("species-text-horizontal-alignment") != styleFeatures.end())
-        setSpeciesTextAnchor(document, layoutIndex, styleFeatures.find("species-text-horizontal-alignment")->second);
+        setSpeciesTextAnchor(document, renderIndex, styleFeatures.find("species-text-horizontal-alignment")->second);
     if (styleFeatures.find("species-text-vertical-alignment") != styleFeatures.end())
-        setSpeciesVTextAnchor(document, layoutIndex, styleFeatures.find("species-text-vertical-alignment")->second);
+        setSpeciesVTextAnchor(document, renderIndex, styleFeatures.find("species-text-vertical-alignment")->second);
     if (styleFeatures.find("reaction-geometric-shape-ratio") != styleFeatures.end())
-        setReactionGeometricShapeRatio(document, layoutIndex, std::stod(styleFeatures.find("reaction-geometric-shape-ratio")->second));
+        setReactionGeometricShapeRatio(document, renderIndex, std::stod(styleFeatures.find("reaction-geometric-shape-ratio")->second));
     if (styleFeatures.find("reaction-geometric-shape-center-x") != styleFeatures.end())
-        setReactionGeometricShapeCenterX(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-center-x")->second);
+        setReactionGeometricShapeCenterX(document, renderIndex, styleFeatures.find("reaction-geometric-shape-center-x")->second);
     if (styleFeatures.find("reaction-geometric-shape-center-y") != styleFeatures.end())
-        setReactionGeometricShapeCenterY(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-center-y")->second);
+        setReactionGeometricShapeCenterY(document, renderIndex, styleFeatures.find("reaction-geometric-shape-center-y")->second);
     if (styleFeatures.find("reaction-geometric-shape-radius-x") != styleFeatures.end())
-        setReactionGeometricShapeRadiusX(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-radius-x")->second);
+        setReactionGeometricShapeRadiusX(document, renderIndex, styleFeatures.find("reaction-geometric-shape-radius-x")->second);
     if (styleFeatures.find("reaction-geometric-shape-radius-y") != styleFeatures.end())
-        setReactionGeometricShapeRadiusY(document, layoutIndex, styleFeatures.find("reaction-geometric-shape-radius-y")->second);
+        setReactionGeometricShapeRadiusY(document, renderIndex, styleFeatures.find("reaction-geometric-shape-radius-y")->second);
     if (styleFeatures.find("reaction-line-color") != styleFeatures.end())
-        setReactionStrokeColor(document, layoutIndex, styleFeatures.find("reaction-line-color")->second);
+        setReactionStrokeColor(document, renderIndex, styleFeatures.find("reaction-line-color")->second);
     if (styleFeatures.find("reaction-line-width") != styleFeatures.end())
-        setReactionStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("reaction-line-width")->second));
+        setReactionStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("reaction-line-width")->second));
     if (styleFeatures.find("reaction-fill-color") != styleFeatures.end())
-        setReactionFillColor(document, layoutIndex, styleFeatures.find("reaction-fill-color")->second);
+        setReactionFillColor(document, renderIndex, styleFeatures.find("reaction-fill-color")->second);
     if (styleFeatures.find("reaction-border-radius-x") != styleFeatures.end())
-        setReactionGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, styleFeatures.find("reaction-border-radius-x")->second);
+        setReactionGeometricShapeCornerCurvatureRadiusX(document, renderIndex, styleFeatures.find("reaction-border-radius-x")->second);
     if (styleFeatures.find("reaction-border-radius-y") != styleFeatures.end())
-        setReactionGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, styleFeatures.find("reaction-border-radius-y")->second);
+        setReactionGeometricShapeCornerCurvatureRadiusY(document, renderIndex, styleFeatures.find("reaction-border-radius-y")->second);
     if (styleFeatures.find("reaction-font-color") != styleFeatures.end())
-        setReactionFontColor(document, layoutIndex, styleFeatures.find("reaction-font-color")->second);
+        setReactionFontColor(document, renderIndex, styleFeatures.find("reaction-font-color")->second);
     if (styleFeatures.find("reaction-font-size") != styleFeatures.end())
-        setReactionFontSize(document, layoutIndex, styleFeatures.find("reaction-font-size")->second);
+        setReactionFontSize(document, renderIndex, styleFeatures.find("reaction-font-size")->second);
     if (styleFeatures.find("reaction-font-style") != styleFeatures.end())
-        setReactionFontStyle(document, layoutIndex, styleFeatures.find("reaction-font-style")->second);
+        setReactionFontStyle(document, renderIndex, styleFeatures.find("reaction-font-style")->second);
     if (styleFeatures.find("reaction-font-weight") != styleFeatures.end())
-        setReactionFontWeight(document, layoutIndex, styleFeatures.find("reaction-font-weight")->second);
+        setReactionFontWeight(document, renderIndex, styleFeatures.find("reaction-font-weight")->second);
     if (styleFeatures.find("species-text-horizontal-alignment") != styleFeatures.end())
-        setReactionTextAnchor(document, layoutIndex, styleFeatures.find("reaction-text-horizontal-alignment")->second);
+        setReactionTextAnchor(document, renderIndex, styleFeatures.find("reaction-text-horizontal-alignment")->second);
     if (styleFeatures.find("reaction-text-vertical-alignment") != styleFeatures.end())
-        setReactionVTextAnchor(document, layoutIndex, styleFeatures.find("reaction-text-vertical-alignment")->second);
+        setReactionVTextAnchor(document, renderIndex, styleFeatures.find("reaction-text-vertical-alignment")->second);
     if (styleFeatures.find("line-ending-border-color") != styleFeatures.end())
-        setLineEndingStrokeColor(document, layoutIndex, styleFeatures.find("line-ending-border-color")->second);
+        setLineEndingStrokeColor(document, renderIndex, styleFeatures.find("line-ending-border-color")->second);
     if (styleFeatures.find("line-ending-border-width") != styleFeatures.end())
-        setLineEndingStrokeWidth(document, layoutIndex, std::stod(styleFeatures.find("line-ending-border-width")->second));
+        setLineEndingStrokeWidth(document, renderIndex, std::stod(styleFeatures.find("line-ending-border-width")->second));
     if (styleFeatures.find("line-ending-fill-color") != styleFeatures.end())
-        setLineEndingFillColor(document, layoutIndex, styleFeatures.find("line-ending-fill-color")->second);
+        setLineEndingFillColor(document, renderIndex, styleFeatures.find("line-ending-fill-color")->second);
 
     return 0;
 }
