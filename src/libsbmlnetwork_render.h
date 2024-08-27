@@ -2773,27 +2773,27 @@ LIBSBMLNETWORK_EXTERN int addGeometricShape(RenderGroup* renderGroup, const std:
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeGeometricShape(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D of the RenderGroup of this Style, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(Style* style, unsigned int geometricShapeIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeGeometricShape(Style* style, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D of this RenderGroup, or @c NULL if the object is @c NULL.
-LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
 
 /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3102,7 +3102,7 @@ LIBSBMLNETWORK_EXTERN bool isTriangle(RenderGroup* renderGroup, unsigned int geo
 /// @return @c true if this abstract Transformation2D is of type Triangle, @c false if either it is not of type Triangle or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isTriangle(Transformation2D* shape);
 
-L/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Diamond.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Diamond.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.

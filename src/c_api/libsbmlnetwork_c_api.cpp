@@ -693,10 +693,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_removeRenderInformation(SBMLDocument* document) {
-        if (removeAllGlobalRenderInformation(document), removeAllLocalRenderInformation(document))
-        return 0;
-
-        return 0;
+        return removeRenderInformation(document);
     }
 
     int c_api_removeGlobalRenderInformation(SBMLDocument* document) {
@@ -1838,10 +1835,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_removeGeometricShape(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
-        if (removeGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex))
-            return 0;
-
-        return -1;
+        return removeGeometricShape(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex);
     }
 
     const char* c_api_getGeometricShapeType(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {

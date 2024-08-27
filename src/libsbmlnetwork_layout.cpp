@@ -29,7 +29,7 @@ const double getDimensionWidth(Layout* layout) {
     if (dimensions)
         return dimensions->width();
 
-    return 0.0;
+    return NAN;
 }
 
 int setDimensionWidth(Layout* layout, const double& width) {
@@ -50,7 +50,7 @@ const double getDimensionHeight(Layout* layout) {
     if (dimensions)
         return dimensions->height();
 
-    return 0.0;
+    return NAN;
 }
 
 int setDimensionHeight(Layout* layout, const double& height) {
@@ -678,14 +678,14 @@ const double getPositionX(BoundingBox* boundingBox) {
     if (boundingBox)
         return boundingBox->x();
 
-    return 0.0;
+    return NAN;
 }
 
 const double getPositionX(Curve* curve) {
     if (curve)
         return getCurveMiddlePositionX(curve);
 
-    return 0.0;
+    return NAN;
 }
 
 int setPositionX(Layout* layout, const std::string& id, const double& x) {
@@ -740,14 +740,14 @@ const double getPositionY(BoundingBox* boundingBox) {
     if (boundingBox)
         return boundingBox->y();
 
-    return 0.0;
+    return NAN;
 }
 
 const double getPositionY(Curve* curve) {
     if (curve)
         return getCurveMiddlePositionY(curve);
 
-    return 0.0;
+    return NAN;
 }
 
 int setPositionY(Layout* layout, const std::string& id, const double& y) {
@@ -838,7 +838,7 @@ const double getDimensionWidth(BoundingBox* boundingBox) {
     if (boundingBox)
         return boundingBox->width();
 
-    return 0.0;
+    return NAN;
 }
 
 int setDimensionWidth(Layout* layout, const std::string& id, const double& width) {
@@ -908,7 +908,7 @@ const double getDimensionHeight(BoundingBox* boundingBox) {
     if (boundingBox)
         return boundingBox->height();
 
-    return 0.0;
+    return NAN;
 }
 
 int setDimensionHeight(Layout* layout, const std::string& id, const double& height) {
@@ -971,7 +971,7 @@ const double getTextPositionX(Layout* layout, GraphicalObject* graphicalObject, 
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
         return getPositionX(textGlyphs.at(textGlyphIndex));
 
-    return 0.0;
+    return NAN;
 }
 
 int setTextPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x) {
@@ -995,7 +995,7 @@ const double getTextPositionY(Layout* layout, GraphicalObject* graphicalObject, 
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
         return getPositionY(textGlyphs.at(textGlyphIndex));
 
-    return 0.0;
+    return NAN;
 }
 
 int setTextPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y) {
@@ -1041,7 +1041,7 @@ const double getTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObj
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
         return getDimensionWidth(textGlyphs.at(textGlyphIndex));
 
-    return 0.0;
+    return NAN;
 }
 
 int setTextDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
@@ -1065,7 +1065,7 @@ const double getTextDimensionHeight(Layout* layout, GraphicalObject* graphicalOb
     if (textGlyphIndex >= 0 && textGlyphIndex < textGlyphs.size())
         return getDimensionHeight(textGlyphs.at(textGlyphIndex));
 
-    return 0.0;
+    return NAN;
 }
 
 int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {

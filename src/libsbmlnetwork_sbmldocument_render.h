@@ -129,6 +129,11 @@ LIBSBMLNETWORK_EXTERN int createDefaultGlobalRenderInformation(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createDefaultLocalRenderInformation(SBMLDocument* document);
 
+/// @brief Remove all the render information objects from the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeRenderInformation(SBMLDocument* document);
+
 /// @brief Predicates returning @c true if the "backgroundColor" attribute of the GlobalRenderInformation object with the given index of the SBML document is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
@@ -4755,14 +4760,14 @@ LIBSBMLNETWORK_EXTERN int addGeometricShape(SBMLDocument* document, const std::s
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN Transformation2D* removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the value the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
