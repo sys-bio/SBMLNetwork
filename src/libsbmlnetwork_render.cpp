@@ -3040,6 +3040,16 @@ const std::string getGeometricShapeType(Transformation2D* shape) {
         return "circle";
     else if (isEllipse(shape))
         return "ellipse";
+    else if (isTriangle(shape))
+        return "triangle";
+    else if (isDiamond(shape))
+        return "diamond";
+    else if (isPentagon(shape))
+        return "pentagon";
+    else if (isHexagon(shape))
+        return "hexagon";
+    else if (isOctagon(shape))
+        return "octagon";
     else if (isPolygon(shape))
         return "polygon";
     else if (isRenderCurve(shape))
@@ -3246,6 +3256,121 @@ bool isPolygon(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
 bool isPolygon(Transformation2D* shape) {
     if (shape)
         return shape->isPolygon();
+
+    return false;
+}
+
+bool isTriangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isTriangle(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isTriangle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isTriangle(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isTriangle(Style* style, unsigned int geometricShapeIndex) {
+    return isTriangle(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isTriangle(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isTriangle(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isTriangle(Transformation2D* shape) {
+    if (shape)
+        return isPolygon(shape) && getGeometricShapeNumElements(shape) == 3;
+
+    return false;
+}
+
+bool isDiamond(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isDiamond(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isDiamond(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isDiamond(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isDiamond(Style* style, unsigned int geometricShapeIndex) {
+    return isDiamond(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isDiamond(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isDiamond(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isDiamond(Transformation2D* shape) {
+    if (shape)
+        return isPolygon(shape) && getGeometricShapeNumElements(shape) == 4;
+
+    return false;
+}
+
+bool isPentagon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isPentagon(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isPentagon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isPentagon(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isPentagon(Style* style, unsigned int geometricShapeIndex) {
+    return isPentagon(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isPentagon(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isPentagon(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isPentagon(Transformation2D* shape) {
+    if (shape)
+        return isPolygon(shape) && getGeometricShapeNumElements(shape) == 5;
+
+    return false;
+}
+
+bool isHexagon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isHexagon(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isHexagon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isHexagon(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isHexagon(Style* style, unsigned int geometricShapeIndex) {
+    return isHexagon(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isHexagon(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isHexagon(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isHexagon(Transformation2D* shape) {
+    if (shape)
+        return isPolygon(shape) && getGeometricShapeNumElements(shape) == 6;
+
+    return false;
+}
+
+bool isOctagon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isOctagon(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isOctagon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isOctagon(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isOctagon(Style* style, unsigned int geometricShapeIndex) {
+    return isOctagon(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isOctagon(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isOctagon(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isOctagon(Transformation2D* shape) {
+    if (shape)
+        return isPolygon(shape) && getGeometricShapeNumElements(shape) == 8;
 
     return false;
 }

@@ -3067,6 +3067,181 @@ LIBSBMLNETWORK_EXTERN bool isPolygon(RenderGroup* renderGroup, unsigned int geom
 /// @return @c true if this abstract Transformation2D is of type Polygon, @c false if either it is not of type Polygon or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isPolygon(Transformation2D* shape);
 
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Triangle.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Triangle, @c false if
+/// it is not of type Triangle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isTriangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Triangle.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Triangle, @c false if
+/// it is not of type Triangle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isTriangle(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Triangle.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Triangle, @c false if
+/// it is not of type Triangle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isTriangle(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Triangle.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Triangle, @c false if
+/// it is not of type Triangle or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isTriangle(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Triangle.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Triangle, @c false if either it is not of type Triangle or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isTriangle(Transformation2D* shape);
+
+L/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Diamond.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Diamond, @c false if
+/// it is not of type Diamond or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isDiamond(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Diamond.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Diamond, @c false if
+/// it is not of type Diamond or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isDiamond(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Diamond.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Diamond, @c false if
+/// it is not of type Diamond or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isDiamond(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Diamond.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Diamond, @c false if
+/// it is not of type Diamond or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isDiamond(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Diamond.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Diamond, @c false if either it is not of type Diamond or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isDiamond(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Pentagon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Pentagon, @c false if
+/// it is not of type Pentagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isPentagon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Pentagon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Pentagon, @c false if
+/// it is not of type Pentagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isPentagon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Pentagon.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Pentagon, @c false if
+/// it is not of type Pentagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isPentagon(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Pentagon.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Pentagon, @c false if
+/// it is not of type Pentagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isPentagon(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Pentagon.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Pentagon, @c false if either it is not of type Pentagon or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isPentagon(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Hexagon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Hexagon, @c false if
+/// it is not of type Hexagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isHexagon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Hexagon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Hexagon, @c false if
+/// it is not of type Hexagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isHexagon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Hexagon.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Hexagon, @c false if
+/// it is not of type Hexagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isHexagon(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Hexagon.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Hexagon, @c false if
+/// it is not of type Hexagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isHexagon(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Hexagon.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Hexagon, @c false if either it is not of type Hexagon or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isHexagon(Transformation2D* shape);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Octagon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Octagon, @c false if
+/// it is not of type Octagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isOctagon(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is of type Octagon.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type Octagon, @c false if
+/// it is not of type Octagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isOctagon(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Octagon.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup of this Style is of type Octagon, @c false if
+/// it is not of type Octagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isOctagon(Style* style, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the Transformation2D at the given index of this RenderGroup is of type Octagon.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the Transformation2D at the given index of this RenderGroup is of type Octagon, @c false if
+/// it is not of type Octagon or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isOctagon(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if this abstract Transformation2D is of type Octagon.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if this abstract Transformation2D is of type Octagon, @c false if either it is not of type Octagon or is or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isOctagon(Transformation2D* shape);
+
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is of type RenderCurve.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
