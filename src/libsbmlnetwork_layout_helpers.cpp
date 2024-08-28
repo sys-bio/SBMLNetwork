@@ -317,18 +317,22 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
-        speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < getStoichiometryAsInteger(speciesReference); stoichiometryIndex++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference, stoichiometryIndex);
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
+            setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        }
     }
 }
 
 void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
-        speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
-        setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < getStoichiometryAsInteger(speciesReference); stoichiometryIndex++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference, stoichiometryIndex);
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
+            setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        }
     }
 }
 
@@ -504,14 +508,14 @@ CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
     return NULL;
 }
 
-SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference) {
+SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference, unsigned int stoichiometryIndex) {
     SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->createSpeciesReferenceGlyph();
     if (!speciesReference->getId().empty()) {
-        speciesReferenceGlyph->setId(speciesReference->getId() + "_Glyph_1");
+        speciesReferenceGlyph->setId(speciesReference->getId() + "_Glyph_1" + "_Stoichiometry_" + std::to_string(stoichiometryIndex + 1));
         speciesReferenceGlyph->setSpeciesReferenceId(speciesReference->getId());
     }
     else
-        speciesReferenceGlyph->setId(speciesReference->getSpecies() + "_Glyph_1_" + reactionGlyph->getId() + "_SpeciesReference" + std::to_string(reactionGlyph->getNumSpeciesReferenceGlyphs()));
+        speciesReferenceGlyph->setId(speciesReference->getSpecies() + "_Glyph_1_" + reactionGlyph->getId() + "_SpeciesReference" + std::to_string(reactionGlyph->getNumSpeciesReferenceGlyphs()) + "_Stoichiometry_" + std::to_string(stoichiometryIndex + 1));
     speciesReferenceGlyph->setSpeciesGlyphId(speciesReference->getSpecies() + "_Glyph_1");
     
     return speciesReferenceGlyph;
@@ -808,6 +812,13 @@ const bool layoutContainsGlyphs(Layout* layout) {
     return (layout->getNumCompartmentGlyphs() > 0) ||
            (layout->getNumSpeciesGlyphs() > 0) ||
            (layout->getNumReactionGlyphs() > 0);
+}
+
+const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference) {
+    if (dynamic_cast<SpeciesReference*>(speciesReference) && ((SpeciesReference*)speciesReference)->isSetStoichiometry())
+        return int(((SpeciesReference*)speciesReference)->getStoichiometry());
+    else
+        return 1;
 }
 
 void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX) {
