@@ -81,7 +81,7 @@ class LibSBMLNetwork:
         lib.c_api_readSBML.restype = ctypes.POINTER(SBMLDocument)
         self.sbml_object = lib.c_api_readSBML(str(sbml).encode())
         if not self.isSetModel():
-            raise Exception("The SBML document could not be loaded")
+            raise Exception(f"The SBML document could not be loaded. {sbml} is neither a valid SBML file path nor a valid SBML string.")
         if not self._layout_is_specified():
             self.autolayout()
             self.layout_is_added = True
