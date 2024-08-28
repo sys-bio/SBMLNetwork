@@ -854,6 +854,102 @@ const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderIn
     return type + "_style_" + std::to_string(global_style_iterator);
 }
 
+const bool canHaveStrokeColor(GraphicalObject* graphicalObject) {
+    return true;
+}
+
+const bool canHaveStrokeWidth(GraphicalObject* graphicalObject) {
+    return true;
+}
+
+const bool canHaveStrokeDashArray(GraphicalObject* graphicalObject) {
+    return true;
+}
+
+const bool canHaveFillColor(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+        return true;
+
+    return false;
+}
+
+const bool canHaveFillRule(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontColor(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontFamily(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontSize(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontWeight(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontStyle(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveTextAnchor(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveVTextAnchor(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveStartHead(GraphicalObject* graphicalObject) {
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return true;
+
+    return false;
+}
+
+const bool canHaveEndHead(GraphicalObject* graphicalObject) {
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return true;
+
+    return false;
+}
+
+const bool canHaveGeometricShape(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+        return true;
+
+    return false;
+}
+
 const bool isValidBackgroundColorValue(const std::string& backgroundColor) {
     return isValidColorValue(backgroundColor);
 }
