@@ -337,7 +337,8 @@ void FruchtermanReingoldAlgorithmBase::updateConnectionControlPoints(AutoLayoutO
     adjustCenterControlPoint(connection);
     setCurvePoints(connection);
     adjustCurvePoints(connection);
-    adjustUniUniConnections(connection);
+    if (isUniUniConnection(connection))
+        adjustUniUniConnections(connection);
 }
 
 void FruchtermanReingoldAlgorithmBase::calculateCenterControlPoint(AutoLayoutObjectBase* connection) {
@@ -477,12 +478,13 @@ void FruchtermanReingoldAlgorithmBase::adjustCurvePoints(AutoLayoutObjectBase* c
 }
 
 void FruchtermanReingoldAlgorithmBase::adjustUniUniConnections(AutoLayoutObjectBase* connection) {
-    if (((AutoLayoutConnection*)connection)->getCurves().size() == 2 && !((AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode())->isLocked()) {
-        double slope = getNodePairSlope(_nodes, ((AutoLayoutConnection*)connection)->getNodeIds().at(0), ((AutoLayoutConnection*)connection)->getNodeIds().at(1));
+    if (!((AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode())->isLocked()) {
+        std::vector<std::string> nodeIds = ((AutoLayoutConnection*)connection)->getNodeIds();
+        double slope = getNodePairSlope(_nodes, nodeIds.at(0), nodeIds.at(1));
         if (slope < 0.0)
                 slope += M_PI;
         double centerPadding = getConnectionCenterPadding(_connections, connection);
-        AutoLayoutPoint nodesCenter = getNodesCenter(_nodes, ((AutoLayoutConnection *) connection)->getNodeIds());
+        AutoLayoutPoint nodesCenter = getNodesCenter(_nodes, nodeIds);
         AutoLayoutPoint centerPosition = AutoLayoutPoint(nodesCenter.getX() + centerPadding * std::sin(slope), nodesCenter.getY() - centerPadding * std::cos(slope));
         ((AutoLayoutNodeBase *)(((AutoLayoutConnection *) connection)->getCentroidNode()))->setPosition(centerPosition);
         setUniUniConnectionCurvePoints(connection, nodesCenter, slope);
@@ -733,6 +735,13 @@ AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::ve
     }
 
     return AutoLayoutPoint(center.getX() / nodeIds.size(), center.getY() / nodeIds.size());
+}
+
+const bool isUniUniConnection(AutoLayoutObjectBase* connection) {
+    if (((AutoLayoutConnection*)connection)->getNumNonModifierCurves() == 2 && ((AutoLayoutConnection*)connection)->getNodeIds().size() == 2)
+        return true;
+
+    return false;
 }
 
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2) {

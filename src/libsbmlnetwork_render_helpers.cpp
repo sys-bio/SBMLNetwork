@@ -633,13 +633,13 @@ void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, Speci
 }
 
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
-    renderGroup->setStroke("black");
-    renderGroup->setFontSize(RelAbsVector(24.0, 0.0));
-    renderGroup->setFontFamily("sans-serif");
-    renderGroup->setFontWeight("normal");
-    renderGroup->setFontStyle("normal");
-    renderGroup->setTextAnchor("middle");
-    renderGroup->setVTextAnchor("middle");
+    renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["species-font-color"]);
+    renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-font-size"]), 0.0));
+    renderGroup->setFontFamily(getDefaultPredefinedStyleFeatures()["species-font-family"]);
+    renderGroup->setFontWeight(getDefaultPredefinedStyleFeatures()["species-font-weight"]);
+    renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["species-font-style"]);
+    renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-horizontal-alignment"]);
+    renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-vertical-alignment"]);
 }
 
 void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D) {
@@ -852,6 +852,102 @@ const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderIn
     while (globalRenderInformation->getGlobalStyle(type + "_style_" + std::to_string(global_style_iterator)))
         global_style_iterator++;
     return type + "_style_" + std::to_string(global_style_iterator);
+}
+
+const bool canHaveStrokeColor(GraphicalObject* graphicalObject) {
+    return true;
+}
+
+const bool canHaveStrokeWidth(GraphicalObject* graphicalObject) {
+    return true;
+}
+
+const bool canHaveStrokeDashArray(GraphicalObject* graphicalObject) {
+    return true;
+}
+
+const bool canHaveFillColor(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+        return true;
+
+    return false;
+}
+
+const bool canHaveFillRule(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontColor(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontFamily(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontSize(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontWeight(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveFontStyle(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveTextAnchor(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveVTextAnchor(TextGlyph* textGlyph) {
+    if (textGlyph)
+        return true;
+
+    return false;
+}
+
+const bool canHaveStartHead(GraphicalObject* graphicalObject) {
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return true;
+
+    return false;
+}
+
+const bool canHaveEndHead(GraphicalObject* graphicalObject) {
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return true;
+
+    return false;
+}
+
+const bool canHaveGeometricShape(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+        return true;
+
+    return false;
 }
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor) {

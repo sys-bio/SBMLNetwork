@@ -36,14 +36,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         if (document)
             return document->getLevel();
 
-        return 0;
+        return -1;
     }
 
     const unsigned int getSBMLVersion(SBMLDocument* document) {
         if (document)
             return document->getVersion();
 
-        return 0;
+        return -1;
     }
 
     bool freeSBMLDocument(SBMLDocument* document) {

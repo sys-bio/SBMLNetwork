@@ -209,6 +209,36 @@ void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 
 const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type);
 
+const bool canHaveStrokeColor(GraphicalObject* graphicalObject);
+
+const bool canHaveStrokeWidth(GraphicalObject* graphicalObject);
+
+const bool canHaveStrokeDashArray(GraphicalObject* graphicalObject);
+
+const bool canHaveFillColor(GraphicalObject* graphicalObject);
+
+const bool canHaveFillRule(GraphicalObject* graphicalObject);
+
+const bool canHaveFontColor(TextGlyph* textGlyph);
+
+const bool canHaveFontFamily(TextGlyph* textGlyph);
+
+const bool canHaveFontSize(TextGlyph* textGlyph);
+
+const bool canHaveFontWeight(TextGlyph* textGlyph);
+
+const bool canHaveFontStyle(TextGlyph* textGlyph);
+
+const bool canHaveTextAnchor(TextGlyph* textGlyph);
+
+const bool canHaveVTextAnchor(TextGlyph* textGlyph);
+
+const bool canHaveStartHead(GraphicalObject* graphicalObject);
+
+const bool canHaveEndHead(GraphicalObject* graphicalObject);
+
+const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
+
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod);
