@@ -633,13 +633,13 @@ void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, Speci
 }
 
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
-    renderGroup->setStroke("black");
-    renderGroup->setFontSize(RelAbsVector(24.0, 0.0));
-    renderGroup->setFontFamily("sans-serif");
-    renderGroup->setFontWeight("normal");
-    renderGroup->setFontStyle("normal");
-    renderGroup->setTextAnchor("middle");
-    renderGroup->setVTextAnchor("middle");
+    renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["species-font-color"]);
+    renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-font-size"]), 0.0));
+    renderGroup->setFontFamily(getDefaultPredefinedStyleFeatures()["species-font-family"]);
+    renderGroup->setFontWeight(getDefaultPredefinedStyleFeatures()["species-font-weight"]);
+    renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["species-font-style"]);
+    renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-horizontal-alignment"]);
+    renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-vertical-alignment"]);
 }
 
 void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D) {

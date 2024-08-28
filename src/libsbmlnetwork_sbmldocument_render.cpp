@@ -8622,6 +8622,8 @@ int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string
         setCompartmentFontColor(document, renderIndex, styleFeatures.find("compartment-font-color")->second);
     if (styleFeatures.find("compartment-font-size") != styleFeatures.end())
         setCompartmentFontSize(document, renderIndex, styleFeatures.find("compartment-font-size")->second);
+    if (styleFeatures.find("compartment-font-family") != styleFeatures.end())
+        setCompartmentFontFamily(document, renderIndex, styleFeatures.find("compartment-font-family")->second);
     if (styleFeatures.find("compartment-font-style") != styleFeatures.end())
         setCompartmentFontStyle(document, renderIndex, styleFeatures.find("compartment-font-style")->second);
     if (styleFeatures.find("compartment-font-weight") != styleFeatures.end())
@@ -8648,6 +8650,8 @@ int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string
         setSpeciesFontColor(document, renderIndex, styleFeatures.find("species-font-color")->second);
     if (styleFeatures.find("species-font-size") != styleFeatures.end())
         setSpeciesFontSize(document, renderIndex, styleFeatures.find("species-font-size")->second);
+    if (styleFeatures.find("species-font-family") != styleFeatures.end())
+        setSpeciesFontFamily(document, renderIndex, styleFeatures.find("species-font-family")->second);
     if (styleFeatures.find("species-font-style") != styleFeatures.end())
         setSpeciesFontStyle(document, renderIndex, styleFeatures.find("species-font-style")->second);
     if (styleFeatures.find("species-font-weight") != styleFeatures.end())
@@ -8682,6 +8686,8 @@ int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string
         setReactionFontColor(document, renderIndex, styleFeatures.find("reaction-font-color")->second);
     if (styleFeatures.find("reaction-font-size") != styleFeatures.end())
         setReactionFontSize(document, renderIndex, styleFeatures.find("reaction-font-size")->second);
+    if (styleFeatures.find("reaction-font-family") != styleFeatures.end())
+        setReactionFontFamily(document, renderIndex, styleFeatures.find("reaction-font-family")->second);
     if (styleFeatures.find("reaction-font-style") != styleFeatures.end())
         setReactionFontStyle(document, renderIndex, styleFeatures.find("reaction-font-style")->second);
     if (styleFeatures.find("reaction-font-weight") != styleFeatures.end())
