@@ -187,6 +187,8 @@ const double getConnectionCenterPadding(std::vector<AutoLayoutObjectBase*> conne
 
 AutoLayoutPoint getNodesCenter(std::vector<AutoLayoutObjectBase*> nodes, std::vector<std::string> nodeIds);
 
+const bool isUniUniConnection(AutoLayoutObjectBase* connection);
+
 const bool compare(std::vector<std::string> strings1, std::vector<std::string> strings2);
 
 }
