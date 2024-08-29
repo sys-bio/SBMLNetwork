@@ -128,7 +128,7 @@ CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layou
 
 CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
 
-SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference);
+SpeciesReferenceGlyph* createAssociatedSpeciesReferenceGlyph(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, SimpleSpeciesReference* speciesReference, const unsigned int stoichiometryIndex = 0);
 
 const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const std::string& speciesId);
 
@@ -197,6 +197,8 @@ std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReact
 const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject);
 
 const bool layoutContainsGlyphs(Layout* layout);
+
+const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference);
 
 void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX);
 
