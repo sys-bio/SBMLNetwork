@@ -71,6 +71,11 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, std::set<std::string>lockedNodeIds = std::set<std::string>());
 
+/// @brief Create a Render object and add it to the the SBML document if it does not exist.
+/// @param document a pointer to the SBMLDocument object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int autorender(SBMLDocument* document);
+
 /// @brief Align the nodes position in the SBML document in the given alignment type.
 /// @param document a pointer to the SBMLDocument object.
 /// @param nodeIds a set of node ids to be aligned.

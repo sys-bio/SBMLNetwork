@@ -86,7 +86,7 @@ class LibSBMLNetwork:
             self.autolayout()
             self.layout_is_added = True
         if not self._render_is_specified():
-            self.autolayout(locked_nodes=self.getListOfSpeciesIds() + self.getListOfReactionIds())
+            self.autorender()
             self.render_is_added = True
 
     def save(self, file_name=""):
@@ -148,6 +148,16 @@ class LibSBMLNetwork:
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
         return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
+
+    def autorender(self):
+        """
+        checks if a RenderInformation object does not exists in the SBMLDocument, then adds it to it, and set all the necessary features for it.
+
+        :Returns:
+
+            true on success and false if autorender algorithm was not applied successfully
+        """
+        return lib.c_api_autorender(self.sbml_object)
 
     def align(self, nodes, alignment="center", ignore_locked_nodes=False):
         """
@@ -315,9 +325,19 @@ class LibSBMLNetwork:
         """
         return lib.c_api_removeAllLayouts(self.sbml_object)
 
-    def createDefaultLayout(self, locked_nodes=[]):
+    def createDefaultLayoutFeatures(self):
         """
-        Creates a default Layout object in the given SBMLDocument and sets all the necessary features for it
+        Creates a default Layout object in the given SBMLDocument and sets the features of the Layout object
+
+        :Returns:
+
+            true on success and false if the default Layout object could not be created
+        """
+        return lib.c_api_createDefaultLayoutFeatures(self.sbml_object)
+
+    def createDefaultLayoutLocations(self, locked_nodes=[]):
+        """
+        Creates a default Layout object in the given SBMLDocument and sets the locations of all the graphical objects in the Layout object
 
         :Parameters:
 
@@ -333,7 +353,7 @@ class LibSBMLNetwork:
             for i in range(len(locked_nodes)):
                 locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayout(self.sbml_object, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, locked_nodes_ptr, len(locked_nodes))
 
     def getCanvasWidth(self, layout_index=0):
         """

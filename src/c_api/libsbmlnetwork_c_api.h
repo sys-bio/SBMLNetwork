@@ -68,6 +68,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
                                                 bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
+    /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_autorender(SBMLDocument *document);
+
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.
     /// @param nodeIds an array of strings containing the ids of the nodes that should be aligned.
@@ -96,8 +101,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_removeLayouts(SBMLDocument* document);
 
-    /// @brief Create a Layout object, add it to list of layouts of the SBML document, and
-    /// set all the necessary features for it
+    /// @brief Create a Layout object, add it to list of layouts of the SBML document, and set all the necessary features for it.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges = 3);
+
+    /// @brief Create a Layout object, add it to list of layouts of the SBML document, and set all the necessary features for it, and set the positions of the nodes in the layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
@@ -107,7 +117,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
+    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
                                                                bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
