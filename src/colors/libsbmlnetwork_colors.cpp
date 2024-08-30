@@ -259,7 +259,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const bool isValidHexColorCode(const std::string& value) {
-        if (value.size() != 7 || value.at(0) != '#')
+        if ((value.size() != 7 && value.size() != 9)  || value.at(0) != '#')
             return false;
 
         for (unsigned int i = 1; i < value.size(); i++) {
