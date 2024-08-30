@@ -56,7 +56,26 @@ int removeAllLayouts(SBMLDocument* document) {
     return -1;
 }
 
-int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges) {
+    if (document && layout) {
+        setDefaultLayoutId(layout);
+        setDefaultLayoutDimensions(layout);
+        Model* model = document->getModel();
+        if (model) {
+            clearGraphicalObjects(layout);
+            setCompartmentGlyphs(model, layout);
+            setSpeciesGlyphs(model, layout);
+            setReactionGlyphs(model, layout);
+            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges);
+            setTextGlyphs(layout);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
                              bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
     if (document && layout) {
         setDefaultLayoutId(layout);
@@ -93,13 +112,21 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
     return -1;
 }
 
-int createDefaultLayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                        bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
+int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
+    return setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
+}
+
+int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+                                bool resetLockedNodes, const std::set<std::string> lockedNodeIds) {
+    Layout* layout = getLayout(document);
+    if (!layout)
+        layout = createLayout(document);
+
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIds);
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
