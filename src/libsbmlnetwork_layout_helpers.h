@@ -314,6 +314,8 @@ const bool isValidCurveSegmentBasePoint2YValue(const double& y);
 
 const bool isValidDimensionValue(const double& dimensionValue);
 
+const bool isValidDoubleValue(const double& doubleValue);
+
 const bool isValidAlignment(const std::string& alignment);
 
 const bool isValidDistributionDirection(const std::string& direction);

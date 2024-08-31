@@ -339,6 +339,8 @@ const bool isValidGeometricShapeHref(const std::string& href);
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue);
 
+const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue);
+
 const bool isValidRelAbsVectorRelativeValue(const double& value);
 
 std::vector<std::string> getValidSpreadMethodValues();

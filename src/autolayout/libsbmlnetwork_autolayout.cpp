@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_autolayout.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_common.h"
 #include "libsbmlnetwork_fruchterman_reingold_algorithm.h"
 
 #include <cstdlib>
@@ -235,8 +236,8 @@ void updateLayoutDimensions(Layout *layout) {
         double maxX;
         double maxY;
         extractExtents(layout, minX, minY, maxX, maxY);
-        layout->getDimensions()->setWidth(maxX - minX + 2 * padding);
-        layout->getDimensions()->setHeight(maxY - minY + 2 * padding);
+        layout->getDimensions()->setWidth(roundToTwoDecimalPlaces(maxX - minX));
+        layout->getDimensions()->setHeight(roundToTwoDecimalPlaces(maxY - minY));
     }
 }
 
@@ -244,7 +245,7 @@ const bool adjustLayoutDimensions(Layout *layout) {
     std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
     if (!width.empty()) {
         double presetWidth = std::stod(width);
-        if (std::abs(presetWidth - layout->getDimensions()->width()) < 4 * getDefaultAutoLayoutPadding())
+        if (std::abs(presetWidth - layout->getDimensions()->width()) < 2 * getDefaultAutoLayoutPadding())
             layout->getDimensions()->setWidth(presetWidth);
         else
             return false;
@@ -252,7 +253,7 @@ const bool adjustLayoutDimensions(Layout *layout) {
     std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
     if (!height.empty()) {
         double presetHeight = std::stod(height);
-        if (std::abs(presetHeight - layout->getDimensions()->height()) < 4 * getDefaultAutoLayoutPadding())
+        if (std::abs(presetHeight - layout->getDimensions()->height()) < 2 * getDefaultAutoLayoutPadding())
             layout->getDimensions()->setHeight(presetHeight);
         else
             return false;

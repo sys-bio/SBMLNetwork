@@ -1015,7 +1015,7 @@ const bool isValidStrokeColorValue(const std::string& stroke) {
 }
 
 const bool isValidStrokeWidthValue(const double& strokeWidth) {
-    if (strokeWidth > 0.0001)
+    if (isValidDoubleValue(strokeWidth) && strokeWidth > 0.0001)
         return true;
 
     std::cerr << "error: stroke width must be greater than 0" << std::endl;
@@ -1032,7 +1032,7 @@ const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDa
 }
 
 const bool isValidStrokeDashValue(unsigned int dash) {
-    if (dash > 0.000)
+    if (isValidDoubleValue(dash) && dash > 0.000)
         return true;
 
     std::cerr << "error: stroke dash value must be greater than 0" << std::endl;
@@ -1104,7 +1104,7 @@ const bool isValidGeometricShapeHeightValue(const RelAbsVector& height) {
 }
 
 const bool isValidGeometricShapeRatioValue(const double& ratio) {
-    if (ratio > 0.0001)
+    if (isValidDoubleValue(ratio) && ratio > 0.0001)
         return true;
 
     std::cerr << "error: geometric shape ratio must be greater than 0" << std::endl;
@@ -1164,14 +1164,23 @@ const bool isValidGeometricShapeHref(const std::string& href) {
 }
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue) {
-    if (relAbsVectorValue.getAbsoluteValue() > 0.000)
+    if (isValidRelAbsVectorValue(relAbsVectorValue) && relAbsVectorValue.getAbsoluteValue() > 0.000)
         return true;
+
     std::cerr << "error: the absolute value of the entered value must be greater than 0" << std::endl;
     return false;
 }
 
+const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue) {
+    if (isValidDoubleValue(relAbsVectorValue.getAbsoluteValue()) && isValidDoubleValue(relAbsVectorValue.getRelativeValue()))
+        return true;
+
+    std::cerr << "error: the values of the RelAbsVector must be valid double values" << std::endl;
+    return false;
+}
+
 const bool isValidRelAbsVectorRelativeValue(const double& value) {
-    if (value >= 0.0 && value <= 100.0)
+    if (isValidDoubleValue(value) && value >= 0.0 && value <= 100.0)
         return true;
     std::cerr << "error: the entered value must be between 0 and 100" << std::endl;
     return false;

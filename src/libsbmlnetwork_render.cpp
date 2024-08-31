@@ -1157,7 +1157,7 @@ int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, 
         return setStrokeColor(style, stroke);
     }
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation) {
@@ -1179,7 +1179,7 @@ int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, cons
         return setStrokeColor(style, stroke);
     }
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderInformation) {
@@ -1201,7 +1201,7 @@ int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, con
         return setStrokeColor(style, stroke);
     }
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
@@ -1221,7 +1221,7 @@ int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformat
         }
     }
 
-    return 0;
+    return -1;
 }
 
 bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1303,7 +1303,7 @@ int setCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation, 
     if (style)
         return setStrokeWidth(style, strokeWidth);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation) {
@@ -1323,7 +1323,7 @@ int setSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, cons
     if (style)
         return setStrokeWidth(style, strokeWidth);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation) {
@@ -1343,7 +1343,7 @@ int setReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation, con
     if (style)
         return setStrokeWidth(style, strokeWidth);
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
@@ -1361,7 +1361,7 @@ int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformat
         }
     }
 
-    return 0;
+    return -1;
 }
 
 bool isSetStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1431,7 +1431,7 @@ int setCompartmentStrokeDashArray(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setStrokeDashArray(style, strokeDashArray);
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
@@ -1439,7 +1439,7 @@ int setSpeciesStrokeDashArray(GlobalRenderInformation* globalRenderInformation, 
     if (style)
         return setStrokeDashArray(style, strokeDashArray);
 
-    return 0;
+    return -1;
 }
 
 int setReactionStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
@@ -1447,7 +1447,7 @@ int setReactionStrokeDashArray(GlobalRenderInformation* globalRenderInformation,
     if (style)
         return setStrokeDashArray(style, strokeDashArray);
 
-    return 0;
+    return -1;
 }
 
 unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1533,7 +1533,7 @@ int setCompartmentStrokeDash(GlobalRenderInformation* globalRenderInformation, u
     if (style)
         return setStrokeDash(style, dash);
 
-    return 0;
+    return -1;
 }
 
 int setSpeciesStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
@@ -1541,7 +1541,7 @@ int setSpeciesStrokeDash(GlobalRenderInformation* globalRenderInformation, unsig
     if (style)
         return setStrokeDash(style, dash);
 
-    return 0;
+    return -1;
 }
 
 int setReactionStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
@@ -1549,7 +1549,7 @@ int setReactionStrokeDash(GlobalRenderInformation* globalRenderInformation, unsi
     if (style)
         return setStrokeDash(style, dash);
 
-    return 0;
+    return -1;
 }
 
 bool isSetFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1622,7 +1622,7 @@ int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, co
         return setFontColor(style, fontColor);
     }
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInformation) {
@@ -1644,7 +1644,7 @@ int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const 
         return setFontColor(style, fontColor);
     }
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInformation) {
@@ -1666,7 +1666,7 @@ int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const
         return setFontColor(style, fontColor);
     }
 
-    return 0;
+    return -1;
 }
 
 bool isSetFontFamily(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1755,7 +1755,7 @@ int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, c
     if (style)
         return setFontFamily(style, fontFamily);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation) {
@@ -1775,7 +1775,7 @@ int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const
     if (style)
         return setFontFamily(style, fontFamily);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInformation) {
@@ -1795,7 +1795,7 @@ int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, cons
     if (style)
         return setFontFamily(style, fontFamily);
 
-    return 0;
+    return -1;
 }
 
 bool isSetFontSize(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1902,7 +1902,7 @@ int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, con
     if (style)
         return setFontSize(style, fontSize);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -1916,7 +1916,7 @@ int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformat
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return NAN;
+    return -1;
 }
 
 const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInformation) {
@@ -1936,7 +1936,7 @@ int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const R
     if (style)
         return setFontSize(style, fontSize);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -1950,7 +1950,7 @@ int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation,
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return NAN;
+    return -1;
 }
 
 const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInformation) {
@@ -1970,7 +1970,7 @@ int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const 
     if (style)
         return setFontSize(style, fontSize);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -1984,7 +1984,7 @@ int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation
     if (style)
         return setFontSizeAsDouble(style, fontSize);
 
-    return NAN;
+    return -1;
 }
 
 bool isSetFontWeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2073,7 +2073,7 @@ int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, c
     if (style)
         return setFontWeight(style, fontWeight);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation) {
@@ -2093,7 +2093,7 @@ int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const
     if (style)
         return setFontWeight(style, fontWeight);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInformation) {
@@ -2113,7 +2113,7 @@ int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, cons
     if (style)
         return setFontWeight(style, fontWeight);
 
-    return 0;
+    return -1;
 }
 
 bool isSetFontStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2202,7 +2202,7 @@ int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, co
     if (style)
         return setFontStyle(style, fontStyle);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation) {
@@ -2222,7 +2222,7 @@ int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const 
     if (style)
         return setFontStyle(style, fontStyle);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInformation) {
@@ -2242,7 +2242,7 @@ int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const
     if (style)
         return setFontStyle(style, fontStyle);
 
-    return 0;
+    return -1;
 }
 
 bool isSetTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2331,7 +2331,7 @@ int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, c
     if (style)
         return setTextAnchor(style, textAnchor);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation) {
@@ -2351,7 +2351,7 @@ int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const
     if (style)
         return setTextAnchor(style, textAnchor);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInformation) {
@@ -2371,7 +2371,7 @@ int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, cons
     if (style)
         return setTextAnchor(style, textAnchor);
 
-    return 0;
+    return -1;
 }
 
 bool isSetVTextAnchor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2460,7 +2460,7 @@ int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, 
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
@@ -2480,7 +2480,7 @@ int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, cons
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
@@ -2500,7 +2500,7 @@ int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, con
     if (style)
         return setVTextAnchor(style, vtextAnchor);
 
-    return 0;
+    return -1;
 }
 
 bool isSetFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2584,7 +2584,7 @@ int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, co
         return setFillColor(style, fillColor);
     }
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesFillColor(GlobalRenderInformation* globalRenderInformation) {
@@ -2606,7 +2606,7 @@ int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const 
         return setFillColor(style, fillColor);
     }
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionFillColor(GlobalRenderInformation* globalRenderInformation) {
@@ -2628,7 +2628,7 @@ int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const
         return setFillColor(style, fillColor);
     }
 
-    return 0;
+    return -1;
 }
 
 bool isSetFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2707,7 +2707,7 @@ int setCompartmentFillRule(GlobalRenderInformation* globalRenderInformation, con
     if (style)
         return setFillRule(style, fillRule);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesFillRule(GlobalRenderInformation* globalRenderInformation) {
@@ -2727,7 +2727,7 @@ int setSpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const s
     if (style)
         return setFillRule(style, fillRule);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionFillRule(GlobalRenderInformation* globalRenderInformation) {
@@ -2747,7 +2747,7 @@ int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const 
     if (style)
         return setFillRule(style, fillRule);
 
-    return 0;
+    return -1;
 }
 
 bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2904,7 +2904,7 @@ unsigned int getNumGeometricShapes(RenderGroup* renderGroup) {
     if (renderGroup)
         return renderGroup->getNumElements();
 
-    return 0;
+    return -1;
 }
 
 Transformation2D* getGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -3104,7 +3104,7 @@ int setCompartmentGeometricShapeType(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeType(style, shape);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformation) {
@@ -3124,7 +3124,7 @@ int setSpeciesGeometricShapeType(GlobalRenderInformation* globalRenderInformatio
     if (style)
         return setGeometricShapeType(style, shape);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformation) {
@@ -3144,7 +3144,7 @@ int setReactionGeometricShapeType(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setGeometricShapeType(style, shape);
 
-    return 0;
+    return -1;
 }
 
 bool isRectangle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -3606,7 +3606,7 @@ int setCompartmentGeometricShapeX(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setGeometricShapeX(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -3618,7 +3618,7 @@ int setCompartmentGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderI
     if (style)
         return setGeometricShapeXAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation) {
@@ -3638,7 +3638,7 @@ int setSpeciesGeometricShapeX(GlobalRenderInformation* globalRenderInformation, 
     if (style)
         return setGeometricShapeX(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -3650,7 +3650,7 @@ int setSpeciesGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInfor
     if (style)
         return setGeometricShapeXAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation) {
@@ -3670,7 +3670,7 @@ int setReactionGeometricShapeX(GlobalRenderInformation* globalRenderInformation,
     if (style)
         return setGeometricShapeX(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -3682,7 +3682,7 @@ int setReactionGeometricShapeXAsDouble(GlobalRenderInformation* globalRenderInfo
     if (style)
         return setGeometricShapeXAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -3845,7 +3845,7 @@ int setCompartmentGeometricShapeY(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setGeometricShapeY(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -3857,7 +3857,7 @@ int setCompartmentGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderI
     if (style)
         return setGeometricShapeYAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation) {
@@ -3877,7 +3877,7 @@ int setSpeciesGeometricShapeY(GlobalRenderInformation* globalRenderInformation, 
     if (style)
         return setGeometricShapeY(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -3889,7 +3889,7 @@ int setSpeciesGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInfor
     if (style)
         return setGeometricShapeYAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation) {
@@ -3909,7 +3909,7 @@ int setReactionGeometricShapeY(GlobalRenderInformation* globalRenderInformation,
     if (style)
         return setGeometricShapeY(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -3921,7 +3921,7 @@ int setReactionGeometricShapeYAsDouble(GlobalRenderInformation* globalRenderInfo
     if (style)
         return setGeometricShapeYAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -4076,7 +4076,7 @@ int setCompartmentGeometricShapeWidth(GlobalRenderInformation* globalRenderInfor
     if (style)
         return setGeometricShapeWidth(style, width);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4088,7 +4088,7 @@ int setCompartmentGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRen
     if (style)
         return setGeometricShapeWidthAsDouble(style, width);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation) {
@@ -4108,7 +4108,7 @@ int setSpeciesGeometricShapeWidth(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setGeometricShapeWidth(style, width);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4120,7 +4120,7 @@ int setSpeciesGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderI
     if (style)
         return setGeometricShapeWidthAsDouble(style, width);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformation) {
@@ -4140,7 +4140,7 @@ int setReactionGeometricShapeWidth(GlobalRenderInformation* globalRenderInformat
     if (style)
         return setGeometricShapeWidth(style, width);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4152,7 +4152,7 @@ int setReactionGeometricShapeWidthAsDouble(GlobalRenderInformation* globalRender
     if (style)
         return setGeometricShapeWidthAsDouble(style, width);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeHeight(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -4307,7 +4307,7 @@ int setCompartmentGeometricShapeHeight(GlobalRenderInformation* globalRenderInfo
     if (style)
         return setGeometricShapeHeight(style, height);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4319,7 +4319,7 @@ int setCompartmentGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRe
     if (style)
         return setGeometricShapeHeightAsDouble(style, height);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation) {
@@ -4339,7 +4339,7 @@ int setSpeciesGeometricShapeHeight(GlobalRenderInformation* globalRenderInformat
     if (style)
         return setGeometricShapeHeight(style, height);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4351,7 +4351,7 @@ int setSpeciesGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRender
     if (style)
         return setGeometricShapeHeightAsDouble(style, height);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInformation) {
@@ -4371,7 +4371,7 @@ int setReactionGeometricShapeHeight(GlobalRenderInformation* globalRenderInforma
     if (style)
         return setGeometricShapeHeight(style, height);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4383,7 +4383,7 @@ int setReactionGeometricShapeHeightAsDouble(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeHeightAsDouble(style, height);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeRatio(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -4500,7 +4500,7 @@ int setCompartmentGeometricShapeRatio(GlobalRenderInformation* globalRenderInfor
     if (style)
         return setGeometricShapeRatio(style, ratio);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation) {
@@ -4520,7 +4520,7 @@ int setSpeciesGeometricShapeRatio(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setGeometricShapeRatio(style, ratio);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeRatio(GlobalRenderInformation* globalRenderInformation) {
@@ -4540,7 +4540,7 @@ int setReactionGeometricShapeRatio(GlobalRenderInformation* globalRenderInformat
     if (style)
         return setGeometricShapeRatio(style, ratio);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeCornerCurvatureRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -4685,7 +4685,7 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* 
     if (style)
         return setGeometricShapeCornerCurvatureRadiusX(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4697,7 +4697,7 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInfor
     if (style)
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation) {
@@ -4717,7 +4717,7 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* glob
     if (style)
         return setGeometricShapeCornerCurvatureRadiusX(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4729,7 +4729,7 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformati
     if (style)
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* globalRenderInformation) {
@@ -4749,7 +4749,7 @@ int setReactionGeometricShapeCornerCurvatureRadiusX(GlobalRenderInformation* glo
     if (style)
         return setGeometricShapeCornerCurvatureRadiusX(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4761,7 +4761,7 @@ int setReactionGeometricShapeCornerCurvatureRadiusXAsDouble(GlobalRenderInformat
     if (style)
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, rx);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeCornerCurvatureRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -4906,7 +4906,7 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* 
     if (style)
         return setGeometricShapeCornerCurvatureRadiusY(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4918,7 +4918,7 @@ int setCompartmentGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInfor
     if (style)
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation) {
@@ -4938,7 +4938,7 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* glob
     if (style)
         return setGeometricShapeCornerCurvatureRadiusY(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4950,7 +4950,7 @@ int setSpeciesGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformati
     if (style)
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* globalRenderInformation) {
@@ -4970,7 +4970,7 @@ int setReactionGeometricShapeCornerCurvatureRadiusY(GlobalRenderInformation* glo
     if (style)
         return setGeometricShapeCornerCurvatureRadiusY(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -4982,7 +4982,7 @@ int setReactionGeometricShapeCornerCurvatureRadiusYAsDouble(GlobalRenderInformat
     if (style)
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, ry);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeCenterX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -5127,7 +5127,7 @@ int setCompartmentGeometricShapeCenterX(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeCenterX(style, cx);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5139,7 +5139,7 @@ int setCompartmentGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeCenterXAsDouble(style, cx);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation) {
@@ -5159,7 +5159,7 @@ int setSpeciesGeometricShapeCenterX(GlobalRenderInformation* globalRenderInforma
     if (style)
         return setGeometricShapeCenterX(style, cx);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5171,7 +5171,7 @@ int setSpeciesGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeCenterXAsDouble(style, cx);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInformation) {
@@ -5191,7 +5191,7 @@ int setReactionGeometricShapeCenterX(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeCenterX(style, cx);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5203,7 +5203,7 @@ int setReactionGeometricShapeCenterXAsDouble(GlobalRenderInformation* globalRend
     if (style)
         return setGeometricShapeCenterXAsDouble(style, cx);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeCenterY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -5348,7 +5348,7 @@ int setCompartmentGeometricShapeCenterY(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeCenterY(style, cy);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5360,7 +5360,7 @@ int setCompartmentGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeCenterYAsDouble(style, cy);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation) {
@@ -5380,7 +5380,7 @@ int setSpeciesGeometricShapeCenterY(GlobalRenderInformation* globalRenderInforma
     if (style)
         return setGeometricShapeCenterY(style, cy);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5392,7 +5392,7 @@ int setSpeciesGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeCenterYAsDouble(style, cy);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInformation) {
@@ -5412,7 +5412,7 @@ int setReactionGeometricShapeCenterY(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeCenterY(style, cy);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5424,7 +5424,7 @@ int setReactionGeometricShapeCenterYAsDouble(GlobalRenderInformation* globalRend
     if (style)
         return setGeometricShapeCenterYAsDouble(style, cy);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeRadiusX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -5569,7 +5569,7 @@ int setCompartmentGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeRadiusX(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5581,7 +5581,7 @@ int setCompartmentGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeRadiusXAsDouble(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation) {
@@ -5601,7 +5601,7 @@ int setSpeciesGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInforma
     if (style)
         return setGeometricShapeRadiusX(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5613,7 +5613,7 @@ int setSpeciesGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeRadiusXAsDouble(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInformation) {
@@ -5633,7 +5633,7 @@ int setReactionGeometricShapeRadiusX(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeRadiusX(style, rx);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5645,7 +5645,7 @@ int setReactionGeometricShapeRadiusXAsDouble(GlobalRenderInformation* globalRend
     if (style)
         return setGeometricShapeRadiusXAsDouble(style, rx);
 
-    return 0;
+    return -1;
 }
 
 bool isSetGeometricShapeRadiusY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -5790,7 +5790,7 @@ int setCompartmentGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeRadiusY(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5802,7 +5802,7 @@ int setCompartmentGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeRadiusYAsDouble(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation) {
@@ -5822,7 +5822,7 @@ int setSpeciesGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInforma
     if (style)
         return setGeometricShapeRadiusY(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5834,7 +5834,7 @@ int setSpeciesGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeRadiusYAsDouble(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInformation) {
@@ -5854,7 +5854,7 @@ int setReactionGeometricShapeRadiusY(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeRadiusY(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -5866,7 +5866,7 @@ int setReactionGeometricShapeRadiusYAsDouble(GlobalRenderInformation* globalRend
     if (style)
         return setGeometricShapeRadiusYAsDouble(style, ry);
 
-    return 0;
+    return -1;
 }
 
 const unsigned int getGeometricShapeNumElements(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -5891,7 +5891,7 @@ const unsigned int getGeometricShapeNumElements(Transformation2D* shape) {
     else if (isRenderCurve(shape))
         return ((RenderCurve*)shape)->getNumElements();
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -6063,7 +6063,7 @@ int setCompartmentGeometricShapeElementX(GlobalRenderInformation* globalRenderIn
     if (style)
         return setGeometricShapeElementX(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6075,7 +6075,7 @@ int setCompartmentGeometricShapeElementXAsDouble(GlobalRenderInformation* global
     if (style)
         return setGeometricShapeElementXAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation) {
@@ -6095,7 +6095,7 @@ int setSpeciesGeometricShapeElementX(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeElementX(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6107,7 +6107,7 @@ int setSpeciesGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRend
     if (style)
         return setGeometricShapeElementXAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInformation) {
@@ -6127,7 +6127,7 @@ int setReactionGeometricShapeElementX(GlobalRenderInformation* globalRenderInfor
     if (style)
         return setGeometricShapeElementX(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6139,7 +6139,7 @@ int setReactionGeometricShapeElementXAsDouble(GlobalRenderInformation* globalRen
     if (style)
         return setGeometricShapeElementXAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -6311,7 +6311,7 @@ int setCompartmentGeometricShapeElementY(GlobalRenderInformation* globalRenderIn
     if (style)
         return setGeometricShapeElementY(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6323,7 +6323,7 @@ int setCompartmentGeometricShapeElementYAsDouble(GlobalRenderInformation* global
     if (style)
         return setGeometricShapeElementYAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation) {
@@ -6343,7 +6343,7 @@ int setSpeciesGeometricShapeElementY(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeElementY(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6355,7 +6355,7 @@ int setSpeciesGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRend
     if (style)
         return setGeometricShapeElementYAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInformation) {
@@ -6375,7 +6375,7 @@ int setReactionGeometricShapeElementY(GlobalRenderInformation* globalRenderInfor
     if (style)
         return setGeometricShapeElementY(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6387,7 +6387,7 @@ int setReactionGeometricShapeElementYAsDouble(GlobalRenderInformation* globalRen
     if (style)
         return setGeometricShapeElementYAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -6559,7 +6559,7 @@ int setCompartmentGeometricShapeBasePoint1X(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeBasePoint1X(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6571,7 +6571,7 @@ int setCompartmentGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* glo
     if (style)
         return setGeometricShapeBasePoint1XAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation) {
@@ -6591,7 +6591,7 @@ int setSpeciesGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeBasePoint1X(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6603,7 +6603,7 @@ int setSpeciesGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeBasePoint1XAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderInformation) {
@@ -6623,7 +6623,7 @@ int setReactionGeometricShapeBasePoint1X(GlobalRenderInformation* globalRenderIn
     if (style)
         return setGeometricShapeBasePoint1X(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6635,7 +6635,7 @@ int setReactionGeometricShapeBasePoint1XAsDouble(GlobalRenderInformation* global
     if (style)
         return setGeometricShapeBasePoint1XAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -6807,7 +6807,7 @@ int setCompartmentGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeBasePoint1Y(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6819,7 +6819,7 @@ int setCompartmentGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* glo
     if (style)
         return setGeometricShapeBasePoint1YAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation) {
@@ -6839,7 +6839,7 @@ int setSpeciesGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeBasePoint1Y(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6851,7 +6851,7 @@ int setSpeciesGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeBasePoint1YAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderInformation) {
@@ -6871,7 +6871,7 @@ int setReactionGeometricShapeBasePoint1Y(GlobalRenderInformation* globalRenderIn
     if (style)
         return setGeometricShapeBasePoint1Y(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -6883,7 +6883,7 @@ int setReactionGeometricShapeBasePoint1YAsDouble(GlobalRenderInformation* global
     if (style)
         return setGeometricShapeBasePoint1YAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -7055,7 +7055,7 @@ int setCompartmentGeometricShapeBasePoint2X(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeBasePoint2X(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -7067,7 +7067,7 @@ int setCompartmentGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* glo
     if (style)
         return setGeometricShapeBasePoint2XAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation) {
@@ -7087,7 +7087,7 @@ int setSpeciesGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeBasePoint2X(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -7099,7 +7099,7 @@ int setSpeciesGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeBasePoint2XAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderInformation) {
@@ -7119,7 +7119,7 @@ int setReactionGeometricShapeBasePoint2X(GlobalRenderInformation* globalRenderIn
     if (style)
         return setGeometricShapeBasePoint2X(style, x);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -7131,7 +7131,7 @@ int setReactionGeometricShapeBasePoint2XAsDouble(GlobalRenderInformation* global
     if (style)
         return setGeometricShapeBasePoint2XAsDouble(style, x);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -7295,7 +7295,7 @@ int setCompartmentGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRende
     if (style)
         return setGeometricShapeBasePoint2Y(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -7307,7 +7307,7 @@ int setCompartmentGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* glo
     if (style)
         return setGeometricShapeBasePoint2YAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation) {
@@ -7327,7 +7327,7 @@ int setSpeciesGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInf
     if (style)
         return setGeometricShapeBasePoint2Y(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -7339,7 +7339,7 @@ int setSpeciesGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalR
     if (style)
         return setGeometricShapeBasePoint2YAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 const RelAbsVector getReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderInformation) {
@@ -7359,7 +7359,7 @@ int setReactionGeometricShapeBasePoint2Y(GlobalRenderInformation* globalRenderIn
     if (style)
         return setGeometricShapeBasePoint2Y(style, y);
 
-    return 0;
+    return -1;
 }
 
 const double getReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* globalRenderInformation) {
@@ -7371,7 +7371,7 @@ int setReactionGeometricShapeBasePoint2YAsDouble(GlobalRenderInformation* global
     if (style)
         return setGeometricShapeBasePoint2YAsDouble(style, y);
 
-    return 0;
+    return -1;
 }
 
 int addRenderPointToGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
@@ -7585,7 +7585,7 @@ int setCompartmentGeometricShapeHref(GlobalRenderInformation* globalRenderInform
     if (style)
         return setGeometricShapeHref(style, href);
 
-    return 0;
+    return -1;
 }
 
 const std::string getSpeciesGeometricShapeHref(GlobalRenderInformation* globalRenderInformation) {
@@ -7605,7 +7605,7 @@ int setSpeciesGeometricShapeHref(GlobalRenderInformation* globalRenderInformatio
     if (style)
         return setGeometricShapeHref(style, href);
 
-    return 0;
+    return -1;
 }
 
 const std::string getReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformation) {
@@ -7625,7 +7625,7 @@ int setReactionGeometricShapeHref(GlobalRenderInformation* globalRenderInformati
     if (style)
         return setGeometricShapeHref(style, href);
 
-    return 0;
+    return -1;
 }
 
 const std::string getStyle(GlobalRenderInformation* globalRenderInformation) {

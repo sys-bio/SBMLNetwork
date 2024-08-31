@@ -1258,11 +1258,11 @@ const bool isValidRoleValue(const std::string& role) {
 }
 
 const bool isValidBoundingBoxXValue(const double& x) {
-    return true;
+    return isValidDoubleValue(x);
 }
 
 const bool isValidBoundingBoxYValue(const double& y) {
-    return true;
+    return isValidDoubleValue(y);
 }
 
 const bool isValidBoundingBoxWidthValue(const double& width) {
@@ -1274,42 +1274,50 @@ const bool isValidBoundingBoxHeightValue(const double& height) {
 }
 
 const bool isValidCurveSegmentStartPointXValue(const double& x) {
-    return true;
+    return isValidDoubleValue(x);
 }
 
 const bool isValidCurveSegmentStartPointYValue(const double& y) {
-    return true;
+    return isValidDoubleValue(y);
 }
 
 const bool isValidCurveSegmentEndPointXValue(const double& x) {
-    return true;
+    return isValidDoubleValue(x);
 }
 
 const bool isValidCurveSegmentEndPointYValue(const double& y) {
-    return true;
+    return isValidDoubleValue(y);
 }
 
 const bool isValidCurveSegmentBasePoint1XValue(const double& x) {
-    return true;
+    return isValidDoubleValue(x);
 }
 
 const bool isValidCurveSegmentBasePoint1YValue(const double& y) {
-    return true;
+    return isValidDoubleValue(y);
 }
 
 const bool isValidCurveSegmentBasePoint2XValue(const double& x) {
-    return true;
+    return isValidDoubleValue(x);
 }
 
 const bool isValidCurveSegmentBasePoint2YValue(const double& y) {
-    return true;
+    return isValidDoubleValue(y);
 }
 
 const bool isValidDimensionValue(const double& dimensionValue) {
-    if (dimensionValue > 0.000)
+    if (isValidDoubleValue(dimensionValue) && dimensionValue > 0.000)
         return true;
 
     std::cerr << "error: A dimension value must be greater than 0" << std::endl;
+    return false;
+}
+
+const bool isValidDoubleValue(const double& doubleValue) {
+    if (!std::isnan(doubleValue) && !std::isinf(doubleValue))
+        return true;
+
+    std::cerr << "error: A double value must be a valid number" << std::endl;
     return false;
 }
 
