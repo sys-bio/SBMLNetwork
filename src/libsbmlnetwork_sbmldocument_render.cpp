@@ -418,18 +418,22 @@ const std::string getStopColor(SBMLDocument* document, unsigned int renderIndex,
 }
 
 int setStopColor(SBMLDocument* document, const std::string& sid, const std::string& stopColor) {
+    addColor(getGlobalRenderInformation(document), stopColor);
     return setStopColor(getGradientDefinition(document, sid), stopColor);
 }
 
 int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& stopColor) {
+    addColor(getGlobalRenderInformation(document, renderIndex), stopColor);
     return setStopColor(getGradientDefinition(document, renderIndex, sid), stopColor);
 }
 
 int setStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
+    addColor(getGlobalRenderInformation(document), stopColor);
     return setStopColor(getGradientDefinition(document, sid), gradientStopIndex, stopColor);
 }
 
 int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
+    addColor(getGlobalRenderInformation(document, renderIndex), stopColor);
     return setStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, stopColor);
 }
 
@@ -3782,6 +3786,7 @@ int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        addColor(document, style, fillColor);
         if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
             return setFillColor(getGeometricShape(style), fillColor);
 
@@ -3796,6 +3801,7 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        addColor(document, style, fillColor);
         if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
             return setFillColor(getGeometricShape(style), fillColor);
 
