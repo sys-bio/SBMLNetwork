@@ -1205,23 +1205,24 @@ int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, con
 }
 
 int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
+    bool stokeColorIsSet = false;
     Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, stroke);
-        if (setStrokeColor(style, stroke))
-            return -1;
+        if (!setStrokeColor(style, stroke))
+            stokeColorIsSet = true;
     }
     std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
     for (unsigned int i = 0; i < styleRoles.size(); i++) {
         Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
         if (style) {
             addColor(globalRenderInformation, stroke);
-            if (setStrokeColor(style, stroke))
-                return -1;
+            if (!setStrokeColor(style, stroke))
+                stokeColorIsSet = true;
         }
     }
 
-    return -1;
+    return stokeColorIsSet ? 0 : -1;
 }
 
 bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {

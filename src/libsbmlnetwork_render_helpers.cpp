@@ -225,6 +225,25 @@ void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInfo
     addColor(globalRenderInformation, "black");
 }
 
+const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId) {
+    ColorDefinition* colorDefinition = renderInformationBase->getColorDefinition(colorId);
+    if (colorDefinition)
+        return colorDefinition->getValue();
+
+    return "";
+}
+
+const std::string getColorId(RenderInformationBase* renderInformationBase, const std::string &colorValue) {
+    for (unsigned int i = 0; i < renderInformationBase->getNumColorDefinitions(); i++) {
+        ColorDefinition* colorDefinition = renderInformationBase->getColorDefinition(i);
+        if (stringCompare(colorDefinition->getValue(), colorValue))
+            return colorDefinition->getId();
+    }
+
+    return "";
+}
+
+
 const bool addColor(SBMLDocument* document, Style* style, const std::string &color) {
     if (style) {
         for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
@@ -285,11 +304,14 @@ const bool addColor(RenderInformationBase* renderInformationBase, const std::str
 }
 
 const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInformationBase, const std::string &hexColorCode) {
-    std::string colorId = getHtmlColorNameFromHexColorCode(hexColorCode);
-    if (colorId.empty())
-        colorId = getUniqueColorId(renderInformationBase);
+    std::string colorId = getColorId(renderInformationBase, hexColorCode);
+    if (!colorId.empty())
+        return colorId;
+    colorId = getHtmlColorNameFromHexColorCode(hexColorCode);
+    if (!colorId.empty())
+        return colorId;
 
-    return colorId;
+    return getUniqueColorId(renderInformationBase);
 }
 
 const std::string getUniqueColorId(RenderInformationBase* renderInformationBase) {

@@ -67,6 +67,10 @@ void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style);
 
 void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation);
 
+const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId);
+
+const std::string getColorId(RenderInformationBase* renderInformationBase, const std::string &colorValue);
+
 const bool addColor(SBMLDocument* document, Style* style, const std::string &color);
 
 const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color);
