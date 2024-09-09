@@ -1008,7 +1008,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the start point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentStartPointX(self.sbml_object, str(reaction_id).encode(), x, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentStartPointX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentStartPointY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1046,7 +1046,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the start point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentStartPointY(self.sbml_object, str(reaction_id).encode(), y, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentStartPointY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentEndPointX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1084,7 +1084,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the end point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentEndPointX(self.sbml_object, str(reaction_id).encode(), x, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentEndPointX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentEndPointY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1122,7 +1122,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the end point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentEndPointY(self.sbml_object, str(reaction_id).encode(), y, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentEndPointY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentBasePoint1X(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1160,7 +1160,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the first base point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint1X(self.sbml_object, str(reaction_id).encode(), x, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint1X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
 
     def getSpeciesReferenceCurveSegmentBasePoint1Y(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
@@ -1200,7 +1200,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the first base point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint1Y(self.sbml_object, str(reaction_id).encode(), y, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint1Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentBasePoint2X(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1238,7 +1238,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the second base point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2X(self.sbml_object, str(reaction_id).encode(), x, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentBasePoint2Y(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1276,7 +1276,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the second base point of the CurveSegment could not be set
         """
-        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(self.sbml_object, str(reaction_id).encode(), y, reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
+        return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, curve_segment_index, layout_index)
 
     def isSetSpeciesReferenceBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
@@ -6956,6 +6956,165 @@ class LibSBMLNetwork:
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Text object and false otherwise
         """
         return lib.c_api_isText(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def isSetGeometricShapeBorderColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the border color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the border color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetGeometricShapeBorderColor(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def getGeometricShapeBorderColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns the border color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the border color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeBorderColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGeometricShapeBorderColor(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)).value.decode()
+
+    def setGeometricShapeBorderColor(self, id, border_color, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the border color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - border_color (string): a string that determines the border color of the GeometricShape object
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the border color of the GeometricShape object could not be set
+        """
+        return lib.c_api_setGeometricShapeBorderColor(self.sbml_object, str(id).encode(), str(border_color).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def isSetGeometricShapeBorderWidth(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the border width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the border width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetGeometricShapeBorderWidth(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def getGeometricShapeBorderWidth(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns the border width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the border width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeBorderWidth.restype = ctypes.c_double
+        return lib.c_api_getGeometricShapeBorderWidth(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def setGeometricShapeBorderWidth(self, id, border_width, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the border width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - border_width (float): a float that determines the border width of the GeometricShape object
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the border width of the GeometricShape object could not be set
+            """
+        return lib.c_api_setGeometricShapeBorderWidth(self.sbml_object, str(id).encode(), ctypes.c_double(border_width), geometric_shape_index, graphical_object_index, layout_index)
+
+    def isSetGeometricShapeFillColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetGeometricShapeFillColor(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
+    def getGeometricShapeFillColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeFillColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGeometricShapeFillColor(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)).value.decode()
+
+    def setGeometricShapeFillColor(self, id, fill_color, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - fill_color (string): a string that determines the fill color of the GeometricShape object
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the fill color of the GeometricShape object could not be set
+            """
+        return lib.c_api_setGeometricShapeFillColor(self.sbml_object, str(id).encode(), str(fill_color).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isSetGeometricShapeX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """

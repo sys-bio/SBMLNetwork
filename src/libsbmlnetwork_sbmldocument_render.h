@@ -4968,7 +4968,181 @@ LIBSBMLNETWORK_EXTERN bool isText(SBMLDocument* document, GraphicalObject* graph
 /// it is not of type Text or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isText(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @brief Predicates returning @c true if the "storke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
+bool isSetGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke" attribute is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
+const std::string getGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
+const std::string getGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& strokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& strokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& strokeColor);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke-width" attribute is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke-width" attribute is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL.
+const double getGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL.
+const double getGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill" attribute is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill" attribute is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
+const std::string getGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
+const std::string getGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.

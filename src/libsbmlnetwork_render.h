@@ -3347,6 +3347,372 @@ LIBSBMLNETWORK_EXTERN bool isText(RenderGroup* renderGroup, unsigned int geometr
 /// @return @c true if this abstract Transformation2D is of type Text, @c false if either it is not of type Text or is or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isText(Transformation2D* shape);
 
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if
+/// it is not set or is or the object is @c NULL.
+bool isSetGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style is set.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of this RenderGroup is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of this abstract Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "stroke" attribute of this abstract Transformation2D is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeColor(Transformation2D* shape);
+
+/// @brief Retrieves the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+const std::string getGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+const std::string getGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+const std::string getGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "stroke" attribute of the Transformation2D at the given index of this RenderGroup.
+const std::string getGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke" attribute of this abstract Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return a string value representing the "stroke" attribute of this abstract Transformation2D.
+const std::string getGeometricShapeStrokeColor(Transformation2D* shape);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(Style* style, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of this abstract Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeColor(Transformation2D* shape, const std::string& StrokeColor);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of this Style is set.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of this Style is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D at the given index of this RenderGroup is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of this abstract Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "stroke-width" attribute of this abstract Transformation2D is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeStrokeWidth(Transformation2D* shape);
+
+/// @brief Retrieves the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a double value representing the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+const double getGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a double value representing the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+const double getGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a double value representing the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+const double getGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke-width" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a double value representing the "stroke-width" attribute of the Transformation2D at the given index of this RenderGroup.
+const double getGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "stroke-width" attribute of this abstract Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return a double value representing the "stroke-width" attribute of this abstract Transformation2D.
+const double getGeometricShapeStrokeWidth(Transformation2D* shape);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(Style* style, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(RenderGroup* renderGroup, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of this abstract Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeStrokeWidth(Transformation2D* shape, const double& strokeWidth);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style is set.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of this RenderGroup is set.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of this RenderGroup is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "fill" attribute of this abstract Transformation2D is set.
+/// @param shape a pointer to the Transformation2D object.
+/// @return @c true if the "fill" attribute of this abstract Transformation2D is set, @c false if it is not set or the object is @c NULL.
+bool isSetGeometricShapeFillColor(Transformation2D* shape);
+
+/// @brief Retrieves the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+const std::string getGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+const std::string getGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+const std::string getGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "fill" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return a string value representing the "fill" attribute of the Transformation2D at the given index of this RenderGroup.
+const std::string getGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex);
+
+/// @brief Retrieves the value of the "fill" attribute of this abstract Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @return a string value representing the "fill" attribute of this abstract Transformation2D.
+const std::string getGeometricShapeFillColor(Transformation2D* shape);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(Style* style, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
+/// @param style a pointer to the Style object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of this RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(RenderGroup* renderGroup, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup.
+/// @param renderGroup a pointer to the RenderGroup object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of this abstract Transformation2D.
+/// @param shape a pointer to the Transformation2D object.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColor);
+
 /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

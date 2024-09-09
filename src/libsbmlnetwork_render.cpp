@@ -3446,6 +3446,271 @@ bool isText(Transformation2D* shape) {
     return false;
 }
 
+bool isSetGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSetGeometricShapeStrokeColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->isSetStroke();
+
+    return false;
+}
+
+const std::string getGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const std::string getGeometricShapeStrokeColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->getStroke();
+
+    return "";
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(renderInformationBase, graphicalObject, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(renderInformationBase, attribute, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(Style* style, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(style, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getRenderGroup(style), geometricShapeIndex, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(renderGroup, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getGeometricShape(renderGroup, geometricShapeIndex), strokeColor);
+}
+
+int setGeometricShapeStrokeColor(Transformation2D* shape, const std::string& strokeColor) {
+    if (isValidColorValue(strokeColor)) {
+        if (isGraphicalPrimitive1D(shape)) {
+            ((GraphicalPrimitive1D*)shape)->setStroke(strokeColor);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSetGeometricShapeStrokeWidth(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->isSetStrokeWidth();
+
+    return false;
+}
+
+const double getGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const double getGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const double getGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getRenderGroup(style), geometricShapeIndex);
+}
+
+const double getGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const double getGeometricShapeStrokeWidth(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->getStrokeWidth();
+
+    return -1;
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(renderInformationBase, graphicalObject, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(renderInformationBase, attribute, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getStyle(renderInformationBase, attribute), geometricShapeIndex, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(Style* style, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(style, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getRenderGroup(style), geometricShapeIndex, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderGroup* renderGroup, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(renderGroup, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getGeometricShape(renderGroup, geometricShapeIndex), strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(Transformation2D* shape, const double& strokeWidth) {
+    if (isGraphicalPrimitive1D(shape)) {
+        ((GraphicalPrimitive1D*)shape)->setStrokeWidth(strokeWidth);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSetGeometricShapeFillColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive2D(shape))
+        return ((GraphicalPrimitive2D*)shape)->isSetFillColor();
+
+    return false;
+}
+
+const std::string getGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const std::string getGeometricShapeFillColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive2D(shape))
+        return ((GraphicalPrimitive2D*)shape)->getFillColor();
+
+    return "";
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fillColor) {
+    return setGeometricShapeFillColor(renderInformationBase, graphicalObject, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fillColor) {
+    return setGeometricShapeFillColor(renderInformationBase, attribute, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getStyle(renderInformationBase, attribute), geometricShapeIndex, fillColor);
+}
+
+int setGeometricShapeFillColor(Style* style, const std::string& fillColor) {
+    return setGeometricShapeFillColor(style, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getRenderGroup(style), geometricShapeIndex, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderGroup* renderGroup, const std::string& fillColor) {
+    return setGeometricShapeFillColor(renderGroup, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getGeometricShape(renderGroup, geometricShapeIndex), fillColor);
+}
+
+int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColor) {
+    if (isValidColorValue(fillColor)) {
+        if (isGraphicalPrimitive2D(shape)) {
+            ((GraphicalPrimitive2D*)shape)->setFillColor(fillColor);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
 bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }
