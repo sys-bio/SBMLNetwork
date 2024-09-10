@@ -1082,43 +1082,46 @@ void distributeGraphicalObjectsHorizontally(Layout* layout, std::vector<Graphica
         return;
     double minX = getMinPositionX(graphicalObjects);
     double maxX = getMaxPositionX(graphicalObjects);
+    double minY = getMinPositionY(graphicalObjects);
+    double maxY = getMaxPositionY(graphicalObjects);
     double distance = findDistributionDistance(minX, maxX, graphicalObjects.size(), spacing);
-    if (graphicalObjects.size() % 2 == 0)
-        distributeEvenGraphicalObjectsHorizontally(layout, graphicalObjects, minX, maxX, distance);
-    else
-        distributeOddGraphicalObjectsHorizontally(layout, graphicalObjects, minX, maxX, distance);
-}
-
-void distributeEvenGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), minX + i * distance);
-}
-
-void distributeOddGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance) {
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionX(layout, graphicalObjects.at(i), 0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+    if (graphicalObjects.size() % 2 == 0) {
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
+            setPositionX(layout, graphicalObjects.at(i), minX + i * distance);
+            setPositionY(layout, graphicalObjects.at(i), 0.5 * (minY + maxY));
+        }
+    }
+    else {
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
+            setPositionX(layout, graphicalObjects.at(i),
+                         0.5 * (minX + maxX) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+            setPositionY(layout, graphicalObjects.at(i), 0.5 * (minY + maxY));
+        }
+    }
 }
 
 void distributeGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing) {
-    if (graphicalObjects.size() > 2)
+    if (graphicalObjects.size() < 2)
         return;
+    double minX = getMinPositionX(graphicalObjects);
+    double maxX = getMaxPositionX(graphicalObjects);
     double minY = getMinPositionY(graphicalObjects);
     double maxY = getMaxPositionY(graphicalObjects);
     double distance = findDistributionDistance(minY, maxY, graphicalObjects.size(), spacing);
-    if (graphicalObjects.size() % 2 == 0)
-        distributeEvenGraphicalObjectsVertically(layout, graphicalObjects, minY, maxY, distance);
-    else
-        distributeOddGraphicalObjectsVertically(layout, graphicalObjects, minY, maxY, distance);
-}
 
-void distributeEvenGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), minY + i * distance);
-}
-
-void distributeOddGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance) {
-    for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        setPositionY(layout, graphicalObjects.at(i), 0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+    if (graphicalObjects.size() % 2 == 0) {
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
+            setPositionX(layout, graphicalObjects.at(i), 0.5 * (minX + maxX));
+            setPositionY(layout, graphicalObjects.at(i), minY + i * distance);
+        }
+    }
+    else {
+        for (unsigned int i = 0; i < graphicalObjects.size(); i++) {
+            setPositionX(layout, graphicalObjects.at(i), 0.5 * (minX + maxX));
+            setPositionY(layout, graphicalObjects.at(i),
+                         0.5 * (minY + maxY) + (i - 0.5 * (graphicalObjects.size() - 1)) * distance);
+        }
+    }
 }
 
 const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing) {
@@ -1129,6 +1132,20 @@ const double findDistributionDistance(const double& minPosition, const double& m
         distance = (maxPosition - minPosition) / (numGraphicalObjects - 1);
 
     return distance;
+}
+
+std::vector<std::string> getSortedNodeIdsVector(std::set <std::pair<std::string, unsigned int>> nodeIds) {
+    std::vector<std::string> sortedNodeIdsVector;
+    for (unsigned int nodeIdIndex = 0; nodeIdIndex < nodeIds.size(); nodeIdIndex++) {
+        for (std::set<std::pair<std::string, unsigned int>>::const_iterator nodeIt = nodeIds.cbegin(); nodeIt != nodeIds.cend(); nodeIt++) {
+            if (nodeIt->second == nodeIdIndex) {
+                sortedNodeIdsVector.push_back(nodeIt->first);
+                break;
+            }
+        }
+    }
+
+    return sortedNodeIdsVector;
 }
 
 const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects) {

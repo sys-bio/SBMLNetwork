@@ -264,6 +264,8 @@ void distributeOddGraphicalObjectsVertically(Layout* layout, std::vector<Graphic
 
 const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing);
 
+std::vector<std::string> getSortedNodeIdsVector(std::set <std::pair<std::string, unsigned int>> nodeIds);
+
 const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getMinPositionY(std::vector<GraphicalObject*> graphicalObjects);

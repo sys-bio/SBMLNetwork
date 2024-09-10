@@ -70,10 +70,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing) {
-        std::set<std::string> nodeIdsSet = std::set<std::string>();
+        std::set<std::pair<std::string, unsigned int>> nodeIdsSet = std::set<std::pair<std::string, unsigned int>>();
         if (nodeIds) {
             for (int i = 0; i < nodesSize; i++)
-                nodeIdsSet.insert(nodeIds[i]);
+                nodeIdsSet.insert(std::make_pair(nodeIds[i], i));
         }
         return distribute(document, nodeIdsSet, direction, spacing);
     }
