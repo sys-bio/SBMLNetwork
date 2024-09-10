@@ -165,33 +165,33 @@ void updateCompartmentExtents(Model *model, Layout *layout) {
 void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
     const double padding = getDefaultAutoLayoutPadding();
     if (speciesGlyphBoundingBox->x() - padding < compartmentGlyphBoundingBox->x()) {
-        compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
+        compartmentGlyphBoundingBox->setWidth(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->width() +
                                               (compartmentGlyphBoundingBox->x() -
-                                               (speciesGlyphBoundingBox->x() - padding)));
-        compartmentGlyphBoundingBox->setX(speciesGlyphBoundingBox->x() - padding);
+                                               (speciesGlyphBoundingBox->x() - padding))));
+        compartmentGlyphBoundingBox->setX(roundToTwoDecimalPlaces(speciesGlyphBoundingBox->x() - padding));
     }
     if (speciesGlyphBoundingBox->y() - padding < compartmentGlyphBoundingBox->y()) {
-        compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height() +
+        compartmentGlyphBoundingBox->setHeight(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->height() +
                                                (compartmentGlyphBoundingBox->y() -
-                                                (speciesGlyphBoundingBox->y() - padding)));
+                                                (speciesGlyphBoundingBox->y() - padding))));
         compartmentGlyphBoundingBox->setY(speciesGlyphBoundingBox->y() - padding);
     }
     if (speciesGlyphBoundingBox->x() + speciesGlyphBoundingBox->width() + padding >
         compartmentGlyphBoundingBox->x() + compartmentGlyphBoundingBox->width()) {
-        compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width()
+        compartmentGlyphBoundingBox->setWidth(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->width()
                                               + (speciesGlyphBoundingBox->x() + speciesGlyphBoundingBox->width() +
                                                  padding)
                                               - (compartmentGlyphBoundingBox->x() +
-                                                 compartmentGlyphBoundingBox->width()));
+                                                 compartmentGlyphBoundingBox->width())));
     }
     if (speciesGlyphBoundingBox->y() + speciesGlyphBoundingBox->height() + padding >
         compartmentGlyphBoundingBox->y() + compartmentGlyphBoundingBox->height()) {
-        compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height()
+        compartmentGlyphBoundingBox->setHeight(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->height()
                                                +
                                                (speciesGlyphBoundingBox->y() + speciesGlyphBoundingBox->height() +
                                                 padding)
                                                - (compartmentGlyphBoundingBox->y() +
-                                                  compartmentGlyphBoundingBox->height()));
+                                                  compartmentGlyphBoundingBox->height())));
     }
 }
 
@@ -203,24 +203,24 @@ updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reacti
     double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() +
                                     reactionCurve->getCurveSegment(0)->getEnd()->y());
     if (reactionCenterX - padding < compartmentGlyphBoundingBox->x()) {
-        compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
-                                              (compartmentGlyphBoundingBox->x() - (reactionCenterX - padding)));
+        compartmentGlyphBoundingBox->setWidth(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->width() +
+                                              (compartmentGlyphBoundingBox->x() - (reactionCenterX - padding))));
         compartmentGlyphBoundingBox->setX(reactionCenterX - padding);
     }
     if (reactionCenterY - padding < compartmentGlyphBoundingBox->y()) {
-        compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height() +
-                                               (compartmentGlyphBoundingBox->y() - (reactionCenterY - padding)));
+        compartmentGlyphBoundingBox->setHeight(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->height() +
+                                               (compartmentGlyphBoundingBox->y() - (reactionCenterY - padding))));
         compartmentGlyphBoundingBox->setY(reactionCenterY - padding);
     }
     if (reactionCenterX + padding > compartmentGlyphBoundingBox->x() + compartmentGlyphBoundingBox->width()) {
-        compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width()
+        compartmentGlyphBoundingBox->setWidth(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->width()
                                               + (reactionCenterX + padding) - (compartmentGlyphBoundingBox->x() +
-                                                                               compartmentGlyphBoundingBox->width()));
+                                                                               compartmentGlyphBoundingBox->width())));
     }
     if (reactionCenterY + padding > compartmentGlyphBoundingBox->y() + compartmentGlyphBoundingBox->height()) {
-        compartmentGlyphBoundingBox->setHeight(compartmentGlyphBoundingBox->height()
+        compartmentGlyphBoundingBox->setHeight(roundToTwoDecimalPlaces(compartmentGlyphBoundingBox->height()
                                                + (reactionCenterY + padding) - (compartmentGlyphBoundingBox->y() +
-                                                                                compartmentGlyphBoundingBox->height()));
+                                                                                compartmentGlyphBoundingBox->height())));
     }
 }
 
@@ -231,13 +231,11 @@ void updateLayoutDimensions(Layout *layout) {
         layout->getDimensions()->setHeight(0);
         return;
     } else {
-        double minX;
-        double minY;
         double maxX;
         double maxY;
-        extractExtents(layout, minX, minY, maxX, maxY);
-        layout->getDimensions()->setWidth(roundToTwoDecimalPlaces(maxX - minX));
-        layout->getDimensions()->setHeight(roundToTwoDecimalPlaces(maxY - minY));
+        extractExtents(layout, maxX, maxY);
+        layout->getDimensions()->setWidth(roundToTwoDecimalPlaces(maxX));
+        layout->getDimensions()->setHeight(roundToTwoDecimalPlaces(maxY));
     }
 }
 
@@ -269,9 +267,9 @@ const bool autolayoutMayStillConverge(const double &stiffness, const double &gra
     return false;
 }
 
-void extractExtents(Layout *layout, double &minX, double &minY, double &maxX, double &maxY) {
-    minX = INT_MAX;
-    minY = INT_MAX;
+void extractExtents(Layout *layout, double &maxX, double &maxY) {
+    double minX = INT_MAX;
+    double minY = INT_MAX;
     maxX = INT_MIN;
     maxY = INT_MIN;
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++)

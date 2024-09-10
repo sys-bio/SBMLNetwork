@@ -50,7 +50,7 @@ const bool adjustLayoutDimensions(Layout *layout);
 
 const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity);
 
-void extractExtents(Layout* layout, double &minX, double &minY, double &maxX, double &maxY);
+void extractExtents(Layout* layout, double &maxX, double &maxY);
 
 void extractExtents(BoundingBox* boundingBox, double &minX, double &minY, double &maxX, double &maxY);
 
