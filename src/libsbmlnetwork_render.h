@@ -1120,6 +1120,8 @@ LIBSBMLNETWORK_EXTERN bool isSetStrokeColor(RenderInformationBase* renderInforma
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStrokeColor(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetStrokeColor(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "stroke" attribute of this Transformation2D is set.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if the "stroke" attribute of this Transformation2D object is set, @c false if either the "stroke"
@@ -1142,6 +1144,8 @@ LIBSBMLNETWORK_EXTERN const std::string getStrokeColor(RenderInformationBase* re
 /// @param style a pointer to the Style object.
 /// @return the "stroke" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getStrokeColor(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getStrokeColor(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "stroke" attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1167,6 +1171,8 @@ LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderInformationBase* renderInformatio
 /// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
+
+LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderGroup* renderGroup, const std::string& stroke);
 
 /// @brief Sets the value of the "stroke" attribute of this Transformation2D object.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1237,6 +1243,8 @@ LIBSBMLNETWORK_EXTERN bool isSetStrokeWidth(RenderInformationBase* renderInforma
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStrokeWidth(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetStrokeWidth(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "stroke-width" attribute of this Transformation2D is set.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if the "stroke-width" attribute of this Transformation2D object is set, @c false if either the "stroke-width"
@@ -1259,6 +1267,8 @@ LIBSBMLNETWORK_EXTERN const double getStrokeWidth(RenderInformationBase* renderI
 /// @param style a pointer to the Style object.
 /// @return the "stroke-width" attribute of the RenderGroup of this Style object, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getStrokeWidth(Style* style);
+
+LIBSBMLNETWORK_EXTERN const double getStrokeWidth(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "stroke-width" attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1284,6 +1294,8 @@ LIBSBMLNETWORK_EXTERN int setStrokeWidth(RenderInformationBase* renderInformatio
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeWidth(Style* style, const double& strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setStrokeWidth(RenderGroup* renderGroup, const double& strokeWidth);
 
 /// @brief Sets the value of the "stroke-width" attribute of this Transformation2D object.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1350,6 +1362,8 @@ LIBSBMLNETWORK_EXTERN bool isSetStrokeDashArray(RenderInformationBase* renderInf
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStrokeDashArray(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetStrokeDashArray(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of this Transformation2D is set.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if the "stroke-dasharray" attribute of this Transformation2D object is set, @c false if either the "stroke-dasharray"
@@ -1372,6 +1386,8 @@ LIBSBMLNETWORK_EXTERN const std::vector<unsigned int> getStrokeDashArray(RenderI
 /// @param style a pointer to the Style object.
 /// @return the "stroke-dasharray" attribute of the RenderGroup of this Style object, or an empty vector if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::vector<unsigned int> getStrokeDashArray(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::vector<unsigned int> getStrokeDashArray(RenderGroup* renderGroup);
 
 /// @brief Returns the vector of the "stroke-dasharray" attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1398,6 +1414,8 @@ LIBSBMLNETWORK_EXTERN int setStrokeDashArray(RenderInformationBase* renderInform
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDashArray);
 
+LIBSBMLNETWORK_EXTERN int setStrokeDashArray(RenderGroup* renderGroup, const std::vector<unsigned int>& strokeDashArray);
+
 /// @brief Sets the value of the "stroke-dasharray" of this GraphicalPrimitive1D object.
 /// @param shape a pointer to the Transformation2D object.
 /// @param strokeDashArray a vector to use as the value  of the "stroke-dasharray" attribute of this GraphicalPrimitive1D object.
@@ -1420,6 +1438,8 @@ LIBSBMLNETWORK_EXTERN unsigned int getNumStrokeDashes(RenderInformationBase* ren
 /// @param style a pointer to the Style object.
 /// @return the size of the "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN unsigned int getNumStrokeDashes(Style* style);
+
+LIBSBMLNETWORK_EXTERN unsigned int getNumStrokeDashes(RenderGroup* renderGroup);
 
 /// @brief Returns the size of the "stroke-dasharray" attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1445,6 +1465,8 @@ LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(RenderInformationBase* renderIn
 /// @param strokeDashIndex an unsigned int representing the index of the dash to retrieve.
 /// @return the stroke dash at the given index of "stroke-dasharray" attribute of the RenderGroup of this Style object, or @c 0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex = 0);
+
+LIBSBMLNETWORK_EXTERN unsigned int getStrokeDash(RenderGroup* renderGroup, unsigned int strokeDashIndex = 0);
 
 /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1495,6 +1517,8 @@ LIBSBMLNETWORK_EXTERN int setStrokeDash(Style* style, unsigned int dash);
 /// @param dash a unsigned int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash);
+
+LIBSBMLNETWORK_EXTERN int setStrokeDash(RenderGroup* renderGroup, unsigned int dash);
 
 /// @brief Sets the first dash of the 'stroke-dasharray' attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -1547,6 +1571,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFontColor(RenderInformationBase* renderInformati
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFontColor(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFontColor(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "stroke" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "stroke" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "stroke"
@@ -1569,6 +1595,8 @@ LIBSBMLNETWORK_EXTERN const std::string getFontColor(RenderInformationBase* rend
 /// @param style a pointer to the Style object.
 /// @return the "stroke" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getFontColor(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getFontColor(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1594,6 +1622,8 @@ LIBSBMLNETWORK_EXTERN int setFontColor(RenderInformationBase* renderInformationB
 /// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontColor(Style* style, const std::string& fontColor);
+
+LIBSBMLNETWORK_EXTERN int setFontColor(RenderGroup* renderGroup, const std::string& fontColor);
 
 /// @brief Sets the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1654,6 +1684,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFontFamily(RenderInformationBase* renderInformat
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFontFamily(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFontFamily(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "font-family" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "font-family" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "font-family"
@@ -1676,6 +1708,8 @@ LIBSBMLNETWORK_EXTERN const std::string getFontFamily(RenderInformationBase* ren
 /// @param style a pointer to the Style object.
 /// @return the "font-family" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getFontFamily(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getFontFamily(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "font-family" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1701,6 +1735,8 @@ LIBSBMLNETWORK_EXTERN int setFontFamily(RenderInformationBase* renderInformation
 /// @param fontFamily a string value to use as the value of the "font-family" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontFamily(Style* style, const std::string& fontFamily);
+
+LIBSBMLNETWORK_EXTERN int setFontFamily(RenderGroup* renderGroup, const std::string& fontFamily);
 
 /// @brief Sets the value of the "font-family" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1761,6 +1797,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFontSize(RenderInformationBase* renderInformatio
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFontSize(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFontSize(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "font-size" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "font-size" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "font-size"
@@ -1783,6 +1821,8 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(RenderInformationBase* rend
 /// @param style a pointer to the Style object.
 /// @return the "font-size" attribute of the RenderGroup of this Style object, or @c RelAbsVector() if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(Style* style);
+
+LIBSBMLNETWORK_EXTERN const RelAbsVector getFontSize(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1809,6 +1849,8 @@ LIBSBMLNETWORK_EXTERN int setFontSize(RenderInformationBase* renderInformationBa
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSize(Style* style, const RelAbsVector& fontSize);
 
+LIBSBMLNETWORK_EXTERN int setFontSize(RenderGroup* renderGroup, const RelAbsVector& fontSize);
+
 /// @brief Sets the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @param fontSize a RelAbsVector to use as the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup) object.
@@ -1834,6 +1876,8 @@ LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(RenderInformationBase* renderInfor
 /// @param fontSize a double value to use as the value of the "font-size" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(Style* style, const double& fontSize);
+
+LIBSBMLNETWORK_EXTERN int setFontSizeAsDouble(RenderGroup* renderGroup, const double& fontSize);
 
 /// @brief Sets the value of the "font-size" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1927,6 +1971,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFontWeight(RenderInformationBase* renderInformat
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFontWeight(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFontWeight(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "font-weight" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "font-weight" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "font-weight"
@@ -1949,6 +1995,8 @@ LIBSBMLNETWORK_EXTERN const std::string getFontWeight(RenderInformationBase* ren
 /// @param style a pointer to the Style object.
 /// @return the "font-weight" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getFontWeight(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getFontWeight(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "font-weight" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -1974,6 +2022,8 @@ LIBSBMLNETWORK_EXTERN int setFontWeight(RenderInformationBase* renderInformation
 /// @param fontWeight a string value to use as the value of the "font-weight" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontWeight(Style* style, const std::string& fontWeight);
+
+LIBSBMLNETWORK_EXTERN int setFontWeight(RenderGroup* renderGroup, const std::string& fontWeight);
 
 /// @brief Sets the value of the "font-weight" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2034,6 +2084,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFontStyle(RenderInformationBase* renderInformati
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFontStyle(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFontStyle(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "font-style" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "font-style" attribute of this GraphicalPrimitive1D (Text or RenderGroup) object is set, @c false if either the "font-style"
@@ -2056,6 +2108,8 @@ LIBSBMLNETWORK_EXTERN const std::string getFontStyle(RenderInformationBase* rend
 /// @param style a pointer to the Style object.
 /// @return the "font-style" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getFontStyle(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getFontStyle(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "font-style" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2081,6 +2135,8 @@ LIBSBMLNETWORK_EXTERN int setFontStyle(RenderInformationBase* renderInformationB
 /// @param fontStyle a string value to use as the value of the "font-style" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFontStyle(Style* style, const std::string& fontStyle);
+
+LIBSBMLNETWORK_EXTERN int setFontStyle(RenderGroup* renderGroup, const std::string& fontStyle);
 
 /// @brief Sets the value of the "font-style" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2141,6 +2197,8 @@ LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(RenderInformationBase* renderInformat
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetTextAnchor(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "text-anchor"
@@ -2163,6 +2221,8 @@ LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(RenderInformationBase* ren
 /// @param style a pointer to the Style object.
 /// @return the "text-anchor" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getTextAnchor(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "text-anchor" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2188,6 +2248,8 @@ LIBSBMLNETWORK_EXTERN int setTextAnchor(RenderInformationBase* renderInformation
 /// @param textAnchor a string value to use as the value of the "text-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setTextAnchor(Style* style, const std::string& textAnchor);
+
+LIBSBMLNETWORK_EXTERN int setTextAnchor(RenderGroup* renderGroup, const std::string& textAnchor);
 
 /// @brief Sets the value of the "text-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2248,6 +2310,8 @@ LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(RenderInformationBase* renderInforma
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetVTextAnchor(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
 /// @return @c true if the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) object is set, @c false if either the "vtext-anchor"
@@ -2270,6 +2334,8 @@ LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(RenderInformationBase* re
 /// @param style a pointer to the Style object.
 /// @return the "vtext-anchor" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getVTextAnchor(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2295,6 +2361,8 @@ LIBSBMLNETWORK_EXTERN int setVTextAnchor(RenderInformationBase* renderInformatio
 /// @param vtextAnchor a string value to use as the value of the "vtext-anchor" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setVTextAnchor(Style* style, const std::string& vtextAnchor);
+
+LIBSBMLNETWORK_EXTERN int setVTextAnchor(RenderGroup* renderGroup, const std::string& vtextAnchor);
 
 /// @brief Sets the value of the "vtext-anchor" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
@@ -2355,6 +2423,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFillColor(RenderInformationBase* renderInformati
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFillColor(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFillColor(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "fill" attribute of this Transformation2D is set.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if the "fill" attribute of this Transformation2D object is set, @c false if either the "fill"
@@ -2377,6 +2447,8 @@ LIBSBMLNETWORK_EXTERN const std::string getFillColor(RenderInformationBase* rend
 /// @param style a pointer to the Style object.
 /// @return the "fill" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getFillColor(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getFillColor(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "fill" attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -2402,6 +2474,8 @@ LIBSBMLNETWORK_EXTERN int setFillColor(RenderInformationBase* renderInformationB
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(Style* style, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setFillColor(RenderGroup* renderGroup, const std::string& fillColor);
 
 /// @brief Sets the value of the "fill" attribute of this Transformation2D object.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -2462,6 +2536,8 @@ LIBSBMLNETWORK_EXTERN bool isSetFillRule(RenderInformationBase* renderInformatio
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetFillRule(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetFillRule(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "fill-rule" attribute of this Transformation2D is set.
 /// @param transformation2D a pointer to the Transformation2D object.
 /// @return @c true if the "fill-rule" attribute of this Transformation2D object is set, @c false if either the "fill-rule"
@@ -2484,6 +2560,8 @@ LIBSBMLNETWORK_EXTERN const std::string getFillRule(RenderInformationBase* rende
 /// @param style a pointer to the Style object.
 /// @return the "fill-rule" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getFillRule(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getFillRule(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "fill-rule" attribute of this Transformation2D.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -2509,6 +2587,8 @@ LIBSBMLNETWORK_EXTERN int setFillRule(RenderInformationBase* renderInformationBa
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillRule(Style* style, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setFillRule(RenderGroup* renderGroup, const std::string& fillRule);
 
 /// @brief Sets the value of the "fill-rule" attribute of this Transformation2D object.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -2569,6 +2649,8 @@ LIBSBMLNETWORK_EXTERN bool isSetStartHead(RenderInformationBase* renderInformati
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStartHead(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetStartHead(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (RenderCurve or RenderGroup) object.
 /// @return @c true if the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object is set, @c false if either the "startHead" attribute is not set or the object is @c NULL .
@@ -2590,6 +2672,8 @@ LIBSBMLNETWORK_EXTERN const std::string getStartHead(RenderInformationBase* rend
 /// @param style a pointer to the Style object.
 /// @return the "startHead" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getStartHead(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getStartHead(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D (RenderCurve or RenderGroup) object.
@@ -2615,6 +2699,8 @@ LIBSBMLNETWORK_EXTERN int setStartHead(RenderInformationBase* renderInformationB
 /// @param startHead a string value to use as the value of the "startHead" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setStartHead(Style* style, const std::string& startHead);
+
+LIBSBMLNETWORK_EXTERN int setStartHead(RenderGroup* renderGroup, const std::string& startHead);
 
 /// @brief Sets the value of the "startHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -2642,6 +2728,8 @@ LIBSBMLNETWORK_EXTERN bool isSetEndHead(RenderInformationBase* renderInformation
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetEndHead(Style* style);
 
+LIBSBMLNETWORK_EXTERN bool isSetEndHead(RenderGroup* renderGroup);
+
 /// @brief Predicates returning @c true if the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) is set.
 /// @param transformation2D a pointer to the Transformation2D (RenderCurve or RenderGroup) object.
 /// @return @c true if the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object is set, @c false if either the "endHead" attribute is not set or the object is @c NULL .
@@ -2663,6 +2751,8 @@ LIBSBMLNETWORK_EXTERN const std::string getEndHead(RenderInformationBase* render
 /// @param style a pointer to the Style object.
 /// @return the "endHead" attribute of the RenderGroup of this Style object, or @c "" if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getEndHead(Style* style);
+
+LIBSBMLNETWORK_EXTERN const std::string getEndHead(RenderGroup* renderGroup);
 
 /// @brief Returns the value of the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup).
 /// @param transformation2D a pointer to the Transformation2D object.
@@ -2688,6 +2778,8 @@ LIBSBMLNETWORK_EXTERN int setEndHead(RenderInformationBase* renderInformationBas
 /// @param endHead a string value to use as the value of the "endHead" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setEndHead(Style* style, const std::string& endHead);
+
+LIBSBMLNETWORK_EXTERN int setEndHead(RenderGroup* renderGroup, const std::string& endHead);
 
 /// @brief Sets the value of the "endHead" attribute of this Transformation2D (RenderCurve or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D object.

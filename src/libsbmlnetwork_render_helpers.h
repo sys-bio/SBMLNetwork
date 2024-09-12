@@ -87,7 +87,13 @@ ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces,
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
 
-void addTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+LineEnding* createLocalLineEnding(RenderInformationBase* localRenderInformation, LineEnding* globalLineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+LineEnding* createLocalLineEnding(SBMLDocument* document, RenderInformationBase* localRenderInformation, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+const bool isLocal(SBMLDocument* document, LineEnding* lineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation);
 

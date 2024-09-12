@@ -333,6 +333,46 @@ ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces,
     return colorDefinition;
 }
 
+LineEnding* createLocalLineEnding(SBMLDocument* document, RenderInformationBase* localRenderInformation, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    LineEnding* localLineEnding = NULL;
+    std::string localLineEndingId = getLocalLineEndingId(document, speciesReferenceGlyph);
+    if (localRenderInformation && !localLineEndingId.empty()) {
+        localLineEnding = ((LocalRenderInformation*)localRenderInformation)->createLineEnding();
+        localLineEnding->setId(localLineEndingId);
+        if (isSetStartHead(document, speciesReferenceGlyph))
+            setStartHead(document, speciesReferenceGlyph, localLineEndingId);
+        else if (isSetEndHead(document, speciesReferenceGlyph))
+            setEndHead(document, speciesReferenceGlyph, localLineEndingId);
+    }
+
+    return localLineEnding;
+}
+
+const bool isLocal(SBMLDocument* document, LineEnding* lineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (!lineEnding || !speciesReferenceGlyph)
+        return false;
+
+    std::string localLineEndingId = getLocalLineEndingId(document, speciesReferenceGlyph);
+    if (localLineEndingId.empty())
+        return false;
+
+    return lineEnding->getId() == localLineEndingId;
+}
+
+const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    std::string globalLineEndingId = getStartHead(document, speciesReferenceGlyph);
+    if (globalLineEndingId.empty())
+        globalLineEndingId = getEndHead(document, speciesReferenceGlyph);
+    if (!globalLineEndingId.empty()) {
+        if (globalLineEndingId.find(speciesReferenceGlyph->getId()) != std::string::npos)
+            return globalLineEndingId;
+
+        return speciesReferenceGlyph->getId() + "_" + globalLineEndingId;
+    }
+
+    return "";
+}
+
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation) {
     addProductHeadLineEnding(globalRenderInformation);
     addModifierHeadLineEnding(globalRenderInformation);
