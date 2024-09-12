@@ -82,7 +82,7 @@ jobs:
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
-        uses: ilammy/msvc-dev-cmd@v1.6.0
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Upgrade gcc on Linux
         if: matrix.platform.os_type == 'manylinux'
@@ -143,7 +143,7 @@ jobs:
         shell: cmake -P {0}
         run: |
           string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
+          message("timestamp=${current_date}" >> $GITHUB_OUTPUT)
 
       - name: Set ccache cache directory on non-Windows
         if: matrix.platform.os_type != 'windows'
@@ -167,7 +167,7 @@ jobs:
 
       - name: Setup Python for non-Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
 
