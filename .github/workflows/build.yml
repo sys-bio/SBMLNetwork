@@ -345,7 +345,7 @@ jobs:
           path: ${{env.libsbmlnetwork_python_wheel_artifacts_file}}
 
       - name: Upload SBMLNetwork Python wheel artifacts
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON' && matrix.platform.os_type == 'macos-latest'
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON' && matrix.platform.os_name == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
           name: ${{env.sbmlnetwork_python_wheel_artifacts_name}}
