@@ -281,7 +281,7 @@ jobs:
             os_name_without_build_type="${os_name%%-*}"
             echo "artifacts_name=libsbmlnetwork-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
           fi
-          echo "artifacts_path=../install-libsbmlnetwork" >> "${GITHUB_ENV}"
+          echo "artifacts_path=${RUNNER_WORKSPACE}" >> "${GITHUB_ENV}"
 
       - name: Upload libSBMLNetwork binaries
         uses: actions/upload-artifact@v4
