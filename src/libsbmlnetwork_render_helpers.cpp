@@ -276,8 +276,10 @@ const bool addColor(RenderInformationBase* renderInformationBase, const std::str
 
 const bool addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue) {
     if (!colorId.empty() && !colorValue.empty() && !renderInformationBase->getColorDefinition(colorId)) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
-        renderInformationBase->addColorDefinition(createColorDefinition(renderPkgNamespaces, toLowerCase(colorId), colorValue));
+        RenderPkgNamespaces renderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
+        ColorDefinition* cd = createColorDefinition(&renderPkgNamespaces, toLowerCase(colorId), colorValue);
+        renderInformationBase->addColorDefinition(cd);
+        delete cd;
         return true;
     }
 
@@ -320,8 +322,10 @@ void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation) {
 
 void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
     if (!globalRenderInformation->getLineEnding("productHead")) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
-        globalRenderInformation->addLineEnding(createProductHeadLineEnding(renderPkgNamespaces));
+        RenderPkgNamespaces renderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        LineEnding* le = createProductHeadLineEnding(&renderPkgNamespaces);
+        globalRenderInformation->addLineEnding(le);
+        delete le;
     }
 }
 
@@ -343,8 +347,10 @@ void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
 
 void addModifierHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
     if (!globalRenderInformation->getLineEnding("modifierHead")) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
-        globalRenderInformation->addLineEnding(createModifierHeadLineEnding(renderPkgNamespaces));
+        RenderPkgNamespaces renderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        LineEnding* le = createModifierHeadLineEnding(&renderPkgNamespaces);
+        globalRenderInformation->addLineEnding(le);
+        delete le;
     }
 }
 
@@ -363,8 +369,10 @@ void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
     if (!globalRenderInformation->getLineEnding("activatorHead")) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
-        globalRenderInformation->addLineEnding(createActivatorHeadLineEnding(renderPkgNamespaces));
+        RenderPkgNamespaces renderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        LineEnding* le = createActivatorHeadLineEnding(&renderPkgNamespaces);
+        globalRenderInformation->addLineEnding(le);
+        delete le;
     }
 }
 
@@ -383,8 +391,10 @@ void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
     if (!globalRenderInformation->getLineEnding("inhibitorHead")) {
-        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
-        globalRenderInformation->addLineEnding(createInhibitorHeadLineEnding(renderPkgNamespaces));
+        RenderPkgNamespaces renderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
+        LineEnding* le = createInhibitorHeadLineEnding(&renderPkgNamespaces);
+        globalRenderInformation->addLineEnding(le);
+        delete le;
     }
 }
 
@@ -408,8 +418,9 @@ void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
 
 void setLineEndingGeneralFeatures(LineEnding* lineEnding) {
     lineEnding->setEnableRotationalMapping(true);
-    LayoutPkgNamespaces* layoutPkgNamespaces = new LayoutPkgNamespaces(lineEnding->getLevel(), lineEnding->getVersion());
-    lineEnding->setBoundingBox(new BoundingBox(layoutPkgNamespaces, lineEnding->getId() + "_bb", -12.0, -6.0, 12.0, 12.0));
+    LayoutPkgNamespaces layoutPkgNamespaces(lineEnding->getLevel(), lineEnding->getVersion());
+    BoundingBox bb(&layoutPkgNamespaces, lineEnding->getId() + "_bb", -12.0, -6.0, 12.0, 12.0);
+    lineEnding->setBoundingBox(&bb);
 }
 
 void addGlobalStyles(GlobalRenderInformation* globalRenderInformation) {

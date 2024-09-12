@@ -137,8 +137,10 @@ const bool canUpdateLayoutCurves(Layout* layout) {
 
 void setDefaultLayoutDimensions(Layout* layout) {
     Dimensions* dimensions = layout->getDimensions();
-    if (!dimensions)
+    if (!dimensions) {
         dimensions = new Dimensions(layout->getLevel(), layout->getVersion(), layout->getPackageVersion());
+        layout->setDimensions(dimensions);
+    }
     if (dimensions->getWidth() < 0.0001)
         dimensions->setWidth(1024.0);
     if (dimensions->getHeight() < 0.0001)
