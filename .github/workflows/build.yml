@@ -284,7 +284,7 @@ jobs:
           echo "artifacts_path=../install-libsbmlnetwork" >> "${GITHUB_ENV}"
 
       - name: Upload libSBMLNetwork binaries
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: ${{env.artifacts_name}}
           path: ${{env.artifacts_path}}
