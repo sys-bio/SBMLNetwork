@@ -82,7 +82,7 @@ jobs:
 
       - name: Set MSVC as the default compiler on Windows
         if: matrix.platform.os_type == 'windows'
-        uses: ilammy/msvc-dev-cmd@v1.6.0
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Upgrade gcc on Linux
         if: matrix.platform.os_type == 'manylinux'
@@ -143,7 +143,7 @@ jobs:
         shell: cmake -P {0}
         run: |
           string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-          message("::set-output name=timestamp::${current_date}")
+          message("timestamp=${current_date}" >> $GITHUB_OUTPUT)
 
       - name: Set ccache cache directory on non-Windows
         if: matrix.platform.os_type != 'windows'
@@ -167,7 +167,7 @@ jobs:
 
       - name: Setup Python for non-Manylinux platforms
         if: matrix.platform.build_python == 'ON' && matrix.platform.os_type != 'manylinux'
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
 
@@ -281,10 +281,10 @@ jobs:
             os_name_without_build_type="${os_name%%-*}"
             echo "artifacts_name=libsbmlnetwork-${os_name_without_build_type}-${host_architecture}-${{ matrix.platform.build_type }}" >> "${GITHUB_ENV}"
           fi
-          echo "artifacts_path=../install-libsbmlnetwork" >> "${GITHUB_ENV}"
+          echo "artifacts_path=${RUNNER_WORKSPACE}" >> "${GITHUB_ENV}"
 
       - name: Upload libSBMLNetwork binaries
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: ${{env.artifacts_name}}
           path: ${{env.artifacts_path}}
@@ -334,19 +334,19 @@ jobs:
           sbmlnetwork_python_wheel_file_name=$(ls sbmlnetwork/dist | grep '^sbmlnetwork')
           echo "sbmlnetwork_python_wheel_artifacts_name=${sbmlnetwork_python_wheel_file_name}" >> "${GITHUB_ENV}"
           # we need to use relative path as actions/upload-artifact@v1 cannot find it on containerized runners
-          echo "libsbmlnetwork_python_wheel_artifacts_file=../install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/$libsbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
-          echo "sbmlnetwork_python_wheel_artifacts_file=../install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/$sbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "libsbmlnetwork_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork/dist/$libsbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
+          echo "sbmlnetwork_python_wheel_artifacts_file=${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork/dist/$sbmlnetwork_python_wheel_file_name" >> "${GITHUB_ENV}"
 
       - name: Upload libSBMLNetwork Python wheel artifacts
         if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: ${{env.libsbmlnetwork_python_wheel_artifacts_name}}
           path: ${{env.libsbmlnetwork_python_wheel_artifacts_file}}
 
       - name: Upload SBMLNetwork Python wheel artifacts
-        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON'
-        uses: actions/upload-artifact@v1
+        if: matrix.platform.build_type == 'Release' && matrix.platform.build_python == 'ON' && matrix.platform.os_name == 'macos-latest'
+        uses: actions/upload-artifact@v4
         with:
           name: ${{env.sbmlnetwork_python_wheel_artifacts_name}}
           path: ${{env.sbmlnetwork_python_wheel_artifacts_file}}
