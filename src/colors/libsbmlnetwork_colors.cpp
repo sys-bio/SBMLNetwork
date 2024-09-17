@@ -242,7 +242,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         if (color == colors->end()) {
             return "";
         }
-        return color->first;
+        return color->second;
     }
 
     const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode) {
