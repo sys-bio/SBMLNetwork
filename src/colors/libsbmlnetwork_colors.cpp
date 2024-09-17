@@ -4,8 +4,8 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-    std::vector<std::pair<std::string, std::string>> colorData() {
-        static std::vector<std::pair<std::string, std::string>> colors = {
+    const std::map<std::string, std::string>* colorData() {
+        static std::map<std::string, std::string> colors = {
                 {"aliceblue", "#F0F8FF"},
                 {"antiquewhite", "#FAEBD7"},
                 {"aqua", "#00FFFF"},
@@ -233,28 +233,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 {"yellow", "#FFFF00"},
                 {"yellowgreen", "#9ACD32"}};
 
-        return colors;
+        return &colors;
     }
 
     const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName) {
-        std::vector <std::string> htmlColorNames = getValidHtmlColorNames();
-        std::vector <std::string> hexColorCodes = getValidHexColorCodes();
-        for (unsigned int i = 0; i < htmlColorNames.size(); i++) {
-            if (stringCompare(htmlColorNames.at(i), htmlColorName))
-                return hexColorCodes.at(i);
+        const std::map<std::string, std::string>* colors = colorData();
+        auto color = colors->find(htmlColorName.c_str());
+        if (color == colors->end()) {
+            return "";
         }
-
-        return "";
+        return color->first;
     }
 
     const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode) {
-        std::vector <std::string> hexColorCodes = getValidHexColorCodes();
-        std::vector <std::string> htmlColorNames = getValidHtmlColorNames();
-        for (unsigned int i = 0; i < hexColorCodes.size(); i++) {
-            if (stringCompare(hexColorCodes.at(i), hexColorCode))
-                return htmlColorNames.at(i);
+        const std::map<std::string, std::string>* colors = colorData();
+        for (auto color = colors->begin(); color != colors->end(); color++) {
+            if (stringCompare(color->second, hexColorCode)) {
+                return color->first;
+            }
         }
-
         return "";
     }
 
@@ -275,35 +272,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const bool isValidColorValue(const std::string& value) {
-        std::vector<std::string> htmlColorNames = getValidHtmlColorNames();
-        for (unsigned int i = 0; i < htmlColorNames.size(); i++) {
-            if (stringCompare(htmlColorNames.at(i), value))
-                return true;
+        const std::map<std::string, std::string>* colors = colorData();
+        if (colors->find(value.c_str()) != colors->end()) {
+            return true;
         }
-        std::vector<std::string> hexColorCodes = getValidHexColorCodes();
-        for (unsigned int i = 0; i < hexColorCodes.size(); i++) {
-            if (stringCompare(hexColorCodes.at(i), value))
-                return true;
-        }
-
         return isValidHexColorCode(value);
     }
 
-    std::vector<std::string> getValidHtmlColorNames() {
-        std::vector<std::string> htmlColorNames;
-        for (unsigned int i = 0; i < colorData().size(); i++) {
-            htmlColorNames.push_back(colorData().at(i).first);
-        }
-
-        return htmlColorNames;
-    }
-
-    std::vector<std::string> getValidHexColorCodes() {
-        std::vector<std::string> hexColorCodes;
-        for (unsigned int i = 0; i < colorData().size(); i++) {
-            hexColorCodes.push_back(colorData().at(i).second);
-        }
-
-        return hexColorCodes;
-    }
 }

@@ -22,6 +22,8 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
+void freeUserData(SBMLDocument* document);
+
 void freeUserData(Layout* layout);
 
 void freeUserData(SBase* sbase);
@@ -35,8 +37,6 @@ void setUserData(SBase* sBase, const std::string& key, const std::string& value)
 void setDefaultLayoutId(Layout* layout);
 
 const std::string getDefaultLayoutId();
-
-const bool canUpdateLayoutCurves(Layout* layout);
 
 void setDefaultLayoutDimensions(Layout* layout);
 
