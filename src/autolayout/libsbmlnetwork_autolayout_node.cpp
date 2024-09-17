@@ -115,7 +115,7 @@ void AutoLayoutNode::setY(const double& y) {
 }
 
 const double AutoLayoutNode::getWidth() {
-    return roundToTwoDecimalPlaces(_graphicalObject->getBoundingBox()->width());
+    return _graphicalObject->getBoundingBox()->width();
 }
 
 const double AutoLayoutNode::getDefaultWidth() {
@@ -215,7 +215,7 @@ void AutoLayoutCentroidNode::setY(const double& y) {
 }
 
 const double AutoLayoutCentroidNode::getWidth() {
-    LineSegment* ls = getCurve()->getCurveSegment(0);
+    const LineSegment* ls = getCurve()->getCurveSegment(0);
     return ls->getEnd()->x() - ls->getStart()->x();
 }
 
@@ -239,7 +239,7 @@ void AutoLayoutCentroidNode::setBoundingBoxWidth(const double& width) {
 }
 
 const double AutoLayoutCentroidNode::getHeight() {
-    LineSegment* ls = getCurve()->getCurveSegment(0);
+    const LineSegment* ls = getCurve()->getCurveSegment(0);
     return ls->getEnd()->y() - ls->getStart()->y();
 }
 
