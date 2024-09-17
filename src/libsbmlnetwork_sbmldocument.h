@@ -73,8 +73,9 @@ LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumCon
 
 /// @brief Create a Render object and add it to the the SBML document if it does not exist.
 /// @param document a pointer to the SBMLDocument object.
+/// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autorender(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN int autorender(SBMLDocument* document, const int maxNumConnectedEdges = 3);
 
 /// @brief Align the nodes position in the SBML document in the given alignment type.
 /// @param document a pointer to the SBMLDocument object.

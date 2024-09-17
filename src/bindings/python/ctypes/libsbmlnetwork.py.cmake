@@ -149,15 +149,19 @@ class LibSBMLNetwork:
 
         return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
 
-    def autorender(self):
+    def autorender(self, max_num_connected_edges=3):
         """
         checks if a RenderInformation object does not exists in the SBMLDocument, then adds it to it, and set all the necessary features for it.
+
+        :Parameters:
+
+            - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autorender algorithm (will set the criteria for creating alias nodes).
 
         :Returns:
 
             true on success and false if autorender algorithm was not applied successfully
         """
-        return lib.c_api_autorender(self.sbml_object)
+        return lib.c_api_autorender(self.sbml_object, ctypes.c_int(max_num_connected_edges))
 
     def align(self, nodes, alignment="center", ignore_locked_nodes=False):
         """
@@ -323,7 +327,7 @@ class LibSBMLNetwork:
 
             true on success and false if the Layout objects could not be removed
         """
-        return lib.c_api_removeAllLayouts(self.sbml_object)
+        return lib.c_api_removeLayouts(self.sbml_object)
 
     def createDefaultLayoutFeatures(self):
         """

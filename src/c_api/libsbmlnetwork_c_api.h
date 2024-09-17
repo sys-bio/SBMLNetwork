@@ -74,8 +74,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
     /// @param document a pointer to the SBMLDocument object.
+    /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_autorender(SBMLDocument *document);
+    LIBSBMLNETWORK_EXTERN int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges = 3);
 
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.

@@ -56,8 +56,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodeIdsSet);
     }
 
-    int c_api_autorender(SBMLDocument *document) {
-        return autorender(document);
+    int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges) {
+        return autorender(document, maxNumConnectedEdges);
     }
 
     int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes) {

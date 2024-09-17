@@ -74,9 +74,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int autorender(SBMLDocument* document) {
+    int autorender(SBMLDocument* document, const int maxNumConnectedEdges) {
         if (!getNumLayouts(document))
-            createDefaultLayoutFeatures(document);
+            createDefaultLayoutFeatures(document, maxNumConnectedEdges);
         if (getNumLayouts(document))
             return createDefaultRenderInformation(document);
 
