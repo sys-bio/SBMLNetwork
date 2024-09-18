@@ -128,7 +128,7 @@ void AutoLayoutNode::setWidth(const double& width) {
 }
 
 const double AutoLayoutNode::getHeight() {
-    return roundToTwoDecimalPlaces(_graphicalObject->getBoundingBox()->height());
+    return _graphicalObject->getBoundingBox()->height();
 }
 
 const double AutoLayoutNode::getDefaultHeight() {
