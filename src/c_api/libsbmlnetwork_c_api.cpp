@@ -976,6 +976,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingBoundingBoxX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, x);
     }
 
+    int c_api_setReactionLineEndingBoundingBoxX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingBoundingBoxX(document, layoutIndex, reactionId, reactionGlyphIndex, x);
+    }
+
     const double c_api_getLineEndingBoundingBoxY(SBMLDocument* document, const char* id, int renderIndex) {
         return getLineEndingBoundingBoxY(document, renderIndex, id);
     }
@@ -990,6 +994,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
         return setSpeciesReferenceLineEndingBoundingBoxY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, y);
+    }
+
+    int c_api_setReactionLineEndingBoundingBoxY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingBoundingBoxY(document, layoutIndex, reactionId, reactionGlyphIndex, y);
     }
 
     const double c_api_getLineEndingBoundingBoxWidth(SBMLDocument* document, const char* id, int renderIndex) {
@@ -1008,6 +1016,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingBoundingBoxWidth(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, width);
     }
 
+    int c_api_setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, const char* reactionId, const double width, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingBoundingBoxWidth(document, layoutIndex, reactionId, reactionGlyphIndex, width);
+    }
+
     const double c_api_getLineEndingBoundingBoxHeight(SBMLDocument* document, const char* id, int renderIndex) {
         return getLineEndingBoundingBoxHeight(document, renderIndex, id);
     }
@@ -1022,6 +1034,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, const char* reactionId, const double height, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
         return setSpeciesReferenceLineEndingBoundingBoxHeight(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, height);
+    }
+
+    int c_api_setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, const char* reactionId, const double height, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingBoundingBoxHeight(document, layoutIndex, reactionId, reactionGlyphIndex, height);
     }
 
     bool c_api_isSetLineEndingBorderColor(SBMLDocument* document, const char* id, int renderIndex) {
@@ -1048,6 +1064,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingStrokeColor(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, borderColor);
     }
 
+    int c_api_setReactionLineEndingBorderColor(SBMLDocument* document, const char* reactionId, const char* borderColor, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingStrokeColor(document, layoutIndex, reactionId, reactionGlyphIndex, borderColor);
+    }
+
     bool c_api_isSetLineEndingBorderWidth(SBMLDocument* document, const char* id, int renderIndex) {
         return isSetLineEndingStrokeWidth(document, renderIndex, id);
     }
@@ -1072,6 +1092,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingStrokeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, borderWidth);
     }
 
+    int c_api_setReactionLineEndingBorderWidth(SBMLDocument* document, const char* reactionId, const double borderWidth, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingStrokeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, borderWidth);
+    }
+
     const int c_api_getNumLineEndingBorderDashes(SBMLDocument* document, const char* id, int renderIndex) {
         return getNumLineEndingStrokeDashes(document, renderIndex, id);
     }
@@ -1094,6 +1118,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingNthBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int dashIndex, int layoutIndex) {
         return setSpeciesReferenceLineEndingStrokeDash(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, dashIndex, dash);
+    }
+
+    int c_api_setReactionLineEndingNthBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int reactionGlyphIndex, int dashIndex, int layoutIndex) {
+        return setReactionLineEndingStrokeDash(document, layoutIndex, reactionId, reactionGlyphIndex, dashIndex, dash);
     }
 
     bool c_api_isSetLineEndingFillColor(SBMLDocument* document, const char* id, int renderIndex) {
@@ -1136,6 +1164,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingFillColorAsGradient(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, gradientType, stopsVector);
     }
 
+    int c_api_setReactionLineEndingFillColor(SBMLDocument* document, const char* reactionId, const char* fillColor, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingFillColor(document, layoutIndex, reactionId, reactionGlyphIndex, fillColor);
+    }
+
+    int c_api_setReactionLineEndingFillColorAsGradient(SBMLDocument* document, const char* reactionId, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int reactionGlyphIndex, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setReactionLineEndingFillColorAsGradient(document, layoutIndex, reactionId, reactionGlyphIndex, gradientType, stopsVector);
+    }
+
     bool c_api_isSetLineEndingFillRule(SBMLDocument* document, const char* id, int renderIndex) {
         return isSetLineEndingFillRule(document, renderIndex, id);
     }
@@ -1158,6 +1198,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingFillRule(SBMLDocument* document, const char* reactionId, const char* fillRule, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
         return setSpeciesReferenceLineEndingFillRule(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, fillRule);
+    }
+
+    int c_api_setReactionLineEndingFillRule(SBMLDocument* document, const char* reactionId, const char* fillRule, int reactionGlyphIndex, int layoutIndex) {
+        return setReactionLineEndingFillRule(document, layoutIndex, reactionId, reactionGlyphIndex, fillRule);
     }
 
     const int c_api_getNumLineEndingGeometricShapes(SBMLDocument* document, const char* id, int renderIndex) {
@@ -1240,6 +1284,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, x);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, x);
+    }
+
     bool c_api_isSetLineEndingGeometricShapeY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
         return isSetLineEndingGeometricShapeY(document, renderIndex, id, geometricShapeIndex);
     }
@@ -1262,6 +1310,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, y);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, y);
     }
 
     bool c_api_isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
@@ -1288,6 +1340,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, width);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, const char* reactionId, const double width, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeWidthAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, width);
+    }
+
     bool c_api_isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
         return isSetLineEndingGeometricShapeHeight(document, renderIndex, id, geometricShapeIndex);
     }
@@ -1310,6 +1366,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, const char* reactionId, const double height, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, height);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, const char* reactionId, const double height, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeHeightAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, height);
     }
 
     bool c_api_isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
@@ -1336,6 +1396,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeRatio(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, ratio);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, const char* reactionId, const double ratio, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeRatio(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, ratio);
+    }
+
     bool c_api_isSetLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
         return isSetLineEndingGeometricShapeCornerCurvatureRadiusX(document, renderIndex, id, geometricShapeIndex);
     }
@@ -1358,6 +1422,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* reactionId, const double borderRadiusX, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, borderRadiusX);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeBorderRadiusX(SBMLDocument* document, const char* reactionId, const double borderRadiusX, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, borderRadiusX);
     }
 
     bool c_api_isSetLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
@@ -1384,6 +1452,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, borderRadiusY);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeBorderRadiusY(SBMLDocument* document, const char* reactionId, const double borderRadiusY, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, borderRadiusY);
+    }
+
     bool c_api_isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
         return isSetLineEndingGeometricShapeCenterX(document, renderIndex, id, geometricShapeIndex);
     }
@@ -1406,6 +1478,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* reactionId, const double centerX, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, centerX);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, const char* reactionId, const double centerX, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeCenterXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, centerX);
     }
 
     bool c_api_isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
@@ -1432,6 +1508,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, centerY);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, const char* reactionId, const double centerY, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeCenterYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, centerY);
+    }
+
     bool c_api_isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
         return isSetLineEndingGeometricShapeRadiusX(document, renderIndex, id, geometricShapeIndex);
     }
@@ -1456,6 +1536,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, radiusX);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, const char* reactionId, const double radiusX, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, radiusX);
+    }
+
     bool c_api_isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
         return isSetLineEndingGeometricShapeRadiusY(document, renderIndex, id, geometricShapeIndex);
     }
@@ -1478,6 +1562,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* reactionId, const double radiusY, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, radiusY);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* reactionId, const double radiusY, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, radiusY);
     }
 
     int c_api_getLineEndingGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
@@ -1512,6 +1600,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, segmentIndex, x);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeElementXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, segmentIndex, x);
+    }
+
     const double c_api_getLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
         return getLineEndingGeometricShapeElementYAsDouble(document, id, geometricShapeIndex, segmentIndex);
     }
@@ -1526,6 +1618,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, segmentIndex, y);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeElementYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, segmentIndex, y);
     }
 
     const double c_api_getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
@@ -1544,6 +1640,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, segmentIndex, x);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, segmentIndex, x);
+    }
+
     const double c_api_getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
         return getLineEndingGeometricShapeBasePoint1YAsDouble(document, id, geometricShapeIndex, segmentIndex);
     }
@@ -1558,6 +1658,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, segmentIndex, y);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, segmentIndex, y);
     }
 
     const double c_api_getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
@@ -1576,6 +1680,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, segmentIndex, x);
     }
 
+    int c_api_setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, segmentIndex, x);
+    }
+
     const double c_api_getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* id, int segmentIndex, int geometricShapeIndex, int renderIndex) {
         return getLineEndingGeometricShapeBasePoint2YAsDouble(document, id, geometricShapeIndex, segmentIndex);
     }
@@ -1590,6 +1698,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, segmentIndex, y);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int layoutIndex, int segmentIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, segmentIndex, y);
     }
 
     bool c_api_isSetLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, int geometricShapeIndex, int renderIndex) {
@@ -1614,6 +1726,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const char* reactionId, const char* href, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex, int geometricShapeIndex) {
         return setSpeciesReferenceLineEndingGeometricShapeHref(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, geometricShapeIndex, href);
+    }
+
+    int c_api_setReactionLineEndingGeometricShapeHref(SBMLDocument* document, const char* reactionId, const char* href, int reactionGlyphIndex, int layoutIndex, int geometricShapeIndex) {
+        return setReactionLineEndingGeometricShapeHref(document, layoutIndex, reactionId, reactionGlyphIndex, geometricShapeIndex, href);
     }
 
     bool c_api_isSetBorderColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {

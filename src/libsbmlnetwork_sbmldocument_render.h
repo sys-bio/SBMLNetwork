@@ -1357,6 +1357,9 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double x);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double x);
 
 /// Returns the value of the "y" attribute of the bounding box for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -1395,6 +1398,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double y);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double y);
+
 /// Returns the value of the "width" attribute of the bounding box for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
@@ -1431,6 +1438,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocu
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double width);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width);
+
 /// Returns the value of the "height" attribute of the bounding box for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
@@ -1466,6 +1477,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingBoundingBoxHeight(SBMLDocument* document,
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double height);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double height);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double height);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double height);
 
 /// Returns the value of the "group" element of the LineEnding with the given identifier.
 /// @param document a pointer to the SBMLDocument object.
@@ -1535,6 +1550,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument*
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& strokeColor);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor);
+
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
@@ -1589,6 +1608,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingStrokeWidth(SBMLDocument* document, unsig
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double strokeWidth);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double strokeWidth);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double strokeWidth);
 
 /// @brief Predicates returning @c true if the "stroke-dasharray" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -1702,6 +1725,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingStrokeDash(SBMLDocument* 
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingStrokeDash(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int dashIndex, unsigned int dash);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingStrokeDash(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int dashIndex, unsigned int dash);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingStrokeDash(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int dashIndex, unsigned int dash);
+
 /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
@@ -1765,6 +1792,14 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillColor(SBMLDocument* d
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
@@ -1818,6 +1853,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingFillRule(SBMLDocument* document, unsigned
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillRule);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillRule);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillRule);
 
 /// @brief Returns number of Transformation2D objects in the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -2028,6 +2067,9 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeX(SBMLDocum
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& x);
 
 /// @brief Sets the X coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
@@ -2049,6 +2091,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeXAsDouble(SBMLDocument* doc
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& x);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& x);
 
 /// @brief Checks if the Y coordinate of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -2128,6 +2174,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocum
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y);
+
 /// @brief Sets the Y coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2148,6 +2198,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeYAsDouble(SBMLDocument* doc
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& y);
 
 /// @brief Checks if the width of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -2227,6 +2281,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeWidth(SBMLD
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& width);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& width);
+
 /// @brief Sets the width of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2247,6 +2305,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeWidthAsDouble(SBMLDocument*
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& width);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& width);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& width);
 
 /// @brief Checks if the height of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -2326,6 +2388,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeHeight(SBML
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& height);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& height);
+
 /// @brief Sets the height of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2346,6 +2412,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHeightAsDouble(SBMLDocument
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& height);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height);
 
 /// @brief Checks if the ratio of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -2385,7 +2455,6 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingGeometricShapeRa
 
 LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-
 /// @brief Sets the ratio of the geometric shape for the LineEnding with the given identifier.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2406,6 +2475,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRatio(SBMLDocument* documen
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& ratio);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio);
 
 /// @brief Checks if the X curvature radius of the geometric shape corner for the LineEnding with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -2485,6 +2558,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurva
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
+
 /// @brief Sets the X curvature radius of the geometric shape corner for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2505,6 +2582,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusXAsDou
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX);
 
 /// @brief Checks if the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier is set.
 /// @param document A pointer to the SBMLDocument object.
@@ -2584,6 +2665,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurva
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
+
 /// @brief Sets the Y curvature radius of the geometric shape corner for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2604,6 +2689,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCornerCurvatureRadiusYAsDou
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY);
 
 /// @brief Checks if the center X coordinate of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document A pointer to the SBMLDocument object.
@@ -2683,6 +2772,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterX(SBM
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX);
+
 /// @brief Sets the center X coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2703,6 +2796,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCenterXAsDouble(SBMLDocumen
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerX);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerX);
 
 /// @brief Checks if the center Y coordinate of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document A pointer to the SBMLDocument object.
@@ -2782,6 +2879,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterY(SBM
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY);
+
 /// @brief Sets the center Y coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2802,6 +2903,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeCenterYAsDouble(SBMLDocumen
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerY);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerY);
 
 /// @brief Checks if the radius X of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document A pointer to the SBMLDocument object.
@@ -2881,6 +2986,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusX(SBM
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX);
+
 /// @brief Sets the X radius of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -2901,6 +3010,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRadiusXAsDouble(SBMLDocumen
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX);
 
 /// @brief Checks if the Y radius of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document A pointer to the SBMLDocument object.
@@ -2980,6 +3093,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBM
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY);
+
 /// @brief Sets the Y radius of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3000,6 +3117,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeRadiusYAsDouble(SBMLDocumen
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY);
 
 /// @brief Gets the number of elements in the geometric shape for the LineEnding with the given identifier.
 /// @param document A pointer to the SBMLDocument object.
@@ -3106,6 +3227,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementX(SB
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x);
+
 /// @brief Sets the X coordinate of the geometric shape element for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3128,6 +3253,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeElementXAsDouble(SBMLDocume
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x);
 
 /// @brief Gets the Y coordinate of the geometric shape element for the LineEnding with the given identifier.
 /// @param document A pointer to the SBMLDocument object.
@@ -3194,6 +3323,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementY(SB
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y);
+
 /// @brief Sets the Y coordinate of the geometric shape element for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3216,6 +3349,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeElementYAsDouble(SBMLDocume
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y);
 
 /// @brief Gets the base point 1 X coordinate of the geometric shape for the LineEnding with the given identifier.
 /// @param document A pointer to the SBMLDocument object.
@@ -3282,6 +3419,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1X
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X);
+
 /// @brief Sets the base point 1 X coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3304,6 +3445,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDoc
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X);
 
 /// @brief Gets the base point 1 Y coordinate of the geometric shape for the LineEnding with the given identifier.
 /// @param document A pointer to the SBMLDocument object.
@@ -3370,6 +3515,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y);
+
 /// @brief Sets the base point 1 Y coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3392,6 +3541,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDoc
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y);
 
 /// @brief Gets the base point 2 X coordinate of the geometric shape for the LineEnding with the given identifier.
 /// @param document A pointer to the SBMLDocument object.
@@ -3458,6 +3611,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2X
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X);
+
 /// @brief Sets the base point 2 X coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3480,6 +3637,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDoc
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X);
 
 /// @brief Gets the base point 2 Y coordinate of the geometric shape for the LineEnding with the given identifier.
 /// @param document A pointer to the SBMLDocument object.
@@ -3546,6 +3707,10 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
 
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y);
+
 /// @brief Sets the base point 2 Y coordinate of the geometric shape for the LineEnding with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to modify.
@@ -3568,6 +3733,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDoc
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y);
 
 /// @brief Checks if the Href attribute of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document A pointer to the SBMLDocument object.
@@ -3627,6 +3796,10 @@ LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeHref(SBMLDocument* document
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& href);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const std::string& href);
+
+LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const std::string& href);
 
 /// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
