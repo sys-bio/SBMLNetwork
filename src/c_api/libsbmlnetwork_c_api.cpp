@@ -841,7 +841,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLinearGradientX1(SBMLDocument* document, const char* id, const double x1, int renderIndex) {
-        return setLinearGradientX1(document, renderIndex, id, x1);
+        return setLinearGradientX1AsDouble(document, renderIndex, id, x1);
     }
 
     bool c_api_isSetLinearGradientY1(SBMLDocument* document, const char* id, int renderIndex) {
@@ -853,7 +853,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLinearGradientY1(SBMLDocument* document, const char* id, const double y1, int renderIndex) {
-        return setLinearGradientY1(document, renderIndex, id, y1);
+        return setLinearGradientY1AsDouble(document, renderIndex, id, y1);
     }
 
     bool c_api_isSetLinearGradientX2(SBMLDocument* document, const char* id, int renderIndex) {
@@ -865,7 +865,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLinearGradientX2(SBMLDocument* document, const char* id, const double x2, int renderIndex) {
-        return setLinearGradientX2(document, renderIndex, id, x2);
+        return setLinearGradientX2AsDouble(document, renderIndex, id, x2);
     }
 
     bool c_api_isSetLinearGradientY2(SBMLDocument* document, const char* id, int renderIndex) {
@@ -877,7 +877,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setLinearGradientY2(SBMLDocument* document, const char* id, const double y2, int renderIndex) {
-        return setLinearGradientY2(document, renderIndex, id, y2);
+        return setLinearGradientY2AsDouble(document, renderIndex, id, y2);
     }
 
     bool c_api_isSetRadialGradientCenterX(SBMLDocument* document, const char* id, int renderIndex) {
@@ -889,7 +889,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setRadialGradientCenterX(SBMLDocument* document, const char* id, const double cx, int renderIndex) {
-        return setRadialGradientCx(document, renderIndex, id, cx);
+        return setRadialGradientCxAsDouble(document, renderIndex, id, cx);
     }
 
     bool c_api_isSetRadialGradientCenterY(SBMLDocument* document, const char* id, int renderIndex) {
@@ -901,7 +901,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setRadialGradientCenterY(SBMLDocument* document, const char* id, const double cy, int renderIndex) {
-        return setRadialGradientCy(document, renderIndex, id, cy);
+        return setRadialGradientCyAsDouble(document, renderIndex, id, cy);
     }
 
     bool c_api_isSetRadialGradientRadius(SBMLDocument* document, const char* id, int renderIndex) {
@@ -913,7 +913,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setRadialGradientRadius(SBMLDocument* document, const char* id, const double r, int renderIndex) {
-        return setRadialGradientR(document, renderIndex, id, r);
+        return setRadialGradientRAsDouble(document, renderIndex, id, r);
     }
 
     bool c_api_isSetRadialGradientFocalX(SBMLDocument* document, const char* id, int renderIndex) {
@@ -925,7 +925,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setRadialGradientFocalX(SBMLDocument* document, const char* id, const double fx, int renderIndex) {
-        return setRadialGradientFx(document, renderIndex, id, fx);
+        return setRadialGradientFxAsDouble(document, renderIndex, id, fx);
     }
 
     bool c_api_isSetRadialGradientFocalY(SBMLDocument* document, const char* id, int renderIndex) {
@@ -937,7 +937,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setRadialGradientFocalY(SBMLDocument* document, const char* id, const double fy, int renderIndex) {
-        return setRadialGradientFy(document, renderIndex, id, fy);
+        return setRadialGradientFyAsDouble(document, renderIndex, id, fy);
     }
 
     const int c_api_getNumLineEndings(SBMLDocument* document, int renderIndex) {
@@ -1108,6 +1108,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setLineEndingFillColor(document, renderIndex, id, fillColor);
     }
 
+    int c_api_setLineEndingFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int renderIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setLineEndingFillColorAsGradient(document, renderIndex, id, gradientType, stopsVector);
+    }
+
     bool c_api_isSetSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
         return isSetSpeciesReferenceLineEndingFillColor(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex);
     }
@@ -1118,6 +1126,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const char* reactionId, const char* fillColor, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
         return setSpeciesReferenceLineEndingFillColor(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, fillColor);
+    }
+
+    int c_api_setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, const char* reactionId, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int reactionGlyphIndex, int speciesReferenceGlyphIndex, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setSpeciesReferenceLineEndingFillColorAsGradient(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, gradientType, stopsVector);
     }
 
     bool c_api_isSetLineEndingFillRule(SBMLDocument* document, const char* id, int renderIndex) {
@@ -1778,12 +1794,28 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), fillColor);
     }
 
+    int c_api_setFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int graphicalObjectIndex, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setFillColorAsGradient(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), gradientType, stopsVector);
+    }
+
     const char* c_api_getCompartmentsFillColor(SBMLDocument* document) {
         return strdup(getCompartmentFillColor(document).c_str());
     }
 
     int c_api_setCompartmentsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex) {
         return setCompartmentFillColor(document, layoutIndex, fillColor);
+    }
+
+    int c_api_setCompartmentsFillColorAsGradient(SBMLDocument* document, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setCompartmentFillColorAsGradient(document, layoutIndex, gradientType, stopsVector);
     }
 
     const char* c_api_getSpeciesFillColor(SBMLDocument* document) {
@@ -1794,6 +1826,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesFillColor(document, layoutIndex, fillColor);
     }
 
+    int c_api_setSpeciesFillColorAsGradient(SBMLDocument* document, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setSpeciesFillColorAsGradient(document, layoutIndex, gradientType, stopsVector);
+    }
+
     const char* c_api_getReactionsFillColor(SBMLDocument* document) {
         return strdup(getReactionFillColor(document).c_str());
     }
@@ -1802,12 +1842,36 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setReactionFillColor(document, layoutIndex, fillColor);
     }
 
+    int c_api_setReactionsFillColorAsGradient(SBMLDocument* document, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setReactionFillColorAsGradient(document, layoutIndex, gradientType, stopsVector);
+    }
+
     int c_api_setLineEndingsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex) {
         return setLineEndingFillColor(document, layoutIndex, fillColor);
     }
 
+    int c_api_setLineEndingsFillColorAsGradient(SBMLDocument* document, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setLineEndingFillColorAsGradient(document, layoutIndex, gradientType, stopsVector);
+    }
+
     int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex) {
         return setFillColor(document, layoutIndex, fillColor);
+    }
+
+    int c_api_setFillColorsAsGradient(SBMLDocument* document, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setFillColorAsGradient(document, layoutIndex, gradientType, stopsVector);
     }
 
     bool c_api_isSetFillRule(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -2268,6 +2332,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeFillColor(SBMLDocument* document, const char* id, const char* fillColor, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
         return setGeometricShapeFillColor(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, fillColor);
+    }
+
+    int c_api_setGeometricShapeFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType, const char** stopColors, const double* stopOffsets, const int stopsSize, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        std::vector<std::pair<std::string, double>> stopsVector;
+        for (int i = 0; i < stopsSize; i++)
+            stopsVector.push_back(std::make_pair(stopColors[i], stopOffsets[i]));
+
+        return setGeometricShapeFillColorAsGradient(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, gradientType, stopsVector);
     }
 
     bool c_api_isSetGeometricShapeX(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {

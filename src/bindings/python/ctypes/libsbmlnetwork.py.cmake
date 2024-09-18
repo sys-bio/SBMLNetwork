@@ -4211,6 +4211,24 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingFillColor(self.sbml_object, str(line_ending_id).encode(), str(fill_color).encode(), render_index)
 
+    def setLineEndingFillColorAsGradient(self, line_ending_id, stop_colors = [], stop_offsets = [], gradient_type = "linear", render_index = 0):
+        """
+        Sets the fill color of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string that determines the type of the gradient (default: "linear")
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of the LineEnding object could not be set
+        """
+        return lib.c_api_setLineEndingFillColorAsGradient(self.sbml_object, str(line_ending_id).encode(), (ctypes.c_char_p * len(stop_colors))(*[str(color).encode() for color in stop_colors]), (ctypes.c_double * len(stop_offsets))(*stop_offsets), len(stop_colors), str(gradient_type).encode(), render_index)
+
     def isSetSpeciesReferenceLineEndingFillColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns whether the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
@@ -4263,6 +4281,26 @@ class LibSBMLNetwork:
             true on success and false if the fill color of the LineEnding object of the SpeciesReference object could not be set
         """
         return lib.c_api_setSpeciesReferenceLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), str(fill_color).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+
+    def setSpeciesReferenceLineEndingFillColorAsGradient(self, reaction_id, stop_colors = [], stop_offsets = [], gradient_type = "linear", reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+        """
+        Sets the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument as a gradient
+
+       :Parameters
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string that determines the type of the gradient (default: "linear")
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_glyph_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReferenceGlyph object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of the LineEnding object of the SpeciesReference object could not be set
+        """
+        return lib.c_api_setSpeciesReferenceLineEndingFillColorAsGradient(self.sbml_object, str(reaction_id).encode(), (ctypes.c_char_p * len(stop_colors))(*[str(color).encode() for color in stop_colors]), (ctypes.c_double * len(stop_offsets))(*stop_offsets), len(stop_colors), str(gradient_type).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def isSetLineEndingFillRule(self, line_ending_id, render_index=0):
         """
@@ -6850,6 +6888,40 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setFillColor(self.sbml_object, str(id).encode(), str(fill_color).encode(), graphical_object_index, layout_index)
 
+    def setFillColorAsGradient(self, id, stop_colors = [], stop_offsets = [], gradient_type = "linear", graphical_object_index=0, layout_index=0):
+        """
+        Sets the fill color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string (default: "linear") that determines the type of the gradient
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of the GraphicalObject could not be set
+        """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setFillColorAsGradient(self.sbml_object, str(id).encode(), str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), graphical_object_index, layout_index)
+
     def getCompartmentsFillColor(self):
         """
         Returns the default fill color of the CompartmentGlyph objects in the given SBMLDocument
@@ -6875,6 +6947,38 @@ class LibSBMLNetwork:
             true on success and false if the fill color of all the CompartmentGlyph object could not be set
         """
         return lib.c_api_setCompartmentsFillColor(self.sbml_object, str(fill_color).encode(), layout_index)
+
+    def setCompartmentsFillColorAsGradient(self, stop_colors = [], stop_offsets = [], gradient_type = "linear", layout_index=0):
+        """
+        Sets the fill color of all the CompartmentGlyph object with the given layout_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string (default: "linear") that determines the type of the gradient
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the CompartmentGlyph object could not be set
+        """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setCompartmentsFillColorAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
 
     def getSpeciesFillColor(self):
         """
@@ -6902,6 +7006,38 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesFillColor(self.sbml_object, str(fill_color).encode(), layout_index)
 
+    def setSpeciesFillColorAsGradient(self, stop_colors = [], stop_offsets = [], gradient_type = "linear", layout_index=0):
+        """
+        Sets the fill color of all the SpeciesGlyph object with the given layout_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string (default: "linear") that determines the type of the gradient
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the SpeciesGlyph object could not be set
+        """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setSpeciesFillColorAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
+
     def getReactionsFillColor(self):
         """
         Returns the default fill color of the ReactionGlyph objects in the given SBMLDocument
@@ -6928,6 +7064,38 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setReactionsFillColor(self.sbml_object, str(fill_color).encode(), layout_index)
 
+    def setReactionsFillColorAsGradient(self, stop_colors = [], stop_offsets = [], gradient_type = "linear", layout_index=0):
+        """
+        Sets the fill color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string (default: "linear") that determines the type of the gradient
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the ReactionGlyph object could not be set
+        """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setReactionsFillColorAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
+
     def setLineEndingsFillColor(self, fill_color, layout_index=0):
         """
         Sets the fill color of all the LineEnding object with the given layout_index in the given SBMLDocument
@@ -6943,6 +7111,38 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingsFillColor(self.sbml_object, str(fill_color).encode(), layout_index)
 
+    def setLineEndingsFillColorAsGradient(self, stop_colors = [], stop_offsets = [], gradient_type = "linear", layout_index=0):
+        """
+        Sets the fill color of all the LineEnding object with the given layout_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string (default: "linear") that determines the type of the gradient
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the LineEnding object could not be set
+        """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setLineEndingsFillColorAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
+
     def setFillColors(self, fill_color, layout_index=0):
         """
         Sets the fill color of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
@@ -6957,6 +7157,38 @@ class LibSBMLNetwork:
             true on success and false if the fill color of all the GraphicalObject object could not be set
         """
         return lib.c_api_setFillColors(self.sbml_object, str(fill_color).encode(), layout_index)
+
+    def setFillColorsAsGradient(self, stop_colors = [], stop_offsets = [], gradient_type = "linear", layout_index=0):
+        """
+        Sets the fill color of all the GraphicalObject objects with the given layout_index in the given SBMLDocument as a gradient
+
+        :Parameters:
+
+            - stop_colors (list): a list of strings that determines the stop colors of the gradient
+            - stop_offsets (list): a list of floats that determines the stop offsets of the gradient
+            - gradient_type (string, optional): a string (default: "linear") that determines the type of the gradient
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the fill color of all the GraphicalObject object could not be set
+        """
+        if len(stop_colors) != len(stop_offsets):
+            raise ValueError("The number of stop colors list and stop offsets list should be the same")
+
+        stop_colors_ptr = None
+        if stop_colors is not None:
+            stop_colors_ptr = (ctypes.c_char_p * len(stop_colors))()
+            for i in range(len(stop_colors)):
+                stop_colors_ptr[i] = ctypes.c_char_p(stop_colors[i].encode())
+
+        stop_offsets_ptr = None
+        if stop_offsets is not None:
+            stop_offsets_ptr = (ctypes.c_double * len(stop_offsets))()
+            for i in range(len(stop_offsets)):
+                stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
+
+        return lib.c_api_setFillColorsAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
 
     def isSetFillRule(self, id, graphical_object_index=0, layout_index=0):
         """

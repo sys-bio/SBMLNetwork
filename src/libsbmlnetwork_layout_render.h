@@ -118,9 +118,15 @@ LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(Layout* layout, LocalRenderInfo
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId);
+
 LIBSBMLNETWORK_EXTERN int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFillRule(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillRule);
 

@@ -1745,6 +1745,8 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingFillColor(S
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fill);
 
+LIBSBMLNETWORK_EXTERN int setLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Sets the value of the "fill" attribute of the RenderGroup for the LineEnding with the given identifier in the render information base with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
@@ -1753,9 +1755,15 @@ LIBSBMLNETWORK_EXTERN int setLineEndingFillColor(SBMLDocument* document, const s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fill);
 
+LIBSBMLNETWORK_EXTERN int setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -4947,6 +4955,10 @@ LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, GraphicalObject* 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
 
+int setFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+int setFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Compartment.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the "fill" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
@@ -4958,6 +4970,8 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillColor(SBMLDocument* do
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Species.
 /// @param document a pointer to the SBMLDocument object.
@@ -4971,6 +4985,8 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillColor(SBMLDocument* docume
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Reaction.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the "fill" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
@@ -4983,6 +4999,8 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
@@ -4990,12 +5008,16 @@ LIBSBMLNETWORK_EXTERN int setReactionFillColor(SBMLDocument* document, unsigned 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all GraphicalObject objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -5425,35 +5447,35 @@ LIBSBMLNETWORK_EXTERN bool isText(SBMLDocument* document, const std::string& att
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set,
-bool isSetGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN bool isSetGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke" attribute is not set or the object is @c NULL.
-bool isSetGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN bool isSetGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
-const std::string getGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "stroke" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
-const std::string getGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& strokeColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& strokeColor);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -5461,14 +5483,14 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphi
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColor);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& strokeColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& strokeColor);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -5476,42 +5498,42 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attr
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param strokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& strokeColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& strokeColor);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke-width" attribute is not set or the object is @c NULL.
-bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "stroke-width" attribute is not set or the object is @c NULL.
-bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL.
-const double getGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN const double getGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "stroke-width" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c 0.0 if the object is @c NULL.
-const double getGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN const double getGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const double& strokeWidth);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const double& strokeWidth);
 
 /// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -5519,14 +5541,14 @@ int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphi
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth);
 
 /// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth);
 
 /// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -5534,42 +5556,44 @@ int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attr
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param strokeWidth a double value to use as the value of the "stroke-width" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill" attribute is not set or the object is @c NULL.
-bool isSetGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN bool isSetGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return @c true if the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject is set, @c false if either the "fill" attribute is not set or the object is @c NULL.
-bool isSetGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN bool isSetGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
-const std::string getGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
 
 /// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @return the "fill" attribute of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL.
-const std::string getGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -5577,14 +5601,18 @@ int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphica
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
@@ -5592,7 +5620,9 @@ int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attrib
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 // @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param document a pointer to the SBMLDocument object.

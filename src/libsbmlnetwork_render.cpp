@@ -637,7 +637,7 @@ int setRadialGradientCx(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx) {
-    if (isLinearGradient(gradientBase) && isValidGradientCxValue(cx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCxValue(cx)) {
         ((RadialGradient*) gradientBase)->setCx(cx);
         return 0;
     }
@@ -650,7 +650,7 @@ int setRadialGradientCxAsDouble(RenderInformationBase* renderInformationBase, co
 }
 
 int setRadialGradientCxAsDouble(GradientBase* gradientBase, const double& cx) {
-    if (isLinearGradient(gradientBase) && isValidGradientCxValue(cx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCxValue(cx)) {
         ((RadialGradient*) gradientBase)->getCx().setRelativeValue(cx);
         return 0;
     }
@@ -696,7 +696,7 @@ int setRadialGradientCy(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy) {
-    if (isLinearGradient(gradientBase) && isValidGradientCyValue(cy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCyValue(cy)) {
         ((RadialGradient*)gradientBase)->setCy(cy);
         return 0;
     }
@@ -709,7 +709,7 @@ int setRadialGradientCyAsDouble(RenderInformationBase* renderInformationBase, co
 }
 
 int setRadialGradientCyAsDouble(GradientBase* gradientBase, const double& cy) {
-    if (isLinearGradient(gradientBase) && isValidGradientCyValue(cy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCyValue(cy)) {
         ((RadialGradient*)gradientBase)->getCy().setRelativeValue(cy);
         return 0;
     }
@@ -755,7 +755,7 @@ int setRadialGradientFx(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
-    if (isLinearGradient(gradientBase) && isValidGradientFxValue(fx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFxValue(fx)) {
         ((RadialGradient*)gradientBase)->setFx(fx);
         return 0;
     }
@@ -763,12 +763,12 @@ int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
     return -1;
 }
 
-int setRadialGradientFAsDoublex(RenderInformationBase* renderInformationBase, const std::string& sid, const double& fx) {
+int setRadialGradientFxAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& fx) {
     return setRadialGradientFx(getGradientDefinition(renderInformationBase, sid), fx);
 }
 
 int setRadialGradientFxAsDouble(GradientBase* gradientBase, const double& fx) {
-    if (isLinearGradient(gradientBase) && isValidGradientFxValue(fx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFxValue(fx)) {
         ((RadialGradient*)gradientBase)->getFx().setRelativeValue(fx);
         return 0;
     }
@@ -814,7 +814,7 @@ int setRadialGradientFy(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy) {
-    if (isLinearGradient(gradientBase) && isValidGradientFyValue(fy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFyValue(fy)) {
         ((RadialGradient*)gradientBase)->setFy(fy);
         return 0;
     }
@@ -827,7 +827,7 @@ int setRadialGradientFyAsDouble(RenderInformationBase* renderInformationBase, co
 }
 
 int setRadialGradientFyAsDouble(GradientBase* gradientBase, const double& fy) {
-    if (isLinearGradient(gradientBase) && isValidGradientFyValue(fy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFyValue(fy)) {
         ((RadialGradient*)gradientBase)->getFy().setRelativeValue(fy);
         return 0;
     }
@@ -863,7 +863,7 @@ const double getRadialGradientRAsDouble(RenderInformationBase* renderInformation
 
 const double getRadialGradientRAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return getRelativeValue(((RadialGradient*)gradientBase)->getR());
+        return getAbsoluteValue(((RadialGradient*)gradientBase)->getR());
 
     return NAN;
 }
@@ -873,7 +873,7 @@ int setRadialGradientR(RenderInformationBase* renderInformationBase, const std::
 }
 
 int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
-    if (isLinearGradient(gradientBase) && isValidGradientRValue(r)) {
+    if (isRadialGradient(gradientBase) && isValidGradientRValue(r)) {
         ((RadialGradient*)gradientBase)->setR(r);
         return 0;
     }
@@ -886,8 +886,9 @@ int setRadialGradientRAsDouble(RenderInformationBase* renderInformationBase, con
 }
 
 int setRadialGradientRAsDouble(GradientBase* gradientBase, const double& r) {
-    if (isLinearGradient(gradientBase) && isValidGradientRValue(r)) {
-        ((RadialGradient*)gradientBase)->getR().setRelativeValue(r);
+    if (isRadialGradient(gradientBase) && isValidGradientRValue(r)) {
+        ((RadialGradient*)gradientBase)->getR().setAbsoluteValue(r);
+        ((RadialGradient*)gradientBase)->getR().setRelativeValue(0);
         return 0;
     }
 
@@ -2789,6 +2790,47 @@ int setFillColor(Transformation2D* transformation2D, const std::string& fillColo
     return -1;
 }
 
+int setFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& gradientId) {
+    if (renderInformationBase && renderInformationBase->getGradientDefinition(gradientId)) {
+        return setFillColor(getStyle(renderInformationBase, graphicalObject), gradientId);
+    }
+
+    return -1;
+}
+
+int setFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& gradientId) {
+    if (renderInformationBase && renderInformationBase->getGradientDefinition(gradientId)) {
+        return setFillColor(getStyle(renderInformationBase, attribute), gradientId);
+    }
+
+    return -1;
+}
+
+int setFillColorAsGradient(Style* style, const std::string& gradientId) {
+    return setFillColorAsGradient(getRenderGroup(style), gradientId);
+}
+
+int setFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
+        return setFillColorAsGradient(getGeometricShape(renderGroup), gradientId);
+
+    if (isRenderGroup(renderGroup)) {
+        renderGroup->setFill(gradientId);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setFillColorAsGradient(Transformation2D* transformation2D, const std::string& gradientId) {
+    if (isGraphicalPrimitive2D(transformation2D)) {
+        ((GraphicalPrimitive2D *) transformation2D)->setFill(gradientId);
+        return 0;
+    }
+
+    return -1;
+}
+
 const std::string getCompartmentFillColor(GlobalRenderInformation* globalRenderInformation) {
     return getFillColor(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
@@ -2798,6 +2840,17 @@ int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, co
     if (style) {
         addColor(globalRenderInformation, fillColor);
         return setFillColor(style, fillColor);
+    }
+
+    return -1;
+}
+
+int setCompartmentFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
+    if (style) {
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
     }
 
     return -1;
@@ -2817,6 +2870,17 @@ int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const 
     return -1;
 }
 
+int setSpeciesFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+    if (style) {
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
+    }
+
+    return -1;
+}
+
 const std::string getReactionFillColor(GlobalRenderInformation* globalRenderInformation) {
     return getFillColor(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
@@ -2826,6 +2890,17 @@ int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const
     if (style) {
         addColor(globalRenderInformation, fillColor);
         return setFillColor(style, fillColor);
+    }
+
+    return -1;
+}
+
+int setReactionFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style) {
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
     }
 
     return -1;
@@ -3950,6 +4025,49 @@ int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillC
 
     return -1;
 }
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(renderInformationBase, graphicalObject, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(renderInformationBase, attribute, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getStyle(renderInformationBase, attribute), geometricShapeIndex, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(Style* style, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(style, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(Style* style, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getRenderGroup(style), geometricShapeIndex, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(renderGroup, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getGeometricShape(renderGroup, geometricShapeIndex), gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(Transformation2D* shape, const std::string& gradientId) {
+    if (isGraphicalPrimitive2D(shape)) {
+        ((GraphicalPrimitive2D*)shape)->setFillColor(gradientId);
+        return 0;
+    }
+
+    return -1;
+}
+
+
 
 bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);

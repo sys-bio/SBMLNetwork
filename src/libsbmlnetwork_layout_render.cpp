@@ -550,6 +550,19 @@ int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderI
     return 0;
 }
 
+int setCompartmentFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId) {
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        style = getStyleById(localRenderInformation, layout->getCompartmentGlyph(i));
+        if (style) {
+            if (setFillColorAsGradient(style, gradientId))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
 int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor) {
     Style *style = NULL;
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -564,6 +577,19 @@ int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInfor
     return 0;
 }
 
+int setSpeciesFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId) {
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        style = getStyleById(localRenderInformation, layout->getSpeciesGlyph(i));
+        if (style) {
+            if (setFillColorAsGradient(style, gradientId))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
 int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor) {
     Style *style = NULL;
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
@@ -571,6 +597,19 @@ int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInfo
         if (style) {
             addColor(localRenderInformation, fillColor);
             if (setFillColor(style, fillColor))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
+int setReactionFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId) {
+    Style *style = NULL;
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        style = getStyleById(localRenderInformation, layout->getReactionGlyph(i));
+        if (style) {
+            if (setFillColorAsGradient(style, gradientId))
                 return -1;
         }
     }

@@ -2483,6 +2483,16 @@ LIBSBMLNETWORK_EXTERN int setFillColor(RenderGroup* renderGroup, const std::stri
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setFillColor(Transformation2D* transformation2D, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& gradientId);
+
+LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& gradientId);
+
+LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(Style* style, const std::string& gradientId);
+
+LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId);
+
+LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(Transformation2D* transformation2D, const std::string& gradientId);
+
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
 /// @return the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects, or an empty string if the object is @c NULL.
@@ -2493,6 +2503,8 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillColor(GlobalRenderInfo
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
 
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
@@ -2505,6 +2517,8 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillColor(GlobalRenderInformat
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
 
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
+
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
 /// @return the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects, or an empty string if the object is @c NULL.
@@ -2515,6 +2529,8 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(GlobalRenderInforma
 /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
+
+LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
 
 /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3804,6 +3820,24 @@ int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricS
 /// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
 int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColor);
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(Style* style, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(Style* style, unsigned int geometricShapeIndex, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& gradientId);
+
+int setGeometricShapeFillColorAsGradient(Transformation2D* shape, const std::string& gradientId);
 
 /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.

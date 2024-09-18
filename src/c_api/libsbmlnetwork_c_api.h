@@ -2000,11 +2000,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingFillColor(SBMLDocument* document, const char* id, const char* fillColor, int renderIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int renderIndex = 0);
+
     LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const char* reactionId, const char* fillColor, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, const char* reactionId, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0);
 
     /// @breif Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -2865,6 +2869,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// attribute is not set or the object is @c NULL .
     LIBSBMLNETWORK_EXTERN bool c_api_isSetFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN int c_api_setFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -2891,6 +2897,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
+
     LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFillColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
@@ -2899,6 +2907,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
     LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFillColor(SBMLDocument* document);
 
@@ -2909,6 +2919,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
+
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -2916,12 +2928,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex);
 
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
+
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillColors(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setFillColorsAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
@@ -3699,6 +3715,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex an int representing the index of the Layout to retrieve.
     /// @return integer value indicating success/failure of the function.
     int c_api_setGeometricShapeFillColor(SBMLDocument* document, const char* id, const char* fillColor, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex);
+
+    int c_api_setGeometricShapeFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "x" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
