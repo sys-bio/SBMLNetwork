@@ -3620,7 +3620,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBoundingBoxX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x), render_index)
 
-    def getReactionLineEndingBoundingBoxX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBoundingBoxX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the x-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3635,10 +3635,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingBoundingBoxX.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingBoundingBoxX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        lib.c_api_getSpeciesReferenceLineEndingBoundingBoxX.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingBoundingBoxX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingBoundingBoxX(self, reaction_id, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBoundingBoxX(self, reaction_id, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the x-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3654,7 +3654,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the bounding box of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingBoundingBoxX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBoundingBoxX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def getLineEndingBoundingBoxY(self, line_ending_id, render_index=0):
         """
@@ -3688,7 +3688,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBoundingBoxY(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(y), render_index)
 
-    def getReactionLineEndingBoundingBoxY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBoundingBoxY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the y-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3703,10 +3703,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingBoundingBoxY.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingBoundingBoxY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        lib.c_api_getSpeciesReferenceLineEndingBoundingBoxY.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingBoundingBoxY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingBoundingBoxY(self, reaction_id, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBoundingBoxY(self, reaction_id, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the y-coordinate of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3722,7 +3722,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the bounding box of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingBoundingBoxY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBoundingBoxY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def getLineEndingBoundingBoxWidth(self, line_ending_id, render_index=0):
         """
@@ -3756,7 +3756,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBoundingBoxWidth(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(width), render_index)
 
-    def getReactionLineEndingBoundingBoxWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBoundingBoxWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the width of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3771,10 +3771,10 @@ class LibSBMLNetwork:
 
             a float that determines the width of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingBoundingBoxWidth.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingBoundingBoxWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        lib.c_api_getSpeciesReferenceLineEndingBoundingBoxWidth.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingBoundingBoxWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingBoundingBoxWidth(self, reaction_id, width, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBoundingBoxWidth(self, reaction_id, width, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the width of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3790,7 +3790,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the bounding box of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingBoundingBoxWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(width), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBoundingBoxWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(width), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def getLineEndingBoundingBoxHeight(self, line_ending_id, render_index=0):
         """
@@ -3824,7 +3824,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBoundingBoxHeight(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(height), render_index)
 
-    def getReactionLineEndingBoundingBoxHeight(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBoundingBoxHeight(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the height of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3839,10 +3839,10 @@ class LibSBMLNetwork:
 
             a float that determines the height of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingBoundingBoxHeight.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingBoundingBoxHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        lib.c_api_getSpeciesReferenceLineEndingBoundingBoxHeight.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingBoundingBoxHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingBoundingBoxHeight(self, reaction_id, height, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBoundingBoxHeight(self, reaction_id, height, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the height of the bounding box of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3858,7 +3858,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the bounding box of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingBoundingBoxHeight(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(height), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBoundingBoxHeight(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(height), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def isSetLineEndingBorderColor(self, line_ending_id, render_index=0):
         """
@@ -3907,7 +3907,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBorderColor(self.sbml_object, str(line_ending_id).encode(), str(border_color).encode(), render_index)
 
-    def isSetReactionLineEndingBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def isSetSpeciesReferenceLineEndingBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns whether the border color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -3922,9 +3922,9 @@ class LibSBMLNetwork:
 
             true if the border color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def getReactionLineEndingBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the border color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3939,10 +3939,10 @@ class LibSBMLNetwork:
 
             a string that determines the border color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingBorderColor.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getReactionLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)).value.decode()
+        lib.c_api_getSpeciesReferenceLineEndingBorderColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)).value.decode()
 
-    def setReactionLineEndingBorderColor(self, reaction_id, border_color, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBorderColor(self, reaction_id, border_color, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the border color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -3958,7 +3958,7 @@ class LibSBMLNetwork:
 
             true on success and false if the border color of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), str(border_color).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), str(border_color).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
 
     def isSetLineEndingBorderWidth(self, line_ending_id, render_index=0):
@@ -4008,7 +4008,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingBorderWidth(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(border_width), render_index)
 
-    def isSetReactionLineEndingBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def isSetSpeciesReferenceLineEndingBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns whether the border width of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -4023,9 +4023,9 @@ class LibSBMLNetwork:
 
             true if the border width of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def getReactionLineEndingBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the border width of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4040,10 +4040,10 @@ class LibSBMLNetwork:
 
             a float that determines the border width of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingBorderWidth.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        lib.c_api_getSpeciesReferenceLineEndingBorderWidth.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingBorderWidth(self, reaction_id, border_width, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBorderWidth(self, reaction_id, border_width, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the border width of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4059,7 +4059,7 @@ class LibSBMLNetwork:
 
             true on success and false if the border width of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(border_width), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(border_width), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def getNumLineEndingBorderDashes(self, line_ending_id, render_index=0):
         """
@@ -4110,7 +4110,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingNthBorderDash(self.sbml_object, str(line_ending_id).encode(), index, border_dash, render_index)
 
-    def getNumReactionLineEndingBorderDashes(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getNumSpeciesReferenceLineEndingBorderDashes(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the number of border dashes of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4125,9 +4125,9 @@ class LibSBMLNetwork:
 
             an integer that determines the number of border dashes of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getNumReactionLineEndingBorderDashes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_getNumSpeciesReferenceLineEndingBorderDashes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def getReactionLineEndingNthBorderDash(self, reaction_id, index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingNthBorderDash(self, reaction_id, index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the border dash with the given index of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4143,9 +4143,9 @@ class LibSBMLNetwork:
 
             an integer that determines the border dash with the given index of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getReactionLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_getSpeciesReferenceLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingNthBorderDash(self, reaction_id, index, border_dash, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingNthBorderDash(self, reaction_id, index, border_dash, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the border dash with the given index of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4162,7 +4162,7 @@ class LibSBMLNetwork:
 
             true on success and false if the border dash of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, border_dash, reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, border_dash, reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def isSetLineEndingFillColor(self, line_ending_id, render_index=0):
         """
@@ -4229,7 +4229,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingFillColorAsGradient(self.sbml_object, str(line_ending_id).encode(), (ctypes.c_char_p * len(stop_colors))(*[str(color).encode() for color in stop_colors]), (ctypes.c_double * len(stop_offsets))(*stop_offsets), len(stop_colors), str(gradient_type).encode(), render_index)
 
-    def isSetReactionLineEndingFillColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def isSetSpeciesReferenceLineEndingFillColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns whether the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -4244,9 +4244,9 @@ class LibSBMLNetwork:
 
             true if the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def getReactionLineEndingFillColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingFillColor(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4261,10 +4261,10 @@ class LibSBMLNetwork:
 
             a string that determines the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingFillColor.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getReactionLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)).value.decode()
+        lib.c_api_getSpeciesReferenceLineEndingFillColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)).value.decode()
 
-    def setReactionLineEndingFillColor(self, reaction_id, fill_color, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingFillColor(self, reaction_id, fill_color, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4280,9 +4280,9 @@ class LibSBMLNetwork:
 
             true on success and false if the fill color of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), str(fill_color).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), str(fill_color).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def setReactionLineEndingFillColorAsGradient(self, reaction_id, stop_colors = [], stop_offsets = [], gradient_type = "linear", reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingFillColorAsGradient(self, reaction_id, stop_colors = [], stop_offsets = [], gradient_type = "linear", reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument as a gradient
 
@@ -4300,7 +4300,7 @@ class LibSBMLNetwork:
 
             true on success and false if the fill color of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingFillColorAsGradient(self.sbml_object, str(reaction_id).encode(), (ctypes.c_char_p * len(stop_colors))(*[str(color).encode() for color in stop_colors]), (ctypes.c_double * len(stop_offsets))(*stop_offsets), len(stop_colors), str(gradient_type).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingFillColorAsGradient(self.sbml_object, str(reaction_id).encode(), (ctypes.c_char_p * len(stop_colors))(*[str(color).encode() for color in stop_colors]), (ctypes.c_double * len(stop_offsets))(*stop_offsets), len(stop_colors), str(gradient_type).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def isSetLineEndingFillRule(self, line_ending_id, render_index=0):
         """
@@ -4349,7 +4349,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingFillRule(self.sbml_object, str(line_ending_id).encode(), str(fill_rule).encode(), render_index)
 
-    def isSetReactionLineEndingFillRule(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def isSetSpeciesReferenceLineEndingFillRule(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns whether the fill rule of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -4364,9 +4364,9 @@ class LibSBMLNetwork:
 
             true if the fill rule of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
-    def getReactionLineEndingFillRule(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingFillRule(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the fill rule of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4381,10 +4381,10 @@ class LibSBMLNetwork:
 
             a string that determines the fill rule of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingFillRule.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getReactionLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)).value.decode()
+        lib.c_api_getSpeciesReferenceLineEndingFillRule.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)).value.decode()
 
-    def setReactionLineEndingFillRule(self, reaction_id, fill_rule, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingFillRule(self, reaction_id, fill_rule, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Sets the fill rule of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4400,7 +4400,7 @@ class LibSBMLNetwork:
 
             true on success and false if the fill rule of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setReactionLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), str(fill_rule).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), str(fill_rule).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def getNumLineEndingGeometricShapes(self, line_ending_id, render_index=0):
         """
@@ -4417,7 +4417,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumLineEndingGeometricShapes(self.sbml_object, str(line_ending_id).encode(), render_index)
 
-    def getNumReactionLineEndingGeometricShapes(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
+    def getNumSpeciesReferenceLineEndingGeometricShapes(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0):
         """
         Returns the number of GeometricShape objects in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4432,7 +4432,7 @@ class LibSBMLNetwork:
 
             an integer that determines the number of GeometricShape objects in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getNumReactionLineEndingGeometricShapes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
+        return lib.c_api_getNumSpeciesReferenceLineEndingGeometricShapes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index)
 
     def isLineEndingRectangle(self, line_ending_id, index=0, render_index=0):
         """
@@ -4450,7 +4450,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingRectangle(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def isReactionLineEndingRectangle(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingRectangle(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a rectangle
 
@@ -4466,7 +4466,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a rectangle and false otherwise
         """
-        return lib.c_api_isReactionLineEndingRectangle(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingRectangle(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isLineEndingEllipse(self, line_ending_id, index=0, render_index=0):
         """
@@ -4484,7 +4484,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingEllipse(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def isReactionLineEndingEllipse(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingEllipse(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is an ellipse
 
@@ -4500,7 +4500,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is an ellipse and false otherwise
         """
-        return lib.c_api_isReactionLineEndingEllipse(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingEllipse(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isLineEndingPolygon(self, line_ending_id, index=0, render_index=0):
         """
@@ -4518,7 +4518,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingPolygon(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def isReactionLineEndingPolygon(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingPolygon(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a polygon
 
@@ -4534,7 +4534,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a polygon and false otherwise
         """
-        return lib.c_api_isReactionLineEndingPolygon(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingPolygon(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isLineEndingImage(self, line_ending_id, index=0, render_index=0):
         """
@@ -4552,7 +4552,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingImage(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def isReactionLineEndingImage(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingImage(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is an image
 
@@ -4568,7 +4568,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is an image and false otherwise
         """
-        return lib.c_api_isReactionLineEndingImage(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingImage(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isLineEndingRenderCurve(self, line_ending_id, index=0, render_index=0):
         """
@@ -4586,7 +4586,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingRenderCurve(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def isReactionLineEndingRenderCurve(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingRenderCurve(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a render curve
 
@@ -4602,7 +4602,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a render curve and false otherwise
         """
-        return lib.c_api_isReactionLineEndingRenderCurve(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingRenderCurve(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isLineEndingText(self, line_ending_id, index=0, render_index=0):
         """
@@ -4620,7 +4620,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingText(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def isReactionLineEndingText(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingText(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is text
 
@@ -4636,7 +4636,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is text and false otherwise
         """
-        return lib.c_api_isReactionLineEndingText(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingText(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeX(self, line_ending_id, index=0, render_index=0):
         """
@@ -4688,7 +4688,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the x-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -4704,9 +4704,9 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4722,10 +4722,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeX.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeX.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeX(self, reaction_id, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeX(self, reaction_id, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4742,7 +4742,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeY(self, line_ending_id, index=0, render_index=0):
         """
@@ -4794,7 +4794,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeY(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(y), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the y-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -4810,9 +4810,9 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4828,10 +4828,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeY.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeY.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeY(self, reaction_id, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeY(self, reaction_id, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4848,7 +4848,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeWidth(self, line_ending_id, index=0, render_index=0):
         """
@@ -4900,7 +4900,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeWidth(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(width), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the width of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -4916,9 +4916,9 @@ class LibSBMLNetwork:
 
             true if the width of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeWidth(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the width of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4934,10 +4934,10 @@ class LibSBMLNetwork:
 
             a float that determines the width of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeWidth.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeWidth.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeWidth(self, reaction_id, width, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeWidth(self, reaction_id, width, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the width of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -4954,7 +4954,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(width), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(width), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeHeight(self, line_ending_id, index=0, render_index=0):
         """
@@ -5006,7 +5006,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeHeight(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(height), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeHeight(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeHeight(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the height of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5022,9 +5022,9 @@ class LibSBMLNetwork:
 
             true if the height of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeHeight(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeHeight(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the height of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5040,10 +5040,10 @@ class LibSBMLNetwork:
 
             a float that determines the height of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeHeight.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeHeight.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeHeight(self, reaction_id, height, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeHeight(self, reaction_id, height, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the height of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5060,7 +5060,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(height), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(height), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeRatio(self, line_ending_id, index=0, render_index=0):
         """
@@ -5112,7 +5112,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeRatio(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(ratio), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeRatio(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeRatio(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the ratio of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5128,9 +5128,9 @@ class LibSBMLNetwork:
 
             true if the ratio of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeRatio(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeRatio(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the ratio of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5146,10 +5146,10 @@ class LibSBMLNetwork:
 
             a float that determines the ratio of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeRatio.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeRatio.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeRatio(self, reaction_id, ratio, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeRatio(self, reaction_id, ratio, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the ratio of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5166,7 +5166,7 @@ class LibSBMLNetwork:
 
             true on success and false if the ratio of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(ratio), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(ratio), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeBorderRadiusX(self, line_ending_id, index=0, render_index=0):
         """
@@ -5218,7 +5218,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x_radius), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeBorderRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the x-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5234,9 +5234,9 @@ class LibSBMLNetwork:
 
             true if the x-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeBorderRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5252,10 +5252,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeBorderRadiusX.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBorderRadiusX.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeBorderRadiusX(self, reaction_id, x_radius, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self, reaction_id, x_radius, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5272,7 +5272,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-radius of the border of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x_radius), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x_radius), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeBorderRadiusY(self, line_ending_id, index=0, render_index=0):
         """
@@ -5324,7 +5324,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(y_radius), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeBorderRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the y-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5340,9 +5340,9 @@ class LibSBMLNetwork:
 
             true if the y-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeBorderRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5358,10 +5358,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeBorderRadiusY.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBorderRadiusY.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeBorderRadiusY(self, reaction_id, y_radius, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self, reaction_id, y_radius, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5378,7 +5378,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-radius of the border of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y_radius), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y_radius), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeCenterX(self, line_ending_id, index=0, render_index=0):
         """
@@ -5430,7 +5430,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeCenterX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(center_x), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeCenterX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeCenterX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5446,9 +5446,9 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeCenterX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeCenterX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5464,10 +5464,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeCenterX.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeCenterX.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeCenterX(self, reaction_id, center_x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeCenterX(self, reaction_id, center_x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5484,7 +5484,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the center of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(center_x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(center_x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeCenterY(self, line_ending_id, index=0, render_index=0):
         """
@@ -5536,7 +5536,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeCenterY(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(center_y), render_index, index)
 
-    def isSetReactionLineEndingGeometricShapeCenterY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeCenterY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5552,9 +5552,9 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeCenterY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeCenterY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5570,10 +5570,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeCenterY.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeCenterY.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeCenterY(self, reaction_id, center_y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeCenterY(self, reaction_id, center_y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5590,7 +5590,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the center of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(center_y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(center_y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeRadiusX(self, line_ending_id, index=0, render_index=0):
         """
@@ -5642,7 +5642,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeRadiusX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(radius_x), index, render_index)
 
-    def isSetReactionLineEndingGeometricShapeRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the x-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5658,9 +5658,9 @@ class LibSBMLNetwork:
 
             true if the x-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5676,10 +5676,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeRadiusX.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeRadiusX.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeRadiusX(self, reaction_id, radius_x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeRadiusX(self, reaction_id, radius_x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5696,7 +5696,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-radius of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(radius_x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(radius_x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeRadiusY(self, line_ending_id, index=0, render_index=0):
         """
@@ -5748,7 +5748,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeRadiusY(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(radius_y), render_index, index)
 
-    def isSetReactionLineEndingGeometricShapeRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the y-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set
 
@@ -5764,9 +5764,9 @@ class LibSBMLNetwork:
 
             true if the y-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetReactionLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def getReactionLineEndingGeometricShapeRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5782,10 +5782,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeRadiusY.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeRadiusY.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeRadiusY(self, reaction_id, radius_y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeRadiusY(self, reaction_id, radius_y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5802,7 +5802,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-radius of the GeometricShape object could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(radius_y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(radius_y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeNumSegments(self, line_ending_id, index=0, render_index=0):
         """
@@ -5820,7 +5820,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getLineEndingGeometricShapeNumSegments(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def getReactionLineEndingGeometricShapeNumSegments(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeNumSegments(self, reaction_id, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the number of segments of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5836,7 +5836,7 @@ class LibSBMLNetwork:
 
             an integer that determines the number of segments of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getReactionLineEndingGeometricShapeNumSegments(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeNumSegments(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isLineEndingGeometricShapeSegmentCubicBezier(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -5855,7 +5855,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_isLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(line_ending_id).encode(), segment_index, index, render_index)
 
-    def isReactionLineEndingGeometricShapeSegmentCubicBezier(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns whether the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a cubic bezier segment
 
@@ -5872,7 +5872,7 @@ class LibSBMLNetwork:
 
             true if the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument is a cubic bezier segment and false otherwise
         """
-        return lib.c_api_isReactionLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeSegmentX(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -5910,7 +5910,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeSegmentX(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x), segment_index, index, render_index)
 
-    def getReactionLineEndingGeometricShapeSegmentX(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeSegmentX(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5927,10 +5927,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeSegmentX.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentX.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeSegmentX(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeSegmentX(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -5948,7 +5948,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeSegmentY(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -5986,7 +5986,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeSegmentY(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(y), segment_index, index, render_index)
 
-    def getReactionLineEndingGeometricShapeSegmentY(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeSegmentY(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6003,10 +6003,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeSegmentY.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentY.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeSegmentY(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeSegmentY(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6024,7 +6024,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeBasePoint1X(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6062,7 +6062,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x), segment_index, index, render_index)
 
-    def getReactionLineEndingGeometricShapeBasePoint1X(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6079,10 +6079,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeBasePoint1X.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1X.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint1X(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6100,7 +6100,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the first base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeBasePoint1Y(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6138,7 +6138,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(y), segment_index, index, render_index)
 
-    def getReactionLineEndingGeometricShapeBasePoint1Y(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6155,10 +6155,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeBasePoint1Y.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint1Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6176,7 +6176,7 @@ class LibSBMLNetwork:
 
                 true on success and false if the y-coordinate of the first base point of the segment could not be set
             """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeBasePoint2X(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6214,7 +6214,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(x), segment_index, index, render_index)
 
-    def getReactionLineEndingGeometricShapeBasePoint2X(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the x-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6231,10 +6231,10 @@ class LibSBMLNetwork:
 
             a float that determines the x-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeBasePoint2X.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2X.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint2X(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6252,7 +6252,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the second base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def getLineEndingGeometricShapeBasePoint2Y(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6290,7 +6290,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(line_ending_id).encode(), ctypes.c_double(y), segment_index, index, render_index)
 
-    def getReactionLineEndingGeometricShapeBasePoint2Y(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Returns the y-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6307,10 +6307,10 @@ class LibSBMLNetwork:
 
             a float that determines the y-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
         """
-        lib.c_api_getReactionLineEndingGeometricShapeBasePoint2Y.restype = ctypes.c_double
-        return lib.c_api_getReactionLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint2Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_glyph_index and layout_index in the given SBMLDocument
 
@@ -6328,7 +6328,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the second base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_glyph_index, layout_index, index)
 
     def isSetBorderColor(self, id, graphical_object_index=0, layout_index=0):
         """
