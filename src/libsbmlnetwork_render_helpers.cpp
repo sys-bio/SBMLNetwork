@@ -1044,7 +1044,7 @@ const bool canHaveStrokeDashArray(GraphicalObject* graphicalObject) {
 }
 
 const bool canHaveFillColor(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || isReactionGlyph(graphicalObject))
         return true;
 
     return false;
