@@ -23,75 +23,83 @@ const std::string AutoLayoutCurve::getRoleString() {
 }
 
 const AutoLayoutPoint AutoLayoutCurve::getNodeSidePoint() {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT)
-        return AutoLayoutPoint(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->x(), _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->y());
+        return AutoLayoutPoint(curve->getCurveSegment(0)->getEnd()->x(), curve->getCurveSegment(0)->getEnd()->y());
     else
-        return AutoLayoutPoint(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->x(), _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->y());
+        return AutoLayoutPoint(curve->getCurveSegment(0)->getStart()->x(), curve->getCurveSegment(0)->getStart()->y());
 }
 
 void AutoLayoutCurve::setNodeSidePoint(const AutoLayoutPoint& nodeSidePoint) {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT) {
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(nodeSidePoint.getX());
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(nodeSidePoint.getY());
+        curve->getCurveSegment(0)->getEnd()->setX(nodeSidePoint.getX());
+        curve->getCurveSegment(0)->getEnd()->setY(nodeSidePoint.getY());
     }
     else {
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(nodeSidePoint.getX());
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->setY(nodeSidePoint.getY());
+        curve->getCurveSegment(0)->getStart()->setX(nodeSidePoint.getX());
+        curve->getCurveSegment(0)->getStart()->setY(nodeSidePoint.getY());
     }
 }
 
 const AutoLayoutPoint AutoLayoutCurve::getNodeSideControlPoint() {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT)
-        return AutoLayoutPoint(((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->x(), ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->y());
+        return AutoLayoutPoint(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->x(), ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->y());
     else
-        return AutoLayoutPoint(((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->x(), ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->y());
+        return AutoLayoutPoint(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->x(), ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->y());
 }
 
 void AutoLayoutCurve::setNodeSideControlPoint(const AutoLayoutPoint& nodeSideControlPoint) {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT) {
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(nodeSideControlPoint.getX());
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(nodeSideControlPoint.getY());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(nodeSideControlPoint.getX());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(nodeSideControlPoint.getY());
     }
     else {
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(nodeSideControlPoint.getX());
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(nodeSideControlPoint.getY());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(nodeSideControlPoint.getX());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(nodeSideControlPoint.getY());
     }
 }
 
 const AutoLayoutPoint AutoLayoutCurve::getCentroidSidePoint() {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT)
-        return AutoLayoutPoint(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->x(), _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->y());
+        return AutoLayoutPoint(curve->getCurveSegment(0)->getStart()->x(), curve->getCurveSegment(0)->getStart()->y());
     else
-        return AutoLayoutPoint(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->x(), _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->y());
+        return AutoLayoutPoint(curve->getCurveSegment(0)->getEnd()->x(), curve->getCurveSegment(0)->getEnd()->y());
 }
 
 void AutoLayoutCurve::setCentroidSidePoint(const AutoLayoutPoint& centroidSidePoint) {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT) {
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->setX(centroidSidePoint.getX());
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getStart()->setY(centroidSidePoint.getY());
+        curve->getCurveSegment(0)->getStart()->setX(centroidSidePoint.getX());
+        curve->getCurveSegment(0)->getStart()->setY(centroidSidePoint.getY());
     }
     else {
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->setX(centroidSidePoint.getX());
-        _speciesReferenceGlyph->getCurve()->getCurveSegment(0)->getEnd()->setY(centroidSidePoint.getY());
+        curve->getCurveSegment(0)->getEnd()->setX(centroidSidePoint.getX());
+        curve->getCurveSegment(0)->getEnd()->setY(centroidSidePoint.getY());
     }
 }
 
 const AutoLayoutPoint AutoLayoutCurve::getCentroidSideControlPoint() {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT)
-        return AutoLayoutPoint(((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->x(),
-                               ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->y());
+        return AutoLayoutPoint(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->x(),
+                               ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->y());
     else
-        return AutoLayoutPoint(((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->x(),
-                               ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->y());
+        return AutoLayoutPoint(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->x(),
+                               ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->y());
 }
 
 void AutoLayoutCurve::setCentroidSideControlPoint(const AutoLayoutPoint& centroidSideControlPoint) {
+    Curve* curve = _speciesReferenceGlyph->getCurve();
     if (getRole() == SPECIES_ROLE_PRODUCT || getRole() == SPECIES_ROLE_SIDEPRODUCT) {
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setX(centroidSideControlPoint.getX());
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint1()->setY(centroidSideControlPoint.getY());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(centroidSideControlPoint.getX());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(centroidSideControlPoint.getY());
     }
     else {
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setX(centroidSideControlPoint.getX());
-        ((CubicBezier*)(_speciesReferenceGlyph->getCurve()->getCurveSegment(0)))->getBasePoint2()->setY(centroidSideControlPoint.getY());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(centroidSideControlPoint.getX());
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(centroidSideControlPoint.getY());
     }
 }
