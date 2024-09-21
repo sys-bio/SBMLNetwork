@@ -5280,7 +5280,6 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        std::cout << "2) setting fill color to " << fillColor << std::endl;
         setReactionLineEndingFillColor(document, attribute, 0, fillColor);
         return setFillColor(style, addColor(document, style, fillColor));
     }
