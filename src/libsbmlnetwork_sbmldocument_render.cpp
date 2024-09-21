@@ -159,8 +159,7 @@ int setBackgroundColor(SBMLDocument* document, const std::string& backgroundColo
 }
 
 int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const std::string& backgroundColor) {
-    addColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
-    return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
+    return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), addColor(getGlobalRenderInformation(document, renderIndex), backgroundColor));
 }
 
 const unsigned int getNumGlobalColorDefinitions(SBMLDocument* document, unsigned int renderIndex) {
@@ -276,15 +275,17 @@ GradientBase* getGradientDefinition(SBMLDocument* document, const std::string& s
 }
 
 GradientBase* getGradientDefinition(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
-    if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid))
-        return getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid);
+    GradientBase* gradientDefinition = getGradientDefinition(getGlobalRenderInformation(document, renderIndex), sid);
+    if (gradientDefinition)
+        return gradientDefinition;
 
     return getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), sid);
 }
 
 GradientBase* getGradientDefinition(SBMLDocument* document, unsigned int renderIndex, unsigned int gradientIndex) {
-    if (getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex))
-        return getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex);
+    GradientBase* gradientDefinition = getGradientDefinition(getGlobalRenderInformation(document, renderIndex), gradientIndex);
+    if (gradientDefinition)
+        return gradientDefinition;
 
     return getGradientDefinition(getLocalRenderInformation(document, 0, renderIndex), gradientIndex);
 }
@@ -418,23 +419,19 @@ const std::string getStopColor(SBMLDocument* document, unsigned int renderIndex,
 }
 
 int setStopColor(SBMLDocument* document, const std::string& sid, const std::string& stopColor) {
-    addColor(getGlobalRenderInformation(document), stopColor);
-    return setStopColor(getGradientDefinition(document, sid), stopColor);
+    return setStopColor(getGradientDefinition(document, sid), addColor(getGlobalRenderInformation(document), stopColor));
 }
 
 int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& stopColor) {
-    addColor(getGlobalRenderInformation(document, renderIndex), stopColor);
-    return setStopColor(getGradientDefinition(document, renderIndex, sid), stopColor);
+    return setStopColor(getGradientDefinition(document, renderIndex, sid), addColor(getGlobalRenderInformation(document, renderIndex), stopColor));
 }
 
 int setStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
-    addColor(getGlobalRenderInformation(document), stopColor);
-    return setStopColor(getGradientDefinition(document, sid), gradientStopIndex, stopColor);
+    return setStopColor(getGradientDefinition(document, sid), gradientStopIndex, addColor(getGlobalRenderInformation(document), stopColor));
 }
 
 int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
-    addColor(getGlobalRenderInformation(document, renderIndex), stopColor);
-    return setStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, stopColor);
+    return setStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, addColor(getGlobalRenderInformation(document, renderIndex), stopColor));
 }
 
 bool isSetLinearGradientX1(SBMLDocument* document, const std::string& sid) {
@@ -670,11 +667,11 @@ int setRadialGradientCy(SBMLDocument* document, unsigned int renderIndex, const 
 }
 
 int setRadialGradientCyAsDouble(SBMLDocument* document, const std::string& sid, const double& cy) {
-    return setRadialGradientCy(getGradientDefinition(document, sid), cy);
+    return setRadialGradientCyAsDouble(getGradientDefinition(document, sid), cy);
 }
 
 int setRadialGradientCyAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const double& cy) {
-    return setRadialGradientCy(getGradientDefinition(document, renderIndex, sid), cy);
+    return setRadialGradientCyAsDouble(getGradientDefinition(document, renderIndex, sid), cy);
 }
 
 bool isSetRadialGradientFx(SBMLDocument* document, const std::string& sid) {
@@ -848,6 +845,43 @@ LineEnding* getLineEnding(SBMLDocument* document, unsigned int renderIndex, unsi
     return getLineEnding(getLocalRenderInformation(document, 0, renderIndex), lineEndingIndex);
 }
 
+LineEnding* createLocalLineEnding(SBMLDocument* document, LineEnding* globalLineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    LineEnding* localLineEnding = createLocalLineEnding(document, getLocalRenderInformation(document), speciesReferenceGlyph);
+    if (localLineEnding && globalLineEnding) {
+        localLineEnding->setGroup(globalLineEnding->getGroup()->clone());
+        localLineEnding->setBoundingBox(globalLineEnding->getBoundingBox()->clone());
+        localLineEnding->getBoundingBox()->setId(localLineEnding->getId() + "_bb");
+    }
+
+    return localLineEnding;
+}
+
+LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEnding(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    LineEnding* lineEnding = getLineEnding(document, getStartHead(document, speciesReferenceGlyph));
+    if (!lineEnding)
+        lineEnding = getLineEnding(document, getEndHead(document, speciesReferenceGlyph));
+
+    return lineEnding;
+}
+
+LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLocalLineEnding(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    LineEnding* lineEnding = getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    if(!isLocal(document, lineEnding, speciesReferenceGlyph))
+        lineEnding = createLocalLineEnding(document, lineEnding, speciesReferenceGlyph);
+
+    return lineEnding;
+}
+
 bool isSetEnableRotationalMapping(SBMLDocument* document, const std::string& sid) {
     return isSetEnableRotationalMapping(getLineEnding(document, sid));
 }
@@ -880,12 +914,28 @@ BoundingBox* getLineEndingBoundingBox(SBMLDocument* document, unsigned int rende
     return getLineEndingBoundingBox(getLineEnding(document, renderIndex, sid));
 }
 
+BoundingBox* getSpeciesReferenceLineEndingBoundingBox(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEndingBoundingBox(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+BoundingBox* getSpeciesReferenceLineEndingBoundingBox(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getLineEndingBoundingBox(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
 const double getLineEndingBoundingBoxX(SBMLDocument* document, const std::string& sid) {
     return getPositionX(getLineEndingBoundingBox(document, sid));
 }
 
 const double getLineEndingBoundingBoxX(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
     return getPositionX(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getPositionX(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getPositionX(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 int setLineEndingBoundingBoxX(SBMLDocument* document, const std::string& sid, double x) {
@@ -896,12 +946,46 @@ int setLineEndingBoundingBoxX(SBMLDocument* document, unsigned int renderIndex, 
     return setPositionX(getLineEndingBoundingBox(document, renderIndex, sid), x);
 }
 
+int setSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double x) {
+    return setPositionX(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), x);
+}
+
+int setSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double x) {
+    return setPositionX(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), x);
+}
+
+int setReactionLineEndingBoundingBoxX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxX(document, reactionId, reactionGlyphIndex, i, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingBoundingBoxX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxX(document, layoutIndex, reactionId, reactionGlyphIndex, i, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 const double getLineEndingBoundingBoxY(SBMLDocument* document, const std::string& sid) {
     return getPositionY(getLineEndingBoundingBox(document, sid));
 }
 
 const double getLineEndingBoundingBoxY(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
     return getPositionY(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getPositionY(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getPositionY(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 int setLineEndingBoundingBoxY(SBMLDocument* document, const std::string& sid, double y) {
@@ -912,12 +996,48 @@ int setLineEndingBoundingBoxY(SBMLDocument* document, unsigned int renderIndex, 
     return setPositionY(getLineEndingBoundingBox(document, renderIndex, sid), y);
 }
 
+int setSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double y) {
+    return setPositionY(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), y);
+}
+
+int setSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double y) {
+    return setPositionY(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), y);
+}
+
+int setReactionLineEndingBoundingBoxY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxY(document, reactionId, reactionGlyphIndex, i, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingBoundingBoxY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxY(document, layoutIndex, reactionId, reactionGlyphIndex, i, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 const double getLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& sid) {
     return getDimensionWidth(getLineEndingBoundingBox(document, sid));
 }
 
 const double getLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid) {
     return getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, sid));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getDimensionWidth(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex,
+                                                                      speciesReferenceIndex));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getDimensionWidth(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex,
+                                                                      speciesReferenceIndex));
 }
 
 int setLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& sid, double width) {
@@ -928,6 +1048,32 @@ int setLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderInd
     return setDimensionWidth(getLineEndingBoundingBox(document, renderIndex, sid), width);
 }
 
+int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double width) {
+    return setDimensionWidth(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), width);
+}
+
+int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double width) {
+    return setDimensionWidth(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), width);
+}
+
+int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, i, width))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxWidth(document, layoutIndex, reactionId, reactionGlyphIndex, i, width))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 const double getLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& sid) {
     return getDimensionHeight(getLineEndingBoundingBox(document, sid));
 }
@@ -936,12 +1082,48 @@ const double getLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int
     return getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, sid));
 }
 
+const double getSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getDimensionHeight(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex,
+                                                                       speciesReferenceIndex));
+}
+
+const double getSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getDimensionHeight(getSpeciesReferenceLineEndingBoundingBox(document, reactionId, reactionGlyphIndex,
+                                                                       speciesReferenceIndex));
+}
+
 int setLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& sid, double height) {
     return setDimensionHeight(getLineEndingBoundingBox(document, sid), height);
 }
 
 int setLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double height) {
     return setDimensionHeight(getLineEndingBoundingBox(document, renderIndex, sid), height);
+}
+
+int setSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double height) {
+    return setDimensionHeight(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), height);
+}
+
+int setSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double height) {
+    return setDimensionHeight(getLineEndingBoundingBox(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), height);
+}
+
+int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double height) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, i, height))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double height) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingBoundingBoxHeight(document, layoutIndex, reactionId, reactionGlyphIndex, i, height))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 RenderGroup* getLineEndingRenderGroup(SBMLDocument* document, const std::string& sid) {
@@ -953,274 +1135,400 @@ RenderGroup* getLineEndingRenderGroup(SBMLDocument* document, unsigned int rende
 }
 
 bool isSetLineEndingStrokeColor(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id))))
-        return isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
-
     return isSetStrokeColor(getLineEndingRenderGroup(document, id));
 }
 
 bool isSetLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
-       return isSetStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return isSetStrokeColor(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-const std::string getLineEndingStrokeColor(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
-        return getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+bool isSetSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetSpeciesReferenceLineEndingStrokeColor(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+bool isSetSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetStrokeColor(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+const std::string getLineEndingStrokeColor(SBMLDocument* document, const std::string& id) {
     return getStrokeColor(getLineEndingRenderGroup(document, id));
 }
 
 const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
-        return getStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return getStrokeColor(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& strokeColor) {
-    addColor(document, getLineEnding(document, id), strokeColor);
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeColor);
 
-    return setStrokeColor(getLineEndingRenderGroup(document, id), strokeColor);
+const std::string getSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEndingStrokeColor(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+const std::string getSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getStrokeColor(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& strokeColor) {
+    return setStrokeColor(getLineEndingRenderGroup(document, id), addColor(document, getLineEnding(document, id), strokeColor));
 }
 
 int setLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& strokeColor) {
-    addColor(document, getLineEnding(document, renderIndex, id), strokeColor);
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setStrokeColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeColor);
+    return setStrokeColor(getLineEndingRenderGroup(document, renderIndex, id), addColor(document, getLineEnding(document, renderIndex, id), strokeColor));
+}
 
-    return setStrokeColor(getLineEndingRenderGroup(document, renderIndex, id), strokeColor);
+int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& strokeColor) {
+    return setStrokeColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), strokeColor));
+}
+
+int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& strokeColor) {
+    return setStrokeColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), strokeColor));
+}
+
+int setReactionLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingStrokeColor(document, reactionId, reactionGlyphIndex, i, strokeColor))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingStrokeColor(document, layoutIndex, reactionId, reactionGlyphIndex, i, strokeColor))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingStrokeWidth(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id))))
-        return isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id)));
-
     return isSetStrokeWidth(getLineEndingRenderGroup(document, id));
 }
 
 bool isSetLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
-        return isSetStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return isSetStrokeWidth(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-const double getLineEndingStrokeWidth(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id))) > 0.01)
-        return getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id)));
+bool isSetSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetSpeciesReferenceLineEndingStrokeWidth(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+bool isSetSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetStrokeWidth(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+const double getLineEndingStrokeWidth(SBMLDocument* document, const std::string& id) {
     return getStrokeWidth(getLineEndingRenderGroup(document, id));
 }
 
 const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))) > 0.01)
-        return getStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return getStrokeWidth(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-int setLineEndingStrokeWidth(SBMLDocument* document, const std::string& id, double strokeWidth) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeWidth);
+const double getSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEndingStrokeWidth(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+const double getSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getStrokeWidth(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+int setLineEndingStrokeWidth(SBMLDocument* document, const std::string& id, double strokeWidth) {
     return setStrokeWidth(getLineEndingRenderGroup(document, id), strokeWidth);
 }
 
 int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, double strokeWidth) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setStrokeWidth(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeWidth);
-
     return setStrokeWidth(getLineEndingRenderGroup(document, renderIndex, id), strokeWidth);
 }
 
-bool isSetLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id))))
-        return isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id)));
+int setSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double strokeWidth) {
+    return setStrokeWidth(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), strokeWidth);
+}
 
+int setSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double strokeWidth) {
+    return setStrokeWidth(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), strokeWidth);
+}
+
+int setReactionLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double strokeWidth) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingStrokeWidth(document, reactionId, reactionGlyphIndex, i, strokeWidth))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double strokeWidth) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingStrokeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, i, strokeWidth))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+bool isSetLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id) {
     return isSetStrokeDashArray(getLineEndingRenderGroup(document, id));
 }
 
 bool isSetLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
-        return isSetStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return isSetStrokeDashArray(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
 const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
-        return getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id)));
-
     return getStrokeDashArray(getLineEndingRenderGroup(document, id));
 }
 
 const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
-        return getStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return getStrokeDashArray(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
 int setLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id, const std::vector<unsigned int>& strokeDashArray) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, id)), strokeDashArray);
-
     return setStrokeDashArray(getLineEndingRenderGroup(document, id), strokeDashArray);
 }
 
 int setLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::vector<unsigned int>& strokeDashArray) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setStrokeDashArray(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), strokeDashArray);
-
     return setStrokeDashArray(getLineEndingRenderGroup(document, renderIndex, id), strokeDashArray);
 }
 
 unsigned int getNumLineEndingStrokeDashes(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return getNumStrokeDashes(getGeometricShape(getLineEndingRenderGroup(document, id)));
-
     return getNumStrokeDashes(getLineEndingRenderGroup(document, id));
 }
 
 unsigned int getNumLineEndingStrokeDashes(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return getNumStrokeDashes(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return getNumStrokeDashes(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-unsigned int getLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return getStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dashIndex);
+unsigned int getNumSpeciesReferenceLineEndingStrokeDashes(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getNumSpeciesReferenceLineEndingStrokeDashes(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+unsigned int getNumSpeciesReferenceLineEndingStrokeDashes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getNumStrokeDashes(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+unsigned int getLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex) {
     return getStrokeDash(getLineEndingRenderGroup(document, id), dashIndex);
 }
 
 unsigned int getLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dashIndex) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return getStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), dashIndex);
-
     return getStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dashIndex);
 }
 
-int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dash) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dash);
+unsigned int getSpeciesReferenceLineEndingStrokeDash(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int dashIndex) {
+    return getSpeciesReferenceLineEndingStrokeDash(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, dashIndex);
+}
 
+unsigned int getSpeciesReferenceLineEndingStrokeDash(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int dashIndex) {
+    return getStrokeDash(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), dashIndex);
+}
+
+int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dash) {
     return setStrokeDash(getLineEndingRenderGroup(document, id), dash);
 }
 
 int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dash) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), dash);
-
     return setStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dash);
 }
 
-
 int setLineEndingStrokeDash(SBMLDocument* document, const std::string& id, unsigned int dashIndex, unsigned int dash) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, id)), dashIndex, dash);
-
     return setStrokeDash(getLineEndingRenderGroup(document, id), dashIndex, dash);
 }
 
 int setLineEndingStrokeDash(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int dashIndex, unsigned int dash) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setStrokeDash(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), dashIndex, dash);
-
     return setStrokeDash(getLineEndingRenderGroup(document, renderIndex, id), dashIndex, dash);
 }
 
-bool isSetLineEndingFillColor(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, id))))
-        return isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+int setSpeciesReferenceLineEndingStrokeDash(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int dashIndex, unsigned int dash) {
+    return setStrokeDash(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), dashIndex, dash);
+}
 
+int setSpeciesReferenceLineEndingStrokeDash(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int dashIndex, unsigned int dash) {
+    return setStrokeDash(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), dashIndex, dash);
+}
+
+int setReactionLineEndingStrokeDash(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int dashIndex, unsigned int dash) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingStrokeDash(document, reactionId, reactionGlyphIndex, i, dashIndex, dash))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingStrokeDash(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int dashIndex, unsigned int dash) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingStrokeDash(document, layoutIndex, reactionId, reactionGlyphIndex, i, dashIndex, dash))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+bool isSetLineEndingFillColor(SBMLDocument* document, const std::string& id) {
     return isSetFillColor(getLineEndingRenderGroup(document, id));
 }
 
 bool isSetLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
-        return isSetFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return isSetFillColor(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-const std::string getLineEndingFillColor(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getFillColor(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
-        return getFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)));
+bool isSetSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetSpeciesReferenceLineEndingFillColor(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+bool isSetSpeciesReferenceLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetFillColor(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+const std::string getLineEndingFillColor(SBMLDocument* document, const std::string& id) {
     return getFillColor(getLineEndingRenderGroup(document, id));
 }
 
 const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
-        return getFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return getFillColor(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fillColor) {
-    addColor(document, getLineEnding(document, id), fillColor);
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setFillColor(getGeometricShape(getLineEndingRenderGroup(document, id)), fillColor);
+const std::string getSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEndingFillColor(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
-    return setFillColor(getLineEndingRenderGroup(document, id), fillColor);
+const std::string getSpeciesReferenceLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getFillColor(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fillColor) {
+    return setFillColor(getLineEndingRenderGroup(document, id), addColor(document, getLineEnding(document, id), fillColor));
+}
+
+int setFillColorAsGradientAsGradient(SBMLDocument* document, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    return setFillColorAsGradient(getLineEndingRenderGroup(document, id), addGradient(document, getLineEnding(document, id), gradientType, stopsVector));
 }
 
 int setLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillColor) {
-    addColor(document, getLineEnding(document, renderIndex, id), fillColor);
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setFillColor(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), fillColor);
+    return setFillColor(getLineEndingRenderGroup(document, renderIndex, id), addColor(document, getLineEnding(document, renderIndex, id), fillColor));
+}
 
-    return setFillColor(getLineEndingRenderGroup(document, renderIndex, id), fillColor);
+int setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    return setFillColorAsGradient(getLineEndingRenderGroup(document, renderIndex, id), addGradient(document, getLineEnding(document, renderIndex, id), gradientType, stopsVector));
+}
+
+int setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillColor) {
+    return setFillColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), fillColor));
+}
+
+int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    return setFillColorAsGradient(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addGradient(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), gradientType, stopsVector));
+}
+
+int setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillColor) {
+    return setFillColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), fillColor));
+}
+
+int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    return setFillColorAsGradient(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addGradient(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), gradientType, stopsVector));
+}
+
+int setReactionLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillColor) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingFillColor(document, reactionId, reactionGlyphIndex, i, fillColor))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillColor) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingFillColor(document, layoutIndex, reactionId, reactionGlyphIndex, i, fillColor))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingFillColorAsGradient(document, reactionId, reactionGlyphIndex, i, gradientType, stopsVector))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingFillColorAsGradient(document, layoutIndex, reactionId, reactionGlyphIndex, i, gradientType, stopsVector))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingFillRule(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, id))))
-        return isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, id)));
-
     return isSetFillRule(getLineEndingRenderGroup(document, id));
 }
 
 bool isSetLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))))
-        return isSetFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return isSetFillRule(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-const std::string getLineEndingFillRule(SBMLDocument* document, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1 && !getFillRule(getGeometricShape(getLineEndingRenderGroup(document, id))).empty())
-        return getFillRule(getGeometricShape(getLineEndingRenderGroup(document, id)));
+bool isSetSpeciesReferenceLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetSpeciesReferenceLineEndingFillRule(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+bool isSetSpeciesReferenceLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetFillRule(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+const std::string getLineEndingFillRule(SBMLDocument* document, const std::string& id) {
     return getFillRule(getLineEndingRenderGroup(document, id));
 }
 
 const std::string getLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1 && !getFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id))).empty())
-        return getFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)));
-
     return getFillRule(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
-int setLineEndingFillRule(SBMLDocument* document, const std::string& id, const std::string& fillRule) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, id)) == 1)
-        return setFillRule(getGeometricShape(getLineEndingRenderGroup(document, id)), fillRule);
+const std::string getSpeciesReferenceLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceLineEndingFillRule(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
 
+const std::string getSpeciesReferenceLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getFillRule(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
+int setLineEndingFillRule(SBMLDocument* document, const std::string& id, const std::string& fillRule) {
     return setFillRule(getLineEndingRenderGroup(document, id), fillRule);
 }
 
 int setLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillRule) {
-    if (getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id)) == 1)
-        return setFillRule(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id)), fillRule);
-
     return setFillRule(getLineEndingRenderGroup(document, renderIndex, id), fillRule);
+}
+
+int setSpeciesReferenceLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillRule) {
+    return setFillRule(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), fillRule);
+}
+
+int setSpeciesReferenceLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillRule) {
+    return setFillRule(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), fillRule);
+}
+
+int setReactionLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillRule) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingFillRule(document, reactionId, reactionGlyphIndex, i, fillRule))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillRule) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingFillRule(document, layoutIndex, reactionId, reactionGlyphIndex, i, fillRule))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 unsigned int getNumLineEndingGeometricShapes(SBMLDocument* document, const std::string& id) {
@@ -1231,12 +1539,28 @@ unsigned int getNumLineEndingGeometricShapes(SBMLDocument* document, unsigned in
     return getNumGeometricShapes(getLineEndingRenderGroup(document, renderIndex, id));
 }
 
+unsigned int getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getNumSpeciesReferenceLineEndingGeometricShapes(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+unsigned int getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getNumGeometricShapes(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
+}
+
 bool isLineEndingRectangle(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return isRectangle(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
 }
 
 bool isLineEndingRectangle(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return isRectangle(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isSpeciesReferenceLineEndingRectangle(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSpeciesReferenceLineEndingRectangle(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSpeciesReferenceLineEndingRectangle(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isRectangle(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 bool isLineEndingEllipse(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1247,12 +1571,28 @@ bool isLineEndingEllipse(SBMLDocument* document, unsigned int renderIndex, const
     return isEllipse(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
 }
 
+bool isSpeciesReferenceLineEndingEllipse(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isEllipse(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+bool isSpeciesReferenceLineEndingEllipse(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isEllipse(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 bool isLineEndingPolygon(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return isPolygon(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
 }
 
 bool isLineEndingPolygon(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return isPolygon(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isSpeciesReferenceLineEndingPolygon(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isPolygon(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+bool isSpeciesReferenceLineEndingPolygon(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isPolygon(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 bool isLineEndingImage(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1263,12 +1603,28 @@ bool isLineEndingImage(SBMLDocument* document, unsigned int renderIndex, const s
     return isImage(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
 }
 
+bool isSpeciesReferenceLineEndingImage(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isImage(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+bool isSpeciesReferenceLineEndingImage(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isImage(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 bool isLineEndingRenderCurve(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return isRenderCurve(getGeometricShape(getLineEndingRenderGroup(document, id), geometricShapeIndex));
 }
 
 bool isLineEndingRenderCurve(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return isRenderCurve(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
+}
+
+bool isSpeciesReferenceLineEndingRenderCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isRenderCurve(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+bool isSpeciesReferenceLineEndingRenderCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isRenderCurve(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 bool isLineEndingText(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1279,12 +1635,28 @@ bool isLineEndingText(SBMLDocument* document, unsigned int renderIndex, const st
     return isText(getGeometricShape(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex));
 }
 
+bool isSpeciesReferenceLineEndingText(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isText(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+bool isSpeciesReferenceLineEndingText(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isText(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 bool isSetLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
 
 bool isSetLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1295,14 +1667,32 @@ const RelAbsVector getLineEndingGeometricShapeX(SBMLDocument* document, unsigned
     return getGeometricShapeX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeX(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector xVector = getLineEndingGeometricShapeX(document, id, geometricShapeIndex);
-    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(xVector);
+    return getAbsoluteValue(xVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(xVector);
 }
 
 const double getLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector xVector = getLineEndingGeometricShapeX(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(xVector);
+    return getAbsoluteValue(xVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(xVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector xVector = getSpeciesReferenceLineEndingGeometricShapeX(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(xVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(xVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector xVector = getSpeciesReferenceLineEndingGeometricShapeX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(xVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(xVector);
 }
 
 int setLineEndingGeometricShapeX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& x) {
@@ -1313,12 +1703,64 @@ int setLineEndingGeometricShapeX(SBMLDocument* document, unsigned int renderInde
     return setGeometricShapeX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, x);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& x) {
+    return setGeometricShapeX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, x);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& x) {
+    return setGeometricShapeX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, x);
+}
+
+int setReactionLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& x) {
     return setGeometricShapeXAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, x);
 }
 
 int setLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& x) {
     return setGeometricShapeXAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, x);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& x) {
+    return setGeometricShapeXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, x);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& x) {
+    return setGeometricShapeXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, x);
+}
+
+int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1329,6 +1771,14 @@ bool isSetLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderI
     return isSetGeometricShapeY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1337,15 +1787,35 @@ const RelAbsVector getLineEndingGeometricShapeY(SBMLDocument* document, unsigned
     return getGeometricShapeY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+
 const double getLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getLineEndingGeometricShapeY(document, id, geometricShapeIndex);
-    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(yVector);
+    return getAbsoluteValue(yVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(yVector);
 }
 
 const double getLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getLineEndingGeometricShapeY(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(yVector);
+    return getAbsoluteValue(yVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(yVector);
 }
+
+const double getSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector yVector = getSpeciesReferenceLineEndingGeometricShapeY(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(yVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(yVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector yVector = getSpeciesReferenceLineEndingGeometricShapeY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(yVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(yVector);
+}
+
 
 int setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y) {
     return setGeometricShapeY(getLineEndingRenderGroup(document, id), geometricShapeIndex, y);
@@ -1353,6 +1823,32 @@ int setLineEndingGeometricShapeY(SBMLDocument* document, const std::string& id, 
 
 int setLineEndingGeometricShapeY(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& y) {
     return setGeometricShapeY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& y) {
+    return setGeometricShapeY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& y) {
+    return setGeometricShapeY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, y);
+}
+
+int setReactionLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 int setLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& y) {
@@ -1363,12 +1859,46 @@ int setLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int re
     return setGeometricShapeYAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, y);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& y) {
+    return setGeometricShapeYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& y) {
+    return setGeometricShapeYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, y);
+}
+
+int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeWidth(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
 
 bool isSetLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeWidth(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeWidth(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeWidth(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1379,14 +1909,32 @@ const RelAbsVector getLineEndingGeometricShapeWidth(SBMLDocument* document, unsi
     return getGeometricShapeWidth(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeWidth(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeWidth(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector widthVector = getLineEndingGeometricShapeWidth(document, id, geometricShapeIndex);
-    return getAbsoluteValue(widthVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(widthVector);
+    return getAbsoluteValue(widthVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(widthVector);
 }
 
 const double getLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector widthVector = getLineEndingGeometricShapeWidth(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(widthVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(widthVector);
+    return getAbsoluteValue(widthVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(widthVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector widthVector = getSpeciesReferenceLineEndingGeometricShapeWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(widthVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(widthVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector widthVector = getSpeciesReferenceLineEndingGeometricShapeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(widthVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(widthVector);
 }
 
 int setLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& width) {
@@ -1397,12 +1945,64 @@ int setLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int render
     return setGeometricShapeWidth(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, width);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& width) {
+    return setGeometricShapeWidth(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, width);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& width) {
+    return setGeometricShapeWidth(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, width);
+}
+
+int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& width) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeWidth(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& width) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& width) {
     return setGeometricShapeWidthAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, width);
 }
 
 int setLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& width) {
     return setGeometricShapeWidthAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, width);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& width) {
+    return setGeometricShapeWidthAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, width);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& width) {
+    return setGeometricShapeWidthAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, width);
+}
+
+int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& width) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& width) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1413,6 +2013,14 @@ bool isSetLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int re
     return isSetGeometricShapeHeight(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeHeight(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHeight(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeHeight(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1421,14 +2029,32 @@ const RelAbsVector getLineEndingGeometricShapeHeight(SBMLDocument* document, uns
     return getGeometricShapeHeight(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHeight(getRenderGroup(getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHeight(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector heightVector = getLineEndingGeometricShapeHeight(document, id, geometricShapeIndex);
-    return getAbsoluteValue(heightVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(heightVector);
+    return getAbsoluteValue(heightVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(heightVector);
 }
 
 const double getLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector heightVector = getLineEndingGeometricShapeHeight(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(heightVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(heightVector);
+    return getAbsoluteValue(heightVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(heightVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector heightVector = getSpeciesReferenceLineEndingGeometricShapeHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(heightVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(heightVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector heightVector = getSpeciesReferenceLineEndingGeometricShapeHeight(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(heightVector) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(heightVector);
 }
 
 int setLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& height) {
@@ -1439,12 +2065,64 @@ int setLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int rende
     return setGeometricShapeHeight(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, height);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& height) {
+    return setGeometricShapeHeight(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, height);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& height) {
+    return setGeometricShapeHeight(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, height);
+}
+
+int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& height) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeHeight(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& height) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeHeight(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& height) {
     return setGeometricShapeHeightAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, height);
 }
 
 int setLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& height) {
     return setGeometricShapeHeightAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, height);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& height) {
+    return setGeometricShapeHeightAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, height);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& height) {
+    return setGeometricShapeHeightAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, height);
+}
+
+int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1455,12 +2133,28 @@ bool isSetLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int ren
     return isSetGeometricShapeRatio(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeRatio(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRatio(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeRatio(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
 
 const double getLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeRatio(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeRatio(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRatio(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 int setLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, double ratio) {
@@ -1471,12 +2165,46 @@ int setLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int render
     return setGeometricShapeRatio(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, ratio);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& ratio) {
+    return setGeometricShapeRatio(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, ratio);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& ratio) {
+    return setGeometricShapeRatio(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, ratio);
+}
+
+int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRatio(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, ratio))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRatio(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, ratio))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
 
 bool isSetLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
 }
 
 const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1487,14 +2215,32 @@ const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocumen
     return getGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusXVector = getLineEndingGeometricShapeCornerCurvatureRadiusX(document, id, geometricShapeIndex);
-    return getAbsoluteValue(cornerCurvatureRadiusXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(cornerCurvatureRadiusXVector);
+    return getAbsoluteValue(cornerCurvatureRadiusXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(cornerCurvatureRadiusXVector);
 }
 
 const double getLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusXVector = getLineEndingGeometricShapeCornerCurvatureRadiusX(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(cornerCurvatureRadiusXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(cornerCurvatureRadiusXVector);
+    return getAbsoluteValue(cornerCurvatureRadiusXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(cornerCurvatureRadiusXVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusX = getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusX) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusX);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusX = getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusX) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusX);
 }
 
 int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusX) {
@@ -1505,12 +2251,64 @@ int setLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, un
     return setGeometricShapeCornerCurvatureRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, cornerCurvatureRadiusX);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    return setGeometricShapeCornerCurvatureRadiusX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    return setGeometricShapeCornerCurvatureRadiusX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& cornerCurvatureRadiusX) {
     return setGeometricShapeCornerCurvatureRadiusXAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, cornerCurvatureRadiusX);
 }
 
 int setLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& cornerCurvatureRadiusX) {
     return setGeometricShapeCornerCurvatureRadiusXAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, cornerCurvatureRadiusX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    return setGeometricShapeCornerCurvatureRadiusXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    return setGeometricShapeCornerCurvatureRadiusXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1521,6 +2319,14 @@ bool isSetLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document,
     return isSetGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCornerCurvatureRadiusY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1529,14 +2335,32 @@ const RelAbsVector getLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocumen
     return getGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCornerCurvatureRadiusY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusYVector = getLineEndingGeometricShapeCornerCurvatureRadiusY(document, id, geometricShapeIndex);
-    return getAbsoluteValue(cornerCurvatureRadiusYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(cornerCurvatureRadiusYVector);
+    return getAbsoluteValue(cornerCurvatureRadiusYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(cornerCurvatureRadiusYVector);
 }
 
 const double getLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cornerCurvatureRadiusYVector = getLineEndingGeometricShapeCornerCurvatureRadiusY(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(cornerCurvatureRadiusYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(cornerCurvatureRadiusYVector);
+    return getAbsoluteValue(cornerCurvatureRadiusYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(cornerCurvatureRadiusYVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusY = getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusY) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusY);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusY = getSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusY) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusY);
 }
 
 int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& cornerCurvatureRadiusY) {
@@ -1547,12 +2371,64 @@ int setLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, un
     return setGeometricShapeCornerCurvatureRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, cornerCurvatureRadiusY);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    return setGeometricShapeCornerCurvatureRadiusY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    return setGeometricShapeCornerCurvatureRadiusY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& cornerCurvatureRadiusY) {
     return setGeometricShapeCornerCurvatureRadiusYAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, cornerCurvatureRadiusY);
 }
 
 int setLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& cornerCurvatureRadiusY) {
     return setGeometricShapeCornerCurvatureRadiusYAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, cornerCurvatureRadiusY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    return setGeometricShapeCornerCurvatureRadiusYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    return setGeometricShapeCornerCurvatureRadiusYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1563,6 +2439,14 @@ bool isSetLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int r
     return isSetGeometricShapeCenterX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeCenterX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeCenterX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1571,14 +2455,32 @@ const RelAbsVector getLineEndingGeometricShapeCenterX(SBMLDocument* document, un
     return getGeometricShapeCenterX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeCenterX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cXVector = getLineEndingGeometricShapeCenterX(document, id, geometricShapeIndex);
-    return getAbsoluteValue(cXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(cXVector);
+    return getAbsoluteValue(cXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(cXVector);
 }
 
 const double getLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
    RelAbsVector xVector = getLineEndingGeometricShapeCenterX(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(xVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(xVector);
+    return getAbsoluteValue(xVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(xVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector centerX = getSpeciesReferenceLineEndingGeometricShapeCenterX(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(centerX) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(centerX);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector centerX = getSpeciesReferenceLineEndingGeometricShapeCenterX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(centerX) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(centerX);
 }
 
 int setLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
@@ -1589,12 +2491,64 @@ int setLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int rend
     return setGeometricShapeCenterX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, centerX);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
+    return setGeometricShapeCenterX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
+    return setGeometricShapeCenterX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerX);
+}
+
+int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& centerX) {
     return setGeometricShapeCenterXAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, centerX);
 }
 
 int setLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& centerX) {
     return setGeometricShapeCenterXAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, centerX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerX) {
+    return setGeometricShapeCenterXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerX) {
+    return setGeometricShapeCenterXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerX);
+}
+
+int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1605,6 +2559,14 @@ bool isSetLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int r
     return isSetGeometricShapeCenterY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeCenterY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeCenterY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeCenterY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1613,14 +2575,32 @@ const RelAbsVector getLineEndingGeometricShapeCenterY(SBMLDocument* document, un
     return getGeometricShapeCenterY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeCenterY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeCenterY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector cYVector = getLineEndingGeometricShapeCenterY(document, id, geometricShapeIndex);
-    return getAbsoluteValue(cYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(cYVector);
+    return getAbsoluteValue(cYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(cYVector);
 }
 
 const double getLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector yVector = getLineEndingGeometricShapeCenterY(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(yVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(yVector);
+    return getAbsoluteValue(yVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(yVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector centerY = getSpeciesReferenceLineEndingGeometricShapeCenterY(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(centerY) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(centerY);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector centerY = getSpeciesReferenceLineEndingGeometricShapeCenterY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(centerY) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(centerY);
 }
 
 int setLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
@@ -1631,12 +2611,64 @@ int setLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int rend
     return setGeometricShapeCenterY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, centerY);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
+    return setGeometricShapeCenterY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
+    return setGeometricShapeCenterY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerY);
+}
+
+int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& centerY) {
     return setGeometricShapeCenterYAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, centerY);
 }
 
 int setLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& centerY) {
     return setGeometricShapeCenterYAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, centerY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerY) {
+    return setGeometricShapeCenterYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& centerY) {
+    return setGeometricShapeCenterYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, centerY);
+}
+
+int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1647,6 +2679,14 @@ bool isSetLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int r
     return isSetGeometricShapeRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeRadiusX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeRadiusX(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1655,14 +2695,32 @@ const RelAbsVector getLineEndingGeometricShapeRadiusX(SBMLDocument* document, un
     return getGeometricShapeRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeRadiusX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rXVector = getLineEndingGeometricShapeRadiusX(document, id, geometricShapeIndex);
-    return getAbsoluteValue(rXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(rXVector);
+    return getAbsoluteValue(rXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(rXVector);
 }
 
 const double getLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rXVector = getLineEndingGeometricShapeRadiusX(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(rXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(rXVector);
+    return getAbsoluteValue(rXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(rXVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusX = getSpeciesReferenceLineEndingGeometricShapeRadiusX(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusX) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusX);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusX = getSpeciesReferenceLineEndingGeometricShapeRadiusX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusX) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusX);
 }
 
 int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
@@ -1673,12 +2731,64 @@ int setLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int rend
     return setGeometricShapeRadiusX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, radiusX);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    return setGeometricShapeRadiusX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    return setGeometricShapeRadiusX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& radiusX) {
     return setGeometricShapeRadiusXAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, radiusX);
 }
 
 int setLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& radiusX) {
     return setGeometricShapeRadiusXAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, radiusX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    return setGeometricShapeRadiusXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    return setGeometricShapeRadiusXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusX);
+}
+
+int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1689,6 +2799,14 @@ bool isSetLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int r
     return isSetGeometricShapeRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeRadiusY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeRadiusY(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1697,14 +2815,32 @@ const RelAbsVector getLineEndingGeometricShapeRadiusY(SBMLDocument* document, un
     return getGeometricShapeRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeRadiusY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeRadiusY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const double getLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rYVector = getLineEndingGeometricShapeRadiusY(document, id, geometricShapeIndex);
-    return getAbsoluteValue(rYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(rYVector);
+    return getAbsoluteValue(rYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(rYVector);
 }
 
 const double getLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex) {
     RelAbsVector rYVector = getLineEndingGeometricShapeRadiusY(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(rYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(rYVector);
+    return getAbsoluteValue(rYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(rYVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusY = getSpeciesReferenceLineEndingGeometricShapeRadiusY(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusY) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusY);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    RelAbsVector radiusY = getSpeciesReferenceLineEndingGeometricShapeRadiusY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+    return getAbsoluteValue(radiusY) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(radiusY);
 }
 
 int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
@@ -1715,12 +2851,64 @@ int setLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int rend
     return setGeometricShapeRadiusY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, radiusY);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    return setGeometricShapeRadiusY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    return setGeometricShapeRadiusY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const double& radiusY) {
     return setGeometricShapeRadiusYAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, radiusY);
 }
 
 int setLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const double& radiusY) {
     return setGeometricShapeRadiusYAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, radiusY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    return setGeometricShapeRadiusYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    return setGeometricShapeRadiusYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, radiusY);
+}
+
+int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1731,12 +2919,28 @@ const unsigned int getLineEndingGeometricShapeNumElements(SBMLDocument* document
     return getGeometricShapeNumElements(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const unsigned int getSpeciesReferenceLineEndingGeometricShapeNumElements(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeNumElements(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+const unsigned int getSpeciesReferenceLineEndingGeometricShapeNumElements(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeNumElements(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     return isRenderCubicBezier(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex);
 }
 
 bool isLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     return isRenderCubicBezier(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex);
+}
+
+bool isSpeciesReferenceLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isSpeciesReferenceLineEndingGeometricShapeElementCubicBezier(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+bool isSpeciesReferenceLineEndingGeometricShapeElementCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return isRenderCubicBezier(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
 }
 
 const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -1747,14 +2951,32 @@ const RelAbsVector getLineEndingGeometricShapeElementX(SBMLDocument* document, u
     return getGeometricShapeElementX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeElementX(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementX(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
+}
+
 const double getLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementXVector = getLineEndingGeometricShapeElementX(document, id, geometricShapeIndex, elementIndex);
-    return getAbsoluteValue(elementXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(elementXVector);
+    return getAbsoluteValue(elementXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(elementXVector);
 }
 
 const double getLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementXVector = getLineEndingGeometricShapeElementX(document, renderIndex, id, geometricShapeIndex, elementIndex);
-    return getAbsoluteValue(elementXVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(elementXVector);
+    return getAbsoluteValue(elementXVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(elementXVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector x = getSpeciesReferenceLineEndingGeometricShapeElementX(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(x) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(x);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector x = getSpeciesReferenceLineEndingGeometricShapeElementX(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(x) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(x);
 }
 
 int setLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
@@ -1765,12 +2987,64 @@ int setLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int ren
     return setGeometricShapeElementX(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, x);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, x);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    return setGeometricShapeElementX(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, x);
+}
+
+int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
     return setGeometricShapeElementXAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, x);
 }
 
 int setLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
     return setGeometricShapeElementXAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, x);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
+    return setGeometricShapeElementXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, x);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
+    return setGeometricShapeElementXAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, x);
+}
+
+int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -1781,14 +3055,32 @@ const RelAbsVector getLineEndingGeometricShapeElementY(SBMLDocument* document, u
     return getGeometricShapeElementY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeElementY(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeElementY(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
+}
+
 const double getLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementYVector = getLineEndingGeometricShapeElementY(document, id, geometricShapeIndex, elementIndex);
-    return getAbsoluteValue(elementYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(elementYVector);
+    return getAbsoluteValue(elementYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(elementYVector);
 }
 
 const double getLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector elementYVector = getLineEndingGeometricShapeElementY(document, renderIndex, id, geometricShapeIndex, elementIndex);
-    return getAbsoluteValue(elementYVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(elementYVector);
+    return getAbsoluteValue(elementYVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(elementYVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector y = getSpeciesReferenceLineEndingGeometricShapeElementY(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(y) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(y);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector y = getSpeciesReferenceLineEndingGeometricShapeElementY(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(y) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(y);
 }
 
 int setLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
@@ -1799,12 +3091,64 @@ int setLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int ren
     return setGeometricShapeElementY(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, y);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    return setGeometricShapeElementY(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, y);
+}
+
+int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
     return setGeometricShapeElementYAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, y);
 }
 
 int setLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
     return setGeometricShapeElementYAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
+    return setGeometricShapeElementYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
+    return setGeometricShapeElementYAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, y);
+}
+
+int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -1815,14 +3159,32 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint1X(SBMLDocument* document
     return getGeometricShapeBasePoint1X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1X(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
+}
+
 const double getLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1XVector = getLineEndingGeometricShapeBasePoint1X(document, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint1XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint1XVector);
+    return getAbsoluteValue(basePoint1XVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(basePoint1XVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1XVector = getLineEndingGeometricShapeBasePoint1X(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint1XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint1XVector);
+    return getAbsoluteValue(basePoint1XVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(basePoint1XVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint1X = getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint1X) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint1X);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint1X = getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint1X) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint1X);
 }
 
 int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
@@ -1833,12 +3195,64 @@ int setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int 
     return setGeometricShapeBasePoint1X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint1X);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
+    return setGeometricShapeBasePoint1X(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
+    return setGeometricShapeBasePoint1X(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
     return setGeometricShapeBasePoint1XAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint1X);
 }
 
 int setLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
     return setGeometricShapeBasePoint1XAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
+    return setGeometricShapeBasePoint1XAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
+    return setGeometricShapeBasePoint1XAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1X);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -1849,14 +3263,32 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document
     return getGeometricShapeBasePoint1Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint1Y(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
+}
+
 const double getLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1YVector = getLineEndingGeometricShapeBasePoint1Y(document, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint1YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint1YVector);
+    return getAbsoluteValue(basePoint1YVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(basePoint1YVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint1YVector = getLineEndingGeometricShapeBasePoint1Y(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint1YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint1YVector);
+    return getAbsoluteValue(basePoint1YVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(basePoint1YVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint1Y = getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint1Y) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint1Y);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint1Y = getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint1Y) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint1Y);
 }
 
 int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
@@ -1867,12 +3299,64 @@ int setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int 
     return setGeometricShapeBasePoint1Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint1Y);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
+    return setGeometricShapeBasePoint1Y(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
+    return setGeometricShapeBasePoint1Y(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
     return setGeometricShapeBasePoint1YAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint1Y);
 }
 
 int setLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
     return setGeometricShapeBasePoint1YAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
+    return setGeometricShapeBasePoint1YAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
+    return setGeometricShapeBasePoint1YAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint1Y);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -1883,14 +3367,32 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint2X(SBMLDocument* document
     return getGeometricShapeBasePoint2X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2X(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
+}
+
 const double getLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2XVector = getLineEndingGeometricShapeBasePoint2X(document, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint2XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint2XVector);
+    return getAbsoluteValue(basePoint2XVector) + 0.01 * getLineEndingBoundingBoxWidth(document, id) * getRelativeValue(basePoint2XVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2XVector = getLineEndingGeometricShapeBasePoint2X(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint2XVector) + 0.01 * getDimensionWidth(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint2XVector);
+    return getAbsoluteValue(basePoint2XVector) + 0.01 * getLineEndingBoundingBoxWidth(document, renderIndex, id) * getRelativeValue(basePoint2XVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint2X = getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint2X) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint2X);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint2X = getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint2X) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint2X);
 }
 
 int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
@@ -1901,12 +3403,64 @@ int setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int 
     return setGeometricShapeBasePoint2X(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint2X);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
+    return setGeometricShapeBasePoint2X(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
+    return setGeometricShapeBasePoint2X(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
     return setGeometricShapeBasePoint2XAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint2X);
 }
 
 int setLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
     return setGeometricShapeBasePoint2XAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
+    return setGeometricShapeBasePoint2XAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
+    return setGeometricShapeBasePoint2XAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2X);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
@@ -1917,14 +3471,32 @@ const RelAbsVector getLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document
     return getGeometricShapeBasePoint2Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+}
+
+const RelAbsVector getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    return getGeometricShapeBasePoint2Y(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex);
+}
+
 const double getLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2YVector = getLineEndingGeometricShapeBasePoint2Y(document, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint2YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, id)) * getRelativeValue(basePoint2YVector);
+    return getAbsoluteValue(basePoint2YVector) + 0.01 * getLineEndingBoundingBoxHeight(document, id) * getRelativeValue(basePoint2YVector);
 }
 
 const double getLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex) {
     RelAbsVector basePoint2YVector = getLineEndingGeometricShapeBasePoint2Y(document, renderIndex, id, geometricShapeIndex);
-    return getAbsoluteValue(basePoint2YVector) + 0.01 * getDimensionHeight(getLineEndingBoundingBox(document, renderIndex, id)) * getRelativeValue(basePoint2YVector);
+    return getAbsoluteValue(basePoint2YVector) + 0.01 * getLineEndingBoundingBoxHeight(document, renderIndex, id) * getRelativeValue(basePoint2YVector);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint2Y = getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint2Y) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint2Y);
+}
+
+const double getSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex) {
+    RelAbsVector basePoint2Y = getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex, elementIndex);
+    return getAbsoluteValue(basePoint2Y) + 0.01 * getSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, speciesReferenceIndex) * getRelativeValue(basePoint2Y);
 }
 
 int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
@@ -1935,12 +3507,64 @@ int setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int 
     return setGeometricShapeBasePoint2Y(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint2Y);
 }
 
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
+    return setGeometricShapeBasePoint2Y(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
+    return setGeometricShapeBasePoint2Y(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
 int setLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
     return setGeometricShapeBasePoint2YAsDouble(getLineEndingRenderGroup(document, id), geometricShapeIndex, elementIndex, basePoint2Y);
 }
 
 int setLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
     return setGeometricShapeBasePoint2YAsDouble(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
+    return setGeometricShapeBasePoint2YAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
+    return setGeometricShapeBasePoint2YAsDouble(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, elementIndex, basePoint2Y);
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
@@ -1951,6 +3575,14 @@ bool isSetLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int rend
     return isSetGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+bool isSetSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetSpeciesReferenceLineEndingGeometricShapeHref(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+bool isSetSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeHref(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex) {
     return getGeometricShapeHref(getLineEndingRenderGroup(document, id), geometricShapeIndex);
 }
@@ -1959,12 +3591,46 @@ const std::string getLineEndingGeometricShapeHref(SBMLDocument* document, unsign
     return getGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex);
 }
 
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getSpeciesReferenceLineEndingGeometricShapeHref(document, 0, reactionId, reactionGlyphIndex, speciesReferenceIndex, geometricShapeIndex);
+}
+
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex) {
+    return getGeometricShapeHref(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex);
+}
+
 int setLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& href) {
     return setGeometricShapeHref(getLineEndingRenderGroup(document, id), geometricShapeIndex, href);
 }
 
 int setLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& href) {
     return setGeometricShapeHref(getLineEndingRenderGroup(document, renderIndex, id), geometricShapeIndex, href);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& href) {
+    return setGeometricShapeHref(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, href);
+}
+
+int setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& href) {
+    return setGeometricShapeHref(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), geometricShapeIndex, href);
+}
+
+int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const std::string& href) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeHref(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, href))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
+}
+
+int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const std::string& href) {
+    int isSetSuccessfully = -1;
+    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+        if (!setSpeciesReferenceLineEndingGeometricShapeHref(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, href))
+            isSetSuccessfully = 0;
+
+    return isSetSuccessfully;
 }
 
 Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
@@ -2181,49 +3847,29 @@ RenderGroup* getRenderGroup(SBMLDocument* document, unsigned int renderIndex, co
 }
 
 bool isSetStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeColor(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isSetStrokeColor(getGeometricShape(style)))
-            return isSetStrokeColor(getGeometricShape(style));
-
-        return isSetStrokeColor(style);
-    }
+    if (canHaveStrokeColor(graphicalObject))
+        return isSetStrokeColor(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetStrokeColor(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeColor(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isSetStrokeColor(getGeometricShape(style)))
-            return isSetStrokeColor(getGeometricShape(style));
-
-        return isSetStrokeColor(style);
-    }
+    if (canHaveStrokeColor(getGraphicalObject(document, attribute)))
+        return isSetStrokeColor(getStyle(document, attribute));
 
     return false;
 }
 
 const std::string getStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeColor(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
-            return getStrokeColor(getGeometricShape(style));
-
-        return getStrokeColor(style);
-    }
+    if (canHaveStrokeColor(graphicalObject))
+        return getStrokeColor(getStyle(document, graphicalObject));
 
     return "";
 }
 
 const std::string getStrokeColor(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeColor(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
-            return getStrokeColor(getGeometricShape(style));
-
-        return getStrokeColor(style);
-    }
+    if (canHaveStrokeColor(getGraphicalObject(document, attribute)))
+        return getStrokeColor(getStyle(document, attribute));
 
     return "";
 }
@@ -2233,8 +3879,8 @@ int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, con
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        addColor(document, style, stroke);
-        return setStrokeColor(style, stroke);
+        setReactionLineEndingStrokeColor(document, getReactionId(graphicalObject), 0, stroke);
+        return setStrokeColor(style, addColor(document, style, stroke));
     }
 
     return -1;
@@ -2245,8 +3891,8 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        addColor(document, style, stroke);
-        return setStrokeColor(style, stroke);
+        setReactionLineEndingStrokeColor(document, attribute, 0, stroke);
+        return setStrokeColor(style, addColor(document, style, stroke));
     }
 
     return -1;
@@ -2324,49 +3970,29 @@ int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::
 }
 
 bool isSetStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeWidth(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isSetStrokeWidth(getGeometricShape(style)))
-            return isSetStrokeWidth(getGeometricShape(style));
-
-        return isSetStrokeWidth(style);
-    }
+    if (canHaveStrokeWidth(graphicalObject))
+        return isSetStrokeWidth(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetStrokeWidth(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeWidth(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isSetStrokeWidth(getGeometricShape(style)))
-            return isSetStrokeWidth(getGeometricShape(style));
-
-        return isSetStrokeWidth(style);
-    }
+    if (canHaveStrokeWidth(getGraphicalObject(document, attribute)))
+        return isSetStrokeWidth(getStyle(document, attribute));
 
     return false;
 }
 
 const double getStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeWidth(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
-            return getStrokeWidth(getGeometricShape(style));
-
-        return getStrokeWidth(style);
-    }
+    if (canHaveStrokeWidth(graphicalObject))
+        return getStrokeWidth(getStyle(document, graphicalObject));
 
     return NAN;
 }
 
 const double getStrokeWidth(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeWidth(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
-            return getStrokeWidth(getGeometricShape(style));
-
-        return getStrokeWidth(style);
-    }
+    if (canHaveStrokeWidth(getGraphicalObject(document, attribute)))
+        return getStrokeWidth(getStyle(document, attribute));
 
     return NAN;
 }
@@ -2376,6 +4002,7 @@ int setStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, con
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingStrokeWidth(document, getReactionId(graphicalObject), 0, strokeWidth);
         return setStrokeWidth(style, strokeWidth);
     }
 
@@ -2387,6 +4014,7 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingStrokeWidth(document, attribute, 0, strokeWidth);
         return setStrokeWidth(style, strokeWidth);
     }
 
@@ -2467,95 +4095,57 @@ int setStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const doubl
 }
 
 bool isSetStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeDashArray(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isSetStrokeDashArray(getGeometricShape(style)))
-            return isSetStrokeDashArray(getGeometricShape(style));
-
-        return isSetStrokeDashArray(style);
-    }
+    if (canHaveStrokeDashArray(graphicalObject))
+        return isSetStrokeDashArray(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetStrokeDashArray(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isSetStrokeDashArray(getGeometricShape(style)))
-            return isSetStrokeDashArray(getGeometricShape(style));
-
-        return isSetStrokeDashArray(style);
-    }
+    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute)))
+        return isSetStrokeDashArray(getStyle(document, attribute));
 
     return false;
 }
 
 const std::vector<unsigned int> getStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeDashArray(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && getStrokeDashArray(getGeometricShape(style)).size())
-            return getStrokeDashArray(getGeometricShape(style));
-
-        return getStrokeDashArray(style);
-    }
+    if (canHaveStrokeDashArray(graphicalObject))
+        return getStrokeDashArray(getStyle(document, graphicalObject));
 
     return std::vector<unsigned int>();
 }
 
 const std::vector<unsigned int> getStrokeDashArray(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && getStrokeDashArray(getGeometricShape(style)).size())
-            return getStrokeDashArray(getGeometricShape(style));
-
-        return getStrokeDashArray(style);
-    }
+    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute)))
+        return getStrokeDashArray(getStyle(document, attribute));
 
     return std::vector<unsigned int>();
 }
 
 int setStrokeDashArray(SBMLDocument* document, GraphicalObject* graphicalObject, const std::vector<unsigned int>& strokeDashArray) {
-    if (canHaveStrokeDashArray(graphicalObject)) {
-        Style* style = getLocalStyle(document, graphicalObject);
-        if (!style)
-            style = createLocalStyle(document, graphicalObject);
-        return setStrokeDashArray(style, strokeDashArray);
-    }
+    if (canHaveStrokeDashArray(graphicalObject))
+        return setStrokeDashArray(getStyle(document, graphicalObject), strokeDashArray);
 
     return -1;
 }
 
 int setStrokeDashArray(SBMLDocument* document, const std::string& attribute, const std::vector<unsigned int>& strokeDashArray) {
-    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute))) {
-        Style* style = getLocalStyle(document, attribute);
-        if (!style)
-            style = createLocalStyle(document, attribute);
-        return setStrokeDashArray(style, strokeDashArray);
-    }
+    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute)))
+        return setStrokeDashArray(getStyle(document, attribute), strokeDashArray);
 
     return -1;
 }
 
 unsigned int getNumStrokeDashes(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStrokeDashArray(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && getNumStrokeDashes(getGeometricShape(style)))
-            return getNumStrokeDashes(getGeometricShape(style));
-
-        return getNumStrokeDashes(style);
-    }
+    if (canHaveStrokeDashArray(graphicalObject))
+        return getNumStrokeDashes(getStyle(document, graphicalObject));
 
     return 0;
 }
 
 unsigned int getNumStrokeDashes(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && getNumStrokeDashes(getGeometricShape(style)))
-            return getNumStrokeDashes(getGeometricShape(style));
-
-        return getNumStrokeDashes(style);
-    }
+    if (canHaveStrokeDashArray(getGraphicalObject(document, attribute)))
+        return getNumStrokeDashes(getStyle(document, attribute));
 
     return 0;
 }
@@ -2582,6 +4172,7 @@ unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingStrokeDash(document, getReactionId(graphicalObject), 0, 0, dash);
         return setStrokeDash(style, dash);
     }
 
@@ -2593,6 +4184,7 @@ unsigned int setStrokeDash(SBMLDocument* document, GraphicalObject* graphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingStrokeDash(document, getReactionId(graphicalObject), 0, 0, dash);
         return setStrokeDash(style, dashIndex, dash);
     }
 
@@ -2604,6 +4196,7 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingStrokeDash(document, attribute, 0, 0,dash);
         return setStrokeDash(style, dash);
     }
 
@@ -2615,6 +4208,7 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingStrokeDash(document, attribute, 0, 0, dash);
         return setStrokeDash(style, dashIndex, dash);
     }
 
@@ -2627,8 +4221,6 @@ bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, un
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontColor(getGeometricShape(style));
 
         return isSetFontColor(style);
     }
@@ -2642,8 +4234,6 @@ bool isSetFontColor(SBMLDocument* document, const std::string& attribute, unsign
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontColor(getGeometricShape(style));
 
         return isSetFontColor(style);
     }
@@ -2657,8 +4247,6 @@ const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontColor(getGeometricShape(style));
 
         return getFontColor(style);
     }
@@ -2672,8 +4260,6 @@ const std::string getFontColor(SBMLDocument* document, const std::string& attrib
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontColor(getGeometricShape(style));
 
         return getFontColor(style);
     }
@@ -2691,11 +4277,7 @@ int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsig
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        addColor(document, style, fontColor);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontColor(getGeometricShape(style), fontColor);
-
-        return setFontColor(style, fontColor);
+        return setFontColor(style, addColor(document, style, fontColor));
     }
 
     return -1;
@@ -2711,11 +4293,7 @@ int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned 
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        addColor(document, style, fontColor);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontColor(getGeometricShape(style), fontColor);
-
-        return setFontColor(style, fontColor);
+        return setFontColor(style, addColor(document, style, fontColor));
     }
 
     return -1;
@@ -2774,8 +4352,6 @@ bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, u
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontFamily(getGeometricShape(style));
 
         return isSetFontFamily(style);
     }
@@ -2789,8 +4365,6 @@ bool isSetFontFamily(SBMLDocument* document, const std::string& attribute, unsig
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontFamily(getGeometricShape(style));
 
         return isSetFontFamily(style);
     }
@@ -2804,8 +4378,6 @@ const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphic
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontFamily(getGeometricShape(style));
 
         return getFontFamily(style);
     }
@@ -2819,8 +4391,6 @@ const std::string getFontFamily(SBMLDocument* document, const std::string& attri
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontFamily(getGeometricShape(style));
 
         return getFontFamily(style);
     }
@@ -2838,8 +4408,6 @@ int setFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsi
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontFamily(getGeometricShape(style), fontFamily);
 
         return setFontFamily(style, fontFamily);
     }
@@ -2857,8 +4425,6 @@ int setFontFamily(SBMLDocument* document, const std::string& attribute, unsigned
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontFamily(getGeometricShape(style), fontFamily);
 
         return setFontFamily(style, fontFamily);
     }
@@ -2919,8 +4485,6 @@ bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, uns
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontSize(getGeometricShape(style));
 
         return isSetFontSize(style);
     }
@@ -2934,8 +4498,6 @@ bool isSetFontSize(SBMLDocument* document, const std::string& attribute, unsigne
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontSize(getGeometricShape(style));
 
         return isSetFontSize(style);
     }
@@ -2949,8 +4511,6 @@ const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontSize(getGeometricShape(style));
 
         return getFontSize(style);
     }
@@ -2964,8 +4524,6 @@ const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attrib
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontSize(getGeometricShape(style));
 
         return getFontSize(style);
     }
@@ -2993,8 +4551,6 @@ int setFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsign
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontSize(getGeometricShape(style), fontSize);
 
         return setFontSize(style, fontSize);
     }
@@ -3012,8 +4568,6 @@ int setFontSize(SBMLDocument* document, const std::string& attribute, unsigned i
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontSize(getGeometricShape(style), fontSize);
 
         return setFontSize(style, fontSize);
     }
@@ -3031,8 +4585,6 @@ int setFontSizeAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontSizeAsDouble(getGeometricShape(style), fontSize);
 
         return setFontSizeAsDouble(style, fontSize);
     }
@@ -3050,8 +4602,6 @@ int setFontSizeAsDouble(SBMLDocument* document, const std::string& attribute, un
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontSizeAsDouble(getGeometricShape(style), fontSize);
 
         return setFontSizeAsDouble(style, fontSize);
     }
@@ -3159,8 +4709,6 @@ bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, u
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontWeight(getGeometricShape(style));
 
         return isSetFontWeight(style);
     }
@@ -3174,8 +4722,6 @@ bool isSetFontWeight(SBMLDocument* document, const std::string& attribute, unsig
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontWeight(getGeometricShape(style));
 
         return isSetFontWeight(style);
     }
@@ -3189,8 +4735,6 @@ const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphic
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontWeight(getGeometricShape(style));
 
         return getFontWeight(style);
     }
@@ -3204,8 +4748,6 @@ const std::string getFontWeight(SBMLDocument* document, const std::string& attri
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontWeight(getGeometricShape(style));
 
         return getFontWeight(style);
     }
@@ -3223,8 +4765,6 @@ int setFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsi
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontWeight(getGeometricShape(style), fontWeight);
 
         return setFontWeight(style, fontWeight);
     }
@@ -3242,8 +4782,6 @@ int setFontWeight(SBMLDocument* document, const std::string& attribute, unsigned
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontWeight(getGeometricShape(style), fontWeight);
 
         return setFontWeight(style, fontWeight);
     }
@@ -3304,8 +4842,6 @@ bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, un
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontStyle(getGeometricShape(style));
 
         return isSetFontStyle(style);
     }
@@ -3319,8 +4855,6 @@ bool isSetFontStyle(SBMLDocument* document, const std::string& attribute, unsign
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetFontStyle(getGeometricShape(style));
 
         return isSetFontStyle(style);
     }
@@ -3334,8 +4868,6 @@ const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontStyle(getGeometricShape(style));
 
         return getFontStyle(style);
     }
@@ -3349,8 +4881,6 @@ const std::string getFontStyle(SBMLDocument* document, const std::string& attrib
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getFontStyle(getGeometricShape(style));
 
         return getFontStyle(style);
     }
@@ -3368,8 +4898,6 @@ int setFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsig
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontStyle(getGeometricShape(style), fontStyle);
 
         return setFontStyle(style, fontStyle);
     }
@@ -3387,8 +4915,6 @@ int setFontStyle(SBMLDocument* document, const std::string& attribute, unsigned 
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setFontStyle(getGeometricShape(style), fontStyle);
 
         return setFontStyle(style, fontStyle);
     }
@@ -3449,8 +4975,6 @@ bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, u
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetTextAnchor(getGeometricShape(style));
 
         return isSetTextAnchor(style);
     }
@@ -3464,8 +4988,6 @@ bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute, unsig
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetTextAnchor(getGeometricShape(style));
 
         return isSetTextAnchor(style);
     }
@@ -3479,8 +5001,6 @@ const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphic
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getTextAnchor(getGeometricShape(style));
 
         return getTextAnchor(style);
     }
@@ -3494,8 +5014,6 @@ const std::string getTextAnchor(SBMLDocument* document, const std::string& attri
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getTextAnchor(getGeometricShape(style));
 
         return getTextAnchor(style);
     }
@@ -3513,8 +5031,6 @@ int setTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsi
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setTextAnchor(getGeometricShape(style), textAnchor);
 
         return setTextAnchor(style, textAnchor);
     }
@@ -3532,8 +5048,6 @@ int setTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setTextAnchor(getGeometricShape(style), textAnchor);
 
         return setTextAnchor(style, textAnchor);
     }
@@ -3594,8 +5108,6 @@ bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, 
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetVTextAnchor(getGeometricShape(style));
 
         return isSetVTextAnchor(style);
     }
@@ -3609,8 +5121,6 @@ bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsi
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return isSetVTextAnchor(getGeometricShape(style));
 
         return isSetVTextAnchor(style);
     }
@@ -3624,8 +5134,6 @@ const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getVTextAnchor(getGeometricShape(style));
 
         return getVTextAnchor(style);
     }
@@ -3639,8 +5147,6 @@ const std::string getVTextAnchor(SBMLDocument* document, const std::string& attr
         Style* style = getStyle(document, textGlyph);
         if (!style)
             style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return getVTextAnchor(getGeometricShape(style));
 
         return getVTextAnchor(style);
     }
@@ -3658,8 +5164,6 @@ int setVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, uns
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
         return setVTextAnchor(style, vtextAnchor);
     }
@@ -3677,8 +5181,6 @@ int setVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigne
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        if (getNumGeometricShapes(style) == 1 && isText(getGeometricShape(style)))
-            return setVTextAnchor(getGeometricShape(style), vtextAnchor);
 
         return setVTextAnchor(style, vtextAnchor);
     }
@@ -3734,49 +5236,29 @@ int setVTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::
 }
 
 bool isSetFillColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveFillColor(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
-            return isSetFillColor(getGeometricShape(style));
-
-        return isSetFillColor(style);
-    }
+    if (canHaveFillColor(graphicalObject))
+        return isSetFillColor(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetFillColor(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveFillColor(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
-            return isSetFillColor(getGeometricShape(style));
-
-        return isSetFillColor(style);
-    }
+    if (canHaveFillColor(getGraphicalObject(document, attribute)))
+        return isSetFillColor(getStyle(document, attribute));
 
     return false;
 }
 
 const std::string getFillColor(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveFillColor(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
-            return getFillColor(getGeometricShape(style));
-
-        return getFillColor(style);
-    }
+    if (canHaveFillColor(graphicalObject))
+        return getFillColor(getStyle(document, graphicalObject));
 
     return "";
 }
 
 const std::string getFillColor(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveFillColor(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
-            return getFillColor(getGeometricShape(style));
-
-        return getFillColor(style);
-    }
+    if (canHaveFillColor(getGraphicalObject(document, attribute)))
+        return getFillColor(getStyle(document, attribute));
 
     return "";
 }
@@ -3786,11 +5268,8 @@ int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        addColor(document, style, fillColor);
-        if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
-            return setFillColor(getGeometricShape(style), fillColor);
-
-        return setFillColor(style, fillColor);
+        setReactionLineEndingFillColor(document, getReactionId(graphicalObject), 0, fillColor);
+        return setFillColor(style, addColor(document, style, fillColor));
     }
 
     return -1;
@@ -3801,11 +5280,32 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        addColor(document, style, fillColor);
-        if (getNumGeometricShapes(style) == 1 && isSetFillColor(getGeometricShape(style)))
-            return setFillColor(getGeometricShape(style), fillColor);
+        setReactionLineEndingFillColor(document, attribute, 0, fillColor);
+        return setFillColor(style, addColor(document, style, fillColor));
+    }
 
-        return setFillColor(style, fillColor);
+    return -1;
+}
+
+int setFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (canHaveFillColor(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingFillColorAsGradient(document, getReactionId(graphicalObject), 0, gradientType, stopsVector);
+        return setFillColorAsGradient(style, addGradient(document, style, gradientType, stopsVector));
+    }
+
+    return -1;
+}
+
+int setFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (canHaveFillColor(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        setReactionLineEndingFillColorAsGradient(document, attribute, 0, gradientType, stopsVector);
+        return setFillColorAsGradient(style, addGradient(document, style, gradientType, stopsVector));
     }
 
     return -1;
@@ -3823,6 +5323,14 @@ int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
+int setCompartmentFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (!setCompartmentFillColorAsGradient(getGlobalRenderInformation(document), addGradient(getGlobalRenderInformation(document, layoutIndex), gradientType, stopsVector)) && !setCompartmentFillColorAsGradient(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), addGradient(getLocalRenderInformation(document, layoutIndex), gradientType, stopsVector)))
+        return 0;
+
+    return -1;
+}
+
 const std::string getSpeciesFillColor(SBMLDocument* document) {
     return getSpeciesFillColor(getGlobalRenderInformation(document));
 }
@@ -3835,6 +5343,14 @@ int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const 
     return -1;
 }
 
+int setSpeciesFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {;
+    if (!setSpeciesFillColorAsGradient(getGlobalRenderInformation(document), addGradient(getGlobalRenderInformation(document, layoutIndex), gradientType, stopsVector)) && !setSpeciesFillColorAsGradient(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), addGradient(getLocalRenderInformation(document, layoutIndex), gradientType, stopsVector)))
+        return 0;
+
+    return -1;
+}
+
 const std::string getReactionFillColor(SBMLDocument* document) {
     return getReactionFillColor(getGlobalRenderInformation(document));
 }
@@ -3842,6 +5358,14 @@ const std::string getReactionFillColor(SBMLDocument* document) {
 int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     if (!setReactionFillColor(getGlobalRenderInformation(document), fillColor) && !setReactionFillColor(
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+        return 0;
+
+    return -1;
+}
+
+int setReactionFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (!setReactionFillColorAsGradient(getGlobalRenderInformation(document), addGradient(getGlobalRenderInformation(document, layoutIndex), gradientType, stopsVector)) && !setReactionFillColorAsGradient(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), addGradient(getLocalRenderInformation(document, layoutIndex), gradientType, stopsVector)))
         return 0;
 
     return -1;
@@ -3864,6 +5388,23 @@ int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, con
     return 0;
 }
 
+int setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingFillColorAsGradient(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), gradientType, stopsVector))
+                return -1;
+        }
+    }
+    for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+            if (setLineEndingFillColorAsGradient(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId(), gradientType, stopsVector))
+                return -1;
+        }
+    }
+
+    return 0;
+}
+
 int setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     if (setCompartmentFillColor(document, layoutIndex, fillColor))
         return -1;
@@ -3875,50 +5416,41 @@ int setFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::st
     return 0;
 }
 
-bool isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveFillRule(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
-            return isSetFillRule(getGeometricShape(style));
+int setFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (setCompartmentFillColorAsGradient(document, layoutIndex, gradientType, stopsVector))
+        return -1;
+    if (setSpeciesFillColorAsGradient(document, layoutIndex, gradientType, stopsVector))
+        return -1;
+    if (setReactionFillColorAsGradient(document, layoutIndex, gradientType, stopsVector))
+        return -1;
 
-        return isSetFillRule(style);
-    }
+    return 0;
+}
+
+bool isSetFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    if (canHaveFillRule(graphicalObject))
+        return isSetFillRule(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetFillRule(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveFillRule(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
-            return isSetFillRule(getGeometricShape(style));
-
-        return isSetFillRule(style);
-    }
+    if (canHaveFillRule(getGraphicalObject(document, attribute)))
+        return isSetFillRule(getStyle(document, attribute));
 
     return false;
 }
 
 const std::string getFillRule(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveFillRule(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
-            return getFillRule(getGeometricShape(style));
-
-        return getFillRule(style);
-    }
+    if (canHaveFillRule(graphicalObject))
+        return getFillRule(getStyle(document, graphicalObject));
 
     return "";
 }
 
 const std::string getFillRule(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveFillRule(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
-            return getFillRule(getGeometricShape(style));
-
-        return getFillRule(style);
-    }
+    if (canHaveFillRule(getGraphicalObject(document, attribute)))
+        return getFillRule(getStyle(document, attribute));
 
     return "";
 }
@@ -3928,9 +5460,7 @@ int setFillRule(SBMLDocument* document, GraphicalObject* graphicalObject, const 
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
-            return setFillRule(getGeometricShape(style), fillRule);
-
+        setReactionLineEndingFillRule(document, getReactionId(graphicalObject), 0, fillRule);
         return setFillRule(style, fillRule);
     }
 
@@ -3942,9 +5472,7 @@ int setFillRule(SBMLDocument* document, const std::string& attribute, const std:
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isPolygon(getGeometricShape(style)))
-            return setFillRule(getGeometricShape(style), fillRule);
-
+        setReactionLineEndingFillRule(document, attribute, 0, fillRule);
         return setFillRule(style, fillRule);
     }
 
@@ -4016,49 +5544,29 @@ int setFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::str
 }
 
 bool isSetStartHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStartHead(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return isSetStartHead(getGeometricShape(style));
-
-        return isSetStartHead(style);
-    }
+    if (canHaveStartHead(graphicalObject))
+        return isSetStartHead(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetStartHead(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStartHead(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return isSetStartHead(getGeometricShape(style));
-
-        return isSetStartHead(style);
-    }
+    if (canHaveStartHead(getGraphicalObject(document, attribute)))
+        return isSetStartHead(getStyle(document, attribute));
 
     return false;
 }
 
 const std::string getStartHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveStartHead(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return getStartHead(getGeometricShape(style));
-
-        return getStartHead(style);
-    }
+    if (canHaveStartHead(graphicalObject))
+        return getStartHead(getStyle(document, graphicalObject));
 
     return "";
 }
 
 const std::string getStartHead(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveStartHead(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return getStartHead(getGeometricShape(style));
-
-        return getStartHead(style);
-    }
+    if (canHaveStartHead(getGraphicalObject(document, attribute)))
+        return getStartHead(getStyle(document, attribute));
 
     return "";
 }
@@ -4068,9 +5576,6 @@ int setStartHead(SBMLDocument* document, GraphicalObject* graphicalObject, const
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return setStartHead(getGeometricShape(style), startHead);
-
         return setStartHead(style, startHead);
     }
 
@@ -4082,9 +5587,6 @@ int setStartHead(SBMLDocument* document, const std::string& attribute, const std
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return setStartHead(getGeometricShape(style), startHead);
-
         return setStartHead(style, startHead);
     }
 
@@ -4092,49 +5594,29 @@ int setStartHead(SBMLDocument* document, const std::string& attribute, const std
 }
 
 bool isSetEndHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveEndHead(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return isSetEndHead(getGeometricShape(style));
-
-        return isSetEndHead(style);
-    }
+    if (canHaveEndHead(graphicalObject))
+        return isSetEndHead(getStyle(document, graphicalObject));
 
     return false;
 }
 
 bool isSetEndHead(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveEndHead(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return isSetEndHead(getGeometricShape(style));
-
-        return isSetEndHead(style);
-    }
+    if (canHaveEndHead(getGraphicalObject(document, attribute)))
+        return isSetEndHead(getStyle(document, attribute));
 
     return false;
 }
 
 const std::string getEndHead(SBMLDocument* document, GraphicalObject* graphicalObject) {
-    if (canHaveEndHead(graphicalObject)) {
-        Style* style = getStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return getEndHead(getGeometricShape(style));
-
-        return getEndHead(style);
-    }
+    if (canHaveEndHead(graphicalObject))
+        return getEndHead(getStyle(document, graphicalObject));
 
     return "";
 }
 
 const std::string getEndHead(SBMLDocument* document, const std::string& attribute) {
-    if (canHaveEndHead(getGraphicalObject(document, attribute))) {
-        Style* style = getStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return getEndHead(getGeometricShape(style));
-
-        return getEndHead(style);
-    }
+    if (canHaveEndHead(getGraphicalObject(document, attribute)))
+        return getEndHead(getStyle(document, attribute));
 
     return "";
 }
@@ -4144,9 +5626,6 @@ int setEndHead(SBMLDocument* document, GraphicalObject* graphicalObject, const s
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return setEndHead(getGeometricShape(style), endHead);
-
         return setEndHead(style, endHead);
     }
 
@@ -4158,9 +5637,6 @@ int setEndHead(SBMLDocument* document, const std::string& attribute, const std::
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        if (getNumGeometricShapes(style) == 1 && isRenderCurve(getGeometricShape(style)))
-            return setEndHead(getGeometricShape(style), endHead);
-
         return setEndHead(style, endHead);
     }
 
@@ -4448,6 +5924,266 @@ bool isText(SBMLDocument* document, const std::string& attribute, unsigned int g
     return false;
 }
 
+bool isSetGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return isSetGeometricShapeStrokeColor(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return false;
+}
+
+bool isSetGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return isSetGeometricShapeStrokeColor(getStyle(document, attribute), geometricShapeIndex);
+
+    return false;
+}
+
+const std::string getGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return getGeometricShapeStrokeColor(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return "";
+}
+
+const std::string getGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return getGeometricShapeStrokeColor(getStyle(document, attribute), geometricShapeIndex);
+
+    return "";
+}
+
+int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& strokeColor) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeStrokeColor(style, 0, strokeColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeStrokeColor(style, geometricShapeIndex, strokeColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, const std::string& strokeColor) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeStrokeColor(style, 0, strokeColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeStrokeColor(style, geometricShapeIndex, strokeColor);
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return isSetGeometricShapeStrokeWidth(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return false;
+}
+
+bool isSetGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return isSetGeometricShapeStrokeWidth(getStyle(document, attribute), geometricShapeIndex);
+
+    return false;
+}
+
+const double getGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return getGeometricShapeStrokeWidth(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return NAN;
+}
+
+const double getGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return getGeometricShapeStrokeWidth(getStyle(document, attribute), geometricShapeIndex);
+
+    return NAN;
+}
+
+int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, const double& strokeWidth) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeStrokeWidth(style, 0, strokeWidth);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeStrokeWidth(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeStrokeWidth(style, geometricShapeIndex, strokeWidth);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, const double& strokeWidth) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeStrokeWidth(style, 0, strokeWidth);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeStrokeWidth(style, geometricShapeIndex, strokeWidth);
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return isSetGeometricShapeFillColor(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return false;
+}
+
+bool isSetGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return isSetGeometricShapeFillColor(getStyle(document, attribute), geometricShapeIndex);
+
+    return false;
+}
+
+const std::string getGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return getGeometricShapeFillColor(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return "";
+}
+
+const std::string getGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return getGeometricShapeFillColor(getStyle(document, attribute), geometricShapeIndex);
+
+    return "";
+}
+
+int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& fillColor) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeFillColor(style, 0, fillColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeFillColorAsGradient(style, addGradient(document, style, gradientType, stopsVector));
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeFillColor(style, geometricShapeIndex, fillColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeFillColorAsGradient(style, addGradient(document, style, gradientType, stopsVector));
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, const std::string& fillColor) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeFillColor(style, 0, fillColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeFillColorAsGradient(style, addGradient(document, style, gradientType, stopsVector));
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeFillColor(style, geometricShapeIndex, fillColor);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeFillColorAsGradient(style, addGradient(document, style, gradientType, stopsVector));
+    }
+
+    return -1;
+}
+
 bool isSetGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     if (canHaveGeometricShape(graphicalObject))
         return isSetGeometricShapeX(getStyle(document, graphicalObject), geometricShapeIndex);
@@ -4499,6 +6235,7 @@ int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject,
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeX(document, getReactionId(graphicalObject), 0, 0, x);
         return setGeometricShapeX(style, 0, x);
     }
 
@@ -4510,6 +6247,7 @@ int setGeometricShapeX(SBMLDocument* document, GraphicalObject* graphicalObject,
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeX(document, getReactionId(graphicalObject), 0, geometricShapeIndex, x);
         return setGeometricShapeX(style, geometricShapeIndex, x);
     }
 
@@ -4521,6 +6259,7 @@ int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, con
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeX(document, attribute, 0, 0,x);
         return setGeometricShapeX(style, 0, x);
     }
 
@@ -4532,6 +6271,7 @@ int setGeometricShapeX(SBMLDocument* document, const std::string& attribute, uns
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeX(document, attribute, 0, geometricShapeIndex, x);
         return setGeometricShapeX(style, geometricShapeIndex, x);
     }
 
@@ -4543,6 +6283,7 @@ int setGeometricShapeXAsDouble(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeXAsDouble(document, getReactionId(graphicalObject), 0, 0, x);
         return setGeometricShapeXAsDouble(style, 0, x);
     }
 
@@ -4554,6 +6295,7 @@ int setGeometricShapeXAsDouble(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeXAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, x);
         return setGeometricShapeXAsDouble(style, geometricShapeIndex, x);
     }
 
@@ -4565,6 +6307,7 @@ int setGeometricShapeXAsDouble(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeXAsDouble(document, attribute, 0, 0, x);
         return setGeometricShapeXAsDouble(style, 0, x);
     }
 
@@ -4576,6 +6319,7 @@ int setGeometricShapeXAsDouble(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeX(document, attribute, 0, geometricShapeIndex, x);
         return setGeometricShapeXAsDouble(style, geometricShapeIndex, x);
     }
 
@@ -4727,6 +6471,7 @@ int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject,
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeY(document, getReactionId(graphicalObject), 0, 0, y);
         return setGeometricShapeY(style, 0, y);
     }
 
@@ -4738,6 +6483,7 @@ int setGeometricShapeY(SBMLDocument* document, GraphicalObject* graphicalObject,
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeY(document, getReactionId(graphicalObject), 0, geometricShapeIndex, y);
         return setGeometricShapeY(style, geometricShapeIndex, y);
     }
 
@@ -4749,6 +6495,7 @@ int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, con
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeY(document, attribute, 0, 0, y);
         return setGeometricShapeY(style, 0, y);
     }
 
@@ -4760,6 +6507,7 @@ int setGeometricShapeY(SBMLDocument* document, const std::string& attribute, uns
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeY(document, attribute, 0, geometricShapeIndex, y);
         return setGeometricShapeY(style, geometricShapeIndex, y);
     }
 
@@ -4771,6 +6519,7 @@ int setGeometricShapeYAsDouble(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeYAsDouble(document, getReactionId(graphicalObject), 0, 0, y);
         return setGeometricShapeYAsDouble(style, 0, y);
     }
 
@@ -4782,6 +6531,7 @@ int setGeometricShapeYAsDouble(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeYAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, y);
         return setGeometricShapeYAsDouble(style, geometricShapeIndex, y);
     }
 
@@ -4793,6 +6543,7 @@ int setGeometricShapeYAsDouble(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeYAsDouble(document, attribute, 0, 0, y);
         return setGeometricShapeYAsDouble(style, 0, y);
     }
 
@@ -4804,6 +6555,7 @@ int setGeometricShapeYAsDouble(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeYAsDouble(document, attribute, 0, geometricShapeIndex, y);
         return setGeometricShapeYAsDouble(style, geometricShapeIndex, y);
     }
 
@@ -4955,6 +6707,7 @@ int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeWidth(document, getReactionId(graphicalObject), 0, 0, width);
         return setGeometricShapeWidth(style, 0, width);
     }
 
@@ -4966,6 +6719,7 @@ int setGeometricShapeWidth(SBMLDocument* document, GraphicalObject* graphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeWidth(document, getReactionId(graphicalObject), 0, geometricShapeIndex, width);
         return setGeometricShapeWidth(style, geometricShapeIndex, width);
     }
 
@@ -4977,6 +6731,7 @@ int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute,
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeWidth(document, attribute, 0, 0, width);
         return setGeometricShapeWidth(style, 0, width);
     }
 
@@ -4988,6 +6743,7 @@ int setGeometricShapeWidth(SBMLDocument* document, const std::string& attribute,
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeWidth(document, attribute, 0, geometricShapeIndex, width);
         return setGeometricShapeWidth(style, geometricShapeIndex, width);
     }
 
@@ -4999,6 +6755,7 @@ int setGeometricShapeWidthAsDouble(SBMLDocument* document, GraphicalObject* grap
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeWidthAsDouble(document, getReactionId(graphicalObject), 0, 0, width);
         return setGeometricShapeWidthAsDouble(style, 0, width);
     }
 
@@ -5010,6 +6767,7 @@ int setGeometricShapeWidthAsDouble(SBMLDocument* document, GraphicalObject* grap
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeWidthAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, width);
         return setGeometricShapeWidthAsDouble(style, geometricShapeIndex, width);
     }
 
@@ -5021,6 +6779,7 @@ int setGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& at
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeWidthAsDouble(document, attribute, 0, 0, width);
         return setGeometricShapeWidthAsDouble(style, 0, width);
     }
 
@@ -5032,6 +6791,7 @@ int setGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& at
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeWidthAsDouble(document, attribute, 0, geometricShapeIndex, width);
         return setGeometricShapeWidthAsDouble(style, geometricShapeIndex, width);
     }
 
@@ -5183,6 +6943,7 @@ int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalOb
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeHeight(document, getReactionId(graphicalObject), 0, 0, height);
         return setGeometricShapeHeight(style, 0, height);
     }
 
@@ -5194,6 +6955,7 @@ int setGeometricShapeHeight(SBMLDocument* document, GraphicalObject* graphicalOb
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeHeight(document, getReactionId(graphicalObject), 0, geometricShapeIndex, height);
         return setGeometricShapeHeight(style, geometricShapeIndex, height);
     }
 
@@ -5205,6 +6967,7 @@ int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeHeight(document, attribute, 0, 0, height);
         return setGeometricShapeHeight(style, 0, height);
     }
 
@@ -5216,6 +6979,7 @@ int setGeometricShapeHeight(SBMLDocument* document, const std::string& attribute
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeHeight(document, attribute, 0, geometricShapeIndex, height);
         return setGeometricShapeHeight(style, geometricShapeIndex, height);
     }
 
@@ -5227,6 +6991,7 @@ int setGeometricShapeHeightAsDouble(SBMLDocument* document, GraphicalObject* gra
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeHeightAsDouble(document, getReactionId(graphicalObject), 0, 0, height);
         return setGeometricShapeHeightAsDouble(style, 0, height);
     }
 
@@ -5238,6 +7003,7 @@ int setGeometricShapeHeightAsDouble(SBMLDocument* document, GraphicalObject* gra
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeHeightAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, height);
         return setGeometricShapeHeightAsDouble(style, geometricShapeIndex, height);
     }
 
@@ -5249,6 +7015,7 @@ int setGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& a
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeHeightAsDouble(document, attribute, 0, 0, height);
         return setGeometricShapeHeightAsDouble(style, 0, height);
     }
 
@@ -5260,6 +7027,7 @@ int setGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& a
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeHeightAsDouble(document, attribute, 0, geometricShapeIndex, height);
         return setGeometricShapeHeightAsDouble(style, geometricShapeIndex, height);
     }
 
@@ -5393,6 +7161,7 @@ int setGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRatio(document, getReactionId(graphicalObject), 0, 0, ratio);
         return setGeometricShapeRatio(style, ratio);
     }
 
@@ -5404,6 +7173,7 @@ int setGeometricShapeRatio(SBMLDocument* document, GraphicalObject* graphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRatio(document, getReactionId(graphicalObject), 0, geometricShapeIndex, ratio);
         return setGeometricShapeRatio(style, geometricShapeIndex, ratio);
     }
 
@@ -5415,6 +7185,7 @@ int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute,
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRatio(document, attribute, 0, 0, ratio);
         return setGeometricShapeRatio(style, ratio);
     }
 
@@ -5426,6 +7197,7 @@ int setGeometricShapeRatio(SBMLDocument* document, const std::string& attribute,
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRatio(document, attribute, 0, geometricShapeIndex, ratio);
         return setGeometricShapeRatio(style, geometricShapeIndex, ratio);
     }
 
@@ -5530,6 +7302,7 @@ int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(document, getReactionId(graphicalObject), 0, 0, rx);
         return setGeometricShapeCornerCurvatureRadiusX(style, rx);
     }
 
@@ -5541,6 +7314,7 @@ int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, GraphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(document, getReactionId(graphicalObject), 0, geometricShapeIndex, rx);
         return setGeometricShapeCornerCurvatureRadiusX(style, geometricShapeIndex, rx);
     }
 
@@ -5552,6 +7326,7 @@ int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::s
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(document, attribute, 0, 0, rx);
         return setGeometricShapeCornerCurvatureRadiusX(style, rx);
     }
 
@@ -5563,6 +7338,7 @@ int setGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::s
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(document, attribute, 0, geometricShapeIndex, rx);
         return setGeometricShapeCornerCurvatureRadiusX(style, geometricShapeIndex, rx);
     }
 
@@ -5574,6 +7350,7 @@ int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, Grap
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, getReactionId(graphicalObject), 0, 0, rx);
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, rx);
     }
 
@@ -5585,6 +7362,7 @@ int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, Grap
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, rx);
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, geometricShapeIndex, rx);
     }
 
@@ -5596,6 +7374,7 @@ int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, cons
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, attribute, 0, 0, rx);
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, rx);
     }
 
@@ -5607,6 +7386,7 @@ int setGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, cons
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, attribute, 0, geometricShapeIndex, rx);
         return setGeometricShapeCornerCurvatureRadiusXAsDouble(style, geometricShapeIndex, rx);
     }
 
@@ -5758,6 +7538,7 @@ int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(document, getReactionId(graphicalObject), 0, 0, ry);
         return setGeometricShapeCornerCurvatureRadiusY(style, ry);
     }
 
@@ -5769,6 +7550,7 @@ int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, GraphicalObj
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(document, getReactionId(graphicalObject), 0, geometricShapeIndex, ry);
         return setGeometricShapeCornerCurvatureRadiusY(style, geometricShapeIndex, ry);
     }
 
@@ -5780,6 +7562,7 @@ int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::s
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(document, attribute, 0, 0, ry);
         return setGeometricShapeCornerCurvatureRadiusY(style, ry);
     }
 
@@ -5791,6 +7574,7 @@ int setGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::s
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(document, attribute, 0, geometricShapeIndex, ry);
         return setGeometricShapeCornerCurvatureRadiusY(style, geometricShapeIndex, ry);
     }
 
@@ -5802,6 +7586,7 @@ int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, Grap
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, getReactionId(graphicalObject), 0, 0, ry);
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, ry);
     }
 
@@ -5813,6 +7598,7 @@ int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, Grap
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, ry);
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, geometricShapeIndex, ry);
     }
 
@@ -5824,6 +7610,7 @@ int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, cons
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, attribute, 0, 0, ry);
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, ry);
     }
 
@@ -5835,6 +7622,7 @@ int setGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, cons
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, attribute, 0, geometricShapeIndex, ry);
         return setGeometricShapeCornerCurvatureRadiusYAsDouble(style, geometricShapeIndex, ry);
     }
 
@@ -5986,6 +7774,7 @@ int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterX(document, getReactionId(graphicalObject), 0, 0, cx);
         return setGeometricShapeCenterX(style, cx);
     }
 
@@ -5997,6 +7786,7 @@ int setGeometricShapeCenterX(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterX(document, getReactionId(graphicalObject), 0, geometricShapeIndex, cx);
         return setGeometricShapeCenterX(style, geometricShapeIndex, cx);
     }
 
@@ -6008,6 +7798,7 @@ int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterX(document, attribute, 0, 0, cx);
         return setGeometricShapeCenterX(style, cx);
     }
 
@@ -6019,6 +7810,7 @@ int setGeometricShapeCenterX(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterX(document, attribute, 0, geometricShapeIndex, cx);
         return setGeometricShapeCenterX(style, geometricShapeIndex, cx);
     }
 
@@ -6030,6 +7822,7 @@ int setGeometricShapeCenterXAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterXAsDouble(document, getReactionId(graphicalObject), 0, 0, cx);
         return setGeometricShapeCenterXAsDouble(style, cx);
     }
 
@@ -6041,6 +7834,7 @@ int setGeometricShapeCenterXAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterXAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, cx);
         return setGeometricShapeCenterXAsDouble(style, geometricShapeIndex, cx);
     }
 
@@ -6052,6 +7846,7 @@ int setGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterXAsDouble(document, attribute, 0, 0, cx);
         return setGeometricShapeCenterXAsDouble(style, cx);
     }
 
@@ -6063,6 +7858,7 @@ int setGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterXAsDouble(document, attribute, 0, geometricShapeIndex, cx);
         return setGeometricShapeCenterXAsDouble(style, geometricShapeIndex, cx);
     }
 
@@ -6214,6 +8010,7 @@ int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterY(document, getReactionId(graphicalObject), 0, 0, cy);
         return setGeometricShapeCenterY(style, cy);
     }
 
@@ -6225,6 +8022,7 @@ int setGeometricShapeCenterY(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterY(document, getReactionId(graphicalObject), 0, geometricShapeIndex, cy);
         return setGeometricShapeCenterY(style, geometricShapeIndex, cy);
     }
 
@@ -6236,6 +8034,7 @@ int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterY(document, attribute, 0, 0, cy);
         return setGeometricShapeCenterY(style, cy);
     }
 
@@ -6247,6 +8046,7 @@ int setGeometricShapeCenterY(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterY(document, attribute, 0, geometricShapeIndex, cy);
         return setGeometricShapeCenterY(style, geometricShapeIndex, cy);
     }
 
@@ -6258,6 +8058,7 @@ int setGeometricShapeCenterYAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterYAsDouble(document, getReactionId(graphicalObject), 0, 0, cy);
         return setGeometricShapeCenterYAsDouble(style, cy);
     }
 
@@ -6269,6 +8070,7 @@ int setGeometricShapeCenterYAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeCenterYAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, cy);
         return setGeometricShapeCenterYAsDouble(style, geometricShapeIndex, cy);
     }
 
@@ -6280,6 +8082,7 @@ int setGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterYAsDouble(document, attribute, 0, 0, cy);
         return setGeometricShapeCenterYAsDouble(style, cy);
     }
 
@@ -6291,6 +8094,7 @@ int setGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeCenterYAsDouble(document, attribute, 0, geometricShapeIndex, cy);
         return setGeometricShapeCenterYAsDouble(style, geometricShapeIndex, cy);
     }
 
@@ -6443,6 +8247,7 @@ int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusX(document, getReactionId(graphicalObject), 0, 0, rx);
         return setGeometricShapeRadiusX(style, rx);
     }
 
@@ -6454,6 +8259,7 @@ int setGeometricShapeRadiusX(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusX(document, getReactionId(graphicalObject), 0, geometricShapeIndex, rx);
         return setGeometricShapeRadiusX(style, geometricShapeIndex, rx);
     }
 
@@ -6465,6 +8271,7 @@ int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusX(document, attribute, 0, 0, rx);
         return setGeometricShapeRadiusX(style, rx);
     }
 
@@ -6476,6 +8283,7 @@ int setGeometricShapeRadiusX(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusX(document, attribute, 0, geometricShapeIndex, rx);
         return setGeometricShapeRadiusX(style, geometricShapeIndex, rx);
     }
 
@@ -6487,6 +8295,7 @@ int setGeometricShapeRadiusXAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusXAsDouble(document, getReactionId(graphicalObject), 0, 0, rx);
         return setGeometricShapeRadiusXAsDouble(style, rx);
     }
 
@@ -6498,6 +8307,7 @@ int setGeometricShapeRadiusXAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusXAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, rx);
         return setGeometricShapeRadiusXAsDouble(style, geometricShapeIndex, rx);
     }
 
@@ -6509,6 +8319,7 @@ int setGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusXAsDouble(document, attribute, 0, 0, rx);
         return setGeometricShapeRadiusXAsDouble(style, rx);
     }
 
@@ -6520,6 +8331,7 @@ int setGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusXAsDouble(document, attribute, 0, geometricShapeIndex, rx);
         return setGeometricShapeRadiusXAsDouble(style, geometricShapeIndex, rx);
     }
 
@@ -6671,6 +8483,7 @@ int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusY(document, getReactionId(graphicalObject), 0, 0, ry);
         return setGeometricShapeRadiusY(style, ry);
     }
 
@@ -6682,6 +8495,7 @@ int setGeometricShapeRadiusY(SBMLDocument* document, GraphicalObject* graphicalO
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusY(document, getReactionId(graphicalObject), 0, geometricShapeIndex, ry);
         return setGeometricShapeRadiusY(style, geometricShapeIndex, ry);
     }
 
@@ -6693,6 +8507,7 @@ int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusY(document, attribute, 0, 0, ry);
         return setGeometricShapeRadiusY(style, ry);
     }
 
@@ -6704,6 +8519,7 @@ int setGeometricShapeRadiusY(SBMLDocument* document, const std::string& attribut
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusY(document, attribute, 0, geometricShapeIndex, ry);
         return setGeometricShapeRadiusY(style, geometricShapeIndex, ry);
     }
 
@@ -6715,6 +8531,7 @@ int setGeometricShapeRadiusYAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusYAsDouble(document, getReactionId(graphicalObject), 0, 0, ry);
         return setGeometricShapeRadiusYAsDouble(style, ry);
     }
 
@@ -6726,6 +8543,7 @@ int setGeometricShapeRadiusYAsDouble(SBMLDocument* document, GraphicalObject* gr
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeRadiusYAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, ry);
         return setGeometricShapeRadiusYAsDouble(style, geometricShapeIndex, ry);
     }
 
@@ -6737,6 +8555,7 @@ int setGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusYAsDouble(document, attribute, 0, 0, ry);
         return setGeometricShapeRadiusYAsDouble(style, ry);
     }
 
@@ -6748,6 +8567,7 @@ int setGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& 
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeRadiusYAsDouble(document, attribute, 0, geometricShapeIndex, ry);
         return setGeometricShapeRadiusYAsDouble(style, geometricShapeIndex, ry);
     }
 
@@ -6914,6 +8734,7 @@ int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphical
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementX(document, getReactionId(graphicalObject), 0, 0, 0, x);
         return setGeometricShapeElementX(style, x);
     }
 
@@ -6925,6 +8746,7 @@ int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphical
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementX(document, getReactionId(graphicalObject), 0, 0, elementIndex, x);
         return setGeometricShapeElementX(style, elementIndex, x);
     }
 
@@ -6936,6 +8758,7 @@ int setGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphical
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementX(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeElementX(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -6947,6 +8770,7 @@ int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribu
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementX(document, attribute, 0, 0, 0, x);
         return setGeometricShapeElementX(style, x);
     }
 
@@ -6958,6 +8782,7 @@ int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribu
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementX(document, attribute, 0, 0, elementIndex, x);
         return setGeometricShapeElementX(style, elementIndex, x);
     }
 
@@ -6969,6 +8794,7 @@ int setGeometricShapeElementX(SBMLDocument* document, const std::string& attribu
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementX(document, attribute, 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeElementX(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -6980,6 +8806,7 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* g
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementXAsDouble(document, getReactionId(graphicalObject), 0, 0, 0, x);
         return setGeometricShapeElementXAsDouble(style, x);
     }
 
@@ -6991,6 +8818,7 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* g
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementXAsDouble(document, getReactionId(graphicalObject), 0, 0, elementIndex, x);
         return setGeometricShapeElementXAsDouble(style, elementIndex, x);
     }
 
@@ -7002,6 +8830,7 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* g
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementXAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeElementXAsDouble(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -7013,6 +8842,7 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string&
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementXAsDouble(document, attribute, 0, 0, 0, x);
         return setGeometricShapeElementXAsDouble(style, x);
     }
 
@@ -7024,6 +8854,7 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string&
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementXAsDouble(document, attribute, 0, 0, elementIndex, x);
         return setGeometricShapeElementXAsDouble(style, elementIndex, x);
     }
 
@@ -7035,6 +8866,7 @@ int setGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string&
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementXAsDouble(document, attribute, 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeElementXAsDouble(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -7170,6 +9002,7 @@ int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphical
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementY(document, getReactionId(graphicalObject), 0, 0, 0, y);
         return setGeometricShapeElementY(style, y);
     }
     return -1;
@@ -7180,6 +9013,7 @@ int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphical
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementY(document, getReactionId(graphicalObject), 0, 0, elementIndex, y);
         return setGeometricShapeElementY(style, elementIndex, y);
     }
     return -1;
@@ -7190,6 +9024,7 @@ int setGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphical
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementY(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeElementY(style, geometricShapeIndex, elementIndex, y);
     }
     return -1;
@@ -7200,6 +9035,7 @@ int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribu
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementY(document, attribute, 0, 0, 0, y);
         return setGeometricShapeElementY(style, y);
     }
     return -1;
@@ -7210,6 +9046,7 @@ int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribu
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementY(document, attribute, 0, 0, elementIndex, y);
         return setGeometricShapeElementY(style, elementIndex, y);
     }
     return -1;
@@ -7220,6 +9057,7 @@ int setGeometricShapeElementY(SBMLDocument* document, const std::string& attribu
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementY(document, attribute, 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeElementY(style, geometricShapeIndex, elementIndex, y);
     }
     return -1;
@@ -7230,6 +9068,7 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* g
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementYAsDouble(document, getReactionId(graphicalObject), 0, 0, 0, y);
         return setGeometricShapeElementYAsDouble(style, y);
     }
     return -1;
@@ -7240,6 +9079,7 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* g
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementYAsDouble(document, getReactionId(graphicalObject), 0, 0, elementIndex, y);
         return setGeometricShapeElementYAsDouble(style, elementIndex, y);
     }
     return -1;
@@ -7250,6 +9090,7 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* g
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeElementYAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeElementYAsDouble(style, geometricShapeIndex, elementIndex, y);
     }
     return -1;
@@ -7260,6 +9101,7 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string&
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementYAsDouble(document, attribute, 0, 0, 0, y);
         return setGeometricShapeElementYAsDouble(style, y);
     }
     return -1;
@@ -7270,6 +9112,7 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string&
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementYAsDouble(document, attribute, 0, 0, elementIndex, y);
         return setGeometricShapeElementYAsDouble(style, elementIndex, y);
     }
     return -1;
@@ -7280,6 +9123,7 @@ int setGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string&
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeElementYAsDouble(document, attribute, 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeElementYAsDouble(style, geometricShapeIndex, elementIndex, y);
     }
     return -1;
@@ -7414,6 +9258,7 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1X(document, getReactionId(graphicalObject), 0, 0, 0, x);
         return setGeometricShapeBasePoint1X(style, x);
     }
     return -1;
@@ -7424,6 +9269,7 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1X(document, getReactionId(graphicalObject), 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint1X(style, elementIndex, x);
     }
     return -1;
@@ -7434,6 +9280,7 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1X(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint1X(style, geometricShapeIndex, elementIndex, x);
     }
     return -1;
@@ -7444,6 +9291,7 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1X(document, attribute, 0, 0, 0, x);
         return setGeometricShapeBasePoint1X(style, x);
     }
     return -1;
@@ -7454,6 +9302,7 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1X(document, attribute, 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint1X(style, elementIndex, x);
     }
     return -1;
@@ -7464,6 +9313,7 @@ int setGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1X(document, attribute, 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint1X(style, geometricShapeIndex, elementIndex, x);
     }
     return -1;
@@ -7474,6 +9324,7 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, getReactionId(graphicalObject), 0, 0, 0, x);
         return setGeometricShapeBasePoint1XAsDouble(style, x);
     }
     return -1;
@@ -7484,6 +9335,7 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, getReactionId(graphicalObject), 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint1XAsDouble(style, elementIndex, x);
     }
     return -1;
@@ -7494,6 +9346,7 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint1XAsDouble(style, geometricShapeIndex, elementIndex, x);
     }
     return -1;
@@ -7504,6 +9357,7 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, attribute, 0, 0, 0, x);
         return setGeometricShapeBasePoint1XAsDouble(style, x);
     }
     return -1;
@@ -7514,6 +9368,7 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, attribute, 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint1XAsDouble(style, elementIndex, x);
     }
     return -1;
@@ -7524,6 +9379,7 @@ int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1XAsDouble(document, attribute, 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint1XAsDouble(style, geometricShapeIndex, elementIndex, x);
     }
     return -1;
@@ -7672,6 +9528,7 @@ int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1Y(document, getReactionId(graphicalObject), 0, 0, 0, y);
         return setGeometricShapeBasePoint1Y(style, elementIndex, y);
     }
 
@@ -7683,6 +9540,7 @@ int setGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1Y(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint1Y(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -7694,6 +9552,7 @@ int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1Y(document, attribute, 0, 0, 0, y);
         return setGeometricShapeBasePoint1Y(style, y);
     }
 
@@ -7705,6 +9564,7 @@ int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1Y(document, attribute, 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint1Y(style, elementIndex, y);
     }
 
@@ -7716,6 +9576,7 @@ int setGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1Y(document, attribute, 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint1Y(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -7727,6 +9588,7 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, getReactionId(graphicalObject), 0, 0, 0, y);
         return setGeometricShapeBasePoint1YAsDouble(style, y);
     }
 
@@ -7738,6 +9600,7 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, getReactionId(graphicalObject), 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint1YAsDouble(style, elementIndex, y);
     }
 
@@ -7749,6 +9612,7 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint1YAsDouble(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -7760,6 +9624,7 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, attribute, 0, 0, 0, y);
         return setGeometricShapeBasePoint1YAsDouble(style, y);
     }
 
@@ -7771,6 +9636,7 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, attribute, 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint1YAsDouble(style, elementIndex, y);
     }
 
@@ -7782,6 +9648,7 @@ int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint1YAsDouble(document, attribute, 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint1YAsDouble(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -7920,6 +9787,7 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2X(document, getReactionId(graphicalObject), 0, 0, 0, x);
         return setGeometricShapeBasePoint2X(style, x);
     }
 
@@ -7931,6 +9799,7 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2X(document, getReactionId(graphicalObject), 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint2X(style, elementIndex, x);
     }
 
@@ -7942,6 +9811,7 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2X(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint2X(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -7953,6 +9823,7 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2X(document, attribute, 0, 0, 0, x);
         return setGeometricShapeBasePoint2X(style, x);
     }
 
@@ -7964,6 +9835,7 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2X(document, attribute, 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint2X(style, elementIndex, x);
     }
 
@@ -7975,6 +9847,7 @@ int setGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2X(document, attribute, 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint2X(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -7986,6 +9859,7 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, getReactionId(graphicalObject), 0, 0, 0, x);
         return setGeometricShapeBasePoint2XAsDouble(style, x);
     }
 
@@ -7997,6 +9871,7 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, getReactionId(graphicalObject), 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint2XAsDouble(style, elementIndex, x);
     }
 
@@ -8008,6 +9883,7 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint2XAsDouble(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -8019,6 +9895,7 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, attribute, 0, 0, 0, x);
         return setGeometricShapeBasePoint2XAsDouble(style, x);
     }
 
@@ -8030,6 +9907,7 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, attribute, 0, 0, elementIndex, x);
         return setGeometricShapeBasePoint2XAsDouble(style, elementIndex, x);
     }
 
@@ -8041,6 +9919,7 @@ int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2XAsDouble(document, attribute, 0, geometricShapeIndex, elementIndex, x);
         return setGeometricShapeBasePoint2XAsDouble(style, geometricShapeIndex, elementIndex, x);
     }
 
@@ -8179,6 +10058,7 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2Y(document, getReactionId(graphicalObject), 0, 0, 0, y);
         return setGeometricShapeBasePoint2Y(style, y);
     }
 
@@ -8190,6 +10070,7 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2Y(document, getReactionId(graphicalObject), 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint2Y(style, elementIndex, y);
     }
 
@@ -8201,6 +10082,7 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2Y(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint2Y(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -8212,6 +10094,7 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2Y(document, attribute, 0, 0, 0, y);
         return setGeometricShapeBasePoint2Y(style, y);
     }
 
@@ -8223,6 +10106,7 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2Y(document, attribute, 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint2Y(style, elementIndex, y);
     }
 
@@ -8234,6 +10118,7 @@ int setGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2Y(document, attribute, 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint2Y(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -8245,6 +10130,7 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, getReactionId(graphicalObject), 0, 0, 0, y);
         return setGeometricShapeBasePoint2YAsDouble(style, y);
     }
 
@@ -8256,6 +10142,7 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, getReactionId(graphicalObject), 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint2YAsDouble(style, elementIndex, y);
     }
 
@@ -8267,6 +10154,7 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, GraphicalObject
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
+        setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, getReactionId(graphicalObject), 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint2YAsDouble(style, geometricShapeIndex, elementIndex, y);
     }
 
@@ -8278,6 +10166,7 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, attribute, 0, 0, 0, y);
         return setGeometricShapeBasePoint2YAsDouble(style, y);
     }
 
@@ -8289,6 +10178,7 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, attribute, 0, 0, elementIndex, y);
         return setGeometricShapeBasePoint2YAsDouble(style, elementIndex, y);
     }
 
@@ -8300,6 +10190,7 @@ int setGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::stri
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
+        setReactionLineEndingGeometricShapeBasePoint2YAsDouble(document, attribute, 0, geometricShapeIndex, elementIndex, y);
         return setGeometricShapeBasePoint2YAsDouble(style, geometricShapeIndex, elementIndex, y);
     }
 

@@ -225,7 +225,26 @@ void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInfo
     addColor(globalRenderInformation, "black");
 }
 
-const bool addColor(SBMLDocument* document, Style* style, const std::string &color) {
+const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId) {
+    ColorDefinition* colorDefinition = renderInformationBase->getColorDefinition(colorId);
+    if (colorDefinition)
+        return colorDefinition->getValue();
+
+    return "";
+}
+
+const std::string getColorId(RenderInformationBase* renderInformationBase, const std::string &colorValue) {
+    for (unsigned int i = 0; i < renderInformationBase->getNumColorDefinitions(); i++) {
+        ColorDefinition* colorDefinition = renderInformationBase->getColorDefinition(i);
+        if (stringCompare(colorDefinition->getValue(), colorValue))
+            return colorDefinition->getId();
+    }
+
+    return "";
+}
+
+
+const std::string addColor(SBMLDocument* document, Style* style, const std::string &color) {
     if (style) {
         for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
             LocalRenderInformation* localRenderInformation = getLocalRenderInformation(document, i);
@@ -243,10 +262,10 @@ const bool addColor(SBMLDocument* document, Style* style, const std::string &col
         }
     }
 
-    return false;
+    return "";
 }
 
-const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color) {
+const std::string addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color) {
     if (lineEnding) {
         for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
             LocalRenderInformation *localRenderInformation = getLocalRenderInformation(document, i);
@@ -264,34 +283,112 @@ const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::s
         }
     }
 
-    return false;
+    return "";
 }
 
-const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color) {
+const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &color) {
     if (isValidHexColorCode(color))
         return addColor(renderInformationBase, getColorIdFromHexColorCode(renderInformationBase, color), color);
     else
         return addColor(renderInformationBase, color, getHexColorCodeFromHtmlColorName(color));
 }
 
-const bool addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue) {
-    if (!colorId.empty() && !colorValue.empty() && !renderInformationBase->getColorDefinition(colorId)) {
+const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue) {
+    if (stringCompare(getColorValue(renderInformationBase, colorId), colorValue))
+        return colorId;
+
+    if (!colorId.empty() && !colorValue.empty()) {
         RenderPkgNamespaces renderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
         ColorDefinition* cd = createColorDefinition(&renderPkgNamespaces, toLowerCase(colorId), colorValue);
-        renderInformationBase->addColorDefinition(cd);
-        delete cd;
-        return true;
+        if (!renderInformationBase->addColorDefinition(cd)) {
+            delete cd;
+            return toLowerCase(colorId);
+        }
     }
 
-    return false;
+    return "";
+}
+
+const std::string addGradient(SBMLDocument* document, Style* style, const std::string type, std::vector<std::pair<std::string, double>> stopsVector) {
+    RenderInformationBase* renderInformation = NULL;
+    if (style) {
+        for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+            LocalRenderInformation* localRenderInformation = getLocalRenderInformation(document, i);
+            for (unsigned int j = 0; j < localRenderInformation->getNumLocalStyles(); j++) {
+                if (localRenderInformation->getLocalStyle(j) == style) {
+                    renderInformation = localRenderInformation;
+                    break;
+                }
+            }
+        }
+        for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+            GlobalRenderInformation* globalRenderInformation = getGlobalRenderInformation(document, i);
+            for (unsigned int j = 0; j < globalRenderInformation->getNumGlobalStyles(); j++) {
+                if (globalRenderInformation->getGlobalStyle(j) == style) {
+                    renderInformation = globalRenderInformation;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (renderInformation)
+        return addGradient(renderInformation, type, stopsVector);
+
+    return "";
+}
+
+const std::string addGradient(SBMLDocument* document, LineEnding* lineEnding, const std::string type, std::vector<std::pair<std::string, double>> stopsVector) {
+    RenderInformationBase* renderInformation = NULL;
+    if (lineEnding) {
+        for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
+            LocalRenderInformation* localRenderInformation = getLocalRenderInformation(document, i);
+            for (unsigned int j = 0; j < localRenderInformation->getNumLineEndings(); j++) {
+                if (localRenderInformation->getLineEnding(j) == lineEnding) {
+                    renderInformation = localRenderInformation;
+                    break;
+                }
+            }
+        }
+        for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+            GlobalRenderInformation* globalRenderInformation = getGlobalRenderInformation(document, i);
+            for (unsigned int j = 0; j < globalRenderInformation->getNumLineEndings(); j++) {
+                if (globalRenderInformation->getLineEnding(j) == lineEnding) {
+                    renderInformation = globalRenderInformation;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (renderInformation)
+        return addGradient(renderInformation, type, stopsVector);
+
+    return "";
+}
+
+const std::string addGradient(RenderInformationBase* renderInformationBase, const std::string type, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (isValidGradientStopsVector(stopsVector)) {
+        for (unsigned int i = 0; i < stopsVector.size(); i++)
+            addColor(renderInformationBase, stopsVector[i].first);
+        std::string gradientId = getUniqueGradientId(renderInformationBase);
+        RenderPkgNamespaces* renderPkgNamespaces = new RenderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
+        if (!renderInformationBase->addGradientDefinition(createGradient(renderPkgNamespaces, gradientId, type, stopsVector)))
+            return gradientId;
+    }
+
+    return "";
 }
 
 const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInformationBase, const std::string &hexColorCode) {
-    std::string colorId = getHtmlColorNameFromHexColorCode(hexColorCode);
-    if (colorId.empty())
-        colorId = getUniqueColorId(renderInformationBase);
+    std::string colorId = getColorId(renderInformationBase, hexColorCode);
+    if (!colorId.empty())
+        return colorId;
+    colorId = getHtmlColorNameFromHexColorCode(hexColorCode);
+    if (!colorId.empty())
+        return colorId;
 
-    return colorId;
+    return getUniqueColorId(renderInformationBase);
 }
 
 const std::string getUniqueColorId(RenderInformationBase* renderInformationBase) {
@@ -311,6 +408,87 @@ ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces,
     ColorDefinition* colorDefinition = new ColorDefinition(renderPkgNamespaces, id);
     colorDefinition->setValue(value);
     return colorDefinition;
+}
+
+GradientBase* createGradient(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string type, std::vector<std::pair<std::string, double>> stopsVector) {
+    if (type == "linear")
+        return createLinearGradient(renderPkgNamespaces, id, stopsVector);
+    else if (type == "radial")
+        return createRadialGradient(renderPkgNamespaces, id, stopsVector);
+
+    return NULL;
+}
+
+GradientBase* createLinearGradient(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, std::vector<std::pair<std::string, double>> stopsVector) {
+    LinearGradient* linearGradient = new LinearGradient(renderPkgNamespaces, id);
+    for (unsigned int i = 0; i < stopsVector.size(); i++)
+        linearGradient->addGradientStop(createGradientStop(renderPkgNamespaces, stopsVector[i].first, RelAbsVector(0.0, stopsVector[i].second)));
+
+    return linearGradient;
+}
+
+GradientBase* createRadialGradient(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, std::vector<std::pair<std::string, double>> stopsVector) {
+    RadialGradient* radialGradient = new RadialGradient(renderPkgNamespaces, id);
+    for (unsigned int i = 0; i < stopsVector.size(); i++)
+        radialGradient->addGradientStop(createGradientStop(renderPkgNamespaces, stopsVector[i].first, stopsVector[i].second));
+
+    return radialGradient;
+}
+
+GradientStop* createGradientStop(RenderPkgNamespaces* renderPkgNamespaces, const std::string &stopColor, const RelAbsVector& offset) {
+    GradientStop* gradientStop = new GradientStop(renderPkgNamespaces);
+    gradientStop->setStopColor(stopColor);
+    gradientStop->setOffset(offset);
+    return gradientStop;
+}
+
+const std::string getUniqueGradientId(RenderInformationBase* renderInformationBase) {
+    std::string uniqueGradientId = "gradient_0";
+    unsigned int i = 0;
+    while (renderInformationBase->getGradientDefinition(uniqueGradientId))
+        uniqueGradientId = "gradient_" + std::to_string(i++);
+
+    return uniqueGradientId;
+}
+
+LineEnding* createLocalLineEnding(SBMLDocument* document, RenderInformationBase* localRenderInformation, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    LineEnding* localLineEnding = NULL;
+    std::string localLineEndingId = getLocalLineEndingId(document, speciesReferenceGlyph);
+    if (localRenderInformation && !localLineEndingId.empty()) {
+        localLineEnding = ((LocalRenderInformation*)localRenderInformation)->createLineEnding();
+        localLineEnding->setId(localLineEndingId);
+        if (isSetStartHead(document, speciesReferenceGlyph))
+            setStartHead(document, speciesReferenceGlyph, localLineEndingId);
+        else if (isSetEndHead(document, speciesReferenceGlyph))
+            setEndHead(document, speciesReferenceGlyph, localLineEndingId);
+    }
+
+    return localLineEnding;
+}
+
+const bool isLocal(SBMLDocument* document, LineEnding* lineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (!lineEnding || !speciesReferenceGlyph)
+        return false;
+
+    std::string localLineEndingId = getLocalLineEndingId(document, speciesReferenceGlyph);
+    if (localLineEndingId.empty())
+        return false;
+
+    return lineEnding->getId() == localLineEndingId;
+}
+
+const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    std::string globalLineEndingId = getStartHead(document, speciesReferenceGlyph);
+    if (globalLineEndingId.empty())
+        globalLineEndingId = getEndHead(document, speciesReferenceGlyph);
+    if (!globalLineEndingId.empty()) {
+        if (globalLineEndingId.find(speciesReferenceGlyph->getId()) != std::string::npos)
+            return globalLineEndingId;
+
+        return speciesReferenceGlyph->getId() + "_" + globalLineEndingId;
+    }
+
+    return "";
 }
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation) {
@@ -878,7 +1056,7 @@ const bool canHaveStrokeDashArray(GraphicalObject* graphicalObject) {
 }
 
 const bool canHaveFillColor(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || isReactionGlyph(graphicalObject))
         return true;
 
     return false;
@@ -969,8 +1147,20 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod) {
     return isValueValid(spreadMethod, getValidSpreadMethodValues());
 }
 
+const bool isValidGradientStopsVector(std::vector<std::pair<std::string, double>> gradientStopsVector) {
+    for (unsigned int i = 0; i < gradientStopsVector.size(); i++) {
+        if (!isValidStopColorValue(gradientStopsVector.at(i).first) || !isValidOffsetValue(RelAbsVector(0.0, gradientStopsVector.at(i).second)))
+            return false;
+    }
+
+    return true;
+}
+
 const bool isValidOffsetValue(const RelAbsVector& offset) {
-    return isValidRelAbsVectorPositiveValue(offset);
+    if (std::abs(offset.getAbsoluteValue()) > 0.0001)
+        return false;
+
+    return isValidRelAbsVectorRelativeValue(offset.getRelativeValue());
 }
 
 const bool isValidOffsetValue(const double& offset) {
@@ -1175,10 +1365,10 @@ const bool isValidGeometricShapeHref(const std::string& href) {
 }
 
 const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue) {
-    if (isValidRelAbsVectorValue(relAbsVectorValue) && relAbsVectorValue.getAbsoluteValue() > 0.000)
+    if (isValidRelAbsVectorValue(relAbsVectorValue) && relAbsVectorValue.getAbsoluteValue() >= 0.000)
         return true;
 
-    std::cerr << "error: the absolute value of the entered value must be greater than 0" << std::endl;
+    std::cerr << "error: the absolute value of the entered value must be equal or greater than 0" << std::endl;
     return false;
 }
 

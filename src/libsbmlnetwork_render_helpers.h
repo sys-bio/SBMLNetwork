@@ -67,13 +67,23 @@ void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style);
 
 void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation);
 
-const bool addColor(SBMLDocument* document, Style* style, const std::string &color);
+const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId);
 
-const bool addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color);
+const std::string getColorId(RenderInformationBase* renderInformationBase, const std::string &colorValue);
 
-const bool addColor(RenderInformationBase* renderInformationBase, const std::string &color);
+const std::string addColor(SBMLDocument* document, Style* style, const std::string &color);
 
-const bool addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue);
+const std::string addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color);
+
+const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &color);
+
+const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue);
+
+const std::string addGradient(SBMLDocument* document, Style* style, const std::string type, std::vector<std::pair<std::string, double>> stopsVector);
+
+const std::string addGradient(SBMLDocument* document, LineEnding* lineEnding, const std::string type, std::vector<std::pair<std::string, double>> stopsVector);
+
+const std::string addGradient(RenderInformationBase* renderInformationBase, const std::string type, std::vector<std::pair<std::string, double>> stopsVector);
 
 const std::string getColorIdFromHexColorCode(RenderInformationBase* renderInformationBase, const std::string &hexColorCode);
 
@@ -83,7 +93,23 @@ ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces,
 
 ColorDefinition* createColorDefinition(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string &value);
 
-void addTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+GradientBase* createGradient(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, const std::string type, std::vector<std::pair<std::string, double>> stopsVector);
+
+GradientBase* createLinearGradient(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, std::vector<std::pair<std::string, double>> stopsVector);
+
+GradientBase* createRadialGradient(RenderPkgNamespaces* renderPkgNamespaces, const std::string &id, std::vector<std::pair<std::string, double>> stopsVector);
+
+GradientStop* createGradientStop(RenderPkgNamespaces* renderPkgNamespaces, const std::string &stopColor, const RelAbsVector& offset);
+
+const std::string getUniqueGradientId(RenderInformationBase* renderInformationBase);
+
+LineEnding* createLocalLineEnding(RenderInformationBase* localRenderInformation, LineEnding* globalLineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+LineEnding* createLocalLineEnding(SBMLDocument* document, RenderInformationBase* localRenderInformation, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+const bool isLocal(SBMLDocument* document, LineEnding* lineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation);
 
@@ -242,6 +268,8 @@ const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
 const bool isValidBackgroundColorValue(const std::string& backgroundColor);
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod);
+
+const bool isValidGradientStopsVector(std::vector<std::pair<std::string, double>> gradientStopsVector);
 
 const bool isValidOffsetValue(const RelAbsVector& offset);
 

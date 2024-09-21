@@ -73,8 +73,9 @@ LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumCon
 
 /// @brief Create a Render object and add it to the the SBML document if it does not exist.
 /// @param document a pointer to the SBMLDocument object.
+/// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autorender(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN int autorender(SBMLDocument* document, const int maxNumConnectedEdges = 3);
 
 /// @brief Align the nodes position in the SBML document in the given alignment type.
 /// @param document a pointer to the SBMLDocument object.
@@ -86,11 +87,11 @@ LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::set<std::string> no
 
 /// @brief Distribute the nodes position in the SBML document in the given distribution direction.
 /// @param document a pointer to the SBMLDocument object.
-/// @param nodeIds a set of node ids to be distributed.
+/// @param nodeIds a set of node ids and their order to be distributed.
 /// @param direction determines how to distribute the nodes.
 /// @param spacing the spacing between the distributed nodes.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int distribute(SBMLDocument* document, std::set<std::string> nodeIds, const std::string& direction, const double& spacing = -1);
+LIBSBMLNETWORK_EXTERN int distribute(SBMLDocument* document, std::set <std::pair<std::string, unsigned int>> nodeIds, const std::string& direction, const double spacing = -1);
 
 /// @brief Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
 /// @param document a pointer to the SBMLDocument object.

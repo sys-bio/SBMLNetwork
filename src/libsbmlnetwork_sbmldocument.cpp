@@ -72,9 +72,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int autorender(SBMLDocument* document) {
+    int autorender(SBMLDocument* document, const int maxNumConnectedEdges) {
         if (!getNumLayouts(document))
-            createDefaultLayoutFeatures(document);
+            createDefaultLayoutFeatures(document, maxNumConnectedEdges);
         if (getNumLayouts(document))
             return createDefaultRenderInformation(document);
 
@@ -95,10 +95,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int distribute(SBMLDocument* document, std::set <std::string> nodeIds, const std::string& direction, const double& spacing) {
+    int distribute(SBMLDocument* document, std::set <std::pair<std::string, unsigned int>> nodeIds, const std::string& direction, const double spacing) {
         if (nodeIds.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
-            for (std::set<std::string>::const_iterator nodeIt = nodeIds.cbegin(); nodeIt != nodeIds.cend(); nodeIt++) {
+            std::vector<std::string> sortedNodeIdsVector = getSortedNodeIdsVector(nodeIds);
+            for (std::vector<std::string>::const_iterator nodeIt = sortedNodeIdsVector.cbegin(); nodeIt != sortedNodeIdsVector.cend(); nodeIt++) {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, *nodeIt);
                 allGraphicalObjects.insert(allGraphicalObjects.end(), graphicalObjects.begin(), graphicalObjects.end());
             }

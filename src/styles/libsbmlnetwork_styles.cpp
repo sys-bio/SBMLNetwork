@@ -812,10 +812,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         });
 
         const int scoreThreshold = 15;
-        if (styleScores.at(0).second <= scoreThreshold) {
-            std::cerr << "error: no predefined style found" << std::endl;
+        if (styleScores.at(0).second <= scoreThreshold)
             return "";
-        }
 
         return styleScores.at(0).first;
     }

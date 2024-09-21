@@ -28,8 +28,12 @@ const unsigned int getNumLocalRenderInformation(ListOfLocalRenderInformation* li
 }
 
 LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int renderIndex) {
-    if (listOfLocalRenderInformation)
-        return listOfLocalRenderInformation->get(renderIndex);
+    if (listOfLocalRenderInformation) {
+        if (renderIndex < listOfLocalRenderInformation->size())
+            return listOfLocalRenderInformation->get(renderIndex);
+
+        std::cerr << "error: renderIndex out of range" << std::endl;
+    }
 
     return NULL;
 }
@@ -637,7 +641,7 @@ int setRadialGradientCx(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientCx(GradientBase* gradientBase, const RelAbsVector& cx) {
-    if (isLinearGradient(gradientBase) && isValidGradientCxValue(cx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCxValue(cx)) {
         ((RadialGradient*) gradientBase)->setCx(cx);
         return 0;
     }
@@ -650,7 +654,7 @@ int setRadialGradientCxAsDouble(RenderInformationBase* renderInformationBase, co
 }
 
 int setRadialGradientCxAsDouble(GradientBase* gradientBase, const double& cx) {
-    if (isLinearGradient(gradientBase) && isValidGradientCxValue(cx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCxValue(cx)) {
         ((RadialGradient*) gradientBase)->getCx().setRelativeValue(cx);
         return 0;
     }
@@ -696,7 +700,7 @@ int setRadialGradientCy(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientCy(GradientBase* gradientBase, const RelAbsVector& cy) {
-    if (isLinearGradient(gradientBase) && isValidGradientCyValue(cy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCyValue(cy)) {
         ((RadialGradient*)gradientBase)->setCy(cy);
         return 0;
     }
@@ -709,7 +713,7 @@ int setRadialGradientCyAsDouble(RenderInformationBase* renderInformationBase, co
 }
 
 int setRadialGradientCyAsDouble(GradientBase* gradientBase, const double& cy) {
-    if (isLinearGradient(gradientBase) && isValidGradientCyValue(cy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientCyValue(cy)) {
         ((RadialGradient*)gradientBase)->getCy().setRelativeValue(cy);
         return 0;
     }
@@ -755,7 +759,7 @@ int setRadialGradientFx(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
-    if (isLinearGradient(gradientBase) && isValidGradientFxValue(fx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFxValue(fx)) {
         ((RadialGradient*)gradientBase)->setFx(fx);
         return 0;
     }
@@ -763,12 +767,12 @@ int setRadialGradientFx(GradientBase* gradientBase, const RelAbsVector& fx) {
     return -1;
 }
 
-int setRadialGradientFAsDoublex(RenderInformationBase* renderInformationBase, const std::string& sid, const double& fx) {
+int setRadialGradientFxAsDouble(RenderInformationBase* renderInformationBase, const std::string& sid, const double& fx) {
     return setRadialGradientFx(getGradientDefinition(renderInformationBase, sid), fx);
 }
 
 int setRadialGradientFxAsDouble(GradientBase* gradientBase, const double& fx) {
-    if (isLinearGradient(gradientBase) && isValidGradientFxValue(fx)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFxValue(fx)) {
         ((RadialGradient*)gradientBase)->getFx().setRelativeValue(fx);
         return 0;
     }
@@ -814,7 +818,7 @@ int setRadialGradientFy(RenderInformationBase* renderInformationBase, const std:
 }
 
 int setRadialGradientFy(GradientBase* gradientBase, const RelAbsVector& fy) {
-    if (isLinearGradient(gradientBase) && isValidGradientFyValue(fy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFyValue(fy)) {
         ((RadialGradient*)gradientBase)->setFy(fy);
         return 0;
     }
@@ -827,7 +831,7 @@ int setRadialGradientFyAsDouble(RenderInformationBase* renderInformationBase, co
 }
 
 int setRadialGradientFyAsDouble(GradientBase* gradientBase, const double& fy) {
-    if (isLinearGradient(gradientBase) && isValidGradientFyValue(fy)) {
+    if (isRadialGradient(gradientBase) && isValidGradientFyValue(fy)) {
         ((RadialGradient*)gradientBase)->getFy().setRelativeValue(fy);
         return 0;
     }
@@ -863,7 +867,7 @@ const double getRadialGradientRAsDouble(RenderInformationBase* renderInformation
 
 const double getRadialGradientRAsDouble(GradientBase* gradientBase) {
     if (isRadialGradient(gradientBase))
-        return getRelativeValue(((RadialGradient*)gradientBase)->getR());
+        return getAbsoluteValue(((RadialGradient*)gradientBase)->getR());
 
     return NAN;
 }
@@ -873,7 +877,7 @@ int setRadialGradientR(RenderInformationBase* renderInformationBase, const std::
 }
 
 int setRadialGradientR(GradientBase* gradientBase, const RelAbsVector& r) {
-    if (isLinearGradient(gradientBase) && isValidGradientRValue(r)) {
+    if (isRadialGradient(gradientBase) && isValidGradientRValue(r)) {
         ((RadialGradient*)gradientBase)->setR(r);
         return 0;
     }
@@ -886,8 +890,9 @@ int setRadialGradientRAsDouble(RenderInformationBase* renderInformationBase, con
 }
 
 int setRadialGradientRAsDouble(GradientBase* gradientBase, const double& r) {
-    if (isLinearGradient(gradientBase) && isValidGradientRValue(r)) {
-        ((RadialGradient*)gradientBase)->getR().setRelativeValue(r);
+    if (isRadialGradient(gradientBase) && isValidGradientRValue(r)) {
+        ((RadialGradient*)gradientBase)->getR().setAbsoluteValue(r);
+        ((RadialGradient*)gradientBase)->getR().setRelativeValue(0);
         return 0;
     }
 
@@ -1088,6 +1093,16 @@ bool isSetStrokeColor(Style* style) {
     return isSetStrokeColor(getRenderGroup(style));
 }
 
+bool isSetStrokeColor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
+        return isSetStrokeColor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetStroke();
+
+    return false;
+}
+
 bool isSetStrokeColor(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive1D(transformation2D))
         return ((GraphicalPrimitive1D*)transformation2D)->isSetStroke();
@@ -1107,6 +1122,16 @@ const std::string getStrokeColor(Style* style) {
     return getStrokeColor(getRenderGroup(style));
 }
 
+const std::string getStrokeColor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
+        return getStrokeColor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getStroke();
+
+    return "";
+}
+
 const std::string getStrokeColor(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive1D(transformation2D))
         return ((GraphicalPrimitive1D*)transformation2D)->getStroke();
@@ -1123,10 +1148,19 @@ int setStrokeColor(RenderInformationBase* renderInformationBase, const std::stri
 }
 
 int setStrokeColor(Style* style, const std::string& stroke) {
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeColor(getGeometricShape(style), stroke);
-
     return setStrokeColor(getRenderGroup(style), stroke);
+}
+
+int setStrokeColor(RenderGroup* renderGroup, const std::string& stroke) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
+        return setStrokeColor(getGeometricShape(renderGroup), stroke);
+
+    if (isRenderGroup(renderGroup) && isValidStrokeColorValue(stroke)) {
+        renderGroup->setStroke(stroke);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke) {
@@ -1139,15 +1173,7 @@ int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke
 }
 
 const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
-            return getStrokeColor(getGeometricShape(style));
-        else
-            return getStrokeColor(style);
-    }
-
-    return "";
+    return getStrokeColor(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
 
 int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
@@ -1161,15 +1187,7 @@ int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, 
 }
 
 const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
-            return getStrokeColor(getGeometricShape(style));
-        else
-            return getStrokeColor(style);
-    }
-
-    return "";
+    return getStrokeColor(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()));
 }
 
 int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
@@ -1183,15 +1201,7 @@ int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, cons
 }
 
 const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getStrokeColor(getGeometricShape(style)).empty())
-            return getStrokeColor(getGeometricShape(style));
-        else
-            return getStrokeColor(style);
-    }
-
-    return "";
+    return getStrokeColor(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
 
 int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
@@ -1205,23 +1215,24 @@ int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, con
 }
 
 int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke) {
+    bool stokeColorIsSet = false;
     Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
     if (style) {
         addColor(globalRenderInformation, stroke);
-        if (setStrokeColor(style, stroke))
-            return -1;
+        if (!setStrokeColor(style, stroke))
+            stokeColorIsSet = true;
     }
     std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
     for (unsigned int i = 0; i < styleRoles.size(); i++) {
         Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
         if (style) {
             addColor(globalRenderInformation, stroke);
-            if (setStrokeColor(style, stroke))
-                return -1;
+            if (!setStrokeColor(style, stroke))
+                stokeColorIsSet = true;
         }
     }
 
-    return -1;
+    return stokeColorIsSet ? 0 : -1;
 }
 
 bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1234,6 +1245,16 @@ bool isSetStrokeWidth(RenderInformationBase* renderInformationBase, const std::s
 
 bool isSetStrokeWidth(Style* style) {
     return isSetStrokeWidth(getRenderGroup(style));
+}
+
+bool isSetStrokeWidth(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeWidth(getGeometricShape(renderGroup)))
+        return isSetStrokeWidth(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetStrokeWidth();
+
+    return false;
 }
 
 bool isSetStrokeWidth(Transformation2D* transformation2D) {
@@ -1255,6 +1276,16 @@ const double getStrokeWidth(Style* style) {
     return getStrokeWidth(getRenderGroup(style));
 }
 
+const double getStrokeWidth(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeWidth(getGeometricShape(renderGroup)))
+        return getStrokeWidth(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getStrokeWidth();
+
+    return NAN;
+}
+
 const double getStrokeWidth(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive1D(transformation2D))
         return ((GraphicalPrimitive1D*)transformation2D)->getStrokeWidth();
@@ -1271,10 +1302,19 @@ int setStrokeWidth(RenderInformationBase* renderInformationBase, const std::stri
 }
 
 int setStrokeWidth(Style* style, const double& strokeWidth) {
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeWidth(getGeometricShape(style), strokeWidth);
-
     return setStrokeWidth(getRenderGroup(style), strokeWidth);
+}
+
+int setStrokeWidth(RenderGroup* renderGroup, const double& strokeWidth) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeWidth(getGeometricShape(renderGroup)))
+        return setStrokeWidth(getGeometricShape(renderGroup), strokeWidth);
+
+    if (isRenderGroup(renderGroup) && isValidStrokeWidthValue(strokeWidth)) {
+        renderGroup->setStrokeWidth(strokeWidth);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth) {
@@ -1287,81 +1327,46 @@ int setStrokeWidth(Transformation2D* transformation2D, const double& strokeWidth
 }
 
 const double getCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
-            return getStrokeWidth(getGeometricShape(style));
-        else
-            return getStrokeWidth(style);
-    }
-
-    return NAN;
+    return getStrokeWidth(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
 
 int setCompartmentStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setStrokeWidth(style, strokeWidth);
-
-    return -1;
+    return setStrokeWidth(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()), strokeWidth);
 }
 
 const double getSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
-            return getStrokeWidth(getGeometricShape(style));
-        else
-            return getStrokeWidth(style);
-    }
-
-    return NAN;
+    return getStrokeWidth(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()));
 }
 
 int setSpeciesStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setStrokeWidth(style, strokeWidth);
-
-    return -1;
+    return setStrokeWidth(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()), strokeWidth);
 }
 
 const double getReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && getStrokeWidth(getGeometricShape(style)) > 0.01)
-            return getStrokeWidth(getGeometricShape(style));
-        else
-            return getStrokeWidth(style);
-    }
-
-    return NAN;
+    return getStrokeWidth(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
 
 int setReactionStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setStrokeWidth(style, strokeWidth);
-
-    return -1;
+    return setStrokeWidth(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()), strokeWidth);
 }
 
 int setSpeciesReferenceStrokeWidth(GlobalRenderInformation* globalRenderInformation, const double& strokeWidth) {
+    bool stokeWidthIsSet = false;
     Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
     if (style) {
-        if (setStrokeWidth(style, strokeWidth))
-            return -1;
+        if (!setStrokeWidth(style, strokeWidth))
+            stokeWidthIsSet = true;
     }
     std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
     for (unsigned int i = 0; i < styleRoles.size(); i++) {
         Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
         if (style) {
-            if (setStrokeWidth(style, strokeWidth))
-                return -1;
+            if (!setStrokeWidth(style, strokeWidth))
+                stokeWidthIsSet = true;
         }
     }
 
-    return -1;
+    return stokeWidthIsSet ? 0 : -1;
 }
 
 bool isSetStrokeDashArray(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1374,6 +1379,16 @@ bool isSetStrokeDashArray(RenderInformationBase* renderInformationBase, const st
 
 bool isSetStrokeDashArray(Style* style) {
     return isSetStrokeDashArray(getRenderGroup(style));
+}
+
+bool isSetStrokeDashArray(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
+        return isSetStrokeDashArray(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetStrokeDashArray();
+
+    return false;
 }
 
 bool isSetStrokeDashArray(Transformation2D* transformation2D) {
@@ -1393,6 +1408,16 @@ const std::vector<unsigned int> getStrokeDashArray(RenderInformationBase* render
 
 const std::vector<unsigned int> getStrokeDashArray(Style* style) {
     return getStrokeDashArray(getRenderGroup(style));
+}
+
+const std::vector<unsigned int> getStrokeDashArray(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
+        return getStrokeDashArray(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getStrokeDashArray();
+
+    return std::vector<unsigned int>();
 }
 
 const std::vector<unsigned int> getStrokeDashArray(Transformation2D* transformation2D) {
@@ -1417,6 +1442,18 @@ int setStrokeDashArray(Style* style, const std::vector<unsigned int>& strokeDash
     return setStrokeDashArray(getRenderGroup(style), strokeDashArray);
 }
 
+int setStrokeDashArray(RenderGroup* renderGroup, const std::vector<unsigned int>& strokeDashArray) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
+        return setStrokeDashArray(getGeometricShape(renderGroup), strokeDashArray);
+
+    if (isRenderGroup(renderGroup) && isValidStrokeDashArrayValue(strokeDashArray)) {
+        renderGroup->setStrokeDashArray(strokeDashArray);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setStrokeDashArray(Transformation2D* transformation2D, const std::vector<unsigned int>& strokeDashArray) {
     if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeDashArrayValue(strokeDashArray)) {
         ((GraphicalPrimitive1D*)transformation2D)->setStrokeDashArray(strokeDashArray);
@@ -1427,27 +1464,15 @@ int setStrokeDashArray(Transformation2D* transformation2D, const std::vector<uns
 }
 
 int setCompartmentStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setStrokeDashArray(style, strokeDashArray);
-
-    return -1;
+    return setStrokeDashArray(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()), strokeDashArray);
 }
 
 int setSpeciesStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setStrokeDashArray(style, strokeDashArray);
-
-    return -1;
+    return setStrokeDashArray(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()), strokeDashArray);
 }
 
 int setReactionStrokeDashArray(GlobalRenderInformation* globalRenderInformation, const std::vector<unsigned int>& strokeDashArray) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setStrokeDashArray(style, strokeDashArray);
-
-    return -1;
+    return setStrokeDashArray(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()), strokeDashArray);
 }
 
 unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1460,6 +1485,16 @@ unsigned int getNumStrokeDashes(RenderInformationBase* renderInformationBase, co
 
 unsigned int getNumStrokeDashes(Style* style) {
     return getNumStrokeDashes(getRenderGroup(style));
+}
+
+unsigned int getNumStrokeDashes(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
+        return getNumStrokeDashes(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return getStrokeDashArray(renderGroup).size();
+
+    return 0;
 }
 
 unsigned int getNumStrokeDashes(Transformation2D* transformation2D) {
@@ -1475,10 +1510,17 @@ unsigned int getStrokeDash(RenderInformationBase* renderInformationBase, const s
 }
 
 unsigned int getStrokeDash(Style* style, unsigned int strokeDashIndex) {
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), strokeDashIndex);
-
     return setStrokeDash(getRenderGroup(style), strokeDashIndex);
+}
+
+unsigned int getStrokeDash(RenderGroup* renderGroup, unsigned int strokeDashIndex) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
+        return getStrokeDash(getGeometricShape(renderGroup), strokeDashIndex);
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getDashByIndex(strokeDashIndex);
+
+    return NAN;
 }
 
 unsigned int getStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashIndex) {
@@ -1509,10 +1551,23 @@ int setStrokeDash(Style* style, unsigned int dash) {
 }
 
 int setStrokeDash(Style* style, unsigned int strokeDashIndex, unsigned int dash) {
-    if (getNumGeometricShapes(style) == 1)
-        return setStrokeDash(getGeometricShape(style), strokeDashIndex, dash);
-
     return setStrokeDash(getRenderGroup(style), strokeDashIndex, dash);
+}
+
+int setStrokeDash(RenderGroup* renderGroup, unsigned int dash) {
+    return setStrokeDash(renderGroup, 0, dash);
+}
+
+int setStrokeDash(RenderGroup* renderGroup, unsigned int strokeDashIndex, unsigned int dash) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeDashArray(getGeometricShape(renderGroup)))
+        return setStrokeDash(getGeometricShape(renderGroup), strokeDashIndex, dash);
+
+    if (isRenderGroup(renderGroup) && isValidStrokeDashValue(dash)) {
+        renderGroup->setDashByIndex(strokeDashIndex, dash);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setStrokeDash(Transformation2D* transformation2D, unsigned int dash) {
@@ -1529,27 +1584,15 @@ int setStrokeDash(Transformation2D* transformation2D, unsigned int strokeDashInd
 }
 
 int setCompartmentStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setStrokeDash(style, dash);
-
-    return -1;
+    return setStrokeDash(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()), dash);
 }
 
 int setSpeciesStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setStrokeDash(style, dash);
-
-    return -1;
+    return setStrokeDash(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()), dash);
 }
 
 int setReactionStrokeDash(GlobalRenderInformation* globalRenderInformation, unsigned int dash) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setStrokeDash(style, dash);
-
-    return -1;
+    return setStrokeDash(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()), dash);
 }
 
 bool isSetFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -1562,6 +1605,10 @@ bool isSetFontColor(RenderInformationBase* renderInformationBase, const std::str
 
 bool isSetFontColor(Style* style) {
     return isSetFontColor(getRenderGroup(style));
+}
+
+bool isSetFontColor(RenderGroup* renderGroup) {
+    return isSetStrokeColor(renderGroup);
 }
 
 bool isSetFontColor(Transformation2D* transformation2D) {
@@ -1580,6 +1627,10 @@ const std::string getFontColor(Style* style) {
     return getFontColor(getRenderGroup(style));
 }
 
+const std::string getFontColor(RenderGroup* renderGroup) {
+    return getStrokeColor(renderGroup);
+}
+
 const std::string getFontColor(Transformation2D* transformation2D) {
     return getStrokeColor(transformation2D);
 }
@@ -1594,6 +1645,10 @@ int setFontColor(RenderInformationBase* renderInformationBase, const std::string
 
 int setFontColor(Style* style, const std::string& fontColor) {
     return setFontColor(getRenderGroup(style), fontColor);
+}
+
+int setFontColor(RenderGroup* renderGroup, const std::string& fontColor) {
+    return setStrokeColor(renderGroup, fontColor);
 }
 
 int setFontColor(Transformation2D* transformation2D, const std::string& fontColor) {
@@ -1681,10 +1736,18 @@ bool isSetFontFamily(Style* style) {
     return isSetFontFamily(getRenderGroup(style));
 }
 
+bool isSetFontFamily(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontFamily(getGeometricShape(renderGroup)))
+        return isSetFontFamily(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetFontFamily();
+
+    return false;
+}
+
 bool isSetFontFamily(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetFontFamily();
-    else if (isText(transformation2D))
+    if (isText(transformation2D))
         return ((RenderGroup*)transformation2D)->isSetFontFamily();
 
     return false;
@@ -1702,10 +1765,18 @@ const std::string getFontFamily(Style* style) {
     return getFontFamily(getRenderGroup(style));
 }
 
+const std::string getFontFamily(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontFamily(getGeometricShape(renderGroup)))
+        return getFontFamily(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getFontFamily();
+
+    return "";
+}
+
 const std::string getFontFamily(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontFamily();
-    else if (isText(transformation2D))
+    if (isText(transformation2D))
         return ((RenderGroup*)transformation2D)->getFontFamily();
 
     return "";
@@ -1723,16 +1794,22 @@ int setFontFamily(Style* style, const std::string& fontFamily) {
     return setFontFamily(getRenderGroup(style), fontFamily);
 }
 
+int setFontFamily(RenderGroup* renderGroup, const std::string& fontFamily) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontFamily(getGeometricShape(renderGroup)))
+        return setFontFamily(getGeometricShape(renderGroup), fontFamily);
+
+    if (isRenderGroup(renderGroup) && isValidFontFamilyValue(fontFamily)) {
+        renderGroup->setFontFamily(fontFamily);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setFontFamily(Transformation2D* transformation2D, const std::string& fontFamily) {
-    if (isValidFontFamilyValue(fontFamily)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setFontFamily(fontFamily);
-            return 0;
-        }
-        else if (isText(transformation2D)) {
-            ((Text*)transformation2D)->setFontFamily(fontFamily);
-            return 0;
-        }
+    if (isText(transformation2D) && isValidFontFamilyValue(fontFamily)) {
+        ((Text*)transformation2D)->setFontFamily(fontFamily);
+        return 0;
     }
 
     return -1;
@@ -1810,10 +1887,18 @@ bool isSetFontSize(Style* style) {
     return isSetFontSize(getRenderGroup(style));
 }
 
+bool isSetFontSize(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontSize(getGeometricShape(renderGroup)))
+        return isSetFontSize(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetFontSize();
+
+    return false;
+}
+
 bool isSetFontSize(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetFontSize();
-    else if (isText(transformation2D))
+    if (isText(transformation2D))
         return ((RenderGroup*)transformation2D)->isSetFontSize();
 
     return false;
@@ -1831,12 +1916,20 @@ const RelAbsVector getFontSize(Style* style) {
     return getFontSize(getRenderGroup(style));
 }
 
+const RelAbsVector getFontSize(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontSize(getGeometricShape(renderGroup)))
+        return getFontSize(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getFontSize();
+
+    return RelAbsVector(NAN, NAN);
+}
+
 const RelAbsVector getFontSize(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontSize();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontSize();
-    
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->getFontSize();
+
     return RelAbsVector(NAN, NAN);
 }
 
@@ -1852,16 +1945,22 @@ int setFontSize(Style* style, const RelAbsVector& fontSize) {
     return setFontSize(getRenderGroup(style), fontSize);
 }
 
+int setFontSize(RenderGroup* renderGroup, const RelAbsVector& fontSize) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontSize(getGeometricShape(renderGroup)))
+        return setFontSize(getGeometricShape(renderGroup), fontSize);
+
+    if (isRenderGroup(renderGroup) && isValidFontSizeValue(fontSize)) {
+        renderGroup->setFontSize(fontSize);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setFontSize(Transformation2D* transformation2D, const RelAbsVector& fontSize) {
-    if (isValidFontSizeValue(fontSize)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setFontSize(fontSize);
-            return 0;
-        }
-        else if (isText(transformation2D)) {
-            ((Text*)transformation2D)->setFontSize(fontSize);
-            return 0;
-        }
+    if (isText(transformation2D) && isValidFontSizeValue(fontSize)) {
+        ((Text*)transformation2D)->setFontSize(fontSize);
+        return 0;
     }
 
     return -1;
@@ -1877,6 +1976,19 @@ int setFontSizeAsDouble(RenderInformationBase* renderInformationBase, const std:
 
 int setFontSizeAsDouble(Style* style, const double& fontSize) {
     return setFontSizeAsDouble(getRenderGroup(style), fontSize);
+}
+
+int setFontSizeAsDouble(RenderGroup* renderGroup, const double& fontSize) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontSize(getGeometricShape(renderGroup)))
+        return setFontSizeAsDouble(getGeometricShape(renderGroup), fontSize);
+
+    if (isRenderGroup(renderGroup)) {
+        RelAbsVector fontSizeRelAbs;
+        fontSizeRelAbs.setAbsoluteValue(fontSize);
+        return setFontSize(renderGroup, fontSizeRelAbs);
+    }
+
+    return -1;
 }
 
 int setFontSizeAsDouble(Transformation2D* transformation2D, const double& fontSize) {
@@ -1999,11 +2111,19 @@ bool isSetFontWeight(Style* style) {
     return isSetFontWeight(getRenderGroup(style));
 }
 
+bool isSetFontWeight(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontWeight(getGeometricShape(renderGroup)))
+        return isSetFontWeight(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetFontWeight();
+
+    return false;
+}
+
 bool isSetFontWeight(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetFontWeight();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetFontWeight();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->isSetFontWeight();
 
     return false;
 }
@@ -2020,11 +2140,19 @@ const std::string getFontWeight(Style* style) {
     return getFontWeight(getRenderGroup(style));
 }
 
+const std::string getFontWeight(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontWeight(getGeometricShape(renderGroup)))
+        return getFontWeight(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getFontWeightAsString();
+
+    return "";
+}
+
 const std::string getFontWeight(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontWeightAsString();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontWeightAsString();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->getFontWeightAsString();
 
     return "";
 }
@@ -2041,16 +2169,22 @@ int setFontWeight(Style* style, const std::string& fontWeight) {
     return setFontWeight(getRenderGroup(style), fontWeight);
 }
 
+int setFontWeight(RenderGroup* renderGroup, const std::string& fontWeight) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontWeight(getGeometricShape(renderGroup)))
+        return setFontWeight(getGeometricShape(renderGroup), fontWeight);
+
+    if (isRenderGroup(renderGroup) && isValidFontWeightValue(fontWeight)) {
+        renderGroup->setFontWeight(fontWeight);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setFontWeight(Transformation2D* transformation2D, const std::string& fontWeight) {
-    if (isValidFontWeightValue(fontWeight)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setFontWeight(fontWeight);
-            return 0;
-        }
-        else if (isText(transformation2D)) {
-            ((Text*)transformation2D)->setFontWeight(fontWeight);
-            return 0;
-        }
+    if (isText(transformation2D) && isValidFontWeightValue(fontWeight)) {
+        ((Text*)transformation2D)->setFontWeight(fontWeight);
+        return 0;
     }
 
     return -1;
@@ -2128,11 +2262,19 @@ bool isSetFontStyle(Style* style) {
     return isSetFontStyle(getRenderGroup(style));
 }
 
+bool isSetFontStyle(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontStyle(getGeometricShape(renderGroup)))
+        return isSetFontStyle(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetFontStyle();
+
+    return false;
+}
+
 bool isSetFontStyle(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetFontStyle();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetFontStyle();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->isSetFontStyle();
 
     return false;
 }
@@ -2149,11 +2291,19 @@ const std::string getFontStyle(Style* style) {
     return getFontStyle(getRenderGroup(style));
 }
 
+const std::string getFontStyle(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontStyle(getGeometricShape(renderGroup)))
+        return getFontStyle(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getFontStyleAsString();
+
+    return "";
+}
+
 const std::string getFontStyle(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontStyleAsString();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->getFontStyleAsString();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->getFontStyleAsString();
 
     return "";
 }
@@ -2170,16 +2320,22 @@ int setFontStyle(Style* style, const std::string& fontStyle) {
     return setFontStyle(getRenderGroup(style), fontStyle);
 }
 
+int setFontStyle(RenderGroup* renderGroup, const std::string& fontStyle) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFontStyle(getGeometricShape(renderGroup)))
+        return setFontStyle(getGeometricShape(renderGroup), fontStyle);
+
+    if (isRenderGroup(renderGroup) && isValidFontStyleValue(fontStyle)) {
+        renderGroup->setFontStyle(fontStyle);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyle) {
-    if (isValidFontStyleValue(fontStyle)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setFontStyle(fontStyle);
-            return 0;
-        }
-        else if (isText(transformation2D)) {
-            ((Text*)transformation2D)->setFontStyle(fontStyle);
-            return 0;
-        }
+    if (isText(transformation2D) && isValidFontStyleValue(fontStyle)) {
+        ((Text*)transformation2D)->setFontStyle(fontStyle);
+        return 0;
     }
 
     return -1;
@@ -2257,11 +2413,19 @@ bool isSetTextAnchor(Style* style) {
     return isSetTextAnchor(getRenderGroup(style));
 }
 
+bool isSetTextAnchor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetTextAnchor(getGeometricShape(renderGroup)))
+        return isSetTextAnchor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetTextAnchor();
+
+    return false;
+}
+
 bool isSetTextAnchor(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetTextAnchor();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetTextAnchor();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->isSetTextAnchor();
 
     return false;
 }
@@ -2278,11 +2442,19 @@ const std::string getTextAnchor(Style* style) {
     return getTextAnchor(getRenderGroup(style));
 }
 
+const std::string getTextAnchor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetTextAnchor(getGeometricShape(renderGroup)))
+        return getTextAnchor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getTextAnchorAsString();
+
+    return "";
+}
+
 const std::string getTextAnchor(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getTextAnchorAsString();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->getTextAnchorAsString();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->getTextAnchorAsString();
 
     return "";
 }
@@ -2299,16 +2471,22 @@ int setTextAnchor(Style* style, const std::string& textAnchor) {
     return setTextAnchor(getRenderGroup(style), textAnchor);
 }
 
+int setTextAnchor(RenderGroup* renderGroup, const std::string& textAnchor) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetTextAnchor(getGeometricShape(renderGroup)))
+        return setTextAnchor(getGeometricShape(renderGroup), textAnchor);
+
+    if (isRenderGroup(renderGroup) && isValidTextAnchorValue(textAnchor)) {
+        renderGroup->setTextAnchor(textAnchor);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnchor) {
-    if (isValidTextAnchorValue(textAnchor)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setTextAnchor(textAnchor);
-            return 0;
-        }
-        else if (isText(transformation2D)) {
-            ((Text*)transformation2D)->setTextAnchor(textAnchor);
-            return 0;
-        }
+    if (isText(transformation2D) && isValidTextAnchorValue(textAnchor)) {
+        ((Text*)transformation2D)->setTextAnchor(textAnchor);
+        return 0;
     }
 
     return -1;
@@ -2386,11 +2564,19 @@ bool isSetVTextAnchor(Style* style) {
     return isSetVTextAnchor(getRenderGroup(style));
 }
 
+bool isSetVTextAnchor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetVTextAnchor(getGeometricShape(renderGroup)))
+        return isSetVTextAnchor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetVTextAnchor();
+
+    return false;
+}
+
 bool isSetVTextAnchor(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetVTextAnchor();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetVTextAnchor();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->isSetVTextAnchor();
 
     return false;
 }
@@ -2407,11 +2593,19 @@ const std::string getVTextAnchor(Style* style) {
     return getVTextAnchor(getRenderGroup(style));
 }
 
+const std::string getVTextAnchor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetVTextAnchor(getGeometricShape(renderGroup)))
+        return getVTextAnchor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getVTextAnchorAsString();
+
+    return "";
+}
+
 const std::string getVTextAnchor(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getVTextAnchorAsString();
-    else if (isText(transformation2D))
-        return ((RenderGroup*)transformation2D)->getVTextAnchorAsString();
+    if (isText(transformation2D))
+        return ((Text*)transformation2D)->getVTextAnchorAsString();
 
     return "";
 }
@@ -2428,18 +2622,24 @@ int setVTextAnchor(Style* style, const std::string& vtextAnchor) {
     return setVTextAnchor(getRenderGroup(style), vtextAnchor);
 }
 
-int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor) {
-    if (isValidVTextAnchorValue(vtextAnchor)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setVTextAnchor(vtextAnchor);
-            return 0;
-        }
-        else if (isText(transformation2D)) {
-            ((Text*)transformation2D)->setVTextAnchor(vtextAnchor);
-            return 0;
-        }
+int setVTextAnchor(RenderGroup* renderGroup, const std::string& vtextAnchor) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetVTextAnchor(getGeometricShape(renderGroup)))
+        return setVTextAnchor(getGeometricShape(renderGroup), vtextAnchor);
+
+    if (isRenderGroup(renderGroup) && isValidVTextAnchorValue(vtextAnchor)) {
+        renderGroup->setVTextAnchor(vtextAnchor);
+        return 0;
     }
-    
+
+    return -1;
+}
+
+int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextAnchor) {
+    if (isText(transformation2D) && isValidVTextAnchorValue(vtextAnchor)) {
+        ((Text*)transformation2D)->setVTextAnchor(vtextAnchor);
+        return 0;
+    }
+
     return -1;
 }
 
@@ -2515,6 +2715,16 @@ bool isSetFillColor(Style* style) {
     return isSetFillColor(getRenderGroup(style));
 }
 
+bool isSetFillColor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
+        return isSetFillColor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetFill();
+
+    return false;
+}
+
 bool isSetFillColor(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive2D(transformation2D))
         return ((GraphicalPrimitive2D*)transformation2D)->isSetFill();
@@ -2534,6 +2744,16 @@ const std::string getFillColor(Style* style) {
     return getFillColor(getRenderGroup(style));
 }
 
+const std::string getFillColor(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
+        return getFillColor(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getFill();
+
+    return "";
+}
+
 const std::string getFillColor(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive2D(transformation2D))
         return ((GraphicalPrimitive2D*)transformation2D)->getFill();
@@ -2550,10 +2770,19 @@ int setFillColor(RenderInformationBase* renderInformationBase, const std::string
 }
 
 int setFillColor(Style* style, const std::string& fillColor) {
-    if (getNumGeometricShapes(style) == 1)
-        return setFillColor(getGeometricShape(style), fillColor);
-
     return setFillColor(getRenderGroup(style), fillColor);
+}
+
+int setFillColor(RenderGroup* renderGroup, const std::string& fillColor) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
+        return setFillColor(getGeometricShape(renderGroup), fillColor);
+
+    if (isRenderGroup(renderGroup) && isValidFillColorValue(fillColor)) {
+        renderGroup->setFill(fillColor);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setFillColor(Transformation2D* transformation2D, const std::string& fillColor) {
@@ -2565,16 +2794,49 @@ int setFillColor(Transformation2D* transformation2D, const std::string& fillColo
     return -1;
 }
 
-const std::string getCompartmentFillColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
-            return getFillColor(getGeometricShape(style));
-
-        return getFillColor(style);
+int setFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& gradientId) {
+    if (renderInformationBase && renderInformationBase->getGradientDefinition(gradientId)) {
+        return setFillColor(getStyle(renderInformationBase, graphicalObject), gradientId);
     }
 
-    return "";
+    return -1;
+}
+
+int setFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& gradientId) {
+    if (renderInformationBase && renderInformationBase->getGradientDefinition(gradientId)) {
+        return setFillColor(getStyle(renderInformationBase, attribute), gradientId);
+    }
+
+    return -1;
+}
+
+int setFillColorAsGradient(Style* style, const std::string& gradientId) {
+    return setFillColorAsGradient(getRenderGroup(style), gradientId);
+}
+
+int setFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
+        return setFillColorAsGradient(getGeometricShape(renderGroup), gradientId);
+
+    if (isRenderGroup(renderGroup)) {
+        renderGroup->setFill(gradientId);
+        return 0;
+    }
+
+    return -1;
+}
+
+int setFillColorAsGradient(Transformation2D* transformation2D, const std::string& gradientId) {
+    if (isGraphicalPrimitive2D(transformation2D)) {
+        ((GraphicalPrimitive2D *) transformation2D)->setFill(gradientId);
+        return 0;
+    }
+
+    return -1;
+}
+
+const std::string getCompartmentFillColor(GlobalRenderInformation* globalRenderInformation) {
+    return getFillColor(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
 
 int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
@@ -2587,16 +2849,19 @@ int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, co
     return -1;
 }
 
-const std::string getSpeciesFillColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
+int setCompartmentFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
-            return getFillColor(getGeometricShape(style));
-
-        return getFillColor(style);
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
     }
 
-    return "";
+    return -1;
+}
+
+const std::string getSpeciesFillColor(GlobalRenderInformation* globalRenderInformation) {
+    return getFillColor(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()));
 }
 
 int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
@@ -2609,16 +2874,19 @@ int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const 
     return -1;
 }
 
-const std::string getReactionFillColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+int setSpeciesFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getFillColor(getGeometricShape(style)).empty())
-            return getFillColor(getGeometricShape(style));
-
-        return getFillColor(style);
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
     }
 
-    return "";
+    return -1;
+}
+
+const std::string getReactionFillColor(GlobalRenderInformation* globalRenderInformation) {
+    return getFillColor(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
 
 int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
@@ -2626,6 +2894,17 @@ int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const
     if (style) {
         addColor(globalRenderInformation, fillColor);
         return setFillColor(style, fillColor);
+    }
+
+    return -1;
+}
+
+int setReactionFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId) {
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
+    if (style) {
+        if (globalRenderInformation->getGradientDefinition(gradientId)) {
+            return setFillColorAsGradient(style, gradientId);
+        }
     }
 
     return -1;
@@ -2641,6 +2920,16 @@ bool isSetFillRule(RenderInformationBase* renderInformationBase, const std::stri
 
 bool isSetFillRule(Style* style) {
     return isSetFillRule(getRenderGroup(style));
+}
+
+bool isSetFillRule(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillRule(getGeometricShape(renderGroup)))
+        return isSetFillRule(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetFillRule();
+
+    return false;
 }
 
 bool isSetFillRule(Transformation2D* transformation2D) {
@@ -2662,6 +2951,16 @@ const std::string getFillRule(Style* style) {
     return getFillRule(getRenderGroup(style));
 }
 
+const std::string getFillRule(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillRule(getGeometricShape(renderGroup)))
+        return getFillRule(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getFillRuleAsString();
+
+    return "";
+}
+
 const std::string getFillRule(Transformation2D* transformation2D) {
     if (isGraphicalPrimitive2D(transformation2D))
         return ((GraphicalPrimitive2D*)transformation2D)->getFillRuleAsString();
@@ -2681,6 +2980,18 @@ int setFillRule(Style* style, const std::string& fillRule) {
     return setFillRule(getRenderGroup(style), fillRule);
 }
 
+int setFillRule(RenderGroup* renderGroup, const std::string& fillRule) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillRule(getGeometricShape(renderGroup)))
+        return setFillRule(getGeometricShape(renderGroup), fillRule);
+
+    if (isRenderGroup(renderGroup) && isValidFillRuleValue(fillRule)) {
+        renderGroup->setFillRule(fillRule);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setFillRule(Transformation2D* transformation2D, const std::string& fillRule) {
     if (isGraphicalPrimitive2D(transformation2D) && isValidFillRuleValue(fillRule)) {
         ((GraphicalPrimitive2D*)transformation2D)->setFillRule(fillRule);
@@ -2691,63 +3002,27 @@ int setFillRule(Transformation2D* transformation2D, const std::string& fillRule)
 }
 
 const std::string getCompartmentFillRule(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getFillRule(getGeometricShape(style)).empty())
-            return getFillRule(getGeometricShape(style));
-
-        return getFillRule(style);
-    }
-
-    return "";
+    return getFillRule(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
 
 int setCompartmentFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
-    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setFillRule(style, fillRule);
-
-    return -1;
+    return setFillRule(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()), fillRule);
 }
 
 const std::string getSpeciesFillRule(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getFillRule(getGeometricShape(style)).empty())
-            return getFillRule(getGeometricShape(style));
-
-        return getFillRule(style);
-    }
-
-    return "";
+    return getFillRule(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()));
 }
 
 int setSpeciesFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
-    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setFillRule(style, fillRule);
-
-    return -1;
+    return setFillRule(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()), fillRule);
 }
 
 const std::string getReactionFillRule(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style) {
-        if (getNumGeometricShapes(style) == 1 && !getFillRule(getGeometricShape(style)).empty())
-            return getFillRule(getGeometricShape(style));
-
-        return getFillRule(style);
-    }
-
-    return "";
+    return getFillRule(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
 
 int setReactionFillRule(GlobalRenderInformation* globalRenderInformation, const std::string& fillRule) {
-    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setFillRule(style, fillRule);
-
-    return -1;
+    return setFillRule(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()), fillRule);
 }
 
 bool isSetStartHead(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
@@ -2762,10 +3037,18 @@ bool isSetStartHead(Style* style) {
     return isSetStartHead(getRenderGroup(style));
 }
 
+bool isSetStartHead(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStartHead(getGeometricShape(renderGroup)))
+        return isSetStartHead(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetStartHead();
+
+    return false;
+}
+
 bool isSetStartHead(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetStartHead();
-    else if (isRenderCurve(transformation2D))
+    if (isRenderCurve(transformation2D))
         return ((RenderCurve*)transformation2D)->isSetStartHead();
 
     return false;
@@ -2783,10 +3066,18 @@ const std::string getStartHead(Style* style) {
     return getStartHead(getRenderGroup(style));
 }
 
+const std::string getStartHead(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStartHead(getGeometricShape(renderGroup)))
+        return getStartHead(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getStartHead();
+
+    return "";
+}
+
 const std::string getStartHead(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getStartHead();
-    else if (isRenderCurve(transformation2D))
+    if (isRenderCurve(transformation2D))
         return ((RenderCurve*)transformation2D)->getStartHead();
 
     return "";
@@ -2804,16 +3095,22 @@ int setStartHead(Style* style, const std::string& startHead) {
     return setStartHead(getRenderGroup(style), startHead);
 }
 
+int setStartHead(RenderGroup* renderGroup, const std::string& startHead) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetStartHead(getGeometricShape(renderGroup)))
+        return setStartHead(getGeometricShape(renderGroup), startHead);
+
+    if (isRenderGroup(renderGroup) && isValidStartHeadValue(startHead)) {
+        renderGroup->setStartHead(startHead);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setStartHead(Transformation2D* transformation2D, const std::string startHead) {
-    if (isValidStartHeadValue(startHead)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setStartHead(startHead);
-            return 0;
-        }
-        else if (isRenderCurve(transformation2D)) {
-            ((RenderCurve*)transformation2D)->setStartHead(startHead);
-            return 0;
-        }
+    if (isRenderCurve(transformation2D) && isValidStartHeadValue(startHead)) {
+        ((RenderCurve*)transformation2D)->setStartHead(startHead);
+        return 0;
     }
 
     return -1;
@@ -2831,10 +3128,18 @@ bool isSetEndHead(Style* style) {
     return isSetEndHead(getRenderGroup(style));
 }
 
+bool isSetEndHead(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetEndHead(getGeometricShape(renderGroup)))
+        return isSetEndHead(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->isSetEndHead();
+
+    return false;
+}
+
 bool isSetEndHead(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->isSetEndHead();
-    else if (isRenderCurve(transformation2D))
+    if (isRenderCurve(transformation2D))
         return ((RenderCurve*)transformation2D)->isSetEndHead();
 
     return false;
@@ -2852,10 +3157,18 @@ const std::string getEndHead(Style* style) {
     return getEndHead(getRenderGroup(style));
 }
 
+const std::string getEndHead(RenderGroup* renderGroup) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetEndHead(getGeometricShape(renderGroup)))
+        return getEndHead(getGeometricShape(renderGroup));
+
+    if (isRenderGroup(renderGroup))
+        return renderGroup->getEndHead();
+
+    return "";
+}
+
 const std::string getEndHead(Transformation2D* transformation2D) {
-    if (isRenderGroup(transformation2D))
-        return ((RenderGroup*)transformation2D)->getEndHead();
-    else if (isRenderCurve(transformation2D))
+    if (isRenderCurve(transformation2D))
         return ((RenderCurve*)transformation2D)->getEndHead();
 
     return "";
@@ -2873,16 +3186,22 @@ int setEndHead(Style* style, const std::string& endHead) {
     return setEndHead(getRenderGroup(style), endHead);
 }
 
+int setEndHead(RenderGroup* renderGroup, const std::string& endHead) {
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetEndHead(getGeometricShape(renderGroup)))
+        return setEndHead(getGeometricShape(renderGroup), endHead);
+
+    if (isRenderGroup(renderGroup) && isValidEndHeadValue(endHead)) {
+        renderGroup->setEndHead(endHead);
+        return 0;
+    }
+
+    return -1;
+}
+
 int setEndHead(Transformation2D* transformation2D, const std::string endHead) {
-    if (isValidEndHeadValue(endHead)) {
-        if (isRenderGroup(transformation2D)) {
-            ((RenderGroup*)transformation2D)->setEndHead(endHead);
-            return 0;
-        }
-        else if (isRenderCurve(transformation2D)) {
-            ((RenderCurve*)transformation2D)->setEndHead(endHead);
-            return 0;
-        }
+    if (isRenderCurve(transformation2D) && isValidEndHeadValue(endHead)) {
+        ((RenderCurve*)transformation2D)->setEndHead(endHead);
+        return 0;
     }
 
     return -1;
@@ -3445,6 +3764,314 @@ bool isText(Transformation2D* shape) {
 
     return false;
 }
+
+bool isSetGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSetGeometricShapeStrokeColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->isSetStroke();
+
+    return false;
+}
+
+const std::string getGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const std::string getGeometricShapeStrokeColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->getStroke();
+
+    return "";
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(renderInformationBase, graphicalObject, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(renderInformationBase, attribute, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(Style* style, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(style, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getRenderGroup(style), geometricShapeIndex, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(renderGroup, 0, strokeColor);
+}
+
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& strokeColor) {
+    return setGeometricShapeStrokeColor(getGeometricShape(renderGroup, geometricShapeIndex), strokeColor);
+}
+
+int setGeometricShapeStrokeColor(Transformation2D* shape, const std::string& strokeColor) {
+    if (isValidColorValue(strokeColor)) {
+        if (isGraphicalPrimitive1D(shape)) {
+            ((GraphicalPrimitive1D*)shape)->setStroke(strokeColor);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeStrokeWidth(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSetGeometricShapeStrokeWidth(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->isSetStrokeWidth();
+
+    return false;
+}
+
+const double getGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const double getGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const double getGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getRenderGroup(style), geometricShapeIndex);
+}
+
+const double getGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeStrokeWidth(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const double getGeometricShapeStrokeWidth(Transformation2D* shape) {
+    if (isGraphicalPrimitive1D(shape))
+        return ((GraphicalPrimitive1D*)shape)->getStrokeWidth();
+
+    return -1;
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(renderInformationBase, graphicalObject, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(renderInformationBase, attribute, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getStyle(renderInformationBase, attribute), geometricShapeIndex, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(Style* style, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(style, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(Style* style, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getRenderGroup(style), geometricShapeIndex, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderGroup* renderGroup, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(renderGroup, 0, strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const double& strokeWidth) {
+    return setGeometricShapeStrokeWidth(getGeometricShape(renderGroup, geometricShapeIndex), strokeWidth);
+}
+
+int setGeometricShapeStrokeWidth(Transformation2D* shape, const double& strokeWidth) {
+    if (isGraphicalPrimitive1D(shape)) {
+        ((GraphicalPrimitive1D*)shape)->setStrokeWidth(strokeWidth);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+bool isSetGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return isSetGeometricShapeFillColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+bool isSetGeometricShapeFillColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive2D(shape))
+        return ((GraphicalPrimitive2D*)shape)->isSetFillColor();
+
+    return false;
+}
+
+const std::string getGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getRenderGroup(style), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeFillColor(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const std::string getGeometricShapeFillColor(Transformation2D* shape) {
+    if (isGraphicalPrimitive2D(shape))
+        return ((GraphicalPrimitive2D*)shape)->getFillColor();
+
+    return "";
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fillColor) {
+    return setGeometricShapeFillColor(renderInformationBase, graphicalObject, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fillColor) {
+    return setGeometricShapeFillColor(renderInformationBase, attribute, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getStyle(renderInformationBase, attribute), geometricShapeIndex, fillColor);
+}
+
+int setGeometricShapeFillColor(Style* style, const std::string& fillColor) {
+    return setGeometricShapeFillColor(style, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getRenderGroup(style), geometricShapeIndex, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderGroup* renderGroup, const std::string& fillColor) {
+    return setGeometricShapeFillColor(renderGroup, 0, fillColor);
+}
+
+int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& fillColor) {
+    return setGeometricShapeFillColor(getGeometricShape(renderGroup, geometricShapeIndex), fillColor);
+}
+
+int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColor) {
+    if (isValidColorValue(fillColor)) {
+        if (isGraphicalPrimitive2D(shape)) {
+            ((GraphicalPrimitive2D*)shape)->setFillColor(fillColor);
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(renderInformationBase, graphicalObject, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(renderInformationBase, attribute, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getStyle(renderInformationBase, attribute), geometricShapeIndex, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(Style* style, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(style, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(Style* style, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getRenderGroup(style), geometricShapeIndex, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderGroup* renderGroup, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(renderGroup, 0, gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& gradientId) {
+    return setGeometricShapeFillColorAsGradient(getGeometricShape(renderGroup, geometricShapeIndex), gradientId);
+}
+
+int setGeometricShapeFillColorAsGradient(Transformation2D* shape, const std::string& gradientId) {
+    if (isGraphicalPrimitive2D(shape)) {
+        ((GraphicalPrimitive2D*)shape)->setFillColor(gradientId);
+        return 0;
+    }
+
+    return -1;
+}
+
+
 
 bool isSetGeometricShapeX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return isSetGeometricShapeX(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
