@@ -2674,28 +2674,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return "";
     }
 
-    int c_api_getNumValidColorNameValues() {
-        return getValidHtmlColorNames().size();
-    }
-
-    const char* c_api_getNthValidColorNameValue(int index) {
-        if (index >= 0 && index < c_api_getNumValidColorNameValues())
-            return strdup(getValidHtmlColorNames().at(index).c_str());
-
-        return "";
-    }
-
-    int c_api_getNumValidHexColorCodeValues() {
-        return getValidHexColorCodes().size();
-    }
-
-    const char* c_api_getNthValidHexColorCodeValue(int index) {
-        if (index >= 0 && index < c_api_getNumValidHexColorCodeValues())
-            return strdup(getValidHexColorCodes().at(index).c_str());
-
-        return "";
-    }
-
     int c_api_getNumValidSpreadMethodValues() {
         return getValidSpreadMethodValues().size();
     }
