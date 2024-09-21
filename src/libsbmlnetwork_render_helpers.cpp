@@ -304,6 +304,7 @@ const std::string addColor(RenderInformationBase* renderInformationBase, const s
             delete cd;
             return toLowerCase(colorId);
         }
+    }
 
     return "";
 }
