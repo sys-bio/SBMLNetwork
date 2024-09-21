@@ -11,8 +11,12 @@ return 0;
 }
 
 Layout* getLayout(ListOfLayouts* listOfLayouts, unsigned int layoutIndex) {
-    if (listOfLayouts)
-        return listOfLayouts->get(layoutIndex);
+    if (listOfLayouts) {
+        if (layoutIndex < getNumLayouts(listOfLayouts))
+            return listOfLayouts->get(layoutIndex);
+
+        std::cerr << "error: layoutIndex is out of bounds." << std::endl;
+    }
 
     return NULL;
 }

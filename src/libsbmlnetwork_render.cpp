@@ -28,8 +28,12 @@ const unsigned int getNumLocalRenderInformation(ListOfLocalRenderInformation* li
 }
 
 LocalRenderInformation* getLocalRenderInformation(ListOfLocalRenderInformation* listOfLocalRenderInformation, unsigned int renderIndex) {
-    if (listOfLocalRenderInformation)
-        return listOfLocalRenderInformation->get(renderIndex);
+    if (listOfLocalRenderInformation) {
+        if (renderIndex < listOfLocalRenderInformation->size())
+            return listOfLocalRenderInformation->get(renderIndex);
+
+        std::cerr << "error: renderIndex out of range" << std::endl;
+    }
 
     return NULL;
 }
