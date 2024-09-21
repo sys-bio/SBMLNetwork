@@ -5879,22 +5879,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param index an int representing the index of the valid value to retrieve.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidDistributionDirectionValue(int index);
 
-    /// @brief Returns the number of valid values for the "color" name attribute that can be used in for all set color value functions.
-    /// @return the number of valid values for the "color" name attribute.
-    LIBSBMLNETWORK_EXTERN int c_api_getNumValidColorNameValues();
-
-    /// @brief Returns the nth valid value for the "color" name attribute that can be used in for all set color value functions.
-    /// @param index an int representing the index of the valid value to retrieve.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidColorNameValue(int index);
-
-    /// @brief Returns the number of valid values for the hex "color" attribute that can be used in for all set color value functions.
-    /// @return the number of valid values for the hex "color" attribute.
-    LIBSBMLNETWORK_EXTERN int c_api_getNumValidHexColorCodeValues();
-
-    /// @brief Returns the nth valid value for the hex "color" attribute that can be used in for all set color value functions.
-    /// @param index an int representing the index of the valid value to retrieve.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getNthValidHexColorCodeValue(int index);
-
     /// @brief Returns the number of valid values for the "spread-method" attribute that can be used in for c_api_setGradientSpreadMethod function.
     /// @return the number of valid values for the "spread-method" attribute.
     LIBSBMLNETWORK_EXTERN int c_api_getNumValidSpreadMethodValues();

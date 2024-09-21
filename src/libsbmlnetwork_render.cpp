@@ -8018,10 +8018,11 @@ int addRenderPointToGeometricShape(RenderGroup* renderGroup, unsigned int geomet
 }
 
 int addRenderPointToGeometricShape(Transformation2D* shape) {
+    RenderPoint rp(shape->getLevel(), shape->getVersion());
     if (isPolygon(shape))
-        return ((Polygon*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+        return ((Polygon*)shape)->addElement(&rp);
     else if (isRenderCurve(shape))
-        return ((RenderCurve*)shape)->addElement(new RenderPoint(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+        return ((RenderCurve*)shape)->addElement(&rp);
 
     return -1;
 }
@@ -8043,10 +8044,11 @@ int addRenderCubicBezierToGeometricShape(RenderGroup* renderGroup, unsigned int 
 }
 
 int addRenderCubicBezierToGeometricShape(Transformation2D* shape) {
+    RenderCubicBezier rcb(shape->getLevel(), shape->getVersion());
     if (isPolygon(shape))
-        return ((Polygon*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+        return ((Polygon*)shape)->addElement(&rcb);
     else if (isRenderCurve(shape))
-        return ((RenderCurve*)shape)->addElement(new RenderCubicBezier(new RenderPkgNamespaces(shape->getLevel(), shape->getVersion())));
+        return ((RenderCurve*)shape)->addElement(&rcb);
 
     return -1;
 }

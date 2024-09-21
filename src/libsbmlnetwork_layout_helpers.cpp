@@ -1,6 +1,7 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_common.h"
 #include "libsbmlnetwork_layout.h"
+#include "libsbmlnetwork_sbmldocument_layout.h"
 
 #include <cmath>
 #include <climits>
@@ -59,8 +60,21 @@ void enableLayoutPlugin(SBMLDocument* document) {
     document->setPackageRequired("layout", false);
 }
 
+void freeUserData(SBMLDocument* document) {
+    if (document) {
+        const int numLayouts = getNumLayouts(document);
+        for (int i = 0; i < numLayouts; i++)
+            freeUserData(getLayout(document, i));
+    }
+}
+
 void freeUserData(Layout* layout) {
-    freeUserData(layout);
+    if (layout->isSetUserData()) {
+        auto userData = (std::map<std::string, std::string>*)layout->getUserData();
+        if (userData) {
+            delete userData;
+        }
+    }
     freeUserData(layout->getDimensions());
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
         freeUserData(layout->getCompartmentGlyph(i));
@@ -131,14 +145,12 @@ const std::string getDefaultLayoutId() {
     return  "libSBMLNetwork_Layout";
 }
 
-const bool canUpdateLayoutCurves(Layout* layout) {
-    return layout->getId() == getDefaultLayoutId();
-}
-
 void setDefaultLayoutDimensions(Layout* layout) {
     Dimensions* dimensions = layout->getDimensions();
-    if (!dimensions)
+    if (!dimensions) {
         dimensions = new Dimensions(layout->getLevel(), layout->getVersion(), layout->getPackageVersion());
+        layout->setDimensions(dimensions);
+    }
     if (dimensions->getWidth() < 0.0001)
         dimensions->setWidth(1024.0);
     if (dimensions->getHeight() < 0.0001)

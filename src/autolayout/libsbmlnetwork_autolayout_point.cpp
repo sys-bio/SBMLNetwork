@@ -9,7 +9,7 @@ AutoLayoutPoint::AutoLayoutPoint(const double& x, const double& y) {
 }
 
 const double AutoLayoutPoint::getX() const {
-    return roundToTwoDecimalPlaces(_x);
+    return _x;
 };
 
 void AutoLayoutPoint::setX(const double& x) {
@@ -17,7 +17,7 @@ void AutoLayoutPoint::setX(const double& x) {
 }
 
 const double AutoLayoutPoint::getY() const {
-    return roundToTwoDecimalPlaces(_y);
+    return _y;
 };
 
 void AutoLayoutPoint::setY(const double& y) {
