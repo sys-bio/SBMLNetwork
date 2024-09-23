@@ -3154,10 +3154,35 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return @c true if the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false if either the "ry" attribute is not set or the object is @c NULL
     LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Returns the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param ry a double value to be set as "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* reactionId, const double ry, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param ry a double value to be set as "ry" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, const char* reactionId, const double ry, int reactionGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the number of elements of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3168,11 +3193,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the number of elements of the RenderGroup of the LineEnding object, or @c 0 if the object is @c NULL
     LIBSBMLNETWORK_EXTERN int c_api_getLineEndingGeometricShapeNumSegments(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the number of segments of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the number of segments of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN int c_api_getSpeciesReferenceLineEndingGeometricShapeNumSegments(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Predicates returning @c true if the "type" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set to "cubicBezier".
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the LineEnding object.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param renderIndex the index number of the RenderInformationBase object.
+    /// @return @c true if the "type" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set to "cubicBezier", @c false otherwise.
     LIBSBMLNETWORK_EXTERN bool c_api_isLineEndingGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* id, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Predicates returning @c true if the "type" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set to "cubicBezier".
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return @c true if the "type" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set to "cubicBezier", @c false otherwise.
     LIBSBMLNETWORK_EXTERN bool c_api_isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3194,10 +3242,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the value of the "x" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "x" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param x a double value to be set as "x" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param x a double value to be set as "x" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeSegmentX(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3219,10 +3295,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the value of the "y" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "y" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "y" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param y a double value to be set as "y" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "y" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param y a double value to be set as "y" attribute of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeSegmentY(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3244,10 +3348,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the value of the "x" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "x" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param x a double value to be set as "x" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param x a double value to be set as "x" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the base point 1 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3269,10 +3401,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the value of the "y" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "y" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "y" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param y a double value to be set as "y" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "y" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param y a double value to be set as "y" attribute of the base point 1 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3294,10 +3454,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* id, const double x, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the value of the "x" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "x" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param x a double value to be set as "x" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "x" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param x a double value to be set as "x" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const char* reactionId, const double x, int reactionGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Returns the value of the "y" attribute of the base point 2 of element at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3319,10 +3507,38 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* id, const double y, int segmentIndex = 0, int geometricShapeIndex = 0, int renderIndex = 0);
 
+    /// @brief Returns the value of the "y" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "y" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "y" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param y a double value to be set as "y" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "y" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param y a double value to be set as "y" attribute of the base point 2 of the segment at the given index of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param segmentIndex the index of the segment.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex = 0, int layoutIndex = 0, int segmentIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
@@ -3351,12 +3567,45 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingGeometricShapeHref(SBMLDocument* document, const char* id, const char* href, int geometricShapeIndex = 0, int renderIndex = 0);
 
+   /// @brief Predicates returning @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return @c true if the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object is set, @c false otherwise.
     LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Returns the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object, or @c NULL if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given species reference glyph of the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param href a string to be set as the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param speciesReferenceGlyphIndex the index of the species reference glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, const char* reactionId, const char* href, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
+    /// @brief Sets the value of the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object associated with the given reaction glyph of the given layout of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction.
+    /// @param href a string to be set as the "href" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object.
+    /// @param reactionGlyphIndex the index of the reaction glyph.
+    /// @param layoutIndex the index of the layout.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionLineEndingGeometricShapeHref(SBMLDocument* document, const char* reactionId, const char* href, int reactionGlyphIndex = 0, int layoutIndex = 0, int geometricShapeIndex = 0);
 
     /// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject is set.
@@ -3409,24 +3658,33 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineColor(SBMLDocument* document, const char* id, const char* lineColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object, or @c "" if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsBorderColor(SBMLDocument* document);
 
-    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object, or @c "" if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesBorderColor(SBMLDocument* document);
 
-    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object, or @c "" if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsLineColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
@@ -3509,6 +3767,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesBorderWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
@@ -3518,6 +3779,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getReactionsLineWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
@@ -3577,6 +3841,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// attribute is not set or the object is @c NULL .
     LIBSBMLNETWORK_EXTERN bool c_api_isSetFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "fill" attribute of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
     LIBSBMLNETWORK_EXTERN int c_api_setFillColorAsGradient(SBMLDocument* document, const char* id, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
@@ -3596,6 +3866,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setFillColor(SBMLDocument* document, const char* id, const char* fillColor, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "fill" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object, or @c "" if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsFillColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
@@ -3605,8 +3878,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object as a gradient.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param gradientType a string value representing the type of gradient (e.g., "linear").
+    /// @param stopColors an array of string values representing the colors at each stop of the gradient.
+    /// @param stopOffsets an array of double values representing the offset at each stop of the gradient.
+    /// @param stopsSize an int representing the number of stops in the gradient.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object, or @c "" if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesFillColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object.
@@ -3616,8 +3900,20 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all SpeciesGlyph object in this Layout object as a gradient.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param gradientType a string value representing the type of gradient (e.g., "linear").
+    /// @param stopColors an array of string values representing the colors at each stop of the gradient.
+    /// @param stopOffsets an array of double values representing the offset at each stop of the gradient.
+    /// @param stopsSize an int representing the number of stops in the gradient.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object, or @c "" if the object is @c NULL.
+    /// @return the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object, or @c "" if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsFillColor(SBMLDocument* document);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
@@ -3627,6 +3923,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object as a gradient.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param gradientType a string value representing the type of gradient (e.g., "linear").
+    /// @param stopColors an array of string values representing the colors at each stop of the gradient.
+    /// @param stopOffsets an array of double values representing the offset at each stop of the gradient.
+    /// @param stopsSize an int representing the number of stops in the gradient.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEndings objects in this Layout object.
@@ -3636,6 +3940,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex);
 
+    /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
