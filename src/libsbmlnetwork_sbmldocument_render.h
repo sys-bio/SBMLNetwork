@@ -1532,8 +1532,21 @@ LIBSBMLNETWORK_EXTERN const double getLineEndingBoundingBoxWidth(SBMLDocument* d
 /// @return the value of the "width" attribute of the bounding box for this LineEnding, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
 
+/// @brief Returns the value of the "width" attribute of the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return the value of the "width" attribute of the bounding box for this LineEnding, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
+/// @brief Returns the value of the "width" attribute of the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return the value of the "width" attribute of the bounding box for this LineEnding, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
 /// @brief Sets the value of the "width" attribute of the bounding box for the LineEnding with the given identifier
@@ -1551,12 +1564,40 @@ LIBSBMLNETWORK_EXTERN int setLineEndingBoundingBoxWidth(SBMLDocument* document, 
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, double width);
 
+/// @brief Sets the value of the "width" attribute of the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param width a double to use as the value of the "width" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double width);
 
+/// @brief Sets the value of the "width" attribute of the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param width a double to use as the value of the "width" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const double width);
 
+/// @brief Sets the value of the "width" attribute of the bounding box for the LineEnding associated with the ReactionGlyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param width a double to use as the value of the "width" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width);
 
+/// @brief Sets the value of the "width" attribute of the bounding box for the LineEnding associated with the ReactionGlyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param width a double to use as the value of the "width" attribute of the bounding box for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width);
 
 /// @brief Returns the value of the "height" attribute of the bounding box for the LineEnding with the given identifier
@@ -1572,8 +1613,21 @@ LIBSBMLNETWORK_EXTERN const double getLineEndingBoundingBoxHeight(SBMLDocument* 
 /// @return the value of the "height" attribute of the bounding box for this LineEnding, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int renderIndex, const std::string& sid);
 
+/// @brief Returns the value of the "height" attribute of the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first layout of the SBML document
+/// @param document a pointer to the SBMLDocument object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return the value of the "height" attribute of the bounding box for this LineEnding, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
+/// @brief Returns the value of the "height" attribute of the bounding box for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the layout with the given index of the SBML document
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param sid a string representing the identifier of the LineEnding to retrieve.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return the value of the "height" attribute of the bounding box for this LineEnding, or @c 0.0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
 /// @brief Sets the value of the "height" attribute of the bounding box for the LineEnding with the given identifier
@@ -7597,6 +7651,7 @@ LIBSBMLNETWORK_EXTERN int setFillColor(SBMLDocument* document, const std::string
 
 int setFillColorAsGradient(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
+/// @brief Sets
 int setFillColorAsGradient(SBMLDocument* document, const std::string& attribute, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style for the Compartment.
