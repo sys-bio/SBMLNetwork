@@ -86,12 +86,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
             std::vector<GraphicalObject*> allGraphicalObjects;
             for (std::set<std::pair<std::string, int> >::const_iterator nodeIt = nodesSet.cbegin(); nodeIt != nodesSet.cend(); nodeIt++) {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIt->first);
-                if (nodeIt->second < graphicalObjects.size()) {
-                    allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
-                }
-                else {
+                if (nodeIt->second < 0 || nodeIt->second >= graphicalObjects.size()) {
                     return -1;
                 }
+                allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
             alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
             return updateLayoutCurves(document, getLayout(document));
@@ -105,12 +103,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
             std::vector<GraphicalObject*> allGraphicalObjects;
             for (std::set<std::pair<std::string, int> >::const_iterator nodeIt = nodesSet.cbegin(); nodeIt != nodesSet.cend(); nodeIt++) {
                 std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(document, nodeIt->first);
-                if (nodeIt->second < graphicalObjects.size()) {
-                    allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
-                }
-                else {
+                if (nodeIt->second < 0 || nodeIt->second >= graphicalObjects.size()) {
                     return -1;
                 }
+                allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
             distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
             return updateLayoutCurves(document, getLayout(document));
