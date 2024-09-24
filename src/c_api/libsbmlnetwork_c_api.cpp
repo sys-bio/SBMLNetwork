@@ -1785,11 +1785,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesStrokeColor(document, layoutIndex, borderColor);
     }
 
-    const char* c_api_getReactionsBorderColor(SBMLDocument* document) {
+    const char* c_api_getReactionsLineColor(SBMLDocument* document) {
         return strdup(getReactionStrokeColor(document).c_str());
     }
 
-    int c_api_setReactionsBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex) {
+    int c_api_setReactionsLineColor(SBMLDocument* document, const char* borderColor, int layoutIndex) {
         return setReactionStrokeColor(document, layoutIndex, borderColor, false);
     }
 

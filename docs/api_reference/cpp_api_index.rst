@@ -460,7 +460,7 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isTextGlyph(SBMLDocument* document, const std::string& id, unsigned int textGlyphIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, bool updateCurves = true)
 
@@ -736,7 +736,7 @@ Layout Functions
 Render Functions
 *****************
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* document)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getListOfGlobalRenderInformation(SBMLDocument* document)
 
 .. doxygenfunction::  LIBSBMLNETWORK_CPP_NAMESPACE::getNumGlobalRenderInformation(SBMLDocument* document)
 
@@ -992,7 +992,7 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setRadialGradientCx(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const RelAbsVector& cx)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setRadialGradientCxAsDoubleAsDouble(SBMLDocument* document, const std::string& sid, const double& cx)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setRadialGradientCxAsDouble(SBMLDocument* document, const std::string& sid, const double& cx)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setRadialGradientCxAsDouble(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const double& cx)
 
@@ -1272,9 +1272,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpeciesReferenceLineEndingStrokeDashes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex)
 
-.. doxygenfunction:: const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id)
 
-.. doxygenfunction:: const std::vector<unsigned int> getLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEndingStrokeDashArray(SBMLDocument* document, unsigned int renderIndex, const std::string& id)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setLineEndingStrokeDashArray(SBMLDocument* document, const std::string& id, const std::vector<unsigned int>& strokeDashArray)
 

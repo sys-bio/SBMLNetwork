@@ -962,7 +962,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Returns the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
     /// @return the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
-    LIBSBMLNETWORK_EXTERN const double getSpeciesWidth();
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesWidth();
 
     /// @brief Sets the values of the "width" attribute of the bounding box of all the Species of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -973,7 +973,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Returns the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
     /// @return the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
-    LIBSBMLNETWORK_EXTERN const double getReactionsWidth();
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsWidth();
 
     /// @brief Sets the values of the "width" attribute of the bounding box of all the Reactions of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1008,25 +1008,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Returns the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
     /// @return the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
-    LIBSBMLNETWORK_EXTERN const double getSpeciesHeight();
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesHeight();
 
     /// @brief Sets the values of the "height" attribute of the bounding box of all the Species of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double value to be set as "height" attribute of the bounding box of the Species object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
 
     /// @brief Returns the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
     /// @return the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
-    LIBSBMLNETWORK_EXTERN const double getReactionsHeight();
+    LIBSBMLNETWORK_EXTERN const double c_api_getReactionsHeight();
 
     /// @brief Sets the values of the "height" attribute of the bounding box of all the Reactions of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double value to be set as "height" attribute of the bounding box of the Reactions object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsHeights(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the TextGlyph object with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -4644,7 +4644,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param shape a string value indicating the shape of the geometric shape to be set.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapesType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all GraphicalObjects objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -4961,7 +4961,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @brief Returns the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @return the "y" attribute of the Transformation2D object for all GraphicalObject objects, or @c 0.0 if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const double c_api_getGeometricShapeYs(SBMLDocument* document);
+    LIBSBMLNETWORK_EXTERN const double c_api_getGeometricShapeY(SBMLDocument* document);
 
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

@@ -1401,7 +1401,7 @@ int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const 
     return setFillColor(getLineEndingRenderGroup(document, id), addColor(document, getLineEnding(document, id), fillColor));
 }
 
-int setFillColorAsGradientAsGradient(SBMLDocument* document, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
+int setLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
     return setFillColorAsGradient(getLineEndingRenderGroup(document, id), addGradient(document, getLineEnding(document, id), gradientType, stopsVector));
 }
 

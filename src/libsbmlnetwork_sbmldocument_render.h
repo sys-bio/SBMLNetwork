@@ -911,7 +911,7 @@ LIBSBMLNETWORK_EXTERN int setRadialGradientCx(SBMLDocument* document, unsigned i
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @param cx a double to use as the value of the "cx" attribute of this GradientBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setRadialGradientCxAsDoubleAsDouble(SBMLDocument* document, const std::string& sid, const double& cx);
+LIBSBMLNETWORK_EXTERN int setRadialGradientCxAsDouble(SBMLDocument* document, const std::string& sid, const double& cx);
 
 /// @brief Sets the value of the "cx" attribute of the GradientBase in the RenderInformationBase with the given index of the SBML document with the given identifier as a double.
 /// @param document a pointer to the SBMLDocument object.

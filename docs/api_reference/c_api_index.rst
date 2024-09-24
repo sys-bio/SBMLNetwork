@@ -225,7 +225,7 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesWidth()
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesWidth(
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex = 0)
 
