@@ -1789,10 +1789,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return strdup(getReactionStrokeColor(document).c_str());
     }
 
-    int c_api_setReactionsLineColor(SBMLDocument* document, const char* borderColor, int layoutIndex) {
-        return setReactionStrokeColor(document, layoutIndex, borderColor, false);
-    }
-
     int c_api_setReactionsLineColor(SBMLDocument* document, const char* lineColor, int layoutIndex) {
         return setReactionStrokeColor(document, layoutIndex, lineColor);
     }

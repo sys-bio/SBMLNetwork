@@ -4958,11 +4958,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsGeometricShapeY(SBMLDocument* document, const double y, int layoutIndex = 0);
 
-    /// @brief Returns the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject objects in this Layout object.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @return the "y" attribute of the Transformation2D object for all GraphicalObject objects, or @c 0.0 if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const double c_api_getGeometricShapeY(SBMLDocument* document);
-
     /// @brief Sets the value of the "y" attribute of the Transformation2D at the given index of the RenderGroup of the Style of all GraphicalObject object in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param y a double to use as the value of the "y" attribute of this Transformation2D object.
