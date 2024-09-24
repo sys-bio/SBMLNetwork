@@ -66,11 +66,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
-    /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
+    /// @param lockedNodeIds an array of strings containing the ids of the nodes and the indices of their associated graphical objects that should be locked in the autolayout algorithm.
     /// @param lockedNodesSize the size of lockedNodeIds
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                bool resetLockedNodes = false, const char ***locked_nodes = NULL, const int lockedNodesSize = 0);
 
     /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
     /// @param document a pointer to the SBMLDocument object.
@@ -80,21 +80,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param nodeIds an array of strings containing the ids of the nodes that should be aligned.
+    /// @param nodes an array of strings containing the ids of the nodes and their associated graphical objects that should be aligned.
     /// @param nodesSize the size of nodeIds
     /// @param alignment determines how to align the nodes.
     /// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* alignment, bool ignoreLockedNodes = false);
+    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreLockedNodes = false);
 
     /// @brief Distribute the nodes position in the SBML document in the given direction.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param nodeIds an array of strings containing the ids of the nodes that should be distributed.
+    /// @param nodes an array of strings containing the ids of the nodes and their associated graphical objects that should be distributed.
     /// @param nodesSize the size of nodeIds
     /// @param direction determines how to distribute the nodes.
     /// @param spacing the spacing between the distributed nodes.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_distribute(SBMLDocument* document, const char **nodeIds, const int nodesSize,  const char* direction, const double spacing = -1.0);
+    LIBSBMLNETWORK_EXTERN int c_api_distribute(SBMLDocument* document, const char ***nodes, const int nodesSize, const char* direction, const double spacing = -1.0);
 
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -123,7 +123,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
-                                                               bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                               bool resetLockedNodes = false, const char*** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.

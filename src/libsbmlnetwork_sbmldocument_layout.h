@@ -50,20 +50,20 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
-/// @param lockedNodeIds a vector of ids of the model entities that are going to be locked in the autolayout algorithm.
+/// @param lockedNodesSet a set of ids of the model entities and the graphical objects indices that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                          bool resetLockedNodes = false, const std::set<std::string> lockedNodeIds = std::set<std::string>());
+                                                          bool resetLockedNodes = false, const std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, set all the necessary features for it, and apply autolayout algorithm.
 /// @param document a pointer to the SBMLDocument object.
 /// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
-/// @param lockedNodeIds a set of ids of the model entities that are going to be locked in the autolayout algorithm.
+/// @param lockedNodeIds a set of ids of the model entities and their graphical objects indices that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                     bool resetLockedNodes = false, const std::set<std::string> lockedNodeIds = std::set<std::string>());
+                                                     bool resetLockedNodes = false, const std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and set all the necessary features for it.
 /// @param document a pointer to the SBMLDocument object.
