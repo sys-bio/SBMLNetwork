@@ -173,34 +173,50 @@ const double getReactionDefaultHeight() {
     return 20.0;
 }
 
-void lockGraphicalObjects(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes) {
-    lockSpeciesGlyphs(layout, lockedNodeIds, resetLockedNodes);
-    lockReactionGlyphs(layout, lockedNodeIds, resetLockedNodes);
+void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet, const bool resetLockedNodes) {
+    lockSpeciesGlyphs(layout, lockedNodesSet, resetLockedNodes);
+    lockReactionGlyphs(layout, lockedNodesSet, resetLockedNodes);
 }
 
-void lockSpeciesGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes) {
+void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet, const bool resetLockedNodes) {
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
         if (resetLockedNodes && getUserData(speciesGlyph, "locked") == "true")
             unlockGraphicalObject(speciesGlyph);
-        for (std::set<std::string>::const_iterator lockedNodeIt = lockedNodeIds.cbegin(); lockedNodeIt != lockedNodeIds.cend(); lockedNodeIt++) {
-            if (speciesGlyph->getSpeciesId() == *lockedNodeIt || speciesGlyph->getId() == *lockedNodeIt) {
-                lockGraphicalObject(speciesGlyph);
-                break;
+    }
+
+    for (std::set<std::pair<std::string, std::vector<int>>>::const_iterator lockedNodeIt = lockedNodesSet.cbegin(); lockedNodeIt != lockedNodesSet.cend(); lockedNodeIt++) {
+        std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, lockedNodeIt->first);
+        if (lockedNodeIt->second.size() == 0) {
+            for (unsigned int i = 0; i < speciesGlyphs.size(); i++)
+                lockGraphicalObject(speciesGlyphs.at(i));
+        }
+        else {
+            for (unsigned int i = 0; i < lockedNodeIt->second.size(); i++) {
+                if (lockedNodeIt->second.at(i) < speciesGlyphs.size())
+                    lockGraphicalObject(speciesGlyphs.at(lockedNodeIt->second.at(i)));
             }
         }
     }
 }
 
-void lockReactionGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes) {
+void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet, const bool resetLockedNodes) {
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
         if (resetLockedNodes && getUserData(reactionGlyph, "locked") == "true")
             unlockGraphicalObject(reactionGlyph);
-        for (std::set<std::string>::const_iterator lockedNodeIt = lockedNodeIds.cbegin(); lockedNodeIt != lockedNodeIds.cend(); lockedNodeIt++) {
-            if (reactionGlyph->getReactionId() == *lockedNodeIt || reactionGlyph->getId() == *lockedNodeIt) {
-                lockGraphicalObject(reactionGlyph);
-                break;
+    }
+
+    for (std::set<std::pair<std::string, std::vector<int>>>::const_iterator lockedNodeIt = lockedNodesSet.cbegin(); lockedNodeIt != lockedNodesSet.cend(); lockedNodeIt++) {
+        std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, lockedNodeIt->first);
+        if (lockedNodeIt->second.size() == 0) {
+            for (unsigned int i = 0; i < reactionGlyphs.size(); i++)
+                lockGraphicalObject(reactionGlyphs.at(i));
+        }
+        else {
+            for (unsigned int i = 0; i < lockedNodeIt->second.size(); i++) {
+                if (lockedNodeIt->second.at(i) < reactionGlyphs.size())
+                    lockGraphicalObject(reactionGlyphs.at(lockedNodeIt->second.at(i)));
             }
         }
     }
@@ -408,7 +424,7 @@ void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const
         std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferences = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
         int numRequiredAliasSpeciesGlyphs = getNumRequiredAliasSpeciesGlyphs(connectedSpeciesGlyphReferences.size(), maxNumConnectedEdges);
         if (numRequiredAliasSpeciesGlyphs > 0)
-            createAliasSpeciesGlyphs(layout, speciesGlyph, connectedSpeciesGlyphReferences, maxNumConnectedEdges, numRequiredAliasSpeciesGlyphs);
+            createAliasSpeciesGlyphs(layout, speciesGlyph, connectedSpeciesGlyphReferences, maxNumConnectedEdges, numRequiredAliasSpeciesGlyphs, userData);
     }
 }
 
@@ -436,12 +452,13 @@ int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxN
     return numRequiredAliasSpeciesGlyphs;
 }
 
-void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs) {
+void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs, const std::vector<std::map<std::string, std::string>>& userData) {
     for (int i = 0; i < numRequiredAliasSpeciesGlyphs; i++) {
         SpeciesGlyph* aliasSpeciesGlyph = layout->createSpeciesGlyph();
         aliasSpeciesGlyph->setId(speciesGlyph->getSpeciesId() + "_Glyph_" + std::to_string(i + 2));
         aliasSpeciesGlyph->setSpeciesId(speciesGlyph->getSpeciesId());
         setGraphicalObjectBoundingBox(aliasSpeciesGlyph);
+        setGraphicalObjectUserData(aliasSpeciesGlyph, userData);
         while (speciesGlyphReferences.size() > (numRequiredAliasSpeciesGlyphs - i) * maxNumConnectedEdges) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
             speciesReferenceGlyph->setSpeciesGlyphId(aliasSpeciesGlyph->getId());

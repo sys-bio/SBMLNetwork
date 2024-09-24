@@ -48,11 +48,11 @@ const double getReactionDefaultWidth();
 
 const double getReactionDefaultHeight();
 
-void lockGraphicalObjects(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
+void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet, const bool resetLockedNodes);
 
-void lockSpeciesGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
+void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet, const bool resetLockedNodes);
 
-void lockReactionGlyphs(Layout* layout, std::set<std::string> lockedNodeIds, const bool resetLockedNodes);
+void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet, const bool resetLockedNodes);
 
 void lockGraphicalObject(GraphicalObject* graphicalObject);
 
@@ -104,7 +104,7 @@ std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* l
 
 int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxNumConnectedEdges);
 
-void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs);
+void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs, const std::vector<std::map<std::string, std::string>>& userData = {});
 
 void setTextGlyphs(Layout* layout);
 
