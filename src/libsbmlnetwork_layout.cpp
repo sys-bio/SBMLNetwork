@@ -672,7 +672,7 @@ const double getPositionX(Layout* layout, const std::string& id, const unsigned 
 }
 
 const double getPositionX(GraphicalObject* graphicalObject) {
-    if (getCurve(graphicalObject))
+    if (isSetCurve(graphicalObject))
         return getPositionX(getCurve(graphicalObject));
     else
         return getPositionX(getBoundingBox(graphicalObject));
@@ -702,7 +702,7 @@ int setPositionX(Layout* layout, const std::string& id, unsigned int graphicalOb
 
 int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& x) {
     double moveDistance = x - getPositionX(graphicalObject);
-    if (!setPositionX(getCurve(graphicalObject), x) || !setPositionX(getBoundingBox(graphicalObject), x)) {
+    if ((isSetCurve(graphicalObject) && !setPositionX(getCurve(graphicalObject), x)) || !setPositionX(getBoundingBox(graphicalObject), x)) {
         updateAssociatedTextGlyphsPositionX(layout, graphicalObject, moveDistance);
         lockGraphicalObject(graphicalObject);
         return 0;
@@ -734,7 +734,7 @@ const double getPositionY(Layout* layout, const std::string& id, unsigned int gr
 }
 
 const double getPositionY(GraphicalObject* graphicalObject) {
-    if (getCurve(graphicalObject))
+    if (isSetCurve(graphicalObject))
         return getPositionY(getCurve(graphicalObject));
     else
         return getPositionY(getBoundingBox(graphicalObject));
@@ -764,7 +764,7 @@ int setPositionY(Layout* layout, const std::string& id, unsigned int graphicalOb
 
 int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double& y) {
     double moveDistance = y - getPositionY(graphicalObject);
-    if (!setPositionY(getCurve(graphicalObject), y) || !setPositionY(getBoundingBox(graphicalObject), y)) {
+    if ((isSetCurve(graphicalObject) && !setPositionY(getCurve(graphicalObject), y)) || !setPositionY(getBoundingBox(graphicalObject), y)) {
         updateAssociatedTextGlyphsPositionY(layout, graphicalObject, moveDistance);
         lockGraphicalObject(graphicalObject);
         return 0;
@@ -802,7 +802,7 @@ int setPosition(Layout* layout, const std::string& id, unsigned int graphicalObj
 int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& x, const double& y) {
     double moveDistanceX = x - getPositionX(graphicalObject);
     double moveDistanceY = y - getPositionY(graphicalObject);
-    if (!setPosition(getCurve(graphicalObject), x, y) || !setPosition(getBoundingBox(graphicalObject), x, y)) {
+    if ((isSetCurve(graphicalObject) && !setPosition(getCurve(graphicalObject), x, y)) || !setPosition(getBoundingBox(graphicalObject), x, y)) {
         updateAssociatedTextGlyphsPosition(layout, graphicalObject, moveDistanceX, moveDistanceY);
         return 0;
     }

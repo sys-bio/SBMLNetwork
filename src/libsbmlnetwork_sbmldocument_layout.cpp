@@ -76,7 +76,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
 }
 
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetLockedNodes, const std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet) {
+                             bool resetLockedNodes, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
@@ -121,7 +121,7 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
 }
 
 int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                                bool resetLockedNodes, const std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet) {
+                                bool resetLockedNodes, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);

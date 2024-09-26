@@ -134,18 +134,13 @@ class LibSBMLNetwork:
 
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
             - reset_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to reset the locked nodes before applying the autolayout algorithm.
-            - locked_nodes (list of dicts or list of str, optional): A list that can either
-            contain:
-                - A list of dictionaries, where each dictionary includes:
-                    - 'id' (str): The ID of the node that should not be moved during the autolayout algorithm.
-                    - 'indices' (list of int): A list of indices (default : [] meaning all the associated graphical objects) associated with the graphical objects associated with the node that should not be moved during the autolayout algorithm.
-                - Or a list of node IDs (str) that should be locked during the autolayout algorithm.
+            - locked_nodes (list of lists or list of strings, optional): a list (default: []) that determines the nodes that should not be moved during the autolayout algorithm. The list contains:
+                - a list of lists where each list includes:
+                    - 'id' (str): the ID of the node that must not be moved when autolayout algorithm is applied.
+                    - 'index' (int): the index of the graphical object associated with the node that must not be moved when autolayout algorithm is applied.
+                - or a list of node IDs (str) that must not be moved when autolayout algorithm is applied.
 
-            This parameter determines which nodes are locked, preventing their movement while
-            allowing other nodes to be adjusted.
-
-
-:Returns:
+        :Returns:
 
             true on success and false if autolayout algorithm was not applied successfully
         """
@@ -154,25 +149,19 @@ class LibSBMLNetwork:
         if locked_nodes is not None:
             locked_nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(locked_nodes))()
             for i in range(len(locked_nodes)):
-                if isinstance(locked_nodes[i], dict):
-                    if 'id' in locked_nodes[i].keys():
-                        indices_count = 0
-                        if 'indices' in locked_nodes[i].keys():
-                            indices_count = len(locked_nodes[i]['indices'])
-                        locked_node_ptr = (ctypes.c_char_p * (indices_count + 2))()
-                        locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i]['id']).encode())
-                        locked_node_ptr[1] = ctypes.c_char_p(str(indices_count).encode())
-                        for j in range(indices_count):
-                            locked_node_ptr[j + 2] = ctypes.c_char_p(str(locked_nodes[i]['indices'][j]).encode())
-                        locked_nodes_ptr[i] = locked_node_ptr
+                locked_node_ptr = (ctypes.c_char_p * 2)()
+                if isinstance(locked_nodes[i], list) and len(locked_nodes[i]) == 2:
+                    locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i][0]).encode())
+                    locked_node_ptr[1] = ctypes.c_char_p(str(locked_nodes[i][1]).encode())
                 elif isinstance(locked_nodes[i], str):
-                    locked_node_ptr = (ctypes.c_char_p * 2)()
-                    locked_node_ptr[0] = ctypes.c_char_p(locked_nodes[i].encode())
+                    locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i]).encode())
                     locked_node_ptr[1] = ctypes.c_char_p(str(0).encode())
-                    locked_nodes_ptr[i] = locked_node_ptr
+                else:
+                    raise Exception("The locked_nodes parameter should be a list of lists or a list of strings.")
+                locked_nodes_ptr[i] = locked_node_ptr
 
         return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
-
+    
     def autorender(self, max_num_connected_edges=3):
         """
         checks if a RenderInformation object does not exists in the SBMLDocument, then adds it to it, and set all the necessary features for it.
@@ -193,7 +182,11 @@ class LibSBMLNetwork:
 
         :Parameters:
 
-            - nodes (list): a list that determines the nodes to be aligned
+            - nodes (list of lists or list of strings): a list that determines the nodes to be aligned. The list contains:
+                - a list of lists where each list includes:
+                    - 'id' (str): the ID of the node that must be aligned.
+                    - 'index' (int): the index of the graphical object associated with the node that must be aligned.
+                - or a list of node IDs (str) that must be aligned.
             - alignment (string, optional): a string (default: "center") that determines the type of alignment to be applied ("top", "bottom", "left", "right", "vCenter", "hCenter", "circular")
             - ignore_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to ignore the locked nodes during the alignment
 
@@ -205,22 +198,16 @@ class LibSBMLNetwork:
         if nodes is not None:
             nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(nodes))()
             for i in range(len(nodes)):
-                if isinstance(nodes[i], dict):
-                    if 'id' in nodes[i].keys():
-                        indices_count = 0
-                        if 'indices' in nodes[i].keys():
-                            indices_count = len(nodes[i]['indices'])
-                        node_ptr = (ctypes.c_char_p * (indices_count + 2))()
-                        node_ptr[0] = ctypes.c_char_p(str(nodes[i]['id']).encode())
-                        node_ptr[1] = ctypes.c_char_p(str(indices_count).encode())
-                        for j in range(indices_count):
-                            node_ptr[j + 2] = ctypes.c_char_p(str(nodes[i]['indices'][j]).encode())
-                        nodes_ptr[i] = node_ptr
+                node_ptr = (ctypes.c_char_p * 2)()
+                if isinstance(nodes[i], list) and len(nodes[i]) == 2:
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
+                    node_ptr[1] = ctypes.c_char_p(str(nodes[i][1]).encode())
                 elif isinstance(nodes[i], str):
-                    node_ptr = (ctypes.c_char_p * 2)()
-                    node_ptr[0] = ctypes.c_char_p(nodes[i].encode())
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i]).encode())
                     node_ptr[1] = ctypes.c_char_p(str(0).encode())
-                    nodes_ptr[i] = node_ptr
+                else:
+                    raise Exception("The nodes parameter should be a list of lists or a list of strings.")
+                nodes_ptr[i] = node_ptr
 
         return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_locked_nodes)
 
@@ -230,7 +217,11 @@ class LibSBMLNetwork:
 
         :Parameters:
 
-            - nodes (list): a list that determines the nodes to be distributed
+            - nodes (list of lists or list of strings): a list that determines the nodes to be distributed. The list contains:
+                - a list of lists where each list includes:
+                    - 'id' (str): the ID of the node that must be distributed.
+                    - 'indices' (list of int): a list of integers that determines the indices of the graphical objects associated with the node that must be distributed.
+                - or a list of node IDs (str) that must be distributed.
             - direction (string, optional): a string (default: "horizontal") that determines the direction of distribution to be applied ("horizontal", "vertical")
             - spacing (float, optional): a float (default: -1) that determines the spacing between the nodes (default: -1, which means the spacing will be calculated automatically
 
@@ -242,22 +233,16 @@ class LibSBMLNetwork:
         if nodes is not None:
             nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(nodes))()
             for i in range(len(nodes)):
-                if isinstance(nodes[i], dict):
-                    if 'id' in nodes[i].keys():
-                        indices_count = 0
-                        if 'indices' in nodes[i].keys():
-                            indices_count = len(nodes[i]['indices'])
-                        node_ptr = (ctypes.c_char_p * (indices_count + 2))()
-                        node_ptr[0] = ctypes.c_char_p(str(nodes[i]['id']).encode())
-                        node_ptr[1] = ctypes.c_char_p(str(indices_count).encode())
-                        for j in range(indices_count):
-                            node_ptr[j + 2] = ctypes.c_char_p(str(nodes[i]['indices'][j]).encode())
-                        nodes_ptr[i] = node_ptr
+                node_ptr = (ctypes.c_char_p * 2)()
+                if isinstance(nodes[i], list) and len(nodes[i]) == 2:
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
+                    node_ptr[1] = ctypes.c_char_p(str(nodes[i][1]).encode())
                 elif isinstance(nodes[i], str):
-                    node_ptr = (ctypes.c_char_p * 2)()
-                    node_ptr[0] = ctypes.c_char_p(nodes[i].encode())
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i]).encode())
                     node_ptr[1] = ctypes.c_char_p(str(0).encode())
-                    nodes_ptr[i] = node_ptr
+                else:
+                    raise Exception("The nodes parameter should be a list of lists or a list of strings.")
+                nodes_ptr[i] = node_ptr
 
         return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing))
 

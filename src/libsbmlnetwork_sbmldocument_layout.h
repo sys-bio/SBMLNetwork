@@ -53,7 +53,7 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param lockedNodesSet a set of ids of the model entities and the graphical objects indices that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                          bool resetLockedNodes = false, const std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet = {});
+                                                          bool resetLockedNodes = false, const std::set<std::pair<std::string, int> > lockedNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, set all the necessary features for it, and apply autolayout algorithm.
 /// @param document a pointer to the SBMLDocument object.
@@ -63,7 +63,7 @@ LIBSBMLNETWORK_EXTERN int setDefaultLayoutLocations(SBMLDocument* document, Layo
 /// @param lockedNodeIds a set of ids of the model entities and their graphical objects indices that are going to be locked in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                     bool resetLockedNodes = false, const std::set<std::pair<std::string, std::vector<int>>> lockedNodesSet = {});
+                                                     bool resetLockedNodes = false, const std::set<std::pair<std::string, int> > lockedNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and set all the necessary features for it.
 /// @param document a pointer to the SBMLDocument object.
