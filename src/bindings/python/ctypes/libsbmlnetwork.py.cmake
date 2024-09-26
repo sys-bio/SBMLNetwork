@@ -199,7 +199,7 @@ class LibSBMLNetwork:
             nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(nodes))()
             for i in range(len(nodes)):
                 nodes_ptr = (ctypes.c_char_p * 2)()
-                if isintance(nodes[i], list) and len(nodes[i]) == 2:
+                if isinstance(nodes[i], list) and len(nodes[i]) == 2:
                     nodes_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
                     nodes_ptr[1] = ctypes.c_char_p(str(nodes[i][1]).encode())
                 elif isinstance(nodes[i], str):
@@ -234,7 +234,7 @@ class LibSBMLNetwork:
             nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(nodes))()
             for i in range(len(nodes)):
                 nodes_ptr = (ctypes.c_char_p * 2)()
-                if isintance(nodes[i], list) and len(nodes[i]) == 2:
+                if isinstance(nodes[i], list) and len(nodes[i]) == 2:
                     nodes_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
                     nodes_ptr[1] = (ctypes.c_char_p * len(nodes[i][1]))()
                     for j in range(len(nodes[i][1])):
