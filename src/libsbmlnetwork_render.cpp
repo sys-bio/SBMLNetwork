@@ -53,8 +53,9 @@ const std::string getBackgroundColor(RenderInformationBase* renderInformationBas
 }
 
 int setBackgroundColor(RenderInformationBase* renderInformationBase, const std::string& backgroundColor) {
-    if (renderInformationBase && isValidBackgroundColorValue(backgroundColor)) {
-        renderInformationBase->setBackgroundColor(backgroundColor);
+    std::string lowerCaseBackgroundColor = toLowerCase(backgroundColor);
+    if (renderInformationBase && isValidBackgroundColorValue(lowerCaseBackgroundColor)) {
+        renderInformationBase->setBackgroundColor(toLowerCase(lowerCaseBackgroundColor));
         return 0;
     }
 
@@ -109,8 +110,9 @@ int setValue(RenderInformationBase* renderInformationBase, const std::string& si
 }
 
 int setValue(ColorDefinition* colorDefinition, const std::string& value) {
-    if (colorDefinition && isValidColorValue(value)) {
-        colorDefinition->setValue(value);
+    std::string lowerCaseValue = toLowerCase(value);
+    if (colorDefinition && isValidColorValue(lowerCaseValue)) {
+        colorDefinition->setValue(lowerCaseValue);
         return 0;
     }
 
@@ -359,8 +361,9 @@ int setStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex, con
 }
 
 int setStopColor(GradientStop* gradientStop, const std::string& stopColor) {
-    if (gradientStop && isValidStopColorValue(stopColor)) {
-        gradientStop->setStopColor(stopColor);
+    std::string lowerCaseStopColor = toLowerCase(stopColor);
+    if (gradientStop && isValidStopColorValue(lowerCaseStopColor)) {
+        gradientStop->setStopColor(toLowerCase(lowerCaseStopColor));
         return 0;
     }
 
@@ -1155,8 +1158,9 @@ int setStrokeColor(RenderGroup* renderGroup, const std::string& stroke) {
     if (getNumGeometricShapes(renderGroup) == 1 && isSetStrokeColor(getGeometricShape(renderGroup)))
         return setStrokeColor(getGeometricShape(renderGroup), stroke);
 
-    if (isRenderGroup(renderGroup) && isValidStrokeColorValue(stroke)) {
-        renderGroup->setStroke(stroke);
+    std::string lowerCaseStroke = toLowerCase(stroke);
+    if (isRenderGroup(renderGroup) && isValidStrokeColorValue(lowerCaseStroke)) {
+        renderGroup->setStroke(lowerCaseStroke);
         return 0;
     }
 
@@ -1164,8 +1168,9 @@ int setStrokeColor(RenderGroup* renderGroup, const std::string& stroke) {
 }
 
 int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke) {
-    if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeColorValue(stroke)) {
-        ((GraphicalPrimitive1D*)transformation2D)->setStroke(stroke);
+    std::string lowerCaseStroke = toLowerCase(stroke);
+    if (isGraphicalPrimitive1D(transformation2D) && isValidStrokeColorValue(lowerCaseStroke)) {
+        ((GraphicalPrimitive1D*)transformation2D)->setStroke(lowerCaseStroke);
         return 0;
     }
 
@@ -1652,8 +1657,9 @@ int setFontColor(RenderGroup* renderGroup, const std::string& fontColor) {
 }
 
 int setFontColor(Transformation2D* transformation2D, const std::string& fontColor) {
-    if (isValidFontColorValue(fontColor))
-        return setStrokeColor(transformation2D, fontColor);
+    std::string lowerCaseFontColor = toLowerCase(fontColor);
+    if (isValidFontColorValue(lowerCaseFontColor))
+        return setStrokeColor(transformation2D, lowerCaseFontColor);
 
     return -1;
 }
@@ -2774,11 +2780,15 @@ int setFillColor(Style* style, const std::string& fillColor) {
 }
 
 int setFillColor(RenderGroup* renderGroup, const std::string& fillColor) {
-    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup)))
+    std::cout << "the color is being set to " << fillColor << std::endl;
+    if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup))) {
+        std::cout << " we have one geometric shape" << std::endl;
         return setFillColor(getGeometricShape(renderGroup), fillColor);
+    }
 
-    if (isRenderGroup(renderGroup) && isValidFillColorValue(fillColor)) {
-        renderGroup->setFill(fillColor);
+    std::string lowerCaseFillColor = toLowerCase(fillColor);
+    if (isRenderGroup(renderGroup) && isValidFillColorValue(lowerCaseFillColor)) {
+        renderGroup->setFill(lowerCaseFillColor);
         return 0;
     }
 
@@ -2786,8 +2796,9 @@ int setFillColor(RenderGroup* renderGroup, const std::string& fillColor) {
 }
 
 int setFillColor(Transformation2D* transformation2D, const std::string& fillColor) {
-    if (isGraphicalPrimitive2D(transformation2D) && isValidFillColorValue(fillColor)) {
-        ((GraphicalPrimitive2D*)transformation2D)->setFill(fillColor);
+    std::string lowerCaseFillColor = toLowerCase(fillColor);
+    if (isGraphicalPrimitive2D(transformation2D) && isValidFillColorValue(lowerCaseFillColor)) {
+        ((GraphicalPrimitive2D*)transformation2D)->setFill(lowerCaseFillColor);
         return 0;
     }
 
@@ -3844,9 +3855,10 @@ int setGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometri
 }
 
 int setGeometricShapeStrokeColor(Transformation2D* shape, const std::string& strokeColor) {
-    if (isValidColorValue(strokeColor)) {
+    std::string lowerCaseStrokeColor = toLowerCase(strokeColor);
+    if (isValidColorValue(lowerCaseStrokeColor)) {
         if (isGraphicalPrimitive1D(shape)) {
-            ((GraphicalPrimitive1D*)shape)->setStroke(strokeColor);
+            ((GraphicalPrimitive1D*)shape)->setStroke(lowerCaseStrokeColor);
             return 0;
         }
     }
@@ -4020,9 +4032,10 @@ int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricS
 }
 
 int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColor) {
-    if (isValidColorValue(fillColor)) {
+    std::string lowerCaseFillColor = toLowerCase(fillColor);
+    if (isValidColorValue(lowerCaseFillColor)) {
         if (isGraphicalPrimitive2D(shape)) {
-            ((GraphicalPrimitive2D*)shape)->setFillColor(fillColor);
+            ((GraphicalPrimitive2D*)shape)->setFillColor(lowerCaseFillColor);
             return 0;
         }
     }

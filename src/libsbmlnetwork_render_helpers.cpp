@@ -287,10 +287,11 @@ const std::string addColor(SBMLDocument* document, LineEnding* lineEnding, const
 }
 
 const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &color) {
-    if (isValidHexColorCode(color))
-        return addColor(renderInformationBase, getColorIdFromHexColorCode(renderInformationBase, color), color);
+    std::string lowerCaseColor = toLowerCase(color);
+    if (isValidHexColorCode(lowerCaseColor))
+        return addColor(renderInformationBase, getColorIdFromHexColorCode(renderInformationBase, lowerCaseColor), lowerCaseColor);
     else
-        return addColor(renderInformationBase, color, getHexColorCodeFromHtmlColorName(color));
+        return addColor(renderInformationBase, lowerCaseColor, getHexColorCodeFromHtmlColorName(lowerCaseColor));
 }
 
 const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue) {
