@@ -48,11 +48,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedNodes, const char ***lockedNodes, const int lockedNodesSize) {
         std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
-        for (int i = 0; i < lockedNodesSize; i++) {
-            const char **lockedNode = lockedNodes[i];
-            const char *id = lockedNode[0];
-            int index = atoi(lockedNode[1]);
-            lockedNodesSet.insert(std::make_pair(id, index));
+        if (lockedNodes) {
+            for (int i = 0; i < lockedNodesSize; i++) {
+                const char **lockedNode = lockedNodes[i];
+                const char *id = lockedNode[0];
+                int index = atoi(lockedNode[1]);
+                lockedNodesSet.insert(std::make_pair(id, index));
+            }
         }
 
         return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
