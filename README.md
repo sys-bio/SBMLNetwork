@@ -37,7 +37,7 @@ import sbmlnetwork
 network = sbmlnetwork.load('path/to/model.xml')
 
 # set the fill color of the species
-network.setSpeciesFillColors('Orange')
+network.setSpeciesFillColor('Orange')
 
 # draw an image of the graphical representation of the model
 network.draw()
