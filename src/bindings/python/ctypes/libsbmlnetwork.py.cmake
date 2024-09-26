@@ -198,16 +198,16 @@ class LibSBMLNetwork:
         if nodes is not None:
             nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(nodes))()
             for i in range(len(nodes)):
-                nodes_ptr = (ctypes.c_char_p * 2)()
+                node_ptr = (ctypes.c_char_p * 2)()
                 if isinstance(nodes[i], list) and len(nodes[i]) == 2:
-                    nodes_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
-                    nodes_ptr[1] = ctypes.c_char_p(str(nodes[i][1]).encode())
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
+                    node_ptr[1] = ctypes.c_char_p(str(nodes[i][1]).encode())
                 elif isinstance(nodes[i], str):
-                    nodes_ptr[0] = ctypes.c_char_p(str(nodes[i]).encode())
-                    nodes_ptr[1] = ctypes.c_char_p(str(0).encode())
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i]).encode())
+                    node_ptr[1] = ctypes.c_char_p(str(0).encode())
                 else:
                     raise Exception("The nodes parameter should be a list of lists or a list of strings.")
-
+                nodes_ptr[i] = node_ptr
 
         return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_locked_nodes)
 
@@ -233,18 +233,16 @@ class LibSBMLNetwork:
         if nodes is not None:
             nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(nodes))()
             for i in range(len(nodes)):
-                nodes_ptr = (ctypes.c_char_p * 2)()
+                node_ptr = (ctypes.c_char_p * 2)()
                 if isinstance(nodes[i], list) and len(nodes[i]) == 2:
-                    nodes_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
-                    nodes_ptr[1] = (ctypes.c_char_p * len(nodes[i][1]))()
-                    for j in range(len(nodes[i][1])):
-                        nodes_ptr[1][j] = ctypes.c_char_p(str(nodes[i][1][j]).encode())
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i][0]).encode())
+                    node_ptr[1] = ctypes.c_char_p(str(nodes[i][1]).encode())
                 elif isinstance(nodes[i], str):
-                    nodes_ptr[0] = ctypes.c_char_p(str(nodes[i]).encode())
-                    nodes_ptr[1] = (ctypes.c_char_p * 1)()
-                    nodes_ptr[1][0] = ctypes.c_char_p(str(0).encode())
+                    node_ptr[0] = ctypes.c_char_p(str(nodes[i]).encode())
+                    node_ptr[1] = ctypes.c_char_p(str(0).encode())
                 else:
                     raise Exception("The nodes parameter should be a list of lists or a list of strings.")
+                nodes_ptr[i] = node_ptr
 
         return lib.c_api_distribute(self.sbml_object, nodes_ptr, len(nodes), str(direction).encode(), ctypes.c_double(spacing))
 
