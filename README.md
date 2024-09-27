@@ -2,6 +2,8 @@
 
 SBMLNetwork is a library designed to enable software developers and systems biologists to interact with the graphical representation of SBML (Systems Biology Markup Language) models. It makes use of SBML Layout and Render extensions and provides the following features: (i) a built-in high-performance autolayout algorithm that automatically generates and adds graphical representation data to SBML models that don’t have them (ii) a robust API that provides the users and developers with seamless access to the graphical representation attributes of SBML models (iii) a drawing tool to render an image of the graphical representation of SBML models using their Layout and Render data.
 
+**Important Note**: As of tag [v0.3.1](https://github.com/adelhpour/SBMLNetwork/releases/tag/v0.3.1) this repository has been forked and is now under active development and maintenance at the [UW Sauro Lab](https://github.com/sys-bio/SBMLNetwork) GitHub account, where further enhancements and updates are being implemented.
+
 ## Features
 
 - **Autolayout**: SBMLNetwork provides a high-performance autolayout algorithm that automatically generates and adds graphical representation data to SBML models that don’t have them. The autolayout algorithm is based on the force-directed layout algorithm which is customized to accommodate the intricate structures often present in the graphical representation of biological networks.
