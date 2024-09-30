@@ -2780,9 +2780,7 @@ int setFillColor(Style* style, const std::string& fillColor) {
 }
 
 int setFillColor(RenderGroup* renderGroup, const std::string& fillColor) {
-    std::cout << "the color is being set to " << fillColor << std::endl;
     if (getNumGeometricShapes(renderGroup) == 1 && isSetFillColor(getGeometricShape(renderGroup))) {
-        std::cout << " we have one geometric shape" << std::endl;
         return setFillColor(getGeometricShape(renderGroup), fillColor);
     }
 
