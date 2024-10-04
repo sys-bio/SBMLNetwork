@@ -114,6 +114,10 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::updateLayoutCurves(SBMLDocument* document, Layout* layout)
 
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getDimensions(SBMLDocument* document, unsigned int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getDimensionWidth(SBMLDocument* document, unsigned int layoutIndex = 0)

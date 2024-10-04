@@ -125,6 +125,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
                                                                bool resetLockedNodes = false, const char*** lockedNodeIds = NULL, const int lockedNodesSize = 0);
 
+    /// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferenceGlyphs in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesId the id of the species to create an alias SpeciesGlyph for.
+    /// @param reactionId the id of the reaction to create an alias SpeciesGlyph for.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex);
+
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.

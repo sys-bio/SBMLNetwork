@@ -305,7 +305,7 @@ std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(Layout* layout, co
 
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(GraphicalObject* reactionGlyph) {
     if (isReactionGlyph(reactionGlyph))
-        return getAssociatedSpeciesReferenceGlyphsWithReactionGlyph((ReactionGlyph*)reactionGlyph);
+        return getSpeciesReferenceGlyphs((ReactionGlyph*)reactionGlyph);
 
     return std::vector<SpeciesReferenceGlyph*>();
 }

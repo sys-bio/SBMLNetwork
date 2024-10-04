@@ -414,6 +414,94 @@ void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const
     }
 }
 
+int createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs, const std::vector<std::map<std::string, std::string>>& userData) {
+    if (numRequiredAliasSpeciesGlyphs) {
+        for (int i = 0; i < numRequiredAliasSpeciesGlyphs; i++) {
+            SpeciesGlyph* aliasSpeciesGlyph = createAliasSpeciesGlyph(layout, speciesGlyph->getSpeciesId());
+            setGraphicalObjectUserData(aliasSpeciesGlyph, userData);
+            while (speciesGlyphReferences.size() > (numRequiredAliasSpeciesGlyphs - i) * maxNumConnectedEdges) {
+                SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
+                speciesReferenceGlyph->setSpeciesGlyphId(aliasSpeciesGlyph->getId());
+                speciesGlyphReferences.pop_back();
+            }
+        }
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int createAliasSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph) {
+    if (reactionGlyph) {
+        std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences = getSpeciesReferencesAssociatedWithSpecies(layout, reactionGlyph, speciesId);
+        if (canHaveAlias(layout, speciesGlyphReferences)) {
+            SpeciesGlyph* aliasSpeciesGlyph = createAliasSpeciesGlyph(layout, speciesId, speciesGlyphReferences);
+            if (aliasSpeciesGlyph) {
+                setAliasSpeciesGlyphPosition(aliasSpeciesGlyph, reactionGlyph);
+                setAliasSpeciesGlyphDimensions(aliasSpeciesGlyph);
+                setAliasSpeciesGlyphTextGlyph(layout, aliasSpeciesGlyph);
+                return 0;
+            }
+        }
+    }
+
+
+    return -1;
+}
+
+SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, const std::string& speciesId, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences) {
+    SpeciesGlyph* aliasSpeciesGlyph = NULL;
+    if (speciesGlyphReferences.size()) {
+        aliasSpeciesGlyph = createAliasSpeciesGlyph(layout, speciesId);
+        while (speciesGlyphReferences.size()) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
+            speciesReferenceGlyph->setId(getIdOfSpeciesReferenceGlyphConnectedToAliasSpeciesGlyph(speciesReferenceGlyph->getId(), speciesReferenceGlyph->getSpeciesGlyphId(), aliasSpeciesGlyph->getId()));
+            speciesReferenceGlyph->setSpeciesGlyphId(aliasSpeciesGlyph->getId());
+            speciesGlyphReferences.pop_back();
+        }
+    }
+
+    return aliasSpeciesGlyph;
+}
+
+SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, const std::string& speciesId) {
+    SpeciesGlyph* aliasSpeciesGlyph = layout->createSpeciesGlyph();
+    aliasSpeciesGlyph->setId(getAliasSpeciesGlyphId(layout, speciesId));
+    aliasSpeciesGlyph->setSpeciesId(speciesId);
+    setGraphicalObjectBoundingBox(aliasSpeciesGlyph);
+
+    return aliasSpeciesGlyph;
+}
+
+const bool canHaveAlias(Layout* layout, std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfReactionGlyph) {
+    if (connectedSpeciesGlyphReferencesOfReactionGlyph.size()) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(connectedSpeciesGlyphReferencesOfReactionGlyph.at(0)->getSpeciesGlyphId());
+        std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfSpeciesGlyph = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
+        if (connectedSpeciesGlyphReferencesOfSpeciesGlyph.size() > connectedSpeciesGlyphReferencesOfReactionGlyph.size())
+            return true;
+    }
+
+    return false;
+}
+
+void setAliasSpeciesGlyphPosition(SpeciesGlyph* aliasSpeciesGlyph, ReactionGlyph* reactionGlyph) {
+    double x = getPositionX(reactionGlyph);
+    double y = getPositionY(reactionGlyph);
+    aliasSpeciesGlyph->getBoundingBox()->setX(x);
+    aliasSpeciesGlyph->getBoundingBox()->setY(y);
+}
+
+void setAliasSpeciesGlyphDimensions(SpeciesGlyph* aliasSpeciesGlyph) {
+    aliasSpeciesGlyph->getBoundingBox()->setWidth(getSpeciesDefaultWidth());
+    aliasSpeciesGlyph->getBoundingBox()->setHeight(getSpeciesDefaultHeight());
+}
+
+void setAliasSpeciesGlyphTextGlyph(Layout* layout, SpeciesGlyph* aliasSpeciesGlyph) {
+    TextGlyph* textGlyph = createAssociatedTextGlyph(layout, aliasSpeciesGlyph);
+    setTextGlyphBoundingBox(textGlyph, aliasSpeciesGlyph);
+}
+
 std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph) {
     std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences;
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
@@ -436,21 +524,6 @@ int getNumRequiredAliasSpeciesGlyphs(const int numConnectedEdges, const int maxN
         numRequiredAliasSpeciesGlyphs--;
 
     return numRequiredAliasSpeciesGlyphs;
-}
-
-void createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs, const std::vector<std::map<std::string, std::string>>& userData) {
-    for (int i = 0; i < numRequiredAliasSpeciesGlyphs; i++) {
-        SpeciesGlyph* aliasSpeciesGlyph = layout->createSpeciesGlyph();
-        aliasSpeciesGlyph->setId(speciesGlyph->getSpeciesId() + "_Glyph_" + std::to_string(i + 2));
-        aliasSpeciesGlyph->setSpeciesId(speciesGlyph->getSpeciesId());
-        setGraphicalObjectBoundingBox(aliasSpeciesGlyph);
-        setGraphicalObjectUserData(aliasSpeciesGlyph, userData);
-        while (speciesGlyphReferences.size() > (numRequiredAliasSpeciesGlyphs - i) * maxNumConnectedEdges) {
-            SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
-            speciesReferenceGlyph->setSpeciesGlyphId(aliasSpeciesGlyph->getId());
-            speciesGlyphReferences.pop_back();
-        }
-    }
 }
 
 void setTextGlyphs(Layout* layout) {
@@ -565,6 +638,17 @@ const int getNumSpeciesReferencesGlyphsAssociatedWithSpecies(Layout* layout, Rea
     }
 
     return numSpeciesReferencesGlyphsAssociatedWithSpecies;
+}
+
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId) {
+    std::vector<SpeciesReferenceGlyph*> speciesReferencesAssociatedWithSpecies;
+    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId());
+        if (speciesGlyph && speciesGlyph->getSpeciesId() == speciesId)
+            speciesReferencesAssociatedWithSpecies.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
+    }
+
+    return speciesReferencesAssociatedWithSpecies;
 }
 
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject) {
@@ -788,14 +872,6 @@ std::vector<ReactionGlyph*> getAssociatedReactionGlyphsWithReactionId(Layout* la
 }
 
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
-    std::vector<SpeciesReferenceGlyph*> speceisReferenceGlyphs;
-    for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
-        speceisReferenceGlyphs.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
-
-    return speceisReferenceGlyphs;
-}
-
-std::vector<SpeciesReferenceGlyph*> getAssociatedSpeciesReferenceGlyphsWithReactionGlyph(ReactionGlyph* reactionGlyph) {
     std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs;
     for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
         speciesReferenceGlyphs.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
@@ -821,6 +897,34 @@ const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphica
     }
 
     return textGlyphUniqueId;
+}
+
+const std::string getAliasSpeciesGlyphId(Layout* layout, const std::string speciesId) {
+    std::string aliasSpeciesGlyphId = "";
+    int aliasSpeciesGlyphIndex = 1;
+    std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
+    while (true) {
+        aliasSpeciesGlyphId = speciesId + "_Glyph_" + std::to_string(aliasSpeciesGlyphIndex++);
+        bool isUniqueId = true;
+        for (unsigned int i = 0; i < speciesGlyphs.size(); i++) {
+            if (aliasSpeciesGlyphId == speciesGlyphs.at(i)->getId()) {
+                isUniqueId = false;
+                break;
+            }
+        }
+        if (isUniqueId)
+            break;
+    }
+
+    return aliasSpeciesGlyphId;
+}
+
+const std::string getIdOfSpeciesReferenceGlyphConnectedToAliasSpeciesGlyph(std::string speciesReferenceGlyphId, const std::string& originalSpeciesGlyphId, const std::string& aliasSpeciesGlyphId) {
+    std::string::size_type pos = speciesReferenceGlyphId.find(originalSpeciesGlyphId);
+    if (pos != std::string::npos)
+        speciesReferenceGlyphId.replace(pos, originalSpeciesGlyphId.length(), aliasSpeciesGlyphId);
+
+    return speciesReferenceGlyphId;
 }
 
 const bool layoutContainsGlyphs(Layout* layout) {

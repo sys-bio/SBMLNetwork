@@ -401,6 +401,23 @@ class LibSBMLNetwork:
 
         return lib.c_api_createDefaultLayoutLocations(self.sbml_object, locked_nodes_ptr, len(locked_nodes))
 
+    def createAliasSpeciesGlyph(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
+        """
+        Creates an alias SpeciesGlyph of Species with the given species_id for the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - species_id (string): a string that determines the id of the Species
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the alias SpeciesGlyph could not be created
+        """
+        return lib.c_api_createAliasSpeciesGlyph(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, layout_index)
+
     def getCanvasWidth(self, layout_index=0):
         """
         Returns the width of the canvas of the Layout object with the given index in the given SBMLDocument
