@@ -117,6 +117,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
     }
 
+    int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+        return createAliasSpeciesGlyph(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
+    }
+
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex);
     }

@@ -129,6 +129,20 @@ int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnect
     return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
 }
 
+int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    if (!createAliasSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+        return updateLayoutCurves(document, getLayout(document));
+
+    return -1;
+}
+
+int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    if (!createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+        return updateLayoutCurves(document, getLayout(document, layoutIndex));
+
+    return -1;
+}
+
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
     return getDimensions(getLayout(document, layoutIndex));
 }
