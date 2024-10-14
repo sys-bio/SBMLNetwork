@@ -861,7 +861,7 @@ LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, const std::str
 }
 
 LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReference(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
     LineEnding* lineEnding = getLineEnding(document, getStartHead(document, speciesReferenceGlyph));
     if (!lineEnding)
         lineEnding = getLineEnding(document, getEndHead(document, speciesReferenceGlyph));
@@ -875,7 +875,7 @@ LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, const std
 
 LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
     LineEnding* lineEnding = getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
-    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReferenceGlyph(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReference(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
     if(!isLocal(document, lineEnding, speciesReferenceGlyph))
         lineEnding = createLocalLineEnding(document, lineEnding, speciesReferenceGlyph);
 
@@ -956,7 +956,7 @@ int setSpeciesReferenceLineEndingBoundingBoxX(SBMLDocument* document, unsigned i
 
 int setReactionLineEndingBoundingBoxX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxX(document, reactionId, reactionGlyphIndex, i, x))
             isSetSuccessfully = 0;
 
@@ -965,7 +965,7 @@ int setReactionLineEndingBoundingBoxX(SBMLDocument* document, const std::string&
 
 int setReactionLineEndingBoundingBoxX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxX(document, layoutIndex, reactionId, reactionGlyphIndex, i, x))
             isSetSuccessfully = 0;
 
@@ -1006,7 +1006,7 @@ int setSpeciesReferenceLineEndingBoundingBoxY(SBMLDocument* document, unsigned i
 
 int setReactionLineEndingBoundingBoxY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxY(document, reactionId, reactionGlyphIndex, i, y))
             isSetSuccessfully = 0;
 
@@ -1015,7 +1015,7 @@ int setReactionLineEndingBoundingBoxY(SBMLDocument* document, const std::string&
 
 int setReactionLineEndingBoundingBoxY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxY(document, layoutIndex, reactionId, reactionGlyphIndex, i, y))
             isSetSuccessfully = 0;
 
@@ -1058,7 +1058,7 @@ int setSpeciesReferenceLineEndingBoundingBoxWidth(SBMLDocument* document, unsign
 
 int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxWidth(document, reactionId, reactionGlyphIndex, i, width))
             isSetSuccessfully = 0;
 
@@ -1067,7 +1067,7 @@ int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, const std::str
 
 int setReactionLineEndingBoundingBoxWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double width) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxWidth(document, layoutIndex, reactionId, reactionGlyphIndex, i, width))
             isSetSuccessfully = 0;
 
@@ -1110,7 +1110,7 @@ int setSpeciesReferenceLineEndingBoundingBoxHeight(SBMLDocument* document, unsig
 
 int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double height) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxHeight(document, reactionId, reactionGlyphIndex, i, height))
             isSetSuccessfully = 0;
 
@@ -1119,7 +1119,7 @@ int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, const std::st
 
 int setReactionLineEndingBoundingBoxHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double height) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingBoundingBoxHeight(document, layoutIndex, reactionId, reactionGlyphIndex, i, height))
             isSetSuccessfully = 0;
 
@@ -1185,7 +1185,7 @@ int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned in
 
 int setReactionLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingStrokeColor(document, reactionId, reactionGlyphIndex, i, strokeColor))
             isSetSuccessfully = 0;
 
@@ -1194,7 +1194,7 @@ int setReactionLineEndingStrokeColor(SBMLDocument* document, const std::string& 
 
 int setReactionLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingStrokeColor(document, layoutIndex, reactionId, reactionGlyphIndex, i, strokeColor))
             isSetSuccessfully = 0;
 
@@ -1251,7 +1251,7 @@ int setSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, unsigned in
 
 int setReactionLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const double strokeWidth) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingStrokeWidth(document, reactionId, reactionGlyphIndex, i, strokeWidth))
             isSetSuccessfully = 0;
 
@@ -1260,7 +1260,7 @@ int setReactionLineEndingStrokeWidth(SBMLDocument* document, const std::string& 
 
 int setReactionLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const double strokeWidth) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingStrokeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, i, strokeWidth))
             isSetSuccessfully = 0;
 
@@ -1349,7 +1349,7 @@ int setSpeciesReferenceLineEndingStrokeDash(SBMLDocument* document, unsigned int
 
 int setReactionLineEndingStrokeDash(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int dashIndex, unsigned int dash) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingStrokeDash(document, reactionId, reactionGlyphIndex, i, dashIndex, dash))
             isSetSuccessfully = 0;
 
@@ -1358,7 +1358,7 @@ int setReactionLineEndingStrokeDash(SBMLDocument* document, const std::string& r
 
 int setReactionLineEndingStrokeDash(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int dashIndex, unsigned int dash) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingStrokeDash(document, layoutIndex, reactionId, reactionGlyphIndex, i, dashIndex, dash))
             isSetSuccessfully = 0;
 
@@ -1431,7 +1431,7 @@ int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, uns
 
 int setReactionLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillColor) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingFillColor(document, reactionId, reactionGlyphIndex, i, fillColor))
             isSetSuccessfully = 0;
 
@@ -1440,7 +1440,7 @@ int setReactionLineEndingFillColor(SBMLDocument* document, const std::string& re
 
 int setReactionLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillColor) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingFillColor(document, layoutIndex, reactionId, reactionGlyphIndex, i, fillColor))
             isSetSuccessfully = 0;
 
@@ -1449,7 +1449,7 @@ int setReactionLineEndingFillColor(SBMLDocument* document, unsigned int layoutIn
 
 int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingFillColorAsGradient(document, reactionId, reactionGlyphIndex, i, gradientType, stopsVector))
             isSetSuccessfully = 0;
 
@@ -1458,7 +1458,7 @@ int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, const std::
 
 int setReactionLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingFillColorAsGradient(document, layoutIndex, reactionId, reactionGlyphIndex, i, gradientType, stopsVector))
             isSetSuccessfully = 0;
 
@@ -1515,7 +1515,7 @@ int setSpeciesReferenceLineEndingFillRule(SBMLDocument* document, unsigned int l
 
 int setReactionLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillRule) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingFillRule(document, reactionId, reactionGlyphIndex, i, fillRule))
             isSetSuccessfully = 0;
 
@@ -1524,7 +1524,7 @@ int setReactionLineEndingFillRule(SBMLDocument* document, const std::string& rea
 
 int setReactionLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& fillRule) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingFillRule(document, layoutIndex, reactionId, reactionGlyphIndex, i, fillRule))
             isSetSuccessfully = 0;
 
@@ -1713,7 +1713,7 @@ int setSpeciesReferenceLineEndingGeometricShapeX(SBMLDocument* document, unsigne
 
 int setReactionLineEndingGeometricShapeX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
             isSetSuccessfully = 0;
 
@@ -1722,7 +1722,7 @@ int setReactionLineEndingGeometricShapeX(SBMLDocument* document, const std::stri
 
 int setReactionLineEndingGeometricShapeX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
             isSetSuccessfully = 0;
 
@@ -1747,7 +1747,7 @@ int setSpeciesReferenceLineEndingGeometricShapeXAsDouble(SBMLDocument* document,
 
 int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
             isSetSuccessfully = 0;
 
@@ -1756,7 +1756,7 @@ int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, const s
 
 int setReactionLineEndingGeometricShapeXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, x))
             isSetSuccessfully = 0;
 
@@ -1835,7 +1835,7 @@ int setSpeciesReferenceLineEndingGeometricShapeY(SBMLDocument* document, unsigne
 
 int setReactionLineEndingGeometricShapeY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
             isSetSuccessfully = 0;
 
@@ -1844,7 +1844,7 @@ int setReactionLineEndingGeometricShapeY(SBMLDocument* document, const std::stri
 
 int setReactionLineEndingGeometricShapeY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
             isSetSuccessfully = 0;
 
@@ -1869,7 +1869,7 @@ int setSpeciesReferenceLineEndingGeometricShapeYAsDouble(SBMLDocument* document,
 
 int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
             isSetSuccessfully = 0;
 
@@ -1878,7 +1878,7 @@ int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, const s
 
 int setReactionLineEndingGeometricShapeYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, y))
             isSetSuccessfully = 0;
 
@@ -1955,7 +1955,7 @@ int setSpeciesReferenceLineEndingGeometricShapeWidth(SBMLDocument* document, uns
 
 int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& width) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeWidth(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
             isSetSuccessfully = 0;
 
@@ -1964,7 +1964,7 @@ int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, const std::
 
 int setReactionLineEndingGeometricShapeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& width) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeWidth(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
             isSetSuccessfully = 0;
 
@@ -1989,7 +1989,7 @@ int setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(SBMLDocument* docum
 
 int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& width) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
             isSetSuccessfully = 0;
 
@@ -1998,7 +1998,7 @@ int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, con
 
 int setReactionLineEndingGeometricShapeWidthAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& width) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeWidthAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, width))
             isSetSuccessfully = 0;
 
@@ -2075,7 +2075,7 @@ int setSpeciesReferenceLineEndingGeometricShapeHeight(SBMLDocument* document, un
 
 int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& height) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeHeight(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
             isSetSuccessfully = 0;
 
@@ -2084,7 +2084,7 @@ int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, const std:
 
 int setReactionLineEndingGeometricShapeHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& height) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeHeight(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
             isSetSuccessfully = 0;
 
@@ -2109,7 +2109,7 @@ int setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(SBMLDocument* docu
 
 int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
             isSetSuccessfully = 0;
 
@@ -2118,7 +2118,7 @@ int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, co
 
 int setReactionLineEndingGeometricShapeHeightAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& height) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeHeightAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, height))
             isSetSuccessfully = 0;
 
@@ -2175,7 +2175,7 @@ int setSpeciesReferenceLineEndingGeometricShapeRatio(SBMLDocument* document, uns
 
 int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRatio(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, ratio))
             isSetSuccessfully = 0;
 
@@ -2184,7 +2184,7 @@ int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, const std::
 
 int setReactionLineEndingGeometricShapeRatio(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& ratio) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRatio(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, ratio))
             isSetSuccessfully = 0;
 
@@ -2261,7 +2261,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocume
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2270,7 +2270,7 @@ int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* docu
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2295,7 +2295,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SB
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2304,7 +2304,7 @@ int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocume
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2381,7 +2381,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocume
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2390,7 +2390,7 @@ int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* docu
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2415,7 +2415,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SB
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2424,7 +2424,7 @@ int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocume
 
 int setReactionLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCornerCurvatureRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2501,7 +2501,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCenterX(SBMLDocument* document, u
 
 int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
             isSetSuccessfully = 0;
 
@@ -2510,7 +2510,7 @@ int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, const std
 
 int setReactionLineEndingGeometricShapeCenterX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
             isSetSuccessfully = 0;
 
@@ -2535,7 +2535,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* doc
 
 int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
             isSetSuccessfully = 0;
 
@@ -2544,7 +2544,7 @@ int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, c
 
 int setReactionLineEndingGeometricShapeCenterXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerX))
             isSetSuccessfully = 0;
 
@@ -2621,7 +2621,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCenterY(SBMLDocument* document, u
 
 int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
             isSetSuccessfully = 0;
 
@@ -2630,7 +2630,7 @@ int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, const std
 
 int setReactionLineEndingGeometricShapeCenterY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& centerY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
             isSetSuccessfully = 0;
 
@@ -2655,7 +2655,7 @@ int setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* doc
 
 int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
             isSetSuccessfully = 0;
 
@@ -2664,7 +2664,7 @@ int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, c
 
 int setReactionLineEndingGeometricShapeCenterYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& centerY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeCenterYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, centerY))
             isSetSuccessfully = 0;
 
@@ -2741,7 +2741,7 @@ int setSpeciesReferenceLineEndingGeometricShapeRadiusX(SBMLDocument* document, u
 
 int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2750,7 +2750,7 @@ int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, const std
 
 int setReactionLineEndingGeometricShapeRadiusX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2775,7 +2775,7 @@ int setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* doc
 
 int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2784,7 +2784,7 @@ int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, c
 
 int setReactionLineEndingGeometricShapeRadiusXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusX) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusX))
             isSetSuccessfully = 0;
 
@@ -2861,7 +2861,7 @@ int setSpeciesReferenceLineEndingGeometricShapeRadiusY(SBMLDocument* document, u
 
 int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2870,7 +2870,7 @@ int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, const std
 
 int setReactionLineEndingGeometricShapeRadiusY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const RelAbsVector& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2895,7 +2895,7 @@ int setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* doc
 
 int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2904,7 +2904,7 @@ int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, c
 
 int setReactionLineEndingGeometricShapeRadiusYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const double& radiusY) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeRadiusYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, radiusY))
             isSetSuccessfully = 0;
 
@@ -2997,7 +2997,7 @@ int setSpeciesReferenceLineEndingGeometricShapeElementX(SBMLDocument* document, 
 
 int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementX(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
             isSetSuccessfully = 0;
 
@@ -3006,7 +3006,7 @@ int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, const st
 
 int setReactionLineEndingGeometricShapeElementX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementX(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
             isSetSuccessfully = 0;
 
@@ -3031,7 +3031,7 @@ int setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(SBMLDocument* do
 
 int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
             isSetSuccessfully = 0;
 
@@ -3040,7 +3040,7 @@ int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, 
 
 int setReactionLineEndingGeometricShapeElementXAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& x) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementXAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, x))
             isSetSuccessfully = 0;
 
@@ -3101,7 +3101,7 @@ int setSpeciesReferenceLineEndingGeometricShapeElementY(SBMLDocument* document, 
 
 int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementY(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
             isSetSuccessfully = 0;
 
@@ -3110,7 +3110,7 @@ int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, const st
 
 int setReactionLineEndingGeometricShapeElementY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementY(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
             isSetSuccessfully = 0;
 
@@ -3135,7 +3135,7 @@ int setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(SBMLDocument* do
 
 int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
             isSetSuccessfully = 0;
 
@@ -3144,7 +3144,7 @@ int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, 
 
 int setReactionLineEndingGeometricShapeElementYAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeElementYAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, y))
             isSetSuccessfully = 0;
 
@@ -3205,7 +3205,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
             isSetSuccessfully = 0;
 
@@ -3214,7 +3214,7 @@ int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, const
 
 int setReactionLineEndingGeometricShapeBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
             isSetSuccessfully = 0;
 
@@ -3239,7 +3239,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument*
 
 int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
             isSetSuccessfully = 0;
 
@@ -3248,7 +3248,7 @@ int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1X))
             isSetSuccessfully = 0;
 
@@ -3309,7 +3309,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
             isSetSuccessfully = 0;
 
@@ -3318,7 +3318,7 @@ int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, const
 
 int setReactionLineEndingGeometricShapeBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint1Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
             isSetSuccessfully = 0;
 
@@ -3343,7 +3343,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument*
 
 int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
             isSetSuccessfully = 0;
 
@@ -3352,7 +3352,7 @@ int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint1Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint1YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint1Y))
             isSetSuccessfully = 0;
 
@@ -3413,7 +3413,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
             isSetSuccessfully = 0;
 
@@ -3422,7 +3422,7 @@ int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, const
 
 int setReactionLineEndingGeometricShapeBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
             isSetSuccessfully = 0;
 
@@ -3447,7 +3447,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument*
 
 int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
             isSetSuccessfully = 0;
 
@@ -3456,7 +3456,7 @@ int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2X) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2XAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2X))
             isSetSuccessfully = 0;
 
@@ -3517,7 +3517,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
             isSetSuccessfully = 0;
 
@@ -3526,7 +3526,7 @@ int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, const
 
 int setReactionLineEndingGeometricShapeBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const RelAbsVector& basePoint2Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
             isSetSuccessfully = 0;
 
@@ -3551,7 +3551,7 @@ int setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument*
 
 int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
             isSetSuccessfully = 0;
 
@@ -3560,7 +3560,7 @@ int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* documen
 
 int setReactionLineEndingGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, unsigned int elementIndex, const double& basePoint2Y) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeBasePoint2YAsDouble(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, elementIndex, basePoint2Y))
             isSetSuccessfully = 0;
 
@@ -3617,7 +3617,7 @@ int setSpeciesReferenceLineEndingGeometricShapeHref(SBMLDocument* document, unsi
 
 int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const std::string& href) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeHref(document, reactionId, reactionGlyphIndex, i, geometricShapeIndex, href))
             isSetSuccessfully = 0;
 
@@ -3626,7 +3626,7 @@ int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, const std::s
 
 int setReactionLineEndingGeometricShapeHref(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int geometricShapeIndex, const std::string& href) {
     int isSetSuccessfully = -1;
-    for (unsigned int i = 0; i < getNumSpeciesReferenceGlyphs(document, reactionId, reactionGlyphIndex); i++)
+    for (unsigned int i = 0; i < getNumSpeciesReferences(document, reactionId, reactionGlyphIndex); i++)
         if (!setSpeciesReferenceLineEndingGeometricShapeHref(document, layoutIndex, reactionId, reactionGlyphIndex, i, geometricShapeIndex, href))
             isSetSuccessfully = 0;
 

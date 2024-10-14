@@ -78,7 +78,7 @@ LIBSBMLNETWORK_EXTERN int createDefaultLayoutFeatures(SBMLDocument* document, co
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, Layout* layout);
 
-/// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferenceGlyphs in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the first Layout object in the ListOfLayouts of the SBMLDocument.
+/// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the first Layout object in the ListOfLayouts of the SBMLDocument.
 /// @param document a pointer to the SBMLDocument object.
 /// @param speciesId the id of the Species to create an alias SpeciesGlyph for.
 /// @param reactionId the id of the Reaction to create an alias SpeciesGlyph for.
@@ -86,7 +86,7 @@ LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, Layout* lay
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex);
 
-/// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferenceGlyphs in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
+/// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param speciesId the id of the Species to create an alias SpeciesGlyph for.
@@ -470,53 +470,54 @@ LIBSBMLNETWORK_EXTERN bool isReactionGlyph(SBMLDocument* document, const std::st
 /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
 
-/// @brief Returns the number of SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the number of SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return the number of SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id,
-/// or @c 0 if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
-LIBSBMLNETWORK_EXTERN const unsigned int getNumSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+/// @return the number of SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered reaction id,
+/// or @c 0 if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN const unsigned int getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
-/// @brief Returns the number of SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the number of SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return the number of SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id,
-/// or @c 0 if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
-LIBSBMLNETWORK_EXTERN const unsigned int getNumSpeciesReferenceGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+/// @return the number of SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered reaction id,
+/// or @c 0 if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN const unsigned int getNumSpeciesReferences(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return the SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id,
-/// or an empty vector if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
-LIBSBMLNETWORK_EXTERN std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+/// @return the SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered reaction id,
+/// or an empty vector if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN std::vector<SpeciesReferenceGlyph*> getSpeciesReferences(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return the SpeciesReferenceGlyph objects of the ReactionGlyph object with the given index associated with the entered reaction id,
-/// or an empty vector if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
-LIBSBMLNETWORK_EXTERN std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+/// @return the SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered reaction id,
+/// or an empty vector if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN std::vector<SpeciesReferenceGlyph*> getSpeciesReferences(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @param speciesReferenceIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @return the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id,
-/// or an empty vector if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
-LIBSBMLNETWORK_EXTERN SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+/// or an empty vector if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN SpeciesReferenceGlyph* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
 /// @brief Returns the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -524,844 +525,844 @@ LIBSBMLNETWORK_EXTERN SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocume
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @param speciesReferenceIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @return the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id,
-/// or an empty vector if the object is @c NULL or has no associated SpeciesReferenceGlyph objects.
-LIBSBMLNETWORK_EXTERN SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+/// or an empty vector if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN SpeciesReferenceGlyph* getSpeciesReference(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the id of the species reference associated with SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the id of the species reference associated with SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph to return.
-/// @return the value of the "species reference" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+/// @param speciesReferenceIndex the index of the SpeciesReference to return.
+/// @return the id of the SpeciesReference object with the given index, or @c "" if
 /// the ReactionGlyph does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @breif Returns the id of the species reference associated with SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the id of the species reference associated with SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph to return.
-/// @return the value of the "species reference" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
+/// @param speciesReferenceIndex the index of the SpeciesReference to return.
+/// @return the id of the SpeciesReference object with the given index, or @c "" if
 /// the ReactionGlyph object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the id of the species glyph associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the id of the species glyph associated with the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the id of the "species" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
-/// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the "species" attribute of the SpeciesReference object with the given index, or @c "" if
+/// the SpeciesReference does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the id of the species glyph associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the id of the species glyph associated with the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the value of the "speciesGlyph" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the value of the "speciesGlyph" attribute of the SpeciesReference object with the given index, or @c "" if
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the id of the species glyph associated with the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the id of the species glyph associated with the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the value of the "speciesGlyph" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
-/// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the value of the "speciesGlyph" attribute of the SpeciesReference object with the given index, or @c "" if
+/// the SpeciesReference does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Predicates returning @c true if the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Predicates returning @c true if the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document is set.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return @c true if the "role" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "role"
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return @c true if the "role" attribute of the SpeciesReference object with the given index is set, @c false if either the "role"
 /// attribute is not set or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Predicates returning @c true if the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Predicates returning @c true if the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return @c true if the "role" attribute of the SpeciesReferenceGlyph object with the given index is set, @c false if either the "role"
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return @c true if the "role" attribute of the SpeciesReference object with the given index is set, @c false if either the "role"
 /// attribute is not set or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the string representation of the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the string representation of the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the value of the "role" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
-/// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the value of the "role" attribute of the SpeciesReference object with the given index, or @c "" if
+/// the SpeciesReference does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the string representation of the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the string representation of the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the the Layout object with the givne index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the value of the "role" attribute of the SpeciesReferenceGlyph object with the given index, or @c "" if
-/// the SpeciesReferenceGlyph does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the value of the "role" attribute of the SpeciesReference object with the given index, or @c "" if
+/// the SpeciesReference does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Sets the value of the "role" attribute of the SpeciesReferenceGlyph object of the first ReactionGlyph object id of
+/// @brief Sets the value of the "role" attribute of the SpeciesReference object of the first ReactionGlyph object id of
 ///  the first Layout object of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the reaction the the ReactionGlyph objects of which to be returned.
-/// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
+/// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, const std::string& role);
 
-/// @brief Sets the value of the "role" attribute of the SpeciesReferenceGlyph object of the first ReactionGlyph object id of
+/// @brief Sets the value of the "role" attribute of the SpeciesReference object of the first ReactionGlyph object id of
 ///  the Layout object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionId the id of the reaction the the ReactionGlyph objects of which to be returned.
-/// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
+/// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, const std::string& role);
 
-/// @brief Sets the value of the "role" attribute of the SpeciesReferenceGlyph object of the ReactionGlyph object with the given id of
+/// @brief Sets the value of the "role" attribute of the SpeciesReference object of the ReactionGlyph object with the given id of
 ///  the first Layout object of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the reaction the the ReactionGlyph objects of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
+/// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& role);
 
-/// @brief Sets the value of the "role" attribute of the first SpeciesReferenceGlyph object of the ReactionGlyph object with the given id of
+/// @brief Sets the value of the "role" attribute of the first SpeciesReference object of the ReactionGlyph object with the given id of
 /// the Layout object with the given index of the SBML document.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionId the id of the reaction the the ReactionGlyph objects of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
+/// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& role);
 
-/// @brief Sets the value of the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given id of
+/// @brief Sets the value of the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given id of
 /// the first Layout object of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the reaction the the ReactionGlyph objects of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role);
+    LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role);
 
-/// @brief Sets the value of the "role" attribute of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given id of
+/// @brief Sets the value of the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given id of
 /// the Layout object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionId the id of the reaction the the ReactionGlyph objects of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @param role a string value to be set as "role" attribute of the SpeciesReferenceGlyph object.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role);
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role);
 
-/// @brief Predicate returning @c true if the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Predicate returning @c true if the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the the ListOfLayouts of the SBML document has a Curve object and the curve consists of one or more segments.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return @c true if the SpeciesReferenceGlyph object has a Curve object and the curve consists of one or more segments, false otherwise
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return @c true if the SpeciesReference object has a Curve object and the curve consists of one or more segments, false otherwise
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Predicate returning @c true if the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Predicate returning @c true if the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document has a Curve object and the curve consists of one or more segments.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return @c true if the SpeciesReferenceGlyph object has a Curve object and the curve consists of one or more segments, false otherwise
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return @c true if the SpeciesReference object has a Curve object and the curve consists of one or more segments, false otherwise
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return a pointer to the Curve object of the SpeciesReferenceGlyph object with the given index, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return a pointer to the Curve object of the SpeciesReference object with the given index, or @c NULL if
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN Curve* getSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return a pointer to the Curve object of the SpeciesReferenceGlyph object with the given index, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return a pointer to the Curve object of the SpeciesReference object with the given index, or @c NULL if
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN Curve* getSpeciesReferenceCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the number of curve segments of the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the number of curve segments of the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the number of curve segments of the Curve object of the SpeciesReferenceGlyph object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the number of curve segments of the Curve object of the SpeciesReference object with the given index, or @c 0 if
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const unsigned int getNumSpeciesReferenceCurveSegments(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns the number of curve segments of the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the number of curve segments of the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
-/// @return the number of curve segments of the Curve object of the SpeciesReferenceGlyph object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the number of curve segments of the Curve object of the SpeciesReference object with the given index, or @c 0 if
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const unsigned int getNumSpeciesReferenceCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Returns a pointer to the curve segment with the given index of the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns a pointer to the curve segment with the given index of the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return a pointer to the LineSegment object with the given index, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN LineSegment* getSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Returns a pointer to the curve segment with the given index of the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns a pointer to the curve segment with the given index of the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the number of SpeciesReferenceGlyph objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return a pointer to the LineSegment object with the given index, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN LineSegment* getSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Creates a new LineSegment and adds it to the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Creates a new LineSegment and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @return a pointer to the newly created LineSegment object, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Creates a new LineSegment and adds it to the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Creates a new LineSegment and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @return a pointer to the newly created LineSegment object, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Creates a new CubicBezier object and adds it to the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Creates a new CubicBezier object and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @return a pointer to the newly created CubicBezier object, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN CubicBezier* createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Creates a new CubicBezier object and adds it to the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Creates a new CubicBezier object and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @return a pointer to the newly created CubicBezier object, or @c NULL if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN CubicBezier* createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-/// @brief Removes the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Removes the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Removes the Curve object of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Removes the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Predicate returning true if the curve segment with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Predicate returning true if the curve segment with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts is of type CubicBezier.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return @c true if the curve segment with the given index is of type CubicBezier, @c false otherwise
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Predicate returning true if the curve segment with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Predicate returning true if the curve segment with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts is of type CubicBezier.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return @c true if the curve segment with the given index is of type CubicBezier, @c false otherwise
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Returns the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the start point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Returns the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the start point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Returns the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the start point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Returns the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the start point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the start point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the start point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @breif Returns the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the end point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Returns the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the end point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @breif Returns the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the end point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Returns the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the end point of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the end point of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the end point of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Returns the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Returns the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Returns the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @breif Returns the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Returns the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the base point 1 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 1 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @breif Returns the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Returns the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "x" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param x the value to be set as "x" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x);
 
-/// @breif Returns the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @breif Returns the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @breif Returns the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @return the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index, or @c 0 if
-/// the SpeciesReferenceGlyph object does not exits or the object is @c NULL
+/// the SpeciesReference object does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN double getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int curveSegmentIndex = 0);
 
-/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the first Layout object in the first ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the first ReactionGlyph object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y);
 
-/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReferenceGlyph object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// @brief Sets the value of the "y" attribute of the base point 2 of the CubicBezier object with the given index of the Curve of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param reactionId the id of the reaction the SpeciesReferenceGlyph object of which to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
-/// @param speciesReferenceGlyphIndex the index of the SpeciesReferenceGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param curveSegmentIndex the index of the CurveSegment.
 /// @param y the value to be set as "y" attribute of the base point 2 of the CubicBezier object.
 /// @return integer value indicating success/failure of the function.
