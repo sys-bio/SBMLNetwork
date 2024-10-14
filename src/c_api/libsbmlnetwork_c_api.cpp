@@ -490,26 +490,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex, bool useNameAsTextLabel) {
-        std::string text = getText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
-        if (!text.empty()) {
-            return strdup(text.c_str());
-        }
-        if (useNameAsTextLabel) {
-            text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
-            if (!text.empty()) {
-                return strdup(text.c_str());
-            }
-        }
-        text = getId(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
-        if (!text.empty()) {
-            return strdup(text.c_str());
-        }
-        text = getGraphicalObjectId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
-        if (!text.empty()) {
-            return strdup(text.c_str());
-        }
-
-        return "";
+        return strdup(getText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex, useNameAsTextLabel).c_str());
     }
 
     int c_api_setText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {

@@ -1458,9 +1458,10 @@ LIBSBMLNETWORK_EXTERN bool isSetText(SBMLDocument* document, unsigned int layout
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject.
 /// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param useNameAsTextLabel a boolean value to indicate whether to return the name of the model entity as the text label.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0, bool useNameAsTextLabel = false);
 
 /// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
@@ -1469,9 +1470,10 @@ LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const st
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject.
 /// @param textGlyphIndex the index of the TextGlyph to return.
+/// @param useNameAsTextLabel a boolean value to indicate whether to return the name of the model entity as the text label.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0, bool useNameAsTextLabel = false);
 
 /// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id in
 /// the first Layout object of the SBML document.

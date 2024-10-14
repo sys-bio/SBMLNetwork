@@ -1,4 +1,5 @@
 #include "libsbmlnetwork_sbmldocument_layout.h"
+#include "libsbmlnetwork_sbmldocument.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "autolayout/libsbmlnetwork_autolayout.h"
@@ -750,12 +751,30 @@ bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::stri
     return isSetText(getLayout(document, layoutIndex), id);
 }
 
-const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getText(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, bool useNameAsTextLabel) {
+    return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex, useNameAsTextLabel);
 }
 
-const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, bool useNameAsTextLabel) {
+    std::string text = getText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+    if (!text.empty()) {
+        return text;
+    }
+    if (useNameAsTextLabel) {
+        text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+        if (!text.empty())
+            return text;
+    }
+    text = getId(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+    if (!text.empty()) {
+        return text;
+    }
+    text = getGraphicalObjectId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
+    if (!text.empty()) {
+        return text;
+    }
+
+    return "";
 }
 
 int setText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {
