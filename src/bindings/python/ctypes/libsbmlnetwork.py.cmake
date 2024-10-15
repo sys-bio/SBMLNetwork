@@ -126,14 +126,14 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, max_num_connected_edges=3, reset_locked_nodes=False, locked_nodes=[]):
+    def autolayout(self, max_num_connected_edges=3, reset_locked_elements=False, locked_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
         :Parameters:
 
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
-            - reset_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to reset the locked nodes before applying the autolayout algorithm.
+            - reset_locked_elements (boolean, optional): a boolean (default: False) that determines whether to reset the locked elements before applying the autolayout algorithm.
             - locked_nodes (list of lists or list of strings, optional): a list (default: []) that determines the nodes that should not be moved during the autolayout algorithm. The list contains:
                 - a list of lists where each list includes:
                     - 'id' (str): the ID of the node that must not be moved when autolayout algorithm is applied.
@@ -160,7 +160,7 @@ class LibSBMLNetwork:
                     raise Exception("The locked_nodes parameter should be a list of lists or a list of strings.")
                 locked_nodes_ptr[i] = locked_node_ptr
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_nodes, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_elements, locked_nodes_ptr, len(locked_nodes))
     
     def autorender(self, max_num_connected_edges=3):
         """

@@ -66,10 +66,10 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param maxNumConnectedEdges the maximum number of connected edges to a node in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
-/// @param resetLockedNodes a variable that determines whether to reset the locked nodes in the autolayout algorithm.
+/// @param resetLockedElements a variable that determines whether to reset the locked elements in the autolayout algorithm.
 /// @param lockedNodesSet a set of locked nodes and their graphical object indices to be used in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, std::set<std::pair<std::string, int> > lockedNodesSet = {});
+LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedElements = false, std::set<std::pair<std::string, int> > lockedNodesSet = {});
 
 /// @brief Create a Render object and add it to the the SBML document if it does not exist.
 /// @param document a pointer to the SBMLDocument object.

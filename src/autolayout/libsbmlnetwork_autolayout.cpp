@@ -23,6 +23,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseGrid(useGrid);
     autoLayoutAlgorithm->updateNodesLockedStatus();
+    autoLayoutAlgorithm->updateConnectionsLockedStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();

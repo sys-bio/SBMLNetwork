@@ -63,8 +63,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedNodes, std::set<std::pair<std::string, int> > lockedNodesSet) {
-        const bool layoutIsAdded = !createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
+    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedElements, std::set<std::pair<std::string, int> > lockedNodesSet) {
+        const bool layoutIsAdded = !createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;

@@ -17,6 +17,12 @@ public:
 
     const std::string getRoleString();
 
+    const bool isLocked();
+
+    void setLocked(const bool& locked);
+
+    void updateLockedStatus();
+
     const AutoLayoutPoint getNodeSidePoint();
 
     void setNodeSidePoint(const AutoLayoutPoint& nodeSidePoint);
@@ -36,6 +42,7 @@ public:
 protected:
 
     SpeciesReferenceGlyph* _speciesReferenceGlyph;
+    bool _locked;
 };
 
 #endif

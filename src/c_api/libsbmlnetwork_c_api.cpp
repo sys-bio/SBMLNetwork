@@ -46,7 +46,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedNodes, const char ***lockedNodes, const int lockedNodesSize) {
+    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedElements, const char ***lockedNodes, const int lockedNodesSize) {
         std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
         if (lockedNodes) {
             for (int i = 0; i < lockedNodesSize; i++) {
@@ -57,7 +57,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             }
         }
 
-        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
+        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
     }
 
     int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges) {
@@ -104,7 +104,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges,
-                                  bool useNameAsTextLabel, bool resetLockedNodes,
+                                  bool useNameAsTextLabel, bool resetLockedElements,
                                   const char ***lockedNodes, const int lockedNodesSize) {
         std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
         for (int i = 0; i < lockedNodesSize; i++) {
@@ -114,7 +114,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             lockedNodesSet.insert(std::make_pair(id, index));
         }
 
-        return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
+        return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
     }
 
     int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {

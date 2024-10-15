@@ -77,13 +77,13 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
 }
 
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetLockedNodes, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                             bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            lockGraphicalObjects(layout, lockedNodesSet, resetLockedNodes);
+            lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
             std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout, userData);
@@ -122,12 +122,12 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
 }
 
 int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                                bool resetLockedNodes, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                                bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {

@@ -108,6 +108,11 @@ std::vector<std::map<std::string, std::string>> getUserData(Layout* layout) {
         auto reactionGlyphUserData = layout->getReactionGlyph(i)->getUserData();
         if (reactionGlyphUserData)
             userData.push_back(*(std::map<std::string, std::string>*)reactionGlyphUserData);
+        for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
+            auto speciesReferenceGlyphUserData = layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j)->getUserData();
+            if (speciesReferenceGlyphUserData)
+                userData.push_back(*(std::map<std::string, std::string>*)speciesReferenceGlyphUserData);
+        }
     }
 
     return userData;
@@ -134,6 +139,50 @@ void setUserData(SBase* sBase, const std::string& key, const std::string& value)
     }
     auto userData = (std::map<std::string, std::string>*)sBase->getUserData();
     (*userData)[key] = value;
+}
+
+void setPositionData(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "x", std::to_string(getPositionX(graphicalObject)));
+    setUserData(graphicalObject, "y", std::to_string(getPositionY(graphicalObject)));
+}
+
+void unsetPositionData(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "x", "");
+    setUserData(graphicalObject, "y", "");
+}
+
+void setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (speciesReferenceGlyph) {
+        Curve* curve = getCurve(speciesReferenceGlyph);
+        for (unsigned int i = 0; i < getNumCurveSegments(curve); i++) {
+            setUserData(speciesReferenceGlyph, std::to_string(i) + ":start_x", std::to_string(getCurveSegmentStartPointX(curve, i)));
+            setUserData(speciesReferenceGlyph, std::to_string(i) + ":start_y", std::to_string(getCurveSegmentStartPointY(curve, i)));
+            setUserData(speciesReferenceGlyph, std::to_string(i) + ":end_x", std::to_string(getCurveSegmentEndPointX(curve, i)));
+            setUserData(speciesReferenceGlyph, std::to_string(i) + ":end_y", std::to_string(getCurveSegmentEndPointY(curve, i)));
+            if (isCubicBezier(curve, i)) {
+                setUserData(speciesReferenceGlyph, std::to_string(i) + ":b1_x", std::to_string(getCurveSegmentBasePoint1X(curve, i)));
+                setUserData(speciesReferenceGlyph, std::to_string(i) + ":b1_y", std::to_string(getCurveSegmentBasePoint1Y(curve, i)));
+                setUserData(speciesReferenceGlyph, std::to_string(i) + ":b2_x", std::to_string(getCurveSegmentBasePoint2X(curve, i)));
+                setUserData(speciesReferenceGlyph, std::to_string(i) + ":b2_y", std::to_string(getCurveSegmentBasePoint2Y(curve, i)));
+            }
+        }
+    }
+}
+
+void unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (speciesReferenceGlyph) {
+        Curve* curve = getCurve(speciesReferenceGlyph);
+        for (unsigned int i = 0; i < getNumCurveSegments(curve); i++) {
+            setUserData(curve, std::to_string(i) + ":start_x", "");
+            setUserData(curve, std::to_string(i) + ":start_y", "");
+            setUserData(curve, std::to_string(i) + ":end_x", "");
+            setUserData(curve, std::to_string(i) + ":end_y", "");
+            setUserData(curve, std::to_string(i) + ":b1_x", "");
+            setUserData(curve, std::to_string(i) + ":b1_y", "");
+            setUserData(curve, std::to_string(i) + ":b2_x", "");
+            setUserData(curve, std::to_string(i) + ":b2_y", "");
+        }
+    }
 }
 
 void setDefaultLayoutId(Layout* layout) {
@@ -173,16 +222,18 @@ const double getReactionDefaultHeight() {
     return 20.0;
 }
 
-void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedNodes) {
-    lockSpeciesGlyphs(layout, lockedNodesSet, resetLockedNodes);
-    lockReactionGlyphs(layout, lockedNodesSet, resetLockedNodes);
+void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements) {
+    lockSpeciesGlyphs(layout, lockedNodesSet, resetLockedElements);
+    lockReactionGlyphs(layout, lockedNodesSet, resetLockedElements);
 }
 
-void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedNodes) {
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
-        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
-        if (resetLockedNodes && getUserData(speciesGlyph, "locked") == "true")
-            unlockGraphicalObject(speciesGlyph);
+void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements) {
+    if (resetLockedElements) {
+        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+            SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
+            if (getUserData(speciesGlyph, "locked") == "true")
+                unlockGraphicalObject(speciesGlyph);
+        }
     }
 
     for (std::set<std::pair<std::string, int> >::const_iterator lockedNodeIt = lockedNodesSet.cbegin(); lockedNodeIt != lockedNodesSet.cend(); lockedNodeIt++) {
@@ -193,11 +244,18 @@ void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lo
     }
 }
 
-void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedNodes) {
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
-        if (resetLockedNodes && getUserData(reactionGlyph, "locked") == "true")
-            unlockGraphicalObject(reactionGlyph);
+void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements) {
+    if (resetLockedElements) {
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+            if (getUserData(reactionGlyph, "locked") == "true")
+                unlockGraphicalObject(reactionGlyph);
+            for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
+                SpeciesReferenceGlyph *speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(j);
+                if (getUserData(speciesReferenceGlyph, "locked") == "true")
+                    unlockGraphicalObject(speciesReferenceGlyph);
+            }
+        }
     }
 
     for (std::set<std::pair<std::string, int> >::const_iterator lockedNodeIt = lockedNodesSet.cbegin(); lockedNodeIt != lockedNodesSet.cend(); lockedNodeIt++) {
@@ -210,14 +268,18 @@ void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > l
 
 void lockGraphicalObject(GraphicalObject* graphicalObject) {
     setUserData(graphicalObject, "locked", "true");
-    setUserData(graphicalObject, "x", std::to_string(getPositionX(graphicalObject)));
-    setUserData(graphicalObject, "y", std::to_string(getPositionY(graphicalObject)));
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        setPositionData((SpeciesReferenceGlyph*)graphicalObject);
+    else
+        setPositionData(graphicalObject);
 }
 
 void unlockGraphicalObject(GraphicalObject* graphicalObject) {
     setUserData(graphicalObject, "locked", "false");
-    setUserData(graphicalObject, "x", "");
-    setUserData(graphicalObject, "y", "");
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        unsetPositionData((SpeciesReferenceGlyph*)graphicalObject);
+    else
+        unsetPositionData(graphicalObject);
 }
 
 std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects) {
@@ -316,10 +378,10 @@ void setReactionGlyphs(Model* model, Layout* layout, const std::vector<std::map<
         setReactionGlyphCurve(reactionGlyph);
         setGraphicalObjectUserData(reactionGlyph, userData);
         clearReactionGlyphSpeciesReferenceGlyphs(reactionGlyph);
-        setReactantGlyphs(layout, reaction, reactionGlyph);
-        setProductGlyphs(layout, reaction, reactionGlyph);
-        setModifierGlyphs(layout, reaction, reactionGlyph);
-        setDummySpeciesReferenceGlyphs(model, layout, reactionGlyph);
+        setReactantGlyphs(layout, reaction, reactionGlyph, userData);
+        setProductGlyphs(layout, reaction, reactionGlyph, userData);
+        setModifierGlyphs(layout, reaction, reactionGlyph, userData);
+        setDummySpeciesReferenceGlyphs(model, layout, reactionGlyph, userData);
     }
 }
 
@@ -328,29 +390,31 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
         setCurveCubicBezier(reactionGlyph->getCurve());
 }
 
-void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
+void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
         for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < getStoichiometryAsInteger(speciesReference); stoichiometryIndex++) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference, stoichiometryIndex);
             speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
             setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+            setGraphicalObjectUserData(speciesReferenceGlyph, userData);
         }
     }
 }
 
-void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
+void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
         for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < getStoichiometryAsInteger(speciesReference); stoichiometryIndex++) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference, stoichiometryIndex);
             speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
             setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+            setGraphicalObjectUserData(speciesReferenceGlyph, userData);
         }
     }
 }
 
-void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph) {
+void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
         SpeciesReferenceGlyph* speciesReferenceGlyph = createAssociatedSpeciesReferenceGlyph(layout, reaction, reactionGlyph, speciesReference);
@@ -359,18 +423,21 @@ void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
         else
             speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
         setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
+        setGraphicalObjectUserData(speciesReferenceGlyph, userData);
     }
 }
 
-void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
+void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData) {
     Reaction* reaction = findReactionGlyphReaction(model, reactionGlyph);
     if (reaction->getNumReactants() == 0) {
         SpeciesReferenceGlyph* dummyReactantGlyph = createDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
         dummyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
+        setGraphicalObjectUserData(dummyReactantGlyph, userData);
     }
     else if (reaction->getNumProducts() == 0) {
         SpeciesReferenceGlyph* dummyProductGlyph = createDummySpeciesReferenceGlyph(model, layout, reactionGlyph);
         dummyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
+        setGraphicalObjectUserData(dummyProductGlyph, userData);
     }
 }
 

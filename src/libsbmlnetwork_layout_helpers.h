@@ -34,6 +34,14 @@ const std::string getUserData(SBase* sbase, const std::string& key);
 
 void setUserData(SBase* sBase, const std::string& key, const std::string& value);
 
+void setPositionData(GraphicalObject* graphicalObject);
+
+void unsetPositionData(GraphicalObject* graphicalObject);
+
+void setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+void unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
 void setDefaultLayoutId(Layout* layout);
 
 const std::string getDefaultLayoutId();
@@ -48,11 +56,11 @@ const double getReactionDefaultWidth();
 
 const double getReactionDefaultHeight();
 
-void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedNodes);
+void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
 
-void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedNodes);
+void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
 
-void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedNodes);
+void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
 
 void lockGraphicalObject(GraphicalObject* graphicalObject);
 
@@ -82,13 +90,13 @@ void setReactionGlyphs(Model* model, Layout* layout, const std::vector<std::map<
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
-void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph);
+void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
 
 SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 

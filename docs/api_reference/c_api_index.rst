@@ -25,7 +25,7 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetModel(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedElements = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges = 3)
 
@@ -39,7 +39,7 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges = 3)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true, bool resetLockedNodes = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true, bool resetLockedElements = false, const char** lockedNodeIds = NULL, const int lockedNodesSize = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex)
 
