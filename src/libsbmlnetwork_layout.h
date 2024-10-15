@@ -163,6 +163,14 @@ LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::s
 /// @return a pointer to the SpeciesGlyph object with the given index, or NULL is SpeciesGlyph object does not exist or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(Layout* layout, const unsigned int speciesGlyphIndex = 0);
 
+/// @brief Returns the index of the SpeciesGlyph object associated in the list of SpeciesGlyph objects among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id with the given index in the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param speciesId the id of the species the the SpeciesGlyph objects of which to be returned.
+/// @param reactionId the id of the reaction the the SpeciesGlyph objects of which to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @return the index of the SpeciesGlyph object associated in the list of SpeciesGlyph objects among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id, or @c 0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const int getSpeciesGlyphIndex(Layout* layout, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex = 0);
+
 /// Returns the id of the species associated with the SpeciesGlyph object with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the species the the SpeciesGlyph objects of which to be returned.
@@ -416,7 +424,7 @@ LIBSBMLNETWORK_EXTERN int setRole(GraphicalObject* speciesReferenceGlyph, const 
 /// @param reactionId the id of the reaction the SpeciesReference objects associated with it to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @return the number of SpeciesReference objects of this ReactionGlyph object, or @c 0 if ReactionGlyph does not exist or the object is @c NULL
-LIBSBMLNETWORK_EXTERN int getNumSpeciesReferencesAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const int getNumSpeciesReferencesAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the number of SpeciesReference objects of the ReactionGlyph with the given index associated with the entered species id in the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -425,7 +433,7 @@ LIBSBMLNETWORK_EXTERN int getNumSpeciesReferencesAssociatedWithSpecies(Layout* l
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param n the number of SpeciesReference objects to be returned.
 /// @return the number of SpeciesReference objects of this ReactionGlyph object, or @c 0 if ReactionGlyph does not exist or the object is @c NULL
-LIBSBMLNETWORK_EXTERN int getSpeciesReferenceIndexAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex = 0, const unsigned int n = 0);
+LIBSBMLNETWORK_EXTERN const int getSpeciesReferenceIndexAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex = 0, const unsigned int n = 0);
 
 /// @brief Predicate returning true if this abstract GraphicalObject object is of type SpeciesReferenceGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.

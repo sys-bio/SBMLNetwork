@@ -233,6 +233,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return "";
     }
 
+    const int c_api_getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+        return getSpeciesGlyphIndex(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
+    }
+
     bool c_api_isSpeciesGlyph(SBMLDocument* document, const char* speciesId, int layoutIndex) {
         return isSpeciesGlyph(document, layoutIndex, speciesId);
     }
@@ -325,11 +329,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, role);
     }
 
-    int c_api_getNumSpeciesReferenceAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+    const int c_api_getNumSpeciesReferenceAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
         return getNumSpeciesReferencesAssociatedWithSpecies(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
     }
 
-    int c_api_getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int n, int layoutIndex) {
+    const int c_api_getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int n, int layoutIndex) {
         return getSpeciesReferenceIndexAssociatedWithSpecies(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, n);
     }
 

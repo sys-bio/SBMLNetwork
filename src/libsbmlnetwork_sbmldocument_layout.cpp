@@ -313,6 +313,14 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, 
     return getSpeciesGlyph(getLayout(document, layoutIndex), speciesGlyphIndex);
 }
 
+const int getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex) {
+    return getSpeciesGlyphIndex(getLayout(document), speciesId, reactionId, reactionGlyphIndex);
+}
+
+const int getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex) {
+    return getSpeciesGlyphIndex(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex);
+}
+
 bool isSpeciesGlyph(SBMLDocument* document, const std::string& id) {
     return isSpeciesGlyph(getLayout(document), id);
 }
@@ -449,19 +457,19 @@ int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, co
     return setRole(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex, role);
 }
 
-int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+const int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
     return getNumSpeciesReferencesAssociatedWithSpecies(getLayout(document), speciesId, reactionId, reactionGlyphIndex);
 }
 
-int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+const int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
     return getNumSpeciesReferencesAssociatedWithSpecies(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex);
 }
 
-int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
+const int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
     return getSpeciesReferenceIndexAssociatedWithSpecies(getLayout(document), speciesId, reactionId, reactionGlyphIndex, n);
 }
 
-int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
+const int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
     return getSpeciesReferenceIndexAssociatedWithSpecies(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex, n);
 }
 
