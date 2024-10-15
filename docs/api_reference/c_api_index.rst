@@ -87,6 +87,8 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0)
 
+.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::c_api_getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0)
+
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSpeciesGlyph(SBMLDocument* document, const char* speciesId, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumReactions(SBMLDocument* document)
@@ -134,6 +136,10 @@ Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, const char* role, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpeciesReferenceAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex = 0, int n = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpeciesReferenceCurveSegments(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0)
 
