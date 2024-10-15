@@ -410,6 +410,23 @@ LIBSBMLNETWORK_EXTERN int setRole(GraphicalObject* reactionGlyph, unsigned int s
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setRole(GraphicalObject* speciesReferenceGlyph, const std::string& role);
 
+/// @brief Returns the number of SpeciesReference objects of the ReactionGlyph with the given index associated with the entered species id in the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param speciesId the id of the species the SpeciesReference objects associated with it to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference objects associated with it to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @return the number of SpeciesReference objects of this ReactionGlyph object, or @c 0 if ReactionGlyph does not exist or the object is @c NULL
+LIBSBMLNETWORK_EXTERN int getNumSpeciesReferencesAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex = 0);
+
+/// @brief Returns the number of SpeciesReference objects of the ReactionGlyph with the given index associated with the entered species id in the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param speciesId the id of the species the SpeciesReference objects associated with it to be returned.
+/// @param reactionId the id of the reaction the SpeciesReference objects associated with it to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @param n the number of SpeciesReference objects to be returned.
+/// @return the number of SpeciesReference objects of this ReactionGlyph object, or @c 0 if ReactionGlyph does not exist or the object is @c NULL
+LIBSBMLNETWORK_EXTERN int getSpeciesReferenceIndexAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex = 0, const unsigned int n = 0);
+
 /// @brief Predicate returning true if this abstract GraphicalObject object is of type SpeciesReferenceGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject object is of type SpeciesReferenceGlyph, false otherwise

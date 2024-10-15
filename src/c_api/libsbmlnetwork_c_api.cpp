@@ -325,6 +325,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, role);
     }
 
+    int c_api_getNumSpeciesReferenceAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
+        return getNumSpeciesReferencesAssociatedWithSpecies(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
+    }
+
+    int c_api_getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int n, int layoutIndex) {
+        return getSpeciesReferenceIndexAssociatedWithSpecies(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, n);
+    }
+
     const int c_api_getNumSpeciesReferenceCurveSegments(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return getNumSpeciesReferenceCurveSegments(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
     }

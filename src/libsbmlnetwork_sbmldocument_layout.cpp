@@ -449,6 +449,22 @@ int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, co
     return setRole(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex, role);
 }
 
+int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferencesAssociatedWithSpecies(getLayout(document), speciesId, reactionId, reactionGlyphIndex);
+}
+
+int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferencesAssociatedWithSpecies(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex);
+}
+
+int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
+    return getSpeciesReferenceIndexAssociatedWithSpecies(getLayout(document), speciesId, reactionId, reactionGlyphIndex, n);
+}
+
+int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
+    return getSpeciesReferenceIndexAssociatedWithSpecies(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex, n);
+}
+
 bool isSetSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
     return isSetCurve(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }

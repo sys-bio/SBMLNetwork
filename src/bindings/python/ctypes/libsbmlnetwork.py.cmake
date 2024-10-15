@@ -964,6 +964,39 @@ class LibSBMLNetwork:
             """
         return lib.c_api_setSpeciesReferenceRole(self.sbml_object, str(reaction_id).encode(), str(role).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
+    def getNumSpeciesReferenceAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0):
+        """
+        Returns the number of SpeciesReferences associated with the given species_id in the given SBMLDocument
+
+        :Parameters:
+
+            - species_id (string): a string that determines the id of the Species
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of SpeciesReferences associated with the given species_id in the given SBMLDocument
+            """
+        return lib.c_api_getNumSpeciesReferenceAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index)
+
+    def getSpeciesReferenceIndexAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0, n = 0):
+        """
+        Returns the index of the SpeciesReference associated with the given species_id in the given SBMLDocument
+
+        :Parameters:
+
+            - species_id (string): a string that determines the id of the Species
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
+            - n (int, optional): an integer (default: 0) that determines the index of the SpeciesReference among the associated SpeciesReferences to the given species_id in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the index of the SpeciesReference associated with the given species_id in the given SBMLDocument
+            """
+        return lib.c_api_getSpeciesReferenceIndexAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, n)
+
     def getNumSpeciesReferenceCurveSegments(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns the number of CurveSegments associated with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument

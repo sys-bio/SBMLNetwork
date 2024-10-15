@@ -668,7 +668,7 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsign
 /// @param speciesReferenceIndex the index of the SpeciesReference.
 /// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role);
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role);
 
 /// @brief Sets the value of the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given id of
 /// the Layout object with the given index of the SBML document.
@@ -680,6 +680,45 @@ LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsign
 /// @param role a string value to be set as "role" attribute of the SpeciesReference object.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role);
+
+/// @brief Returns the number of SpeciesReference objects of the ReactionGlyph with the given index associated with the entered species id in the first Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param speciesId the id of the species the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @return the number of SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered species id,
+/// or @c 0 if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+
+/// @brief Returns the number of SpeciesReference objects of the ReactionGlyph with the given index associated with the entered species id in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param speciesId the id of the species the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @return the number of SpeciesReference objects of the ReactionGlyph object with the given index associated with the entered species id,
+/// or @c 0 if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+
+/// @brief Returns the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param speciesId the id of the species the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @param n the index of the SpeciesReference object.
+/// @return the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id,
+/// or @c -1 if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0);
+
+/// @brief Returns the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param speciesId the id of the species the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @param n the index of the SpeciesReference object.
+/// @return the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id,
+/// or @c -1 if the object is @c NULL or has no associated SpeciesReference objects.
+LIBSBMLNETWORK_EXTERN int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0);
 
 /// @brief Predicate returning @c true if the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the the ListOfLayouts of the SBML document has a Curve object and the curve consists of one or more segments.
