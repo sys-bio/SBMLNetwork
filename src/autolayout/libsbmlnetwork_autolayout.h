@@ -18,9 +18,21 @@ const double getStiffness(Layout *layout);
 
 void setStiffness(Layout *layout, const double& stiffness);
 
+void updateStiffness(Layout *layout);
+
+double getStiffnessAdjustmentFactor(Layout *layout);
+
 const double getGravity(Layout *layout);
 
 void setGravity(Layout *layout, const double& gravity);
+
+void updateGravity(Layout *layout);
+
+double getGravityAdjustmentFactor(Layout *layout);
+
+double getCurrentDimensionToDesiredDimensionRatio(Layout *layout);
+
+double getDesiredDimensionToCurrentDimensionRatio(Layout *layout);
 
 void randomizeGlyphsLocations(Model* model, Layout* layout);
 
@@ -48,7 +60,11 @@ void updateLayoutDimensions(Layout* layout);
 
 const bool adjustLayoutDimensions(Layout *layout);
 
-const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity);
+const double getLayoutDimensionsDesiredWidth(Layout *layout);
+
+const double getLayoutDimensionsDesiredHeight(Layout *layout);
+
+const bool autolayoutMayStillConverge(Layout *layout);
 
 void extractExtents(Layout* layout, double &maxX, double &maxY);
 

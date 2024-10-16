@@ -31,9 +31,9 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
     if (!adjustLayoutDimensions(layout)) {
-        if (autolayoutMayStillConverge(stiffness, gravity)) {
-            setStiffness(layout, 1.2 * stiffness);
-            setGravity(layout, 0.95 * gravity);
+        if (autolayoutMayStillConverge(layout)) {
+            updateGravity(layout);
+            updateStiffness(layout);
             locateGlyphs(model, layout, useNameAsTextLabel);
         }
         else
@@ -75,6 +75,14 @@ void setStiffness(Layout *layout, const double &stiffness) {
     LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "stiffness", std::to_string(stiffness));
 }
 
+void updateStiffness(Layout *layout) {
+    setStiffness(layout, getStiffnessAdjustmentFactor(layout) * getStiffness(layout));
+}
+
+double getStiffnessAdjustmentFactor(Layout *layout) {
+    return std::max(std::min(getDesiredDimensionToCurrentDimensionRatio(layout), 1.1), 0.9);
+}
+
 const double getGravity(Layout *layout) {
     std::string gravity = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "gravity");
     if (gravity.empty()) {
@@ -87,6 +95,48 @@ const double getGravity(Layout *layout) {
 
 void setGravity(Layout *layout, const double &gravity) {
     LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "gravity", std::to_string(gravity));
+}
+
+void updateGravity(Layout *layout) {
+    setGravity(layout, getGravityAdjustmentFactor(layout) * getGravity(layout));
+}
+
+double getGravityAdjustmentFactor(Layout *layout) {
+    return std::max(std::min(getCurrentDimensionToDesiredDimensionRatio(layout), 1.05), 0.95);
+}
+
+double getCurrentDimensionToDesiredDimensionRatio(Layout *layout) {
+    double desiredWidth = getLayoutDimensionsDesiredWidth(layout);
+    double desiredHeight = getLayoutDimensionsDesiredHeight(layout);
+    if (layout->getDimensions()->width() < desiredWidth || layout->getDimensions()->height() < desiredHeight) {
+        double widthRatio = layout->getDimensions()->width() / desiredWidth;
+        double heightRatio = layout->getDimensions()->height() / desiredHeight;
+        return std::sqrt(widthRatio * widthRatio + heightRatio * heightRatio);
+    }
+    else if (layout->getDimensions()->width() > desiredWidth || layout->getDimensions()->height() > desiredHeight) {
+        double widthRatio = layout->getDimensions()->width() / desiredWidth;
+        double heightRatio = layout->getDimensions()->height() / desiredHeight;
+        return std::sqrt(widthRatio * widthRatio + heightRatio * heightRatio);
+    }
+
+    return 1.0;
+}
+
+double getDesiredDimensionToCurrentDimensionRatio(Layout *layout) {
+    double desiredWidth = getLayoutDimensionsDesiredWidth(layout);
+    double desiredHeight = getLayoutDimensionsDesiredHeight(layout);
+    if (layout->getDimensions()->width() < desiredWidth || layout->getDimensions()->height() < desiredHeight) {
+        double widthRatio = desiredWidth / layout->getDimensions()->width();
+        double heightRatio = desiredHeight / layout->getDimensions()->height();
+        return std::sqrt(widthRatio * widthRatio + heightRatio * heightRatio);
+    }
+    else if (layout->getDimensions()->width() > desiredWidth || layout->getDimensions()->height() > desiredHeight) {
+        double widthRatio = desiredWidth / layout->getDimensions()->width();
+        double heightRatio = desiredHeight / layout->getDimensions()->height();
+        return std::sqrt(widthRatio * widthRatio + heightRatio * heightRatio);
+    }
+
+    return 1.0;
 }
 
 void randomizeGlyphsLocations(Model *model, Layout *layout) {
@@ -241,28 +291,37 @@ void updateLayoutDimensions(Layout *layout) {
 }
 
 const bool adjustLayoutDimensions(Layout *layout) {
-    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
-    if (!width.empty()) {
-        double presetWidth = std::stod(width);
-        if (std::abs(presetWidth - layout->getDimensions()->width()) < 2 * getDefaultAutoLayoutPadding())
-            layout->getDimensions()->setWidth(presetWidth);
-        else
-            return false;
-    }
-    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
-    if (!height.empty()) {
-        double presetHeight = std::stod(height);
-        if (std::abs(presetHeight - layout->getDimensions()->height()) < 2 * getDefaultAutoLayoutPadding())
-            layout->getDimensions()->setHeight(presetHeight);
-        else
-            return false;
+    double desiredWidth = getLayoutDimensionsDesiredWidth(layout);
+    double widthGap = desiredWidth - layout->getDimensions()->width();
+    double desiredHeight = getLayoutDimensionsDesiredHeight(layout);
+    double heightGap = desiredHeight - layout->getDimensions()->height();
+    if (widthGap < 0.1 * desiredWidth && heightGap < 0.1 * desiredHeight) {
+        setUserData(layout->getDimensions(), "width", std::to_string(layout->getDimensions()->width()));
+        setUserData(layout->getDimensions(), "height", std::to_string(layout->getDimensions()->height()));
+        return true;
     }
 
-    return true;
+    return false;
 }
 
-const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity) {
-    if (gravity > 1.0)
+const double getLayoutDimensionsDesiredWidth(Layout *layout) {;
+    std::string presetWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    if (!presetWidth.empty())
+        return std::stod(presetWidth);
+
+    return layout->getDimensions()->width();
+}
+
+const double getLayoutDimensionsDesiredHeight(Layout *layout) {
+    std::string presetHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    if (!presetHeight.empty())
+        return std::stod(presetHeight);
+
+    return layout->getDimensions()->height();
+}
+
+const bool autolayoutMayStillConverge(Layout *layout) {
+    if (getGravity(layout) > 1.0)
         return true;
 
     return false;
