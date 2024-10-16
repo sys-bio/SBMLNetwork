@@ -7055,6 +7055,17 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setReactionsLineColor(self.sbml_object, str(line_color).encode(), layout_index)
 
+    def getLineEndingsBorderColor(self, layout_index=0):
+        """
+        Returns the default border color of the LineEnding objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default border color of the LineEnding objects in the given SBMLDocument
+        """
+        lib.c_api_getLineEndingsBorderColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLineEndingsBorderColor(self.sbml_object, layout_index)).value.decode()
+
     def setLineEndingsBorderColor(self, border_color, layout_index=0):
         """
         Sets the border color of all the LineEnding object with the given layout_index in the given SBMLDocument
@@ -7278,7 +7289,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setReactionsLineWidth(self.sbml_object, ctypes.c_double(line_width), layout_index)
 
-    def getLineEndingsBorderWidth(self):
+    def getLineEndingsBorderWidth(self, layout_index=0):
         """
         Returns the default border width of the LineEnding objects in the given SBMLDocument
 
@@ -7287,7 +7298,7 @@ class LibSBMLNetwork:
             a float that determines the default border width of the LineEnding objects in the given SBMLDocument
         """
         lib.c_api_getLineEndingsBorderWidth.restype = ctypes.c_double
-        return lib.c_api_getLineEndingsBorderWidth(self.sbml_object)
+        return lib.c_api_getLineEndingsBorderWidth(self.sbml_object, layout_index)
 
     def setLineEndingsBorderWidth(self, border_width, layout_index=0):
         """
@@ -7693,6 +7704,17 @@ class LibSBMLNetwork:
                 stop_offsets_ptr[i] = ctypes.c_double(stop_offsets[i])
 
         return lib.c_api_setReactionsFillColorAsGradient(self.sbml_object, str(gradient_type).encode(), stop_colors_ptr, stop_offsets_ptr, len(stop_colors), layout_index)
+
+    def getLineEndingsFillColor(self, layout_index=0):
+        """
+        Returns the default fill color of the LineEnding objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default fill color of the LineEnding objects in the given SBMLDocument
+        """
+        lib.c_api_getLineEndingsFillColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLineEndingsFillColor(self.sbml_object, layout_index)).value.decode()
 
     def setLineEndingsFillColor(self, fill_color, layout_index=0):
         """

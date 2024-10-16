@@ -3706,6 +3706,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsLineColor(SBMLDocument* document, const char* lineColor, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object if they share the same color.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "stroke" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object, or @c "" if the object is @c NULL or the LineEndings objects do not share the same color.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getLineEndingsBorderColor(SBMLDocument* document, int layoutIndex = 0);
+
     /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param borderColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -3814,6 +3820,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsLineWidth(SBMLDocument* document, const double lineWidth, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object if they share the same width.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object, or @c nan if the object is @c NULL or the LineEndings objects do not share the same width.
+    LIBSBMLNETWORK_EXTERN const double c_api_getLineEndingsBorderWidth(SBMLDocument* document, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
@@ -3990,6 +4002,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillColorAsGradient(SBMLDocument* document, const char* gradientType = "linear", const char** stopColors = NULL, const double* stopOffsets = NULL, const int stopsSize = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "fill" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object if they share the same color.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "fill" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object, or @c "" if the object is @c NULL or the LineEndings objects do not share the same color.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getLineEndingsFillColor(SBMLDocument* document, int layoutIndex = 0);
+
     /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEndings objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for these GraphicalObject objects.
@@ -4082,6 +4100,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setReactionsFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
+
+    /// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object if they share the same fill rule.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "fill-rule" attribute of the RenderGroup of the Style of all LineEndings objects in this Layout object, or @c "" if the object is @c NULL or the LineEndings objects do not share the same fill rule.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getLineEndingsFillRule(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of all LineEndings objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineEndingsFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex = 0);
 
     /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

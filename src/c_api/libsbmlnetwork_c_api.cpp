@@ -1782,6 +1782,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setReactionStrokeColor(document, layoutIndex, lineColor);
     }
 
+    const char* c_api_getLineEndingsBorderColor(SBMLDocument* document, int layoutIndex) {
+        return strdup(getLineEndingStrokeColor(document, layoutIndex).c_str());
+    }
+
     int c_api_setLineEndingsBorderColor(SBMLDocument* document, const char* borderColor, int layoutIndex) {
         return setLineEndingStrokeColor(document, layoutIndex, borderColor);
     }
@@ -1860,6 +1864,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setReactionsLineWidth(SBMLDocument* document, const double lineWidth, int layoutIndex) {
         return setReactionStrokeWidth(document, layoutIndex, lineWidth);
+    }
+
+    const double c_api_getLineEndingsBorderWidth(SBMLDocument* document, int layoutIndex) {
+        return getLineEndingStrokeWidth(document, layoutIndex);
     }
 
     int c_api_setLineEndingsBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex) {
@@ -1985,6 +1993,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setReactionFillColorAsGradient(document, layoutIndex, gradientType, stopsVector);
     }
 
+    const char* c_api_getLineEndingsFillColor(SBMLDocument* document, int layoutIndex) {
+        return strdup(getLineEndingFillColor(document, layoutIndex).c_str());
+    }
+
     int c_api_setLineEndingsFillColor(SBMLDocument* document, const char* fillColor, int layoutIndex) {
         return setLineEndingFillColor(document, layoutIndex, fillColor);
     }
@@ -2043,6 +2055,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setReactionsFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex) {
         return setReactionFillRule(document, layoutIndex, fillRule);
+    }
+
+    const char* c_api_getLineEndingsFillRule(SBMLDocument* document, int layoutIndex) {
+        return strdup(getLineEndingFillRule(document, layoutIndex).c_str());
+    }
+
+    int c_api_setLineEndingsFillRule(SBMLDocument* document, const char* fillRule, int layoutIndex) {
+        return setLineEndingFillRule(document, layoutIndex, fillRule);
     }
 
     int c_api_setFillRules(SBMLDocument* document, const char* fillRule, int layoutIndex) {

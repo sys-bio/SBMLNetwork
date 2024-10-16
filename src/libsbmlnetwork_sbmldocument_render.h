@@ -6614,6 +6614,12 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs = true);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of LineEnding objects, if they share the same "stroke".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "stroke" attribute of the RenderGroup of LineEnding objects, or @c "" if the object is @c NULL or they don't share the same "stroke".
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex);
+
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
@@ -6704,6 +6710,12 @@ LIBSBMLNETWORK_EXTERN const double getReactionStrokeWidth(SBMLDocument* document
 /// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke-width" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs = true);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of LineEnding objects, if they share the same "stroke-width".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "stroke-width" attribute of the RenderGroup of LineEnding objects, or @c nan if the object is @c NULL or they don't share the same "stroke-width".
+LIBSBMLNETWORK_EXTERN const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7694,7 +7706,19 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a gradient
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param gradientType a string representing the type of gradient to use.
+/// @param stopsVector a vector of pairs where each pair consists of a string representing the color and a double representing the offset for the gradient stop.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of LineEnding objects, if they share the same "fill".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "fill" attribute of the RenderGroup of LineEnding objects, or @c "" if the object is @c NULL or they don't share the same "fill".
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7789,6 +7813,12 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillRule(SBMLDocument* docume
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of LineEnding objects, if they share the same "fill-rule".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "fill-rule" attribute of the RenderGroup of LineEnding objects, or @c "" if the object is @c NULL or they don't share the same "fill-rule".
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.

@@ -3944,6 +3944,31 @@ int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, con
     return -1;
 }
 
+const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex) {
+    std::vector<std::string> lineEndingStrokeColors;
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, layoutIndex, renderIndex)); lineEndingIndex++) {
+            std::string strokeColor = getLineEndingStrokeColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId());
+            if (!strokeColor.empty())
+                lineEndingStrokeColors.push_back(strokeColor);
+        }
+    }
+    if (layoutIndex == 0) {
+        for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+            for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+                std::string strokeColor = getLineEndingStrokeColor(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId());
+                if (!strokeColor.empty())
+                    lineEndingStrokeColors.push_back(strokeColor);
+            }
+        }
+    }
+
+    if (std::adjacent_find(lineEndingStrokeColors.begin(), lineEndingStrokeColors.end(), std::not_equal_to<std::string>()) == lineEndingStrokeColors.end())
+        return lineEndingStrokeColors.at(0);
+
+    return "";
+}
+
 int setLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
@@ -4067,6 +4092,31 @@ int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, con
     }
 
     return -1;
+}
+
+const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex) {
+    std::vector<double> lineEndingStrokeWidths;
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, layoutIndex, renderIndex)); lineEndingIndex++) {
+            double strokeWidth = getLineEndingStrokeWidth(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId());
+            if (!std::isnan(strokeWidth))
+                lineEndingStrokeWidths.push_back(strokeWidth);
+        }
+    }
+    if (layoutIndex == 0) {
+        for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+            for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+                double strokeWidth = getLineEndingStrokeWidth(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId());
+                if (!std::isnan(strokeWidth))
+                    lineEndingStrokeWidths.push_back(strokeWidth);
+            }
+        }
+    }
+
+    if (std::adjacent_find(lineEndingStrokeWidths.begin(), lineEndingStrokeWidths.end(), std::not_equal_to<double>()) == lineEndingStrokeWidths.end())
+        return lineEndingStrokeWidths.at(0);
+
+    return NAN;
 }
 
 int setLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {
@@ -5374,6 +5424,29 @@ int setReactionFillColorAsGradient(SBMLDocument* document, unsigned int layoutIn
     return -1;
 }
 
+const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex) {
+    std::vector<std::string> lineEndingFillColors;
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, layoutIndex, renderIndex)); lineEndingIndex++) {
+            std::string fillColor = getLineEndingFillColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId());
+            if (!fillColor.empty())
+                lineEndingFillColors.push_back(fillColor);
+        }
+    }
+    for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+            std::string fillColor = getLineEndingFillColor(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId());
+            if (!fillColor.empty())
+                lineEndingFillColors.push_back(fillColor);
+        }
+    }
+
+    if (std::adjacent_find(lineEndingFillColors.begin(), lineEndingFillColors.end(), std::not_equal_to<std::string>()) == lineEndingFillColors.end())
+        return lineEndingFillColors[0];
+
+    return "";
+}
+
 int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
@@ -5516,6 +5589,29 @@ int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const 
         return 0;
 
     return -1;
+}
+
+const std::string getLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex) {
+    std::vector<std::string> lineEndingFillRules;
+    for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, layoutIndex, renderIndex)); lineEndingIndex++) {
+            std::string fillRule = getLineEndingFillRule(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId());
+            if (!fillRule.empty())
+                lineEndingFillRules.push_back(fillRule);
+        }
+    }
+    for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
+        for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
+            std::string fillRule = getLineEndingFillRule(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId());
+            if (!fillRule.empty())
+                lineEndingFillRules.push_back(fillRule);
+        }
+    }
+
+    if (std::adjacent_find(lineEndingFillRules.begin(), lineEndingFillRules.end(), std::not_equal_to<std::string>()) == lineEndingFillRules.end())
+        return lineEndingFillRules[0];
+
+    return "";
 }
 
 int setLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule) {
