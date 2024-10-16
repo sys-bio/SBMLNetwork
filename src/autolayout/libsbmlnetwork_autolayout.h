@@ -52,9 +52,13 @@ void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox,
 
 void updateCompartmentExtents(Model *model, Layout *layout);
 
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
+void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layout);
 
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve);
+void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
+
+void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve);
+
+void updateCompartmentExtentsUsingItsPresetAttributes(Layout *layout);
 
 void updateLayoutDimensions(Layout* layout);
 
@@ -62,7 +66,11 @@ const bool adjustLayoutDimensions(Layout *layout);
 
 const double getLayoutDimensionsDesiredWidth(Layout *layout);
 
+void setLayoutDimensionsDesiredWidth(Layout *layout, const double& width);
+
 const double getLayoutDimensionsDesiredHeight(Layout *layout);
+
+void setLayoutDimensionsDesiredHeight(Layout *layout, const double& height);
 
 const bool autolayoutMayStillConverge(Layout *layout);
 

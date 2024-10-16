@@ -223,8 +223,23 @@ const double getReactionDefaultHeight() {
 }
 
 void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements) {
+    lockCompartmentGlyphs(layout, resetLockedElements);
     lockSpeciesGlyphs(layout, lockedNodesSet, resetLockedElements);
     lockReactionGlyphs(layout, lockedNodesSet, resetLockedElements);
+}
+
+void lockCompartmentGlyphs(Layout* layout, const bool resetLockedElements) {
+    if (resetLockedElements) {
+        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+            CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(i);
+            if (getUserData(compartmentGlyph, "locked") == "true")
+                unlockGraphicalObject(compartmentGlyph);
+            if (getUserData(compartmentGlyph, "fixed_width") == "true")
+                unfixGraphicalObjectWidth(compartmentGlyph);
+            if (getUserData(compartmentGlyph, "fixed_height") == "true")
+                unfixGraphicalObjectHeight(compartmentGlyph);
+        }
+    }
 }
 
 void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements) {
@@ -233,6 +248,10 @@ void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lo
             SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
             if (getUserData(speciesGlyph, "locked") == "true")
                 unlockGraphicalObject(speciesGlyph);
+            if (getUserData(speciesGlyph, "fixed_width") == "true")
+                unfixGraphicalObjectWidth(speciesGlyph);
+            if (getUserData(speciesGlyph, "fixed_height") == "true")
+                unfixGraphicalObjectHeight(speciesGlyph);
         }
     }
 
@@ -250,6 +269,10 @@ void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > l
             ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
             if (getUserData(reactionGlyph, "locked") == "true")
                 unlockGraphicalObject(reactionGlyph);
+            if (getUserData(reactionGlyph, "fixed_width") == "true")
+                unfixGraphicalObjectWidth(reactionGlyph);
+            if (getUserData(reactionGlyph, "fixed_height") == "true")
+                unfixGraphicalObjectHeight(reactionGlyph);
             for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
                 SpeciesReferenceGlyph *speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(j);
                 if (getUserData(speciesReferenceGlyph, "locked") == "true")
@@ -292,11 +315,23 @@ std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObj
 }
 
 void fixGraphicalObjectWidth(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "fixed_width", "true");
     setUserData(graphicalObject, "width", std::to_string(graphicalObject->getBoundingBox()->width()));
 }
 
+void unfixGraphicalObjectWidth(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "fixed_width", "false");
+    setUserData(graphicalObject, "width", "");
+}
+
 void fixGraphicalObjectHeight(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "fixed_height", "true");
     setUserData(graphicalObject, "height", std::to_string(graphicalObject->getBoundingBox()->height()));
+}
+
+void unfixGraphicalObjectHeight(GraphicalObject* graphicalObject) {
+    setUserData(graphicalObject, "fixed_height", "false");
+    setUserData(graphicalObject, "height", "");
 }
 
 void clearGraphicalObjects(Layout* layout) {

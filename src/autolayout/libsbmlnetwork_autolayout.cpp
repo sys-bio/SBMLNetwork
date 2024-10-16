@@ -189,6 +189,11 @@ initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, Boun
 }
 
 void updateCompartmentExtents(Model *model, Layout *layout) {
+    updateCompartmentExtentsUsingItsElementsExtents(model, layout);
+    updateCompartmentExtentsUsingItsPresetAttributes(layout);
+}
+
+void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         Compartment *compartment = findSpeciesGlyphCompartment(model, layout->getSpeciesGlyph(i));
         if (compartment) {
@@ -199,7 +204,7 @@ void updateCompartmentExtents(Model *model, Layout *layout) {
                 if (i == 0)
                     initializeCompartmentGlyphExtents(compartmentGlyph->getBoundingBox(),
                                                       layout->getSpeciesGlyph(i)->getBoundingBox());
-                updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
+                updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
                                          layout->getSpeciesGlyph(i)->getBoundingBox());
             }
         }
@@ -208,12 +213,12 @@ void updateCompartmentExtents(Model *model, Layout *layout) {
         CompartmentGlyph *compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout,
                                                                                 layout->getReactionGlyph(i));
         if (compartmentGlyph)
-            updateCompartmentExtents(compartmentGlyph->getBoundingBox(),
+            updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
                                      layout->getReactionGlyph(i)->getCurve());
     }
 }
 
-void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
+void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
     const double padding = getDefaultAutoLayoutPadding();
     if (speciesGlyphBoundingBox->x() - padding < compartmentGlyphBoundingBox->x()) {
         compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
@@ -246,8 +251,7 @@ void updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Bounding
     }
 }
 
-void
-updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve) {
+void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve) {
     const double padding = getDefaultAutoLayoutPadding();
     double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() +
                                     reactionCurve->getCurveSegment(0)->getEnd()->x());
@@ -275,6 +279,30 @@ updateCompartmentExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reacti
     }
 }
 
+void updateCompartmentExtentsUsingItsPresetAttributes(Layout *layout) {
+    for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        CompartmentGlyph *compartmentGlyph = layout->getCompartmentGlyph(i);
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "locked") == "true") {
+            std::string x = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "x");
+            if (!x.empty())
+                compartmentGlyph->getBoundingBox()->setX(std::stod(x));
+            std::string y = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "y");
+            if (!y.empty())
+                compartmentGlyph->getBoundingBox()->setY(std::stod(y));
+        }
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "fixed_width") == "true") {
+            std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "width");
+            if (!width.empty())
+                compartmentGlyph->getBoundingBox()->setWidth(std::stod(width));
+        }
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "fixed_height") == "true") {
+            std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "height");
+            if (!height.empty())
+                compartmentGlyph->getBoundingBox()->setHeight(std::stod(height));
+        }
+    }
+}
+
 void updateLayoutDimensions(Layout *layout) {
     const double padding = getDefaultAutoLayoutPadding();
     if (!layoutContainsGlyphs(layout)) {
@@ -296,8 +324,8 @@ const bool adjustLayoutDimensions(Layout *layout) {
     double desiredHeight = getLayoutDimensionsDesiredHeight(layout);
     double heightGap = desiredHeight - layout->getDimensions()->height();
     if (widthGap < 0.1 * desiredWidth && heightGap < 0.1 * desiredHeight) {
-        setUserData(layout->getDimensions(), "width", std::to_string(layout->getDimensions()->width()));
-        setUserData(layout->getDimensions(), "height", std::to_string(layout->getDimensions()->height()));
+        setLayoutDimensionsDesiredWidth(layout, layout->getDimensions()->width());
+        setLayoutDimensionsDesiredHeight(layout, layout->getDimensions()->height());
         return true;
     }
 
@@ -312,12 +340,22 @@ const double getLayoutDimensionsDesiredWidth(Layout *layout) {;
     return layout->getDimensions()->width();
 }
 
+void setLayoutDimensionsDesiredWidth(Layout *layout, const double &width) {
+    if (!LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width").empty())
+        LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout->getDimensions(), "width", std::to_string(width));
+}
+
 const double getLayoutDimensionsDesiredHeight(Layout *layout) {
     std::string presetHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
     if (!presetHeight.empty())
         return std::stod(presetHeight);
 
     return layout->getDimensions()->height();
+}
+
+void setLayoutDimensionsDesiredHeight(Layout *layout, const double &height) {
+    if (!LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height").empty())
+        LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout->getDimensions(), "height", std::to_string(height));
 }
 
 const bool autolayoutMayStillConverge(Layout *layout) {

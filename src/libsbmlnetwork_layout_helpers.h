@@ -58,6 +58,8 @@ const double getReactionDefaultHeight();
 
 void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
 
+void lockCompartmentGlyphs(Layout* layout, const bool resetLockedElements);
+
 void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
 
 void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
@@ -70,7 +72,11 @@ std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObj
 
 void fixGraphicalObjectWidth(GraphicalObject* graphicalObject);
 
+void unfixGraphicalObjectWidth(GraphicalObject* graphicalObject);
+
 void fixGraphicalObjectHeight(GraphicalObject* graphicalObject);
+
+void unfixGraphicalObjectHeight(GraphicalObject* graphicalObject);
 
 void clearGraphicalObjects(Layout* layout);
 
