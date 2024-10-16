@@ -1356,9 +1356,9 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
 
-    def isSetSpeciesReferenceBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def isSetSpeciesReferenceLineColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
-        Returns whether the border color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set
+        Returns whether the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
@@ -1369,13 +1369,13 @@ class LibSBMLNetwork:
 
         :Returns:
 
-            true if the border color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
+            true if the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        return lib.c_api_isSetSpeciesReferenceBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_isSetSpeciesReferenceLineColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def getSpeciesReferenceBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def getSpeciesReferenceLineColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
-        Returns the border color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+        Returns the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
@@ -1386,18 +1386,18 @@ class LibSBMLNetwork:
 
         :Returns:
 
-            a string that determines the border color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+            a string that determines the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
         """
-        lib.c_api_getSpeciesReferenceBorderColor.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)).value.decode()
+        lib.c_api_getSpeciesReferenceLineColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceLineColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)).value.decode()
 
-    def setSpeciesReferenceBorderColor(self, reaction_id, color, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def setSpeciesReferenceLineColor(self, reaction_id, color, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
-        Sets the border color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+        Sets the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
-            - color (string): a string that determines the border color of the SpeciesReferenceGlyph
+            - color (string): a string that determines the line color of the SpeciesReferenceGlyph
             - reaction_id (string): a string that determines the id of the Reaction
             - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
             - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
@@ -1405,30 +1405,13 @@ class LibSBMLNetwork:
 
         :Returns:
 
-            true on success and false if the border color of the SpeciesReferenceGlyph could not be set
+            true on success and false if the line color of the SpeciesReferenceGlyph could not be set
         """
-        return lib.c_api_setSpeciesReferenceBorderColor(self.sbml_object, str(reaction_id).encode(), str(color).encode(), reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineColor(self.sbml_object, str(reaction_id).encode(), str(color).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def isSetSpeciesReferenceBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def isSetSpeciesReferenceLineWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
-        Returns whether the border width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set
-
-        :Parameters:
-
-            - reaction_id (string): a string that determines the id of the Reaction
-            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
-            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            true if the border width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
-        """
-        return lib.c_api_isSetSpeciesReferenceBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
-
-    def getSpeciesReferenceBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
-        """
-        Returns the border width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+        Returns whether the line width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set
 
         :Parameters:
 
@@ -1439,32 +1422,13 @@ class LibSBMLNetwork:
 
         :Returns:
 
-            a float that determines the border width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+            true if the line width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
-        lib.c_api_getSpeciesReferenceBorderWidth.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_isSetSpeciesReferenceLineWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def setSpeciesReferenceBorderWidth(self, reaction_id, width, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def getSpeciesReferenceLineWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
-        Sets the border width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
-
-        :Parameters:
-
-            - width (float): a float that determines the border width of the SpeciesReferenceGlyph
-            - reaction_id (string): a string that determines the id of the Reaction
-            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
-            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            true on success and false if the border width of the SpeciesReferenceGlyph could not be set
-        """
-        return lib.c_api_setSpeciesReferenceBorderWidth(self.sbml_object, str(reaction_id).encode(), width, reaction_glyph_index, species_reference_index, layout_index)
-
-    def getNumSpeciesReferenceBorderDashes(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
-        """
-        Returns the number of border dashes of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+        Returns the line width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
         :Parameters:
 
@@ -1475,11 +1439,47 @@ class LibSBMLNetwork:
 
         :Returns:
 
-            an integer that determines the number of border dashes of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+            a float that determines the line width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getNumSpeciesReferenceBorderDashes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+        lib.c_api_getSpeciesReferenceLineWidth.restype = ctypes.c_double
+        return lib.c_api_getSpeciesReferenceLineWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def getSpeciesReferenceNthBorderDash(self, reaction_id, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def setSpeciesReferenceLineWidth(self, reaction_id, line_width, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Sets the line width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_width (float): a float that determines the line width of the SpeciesReferenceGlyph
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line width of the SpeciesReferenceGlyph could not be set
+        """
+        return lib.c_api_setSpeciesReferenceLineWidth(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(line_width), reaction_glyph_index, species_reference_index, layout_index)
+
+    def getNumSpeciesReferenceLineDashes(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns the number of line dashes of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of line dashes of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+        """
+        return lib.c_api_getNumSpeciesReferenceLineDashes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def getSpeciesReferenceNthLineDash(self, reaction_id, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns the dash at the given dash_index of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
@@ -1495,9 +1495,9 @@ class LibSBMLNetwork:
 
             an int that determines the dash at the given dash_index of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getSpeciesReferenceNthBorderDash(self.sbml_object, str(reaction_id).encode(), dash_index, reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_getSpeciesReferenceNthLineDash(self.sbml_object, str(reaction_id).encode(), dash_index, reaction_glyph_index, species_reference_index, layout_index)
 
-    def setSpeciesReferenceNthBorderDash(self, reaction_id, dash, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def setSpeciesReferenceNthLineDash(self, reaction_id, dash, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Sets the dash at the given dash_index of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
@@ -1514,7 +1514,7 @@ class LibSBMLNetwork:
 
             true on success and false if the dash at the given dash_index of the SpeciesReference could not be set
         """
-        return lib.c_api_setSpeciesReferenceNthBorderDash(self.sbml_object, str(reaction_id).encode(), dash, dash_index, reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_setSpeciesReferenceNthLineDash(self.sbml_object, str(reaction_id).encode(), dash, dash_index, reaction_glyph_index, species_reference_index, layout_index)
 
     def isSetSpeciesReferenceStartHead(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
@@ -7040,32 +7040,6 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesBorderColor(self.sbml_object, str(border_color).encode(), layout_index)
 
-    def getReactionsBorderColor(self):
-        """
-        Returns the default border color of the ReactionGlyph objects in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the default border color of the ReactionGlyph objects in the given SBMLDocument
-        """
-        lib.c_api_getReactionsBorderColor.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getReactionsBorderColor(self.sbml_object)).value.decode()
-
-    def setReactionsBorderColor(self, border_color, layout_index=0):
-        """
-        Sets the border color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument (only the border of the reaction glyph graphical object)
-
-        :Parameters:
-
-            - border_color (string): a string that determines the border color of the ReactionGlyph object
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            true on success and false if the border color of all the ReactionGlyph object could not be set
-        """
-        return lib.c_api_setReactionsBorderColor(self.sbml_object, str(border_color).encode(), layout_index)
-
     def setReactionsLineColor(self, line_color, layout_index=0):
         """
         Sets the line color of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
@@ -7110,6 +7084,21 @@ class LibSBMLNetwork:
             true on success and false if the border color of all the GraphicalObject object could not be set
         """
         return lib.c_api_setBorderColors(self.sbml_object, str(border_color).encode(), layout_index)
+
+    def setLineColors(self, line_color, layout_index=0):
+        """
+        Sets the line color of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_color (string): a string that determines the line color of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line color of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setLineColors(self.sbml_object, str(line_color).encode(), layout_index)
 
     def isSetBorderWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -7263,32 +7252,6 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesBorderWidth(self.sbml_object, ctypes.c_double(border_width), layout_index)
 
-    def getReactionsBorderWidth(self):
-        """
-        Returns the default border width of the ReactionGlyph objects in the given SBMLDocument
-
-        :Returns:
-
-            a float that determines the default border width of the ReactionGlyph objects in the given SBMLDocument
-        """
-        lib.c_api_getReactionsBorderWidth.restype = ctypes.c_double
-        return lib.c_api_getReactionsBorderWidth(self.sbml_object)
-
-    def setReactionsBorderWidth(self, border_width, layout_index=0):
-        """
-        Sets the border width of all the ReactionGlyph object with the given layout_index in the given SBMLDocument
-
-        :Parameters:
-
-            - border_width (float): a float that determines the border width of the ReactionGlyph object
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            true on success and false if the border width of all the ReactionGlyph object could not be set
-        """
-        return lib.c_api_setReactionsBorderWidth(self.sbml_object, ctypes.c_double(border_width), layout_index)
-
     def getReactionsLineWidth(self):
         """
         Returns the default line width of the ReactionGlyph objects in the given SBMLDocument
@@ -7314,6 +7277,17 @@ class LibSBMLNetwork:
             true on success and false if the line width of all the ReactionGlyph object could not be set
         """
         return lib.c_api_setReactionsLineWidth(self.sbml_object, ctypes.c_double(line_width), layout_index)
+
+    def getLineEndingsBorderWidth(self):
+        """
+        Returns the default border width of the LineEnding objects in the given SBMLDocument
+
+        :Returns:
+
+            a float that determines the default border width of the LineEnding objects in the given SBMLDocument
+        """
+        lib.c_api_getLineEndingsBorderWidth.restype = ctypes.c_double
+        return lib.c_api_getLineEndingsBorderWidth(self.sbml_object)
 
     def setLineEndingsBorderWidth(self, border_width, layout_index=0):
         """
@@ -7344,6 +7318,21 @@ class LibSBMLNetwork:
             true on success and false if the border width of all the GraphicalObject object could not be set
         """
         return lib.c_api_setBorderWidths(self.sbml_object, ctypes.c_double(border_width), layout_index)
+
+    def setLineWidths(self, line_width, layout_index=0):
+        """
+        Sets the line width of all the GraphicalObject objects with the given layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_width (float): a float that determines the line width of the GraphicalObject object
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line width of all the GraphicalObject object could not be set
+        """
+        return lib.c_api_setLineWidths(self.sbml_object, ctypes.c_double(line_width), layout_index)
 
     def getNumBorderDashes(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -7395,6 +7384,57 @@ class LibSBMLNetwork:
             true on success and false if the border dash could not be set
         """
         return lib.c_api_setNthBorderDash(self.sbml_object, str(id).encode(), dash, border_dash_index, graphical_object_index, layout_index)
+
+    def getNumLineDashes(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the number of line dashes of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of line dashes of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        return lib.c_api_getNumLineDashes(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def getNthLineDash(self, id, line_dash_index, graphical_object_index=0, layout_index=0):
+        """
+        Returns the line dash with the given line_dash_index of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - line_dash_index (int): an integer that determines the index of the line dash
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the line dash with the given line_dash_index of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+        """
+        return lib.c_api_getNthLineDash(self.sbml_object, str(id).encode(), line_dash_index, graphical_object_index, layout_index)
+
+    def setNthLineDash(self, id, dash, line_dash_index, graphical_object_index=0, layout_index=0):
+        """
+        Sets the line dash with the given line_dash_index of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - dash (int): an int that determines the line dash
+            - line_dash_index (int): an integer that determines the index of the line dash
+            - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the line dash could not be set
+        """
+        return lib.c_api_setNthLineDash(self.sbml_object, str(id).encode(), dash, line_dash_index, graphical_object_index, layout_index)
 
     def isSetFillColor(self, id, graphical_object_index=0, layout_index=0):
         """

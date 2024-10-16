@@ -3931,8 +3931,9 @@ int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, con
             getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke)) {
         if (setSpeciesReferenceGlyphs) {
             if (!setSpeciesReferenceStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesReferenceStrokeColor(
-                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
-                return 0;
+                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke)) {
+                return setLineEndingStrokeColor(document, layoutIndex, stroke);
+            }
 
             return -1;
         }
@@ -3964,6 +3965,8 @@ int setStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::
     if (setCompartmentStrokeColor(document, layoutIndex, stroke))
         return -1;
     if (setSpeciesStrokeColor(document, layoutIndex, stroke))
+        return -1;
+    if (setReactionStrokeColor(document, layoutIndex, stroke))
         return -1;
 
     return 0;
@@ -4055,7 +4058,7 @@ int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, con
         if (setSpeciesReferenceGlyphs) {
             if (!setSpeciesReferenceStrokeWidth(getGlobalRenderInformation(document), strokeWidth) && !setSpeciesReferenceStrokeWidth(
                     getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), strokeWidth))
-                return 0;
+                return setLineEndingStrokeWidth(document, layoutIndex, strokeWidth);
 
             return -1;
         }

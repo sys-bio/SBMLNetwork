@@ -409,40 +409,40 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
     }
 
-    bool c_api_isSetSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+    bool c_api_isSetSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return isSetStrokeColor(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
     }
 
-    const char* c_api_getSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+    const char* c_api_getSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return strdup(getStrokeColor(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)).c_str());
     }
 
-    int c_api_setSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, const char* borderColor, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
-        return setStrokeColor(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), borderColor);
+    int c_api_setSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, const char* lineColor, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return setStrokeColor(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), lineColor);
     }
 
-    bool c_api_isSetSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+    bool c_api_isSetSpeciesReferenceLineWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return isSetStrokeWidth(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
     }
 
-    const double c_api_getSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+    const double c_api_getSpeciesReferenceLineWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return getStrokeWidth(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
     }
 
-    int c_api_setSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, const double borderWidth, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
-        return setStrokeWidth(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), borderWidth);
+    int c_api_setSpeciesReferenceLineWidth(SBMLDocument* document, const char* reactionId, const double lineWidth, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return setStrokeWidth(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), lineWidth);
     }
 
-    int c_api_getNumSpeciesReferenceBorderDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+    int c_api_getNumSpeciesReferenceLineDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return getNumStrokeDashes(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
     }
 
-    const int c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int dashIndex, int layoutIndex) {
-        return getStrokeDash(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), dashIndex);
+    const int c_api_getSpeciesReferenceNthLineDash(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int lineDashIndex, int layoutIndex) {
+        return getStrokeDash(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), lineDashIndex);
     }
 
-    int c_api_setSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int reactionGlyphIndex, int speciesReferenceIndex, int dashIndex, int layoutIndex) {
-        return setStrokeDash(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), dashIndex, dash);
+    int c_api_setSpeciesReferenceNthLineDash(SBMLDocument* document, const char* reactionId, const int dash, int reactionGlyphIndex, int speciesReferenceIndex, int lineDashIndex, int layoutIndex) {
+        return setStrokeDash(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), lineDashIndex, dash);
     }
 
     bool c_api_isSetSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
@@ -1787,7 +1787,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex) {
-        return setStrokeColor(document, layoutIndex, borderColor);
+        if (c_api_setCompartmentsBorderColor(document, borderColor, layoutIndex))
+            return -1;
+        if (c_api_setSpeciesBorderColor(document, borderColor, layoutIndex))
+            return -1;
+        if (c_api_setLineEndingsBorderColor(document, borderColor, layoutIndex))
+            return -1;
+
+        return 0;
+    }
+
+    int c_api_setLineColors(SBMLDocument* document, const char* lineColor, int layoutIndex) {
+        return c_api_setReactionsLineColor(document, lineColor, layoutIndex);
     }
 
     bool c_api_isSetBorderWidth(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1843,14 +1854,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setSpeciesStrokeWidth(document, layoutIndex, borderWidth);
     }
 
-    const double c_api_getReactionsBorderWidth(SBMLDocument* document) {
-        return getReactionStrokeWidth(document);
-    }
-
-    int c_api_setReactionsBorderWidth(SBMLDocument* document, const double borderWidth, int layoutIndex) {
-        return setReactionStrokeWidth(document, layoutIndex, borderWidth, false);
-    }
-
     const double c_api_getReactionsLineWidth(SBMLDocument* document) {
         return getReactionStrokeWidth(document);
     }
@@ -1864,7 +1867,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex) {
-        return setStrokeWidth(document, layoutIndex, borderWidth);
+        if (c_api_setCompartmentsBorderWidth(document, borderWidth, layoutIndex))
+            return -1;
+        if (c_api_setSpeciesBorderWidth(document, borderWidth, layoutIndex))
+            return -1;
+        if (c_api_setLineEndingsBorderWidth(document, borderWidth, layoutIndex))
+            return -1;
+
+        return 0;
+    }
+
+    int c_api_setLineWidths(SBMLDocument* document, const double lineWidth, int layoutIndex) {
+        return c_api_setReactionsLineWidth(document, lineWidth, layoutIndex);
     }
 
     int c_api_getNumBorderDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
@@ -1876,11 +1890,31 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
+        return setStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex, dash);
+    }
+
+    int c_api_getNumLineDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id))
+            return getNumStrokeDashes(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+
+        return -1;
+    }
+
+    const int c_api_getNthLineDash(SBMLDocument* document, const char* id, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
+        if (isReactionGlyph(document, layoutIndex, id))
+            return getStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex);
+
+        return -1;
+    }
+
+    int c_api_setNthLineDash(SBMLDocument* document, const char* id, const int dash, int dashIndex, int graphicalObjectIndex, int layoutIndex) {
         if (isReactionGlyph(document, layoutIndex, id)) {
             for (unsigned int i = 0; i < getNumSpeciesReferences(document, layoutIndex, id, graphicalObjectIndex); i++)
                 setStrokeDash(document, getSpeciesReference(document, layoutIndex, id, graphicalObjectIndex, i), dash);
+            return setStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex, dash);
         }
-        return setStrokeDash(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), dashIndex, dash);
+
+        return -1;
     }
 
     bool c_api_isSetFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {

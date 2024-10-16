@@ -710,7 +710,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "stroke" attribute of the SpeciesReference object with the given index is set, @c false if either the "stroke"
     /// attribute is not set or the object is @c NULL.
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "stroke" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -721,18 +721,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "stroke" attribute of the SpeciesReference object with the given index, or @c "" if
     /// the SpeciesReference does not exits or the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceLineolor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
-    /// @param stroke a string value to be set as "stroke" attribute of the SpeciesReference object.
+    /// @param lineColor a string value to be set as "stroke" attribute of the SpeciesReference object.
     /// @param reactionGlyphIndex the index of the ReactionGlyph.
     /// @param speciesReferenceIndex the index of the SpeciesReference.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceBorderColor(SBMLDocument* document, const char* reactionId, const char* stroke, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, const char* lineColor, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "stroke-width" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
@@ -743,7 +743,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return @c true if the "stroke-width" attribute of the SpeciesReference object with the given index is set, @c false if either the "stroke-width"
     /// attribute is not set or the object is @c NULL.
-    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceLineWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the value of the "stroke-width" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -754,18 +754,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "stroke-width" attribute of the SpeciesReference object with the given index, or @c "" if
     /// the SpeciesReference does not exits or the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const double c_api_getSpeciesReferenceLineWidth(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke-width" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
-    /// @param strokeWidth a string value to be set as "stroke-width" attribute of the SpeciesReference object.
+    /// @param lineWidth a double value to be set as "stroke-width" attribute of the SpeciesReference object.
     /// @param reactionGlyphIndex the index of the ReactionGlyph.
     /// @param speciesReferenceIndex the index of the SpeciesReference.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceBorderWidth(SBMLDocument* document, const char* reactionId, const double strokeWidth, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceLineWidth(SBMLDocument* document, const char* reactionId, const double lineWidth, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the size of the "stroke-dasharray" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -775,31 +775,31 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param speciesReferenceIndex the index of the SpeciesReference.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the size of the "stroke-dasharray" attribute of the RenderGroup of the Style for this GraphicalObject object, or @c "" if the object is @c NULL
-    LIBSBMLNETWORK_EXTERN int c_api_getNumSpeciesReferenceBorderDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_getNumSpeciesReferenceLineDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the dash at the given index of the "stroke-dasharray" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document at the given index.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
-    /// @param index the index of the "stroke-dasharray" attribute of the SpeciesReference object.
+    /// @param lineDashIndex the index of the "stroke-dasharray" attribute of the SpeciesReference object.
     /// @param reactionGlyphIndex the index of the ReactionGlyph.
     /// @param speciesReferenceIndex the index of the SpeciesReference.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "stroke-dasharray" attribute of the SpeciesReference object with the given index, or @c "" if
     /// the SpeciesReference does not exits or the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const int c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const int c_api_getSpeciesReferenceNthLineDash(SBMLDocument* document, const char* reactionId, int lineDashIndex, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the dash at the given index of the "stroke-dasharray" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document at the given index.
     /// @param document a pointer to the SBMLDocument object.
     /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
-    /// @param borderDash a string value to be set as "stroke-dasharray" attribute of the SpeciesReference object.
-    /// @param index the index of the "stroke-dasharray" attribute of the SpeciesReference object.
+    /// @param lineDash a string value to be set as "stroke-dasharray" attribute of the SpeciesReference object.
+    /// @param lineDashIndex the index of the "stroke-dasharray" attribute of the SpeciesReference object.
     /// @param reactionGlyphIndex the index of the ReactionGlyph.
     /// @param speciesReferenceIndex the index of the SpeciesReference.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, const int borderDash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesReferenceNthLineDash(SBMLDocument* document, const char* reactionId, const int lineDash, int lineDashIndex, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "startHead" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
@@ -3720,6 +3720,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setBorderColors(SBMLDocument* document, const char* borderColor, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param lineColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineColors(SBMLDocument* document, const char* lineColor, int layoutIndex = 0);
+
     /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3770,6 +3777,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param lineWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject.
     LIBSBMLNETWORK_EXTERN int c_api_setLineWidth(SBMLDocument* document, const char* id, const double lineWidth, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object, or @c 0.0 if the object is @c NULL.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object, or @c 0.0 if the object is @c NULL.
     LIBSBMLNETWORK_EXTERN const double c_api_getCompartmentsBorderWidth(SBMLDocument* document);
 
     /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all CompartmentGlyph object in this Layout object.
@@ -3817,6 +3829,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setBorderWidths(SBMLDocument* document, const double borderWidth, int layoutIndex = 0);
 
+    /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style of all ReactionGlyph object in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param lineWidth a double value to use as the value of the "stroke-width" attribute of the RenderGroup of the Style for these GraphicalObject objects.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setLineWidths(SBMLDocument* document, const double lineWidth, int layoutIndex = 0);
+
     /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of a model entity.
@@ -3843,6 +3862,32 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the size of the "stroke-dasharray" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the size of the "stroke-dasharray" attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object, or @c 0 if the object is @c NULL.
+    LIBSBMLNETWORK_EXTERN int c_api_getNumLineDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the stroke dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param lineDashIndex an int representing the index of the stroke dash to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    LIBSBMLNETWORK_EXTERN const int c_api_getNthLineDash(SBMLDocument* document, const char* id, int lineDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the dash at the given index of the 'stroke-dasharray' attribute of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param dash a int value to use as the dash at the given index of the 'stroke-dasharray' attribute of of the RenderGroup of this Style object.
+    /// @param lineDashIndex an int representing the index of the stroke dash to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setNthLineDash(SBMLDocument* document, const char* id, const int dash, int lineDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup of the Style that matches this id of model entity associated with the GraphicalObject.
     /// @param document a pointer to the SBMLDocument object.
