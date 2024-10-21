@@ -51,6 +51,16 @@ LIBSBMLNETWORK_EXTERN const unsigned int getSBMLLevel(SBMLDocument* document);
 /// @return the Version within the SBML Level of the SBMLDocument object containing this object.
 LIBSBMLNETWORK_EXTERN const unsigned int getSBMLVersion(SBMLDocument* document);
 
+/// @brief Returns the Error log containing the errors and warnings that occurred while working with the SBMLDocument object.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the Error log containing the errors and warnings that occurred while working with the SBMLDocument object.
+LIBSBMLNETWORK_EXTERN const std::string getErrorLog(SBMLDocument* document);
+
+/// @brief Clears the Error log containing the errors and warnings that occurred while working with the SBMLDocument object.
+/// @param document a pointer to the SBMLDocument object.
+/// @return boolean value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN void clearErrorLog(SBMLDocument* document);
+
 /// @brief Free the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return boolean value indicating success/failure of the function.

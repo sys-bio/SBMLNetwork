@@ -55,6 +55,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return boolean value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN bool c_api_freeSBMLDocument(SBMLDocument* document);
 
+    /// @breif Returns the error log.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the error log.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getErrorLog(SBMLDocument* document);
+
+    /// @brief Clears the error log.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return boolean value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN void c_api_clearErrorLog(SBMLDocument* document);
+
     /// @brief Returns true if the Model object has been set, otherwise returns false.
     /// @param document a pointer to the SBMLDocument object.
     /// @return true if the Model object has been set, otherwise returns false.

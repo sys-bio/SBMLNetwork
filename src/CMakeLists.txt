@@ -8,6 +8,7 @@ set(SOURCES
 		libsbmlnetwork_render.cpp
 		libsbmlnetwork_render_helpers.cpp
 		libsbmlnetwork_sbmldocument.cpp
+        libsbmlnetwork_sbmldocument_helpers.cpp
 		libsbmlnetwork_sbmldocument_layout.cpp
 		libsbmlnetwork_layout_render.cpp
 		libsbmlnetwork_sbmldocument_render.cpp
@@ -30,6 +31,7 @@ set(HEADERS
 		libsbmlnetwork_render.h
 		libsbmlnetwork_render_helpers.h
 		libsbmlnetwork_sbmldocument.h
+		libsbmlnetwork_sbmldocument_helpers.h
 		libsbmlnetwork_sbmldocument_layout.h
 		libsbmlnetwork_layout_render.h
 		libsbmlnetwork_sbmldocument_render.h

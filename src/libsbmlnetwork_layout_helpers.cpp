@@ -2,6 +2,7 @@
 #include "libsbmlnetwork_common.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_sbmldocument_layout.h"
+#include "libsbmlnetwork_sbmldocument_helpers.h"
 
 #include <cmath>
 #include <climits>
@@ -37,18 +38,13 @@ SBasePlugin* getLayoutPlugin(SBMLDocument* document) {
     if (model)
         return model->getPlugin("layout");
     else
-        std::cerr << "error: Failed to load model\n";
+        addErrorToLog(document, "Failed to load model");
     
     return NULL;
 }
 
 LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase) {
-    LayoutModelPlugin* layoutModelPlugin = NULL;
-    try {
-        layoutModelPlugin = dynamic_cast<LayoutModelPlugin*>(layoutBase); }
-    catch(std::bad_cast) {
-        std::cerr << "error: Unable to get layout information\n"; }
-    
+    LayoutModelPlugin* layoutModelPlugin = dynamic_cast<LayoutModelPlugin*>(layoutBase);
     return layoutModelPlugin;
 }
 
@@ -60,12 +56,107 @@ void enableLayoutPlugin(SBMLDocument* document) {
     document->setPackageRequired("layout", false);
 }
 
-void freeUserData(SBMLDocument* document) {
-    if (document) {
-        const int numLayouts = getNumLayouts(document);
-        for (int i = 0; i < numLayouts; i++)
-            freeUserData(getLayout(document, i));
+std::string getErrorLog(Layout* layout) {
+    std::string errorLog = "";
+    if (layout) {
+        errorLog += prepareErrorMessage(getUserData(layout, "error_log"), errorLog);
+        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
+            errorLog += prepareErrorMessage(getErrorLog(layout->getCompartmentGlyph(i)), errorLog);
+        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+            errorLog += prepareErrorMessage(getErrorLog(layout->getSpeciesGlyph(i)), errorLog);
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+            errorLog += prepareErrorMessage(getErrorLog(layout->getReactionGlyph(i)), errorLog);
+            for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++)
+                errorLog += prepareErrorMessage(getErrorLog(layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j)), errorLog);
+        }
+        for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++)
+            errorLog += prepareErrorMessage(getErrorLog(layout->getTextGlyph(i)), errorLog);
     }
+
+    return errorLog;
+}
+
+std::string getErrorLog(GraphicalObject* graphicalObject) {
+    std::string errorLog = "";
+    if (graphicalObject)
+        errorLog += prepareErrorMessage(getUserData(graphicalObject, "error_log"), errorLog);
+    if (graphicalObject->getBoundingBox())
+        errorLog += prepareErrorMessage(getErrorLog(graphicalObject->getBoundingBox()), errorLog);
+    if (isSetCurve(graphicalObject))
+        errorLog += prepareErrorMessage(getErrorLog(getCurve(graphicalObject)), errorLog);
+
+    return errorLog;
+}
+
+std::string getErrorLog(BoundingBox* boundingBox) {
+    std::string errorLog = "";
+    if (boundingBox)
+        errorLog += prepareErrorMessage(getUserData(boundingBox, "error_log"), errorLog);
+
+    return errorLog;
+}
+
+std::string getErrorLog(Curve* curve) {
+    std::string errorLog = "";
+    if (curve)
+        errorLog += prepareErrorMessage(getUserData(curve, "error_log"), errorLog);
+    for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
+        errorLog += prepareErrorMessage(getErrorLog(getCurveSegment(curve, i)), errorLog);
+
+    return errorLog;
+}
+
+std::string getErrorLog(LineSegment* lineSegment) {
+    std::string errorLog = "";
+    if (lineSegment)
+        errorLog += prepareErrorMessage(getUserData(lineSegment, "error_log"), errorLog);
+
+    return errorLog;
+}
+
+void clearErrorLog(Layout* layout) {
+    if (layout) {
+        setUserData(layout, "error_log", "");
+        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
+            clearErrorLog(layout->getCompartmentGlyph(i));
+        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
+            clearErrorLog(layout->getSpeciesGlyph(i));
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+            clearErrorLog(layout->getReactionGlyph(i));
+            for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++)
+                clearErrorLog(layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
+        }
+        for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++)
+            clearErrorLog(layout->getTextGlyph(i));
+    }
+}
+
+void clearErrorLog(GraphicalObject* graphicalObject) {
+    if (graphicalObject) {
+        setUserData(graphicalObject, "error_log", "");
+        if (graphicalObject->getBoundingBox())
+            clearErrorLog(graphicalObject->getBoundingBox());
+        if (isSetCurve(graphicalObject))
+            clearErrorLog(getCurve(graphicalObject));
+    }
+}
+
+void clearErrorLog(BoundingBox* boundingBox) {
+    if (boundingBox)
+        setUserData(boundingBox, "error_log", "");
+}
+
+void clearErrorLog(Curve* curve) {
+    if (curve) {
+        setUserData(curve, "error_log", "");
+        for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
+            clearErrorLog(getCurveSegment(curve, i));
+    }
+}
+
+void clearErrorLog(LineSegment* lineSegment) {
+    if (lineSegment)
+        setUserData(lineSegment, "error_log", "");
 }
 
 void freeUserData(Layout* layout) {
@@ -76,19 +167,26 @@ void freeUserData(Layout* layout) {
         }
     }
     freeUserData(layout->getDimensions());
-    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
-        freeUserData(layout->getCompartmentGlyph(i));
-    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        freeUserData(layout->getSpeciesGlyph(i));
-    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        freeUserData(layout->getReactionGlyph(i));
-}
-
-void freeUserData(SBase* sbase) {
-    if (sbase->isSetUserData()) {
-        auto userData = (std::map<std::string, std::string>*)sbase->getUserData();
-        if (userData)
-            delete userData;
+    for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
+        CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(i);
+        freeUserData(compartmentGlyph);
+        freeUserData(compartmentGlyph->getBoundingBox());
+    }
+    for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
+        SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
+        freeUserData(speciesGlyph);
+        freeUserData(speciesGlyph->getBoundingBox());
+    }
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+        freeUserData(reactionGlyph);
+        freeUserData(reactionGlyph->getBoundingBox());
+        freeUserData(reactionGlyph->getCurve());
+        for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(j);
+            freeUserData(speciesReferenceGlyph);
+            freeUserData(speciesReferenceGlyph->getCurve());
+        }
     }
 }
 
@@ -118,26 +216,14 @@ std::vector<std::map<std::string, std::string>> getUserData(Layout* layout) {
     return userData;
 }
 
-const std::string getUserData(SBase* sbase, const std::string& key) {
-    if (sbase->isSetUserData()) {
-        auto userData = (std::map<std::string, std::string>*)sbase->getUserData();
-        if (userData->find(key) != userData->end())
-            return (*userData)[key];
+void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value) {
+    if (!graphicalObject->isSetUserData()) {
+        std::map<std::string, std::string> userData;
+        graphicalObject->setUserData(&userData);
+        setUserData(graphicalObject, "id", graphicalObject->getId());
+        setUserData(graphicalObject, "entity_id", getEntityId(graphicalObject));
     }
-
-    return "";
-}
-
-void setUserData(SBase* sBase, const std::string& key, const std::string& value) {
-    if (!sBase->isSetUserData()) {
-        sBase->setUserData(new std::map<std::string, std::string>());
-        GraphicalObject* castedGraphicalObject = dynamic_cast<GraphicalObject*>(sBase);
-        if (castedGraphicalObject) {
-            setUserData(sBase, "id", castedGraphicalObject->getId());
-            setUserData(sBase, "entity_id", getEntityId(castedGraphicalObject));
-        }
-    }
-    auto userData = (std::map<std::string, std::string>*)sBase->getUserData();
+    auto userData = (std::map<std::string, std::string>*)graphicalObject->getUserData();
     (*userData)[key] = value;
 }
 
@@ -504,7 +590,7 @@ SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, Reaction
 
 void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     if (maxNumConnectedEdges < 1) {
-        std::cerr << "error: Maximum number of connected edges must be greater than 0\n";
+        addErrorToLog(layout, "Maximum number of connected edges must be greater than 0");
         return;
     }
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
@@ -1149,7 +1235,7 @@ int setCurveMiddlePositionY(Curve* curve, const double& y) {
 }
 
 void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes) {
-    if (isValidAlignment(alignment)) {
+    if (isValidAlignment(layout, alignment)) {
         if (stringCompare(alignment, "top"))
             alignGraphicalObjectsToTop(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "vCenter"))
@@ -1174,7 +1260,7 @@ void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> gr
             setPositionY(layout, graphicalObjects.at(i), minY);
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << e.what();
+        addErrorToLog(layout, e.what());
     }
 }
 
@@ -1197,7 +1283,7 @@ void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<Graphic
             setPositionX(layout, graphicalObjects.at(i), centerX);
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << e.what();
+        addErrorToLog(layout, e.what());
     }
 }
 
@@ -1220,7 +1306,7 @@ void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*>
             setPositionY(layout, graphicalObjects.at(i), maxY);
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << e.what();
+        addErrorToLog(layout, e.what());
     }
 }
 
@@ -1243,7 +1329,7 @@ void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> g
             setPositionX(layout, graphicalObjects.at(i), minX);
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << e.what();
+        addErrorToLog(layout, e.what());
     }
 }
 
@@ -1266,7 +1352,7 @@ void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<Graphical
             setPositionY(layout, graphicalObjects.at(i), centerY);
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << e.what();
+        addErrorToLog(layout, e.what());
     }
 }
 
@@ -1289,7 +1375,7 @@ void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> 
             setPositionX(layout, graphicalObjects.at(i), maxX);
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << e.what();
+        addErrorToLog(layout, e.what());
     }
 }
 
@@ -1317,7 +1403,7 @@ void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject
 }
 
 void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
-    if (isValidDistributionDirection(direction)) {
+    if (isValidDistributionDirection(layout, direction)) {
         if (stringCompare(direction, "horizontal"))
             distributeGraphicalObjectsHorizontally(layout, graphicalObjects, spacing);
         else if (stringCompare(direction, "vertical"))
@@ -1504,94 +1590,106 @@ const double getDefaultAutoLayoutPadding() {
     return 30.0;
 }
 
-const bool isValidLayoutDimensionWidthValue(const double& width) {
-    if (isValidDimensionValue(width) && width > 6 * getDefaultAutoLayoutPadding())
+const bool isValidLayoutDimensionWidthValue(SBase* sBase, const double& width) {
+    if (isValidDimensionValue(sBase, width) && width > 6 * getDefaultAutoLayoutPadding())
         return true;
 
     return false;
 }
 
-const bool isValidLayoutDimensionHeightValue(const double& height) {
-    if (isValidDimensionValue(height) && height > 6 * getDefaultAutoLayoutPadding())
+const bool isValidLayoutDimensionHeightValue(SBase* sBase, const double& height) {
+    if (isValidDimensionValue(sBase, height) && height > 6 * getDefaultAutoLayoutPadding())
         return true;
 
     return false;
 }
 
-const bool isValidRoleValue(const std::string& role) {
-    return isValueValid(role, getValidRoleValues());
-}
-
-const bool isValidBoundingBoxXValue(const double& x) {
-    return isValidDoubleValue(x);
-}
-
-const bool isValidBoundingBoxYValue(const double& y) {
-    return isValidDoubleValue(y);
-}
-
-const bool isValidBoundingBoxWidthValue(const double& width) {
-    return isValidDimensionValue(width);
-}
-
-const bool isValidBoundingBoxHeightValue(const double& height) {
-    return isValidDimensionValue(height);
-}
-
-const bool isValidCurveSegmentStartPointXValue(const double& x) {
-    return isValidDoubleValue(x);
-}
-
-const bool isValidCurveSegmentStartPointYValue(const double& y) {
-    return isValidDoubleValue(y);
-}
-
-const bool isValidCurveSegmentEndPointXValue(const double& x) {
-    return isValidDoubleValue(x);
-}
-
-const bool isValidCurveSegmentEndPointYValue(const double& y) {
-    return isValidDoubleValue(y);
-}
-
-const bool isValidCurveSegmentBasePoint1XValue(const double& x) {
-    return isValidDoubleValue(x);
-}
-
-const bool isValidCurveSegmentBasePoint1YValue(const double& y) {
-    return isValidDoubleValue(y);
-}
-
-const bool isValidCurveSegmentBasePoint2XValue(const double& x) {
-    return isValidDoubleValue(x);
-}
-
-const bool isValidCurveSegmentBasePoint2YValue(const double& y) {
-    return isValidDoubleValue(y);
-}
-
-const bool isValidDimensionValue(const double& dimensionValue) {
-    if (isValidDoubleValue(dimensionValue) && dimensionValue > 0.000)
+const bool isValidRoleValue(SBase* sBase, const std::string& role) {
+    if (isValueValid(role, getValidRoleValues()))
         return true;
 
-    std::cerr << "error: A dimension value must be greater than 0" << std::endl;
+    addErrorToLog(sBase, createErrorMessage(role, getValidRoleValues()));
     return false;
 }
 
-const bool isValidDoubleValue(const double& doubleValue) {
+const bool isValidBoundingBoxXValue(SBase* sBase, const double& x) {
+    return isValidDoubleValue(sBase, x);
+}
+
+const bool isValidBoundingBoxYValue(SBase* sBase, const double& y) {
+    return isValidDoubleValue(sBase, y);
+}
+
+const bool isValidBoundingBoxWidthValue(SBase* sBase, const double& width) {
+    return isValidDimensionValue(sBase, width);
+}
+
+const bool isValidBoundingBoxHeightValue(SBase* sBase, const double& height) {
+    return isValidDimensionValue(sBase, height);
+}
+
+const bool isValidCurveSegmentStartPointXValue(SBase* sBase, const double& x) {
+    return isValidDoubleValue(sBase, x);
+}
+
+const bool isValidCurveSegmentStartPointYValue(SBase* sBase, const double& y) {
+    return isValidDoubleValue(sBase, y);
+}
+
+const bool isValidCurveSegmentEndPointXValue(SBase* sBase, const double& x) {
+    return isValidDoubleValue(sBase, x);
+}
+
+const bool isValidCurveSegmentEndPointYValue(SBase* sBase, const double& y) {
+    return isValidDoubleValue(sBase, y);
+}
+
+const bool isValidCurveSegmentBasePoint1XValue(SBase* sBase, const double& x) {
+    return isValidDoubleValue(sBase, x);
+}
+
+const bool isValidCurveSegmentBasePoint1YValue(SBase* sBase, const double& y) {
+    return isValidDoubleValue(sBase, y);
+}
+
+const bool isValidCurveSegmentBasePoint2XValue(SBase* sBase, const double& x) {
+    return isValidDoubleValue(sBase, x);
+}
+
+const bool isValidCurveSegmentBasePoint2YValue(SBase* sBase, const double& y) {
+    return isValidDoubleValue(sBase, y);
+}
+
+const bool isValidDimensionValue(SBase* sBase, const double& dimensionValue) {
+    if (isValidDoubleValue(sBase, dimensionValue) && dimensionValue > 0.000)
+        return true;
+
+    addErrorToLog(sBase, "A dimension value must be greater than 0");
+    return false;
+}
+
+const bool isValidDoubleValue(SBase* sBase, const double& doubleValue) {
     if (!std::isnan(doubleValue) && !std::isinf(doubleValue))
         return true;
 
-    std::cerr << "error: A double value must be a valid number" << std::endl;
+    addErrorToLog(sBase, "A double value must be a valid number");
     return false;
 }
 
-const bool isValidAlignment(const std::string& alignment) {
-    return isValueValid(alignment, getValidAlignmentValues());
+const bool isValidAlignment(SBase* sBase, const std::string& alignment) {
+    if (isValueValid(alignment, getValidAlignmentValues()))
+        return true;
+
+    addErrorToLog(sBase, createErrorMessage(alignment, getValidAlignmentValues()));
+    return false;
 }
 
-const bool isValidDistributionDirection(const std::string& direction) {
-    return isValueValid(direction, getValidDistributionDirectionValues());
+const bool isValidDistributionDirection(SBase* sBase, const std::string& direction) {
+    if (isValueValid(direction, getValidDistributionDirectionValues()))
+        return true;
+
+    addErrorToLog(sBase, createErrorMessage(direction, getValidDistributionDirectionValues()));
+    return false;
 }
 
 std::vector<std::string> getValidRoleValues() {

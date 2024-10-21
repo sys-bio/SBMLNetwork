@@ -266,6 +266,27 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getSBMLVersion(self.sbml_object)
 
+    def getErrorLog(self):
+        """
+        Returns the error log
+
+        :Returns:
+
+            a string that determines the error log
+        """
+        lib.c_api_getErrorLog.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getErrorLog(self.sbml_object)).value.decode()
+
+    def clearErrorLog(self):
+        """
+        Clears the error log
+
+        :Returns:
+
+            true on success and false if the error log could not be cleared
+        """
+        return lib.c_api_clearErrorLog(self.sbml_object)
+
     def isSetModel(self):
         """
         Returns whether the SBMLDocument has a Model object

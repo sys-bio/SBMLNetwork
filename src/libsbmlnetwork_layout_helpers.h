@@ -22,17 +22,31 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-void freeUserData(SBMLDocument* document);
+std::string getErrorLog(Layout* layout);
+
+std::string getErrorLog(GraphicalObject* graphicalObject);
+
+std::string getErrorLog(BoundingBox* boundingBox);
+
+std::string getErrorLog(Curve* curve);
+
+std::string getErrorLog(LineSegment* lineSegment);
+
+void clearErrorLog(Layout* layout);
+
+void clearErrorLog(GraphicalObject* graphicalObject);
+
+void clearErrorLog(BoundingBox* boundingBox);
+
+void clearErrorLog(Curve* curve);
+
+void clearErrorLog(LineSegment* lineSegment);
 
 void freeUserData(Layout* layout);
 
-void freeUserData(SBase* sbase);
-
 std::vector<std::map<std::string, std::string>> getUserData(Layout* layout);
 
-const std::string getUserData(SBase* sbase, const std::string& key);
-
-void setUserData(SBase* sBase, const std::string& key, const std::string& value);
+void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
 
 void setPositionData(GraphicalObject* graphicalObject);
 
@@ -316,43 +330,43 @@ const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getDefaultAutoLayoutPadding();
 
-const bool isValidLayoutDimensionWidthValue(const double& width);
+const bool isValidLayoutDimensionWidthValue(SBase* sBase, const double& width);
 
-const bool isValidLayoutDimensionHeightValue(const double& height);
+const bool isValidLayoutDimensionHeightValue(SBase* sBase, const double& height);
 
-const bool isValidRoleValue(const std::string& role);
+const bool isValidRoleValue(SBase* sBase, const std::string& role);
 
-const bool isValidBoundingBoxXValue(const double& x);
+const bool isValidBoundingBoxXValue(SBase* sBase, const double& x);
 
-const bool isValidBoundingBoxYValue(const double& y);
+const bool isValidBoundingBoxYValue(SBase* sBase, const double& y);
 
-const bool isValidBoundingBoxWidthValue(const double& width);
+const bool isValidBoundingBoxWidthValue(SBase* sBase, const double& width);
 
-const bool isValidBoundingBoxHeightValue(const double& height);
+const bool isValidBoundingBoxHeightValue(SBase* sBase, const double& height);
 
-const bool isValidCurveSegmentStartPointXValue(const double& x);
+const bool isValidCurveSegmentStartPointXValue(SBase* sBase, const double& x);
 
-const bool isValidCurveSegmentStartPointYValue(const double& y);
+const bool isValidCurveSegmentStartPointYValue(SBase* sBase, const double& y);
 
-const bool isValidCurveSegmentEndPointXValue(const double& x);
+const bool isValidCurveSegmentEndPointXValue(SBase* sBase, const double& x);
 
-const bool isValidCurveSegmentEndPointYValue(const double& y);
+const bool isValidCurveSegmentEndPointYValue(SBase* sBase, const double& y);
 
-const bool isValidCurveSegmentBasePoint1XValue(const double& x);
+const bool isValidCurveSegmentBasePoint1XValue(SBase* sBase, const double& x);
 
-const bool isValidCurveSegmentBasePoint1YValue(const double& y);
+const bool isValidCurveSegmentBasePoint1YValue(SBase* sBase, const double& y);
 
-const bool isValidCurveSegmentBasePoint2XValue(const double& x);
+const bool isValidCurveSegmentBasePoint2XValue(SBase* sBase, const double& x);
 
-const bool isValidCurveSegmentBasePoint2YValue(const double& y);
+const bool isValidCurveSegmentBasePoint2YValue(SBase* sBase, const double& y);
 
-const bool isValidDimensionValue(const double& dimensionValue);
+const bool isValidDimensionValue(SBase* sBase, const double& dimension);
 
-const bool isValidDoubleValue(const double& doubleValue);
+const bool isValidDoubleValue(SBase* sBase, const double& value);
 
-const bool isValidAlignment(const std::string& alignment);
+const bool isValidAlignment(SBase* sBase, const std::string& alignment);
 
-const bool isValidDistributionDirection(const std::string& direction);
+const bool isValidDistributionDirection(SBase* sBase, const std::string& direction);
 
 std::vector<std::string> getValidRoleValues();
 

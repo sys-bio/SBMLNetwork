@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "styles/libsbmlnetwork_styles.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
@@ -10595,8 +10596,10 @@ const std::string getStyle(SBMLDocument* document, unsigned int renderIndex) {
 }
 
 int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName) {
-    if (!isValidPredefinedStyleName(styleName))
+    if (!isValidPredefinedStyleName(styleName)) {
+        addErrorToLog(document, "The style name is not valid.");
         return -1;
+    }
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
     if (styleFeatures.find("background-color") != styleFeatures.end())
     setBackgroundColor(document, renderIndex, styleFeatures.find("background-color")->second);

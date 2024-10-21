@@ -790,7 +790,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 return true;
         }
 
-        std::cerr << "error: predefined style name is not valid" << std::endl;
         return false;
     }
 

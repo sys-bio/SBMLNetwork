@@ -2,6 +2,7 @@
 #include "../libsbmlnetwork_sbmldocument.h"
 #include "../libsbmlnetwork_sbmldocument_layout.h"
 #include "../libsbmlnetwork_sbmldocument_render.h"
+#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
 #include "../colors/libsbmlnetwork_colors.h"
@@ -40,6 +41,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     bool c_api_freeSBMLDocument(SBMLDocument* document) {
         return freeSBMLDocument(document);
+    }
+
+    const char* c_api_getErrorLog(SBMLDocument* document) {
+        return strdup(getErrorLog(document).c_str());
+    }
+
+    void c_api_clearErrorLog(SBMLDocument* document) {
+        clearErrorLog(document);
     }
 
     bool c_api_isSetModel(SBMLDocument* document) {

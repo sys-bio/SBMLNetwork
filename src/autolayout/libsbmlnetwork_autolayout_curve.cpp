@@ -1,6 +1,7 @@
 #include "libsbmlnetwork_autolayout_curve.h"
 #include "libsbmlnetwork_autolayout_node.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_sbmldocument_helpers.h"
 
 AutoLayoutCurve::AutoLayoutCurve(Model* model, Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) : AutoLayoutObjectBase(model, layout) {
     _speciesReferenceGlyph = speciesReferenceGlyph;

@@ -3,6 +3,7 @@
 #include "libsbmlnetwork_autolayout_connection.h"
 #include "libsbmlnetwork_autolayout_curve.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include <cstdlib>
 #include <cmath>
 

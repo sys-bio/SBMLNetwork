@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_autolayout.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_common.h"
 #include "libsbmlnetwork_fruchterman_reingold_algorithm.h"
 
@@ -37,7 +38,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
             locateGlyphs(model, layout, useNameAsTextLabel);
         }
         else
-            std::cerr << "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again." << std::endl;
+            addErrorToLog(layout, "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again.");
     }
 }
 
