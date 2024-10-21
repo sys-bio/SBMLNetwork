@@ -1032,6 +1032,12 @@ LIBSBMLNETWORK_EXTERN Style* getStyle(RenderInformationBase* renderInformationBa
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(RenderInformationBase* renderInformationBase, const std::string& attribute);
 
+/// @brief Searches among the styles of the render information base and returns one that matches with the TextGlyph associated whit this GraphicalObject
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the styles of the render information base and returns one contains the "id" in its idlist.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

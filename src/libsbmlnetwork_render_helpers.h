@@ -43,6 +43,8 @@ Style* findStyleByTypeList(GlobalRenderInformation* globalRenderInformation, con
 
 const std::string getStyleType(GraphicalObject* graphicalObject);
 
+const std::string getTextGlyphStyleType(GraphicalObject* graphicalObject);
+
 const std::string getCompartmentGlyphStyleType();
 
 const std::string getSpeciesGlyphStyleType();
@@ -54,6 +56,12 @@ const std::string getSpeciesReferenceGlyphStyleType();
 const std::string getSpeciesReferenceGlyphStyleType();
 
 const std::string getTextGlyphStyleType();
+
+const std::string getCompartmentGlyphTextGlyphStyleType();
+
+const std::string getSpeciesGlyphTextGlyphStyleType();
+
+const std::string getReactionGlyphTextGlyphStyleType();
 
 const std::string getGraphicalObjectStyleType();
 
@@ -153,6 +161,14 @@ void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformatio
 
 void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderInformation);
 
+void addTextGlyphsGlobalStyles(GlobalRenderInformation* globalRenderInformation);
+
+void addCompartmentGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
+void addSpeciesGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
+void addReactionGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
 void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject);
@@ -193,15 +209,15 @@ void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceG
 
 void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
 

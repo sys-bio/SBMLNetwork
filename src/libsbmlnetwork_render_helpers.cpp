@@ -158,6 +158,17 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
     return "";
 }
 
+const std::string getTextGlyphStyleType(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject))
+        return getCompartmentGlyphTextGlyphStyleType();
+    else if (isSpeciesGlyph(graphicalObject))
+        return getSpeciesGlyphTextGlyphStyleType();
+    else if (isReactionGlyph(graphicalObject))
+        return getReactionGlyphTextGlyphStyleType();
+
+    return "TEXTGLYPH";
+}
+
 const std::string getCompartmentGlyphStyleType() {
     return "COMPARTMENTGLYPH";
 }
@@ -176,6 +187,18 @@ const std::string getSpeciesReferenceGlyphStyleType() {
 
 const std::string getTextGlyphStyleType() {
     return "TEXTGLYPH";
+}
+
+const std::string getCompartmentGlyphTextGlyphStyleType() {
+    return "COMPARTMENTGLYPH_TEXTGLYPH";
+}
+
+const std::string getSpeciesGlyphTextGlyphStyleType() {
+    return "SPECIESGLYPH_TEXTGLYPH";
+}
+
+const std::string getReactionGlyphTextGlyphStyleType() {
+    return "REACTIONGLYPH_TEXTGLYPH";
 }
 
 const std::string getGraphicalObjectStyleType() {
@@ -596,6 +619,7 @@ void addGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
     addSpeciesGlyphGlobalStyle(globalRenderInformation);
     addReactionGlyphGlobalStyle(globalRenderInformation);
     addSpeciesReferenceGlyphGlobalStyles(globalRenderInformation);
+    addTextGlyphsGlobalStyles(globalRenderInformation);
 }
 
 GlobalStyle* createGlobalStyleByType(GlobalRenderInformation* globalRenderInformation, const std::string& type) {
@@ -617,7 +641,7 @@ void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInforma
         GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setCompartmentGlyphRenderGroupFeatures(renderGroup);
-        setCompartmentTextGlyphRenderGroupFeatures(renderGroup);
+        setCompartmentGlyphTextGlyphRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -626,7 +650,7 @@ void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation
         GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setSpeciesGlyphRenderGroupFeatures(renderGroup);
-        setSpeciesTextGlyphRenderGroupFeatures(renderGroup);
+        setSpeciesGlyphTextGlyphRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -635,7 +659,7 @@ void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformatio
         GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getReactionGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setReactionGlyphRenderGroupFeatures(renderGroup);
-        setReactionTextGlyphRenderGroupFeatures(renderGroup);
+        setReactionGlyphTextGlyphRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -646,6 +670,36 @@ void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderI
             GlobalStyle* globalStyle = createGlobalStyleByRole(globalRenderInformation, roles[i].second);
             setSpeciesReferenceGlyphRenderGroupFeatures(globalStyle->createGroup(), roles[i].first);
         }
+    }
+}
+
+void addTextGlyphsGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
+    addCompartmentGlyphTextGlyphGlobalStyle(globalRenderInformation);
+    addSpeciesGlyphTextGlyphGlobalStyle(globalRenderInformation);
+    addReactionGlyphTextGlyphGlobalStyle(globalRenderInformation);
+}
+
+void addCompartmentGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setCompartmentGlyphTextGlyphRenderGroupFeatures(renderGroup);
+    }
+}
+
+void addSpeciesGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setSpeciesGlyphTextGlyphRenderGroupFeatures(renderGroup);
+    }
+}
+
+void addReactionGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getReactionGlyphTextGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setReactionGlyphTextGlyphRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -695,7 +749,7 @@ void addCompartmentTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation*
 
 void addCompartmentTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
     Style* localStyle = createLocalStyle(localRenderInformation, textGlyph);
-    setCompartmentTextGlyphRenderGroupFeatures(localStyle->createGroup());
+    setCompartmentGlyphTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
 void addSpeciesGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
@@ -719,7 +773,7 @@ void addSpeciesTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* loc
 
 void addSpeciesTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
     Style* localStyle = createLocalStyle(localRenderInformation, textGlyph);
-    setSpeciesTextGlyphRenderGroupFeatures(localStyle->createGroup());
+    setSpeciesGlyphTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
 void addReactionGlyphsLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation) {
@@ -744,7 +798,7 @@ void addReactionTextGlyphsLocalStyles(Layout* layout, LocalRenderInformation* lo
 
 void addReactionTextGlyphLocalStyle(TextGlyph* textGlyph, LocalRenderInformation* localRenderInformation) {
     Style* localStyle = createLocalStyle(localRenderInformation, textGlyph);
-    setReactionTextGlyphRenderGroupFeatures(localStyle->createGroup());
+    setReactionGlyphTextGlyphRenderGroupFeatures(localStyle->createGroup());
 }
 
 void addSpeciesReferenceGlyphsLocalStyles(ReactionGlyph* reactionGlyph, LocalRenderInformation* localRenderInformation) {
@@ -767,7 +821,7 @@ void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-radius-y"]), 0.0));
 }
 
-void setCompartmentTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["compartment-font-color"]);
     renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["compartment-font-size"]), 0.0));
@@ -783,7 +837,7 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 }
 
 
-void setSpeciesTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-font-size"]), 0.0));
 }
@@ -793,7 +847,7 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setDefaultEllipseShapeFeatures(ellipse);
 }
 
-void setReactionTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
     renderGroup->setStroke(getDefaultPredefinedStyleFeatures()["reaction-font-color"]);
     renderGroup->setFontSize(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["reaction-font-size"]), 0.0));

@@ -6328,6 +6328,13 @@ LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHref(SBMLDocument* 
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this TextGlyph attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @param graphicalObject a pointer to the GraphicalObject object this TextGlyph object is associated with.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the local styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -6339,6 +6346,12 @@ LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, GraphicalObje
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the global styles of the first render information base in the SBML document and returns one that matches the TextGlyph object attributes assoicated with this GrpahicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
 
 /// @brief Creates a new Style object with the given GraphicalObject attributes and adds it to the styles of the first local render information in the SBML document
 /// @param document a pointer to the SBMLDocument object.
@@ -6360,6 +6373,14 @@ LIBSBMLNETWORK_EXTERN Style* createLocalStyle(SBMLDocument* document, TextGlyph*
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one that matches this TextGlyph attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @param graphicalObject a pointer to the GraphicalObject object associated with this TextGlyph object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphStyle(SBMLDocument* document, unsigned int renderIndex, TextGlyph* textGlyph, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the local styles of the render information base with the given index of the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
@@ -6373,6 +6394,13 @@ LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, unsigned int 
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the global styles of the render information base with the given index of the SBML document and returns one that matches the TextGlyph attributes this GraphicalObject is associated with
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
 
 /// @brief Creates a new Style object with the given GraphicalObject attributes and adds it to the styles of the local render information with the given index in the SBML document
 /// @param document a pointer to the SBMLDocument object.

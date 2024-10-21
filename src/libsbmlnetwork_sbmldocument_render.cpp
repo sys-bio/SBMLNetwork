@@ -3642,6 +3642,14 @@ Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     return style;
 }
 
+Style* getTextGlyphStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
+    Style* style = getLocalStyle(document, textGlyph);
+    if (!style)
+        style = getTextGlyphGlobalStyle(document, graphicalObject);
+
+    return style;
+}
+
 Style* getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
         Style* style = getStyle(getLocalRenderInformation(document, i), graphicalObject);
@@ -3655,6 +3663,16 @@ Style* getLocalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
 Style* getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
     for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
         Style* style = getStyle(getGlobalRenderInformation(document, i), graphicalObject);
+        if (style)
+            return style;
+    }
+
+    return NULL;
+}
+
+Style* getTextGlyphGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    for (unsigned int i = 0; i < getNumGlobalRenderInformation(document); i++) {
+        Style* style = getTextGlyphStyle(getGlobalRenderInformation(document, i), graphicalObject);
         if (style)
             return style;
     }
@@ -4272,7 +4290,7 @@ unsigned int setStrokeDash(SBMLDocument* document, const std::string& attribute,
 bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontColor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4285,7 +4303,7 @@ bool isSetFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, un
 bool isSetFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontColor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4298,7 +4316,7 @@ bool isSetFontColor(SBMLDocument* document, const std::string& attribute, unsign
 const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontColor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4311,7 +4329,7 @@ const std::string getFontColor(SBMLDocument* document, GraphicalObject* graphica
 const std::string getFontColor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontColor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4403,7 +4421,7 @@ int setFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::st
 bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontFamily(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4416,7 +4434,7 @@ bool isSetFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, u
 bool isSetFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontFamily(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4429,7 +4447,7 @@ bool isSetFontFamily(SBMLDocument* document, const std::string& attribute, unsig
 const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontFamily(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4442,7 +4460,7 @@ const std::string getFontFamily(SBMLDocument* document, GraphicalObject* graphic
 const std::string getFontFamily(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontFamily(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4536,7 +4554,7 @@ int setFontFamily(SBMLDocument* document, unsigned int layoutIndex, const std::s
 bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontSize(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4549,7 +4567,7 @@ bool isSetFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, uns
 bool isSetFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontSize(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4562,7 +4580,7 @@ bool isSetFontSize(SBMLDocument* document, const std::string& attribute, unsigne
 const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontSize(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4575,7 +4593,7 @@ const RelAbsVector getFontSize(SBMLDocument* document, GraphicalObject* graphica
 const RelAbsVector getFontSize(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontSize(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4760,7 +4778,7 @@ int setFontSizeAsDouble(SBMLDocument* document, unsigned int layoutIndex, const 
 bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontWeight(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4773,7 +4791,7 @@ bool isSetFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, u
 bool isSetFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontWeight(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4786,7 +4804,7 @@ bool isSetFontWeight(SBMLDocument* document, const std::string& attribute, unsig
 const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontWeight(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4799,7 +4817,7 @@ const std::string getFontWeight(SBMLDocument* document, GraphicalObject* graphic
 const std::string getFontWeight(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontWeight(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4893,7 +4911,7 @@ int setFontWeight(SBMLDocument* document, unsigned int layoutIndex, const std::s
 bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontStyle(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4906,7 +4924,7 @@ bool isSetFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, un
 bool isSetFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontStyle(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -4919,7 +4937,7 @@ bool isSetFontStyle(SBMLDocument* document, const std::string& attribute, unsign
 const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveFontStyle(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -4932,7 +4950,7 @@ const std::string getFontStyle(SBMLDocument* document, GraphicalObject* graphica
 const std::string getFontStyle(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveFontStyle(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -5026,7 +5044,7 @@ int setFontStyle(SBMLDocument* document, unsigned int layoutIndex, const std::st
 bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -5039,7 +5057,7 @@ bool isSetTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, u
 bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -5052,7 +5070,7 @@ bool isSetTextAnchor(SBMLDocument* document, const std::string& attribute, unsig
 const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -5065,7 +5083,7 @@ const std::string getTextAnchor(SBMLDocument* document, GraphicalObject* graphic
 const std::string getTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -5159,7 +5177,7 @@ int setTextAnchor(SBMLDocument* document, unsigned int layoutIndex, const std::s
 bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveVTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -5172,7 +5190,7 @@ bool isSetVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, 
 bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveVTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 
@@ -5185,7 +5203,7 @@ bool isSetVTextAnchor(SBMLDocument* document, const std::string& attribute, unsi
 const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, graphicalObject, textGlyphIndex);
     if (canHaveVTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, graphicalObject);
         if (!style)
             style = getStyle(document, graphicalObject);
 
@@ -5198,7 +5216,7 @@ const std::string getVTextAnchor(SBMLDocument* document, GraphicalObject* graphi
 const std::string getVTextAnchor(SBMLDocument* document, const std::string& attribute, unsigned int textGlyphIndex) {
     TextGlyph* textGlyph = getTextGlyph(document, attribute, textGlyphIndex);
     if (canHaveVTextAnchor(textGlyph)) {
-        Style* style = getStyle(document, textGlyph);
+        Style* style = getTextGlyphStyle(document, textGlyph, getGraphicalObject(document, attribute));
         if (!style)
             style = getStyle(document, attribute);
 

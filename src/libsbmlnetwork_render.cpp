@@ -1015,6 +1015,10 @@ Style* getStyle(RenderInformationBase* renderInformationBase, const std::string&
     return NULL;
 }
 
+Style* getTextGlyphStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
+    return getStyleByType(renderInformationBase, getTextGlyphStyleType(graphicalObject));
+}
+
 Style* getStyleById(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject) {
     if (graphicalObject)
         return getStyleById(renderInformationBase, graphicalObject->getId());
@@ -1668,7 +1672,7 @@ int setFontColor(Transformation2D* transformation2D, const std::string& fontColo
 }
 
 const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -1678,7 +1682,7 @@ const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style) {
@@ -1690,7 +1694,7 @@ int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, co
 }
 
 const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -1700,7 +1704,7 @@ const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style) {
@@ -1712,7 +1716,7 @@ int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -1722,7 +1726,7 @@ const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style) {
@@ -1825,7 +1829,7 @@ int setFontFamily(Transformation2D* transformation2D, const std::string& fontFam
 }
 
 const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -1835,7 +1839,7 @@ const std::string getCompartmentFontFamily(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -1845,7 +1849,7 @@ int setCompartmentFontFamily(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -1855,7 +1859,7 @@ const std::string getSpeciesFontFamily(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -1865,7 +1869,7 @@ int setSpeciesFontFamily(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -1875,7 +1879,7 @@ const std::string getReactionFontFamily(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionFontFamily(GlobalRenderInformation* globalRenderInformation, const std::string& fontFamily) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2007,7 +2011,7 @@ int setFontSizeAsDouble(Transformation2D* transformation2D, const double& fontSi
 }
 
 const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2017,7 +2021,7 @@ const RelAbsVector getCompartmentFontSize(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2031,7 +2035,7 @@ const double getCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRende
 }
 
 int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2041,7 +2045,7 @@ int setCompartmentFontSizeAsDouble(GlobalRenderInformation* globalRenderInformat
 }
 
 const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2051,7 +2055,7 @@ const RelAbsVector getSpeciesFontSize(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2065,7 +2069,7 @@ const double getSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInf
 }
 
 int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2075,7 +2079,7 @@ int setSpeciesFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation,
 }
 
 const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2085,7 +2089,7 @@ const RelAbsVector getReactionFontSize(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontSize(GlobalRenderInformation* globalRenderInformation, const RelAbsVector& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2099,7 +2103,7 @@ const double getReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderIn
 }
 
 int setReactionFontSizeAsDouble(GlobalRenderInformation* globalRenderInformation, const double& fontSize) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2200,7 +2204,7 @@ int setFontWeight(Transformation2D* transformation2D, const std::string& fontWei
 }
 
 const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2210,7 +2214,7 @@ const std::string getCompartmentFontWeight(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2220,7 +2224,7 @@ int setCompartmentFontWeight(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2230,7 +2234,7 @@ const std::string getSpeciesFontWeight(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2240,7 +2244,7 @@ int setSpeciesFontWeight(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2250,7 +2254,7 @@ const std::string getReactionFontWeight(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionFontWeight(GlobalRenderInformation* globalRenderInformation, const std::string& fontWeight) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2351,7 +2355,7 @@ int setFontStyle(Transformation2D* transformation2D, const std::string& fontStyl
 }
 
 const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2361,7 +2365,7 @@ const std::string getCompartmentFontStyle(GlobalRenderInformation* globalRenderI
 }
 
 int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2371,7 +2375,7 @@ int setCompartmentFontStyle(GlobalRenderInformation* globalRenderInformation, co
 }
 
 const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2381,7 +2385,7 @@ const std::string getSpeciesFontStyle(GlobalRenderInformation* globalRenderInfor
 }
 
 int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2391,7 +2395,7 @@ int setSpeciesFontStyle(GlobalRenderInformation* globalRenderInformation, const 
 }
 
 const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2401,7 +2405,7 @@ const std::string getReactionFontStyle(GlobalRenderInformation* globalRenderInfo
 }
 
 int setReactionFontStyle(GlobalRenderInformation* globalRenderInformation, const std::string& fontStyle) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2502,7 +2506,7 @@ int setTextAnchor(Transformation2D* transformation2D, const std::string& textAnc
 }
 
 const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2512,7 +2516,7 @@ const std::string getCompartmentTextAnchor(GlobalRenderInformation* globalRender
 }
 
 int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2522,7 +2526,7 @@ int setCompartmentTextAnchor(GlobalRenderInformation* globalRenderInformation, c
 }
 
 const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2532,7 +2536,7 @@ const std::string getSpeciesTextAnchor(GlobalRenderInformation* globalRenderInfo
 }
 
 int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2542,7 +2546,7 @@ int setSpeciesTextAnchor(GlobalRenderInformation* globalRenderInformation, const
 }
 
 const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2552,7 +2556,7 @@ const std::string getReactionTextAnchor(GlobalRenderInformation* globalRenderInf
 }
 
 int setReactionTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& textAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2653,7 +2657,7 @@ int setVTextAnchor(Transformation2D* transformation2D, const std::string& vtextA
 }
 
 const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2663,7 +2667,7 @@ const std::string getCompartmentVTextAnchor(GlobalRenderInformation* globalRende
 }
 
 int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style)
@@ -2673,7 +2677,7 @@ int setCompartmentVTextAnchor(GlobalRenderInformation* globalRenderInformation, 
 }
 
 const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2683,7 +2687,7 @@ const std::string getSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInf
 }
 
 int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style)
@@ -2693,7 +2697,7 @@ int setSpeciesVTextAnchor(GlobalRenderInformation* globalRenderInformation, cons
 }
 
 const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
@@ -2703,7 +2707,7 @@ const std::string getReactionVTextAnchor(GlobalRenderInformation* globalRenderIn
 }
 
 int setReactionVTextAnchor(GlobalRenderInformation* globalRenderInformation, const std::string& vtextAnchor) {
-    Style* style = getStyleByType(globalRenderInformation, getTextGlyphStyleType());
+    Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style)
