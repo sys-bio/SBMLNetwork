@@ -144,6 +144,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex);
 
+    /// @brief Create an alias ReactionGlyph object for Reaction with the given id
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction to create an alias ReactionGlyph for.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_createAliasReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex);
+
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.

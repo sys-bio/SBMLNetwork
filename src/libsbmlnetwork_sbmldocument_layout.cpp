@@ -144,6 +144,14 @@ int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
+int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId) {
+    return createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
+}
+
+int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
+    return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
+}
+
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
     return getDimensions(getLayout(document, layoutIndex));
 }
