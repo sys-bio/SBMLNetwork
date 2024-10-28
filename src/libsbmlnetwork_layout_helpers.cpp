@@ -218,8 +218,7 @@ std::vector<std::map<std::string, std::string>> getUserData(Layout* layout) {
 
 void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value) {
     if (!graphicalObject->isSetUserData()) {
-        std::map<std::string, std::string> userData;
-        graphicalObject->setUserData(&userData);
+        graphicalObject->setUserData(new std::map<std::string, std::string>());
         setUserData(graphicalObject, "id", graphicalObject->getId());
         setUserData(graphicalObject, "entity_id", getEntityId(graphicalObject));
     }
@@ -298,6 +297,10 @@ const double getSpeciesDefaultWidth() {
 
 const double getSpeciesDefaultHeight() {
     return 36.0;
+}
+
+const double getDummySpeciesDefaultRadius() {
+    return 15.0;
 }
 
 const double getReactionDefaultWidth() {
@@ -582,11 +585,12 @@ SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* la
 }
 
 SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) {
-    std::string dummySpeciesGlyphId = reactionGlyph->getId() + "_DummySpeciesGlyph";
-    SpeciesGlyph* dummySpeciesGlyph = createSpeciesGlyph(layout, dummySpeciesGlyphId);
+    SpeciesGlyph* dummySpeciesGlyph = createDummySpeciesGlyph(layout, reactionGlyph->getId());
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
     if (compartmentGlyph)
         setUserData(dummySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
+    setUserData(dummySpeciesGlyph, "width", std::to_string(2* getDummySpeciesDefaultRadius()));
+    setUserData(dummySpeciesGlyph, "height", std::to_string(2* getDummySpeciesDefaultRadius()));
     setGraphicalObjectBoundingBox(dummySpeciesGlyph);
 
     return dummySpeciesGlyph;
@@ -839,6 +843,14 @@ SpeciesGlyph* createSpeciesGlyph(Layout* layout, const std::string& speciesId) {
     SpeciesGlyph *speciesGlyph = layout->createSpeciesGlyph();
     speciesGlyph->setId(getSpeciesGlyphId(layout, speciesId));
     speciesGlyph->setSpeciesId(speciesId);
+    setGraphicalObjectBoundingBox(speciesGlyph);
+
+    return speciesGlyph;
+}
+
+SpeciesGlyph* createDummySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId) {
+    SpeciesGlyph *speciesGlyph = layout->createSpeciesGlyph();
+    speciesGlyph->setId(reactionGlyphId + "_DummySpeciesGlyph");
     setGraphicalObjectBoundingBox(speciesGlyph);
 
     return speciesGlyph;
