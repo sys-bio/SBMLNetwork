@@ -66,6 +66,8 @@ const double getSpeciesDefaultWidth();
 
 const double getSpeciesDefaultHeight();
 
+const double getDummySpeciesDefaultRadius();
+
 const double getReactionDefaultWidth();
 
 const double getReactionDefaultHeight();
@@ -171,6 +173,8 @@ void setReactionTextGlyphs(Layout* layout);
 CompartmentGlyph* createCompartmentGlyph(Layout* layout, const std::string& compartmentId);
 
 SpeciesGlyph* createSpeciesGlyph(Layout* layout, const std::string& speciesId);
+
+SpeciesGlyph* createDummySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId);
 
 ReactionGlyph* createReactionGlyph(Layout* layout, const std::string& reactionId);
 

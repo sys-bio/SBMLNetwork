@@ -6075,7 +6075,7 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeStrokeColor(style, 0, strokeColor);
+        return setGeometricShapeStrokeColor(style, 0, addColor(document, style, strokeColor));
     }
 
     return -1;
@@ -6086,7 +6086,7 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeStrokeColor(style, geometricShapeIndex, strokeColor);
+        return setGeometricShapeStrokeColor(style, geometricShapeIndex, addColor(document, style, strokeColor));
     }
 
     return -1;
@@ -6097,7 +6097,7 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeStrokeColor(style, 0, strokeColor);
+        return setGeometricShapeStrokeColor(style, 0, addColor(document, style, strokeColor));
     }
 
     return -1;
@@ -6108,7 +6108,7 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeStrokeColor(style, geometricShapeIndex, strokeColor);
+        return setGeometricShapeStrokeColor(style, geometricShapeIndex, addColor(document, style, strokeColor));
     }
 
     return -1;
@@ -6219,7 +6219,7 @@ int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeFillColor(style, 0, fillColor);
+        return setGeometricShapeFillColor(style, 0, addColor(document, style, fillColor));
     }
 
     return -1;
@@ -6241,7 +6241,7 @@ int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeFillColor(style, geometricShapeIndex, fillColor);
+        return setGeometricShapeFillColor(style, geometricShapeIndex, addColor(document, style, fillColor));
     }
 
     return -1;
@@ -6263,7 +6263,7 @@ int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeFillColor(style, 0, fillColor);
+        return setGeometricShapeFillColor(style, 0, addColor(document, style, fillColor));
     }
 
     return -1;
@@ -6285,7 +6285,7 @@ int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeFillColor(style, geometricShapeIndex, fillColor);
+        return setGeometricShapeFillColor(style, geometricShapeIndex, addColor(document, style, fillColor));
     }
 
     return -1;
