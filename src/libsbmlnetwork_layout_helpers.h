@@ -106,17 +106,13 @@ void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
 void setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-void setSpeciesGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData = {});
+void setReactionGlyphs(Model* model, Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-void setReactionGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData = {});
+void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
-
-void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
-
-void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
+void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
 void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
 
@@ -130,11 +126,17 @@ SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, Reaction
 
 void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-int createAliasSpeciesGlyphs(Layout* layout, SpeciesGlyph* speciesGlyph, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences, const int maxNumConnectedEdges, const int numRequiredAliasSpeciesGlyphs, const std::vector<std::map<std::string, std::string>>& userData = {});
-
 int createAliasSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph);
 
+SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph);
+
 SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, const std::string& speciesId, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences);
+
+SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
+
+int hideSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph);
+
+const bool isSpeciesGlyphHidden(ReactionGlyph* reactionGlyph, const std::string speciesId);
 
 const bool canHaveAlias(Layout* layout, std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfReactionGlyph);
 
@@ -170,15 +172,17 @@ void setSpeciesTextGlyphs(Layout* layout);
 
 void setReactionTextGlyphs(Layout* layout);
 
-CompartmentGlyph* createCompartmentGlyph(Layout* layout, const std::string& compartmentId);
+CompartmentGlyph* createCompartmentGlyph(Layout* layout, const std::string& compartmentId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-SpeciesGlyph* createSpeciesGlyph(Layout* layout, const std::string& speciesId);
+SpeciesGlyph* createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
 SpeciesGlyph* createDummySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId);
 
-ReactionGlyph* createReactionGlyph(Layout* layout, const std::string& reactionId);
+ReactionGlyph* createReactionGlyph(Layout* layout, const std::string& reactionId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-SpeciesReferenceGlyph* createSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, const std::string& speciesGlyphId, unsigned int stoichiometryIndex = 0);
+SpeciesReferenceGlyph* createSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData = {});
+
+SpeciesReferenceGlyph* createSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex);
 
 CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
@@ -196,13 +200,15 @@ void setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vec
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
+void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph);
 
-void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
-
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
+
+void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 void addCurveSegment(Curve* curve, LineSegment* referenceLineSegment, const double& padding);
 

@@ -65,9 +65,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
         if (model) {
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout);
-            setSpeciesGlyphs(model, layout);
-            setReactionGlyphs(model, layout);
-            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges);
+            setReactionGlyphs(model, layout, maxNumConnectedEdges);
             setTextGlyphs(layout);
             return 0;
         }
@@ -87,9 +85,7 @@ int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int 
             std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout, userData);
-            setSpeciesGlyphs(model, layout, userData);
-            setReactionGlyphs(model, layout, userData);
-            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges, userData);
+            setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
             locateGlyphs(model, layout, useNameAsTextLabel);
             setTextGlyphs(layout);
             return 0;
@@ -150,6 +146,20 @@ int createAliasReactionGlyph(SBMLDocument* document, const std::string& reaction
 
 int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
     return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
+}
+
+int hideSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    if (!hideSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+        return setDefaultLayoutLocations(document, getLayout(document));
+
+    return -1;
+}
+
+int hideSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    if (!hideSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+        return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
+
+    return -1;
 }
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {

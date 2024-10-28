@@ -108,6 +108,23 @@ LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId);
 
+/// @brief Hide the Species Glyph with the given Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the first Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param speciesId the id of the Species to hide.
+/// @param reactionId the id of the Reaction to hide the SpeciesGlyph for.
+/// @param reactionGlyphIndex the index of the ReactionGlyph object to hide the SpeciesGlyph for.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int hideSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+
+/// @brief Hide the Species Glyph with the given Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param speciesId the id of the Species to hide.
+/// @param reactionId the id of the Reaction to hide the SpeciesGlyph for.
+/// @param reactionGlyphIndex the index of the ReactionGlyph object to hide the SpeciesGlyph for.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int hideSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
+
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
