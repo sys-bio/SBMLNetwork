@@ -500,7 +500,7 @@ void setReactionGlyphs(Model* model, Layout* layout, const int maxNumConnectedEd
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        if (!isSpeciesGlyphHidden(reactionGlyph, speciesReference->getSpecies())) {
+        if (!isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
             int stoichiometry = getStoichiometryAsInteger(speciesReference);
             for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
                 SpeciesReferenceGlyph *speciesReferenceGlyph = createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
@@ -513,7 +513,7 @@ void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
 void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        if (!isSpeciesGlyphHidden(reactionGlyph, speciesReference->getSpecies())) {
+        if (!isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
             int stoichiometry = getStoichiometryAsInteger(speciesReference);
             for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
                 SpeciesReferenceGlyph* speciesReferenceGlyph = createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
@@ -526,7 +526,7 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
-        if (!isSpeciesGlyphHidden(reactionGlyph, speciesReference->getSpecies())) {
+        if (!isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), 0, maxNumConnectedEdges, userData);
             if (speciesReference->getSBOTermID() == "SBO:0000020")
                 speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
@@ -632,24 +632,90 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& speciesId, cons
     return createSpeciesGlyph(layout, speciesId, userData);
 }
 
-int hideSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph) {
-    if (reactionGlyph) {
-        std::string hiddenSpeciesIds = getUserData(reactionGlyph, "hidden_species_ids");
+int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::string> speciesIds, bool visible) {
+    if (!speciesIds.size()) {
+        for (unsigned int i = 0; i < model->getNumSpecies(); i++)
+            speciesIds.insert(model->getSpecies(i)->getId());
+    }
+
+    if (!visible)
+        hideSpeciesGlyphs(layout, speciesIds);
+    else
+        unHideSpeciesGlyphs(layout, speciesIds);
+
+    return 0;
+}
+
+int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string speciesId, bool visible) {
+    if (!visible)
+        return hideSpeciesGlyph(reactionGlyph, speciesId);
+    else
+        return unHideSpeciesGlyph(reactionGlyph, speciesId);
+}
+
+int hideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds) {
+    for (std::set<std::string>::const_iterator speciesIdsIt = speciesIds.cbegin(); speciesIdsIt != speciesIds.cend(); speciesIdsIt++) {
+        if (hideSpeciesGlyph(layout, *speciesIdsIt))
+            return -1;
+    }
+
+    return 0;
+}
+
+int unHideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds) {
+    for (std::set<std::string>::const_iterator speciesIdsIt = speciesIds.cbegin(); speciesIdsIt != speciesIds.cend(); speciesIdsIt++) {
+        if (unHideSpeciesGlyph(layout, *speciesIdsIt))
+            return -1;
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+            makeSpeciesGlyphVisible(reactionGlyph, *speciesIdsIt, true);
+        }
+    }
+
+    return 0;
+}
+
+int hideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
+    if (sBase) {
+        std::string hiddenSpeciesIds = getUserData(sBase, "hidden_species_ids");
         if (hiddenSpeciesIds.find(speciesId) == std::string::npos) {
             if (hiddenSpeciesIds.size())
                 hiddenSpeciesIds += ",";
             hiddenSpeciesIds += speciesId;
-            setUserData(reactionGlyph, "hidden_species_ids", hiddenSpeciesIds);
-
-            return 0;
+            if (isGraphicalObject(sBase))
+                setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
+            else
+                setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
         }
+
+        return 0;
     }
 
     return -1;
 }
 
-const bool isSpeciesGlyphHidden(ReactionGlyph* reactionGlyph, const std::string speciesId) {
-    return getUserData(reactionGlyph, "hidden_species_ids").find(speciesId) != std::string::npos;
+int unHideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
+    if (sBase) {
+        std::string hiddenSpeciesIds = getUserData(sBase, "hidden_species_ids");
+        size_t found = hiddenSpeciesIds.find(speciesId);
+        if (found != std::string::npos) {
+            hiddenSpeciesIds.erase(found, speciesId.size());
+            if (hiddenSpeciesIds.back() == ',')
+                hiddenSpeciesIds.pop_back();
+            if (isGraphicalObject(sBase))
+                setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
+            else
+                setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
+        }
+
+        return 0;
+    }
+
+    return -1;
+}
+
+const bool isSpeciesGlyphHidden(Layout* layout, ReactionGlyph* reactionGlyph, const std::string speciesId) {
+    return getUserData(layout, "hidden_species_ids").find(speciesId) != std::string::npos ||  getUserData(reactionGlyph, "hidden_species_ids").find(speciesId) != std::string::npos;
 }
 
 const bool canHaveAlias(Layout* layout, std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfReactionGlyph) {
@@ -958,7 +1024,7 @@ TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalO
 
 void setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < userData.size(); i++) {
-        if (userData.at(i).at("id") == graphicalObject->getId()) {
+        if (userData.at(i).find("id") != userData.at(i).end() && userData.at(i).at("id") == graphicalObject->getId()) {
             for (auto it = userData.at(i).begin(); it != userData.at(i).end(); it++)
                 setUserData(graphicalObject, it->first, it->second);
             break;
@@ -1352,6 +1418,10 @@ const bool layoutContainsGlyphs(Layout* layout) {
     return (layout->getNumCompartmentGlyphs() > 0) ||
            (layout->getNumSpeciesGlyphs() > 0) ||
            (layout->getNumReactionGlyphs() > 0);
+}
+
+const bool isGraphicalObject(SBase* sbase) {
+    return dynamic_cast<GraphicalObject*>(sbase) ? true : false;
 }
 
 const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference) {

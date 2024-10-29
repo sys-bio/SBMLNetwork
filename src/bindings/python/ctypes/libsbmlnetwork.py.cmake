@@ -454,14 +454,15 @@ class LibSBMLNetwork:
         """
         return lib.c_api_createAliasReactionGlyph(self.sbml_object, str(reaction_id).encode(), layout_index)
 
-    def hideSpeciesGlyph(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
+    def makeSpeciesGlyphVisible(self, species_id, reaction_id, visible=True, reaction_glyph_index=0, layout_index=0):
         """
-        Hides the SpeciesGlyph of Species with the given species_id in the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+        Makes the SpeciesGlyph of Species with the given species_id in the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument visible or invisible
 
         :Parameters:
 
             - species_id (string): a string that determines the id of the Species
             - reaction_id (string): a string that determines the id of the Reaction
+            - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyph visible or invisible
             - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
@@ -469,7 +470,31 @@ class LibSBMLNetwork:
 
             true on success and false if the SpeciesGlyph could not be hidden
         """
-        return lib.c_api_hideSpeciesGlyph(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, layout_index)
+        return lib.c_api_makeSpeciesGlyphVisible(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), visible, reaction_glyph_index, layout_index)
+
+    def makeSpeciesGlyphsVisible(self, species_ids=None, visible=True, layout_index=0):
+        """
+        Makes the SpeciesGlyphs of Species with the given species_ids in the Layout object with the given index in the given SBMLDocument visible or invisible
+
+        :Parameters:
+
+            - species_ids (list of strings): a list of strings that determines the ids of the Species
+            - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyphs visible or invisible
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesGlyphs could not be hidden
+        """
+        species_ids_ptr = None
+        species_ids_len = 0
+        if species_ids is not None:
+            species_ids_len = len(species_ids)
+            species_ids_ptr = (ctypes.c_char_p * len(species_ids))()
+            for i in range(len(species_ids)):
+                species_ids_ptr[i] = ctypes.c_char_p(species_ids[i].encode())
+
+        return lib.c_api_makeSpeciesGlyphsVisible(self.sbml_object, species_ids_ptr, species_ids_len, visible, layout_index)
 
     def getCanvasWidth(self, layout_index=0):
         """

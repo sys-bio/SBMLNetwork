@@ -134,8 +134,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return createAliasReactionGlyph(document, layoutIndex, reactionId);
     }
 
-    int c_api_hideSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
-        return hideSpeciesGlyph(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex);
+    int c_api_makeSpeciesGlyphVisible(SBMLDocument* document, const char* speciesId, const char* reactionId, bool visible, int reactionGlyphIndex, int layoutIndex) {
+        return makeSpeciesGlyphVisible(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, visible);
+    }
+
+    int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char** speciesIds, const int speciesIdsSize, const bool visible, int layoutIndex) {
+        std::set<std::string> speciesIdsSet = std::set<std::string>();
+        for (int i = 0; i < speciesIdsSize; i++)
+            speciesIdsSet.insert(speciesIds[i]);
+
+        return makeSpeciesGlyphsVisible(document, layoutIndex, speciesIdsSet, visible);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {

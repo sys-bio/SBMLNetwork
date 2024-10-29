@@ -151,14 +151,24 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createAliasReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex);
 
-    /// @brief Hide the Species Glyph with the given Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @brief Hide the SpeciesGlyph with the given species Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param speciesId the id of the species to hide the SpeciesGlyph for.
     /// @param reactionId the id of the reaction to hide the SpeciesGlyph for.
+    /// @param visible a boolean value to determine whether make SpeciesGlyph visible or invisible.
     /// @reactionGlyphIndex the index of the ReactionGlyph object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_hideSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex);
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphVisible(SBMLDocument* document, const char* speciesId, const char* reactionId, bool visible = true, int reactionGlyphIndex = 0, int layoutIndex = 0);
+
+    /// @brief Hide the SpeciesGlyphs with the given species Ids in the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesIds an array of strings containing the ids of the species to hide the SpeciesGlyphs for.
+    /// @param speciesIdsSize the size of speciesIds
+    /// @param visible a boolean value to determine whether make SpeciesGlyph visible or invisible.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char** speciesIds, const int speciesIdsSize, bool visible = true, int layoutIndex = 0);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.

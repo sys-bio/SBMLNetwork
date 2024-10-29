@@ -134,9 +134,19 @@ SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, const std::string& species
 
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
-int hideSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph);
+int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::string> speciesIds, bool visible = true);
 
-const bool isSpeciesGlyphHidden(ReactionGlyph* reactionGlyph, const std::string speciesId);
+int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string speciesId, bool visible = true);
+
+int hideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds);
+
+int unHideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds);
+
+int hideSpeciesGlyph(SBase* sBase, const std::string speciesId);
+
+int unHideSpeciesGlyph(SBase* sBase, const std::string speciesId);
+
+const bool isSpeciesGlyphHidden(Layout* layout, ReactionGlyph* reactionGlyph, const std::string speciesId);
 
 const bool canHaveAlias(Layout* layout, std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfReactionGlyph);
 
@@ -273,6 +283,8 @@ const std::string getSpeciesReferenceGlyphId(ReactionGlyph* reactionGlyph, const
 const std::string getIdOfSpeciesReferenceGlyphConnectedToAliasSpeciesGlyph(std::string speciesReferenceGlyphId, const std::string& originalSpeciesGlyphId, const std::string& aliasSpeciesGlyphId);
 
 const bool layoutContainsGlyphs(Layout* layout);
+
+const bool isGraphicalObject(SBase* sbase);
 
 const int getStoichiometryAsInteger(SpeciesReferenceGlyph* speciesReferenceGlyph);
 

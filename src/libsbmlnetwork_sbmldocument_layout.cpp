@@ -148,19 +148,39 @@ int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, c
     return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
 }
 
-int hideSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!hideSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+int makeSpeciesGlyphVisible(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
+    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document));
 
     return -1;
 }
 
-int hideSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!hideSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
+    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
 
     return -1;
 }
+
+int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::string>& speciesIds, bool visible) {
+    if (document && document->isSetModel()) {
+        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), speciesIds, visible))
+            return setDefaultLayoutLocations(document, getLayout(document));
+    }
+
+
+    return -1;
+}
+
+int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::string>& speciesIds, bool visible) {
+    if (document && document->isSetModel()) {
+        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), speciesIds, visible))
+            return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
+    }
+
+    return -1;
+}
+
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
     return getDimensions(getLayout(document, layoutIndex));
