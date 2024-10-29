@@ -454,6 +454,24 @@ class LibSBMLNetwork:
         """
         return lib.c_api_createAliasReactionGlyph(self.sbml_object, str(reaction_id).encode(), layout_index)
 
+    def setSpeciesGlyphIndexInReactionGlyph(self, species_id, reaction_id, index, reaction_glyph_index=0, layout_index=0):
+        """
+        Sets which SpeciesGlyph of Species with the given species_id to be assigned to the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - species_id (string): a string that determines the id of the Species
+            - reaction_id (string): a string that determines the id of the Reaction
+            - index (int): an integer that determines which SpeciesGlyph of Species with the given species_id to be assigned to the ReactionGlyph with the given reaction_id and reaction_glyph_index
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the index of the SpeciesGlyph could not be set
+            """
+        return lib.c_api_setSpeciesGlyphIndexInReactionGlyph(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), index, reaction_glyph_index, layout_index)
+
     def makeSpeciesGlyphVisible(self, species_id, reaction_id, visible=True, reaction_glyph_index=0, layout_index=0):
         """
         Makes the SpeciesGlyph of Species with the given species_id in the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument visible or invisible

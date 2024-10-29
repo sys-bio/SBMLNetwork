@@ -134,6 +134,8 @@ SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, const std::string& species
 
 SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
+int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph, const unsigned int index);
+
 int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::string> speciesIds, bool visible = true);
 
 int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string speciesId, bool visible = true);
@@ -198,7 +200,13 @@ CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layou
 
 CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout);
 
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpecies(Layout* layout, const std::string& speciesId);
+
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpeciesGlyph(Layout* layout, const std::string& speciesGlyphId);
+
 std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpecies(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId);
+
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpeciesGlyph(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesGlyphId);
 
 const int getSpeciesReferenceIndex(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
@@ -280,7 +288,7 @@ const std::string getReactionGlyphId(Layout* layout, const std::string reactionI
 
 const std::string getSpeciesReferenceGlyphId(ReactionGlyph* reactionGlyph, const std::string speciesGlyphId, unsigned int stoichiometryIndex = 0);
 
-const std::string getIdOfSpeciesReferenceGlyphConnectedToAliasSpeciesGlyph(std::string speciesReferenceGlyphId, const std::string& originalSpeciesGlyphId, const std::string& aliasSpeciesGlyphId);
+const std::string getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(std::string speciesReferenceGlyphId, const std::string& originalSpeciesGlyphId, const std::string& aliasSpeciesGlyphId);
 
 const bool layoutContainsGlyphs(Layout* layout);
 

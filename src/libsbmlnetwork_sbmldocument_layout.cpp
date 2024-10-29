@@ -148,6 +148,34 @@ int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, c
     return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
 }
 
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId), index))
+        return updateLayoutCurves(document, getLayout(document));
+
+    return -1;
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId), index))
+        return updateLayoutCurves(document, getLayout(document, layoutIndex));
+
+    return -1;
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), index))
+        return updateLayoutCurves(document, getLayout(document));
+
+    return -1;
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), index))
+        return updateLayoutCurves(document, getLayout(document, layoutIndex));
+
+    return -1;
+}
+
 int makeSpeciesGlyphVisible(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
     if (!makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document));

@@ -108,6 +108,44 @@ LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, const
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId);
 
+/// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param speciesId the id of the Species to assign to the ReactionGlyph.
+/// @param reactionId the id of the Reaction to assign the SpeciesGlyph to.
+/// @param reactionGlyphIndex the index of the ReactionGlyph object to assign the SpeciesGlyph to.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph object to assign to the ReactionGlyph.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index);
+
+/// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param speciesId the id of the Species to assign to the ReactionGlyph.
+/// @param reactionId the id of the Reaction to assign the SpeciesGlyph to.
+/// @param reactionGlyphIndex the index of the ReactionGlyph object to assign the SpeciesGlyph to.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph object to assign to the ReactionGlyph.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, const unsigned int index);
+
+/// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the first Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param speciesId the id of the Species to assign to the ReactionGlyph.
+/// @param reactionId the id of the Reaction to assign the SpeciesGlyph to.
+/// @param reactionGlyphIndex the index of the ReactionGlyph object to assign the SpeciesGlyph to.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph object to assign to the ReactionGlyph.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document,  const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index);
+
+/// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param speciesId the id of the Species to assign to the ReactionGlyph.
+/// @param reactionId the id of the Reaction to assign the SpeciesGlyph to.
+/// @param reactionGlyphIndex the index of the ReactionGlyph object to assign the SpeciesGlyph to.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph object to assign to the ReactionGlyph.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index);
+
 /// @brief Makes the Species Glyph with the given species Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the first Layout object in the ListOfLayouts of the SBML document visible or invisible.
 /// @param document a pointer to the SBMLDocument object.
 /// @param speciesId the id of the Species to hide/show.

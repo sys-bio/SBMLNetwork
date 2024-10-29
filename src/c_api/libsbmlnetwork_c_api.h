@@ -327,6 +327,15 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the meta id of the nth SpeciesGlyph associated with the given species id, or @c "" if the object does not exists.
     LIBSBMLNETWORK_EXTERN const char* c_api_getNthSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0);
 
+    /// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param speciesId the id of the species the SpeciesGlyph object associated with it is going to be set.
+    /// @param reactionId the id of the reaction the SpeciesGlyph object is going to be associated with.
+    /// @param index the index of the SpeciesGlyph object.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph object.
+    /// @param layoutIndex the index number of the Layout to return.
+    LIBSBMLNETWORK_EXTERN const int c_api_setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int index, int reactionGlyphIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the index of the SpeciesGlyph object among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id with the given index in the ListOfLayouts of the SBML document.
     /// @param a pointer to the SBMLDocument object.
     /// @param speciesId the id of the species the index of the SpeciesGlyph object associated with it is going to be returned.
