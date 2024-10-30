@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "styles/libsbmlnetwork_styles.h"
 
@@ -4135,7 +4136,7 @@ const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layou
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, layoutIndex, renderIndex)); lineEndingIndex++) {
             double strokeWidth = getLineEndingStrokeWidth(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId());
-            if (!std::isnan(strokeWidth))
+            if (isValidDoubleValue(document, strokeWidth))
                 lineEndingStrokeWidths.push_back(strokeWidth);
         }
     }
@@ -4143,7 +4144,7 @@ const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layou
         for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
             for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
                 double strokeWidth = getLineEndingStrokeWidth(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId());
-                if (!std::isnan(strokeWidth))
+                if (isValidDoubleValue(document, strokeWidth))
                     lineEndingStrokeWidths.push_back(strokeWidth);
             }
         }
