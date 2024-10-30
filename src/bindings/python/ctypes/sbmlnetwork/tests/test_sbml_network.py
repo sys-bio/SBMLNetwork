@@ -596,17 +596,17 @@ class TestSBMLNetwork(unittest.TestCase):
     def _check_species_reference_is_bounded_by_its_compartment(self, network,reaction_id, species_reference_index):
         compartment_id = self._get_associated_compartment_id(network, reaction_id)
         self.assertGreater(network.getSpeciesReferenceCurveSegmentStartPointX(reaction_id,
-                                                                                   species_reference_glyph_index=species_reference_index),
+                                                                                   species_reference_index=species_reference_index),
                            network.getX(compartment_id))
         self.assertLess(network.getSpeciesReferenceCurveSegmentStartPointX(reaction_id,
-                                                                                species_reference_glyph_index=species_reference_index),
+                                                                                species_reference_index=species_reference_index),
                         network.getX(compartment_id) + network.getWidth(
                             compartment_id))
         self.assertGreater(network.getSpeciesReferenceCurveSegmentStartPointY(reaction_id,
-                                                                                   species_reference_glyph_index=species_reference_index),
+                                                                                   species_reference_index=species_reference_index),
                            network.getY(compartment_id))
         self.assertLess(network.getSpeciesReferenceCurveSegmentStartPointY(reaction_id,
-                                                                                species_reference_glyph_index=species_reference_index),
+                                                                                species_reference_index=species_reference_index),
                         network.getY(compartment_id) + network.getHeight(
                             compartment_id))
 
