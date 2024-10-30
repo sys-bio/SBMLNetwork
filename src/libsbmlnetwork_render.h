@@ -1193,17 +1193,17 @@ LIBSBMLNETWORK_EXTERN int setStrokeColor(Transformation2D* transformation2D, con
 
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
-LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
 LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1624,10 +1624,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFontColor(GlobalRenderInfo
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param fontColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
-/// @param fontColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColorId, const std::string& fontColorValue);
+LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
@@ -1636,10 +1635,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFontColor(GlobalRenderInformat
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param fontColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
-/// @param fontColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColorId, const std::string& fontColorValue);
+LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
@@ -1648,10 +1646,9 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFontColor(GlobalRenderInforma
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param fontColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
-/// @param fontColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColorId, const std::string& fontColorValue);
+LIBSBMLNETWORK_EXTERN int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor);
 
 /// @brief Predicates returning @c true if the "font-family" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -2488,10 +2485,9 @@ LIBSBMLNETWORK_EXTERN const std::string getCompartmentFillColor(GlobalRenderInfo
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param fillColorId a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
-/// @param fillColorValue a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColorId, const std::string& fillColorValue);
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
 
@@ -2502,10 +2498,9 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesFillColor(GlobalRenderInformat
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param fillColorId a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
-/// @param fillColorValue a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColorId, const std::string& fillColorValue);
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
 
@@ -2516,10 +2511,9 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(GlobalRenderInforma
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
-/// @param fillColorId a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
-/// @param fillColorValue a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
+/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColorId, const std::string& fillColorValue);
+LIBSBMLNETWORK_EXTERN int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor);
 
 LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(GlobalRenderInformation* globalRenderInformation, const std::string& gradientId);
 

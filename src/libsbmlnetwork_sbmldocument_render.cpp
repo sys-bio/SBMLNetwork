@@ -3938,9 +3938,8 @@ const std::string getCompartmentStrokeColor(SBMLDocument* document) {
 }
 
 int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
-    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getCompartmentGlyph(document, layoutIndex)), stroke);
-    if (!setCompartmentStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setCompartmentStrokeColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setCompartmentStrokeColor(getGlobalRenderInformation(document), stroke) && !setCompartmentStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
         return 0;
 
     return -1;
@@ -3951,9 +3950,8 @@ const std::string getSpeciesStrokeColor(SBMLDocument* document) {
 }
 
 int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
-    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getSpeciesGlyph(document, layoutIndex)), stroke);
-    if (!setSpeciesStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesStrokeColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setSpeciesStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
         return 0;
 
     return -1;
@@ -3964,12 +3962,11 @@ const std::string getReactionStrokeColor(SBMLDocument* document) {
 }
 
 int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs) {
-    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getReactionGlyph(document, layoutIndex)), stroke);
-    if (!setReactionStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setReactionStrokeColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId))) {
+    if (!setReactionStrokeColor(getGlobalRenderInformation(document), stroke) && !setReactionStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke)) {
         if (setSpeciesReferenceGlyphs) {
-            if (!setSpeciesReferenceStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesReferenceStrokeColor(
-                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+            if (!setSpeciesReferenceStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesReferenceStrokeColor(
+                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
                 return setLineEndingStrokeColor(document, layoutIndex, stroke);
 
             return -1;
@@ -4396,9 +4393,8 @@ const std::string getCompartmentFontColor(SBMLDocument* document) {
 }
 
 int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getCompartmentGlyph(document, layoutIndex)), fontColor);
-    if (!setCompartmentFontColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setCompartmentFontColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setCompartmentFontColor(getGlobalRenderInformation(document), fontColor) && !setCompartmentFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
         return 0;
 
     return -1;
@@ -4409,9 +4405,8 @@ const std::string getSpeciesFontColor(SBMLDocument* document) {
 }
 
 int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getSpeciesGlyph(document, layoutIndex)), fontColor);
-    if (!setSpeciesFontColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesFontColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setSpeciesFontColor(getGlobalRenderInformation(document), fontColor) && !setSpeciesFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
         return 0;
 
     return -1;
@@ -4422,9 +4417,8 @@ const std::string getReactionFontColor(SBMLDocument* document) {
 }
 
 int setReactionFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getReactionGlyph(document, layoutIndex)), fontColor);
-    if (!setReactionFontColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setReactionFontColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setReactionFontColor(getGlobalRenderInformation(document), fontColor) && !setReactionFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
         return 0;
 
     return -1;
@@ -5413,9 +5407,8 @@ const std::string getCompartmentFillColor(SBMLDocument* document) {
 }
 
 int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
-    if (!setCompartmentFillColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setCompartmentFillColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setCompartmentFillColor(getGlobalRenderInformation(document), fillColor) && !setCompartmentFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
         return 0;
 
     return -1;
@@ -5434,9 +5427,8 @@ const std::string getSpeciesFillColor(SBMLDocument* document) {
 }
 
 int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
-    if (!setSpeciesFillColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesFillColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setSpeciesFillColor(getGlobalRenderInformation(document), fillColor) && !setSpeciesFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
         return 0;
 
     return -1;
@@ -5455,9 +5447,8 @@ const std::string getReactionFillColor(SBMLDocument* document) {
 }
 
 int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
-    if (!setReactionFillColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setReactionFillColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
+    if (!setReactionFillColor(getGlobalRenderInformation(document), fillColor) && !setReactionFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
         return 0;
 
     return -1;

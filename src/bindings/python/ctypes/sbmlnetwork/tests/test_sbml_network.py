@@ -590,7 +590,7 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertLess(network.getCurveSegmentEndPointY(reaction_id),
                         network.getY(compartment_id) + network.getHeight(
                             compartment_id))
-        for species_reference_index in range(network.getNumSpeciesReferenceGlyphs(reaction_id)):
+        for species_reference_index in range(network.getNumSpeciesReferences(reaction_id)):
             self._check_species_reference_is_bounded_by_its_compartment(network, reaction_id, species_reference_index)
 
     def _check_species_reference_is_bounded_by_its_compartment(self, network,reaction_id, species_reference_index):
@@ -611,7 +611,7 @@ class TestSBMLNetwork(unittest.TestCase):
                             compartment_id))
 
     def _check_curves_direction_towards_species_center(self, network, reaction_id):
-        for species_reference_index in range(network.getNumSpeciesReferenceGlyphs(reaction_id)):
+        for species_reference_index in range(network.getNumSpeciesReferences(reaction_id)):
             self._check_curve_direction_towards_species_center(network, reaction_id, species_reference_index)
 
     def _check_curve_direction_towards_species_center(self, network, reaction_id, species_reference_index):

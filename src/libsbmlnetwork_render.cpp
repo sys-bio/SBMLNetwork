@@ -1184,10 +1184,12 @@ const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRende
     return getStrokeColor(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
 
-int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
+int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor) {
     Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setStrokeColor(style, strokeColorId, strokeColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, strokeColor);
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor));
+    }
 
     return -1;
 }
@@ -1196,10 +1198,12 @@ const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInf
     return getStrokeColor(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()));
 }
 
-int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
+int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor) {
     Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setStrokeColor(style, strokeColorId, strokeColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, strokeColor);
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor));
+    }
 
     return -1;
 }
@@ -1208,26 +1212,29 @@ const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderIn
     return getStrokeColor(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
 
-int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
+int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor) {
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setStrokeColor(style, strokeColorId, strokeColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, strokeColor);
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor));
+    }
 
     return -1;
 }
 
-int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
+int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor) {
     bool stokeColorIsSet = false;
+    std::string colorId = addColor(globalRenderInformation, strokeColor);
     Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
     if (style) {
-        if (!setStrokeColor(style, strokeColorId, strokeColorValue))
+        if (!setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor)))
             stokeColorIsSet = true;
     }
     std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
     for (unsigned int i = 0; i < styleRoles.size(); i++) {
         Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
         if (style) {
-            if (!setStrokeColor(style, strokeColorId, strokeColorValue))
+            if (!setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor)))
                 stokeColorIsSet = true;
         }
     }
@@ -1668,12 +1675,14 @@ const std::string getCompartmentFontColor(GlobalRenderInformation* globalRenderI
     return "";
 }
 
-int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColorId, const std::string& fontColor) {
+int setCompartmentFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
     Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setFontColor(style, fontColorId, fontColor);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, colorId, getValue(globalRenderInformation, colorId));
+    }
 
     return -1;
 }
@@ -1688,12 +1697,14 @@ const std::string getSpeciesFontColor(GlobalRenderInformation* globalRenderInfor
     return "";
 }
 
-int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColorId, const std::string& fontColorValue) {
+int setSpeciesFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
     Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setFontColor(style, fontColorId, fontColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, colorId, getValue(globalRenderInformation, colorId));
+    }
 
 
     return -1;
@@ -1709,12 +1720,14 @@ const std::string getReactionFontColor(GlobalRenderInformation* globalRenderInfo
     return "";
 }
 
-int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColorId, const std::string& fontColorValue) {
+int setReactionFontColor(GlobalRenderInformation* globalRenderInformation, const std::string& fontColor) {
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
     if (!style)
         style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setFontColor(style, fontColorId, fontColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fontColor);
+        return setFontColor(style, colorId, getValue(globalRenderInformation, colorId));
+    }
 
     return -1;
 }
@@ -2835,10 +2848,12 @@ const std::string getCompartmentFillColor(GlobalRenderInformation* globalRenderI
     return getFillColor(getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType()));
 }
 
-int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColorId, const std::string& fillColorValue) {
+int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
     Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
-    if (style)
-        return setFillColor(style, fillColorId, fillColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, colorId, getValue(globalRenderInformation, fillColor));
+    }
 
     return -1;
 }
@@ -2858,10 +2873,12 @@ const std::string getSpeciesFillColor(GlobalRenderInformation* globalRenderInfor
     return getFillColor(getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType()));
 }
 
-int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColorId, const std::string& fillColorValue) {
+int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
     Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
-    if (style)
-        return setFillColor(style, fillColorId, fillColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, colorId, getValue(globalRenderInformation, fillColor));
+    }
 
     return -1;
 }
@@ -2881,10 +2898,12 @@ const std::string getReactionFillColor(GlobalRenderInformation* globalRenderInfo
     return getFillColor(getStyleByType(globalRenderInformation, getReactionGlyphStyleType()));
 }
 
-int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColorId, const std::string& fillColorValue) {
+int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const std::string& fillColor) {
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
-    if (style)
-        return setFillColor(style, fillColorId, fillColorValue);
+    if (style) {
+        std::string colorId = addColor(globalRenderInformation, fillColor);
+        return setFillColor(style, colorId, getValue(globalRenderInformation, fillColor));
+    }
 
     return -1;
 }
