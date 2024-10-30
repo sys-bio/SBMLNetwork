@@ -1073,9 +1073,13 @@ void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup) {
         }
 
         for (unsigned int i = 0; i < getNumGeometricShapes(renderGroup); i++) {
-            setStrokeColor(getGeometricShape(renderGroup, i), strokeColor);
-            setStrokeWidth(getGeometricShape(renderGroup, i), strokeWidth);
-            setFillColor(getGeometricShape(renderGroup, i), fillColor);
+            Transformation2D* transformation2D = getGeometricShape(renderGroup, i);
+            if (isGraphicalPrimitive1D(transformation2D)) {
+                ((GraphicalPrimitive1D*)transformation2D)->setStroke(strokeColor);
+                ((GraphicalPrimitive1D*)transformation2D)->setStrokeWidth(strokeWidth);
+            }
+            if (isGraphicalPrimitive2D(transformation2D))
+                ((GraphicalPrimitive2D*)transformation2D)->setFill(fillColor);
         }
     }
 }
@@ -1394,7 +1398,7 @@ const bool isValidBackgroundColorValue(SBase* sBase, const std::string& backgrou
     if (isValidColorValue(backgroundColor))
         return true;
 
-    addErrorToLog(sBase, "The value " + backgroundColor + " is not a valid background color value");
+    addErrorToLog(sBase, "The entered value is not a valid background color value");
     return false;
 }
 
@@ -1430,7 +1434,7 @@ const bool isValidStopColorValue(SBase* sBase, const std::string& stopColor) {
     if (isValidColorValue(stopColor))
         return true;
 
-    addErrorToLog(sBase, "The value " + stopColor + " is not a valid stop color value");
+    addErrorToLog(sBase, "The entered value is not a valid stop color value");
     return false;
 }
 
@@ -1478,7 +1482,7 @@ const bool isValidStrokeColorValue(SBase* sBase, const std::string& stroke) {
     if (isValidColorValue(stroke))
         return true;
 
-    addErrorToLog(sBase, "The value " + stroke + " is not a valid stroke color value");
+    addErrorToLog(sBase, "The value entered is not a valid stroke color value");
     return false;
 }
 
@@ -1511,7 +1515,7 @@ const bool isValidFontColorValue(SBase* sBase, const std::string& fontColor) {
     if (isValidColorValue(fontColor))
         return true;
 
-    addErrorToLog(sBase, "The value " + fontColor + " is not a valid font color value");
+    addErrorToLog(sBase, "The value entered value is not a valid font color value");
     return false;
 }
 
@@ -1559,7 +1563,7 @@ const bool isValidFillColorValue(SBase* sBase, const std::string& fillColor) {
     if (isValidColorValue(fillColor))
         return true;
 
-    addErrorToLog(sBase, "The value " + fillColor + " is not a valid fill color value");
+    addErrorToLog(sBase, "The entered value is not a valid fill color value");
     return false;
 }
 

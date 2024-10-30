@@ -70,7 +70,7 @@ int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* lay
     return -1;
 }
 
-int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke) {
+int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -78,8 +78,7 @@ int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRende
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         style = getStyleById(localRenderInformation, layout->getCompartmentGlyph(i));
         if (style) {
-            addColor(localRenderInformation, stroke);
-            if (setStrokeColor(style, stroke))
+            if (setStrokeColor(style, strokeColorId, strokeColorValue))
                 return -1;
         }
     }
@@ -87,7 +86,7 @@ int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRende
     return 0;
 }
 
-int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke) {
+int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -95,8 +94,7 @@ int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInf
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         style = getStyleById(localRenderInformation, layout->getSpeciesGlyph(i));
         if (style) {
-            addColor(localRenderInformation, stroke);
-            if (setStrokeColor(style, stroke))
+            if (setStrokeColor(style, strokeColorId, strokeColorValue))
                 return -1;
         }
     }
@@ -104,7 +102,7 @@ int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInf
     return 0;
 }
 
-int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke) {
+int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -112,8 +110,7 @@ int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderIn
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         style = getStyleById(localRenderInformation, layout->getReactionGlyph(i));
         if (style) {
-            addColor(localRenderInformation, stroke);
-            if (setStrokeColor(style, stroke))
+            if (setStrokeColor(style, strokeColorId, strokeColorValue))
                 return -1;
         }
     }
@@ -121,7 +118,7 @@ int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderIn
     return 0;
 }
 
-int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke) {
+int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -130,8 +127,7 @@ int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* local
         for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++) {
             style = getStyleById(localRenderInformation, layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
             if (style) {
-                addColor(localRenderInformation, stroke);
-                if (setStrokeColor(style, stroke))
+                if (setStrokeColor(style, strokeColorId, strokeColorValue))
                     return -1;
             }
         }
@@ -206,7 +202,7 @@ int setSpeciesReferenceStrokeWidth(Layout* layout, LocalRenderInformation* local
     return 0;
 }
 
-int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor) {
+int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColorId, const std::string& fontColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -216,7 +212,7 @@ int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderI
         for (unsigned int j = 0; j < textGlyphs.size(); j++) {
             style = getStyleById(localRenderInformation, textGlyphs.at(j));
             if (style) {
-                if (setFontColor(style, fontColor))
+                if (setFontColor(style, fontColorId, fontColorValue))
                     return -1;
             }
         }
@@ -225,7 +221,7 @@ int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderI
     return 0;
 }
 
-int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor) {
+int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColorId, const std::string& fontColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -235,7 +231,7 @@ int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInfor
         for (unsigned int j = 0; j < textGlyphs.size(); j++) {
             style = getStyleById(localRenderInformation, textGlyphs.at(j));
             if (style) {
-                if (setFontColor(style, fontColor))
+                if (setFontColor(style, fontColorId, fontColorValue))
                     return -1;
             }
         }
@@ -244,7 +240,7 @@ int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInfor
     return 0;
 }
 
-int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor) {
+int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColorId, const std::string& fontColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -254,7 +250,7 @@ int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInfo
         for (unsigned int j = 0; j < textGlyphs.size(); j++) {
             style = getStyleById(localRenderInformation, textGlyphs.at(j));
             if (style) {
-                if (setFontColor(style, fontColor))
+                if (setFontColor(style, fontColorId, fontColorValue))
                     return -1;
             }
         }
@@ -632,7 +628,7 @@ int setReactionVTextAnchor(Layout* layout, LocalRenderInformation* localRenderIn
     return 0;
 }
 
-int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor) {
+int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColorId, const std::string& fillColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -640,8 +636,7 @@ int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderI
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         style = getStyleById(localRenderInformation, layout->getCompartmentGlyph(i));
         if (style) {
-            addColor(localRenderInformation, fillColor);
-            if (setFillColor(style, fillColor))
+            if (setFillColor(style, fillColorId, fillColorValue))
                 return -1;
         }
     }
@@ -665,7 +660,7 @@ int setCompartmentFillColorAsGradient(Layout* layout, LocalRenderInformation* lo
     return 0;
 }
 
-int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor) {
+int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColorId, const std::string& fillColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -673,8 +668,7 @@ int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInfor
     for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         style = getStyleById(localRenderInformation, layout->getSpeciesGlyph(i));
         if (style) {
-            addColor(localRenderInformation, fillColor);
-            if (setFillColor(style, fillColor))
+            if (setFillColor(style, fillColorId, fillColorValue))
                 return -1;
         }
     }
@@ -698,7 +692,7 @@ int setSpeciesFillColorAsGradient(Layout* layout, LocalRenderInformation* localR
     return 0;
 }
 
-int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor) {
+int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColorId, const std::string& fillColorValue) {
     if (layout == NULL || localRenderInformation == NULL)
         return -1;
 
@@ -706,8 +700,7 @@ int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInfo
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         style = getStyleById(localRenderInformation, layout->getReactionGlyph(i));
         if (style) {
-            addColor(localRenderInformation, fillColor);
-            if (setFillColor(style, fillColor))
+            if (setFillColor(style, fillColorId, fillColorValue))
                 return -1;
         }
     }

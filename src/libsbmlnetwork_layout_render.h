@@ -52,13 +52,13 @@ LIBSBMLNETWORK_EXTERN int removeAllLocalRenderInformation(Layout* layout);
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation);
 
-LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
 
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColorId, const std::string& strokeColorValue);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
 
@@ -68,11 +68,11 @@ LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(Layout* layout, LocalRenderInfo
 
 LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
 
-LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setCompartmentFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColorId, const std::string& fontColorValue);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setSpeciesFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColorId, const std::string& fontColorValue);
 
-LIBSBMLNETWORK_EXTERN int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setReactionFontColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontColorId, const std::string& fontColorValue);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFontFamily(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fontFamily);
 
@@ -116,15 +116,15 @@ LIBSBMLNETWORK_EXTERN int setSpeciesVTextAnchor(Layout* layout, LocalRenderInfor
 
 LIBSBMLNETWORK_EXTERN int setReactionVTextAnchor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& vTextAnchor);
 
-LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setCompartmentFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColorId, const std::string& fillColorValue);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setSpeciesFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor, const std::string& fillColorValue);
 
 LIBSBMLNETWORK_EXTERN int setSpeciesFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId);
 
-LIBSBMLNETWORK_EXTERN int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setReactionFillColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& fillColor, const std::string& fillColorValue);
 
 LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& gradientId);
 

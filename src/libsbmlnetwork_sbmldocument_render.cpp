@@ -160,7 +160,8 @@ int setBackgroundColor(SBMLDocument* document, const std::string& backgroundColo
 }
 
 int setBackgroundColor(SBMLDocument* document, unsigned int renderIndex, const std::string& backgroundColor) {
-    return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), addColor(getGlobalRenderInformation(document, renderIndex), backgroundColor));
+    std::string colorId = addColor(getGlobalRenderInformation(document, renderIndex), backgroundColor);
+    return setBackgroundColor(getGlobalRenderInformation(document, renderIndex), colorId, getColorValue(getGlobalRenderInformation(document, renderIndex), colorId));
 }
 
 const unsigned int getNumGlobalColorDefinitions(SBMLDocument* document, unsigned int renderIndex) {
@@ -420,19 +421,23 @@ const std::string getStopColor(SBMLDocument* document, unsigned int renderIndex,
 }
 
 int setStopColor(SBMLDocument* document, const std::string& sid, const std::string& stopColor) {
-    return setStopColor(getGradientDefinition(document, sid), addColor(getGlobalRenderInformation(document), stopColor));
+    std::string colorId = addColor(getGlobalRenderInformation(document), stopColor);
+    return setStopColor(getGradientDefinition(document, sid), colorId, getColorValue(getGlobalRenderInformation(document), colorId));
 }
 
 int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, const std::string& stopColor) {
-    return setStopColor(getGradientDefinition(document, renderIndex, sid), addColor(getGlobalRenderInformation(document, renderIndex), stopColor));
+    std::string colorId = addColor(getGlobalRenderInformation(document, renderIndex), stopColor);
+    return setStopColor(getGradientDefinition(document, renderIndex, sid), colorId, getColorValue(getGlobalRenderInformation(document, renderIndex), colorId));
 }
 
 int setStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
-    return setStopColor(getGradientDefinition(document, sid), gradientStopIndex, addColor(getGlobalRenderInformation(document), stopColor));
+    std::string colorId = addColor(getGlobalRenderInformation(document), stopColor);
+    return setStopColor(getGradientDefinition(document, sid), gradientStopIndex, colorId, getColorValue(getGlobalRenderInformation(document), colorId));
 }
 
 int setStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor) {
-    return setStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, addColor(getGlobalRenderInformation(document, renderIndex), stopColor));
+    std::string colorId = addColor(getGlobalRenderInformation(document, renderIndex), stopColor);
+    return setStopColor(getGradientDefinition(document, renderIndex, sid), gradientStopIndex, colorId, getColorValue(getGlobalRenderInformation(document, renderIndex), colorId));
 }
 
 bool isSetLinearGradientX1(SBMLDocument* document, const std::string& sid) {
@@ -1168,20 +1173,24 @@ const std::string getSpeciesReferenceLineEndingStrokeColor(SBMLDocument* documen
     return getStrokeColor(getRenderGroup(getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)));
 }
 
-int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& strokeColor) {
-    return setStrokeColor(getLineEndingRenderGroup(document, id), addColor(document, getLineEnding(document, id), strokeColor));
+int setLineEndingStrokeColor(SBMLDocument* document, const std::string& id, const std::string& strokeColorId) {
+    std::string colorId = addColor(document, getLineEnding(document, id), strokeColorId);
+    return setStrokeColor(getLineEndingRenderGroup(document, id), colorId, getValue(document, colorId));
 }
 
 int setLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& strokeColor) {
-    return setStrokeColor(getLineEndingRenderGroup(document, renderIndex, id), addColor(document, getLineEnding(document, renderIndex, id), strokeColor));
+    std::string colorId = addColor(document, getLineEnding(document, renderIndex, id), strokeColor);
+    return setStrokeColor(getLineEndingRenderGroup(document, renderIndex, id), colorId, getValue(document, colorId));
 }
 
 int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& strokeColor) {
-    return setStrokeColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), strokeColor));
+    std::string colorId = addColor(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), strokeColor);
+    return setStrokeColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), colorId, getValue(document, colorId));
 }
 
 int setSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& strokeColor) {
-    return setStrokeColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), strokeColor));
+    std::string colorId = addColor(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), strokeColor);
+    return setStrokeColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), colorId, getValue(document, colorId));
 }
 
 int setReactionLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, const std::string& strokeColor) {
@@ -1399,7 +1408,8 @@ const std::string getSpeciesReferenceLineEndingFillColor(SBMLDocument* document,
 }
 
 int setLineEndingFillColor(SBMLDocument* document, const std::string& id, const std::string& fillColor) {
-    return setFillColor(getLineEndingRenderGroup(document, id), addColor(document, getLineEnding(document, id), fillColor));
+    std::string colorId = addColor(document, getLineEnding(document, id), fillColor);
+    return setFillColor(getLineEndingRenderGroup(document, id), colorId, getValue(document, colorId));
 }
 
 int setLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
@@ -1407,7 +1417,8 @@ int setLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& 
 }
 
 int setLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& fillColor) {
-    return setFillColor(getLineEndingRenderGroup(document, renderIndex, id), addColor(document, getLineEnding(document, renderIndex, id), fillColor));
+    std::string colorId = addColor(document, getLineEnding(document, renderIndex, id), fillColor);
+    return setFillColor(getLineEndingRenderGroup(document, renderIndex, id), colorId, getValue(document, colorId));
 }
 
 int setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
@@ -1415,7 +1426,8 @@ int setLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int render
 }
 
 int setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillColor) {
-    return setFillColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), fillColor));
+    std::string colorId = addColor(document, getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex), fillColor);
+    return setFillColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex)), colorId, getValue(document, colorId));
 }
 
 int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
@@ -1423,7 +1435,8 @@ int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, con
 }
 
 int setSpeciesReferenceLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& fillColor) {
-    return setFillColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), addColor(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), fillColor));
+    std::string colorId = addColor(document, getSpeciesReferenceLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex), fillColor);
+    return setFillColor(getRenderGroup(getSpeciesReferenceLocalLineEnding(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex)), colorId, getValue(document, colorId));
 }
 
 int setSpeciesReferenceLineEndingFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector) {
@@ -3899,7 +3912,8 @@ int setStrokeColor(SBMLDocument* document, GraphicalObject* graphicalObject, con
         if (!style)
             style = createLocalStyle(document, graphicalObject);
         setReactionLineEndingStrokeColor(document, getReactionId(graphicalObject), 0, stroke);
-        return setStrokeColor(style, addColor(document, style, stroke));
+        std::string colorId = addColor(document, style, stroke);
+        return setStrokeColor(style, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -3911,7 +3925,8 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
         if (!style)
             style = createLocalStyle(document, attribute);
         setReactionLineEndingStrokeColor(document, attribute, 0, stroke);
-        return setStrokeColor(style, addColor(document, style, stroke));
+        std::string colorId = addColor(document, style, stroke);
+        return setStrokeColor(style, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -3922,8 +3937,9 @@ const std::string getCompartmentStrokeColor(SBMLDocument* document) {
 }
 
 int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
-    if (!setCompartmentStrokeColor(getGlobalRenderInformation(document), stroke) && !setCompartmentStrokeColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
+    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getCompartmentGlyph(document, layoutIndex)), stroke);
+    if (!setCompartmentStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setCompartmentStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -3934,8 +3950,9 @@ const std::string getSpeciesStrokeColor(SBMLDocument* document) {
 }
 
 int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
-    if (!setSpeciesStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesStrokeColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke))
+    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getSpeciesGlyph(document, layoutIndex)), stroke);
+    if (!setSpeciesStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -3946,13 +3963,13 @@ const std::string getReactionStrokeColor(SBMLDocument* document) {
 }
 
 int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs) {
-    if (!setReactionStrokeColor(getGlobalRenderInformation(document), stroke) && !setReactionStrokeColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke)) {
+    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getReactionGlyph(document, layoutIndex)), stroke);
+    if (!setReactionStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setReactionStrokeColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId))) {
         if (setSpeciesReferenceGlyphs) {
-            if (!setSpeciesReferenceStrokeColor(getGlobalRenderInformation(document), stroke) && !setSpeciesReferenceStrokeColor(
-                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), stroke)) {
+            if (!setSpeciesReferenceStrokeColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesReferenceStrokeColor(
+                    getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
                 return setLineEndingStrokeColor(document, layoutIndex, stroke);
-            }
 
             return -1;
         }
@@ -4349,7 +4366,8 @@ int setFontColor(SBMLDocument* document, GraphicalObject* graphicalObject, unsig
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, graphicalObject);
-        return setFontColor(style, addColor(document, style, fontColor));
+        std::string colorId = addColor(document, style, fontColor);
+        return setFontColor(style, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -4365,7 +4383,8 @@ int setFontColor(SBMLDocument* document, const std::string& attribute, unsigned 
         Style* style = getLocalStyle(document, textGlyph);
         if (!style)
             style = createLocalStyle(document, textGlyph, getGraphicalObject(document, attribute));
-        return setFontColor(style, addColor(document, style, fontColor));
+        std::string colorId = addColor(document, style, fontColor);
+        return setFontColor(style, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -4376,8 +4395,9 @@ const std::string getCompartmentFontColor(SBMLDocument* document) {
 }
 
 int setCompartmentFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    if (!setCompartmentFontColor(getGlobalRenderInformation(document), fontColor) && !setCompartmentFontColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getCompartmentGlyph(document, layoutIndex)), fontColor);
+    if (!setCompartmentFontColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setCompartmentFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -4388,8 +4408,9 @@ const std::string getSpeciesFontColor(SBMLDocument* document) {
 }
 
 int setSpeciesFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    if (!setSpeciesFontColor(getGlobalRenderInformation(document), fontColor) && !setSpeciesFontColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getSpeciesGlyph(document, layoutIndex)), fontColor);
+    if (!setSpeciesFontColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -4400,8 +4421,9 @@ const std::string getReactionFontColor(SBMLDocument* document) {
 }
 
 int setReactionFontColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fontColor) {
-    if (!setReactionFontColor(getGlobalRenderInformation(document), fontColor) && !setReactionFontColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fontColor))
+    std::string colorId = addColor(document, getLocalStyle(document, layoutIndex, getReactionGlyph(document, layoutIndex)), fontColor);
+    if (!setReactionFontColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setReactionFontColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -5341,7 +5363,8 @@ int setFillColor(SBMLDocument* document, GraphicalObject* graphicalObject, const
         if (!style)
             style = createLocalStyle(document, graphicalObject);
         setReactionLineEndingFillColor(document, getReactionId(graphicalObject), 0, fillColor);
-        return setFillColor(style, addColor(document, style, fillColor));
+        std::string colorId = addColor(document, style, fillColor);
+        return setFillColor(style, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -5353,7 +5376,8 @@ int setFillColor(SBMLDocument* document, const std::string& attribute, const std
         if (!style)
             style = createLocalStyle(document, attribute);
         setReactionLineEndingFillColor(document, attribute, 0, fillColor);
-        return setFillColor(style, addColor(document, style, fillColor));
+        std::string colorId = addColor(document, style, fillColor);
+        return setFillColor(style, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -5388,8 +5412,9 @@ const std::string getCompartmentFillColor(SBMLDocument* document) {
 }
 
 int setCompartmentFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    if (!setCompartmentFillColor(getGlobalRenderInformation(document), fillColor) && !setCompartmentFillColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
+    if (!setCompartmentFillColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setCompartmentFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -5408,8 +5433,9 @@ const std::string getSpeciesFillColor(SBMLDocument* document) {
 }
 
 int setSpeciesFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    if (!setSpeciesFillColor(getGlobalRenderInformation(document), fillColor) && !setSpeciesFillColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
+    if (!setSpeciesFillColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setSpeciesFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -5428,8 +5454,9 @@ const std::string getReactionFillColor(SBMLDocument* document) {
 }
 
 int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
-    if (!setReactionFillColor(getGlobalRenderInformation(document), fillColor) && !setReactionFillColor(
-            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), fillColor))
+    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
+    if (!setReactionFillColor(getGlobalRenderInformation(document), colorId, getValue(document, colorId)) && !setReactionFillColor(
+            getLayout(document, layoutIndex), getLocalRenderInformation(document, layoutIndex), colorId, getValue(document, colorId)))
         return 0;
 
     return -1;
@@ -5467,6 +5494,7 @@ const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int la
 }
 
 int setLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor) {
+    std::string colorId = addColor(getGlobalRenderInformation(document, layoutIndex), fillColor);
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, lineEndingIndex, renderIndex)); lineEndingIndex++) {
             if (setLineEndingFillColor(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId(), fillColor))
@@ -6075,7 +6103,8 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeStrokeColor(style, 0, addColor(document, style, strokeColor));
+        std::string colorId = addColor(document, style, strokeColor);
+        return setGeometricShapeStrokeColor(style, 0, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6086,7 +6115,8 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, GraphicalObject* graphi
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeStrokeColor(style, geometricShapeIndex, addColor(document, style, strokeColor));
+        std::string colorId = addColor(document, style, strokeColor);
+        return setGeometricShapeStrokeColor(style, geometricShapeIndex, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6097,7 +6127,8 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeStrokeColor(style, 0, addColor(document, style, strokeColor));
+        std::string colorId = addColor(document, style, strokeColor);
+        return setGeometricShapeStrokeColor(style, 0, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6108,7 +6139,8 @@ int setGeometricShapeStrokeColor(SBMLDocument* document, const std::string& attr
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeStrokeColor(style, geometricShapeIndex, addColor(document, style, strokeColor));
+        std::string colorId = addColor(document, style, strokeColor);
+        return setGeometricShapeStrokeColor(style, geometricShapeIndex, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6219,7 +6251,8 @@ int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeFillColor(style, 0, addColor(document, style, fillColor));
+        std::string colorId = addColor(document, style, fillColor);
+        return setGeometricShapeFillColor(style, 0, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6241,7 +6274,8 @@ int setGeometricShapeFillColor(SBMLDocument* document, GraphicalObject* graphica
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return setGeometricShapeFillColor(style, geometricShapeIndex, addColor(document, style, fillColor));
+        std::string colorId = addColor(document, style, fillColor);
+        return setGeometricShapeFillColor(style, geometricShapeIndex, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6263,7 +6297,8 @@ int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeFillColor(style, 0, addColor(document, style, fillColor));
+        std::string colorId = addColor(document, style, fillColor);
+        return setGeometricShapeFillColor(style, 0, colorId, getValue(document, colorId));
     }
 
     return -1;
@@ -6285,7 +6320,8 @@ int setGeometricShapeFillColor(SBMLDocument* document, const std::string& attrib
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);
-        return setGeometricShapeFillColor(style, geometricShapeIndex, addColor(document, style, fillColor));
+        std::string colorId = addColor(document, style, fillColor);
+        return setGeometricShapeFillColor(style, geometricShapeIndex, colorId, getValue(document, colorId));
     }
 
     return -1;
