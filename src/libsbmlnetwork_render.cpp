@@ -2774,7 +2774,7 @@ int setFillColor(RenderGroup* renderGroup, const std::string& fillColorId, const
     }
 
     if (isRenderGroup(renderGroup) && isValidFillColorValue(renderGroup, fillColorValue)) {
-        renderGroup->setFill(toLowerCase(fillColorValue));
+        renderGroup->setFill(toLowerCase(fillColorId));
         return 0;
     }
 
@@ -2783,7 +2783,7 @@ int setFillColor(RenderGroup* renderGroup, const std::string& fillColorId, const
 
 int setFillColor(Transformation2D* transformation2D, const std::string& fillColorId, const std::string& fillColorValue) {
     if (isGraphicalPrimitive2D(transformation2D) && isValidFillColorValue(transformation2D, fillColorValue)) {
-        ((GraphicalPrimitive2D*)transformation2D)->setFill(toLowerCase(fillColorValue));
+        ((GraphicalPrimitive2D*)transformation2D)->setFill(toLowerCase(fillColorId));
         return 0;
     }
 

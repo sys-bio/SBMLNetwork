@@ -51,7 +51,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_move_species(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 horizontal_displacement = 10.0
                 vertical_displacement = 10.0
@@ -69,7 +69,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_move_species_with_calling_position_functions(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 horizontal_displacement = 10.0
                 vertical_displacement = 10.0
@@ -98,7 +98,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_elements_are_bounded_by_compartment(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 for species_id in list_of_species_ids:
                     self._check_species_is_bounded_by_its_compartment(network, species_id)
@@ -109,7 +109,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_left(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'left', ignore_locked_nodes=True)
@@ -119,7 +119,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_right(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 x_max = self._get_max_position_x(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'right', ignore_locked_nodes=True)
@@ -129,7 +129,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_hcenter(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 x_min = self._get_min_position_x(network, list_of_species_ids)
                 x_max = self._get_max_position_x(network, list_of_species_ids)
@@ -141,7 +141,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_top(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'top', ignore_locked_nodes=True)
@@ -151,7 +151,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_bottom(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 y_max = self._get_max_position_y(network, list_of_species_ids)
                 network.align(list_of_species_ids, 'bottom', ignore_locked_nodes=True)
@@ -161,7 +161,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_vcenter(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 y_min = self._get_min_position_y(network, list_of_species_ids)
                 y_max = self._get_max_position_y(network, list_of_species_ids)
@@ -173,7 +173,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_align_circular(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_species_ids = network.getListOfSpeciesIds()
                 network.align(list_of_species_ids, 'circular', ignore_locked_nodes=True)
                 radius = self._get_radius_of_positions(network, list_of_species_ids)
@@ -186,7 +186,7 @@ class TestSBMLNetwork(unittest.TestCase):
     def test_curves_direction_towards_species_center(self):
         for network in self.networks:
             if network.layout_is_added:
-                network.autolayout(reset_locked_nodes=True)
+                network.autolayout(reset_locked_elements=True)
                 list_of_reaction_ids = network.getListOfReactionIds()
                 for reaction_id in list_of_reaction_ids:
                     self._check_curves_direction_towards_species_center(network, reaction_id)
