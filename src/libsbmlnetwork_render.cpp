@@ -3801,8 +3801,8 @@ const std::string getGeometricShapeStrokeColor(Transformation2D* shape) {
     return "";
 }
 
-int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& strokeColor) {
-    return setGeometricShapeStrokeColor(renderInformationBase, graphicalObject, 0, strokeColor);
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& strokeColorId, const std::string& strokeColorValue) {
+    return setGeometricShapeStrokeColor(renderInformationBase, graphicalObject, 0, strokeColorId, strokeColorValue);
 }
 
 int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& strokeColorId, const std::string& strokeColorValue) {
@@ -3817,8 +3817,8 @@ int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, c
     return setGeometricShapeStrokeColor(getStyle(renderInformationBase, attribute), geometricShapeIndex, strokeColorId, strokeColorValue);
 }
 
-int setGeometricShapeStrokeColor(Style* style, const std::string& strokeColor) {
-    return setGeometricShapeStrokeColor(style, 0, strokeColor);
+int setGeometricShapeStrokeColor(Style* style, const std::string& strokeColorId, const std::string& strokeColorValue) {
+    return setGeometricShapeStrokeColor(style, 0, strokeColorId, strokeColorValue);
 }
 
 int setGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex, const std::string& strokeColorId, const std::string& strokeColorValue) {
