@@ -6328,6 +6328,13 @@ LIBSBMLNETWORK_EXTERN int setReactionLineEndingGeometricShapeHref(SBMLDocument* 
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the styles of the first render information base in the SBML document and returns one that matches this TextGlyph attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @param graphicalObject a pointer to the GraphicalObject object this TextGlyph object is associated with.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphStyle(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the local styles of the first render information base in the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -6339,6 +6346,12 @@ LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, GraphicalObje
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the global styles of the first render information base in the SBML document and returns one that matches the TextGlyph object attributes assoicated with this GrpahicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphGlobalStyle(SBMLDocument* document, GraphicalObject* graphicalObject);
 
 /// @brief Creates a new Style object with the given GraphicalObject attributes and adds it to the styles of the first local render information in the SBML document
 /// @param document a pointer to the SBMLDocument object.
@@ -6360,6 +6373,14 @@ LIBSBMLNETWORK_EXTERN Style* createLocalStyle(SBMLDocument* document, TextGlyph*
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
 
+/// @brief Searches among the styles of the render information base with the given index of the SBML document and returns one that matches this TextGlyph attributes
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param textGlyph a pointer to the TextGlyph object.
+/// @param graphicalObject a pointer to the GraphicalObject object associated with this TextGlyph object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphStyle(SBMLDocument* document, unsigned int renderIndex, TextGlyph* textGlyph, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the local styles of the render information base with the given index of the SBML document and returns one that matches this GraphicalObject attributes
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
@@ -6373,6 +6394,13 @@ LIBSBMLNETWORK_EXTERN Style* getLocalStyle(SBMLDocument* document, unsigned int 
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
+
+/// @brief Searches among the global styles of the render information base with the given index of the SBML document and returns one that matches the TextGlyph attributes this GraphicalObject is associated with
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphGlobalStyle(SBMLDocument* document, unsigned int renderIndex, GraphicalObject* graphicalObject);
 
 /// @brief Creates a new Style object with the given GraphicalObject attributes and adds it to the styles of the local render information with the given index in the SBML document
 /// @param document a pointer to the SBMLDocument object.
@@ -6614,6 +6642,12 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(SBMLDocument* doc
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs = true);
 
+/// @brief Returns the value of the "stroke" attribute of the RenderGroup of LineEnding objects, if they share the same "stroke".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "stroke" attribute of the RenderGroup of LineEnding objects, or @c "" if the object is @c NULL or they don't share the same "stroke".
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex);
+
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
@@ -6704,6 +6738,12 @@ LIBSBMLNETWORK_EXTERN const double getReactionStrokeWidth(SBMLDocument* document
 /// @param setSpeciesReferenceGlyphs a boolean value to indicate whether to set the "stroke-width" attribute of the RenderGroup of the Style for SpeciesReferenceGlyph objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth, bool setSpeciesReferenceGlyphs = true);
+
+/// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of LineEnding objects, if they share the same "stroke-width".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "stroke-width" attribute of the RenderGroup of LineEnding objects, or @c nan if the object is @c NULL or they don't share the same "stroke-width".
+LIBSBMLNETWORK_EXTERN const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7694,7 +7734,19 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillColor(SBMLDocument* docum
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillColor);
 
+/// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects as a gradient
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param gradientType a string representing the type of gradient to use.
+/// @param stopsVector a vector of pairs where each pair consists of a string representing the color and a double representing the offset for the gradient stop.
+/// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+/// @brief Returns the value of the "fill" attribute of the RenderGroup of LineEnding objects, if they share the same "fill".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "fill" attribute of the RenderGroup of LineEnding objects, or @c "" if the object is @c NULL or they don't share the same "fill".
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7789,6 +7841,12 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionFillRule(SBMLDocument* docume
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of these Style objects.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& fillRule);
+
+/// @brief Returns the value of the "fill-rule" attribute of the RenderGroup of LineEnding objects, if they share the same "fill-rule".
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @return the "fill-rule" attribute of the RenderGroup of LineEnding objects, or @c "" if the object is @c NULL or they don't share the same "fill-rule".
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of all LineEnding objects.
 /// @param document a pointer to the SBMLDocument object.

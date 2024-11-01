@@ -18,9 +18,21 @@ const double getStiffness(Layout *layout);
 
 void setStiffness(Layout *layout, const double& stiffness);
 
+void updateStiffness(Layout *layout);
+
+double getStiffnessAdjustmentFactor(Layout *layout);
+
 const double getGravity(Layout *layout);
 
 void setGravity(Layout *layout, const double& gravity);
+
+void updateGravity(Layout *layout);
+
+double getGravityAdjustmentFactor(Layout *layout);
+
+double getCurrentDimensionToDesiredDimensionRatio(Layout *layout);
+
+double getDesiredDimensionToCurrentDimensionRatio(Layout *layout);
 
 void randomizeGlyphsLocations(Model* model, Layout* layout);
 
@@ -40,15 +52,27 @@ void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox,
 
 void updateCompartmentExtents(Model *model, Layout *layout);
 
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
+void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layout);
 
-void updateCompartmentExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve);
+void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
+
+void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve);
+
+void updateCompartmentExtentsUsingItsPresetAttributes(Layout *layout);
 
 void updateLayoutDimensions(Layout* layout);
 
 const bool adjustLayoutDimensions(Layout *layout);
 
-const bool autolayoutMayStillConverge(const double &stiffness, const double &gravity);
+const double getLayoutDimensionsDesiredWidth(Layout *layout);
+
+void setLayoutDimensionsDesiredWidth(Layout *layout, const double& width);
+
+const double getLayoutDimensionsDesiredHeight(Layout *layout);
+
+void setLayoutDimensionsDesiredHeight(Layout *layout, const double& height);
+
+const bool autolayoutMayStillConverge(Layout *layout);
 
 void extractExtents(Layout* layout, double &maxX, double &maxY);
 

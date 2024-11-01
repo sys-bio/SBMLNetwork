@@ -25,7 +25,7 @@ SBMLDocument Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetModel(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, std::set<std::string> lockedNodeIds = std::set<std::string>())
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedElements = false, std::set<std::string> lockedNodeIds = std::set<std::string>())
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::autorender(SBMLDocument* document, const int maxNumConnectedEdges = 3)
 
@@ -106,9 +106,9 @@ Layout Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::removeAllLayouts(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, const std::set<std::string> lockedNodeIds = std::set<std::string>())
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedElements = false, const std::set<std::string> lockedNodeIds = std::set<std::string>())
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedNodes = false, const std::set<std::string> lockedNodeIds = std::set<std::string>())
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedElements = false, const std::set<std::string> lockedNodeIds = std::set<std::string>())
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges = 3)
 
@@ -263,6 +263,14 @@ Layout Functions
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role)
+
+.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0)
+
+.. doxygenfunction:: LIBSBMLNETWORK_EXTERN::getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::isSetSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0)
 

@@ -12,6 +12,8 @@ public:
 
     const std::string getId() override;
 
+    void updateLockedStatus();
+
     void setCentroidNode(const bool& useNameAsTextLabel);
 
     AutoLayoutObjectBase* getCentroidNode();

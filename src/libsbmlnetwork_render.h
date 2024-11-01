@@ -46,9 +46,10 @@ const std::string getBackgroundColor(RenderInformationBase* renderInformationBas
 
 /// @brief Sets the value of the "backgroundColor" attribute of this RenderInformationBase object.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
-/// @param backgroundColor a string value to use as the value of the "backgroundColor" attribute of this RenderInformationBase object.
+/// @param backgroundColorId a string value to use as the value of the "backgroundColor" attribute of this RenderInformationBase object.
+/// @param backgroundColorValue a string value showing the value of the backgroundColorId in the RenderInformationBase object.
 /// @return integer value indicating success/failure of the function.
-int setBackgroundColor(RenderInformationBase* renderInformationBase, const std::string& backgroundColor);
+int setBackgroundColor(RenderInformationBase* renderInformationBase, const std::string& backgroundColorId, const std::string& backgroundColorValue);
 
 /// @brief Returns the number of ColorDefinitions of this RenderInformationBase object.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -366,36 +367,41 @@ LIBSBMLNETWORK_EXTERN const std::string getStopColor(GradientStop* gradientStop)
 /// @brief Sets the value of the "stop-color" attribute of the first GradientStop of this the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @param stopColorId a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @param stopColorValue a string value showing the value of the stopColorId in the RenderInformationBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& stopColor);
+LIBSBMLNETWORK_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, const std::string& stopColorId, const std::string& stopColorValue);
 
 /// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this the GradientBase with the given identifier.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
 /// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
+/// @param stopColorId a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
+/// @param stopColorValue a string value showing the value of the stopColorId in the RenderInformationBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColor);
+LIBSBMLNETWORK_EXTERN int setStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex, const std::string& stopColorId, const std::string& stopColorValue);
 
 /// @brief Sets the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @param stopColorId a string value to use as the value of the "stop-color" attribute of the first GradientStop of this GradientBase object.
+/// @param stopColorValue a string value showing the value of the stopColorId in the GradientBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStopColor(GradientBase* gradientBase, const std::string& stopColor);
+LIBSBMLNETWORK_EXTERN int setStopColor(GradientBase* gradientBase, const std::string& stopColorId, const std::string& stopColorValue);
 
 /// @brief Sets the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
 /// @param gradientBase a pointer to the GradientBase object.
 /// @param gradientStopIndex an unsigned int representing the index of the GradientStop of this GradientBase object.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
+/// @param stopColorId a string value to use as the value of the "stop-color" attribute of the GradientStop with the given index of this GradientBase object.
+/// @param stopColorValue a string value showing the value of the stopColorId in the GradientBase object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex, const std::string& stopColor);
+LIBSBMLNETWORK_EXTERN int setStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex, const std::string& stopColorId, const std::string& stopColorValue);
 
 /// @brief Sets the value of the "stop-color" attribute of this GradientStop object.
 /// @param gradientStop a pointer to the GradientStop object.
-/// @param stopColor a string value to use as the value of the "stop-color" attribute of this GradientStop object.
+/// @param stopColorId a string value to use as the value of the "stop-color" attribute of this GradientStop object.
+/// @param stopColorValue a string value showing the value of the stopColorId in the GradientStop object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStopColor(GradientStop* gradientStop, const std::string& stopColor);
+LIBSBMLNETWORK_EXTERN int setStopColor(GradientStop* gradientStop, const std::string& stopColorId, const std::string& stopColorValue);
 
 /// @brief Predicates returning @c true if the "x1" attribute of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1032,6 +1038,12 @@ LIBSBMLNETWORK_EXTERN Style* getStyle(RenderInformationBase* renderInformationBa
 /// @return a pointer to the found Style object.
 LIBSBMLNETWORK_EXTERN Style* getStyle(RenderInformationBase* renderInformationBase, const std::string& attribute);
 
+/// @brief Searches among the styles of the render information base and returns one that matches with the TextGlyph associated whit this GraphicalObject
+/// @param renderInformationBase a pointer to the RenderInformationBase object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return a pointer to the found Style object.
+LIBSBMLNETWORK_EXTERN Style* getTextGlyphStyle(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject);
+
 /// @brief Searches among the styles of the render information base and returns one contains the "id" in its idlist.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
@@ -1155,73 +1167,43 @@ LIBSBMLNETWORK_EXTERN const std::string getStrokeColor(Transformation2D* transfo
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param strokeColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param strokeColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& strokeColorId, const std::string& strokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param strokeColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param strokeColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& strokeColorId, const std::string& strokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param stroke a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param strokeColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param strokeColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStrokeColor(Style* style, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setStrokeColor(Style* style, const std::string& strokeColorId, const std::string& strokeColorValue);
 
-LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderGroup* renderGroup, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setStrokeColor(RenderGroup* renderGroup, const std::string& strokeColorId, const std::string& strokeColorValue);
 
-/// @brief Sets the value of the "stroke" attribute of this Transformation2D object.
-/// @param transformation2D a pointer to the Transformation2D object.
-/// @param stroke a string value to use as the value of the "stroke" attribute of this Transformation2D object.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setStrokeColor(Transformation2D* transformation2D, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setStrokeColor(Transformation2D* transformation2D, const std::string& strokeColorId, const std::string& strokeColorValue);
 
-/// @brief Returns the value of the "href" attribute of the geometric shape element for all CompartmentGlyph objects.
-/// @param document a pointer to the SBMLDocument object.
-/// @return the "href" attribute of the geometric shape element for all CompartmentGlyph objects, or an empty string if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
-/// @brief Sets the "href" attribute of the geometric shape element for all CompartmentGlyph objects in the specified layout.
-/// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout object.
-/// @param href a string representing the "href" attribute value.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
-/// @brief Returns the value of the "href" attribute of the geometric shape element for all SpeciesGlyph objects.
-/// @param document a pointer to the SBMLDocument object.
-/// @return the "href" attribute of the geometric shape element for all SpeciesGlyph objects, or an empty string if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
-/// @brief Sets the "href" attribute of the geometric shape element for all SpeciesGlyph objects in the specified layout.
-/// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout object.
-/// @param href a string representing the "href" attribute value.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
-/// @brief Returns the value of the "href" attribute of the geometric shape element for all ReactionGlyph objects.
-/// @param document a pointer to the SBMLDocument object.
-/// @return the "href" attribute of the geometric shape element for all ReactionGlyph objects, or an empty string if the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(GlobalRenderInformation* globalRenderInformation);
 
-/// @brief Sets the "href" attribute of the geometric shape element for all ReactionGlyph objects and their SpeciesReferenceGlyph objects in the specified layout.
-/// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout object.
-/// @param href a string representing the "href" attribute value.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
-/// @brief Sets the "href" attribute of the geometric shape element for all GraphicalObject objects in the specified layout.
-/// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout object.
-/// @param href a string representing the "href" attribute value.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformation, const std::string& strokeColor);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup of the Style for this GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -1606,30 +1588,34 @@ LIBSBMLNETWORK_EXTERN const std::string getFontColor(Transformation2D* transform
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param fontColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param fontColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setFontColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fontColorId, const std::string& fontColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param fontColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param fontColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setFontColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fontColorId, const std::string& fontColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param fontColor a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param fontColorId a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
+/// @param fontColorValue a string value to use as the value of the "stroke" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFontColor(Style* style, const std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setFontColor(Style* style, const std::string& fontColorId, const std::string& fontColorValue);
 
-LIBSBMLNETWORK_EXTERN int setFontColor(RenderGroup* renderGroup, const std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setFontColor(RenderGroup* renderGroup, const std::string& fontColorId, const std::string& fontColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @param transformation2D a pointer to the Transformation2D (Text or RenderGroup) object.
-/// @param fontColor a string value to use as the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param fontColorId a string value to use as the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
+/// @param fontColorValue a string value to use as the value of the "stroke" attribute of this Transformation2D (Text or RenderGroup) object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFontColor(Transformation2D* transformation2D, const std::string& fontColor);
+LIBSBMLNETWORK_EXTERN int setFontColor(Transformation2D* transformation2D, const std::string& fontColorId, const std::string& fontColorValue);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param globalRenderInformation a pointer to the GlobalRenderInformation object.
@@ -2458,30 +2444,29 @@ LIBSBMLNETWORK_EXTERN const std::string getFillColor(Transformation2D* transform
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFillColor(Style* style, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillColor(Style* style, const std::string& fillColorId, const std::string& fillColorValue);
 
-LIBSBMLNETWORK_EXTERN int setFillColor(RenderGroup* renderGroup, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillColor(RenderGroup* renderGroup, const std::string& fillColorId, const std::string& fillColorValue);
 
-/// @brief Sets the value of the "fill" attribute of this Transformation2D object.
-/// @param transformation2D a pointer to the Transformation2D object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of this Transformation2D object.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFillColor(Transformation2D* transformation2D, const std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillColor(Transformation2D* transformation2D, const std::string& fillColorId, const std::string& fillColorValue);
 
 LIBSBMLNETWORK_EXTERN int setFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& gradientId);
 
@@ -2589,14 +2574,14 @@ LIBSBMLNETWORK_EXTERN const std::string getFillRule(Transformation2D* transforma
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillRule(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, std::string& fillRule);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param fillRule a string value to use as the value of the "fill-rule" attribute of the RenderGroup of this Style object.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillColor);
+LIBSBMLNETWORK_EXTERN int setFillRule(RenderInformationBase* renderInformationBase, const std::string& attribute, std::string& fillRule);
 
 /// @brief Sets the value of the "fill-rule" attribute of the RenderGroup of this Style object.
 /// @param style a pointer to the Style object.
@@ -3521,24 +3506,27 @@ const std::string getGeometricShapeStrokeColor(Transformation2D* shape);
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3546,39 +3534,44 @@ int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, c
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
 /// @param style a pointer to the Style object.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(Style* style, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(Style* style, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(Style* style, unsigned int geometricShapeIndex, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(RenderGroup* renderGroup, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Sets the value of the "stroke" attribute of this abstract Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param StrokeColor a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorId a string value to use as the value of the "stroke" attribute of the Transformation2D object.
+/// @param StrokeColorValue a string value to use as the value of the "stroke" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeStrokeColor(Transformation2D* shape, const std::string& StrokeColor);
+int setGeometricShapeStrokeColor(Transformation2D* shape, const std::string& StrokeColorId, const std::string& StrokeColorValue);
 
 /// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
@@ -3762,64 +3755,73 @@ const std::string getGeometricShapeFillColor(Transformation2D* shape);
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fillColor);
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColor);
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fillColor);
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColor);
+int setGeometricShapeFillColor(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
 /// @param style a pointer to the Style object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(Style* style, const std::string& fillColor);
+int setGeometricShapeFillColor(Style* style, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of this Style.
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex, const std::string& fillColor);
+int setGeometricShapeFillColor(Style* style, unsigned int geometricShapeIndex, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of this RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(RenderGroup* renderGroup, const std::string& fillColor);
+int setGeometricShapeFillColor(RenderGroup* renderGroup, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup.
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& fillColor);
+int setGeometricShapeFillColor(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& fillColorId, const std::string& fillColorValue);
 
 /// @brief Sets the value of the "fill" attribute of this abstract Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param fillColor a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorId a string value to use as the value of the "fill" attribute of the Transformation2D object.
+/// @param fillColorValue a string value to use as the value of the "fill" attribute of the Transformation2D object.
 /// @return integer value indicating success/failure of the function.
-int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColor);
+int setGeometricShapeFillColor(Transformation2D* shape, const std::string& fillColorId, const std::string& fillColorValue);
 
 int setGeometricShapeFillColorAsGradient(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& gradientId);
 

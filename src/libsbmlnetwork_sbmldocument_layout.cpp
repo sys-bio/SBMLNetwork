@@ -1,4 +1,5 @@
 #include "libsbmlnetwork_sbmldocument_layout.h"
+#include "libsbmlnetwork_sbmldocument.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "autolayout/libsbmlnetwork_autolayout.h"
@@ -64,9 +65,7 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
         if (model) {
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout);
-            setSpeciesGlyphs(model, layout);
-            setReactionGlyphs(model, layout);
-            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges);
+            setReactionGlyphs(model, layout, maxNumConnectedEdges);
             setTextGlyphs(layout);
             return 0;
         }
@@ -76,19 +75,17 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
 }
 
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetLockedNodes, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                             bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     if (document && layout) {
         setDefaultLayoutId(layout);
         setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            lockGraphicalObjects(layout, lockedNodesSet, resetLockedNodes);
+            lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
             std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout, userData);
-            setSpeciesGlyphs(model, layout, userData);
-            setReactionGlyphs(model, layout, userData);
-            setAliasSpeciesGlyphs(layout, maxNumConnectedEdges, userData);
+            setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
             locateGlyphs(model, layout, useNameAsTextLabel);
             setTextGlyphs(layout);
             return 0;
@@ -121,12 +118,12 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
 }
 
 int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                                bool resetLockedNodes, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                                bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedNodes, lockedNodesSet);
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
@@ -142,6 +139,76 @@ int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, co
 
     return -1;
 }
+
+int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId) {
+    return createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
+}
+
+int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
+    return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId), index))
+        return updateLayoutCurves(document, getLayout(document));
+
+    return -1;
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId), index))
+        return updateLayoutCurves(document, getLayout(document, layoutIndex));
+
+    return -1;
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), index))
+        return updateLayoutCurves(document, getLayout(document));
+
+    return -1;
+}
+
+int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), index))
+        return updateLayoutCurves(document, getLayout(document, layoutIndex));
+
+    return -1;
+}
+
+int makeSpeciesGlyphVisible(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
+    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
+        return setDefaultLayoutLocations(document, getLayout(document));
+
+    return -1;
+}
+
+int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
+    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesId, visible))
+        return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
+
+    return -1;
+}
+
+int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::string>& speciesIds, bool visible) {
+    if (document && document->isSetModel()) {
+        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), speciesIds, visible))
+            return setDefaultLayoutLocations(document, getLayout(document));
+    }
+
+
+    return -1;
+}
+
+int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::string>& speciesIds, bool visible) {
+    if (document && document->isSetModel()) {
+        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), speciesIds, visible))
+            return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
+    }
+
+    return -1;
+}
+
 
 Dimensions* getDimensions(SBMLDocument* document, unsigned int layoutIndex) {
     return getDimensions(getLayout(document, layoutIndex));
@@ -312,6 +379,14 @@ SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, 
     return getSpeciesGlyph(getLayout(document, layoutIndex), speciesGlyphIndex);
 }
 
+const int getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex) {
+    return getSpeciesGlyphIndex(getLayout(document), speciesId, reactionId, reactionGlyphIndex);
+}
+
+const int getSpeciesGlyphIndex(SBMLDocument* document, unsigned int layoutIndex, const char* speciesId, const char* reactionId, unsigned int reactionGlyphIndex) {
+    return getSpeciesGlyphIndex(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex);
+}
+
 bool isSpeciesGlyph(SBMLDocument* document, const std::string& id) {
     return isSpeciesGlyph(getLayout(document), id);
 }
@@ -364,28 +439,28 @@ bool isReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std
     return isReactionGlyph(getLayout(document, layoutIndex), id);
 }
 
-const unsigned int getNumSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    return getNumSpeciesReferenceGlyphs(getLayout(document), reactionId, reactionGlyphIndex);
+const unsigned int getNumSpeciesReferences(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferences(getLayout(document), reactionId, reactionGlyphIndex);
 }
 
-const unsigned int getNumSpeciesReferenceGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    return getNumSpeciesReferenceGlyphs(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex);
+const unsigned int getNumSpeciesReferences(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferences(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex);
 }
 
-std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    return getSpeciesReferenceGlyphs(getLayout(document), reactionId, reactionGlyphIndex);
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferences(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getSpeciesReferences(getLayout(document), reactionId, reactionGlyphIndex);
 }
 
-std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    return getSpeciesReferenceGlyphs(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex);
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferences(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getSpeciesReferences(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex);
 }
 
-SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+SpeciesReferenceGlyph* getSpeciesReference(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }
 
-SpeciesReferenceGlyph* getSpeciesReferenceGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+SpeciesReferenceGlyph* getSpeciesReference(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }
 
 const std::string getSpeciesReferenceId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
@@ -440,270 +515,286 @@ int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, co
     return setRole(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, role);
 }
 
-int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role) {
-    return setRole(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, role);
+int setSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role) {
+    return setRole(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex, role);
 }
 
-int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role) {
-    return setRole(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceGlyphIndex, role);
+int setSpeciesReferenceRole(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role) {
+    return setRole(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex, role);
+}
+
+const int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferencesAssociatedWithSpecies(getLayout(document), speciesId, reactionId, reactionGlyphIndex);
+}
+
+const int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferencesAssociatedWithSpecies(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex);
+}
+
+const int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
+    return getSpeciesReferenceIndexAssociatedWithSpecies(getLayout(document), speciesId, reactionId, reactionGlyphIndex, n);
+}
+
+const int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int n) {
+    return getSpeciesReferenceIndexAssociatedWithSpecies(getLayout(document, layoutIndex), speciesId, reactionId, reactionGlyphIndex, n);
 }
 
 bool isSetSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return isSetCurve(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return isSetCurve(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 bool isSetSpeciesReferenceCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return isSetCurve(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return isSetCurve(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 Curve* getSpeciesReferenceCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getCurve(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return getCurve(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 Curve* getSpeciesReferenceCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getCurve(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return getCurve(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 const unsigned int getNumSpeciesReferenceCurveSegments(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getNumCurveSegments(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return getNumCurveSegments(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 const unsigned int getNumSpeciesReferenceCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return getNumCurveSegments(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return getNumCurveSegments(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 LineSegment* getSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegment(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegment(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 LineSegment* getSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegment(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegment(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return createLineCurveSegment(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return createLineCurveSegment(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return createLineCurveSegment(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return createLineCurveSegment(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 CubicBezier* createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return createCubicBezierCurveSegment(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return createCubicBezierCurveSegment(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 CubicBezier* createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    return createCubicBezierCurveSegment(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    return createCubicBezierCurveSegment(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 int removeSpeciesReferenceCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return removeCurveSegment(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return removeCurveSegment(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int removeSpeciesReferenceCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return removeCurveSegment(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return removeCurveSegment(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 bool isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return isCubicBezier(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return isCubicBezier(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 bool isSpeciesReferenceCurveSegmentCubicBezier(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return isCubicBezier(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return isCubicBezier(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentStartPointX(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentStartPointX(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentStartPointX(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentStartPointX(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentStartPointX(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentStartPointX(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentStartPointX(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentStartPointX(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentStartPointX(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentStartPointX(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentStartPointX(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentStartPointX(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 double getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentStartPointY(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentStartPointY(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentStartPointY(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentStartPointY(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointY(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentStartPointY(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointY(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentStartPointY(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointY(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentStartPointY(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentStartPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointY(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentStartPointY(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 double getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentEndPointX(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentEndPointX(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentEndPointX(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentEndPointX(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentEndPointX(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex),
+    return setCurveSegmentEndPointX(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex),
                                curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentEndPointX(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex),
+    return setCurveSegmentEndPointX(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex),
                                curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentEndPointX(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentEndPointX(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointX(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentEndPointX(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentEndPointX(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 double getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentEndPointY(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentEndPointY(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentEndPointY(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentEndPointY(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointY(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentEndPointY(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointY(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentEndPointY(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointY(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentEndPointY(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentEndPointY(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointY(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentEndPointY(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint1X(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint1X(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint1Y(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint1Y(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint1Y(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint1Y(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint1Y(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint1Y(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint1Y(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint1Y(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint1Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint1Y(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint1Y(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint2X(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint2X(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint2X(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint2X(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint2X(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint2X(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint2X(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint2X(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint2X(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint2X(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2X(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint2X(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
+    return setCurveSegmentBasePoint2X(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, x);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint2Y(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint2Y(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 double getSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex) {
-    return getCurveSegmentBasePoint2Y(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
+    return getCurveSegmentBasePoint2Y(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint2Y(getSpeciesReferenceGlyph(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint2Y(getSpeciesReference(getLayout(document), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint2Y(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint2Y(getSpeciesReference(getLayout(document, layoutIndex), reactionId, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint2Y(getSpeciesReferenceGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint2Y(getSpeciesReference(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 int setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint2Y(getSpeciesReferenceGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
+    return setCurveSegmentBasePoint2Y(getSpeciesReference(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex), curveSegmentIndex, y);
 }
 
 const unsigned int getNumTextGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
@@ -750,12 +841,30 @@ bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::stri
     return isSetText(getLayout(document, layoutIndex), id);
 }
 
-const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getText(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, bool useNameAsTextLabel) {
+    return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex, useNameAsTextLabel);
 }
 
-const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, bool useNameAsTextLabel) {
+    std::string text = getText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+    if (!text.empty()) {
+        return text;
+    }
+    if (useNameAsTextLabel) {
+        text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+        if (!text.empty())
+            return text;
+    }
+    text = getId(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+    if (!text.empty()) {
+        return text;
+    }
+    text = getGraphicalObjectId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
+    if (!text.empty()) {
+        return text;
+    }
+
+    return "";
 }
 
 int setText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& text) {

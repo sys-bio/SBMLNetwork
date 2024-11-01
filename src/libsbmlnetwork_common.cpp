@@ -77,7 +77,6 @@ bool isValueValid(const std::string& value, const std::vector<std::string>& vali
             return true;
     }
 
-    std::cerr << createErrorMessage(value, validValues) << std::endl;
     return false;
 }
 

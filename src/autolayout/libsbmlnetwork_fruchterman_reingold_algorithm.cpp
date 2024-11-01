@@ -3,6 +3,7 @@
 #include "libsbmlnetwork_autolayout_connection.h"
 #include "libsbmlnetwork_autolayout_curve.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -103,6 +104,11 @@ void FruchtermanReingoldAlgorithmBase::setUseGrid(const bool &useGrid) {
 void FruchtermanReingoldAlgorithmBase::updateNodesLockedStatus() {
     for (int i = 0; i < _nodes.size(); i++)
         ((AutoLayoutNodeBase *) _nodes.at(i))->updateLockedStatus();
+}
+
+void FruchtermanReingoldAlgorithmBase::updateConnectionsLockedStatus() {
+    for (int i = 0; i < _connections.size(); i++)
+        ((AutoLayoutConnection *) _connections.at(i))->updateLockedStatus();
 }
 
 void FruchtermanReingoldAlgorithmBase::apply() {
@@ -414,7 +420,7 @@ void FruchtermanReingoldAlgorithmBase::setCurvePoints(AutoLayoutObjectBase* conn
     for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
         curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
         curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
-        if (curveNode) {
+        if (!curve->isLocked() && curveNode) {
             curve->setNodeSidePoint(curveNode->getPosition());
             curve->setNodeSideControlPoint(curveNode->getPosition());
             curve->setCentroidSidePoint(centroidNode->getPosition());
@@ -455,22 +461,26 @@ void FruchtermanReingoldAlgorithmBase::setCurvePoints(AutoLayoutObjectBase* conn
 void FruchtermanReingoldAlgorithmBase::adjustCurvePoints(AutoLayoutObjectBase* connection) {
     for (int firstCurveIndex = 0; firstCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); firstCurveIndex++) {
         AutoLayoutCurve* firstCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(firstCurveIndex));
-        AutoLayoutNodeBase* firstCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
-        if (firstCurveNode) {
-            for (int secondCurveIndex = firstCurveIndex + 1; secondCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); secondCurveIndex++) {
-                AutoLayoutCurve* secondCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(secondCurveIndex));
-                AutoLayoutNodeBase* secondCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, secondCurve->getNodeId());
-                if (firstCurve->getNodeId() == secondCurve->getNodeId() ) {
-                    if (firstCurve->getRole() == secondCurve->getRole()) {
-                        firstCurve->setNodeSideControlPoint(adjustPointPosition(firstCurveNode->getPosition(), firstCurve->getNodeSideControlPoint(), 12.5, 7.5, false));
-                        secondCurve->setNodeSideControlPoint(adjustPointPosition(secondCurveNode->getPosition(), secondCurve->getNodeSideControlPoint(), -12.5, 7.5, false));
+        if (!firstCurve->isLocked()) {
+            AutoLayoutNodeBase* firstCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
+            if (firstCurveNode) {
+                for (int secondCurveIndex = firstCurveIndex + 1; secondCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); secondCurveIndex++) {
+                    AutoLayoutCurve* secondCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(secondCurveIndex));
+                    if (!secondCurve->isLocked()) {
+                        AutoLayoutNodeBase* secondCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, secondCurve->getNodeId());
+                        if (firstCurve->getNodeId() == secondCurve->getNodeId() ) {
+                            if (firstCurve->getRole() == secondCurve->getRole()) {
+                                firstCurve->setNodeSideControlPoint(adjustPointPosition(firstCurveNode->getPosition(), firstCurve->getNodeSideControlPoint(), 12.5, 7.5, false));
+                                secondCurve->setNodeSideControlPoint(adjustPointPosition(secondCurveNode->getPosition(), secondCurve->getNodeSideControlPoint(), -12.5, 7.5, false));
+                            }
+                            else {
+                                firstCurve->setNodeSideControlPoint(adjustPointPosition(firstCurveNode->getPosition(), firstCurve->getNodeSideControlPoint(), 10, 5, false));
+                                secondCurve->setNodeSideControlPoint(adjustPointPosition(secondCurveNode->getPosition(), secondCurve->getNodeSideControlPoint(), -10, 5, false));
+                            }
+                            firstCurve->setNodeSidePoint(adjustPointPosition(firstCurve->getNodeSideControlPoint(), firstCurve->getNodeSidePoint(), -12.5, 0, false));
+                            secondCurve->setNodeSidePoint(adjustPointPosition(secondCurve->getNodeSideControlPoint(), secondCurve->getNodeSidePoint(), 12.5, 0, false));
+                        }
                     }
-                    else {
-                        firstCurve->setNodeSideControlPoint(adjustPointPosition(firstCurveNode->getPosition(), firstCurve->getNodeSideControlPoint(), 10, 5, false));
-                        secondCurve->setNodeSideControlPoint(adjustPointPosition(secondCurveNode->getPosition(), secondCurve->getNodeSideControlPoint(), -10, 5, false));
-                    }
-                    firstCurve->setNodeSidePoint(adjustPointPosition(firstCurve->getNodeSideControlPoint(), firstCurve->getNodeSidePoint(), -12.5, 0, false));
-                    secondCurve->setNodeSidePoint(adjustPointPosition(secondCurve->getNodeSideControlPoint(), secondCurve->getNodeSidePoint(), 12.5, 0, false));
                 }
             }
         }

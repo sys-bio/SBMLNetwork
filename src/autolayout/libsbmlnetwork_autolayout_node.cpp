@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_autolayout_node.h"
 #include "../libsbmlnetwork_layout_helpers.h"
+#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_common.h"
 
 // AutoLayoutNodeBase

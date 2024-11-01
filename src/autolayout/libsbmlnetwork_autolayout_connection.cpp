@@ -17,6 +17,11 @@ const std::string AutoLayoutConnection::getId() {
     return _reactionGlyph->getId();
 }
 
+void AutoLayoutConnection::updateLockedStatus() {;
+    for (int i = 0; i < _curves.size(); i++)
+        ((AutoLayoutCurve*)_curves.at(i))->updateLockedStatus();
+}
+
 void AutoLayoutConnection::setCentroidNode(const bool& useNameAsTextLabel) {
     _centroidNode = new AutoLayoutCentroidNode(_model, _layout, _reactionGlyph, useNameAsTextLabel);
 }

@@ -52,13 +52,13 @@ LIBSBMLNETWORK_EXTERN int removeAllLocalRenderInformation(Layout* layout);
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLocalRenderInformationFeatures(SBMLDocument* document, Layout* layout, LocalRenderInformation* localRenderInformation);
 
-LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColor);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColor);
 
-LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setReactionStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColor);
 
-LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& stroke);
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceStrokeColor(Layout* layout, LocalRenderInformation* localRenderInformation, const std::string& strokeColor);
 
 LIBSBMLNETWORK_EXTERN int setCompartmentStrokeWidth(Layout* layout, LocalRenderInformation* localRenderInformation, const double& width);
 

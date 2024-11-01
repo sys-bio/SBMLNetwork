@@ -1,5 +1,6 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
+#include "libsbmlnetwork_sbmldocument_helpers.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -14,8 +15,6 @@ Layout* getLayout(ListOfLayouts* listOfLayouts, unsigned int layoutIndex) {
     if (listOfLayouts) {
         if (layoutIndex < getNumLayouts(listOfLayouts))
             return listOfLayouts->get(layoutIndex);
-
-        std::cerr << "error: layoutIndex is out of bounds." << std::endl;
     }
 
     return NULL;
@@ -37,7 +36,7 @@ const double getDimensionWidth(Layout* layout) {
 }
 
 int setDimensionWidth(Layout* layout, const double& width) {
-    if (isValidLayoutDimensionWidthValue(width)) {
+    if (isValidLayoutDimensionWidthValue(layout, width)) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setWidth(width);
@@ -58,7 +57,7 @@ const double getDimensionHeight(Layout* layout) {
 }
 
 int setDimensionHeight(Layout* layout, const double& height) {
-    if (isValidLayoutDimensionHeightValue(height)) {
+    if (isValidLayoutDimensionHeightValue(layout, height)) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setHeight(height);
@@ -201,6 +200,10 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, const unsigned int speciesGlyphInd
     return NULL;
 }
 
+const int getSpeciesGlyphIndex(Layout* layout, const char* speciesId, const char* reactionId, unsigned  int reactionGlyphIndex) {
+    return getIndexOfConnectedSpeciesGlyph(getSpeciesReferenceGlyphs(getReactionGlyph(layout, reactionId, reactionGlyphIndex)), getSpeciesGlyphs(layout, speciesId));
+}
+
 const std::string getSpeciesId(Layout* layout, const std::string& id, const unsigned int speciesGlyphIndex) {
     return getSpeciesId(getSpeciesGlyph(layout, id, speciesGlyphIndex));
 }
@@ -288,45 +291,45 @@ bool isReactionGlyph(GraphicalObject* graphicalObject) {
     return false;
 }
 
-const unsigned int getNumSpeciesReferenceGlyphs(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex) {
-    return getNumSpeciesReferenceGlyphs(getReactionGlyph(layout, id, reactionGlyphIndex));
+const unsigned int getNumSpeciesReferences(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex) {
+    return getNumSpeciesReferences(getReactionGlyph(layout, id, reactionGlyphIndex));
 }
 
-const unsigned int getNumSpeciesReferenceGlyphs(GraphicalObject* reactionGlyph) {
+const unsigned int getNumSpeciesReferences(GraphicalObject* reactionGlyph) {
     if (isReactionGlyph(reactionGlyph))
         return ((ReactionGlyph*)reactionGlyph)->getNumSpeciesReferenceGlyphs();
 
     return 0;
 }
 
-std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex) {
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferences(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex) {
     return getSpeciesReferenceGlyphs(getReactionGlyph(layout, id, reactionGlyphIndex));
 }
 
-std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(GraphicalObject* reactionGlyph) {
+std::vector<SpeciesReferenceGlyph*> getSpeciesReferences(GraphicalObject* reactionGlyph) {
     if (isReactionGlyph(reactionGlyph))
         return getSpeciesReferenceGlyphs((ReactionGlyph*)reactionGlyph);
 
     return std::vector<SpeciesReferenceGlyph*>();
 }
 
-SpeciesReferenceGlyph* getSpeciesReferenceGlyph(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return getSpeciesReferenceGlyph(getReactionGlyph(layout, id, reactionGlyphIndex), speciesReferenceGlyphIndex);
+SpeciesReferenceGlyph* getSpeciesReference(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReference(getReactionGlyph(layout, id, reactionGlyphIndex), speciesReferenceIndex);
 }
 
-SpeciesReferenceGlyph* getSpeciesReferenceGlyph(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
-    if (reactionGlyph && speciesReferenceGlyphIndex < getNumSpeciesReferenceGlyphs(reactionGlyph))
-        return ((ReactionGlyph*)reactionGlyph)->getSpeciesReferenceGlyph(speciesReferenceGlyphIndex);
+SpeciesReferenceGlyph* getSpeciesReference(GraphicalObject* reactionGlyph, unsigned int speciesReferenceIndex) {
+    if (reactionGlyph && speciesReferenceIndex < getNumSpeciesReferences(reactionGlyph))
+        return ((ReactionGlyph*)reactionGlyph)->getSpeciesReferenceGlyph(speciesReferenceIndex);
 
     return NULL;
 }
 
-const std::string getSpeciesReferenceId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return getSpeciesReferenceId(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
+const std::string getSpeciesReferenceId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceId(getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
 }
 
-const std::string getSpeciesReferenceId(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
-    return getSpeciesReferenceId(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex));
+const std::string getSpeciesReferenceId(GraphicalObject* reactionGlyph, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceId(getSpeciesReference(reactionGlyph, speciesReferenceIndex));
 }
 
 const std::string getSpeciesReferenceId(GraphicalObject* speciesReferenceGlyph) {
@@ -336,20 +339,20 @@ const std::string getSpeciesReferenceId(GraphicalObject* speciesReferenceGlyph) 
     return "";
 }
 
-const std::string getSpeciesReferenceSpeciesId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    GraphicalObject* speciesGlyph = getGraphicalObjectUsingItsOwnId(layout, getSpeciesReferenceSpeciesGlyphId(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex)));
+const std::string getSpeciesReferenceSpeciesId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    GraphicalObject* speciesGlyph = getGraphicalObjectUsingItsOwnId(layout, getSpeciesReferenceSpeciesGlyphId(getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex)));
     if (dynamic_cast<SpeciesGlyph*>(speciesGlyph))
         return ((SpeciesGlyph*)speciesGlyph)->getSpeciesId();
 
     return "";
 }
 
-const std::string getSpeciesReferenceSpeciesGlyphId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return getSpeciesReferenceSpeciesGlyphId(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
+const std::string getSpeciesReferenceSpeciesGlyphId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceSpeciesGlyphId(getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
 }
 
-const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
-    return getSpeciesReferenceSpeciesGlyphId(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex));
+const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* reactionGlyph, unsigned int speciesReferenceIndex) {
+    return getSpeciesReferenceSpeciesGlyphId(getSpeciesReference(reactionGlyph, speciesReferenceIndex));
 }
 
 const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesReferenceGlyph) {
@@ -359,12 +362,12 @@ const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesRefe
     return "";
 }
 
-bool isSetRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return isSetRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
+bool isSetRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetRole(getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
 }
 
-bool isSetRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
-    return isSetRole(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex));
+bool isSetRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceIndex) {
+    return isSetRole(getSpeciesReference(reactionGlyph, speciesReferenceIndex));
 }
 
 bool isSetRole(GraphicalObject* speciesReferenceGlyph) {
@@ -374,12 +377,12 @@ bool isSetRole(GraphicalObject* speciesReferenceGlyph) {
     return false;
 }
 
-const std::string getRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex) {
-    return getRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex));
+const std::string getRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getRole(getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
 }
 
-const std::string getRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex) {
-    return getRole(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex));
+const std::string getRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceIndex) {
+    return getRole(getSpeciesReference(reactionGlyph, speciesReferenceIndex));
 }
 
 const std::string getRole(GraphicalObject* speciesReferenceGlyph) {
@@ -390,40 +393,53 @@ const std::string getRole(GraphicalObject* speciesReferenceGlyph) {
 }
 
 int setRole(Layout* layout, const std::string& id, const std::string& role) {
-    if (isValidRoleValue(role))
-        return setRole(getSpeciesReferenceGlyph(layout, id), role);
+    if (isValidRoleValue(layout, role))
+        return setRole(getSpeciesReference(layout, id), role);
 
     return -1;
 }
 
 int setRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, const std::string& role) {
-    if (isValidRoleValue(role))
-        return setRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex), role);
+    if (isValidRoleValue(layout, role))
+        return setRole(getSpeciesReference(layout, id, reactionGlyphIndex), role);
 
     return -1;
 }
 
-int setRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceGlyphIndex, const std::string& role) {
-    if (isValidRoleValue(role))
-        return setRole(getSpeciesReferenceGlyph(layout, id, reactionGlyphIndex, speciesReferenceGlyphIndex), role);
+int setRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& role) {
+    if (isValidRoleValue(layout, role))
+        return setRole(getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex), role);
 
     return -1;
 }
 
-int setRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceGlyphIndex, const std::string& role) {
-    if (isValidRoleValue(role))
-        return setRole(getSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyphIndex), role);
+int setRole(GraphicalObject* reactionGlyph, unsigned int speciesReferenceIndex, const std::string& role) {
+    if (isValidRoleValue(reactionGlyph, role))
+        return setRole(getSpeciesReference(reactionGlyph, speciesReferenceIndex), role);
 
     return -1;
 }
 
 int setRole(GraphicalObject* speciesReferenceGlyph, const std::string& role) {
-    if (isValidRoleValue(role)) {
+    if (isValidRoleValue(speciesReferenceGlyph, role)) {
         if (isSpeciesReferenceGlyph(speciesReferenceGlyph)) {
             ((SpeciesReferenceGlyph *) speciesReferenceGlyph)->setRole(role);
             return 0;
         }
     }
+
+    return -1;
+}
+
+const int getNumSpeciesReferencesAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex) {
+    return getSpeciesReferencesAssociatedWithSpecies(layout, getReactionGlyph(layout, reactionId, reactionGlyphIndex), speciesId).size();
+}
+
+const int getSpeciesReferenceIndexAssociatedWithSpecies(Layout* layout, const std::string& speciesId, const std::string& reactionId, const unsigned int reactionGlyphIndex, const unsigned int n) {
+    ReactionGlyph* reactionGlyph = getReactionGlyph(layout, reactionId, reactionGlyphIndex);
+    std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = getSpeciesReferencesAssociatedWithSpecies(layout, reactionGlyph, speciesId);
+    if (n < speciesReferenceGlyphs.size())
+        return getSpeciesReferenceIndex(layout, reactionGlyph, speciesReferenceGlyphs.at(n));
 
     return -1;
 }
@@ -712,7 +728,7 @@ int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double&
 }
 
 int setPositionX(BoundingBox* boundingBox, const double& x) {
-    if (boundingBox && isValidBoundingBoxXValue(x)) {
+    if (boundingBox && isValidBoundingBoxXValue(boundingBox, x)) {
         boundingBox->setX(x);
         return 0;
     }
@@ -721,7 +737,7 @@ int setPositionX(BoundingBox* boundingBox, const double& x) {
 }
 
 int setPositionX(Curve* curve, const double& x) {
-    if (curve && isValidBoundingBoxXValue(x)) {
+    if (curve && isValidBoundingBoxXValue(curve, x)) {
         setCurveMiddlePositionX(curve, x);
         return 0;
     }
@@ -774,7 +790,7 @@ int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double&
 }
 
 int setPositionY(BoundingBox* boundingBox, const double& y) {
-    if (boundingBox && isValidBoundingBoxYValue(y)) {
+    if (boundingBox && isValidBoundingBoxYValue(boundingBox, y)) {
         boundingBox->setY(y);
         return 0;
     }
@@ -783,7 +799,7 @@ int setPositionY(BoundingBox* boundingBox, const double& y) {
 }
 
 int setPositionY(Curve* curve, const double& y) {
-    if (curve && isValidBoundingBoxYValue(y)) {
+    if (curve && isValidBoundingBoxYValue(curve, y)) {
         setCurveMiddlePositionY(curve, y);
         return 0;
     }
@@ -811,7 +827,7 @@ int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& 
 }
 
 int setPosition(BoundingBox* boundingBox, const double& x, const double& y) {
-    if (boundingBox && isValidBoundingBoxXValue(x) && isValidBoundingBoxYValue(y)) {
+    if (boundingBox && isValidBoundingBoxXValue(boundingBox, x) && isValidBoundingBoxYValue(boundingBox, y)) {
         boundingBox->setX(x);
         boundingBox->setY(y);
         return 0;
@@ -821,7 +837,7 @@ int setPosition(BoundingBox* boundingBox, const double& x, const double& y) {
 }
 
 int setPosition(Curve* curve, const double& x, const double& y) {
-    if (curve && isValidBoundingBoxXValue(x) && isValidBoundingBoxYValue(y)) {
+    if (curve && isValidBoundingBoxXValue(curve, x) && isValidBoundingBoxYValue(curve, y)) {
         setCurveMiddlePositionX(curve, x);
         setCurveMiddlePositionY(curve, y);
         return 0;
@@ -865,7 +881,7 @@ int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const do
 }
 
 int setDimensionWidth(BoundingBox* boundingBox, const double& width) {
-    if (boundingBox && isValidBoundingBoxWidthValue(width)) {
+    if (boundingBox && isValidBoundingBoxWidthValue(boundingBox, width)) {
         boundingBox->setWidth(width);
         return 0;
     }
@@ -935,7 +951,7 @@ int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const d
 }
 
 int setDimensionHeight(BoundingBox* boundingBox, const double& height) {
-    if (boundingBox && isValidBoundingBoxHeightValue(height)) {
+    if (boundingBox && isValidBoundingBoxHeightValue(boundingBox, height)) {
         boundingBox->setHeight(height);
         return 0;
     }
@@ -1251,11 +1267,16 @@ int setCurveSegmentStartPointX(Layout* layout, const std::string& id, unsigned i
 }
 
 int setCurveSegmentStartPointX(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentStartPointX(getCurve(graphicalObject), curveSegmentIndex, x);
+    if (!setCurveSegmentStartPointX(getCurve(graphicalObject), curveSegmentIndex, x)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentStartPointX(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    if (isValidCurveSegmentStartPointXValue(x)) {
+    if (isValidCurveSegmentStartPointXValue(curve, x)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment) {
             lineSegment->getStart()->setX(x);
@@ -1291,11 +1312,16 @@ int setCurveSegmentStartPointY(Layout* layout, const std::string& id, unsigned i
 }
 
 int setCurveSegmentStartPointY(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentStartPointY(getCurve(graphicalObject), curveSegmentIndex, y);
+    if (!setCurveSegmentStartPointY(getCurve(graphicalObject), curveSegmentIndex, y)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentStartPointY(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    if (isValidCurveSegmentStartPointYValue(y)) {
+    if (isValidCurveSegmentStartPointYValue(curve, y)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment) {
             lineSegment->getStart()->setY(y);
@@ -1331,11 +1357,16 @@ int setCurveSegmentEndPointX(Layout* layout, const std::string& id, unsigned int
 }
 
 int setCurveSegmentEndPointX(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentEndPointX(getCurve(graphicalObject), curveSegmentIndex, x);
+    if (!setCurveSegmentEndPointX(getCurve(graphicalObject), curveSegmentIndex, x)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentEndPointX(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    if (isValidCurveSegmentEndPointXValue(x)) {
+    if (isValidCurveSegmentEndPointXValue(curve, x)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment) {
             lineSegment->getEnd()->setX(x);
@@ -1371,11 +1402,16 @@ int setCurveSegmentEndPointY(Layout* layout, const std::string& id, unsigned int
 }
 
 int setCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentEndPointY(getCurve(graphicalObject), curveSegmentIndex, y);
+    if (!setCurveSegmentEndPointY(getCurve(graphicalObject), curveSegmentIndex, y)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentEndPointY(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    if (isValidCurveSegmentEndPointYValue(y)) {
+    if (isValidCurveSegmentEndPointYValue(curve, y)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment) {
             lineSegment->getEnd()->setY(y);
@@ -1411,11 +1447,16 @@ int setCurveSegmentBasePoint1X(Layout* layout, const std::string& id, unsigned i
 }
 
 int setCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint1X(getCurve(graphicalObject), curveSegmentIndex, x);
+    if (!setCurveSegmentBasePoint1X(getCurve(graphicalObject), curveSegmentIndex, x)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentBasePoint1X(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    if (isValidCurveSegmentBasePoint1XValue(x)) {
+    if (isValidCurveSegmentBasePoint1XValue(curve, x)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment && isCubicBezier(lineSegment)) {
             ((CubicBezier*)lineSegment)->getBasePoint1()->setX(x);
@@ -1451,11 +1492,16 @@ int setCurveSegmentBasePoint1Y(Layout* layout, const std::string& id, unsigned i
 }
 
 int setCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint1Y(getCurve(graphicalObject), curveSegmentIndex, y);
+    if (!setCurveSegmentBasePoint1Y(getCurve(graphicalObject), curveSegmentIndex, y)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentBasePoint1Y(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    if (isValidCurveSegmentBasePoint1YValue(y)) {
+    if (isValidCurveSegmentBasePoint1YValue(curve, y)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment && isCubicBezier(lineSegment)) {
             ((CubicBezier*)lineSegment)->getBasePoint1()->setY(y);
@@ -1491,11 +1537,16 @@ int setCurveSegmentBasePoint2X(Layout* layout, const std::string& id, unsigned i
 }
 
 int setCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
-    return setCurveSegmentBasePoint2X(getCurve(graphicalObject), curveSegmentIndex, x);
+    if (!setCurveSegmentBasePoint2X(getCurve(graphicalObject), curveSegmentIndex, x)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentBasePoint2X(Curve* curve, unsigned int curveSegmentIndex, const double& x) {
-    if (isValidCurveSegmentBasePoint2XValue(x)) {
+    if (isValidCurveSegmentBasePoint2XValue(curve, x)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment && isCubicBezier(lineSegment)) {
             ((CubicBezier*)lineSegment)->getBasePoint2()->setX(x);
@@ -1531,11 +1582,16 @@ int setCurveSegmentBasePoint2Y(Layout* layout, const std::string& id, unsigned i
 }
 
 int setCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
-    return setCurveSegmentBasePoint2Y(getCurve(graphicalObject), curveSegmentIndex, y);
+    if (!setCurveSegmentBasePoint2Y(getCurve(graphicalObject), curveSegmentIndex, y)) {
+        lockGraphicalObject(graphicalObject);
+        return 0;
+    }
+
+    return -1;
 }
 
 int setCurveSegmentBasePoint2Y(Curve* curve, unsigned int curveSegmentIndex, const double& y) {
-    if (isValidCurveSegmentBasePoint2YValue(y)) {
+    if (isValidCurveSegmentBasePoint2YValue(curve, y)) {
         LineSegment* lineSegment = getCurveSegment(curve, curveSegmentIndex);
         if (lineSegment && isCubicBezier(lineSegment)) {
             ((CubicBezier*)lineSegment)->getBasePoint2()->setY(y);
