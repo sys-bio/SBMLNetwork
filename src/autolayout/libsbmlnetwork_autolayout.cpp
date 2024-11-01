@@ -28,7 +28,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout);
+    updateCompartmentsExtents(model, layout);
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
     if (!adjustLayoutDimensions(layout)) {
@@ -57,7 +57,7 @@ void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabe
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout);
+    updateCompartmentsExtents(model, layout);
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
 }
@@ -189,12 +189,13 @@ initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, Boun
     compartmentGlyphBoundingBox->setHeight(speciesGlyphBoundingBox->height() + 2 * padding);
 }
 
-void updateCompartmentExtents(Model *model, Layout *layout) {
-    updateCompartmentExtentsUsingItsElementsExtents(model, layout);
-    updateCompartmentExtentsUsingItsPresetAttributes(layout);
+void updateCompartmentsExtents(Model *model, Layout *layout) {
+    updateCompartmentsExtentsUsingTheirElementsExtents(model, layout);
+    updateCompartmentsExtentsUsingTheirPresetAttributes(layout);
 }
 
-void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layout) {
+void updateCompartmentsExtentsUsingTheirElementsExtents(Model *model, Layout *layout) {
+    std::vector<std::string> extentsInitializedCompartmentGlyphIds;
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         Compartment *compartment = findSpeciesGlyphCompartment(model, layout->getSpeciesGlyph(i));
         if (compartment) {
@@ -202,9 +203,13 @@ void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layou
                     layout, compartment->getId());
             for (int j = 0; j < compartmentGlyphs.size(); j++) {
                 CompartmentGlyph *compartmentGlyph = compartmentGlyphs.at(j);
-                if (i == 0)
+                if (std::find(extentsInitializedCompartmentGlyphIds.begin(),
+                              extentsInitializedCompartmentGlyphIds.end(), compartmentGlyph->getId()) ==
+                    extentsInitializedCompartmentGlyphIds.end()) {
                     initializeCompartmentGlyphExtents(compartmentGlyph->getBoundingBox(),
                                                       layout->getSpeciesGlyph(i)->getBoundingBox());
+                    extentsInitializedCompartmentGlyphIds.push_back(compartmentGlyph->getId());
+                }
                 updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
                                          layout->getSpeciesGlyph(i)->getBoundingBox());
             }
@@ -280,7 +285,7 @@ void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGly
     }
 }
 
-void updateCompartmentExtentsUsingItsPresetAttributes(Layout *layout) {
+void updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout) {
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         CompartmentGlyph *compartmentGlyph = layout->getCompartmentGlyph(i);
         if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "locked") == "true") {
