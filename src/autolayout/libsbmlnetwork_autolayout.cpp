@@ -324,7 +324,7 @@ const bool adjustLayoutDimensions(Layout *layout) {
     double widthGap = desiredWidth - layout->getDimensions()->width();
     double desiredHeight = getLayoutDimensionsDesiredHeight(layout);
     double heightGap = desiredHeight - layout->getDimensions()->height();
-    if (widthGap < 0.1 * desiredWidth && heightGap < 0.1 * desiredHeight) {
+    if (widthGap <= 0.1 * desiredWidth && heightGap <= 0.1 * desiredHeight) {
         setLayoutDimensionsDesiredWidth(layout, layout->getDimensions()->width());
         setLayoutDimensionsDesiredHeight(layout, layout->getDimensions()->height());
         return true;
