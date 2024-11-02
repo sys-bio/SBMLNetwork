@@ -317,111 +317,111 @@ void freeUserData(RenderInformationBase* renderInformation);
 
 std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformationBase);
 
-const bool isValidBackgroundColorValue(SBase* sBase, const std::string& backgroundColor);
+const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase = NULL);
 
-const bool isValidSpreadMethodValue(SBase* sBase, const std::string& spreadMethod);
+const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBase = NULL);
 
-const bool isValidGradientStopsVector(SBase* sBase, std::vector<std::pair<std::string, double>> stopsVector);
+const bool isValidGradientStopsVector(std::vector<std::pair<std::string, double>> stopsVector, SBase* sBase = NULL);
 
-const bool isValidOffsetValue(SBase* sBase, const double& offset);
+const bool isValidOffsetValue(const double& offset, SBase* sBase = NULL);
 
-const bool isValidOffsetValue(SBase* sBase, const RelAbsVector& offset);
+const bool isValidOffsetValue(const RelAbsVector& offset, SBase* sBase = NULL);
 
-const bool isValidStopColorValue(SBase* sBase, const std::string& stopColor);
+const bool isValidStopColorValue(const std::string& stopColor, SBase* sBase = NULL);
 
-const bool isValidGradientX1Value(SBase* sBase, const RelAbsVector& x1);
+const bool isValidGradientX1Value(const RelAbsVector& x1, SBase* sBase = NULL);
 
-const bool isValidGradientX2Value(SBase* sBase, const RelAbsVector& x2);
+const bool isValidGradientX2Value(const RelAbsVector& x2, SBase* sBase = NULL);
 
-const bool isValidGradientY1Value(SBase* sBase, const RelAbsVector& y1);
+const bool isValidGradientY1Value(const RelAbsVector& y1, SBase* sBase = NULL);
 
-const bool isValidGradientY2Value(SBase* sBase, const RelAbsVector& y2);
+const bool isValidGradientY2Value(const RelAbsVector& y2, SBase* sBase = NULL);
 
-const bool isValidGradientCxValue(SBase* sBase, const RelAbsVector& cx);
+const bool isValidGradientCxValue(const RelAbsVector& cx, SBase* sBase = NULL);
 
-const bool isValidGradientCyValue(SBase* sBase, const RelAbsVector& cy);
+const bool isValidGradientCyValue(const RelAbsVector& cy, SBase* sBase = NULL);
 
-const bool isValidGradientFxValue(SBase* sBase, const RelAbsVector& fx);
+const bool isValidGradientFxValue(const RelAbsVector& fx, SBase* sBase = NULL);
 
-const bool isValidGradientFyValue(SBase* sBase, const RelAbsVector& fy);
+const bool isValidGradientFyValue(const RelAbsVector& fy, SBase* sBase = NULL);
 
-const bool isValidGradientRValue(SBase* sBase, const RelAbsVector& r);
+const bool isValidGradientRValue(const RelAbsVector& r, SBase* sBase = NULL);
 
-const bool isValidEnableRotationalMappingValue(SBase* sBase, const bool& enableRotationalMapping);
+const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping, SBase* sBase = NULL);
 
-const bool isValidStrokeColorValue(SBase* sBase, const std::string& strokeColor);
+const bool isValidStrokeColorValue(const std::string& strokeColor, SBase* sBase = NULL);
 
-const bool isValidStrokeWidthValue(SBase* sBase, const double& strokeWidth);
+const bool isValidStrokeWidthValue(const double& strokeWidth, SBase* sBase = NULL);
 
-const bool isValidStrokeDashArrayValue(SBase* sBase, const std::vector<unsigned int>& strokeDashArray);
+const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray, SBase* sBase = NULL);
 
-const bool isValidStrokeDashValue(SBase* sBase, const unsigned int& strokeDash);
+const bool isValidStrokeDashValue(const unsigned int& strokeDash, SBase* sBase = NULL);
 
-const bool isValidFontColorValue(SBase* sBase, const std::string& fontColor);
+const bool isValidFontColorValue(const std::string& fontColor, SBase* sBase = NULL);
 
-const bool isValidFontFamilyValue(SBase* sBase, const std::string& fontFamily);
+const bool isValidFontFamilyValue(const std::string& fontFamily, SBase* sBase = NULL);
 
-const bool isValidFontSizeValue(SBase* sBase, const RelAbsVector& fontSize);
+const bool isValidFontSizeValue(const RelAbsVector& fontSize, SBase* sBase = NULL);
 
-const bool isValidFontWeightValue(SBase* sBase, const std::string& fontWeight);
+const bool isValidFontWeightValue(const std::string& fontWeight, SBase* sBase = NULL);
 
-const bool isValidFontStyleValue(SBase* sBase, const std::string& fontStyle);
+const bool isValidFontStyleValue(const std::string& fontStyle, SBase* sBase = NULL);
 
-const bool isValidTextAnchorValue(SBase* sBase, const std::string& textAnchor);
+const bool isValidTextAnchorValue(const std::string& textAnchor, SBase* sBase = NULL);
 
-const bool isValidVTextAnchorValue(SBase* sBase, const std::string& vTextAnchor);
+const bool isValidVTextAnchorValue(const std::string& vTextAnchor, SBase* sBase = NULL);
 
-const bool isValidFillColorValue(SBase* sBase, const std::string& fillColor);
+const bool isValidFillColorValue(const std::string& fillColor, SBase* sBase = NULL);
 
-const bool isValidFillRuleValue(SBase* sBase, const std::string& fillRule);
+const bool isValidFillRuleValue(const std::string& fillRule, SBase* sBase = NULL);
 
-const bool isValidStartHeadValue(SBase* sBase, const std::string& startHead);
+const bool isValidStartHeadValue(const std::string& startHead, SBase* sBase = NULL);
 
-const bool isValidEndHeadValue(SBase* sBase, const std::string& endHead);
+const bool isValidEndHeadValue(const std::string& endHead, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeName(SBase* sBase, const std::string& geometricShapeName);
+const bool isValidGeometricShapeName(const std::string& geometricShapeName, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeXValue(SBase* sBase, const RelAbsVector& x);
+const bool isValidGeometricShapeXValue(const RelAbsVector& x, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeYValue(SBase* sBase, const RelAbsVector& y);
+const bool isValidGeometricShapeYValue(const RelAbsVector& y, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeWidthValue(SBase* sBase, const RelAbsVector& width);
+const bool isValidGeometricShapeWidthValue(const RelAbsVector& width, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeHeightValue(SBase* sBase, const RelAbsVector& height);
+const bool isValidGeometricShapeHeightValue(const RelAbsVector& height, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeRatioValue(SBase* sBase, const double& ratio);
+const bool isValidGeometricShapeRatioValue(const double& ratio, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeCornerCurvatureRadiusX(SBase* sBase, const RelAbsVector& rx);
+const bool isValidGeometricShapeCornerCurvatureRadiusX(const RelAbsVector& rx, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeCornerCurvatureRadiusY(SBase* sBase, const RelAbsVector& ry);
+const bool isValidGeometricShapeCornerCurvatureRadiusY(const RelAbsVector& ry, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeCenterX(SBase* sBase, const RelAbsVector& cx);
+const bool isValidGeometricShapeCenterX(const RelAbsVector& cx, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeCenterY(SBase* sBase, const RelAbsVector& cy);
+const bool isValidGeometricShapeCenterY(const RelAbsVector& cy, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeRadiusX(SBase* sBase, const RelAbsVector& rx);
+const bool isValidGeometricShapeRadiusX(const RelAbsVector& rx, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeRadiusY(SBase* sBase, const RelAbsVector& ry);
+const bool isValidGeometricShapeRadiusY(const RelAbsVector& ry, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeElementX(SBase* sBase, const RelAbsVector& x);
+const bool isValidGeometricShapeElementX(const RelAbsVector& x, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeElementY(SBase* sBase, const RelAbsVector& y);
+const bool isValidGeometricShapeElementY(const RelAbsVector& y, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeBasePoint1X(SBase* sBase, const RelAbsVector& x);
+const bool isValidGeometricShapeBasePoint1X(const RelAbsVector& x, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeBasePoint1Y(SBase* sBase, const RelAbsVector& y);
+const bool isValidGeometricShapeBasePoint1Y(const RelAbsVector& y, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeBasePoint2X(SBase* sBase, const RelAbsVector& x);
+const bool isValidGeometricShapeBasePoint2X(const RelAbsVector& x, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeBasePoint2Y(SBase* sBase, const RelAbsVector& y);
+const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y, SBase* sBase = NULL);
 
-const bool isValidGeometricShapeHref(SBase* sBase, const std::string& href);
+const bool isValidGeometricShapeHref(const std::string& href, SBase* sBase = NULL);
 
-const bool isValidRelAbsVectorPositiveValue(SBase* sBase, const RelAbsVector& relAbsVectorValue);
+const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue, SBase* sBase = NULL);
 
-const bool isValidRelAbsVectorValue(SBase* sBase, const RelAbsVector& relAbsVectorValue);
+const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase* sBase = NULL);
 
-const bool isValidRelAbsVectorRelativeValue(SBase* sBase, const double& value);
+const bool isValidRelAbsVectorRelativeValue(const double& value, SBase* sBase = NULL);
 
 std::vector<std::string> getValidSpreadMethodValues();
 
