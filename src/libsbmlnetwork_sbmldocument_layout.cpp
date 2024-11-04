@@ -100,7 +100,7 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
         Model* model = document->getModel();
         if (model) {
             clearReactionTextGlyphs(layout);
-            locateReactions(model, layout, false);
+            locateReactions(model, layout, true);
             setReactionTextGlyphs(layout);
             return 0;
         }
