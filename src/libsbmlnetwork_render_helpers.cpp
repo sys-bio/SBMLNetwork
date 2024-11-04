@@ -381,7 +381,7 @@ const std::string addGradient(SBMLDocument* document, LineEnding* lineEnding, co
 }
 
 const std::string addGradient(RenderInformationBase* renderInformationBase, const std::string type, std::vector<std::pair<std::string, double>> stopsVector) {
-    if (isValidGradientStopsVector(renderInformationBase, stopsVector)) {
+    if (isValidGradientStopsVector(stopsVector, renderInformationBase)) {
         for (unsigned int i = 0; i < stopsVector.size(); i++)
             addColor(renderInformationBase, stopsVector[i].first);
         std::string gradientId = getUniqueGradientId(renderInformationBase);
@@ -1394,7 +1394,7 @@ std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBas
     return userData;
 }
 
-const bool isValidBackgroundColorValue(SBase* sBase, const std::string& backgroundColor) {
+const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase) {
     if (isValidColorValue(backgroundColor))
         return true;
 
@@ -1402,7 +1402,7 @@ const bool isValidBackgroundColorValue(SBase* sBase, const std::string& backgrou
     return false;
 }
 
-const bool isValidSpreadMethodValue(SBase* sBase, const std::string& spreadMethod) {
+const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBase) {
     if (isValueValid(spreadMethod, getValidSpreadMethodValues()))
         return true;
 
@@ -1410,27 +1410,27 @@ const bool isValidSpreadMethodValue(SBase* sBase, const std::string& spreadMetho
     return false;
 }
 
-const bool isValidGradientStopsVector(SBase* sBase, std::vector<std::pair<std::string, double>> gradientStopsVector) {
+const bool isValidGradientStopsVector(std::vector<std::pair<std::string, double>> gradientStopsVector, SBase* sBase) {
     for (unsigned int i = 0; i < gradientStopsVector.size(); i++) {
-        if (!isValidStopColorValue(sBase, gradientStopsVector.at(i).first) || !isValidOffsetValue(sBase, RelAbsVector(0.0, gradientStopsVector.at(i).second)))
+        if (!isValidStopColorValue(gradientStopsVector.at(i).first, sBase) || !isValidOffsetValue(RelAbsVector(0.0, gradientStopsVector.at(i).second), sBase))
             return false;
     }
 
     return true;
 }
 
-const bool isValidOffsetValue(SBase* sBase, const RelAbsVector& offset) {
+const bool isValidOffsetValue(const RelAbsVector& offset, SBase* sBase) {
     if (std::abs(offset.getAbsoluteValue()) > 0.0001)
         return false;
 
-    return isValidRelAbsVectorRelativeValue(sBase, offset.getRelativeValue());
+    return isValidRelAbsVectorRelativeValue(offset.getRelativeValue(), sBase);
 }
 
-const bool isValidOffsetValue(SBase* sBase, const double& offset) {
-    return isValidRelAbsVectorRelativeValue(sBase, offset);
+const bool isValidOffsetValue(const double& offset, SBase* sBase) {
+    return isValidRelAbsVectorRelativeValue(offset, sBase);
 }
 
-const bool isValidStopColorValue(SBase* sBase, const std::string& stopColor) {
+const bool isValidStopColorValue(const std::string& stopColor, SBase* sBase) {
     if (isValidColorValue(stopColor))
         return true;
 
@@ -1438,47 +1438,47 @@ const bool isValidStopColorValue(SBase* sBase, const std::string& stopColor) {
     return false;
 }
 
-const bool isValidGradientX1Value(SBase* sBase, const RelAbsVector& x1) {
-    return isValidRelAbsVectorPositiveValue(sBase, x1);
+const bool isValidGradientX1Value(const RelAbsVector& x1, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(x1, sBase);
 }
 
-const bool isValidGradientX2Value(SBase* sBase, const RelAbsVector& x2) {
-    return isValidRelAbsVectorPositiveValue(sBase, x2);
+const bool isValidGradientX2Value(const RelAbsVector& x2, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(x2, sBase);
 }
 
-const bool isValidGradientY1Value(SBase* sBase, const RelAbsVector& y1) {
-    return isValidRelAbsVectorPositiveValue(sBase, y1);
+const bool isValidGradientY1Value(const RelAbsVector& y1, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(y1, sBase);
 }
 
-const bool isValidGradientY2Value(SBase* sBase, const RelAbsVector& y2) {
-    return isValidRelAbsVectorPositiveValue(sBase, y2);
+const bool isValidGradientY2Value(const RelAbsVector& y2, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(y2, sBase);
 }
 
-const bool isValidGradientCxValue(SBase* sBase, const RelAbsVector& cx) {
-    return isValidRelAbsVectorPositiveValue(sBase, cx);
+const bool isValidGradientCxValue(const RelAbsVector& cx, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(cx, sBase);
 }
 
-const bool isValidGradientCyValue(SBase* sBase, const RelAbsVector& cy) {
-    return isValidRelAbsVectorPositiveValue(sBase, cy);
+const bool isValidGradientCyValue(const RelAbsVector& cy, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(cy, sBase);
 }
 
-const bool isValidGradientFxValue(SBase* sBase, const RelAbsVector& fx) {
-    return isValidRelAbsVectorPositiveValue(sBase, fx);
+const bool isValidGradientFxValue(const RelAbsVector& fx, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(fx, sBase);
 }
 
-const bool isValidGradientFyValue(SBase* sBase, const RelAbsVector& fy) {
-    return isValidRelAbsVectorPositiveValue(sBase, fy);
+const bool isValidGradientFyValue(const RelAbsVector& fy, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(fy, sBase);
 }
 
-const bool isValidGradientRValue(SBase* sBase, const RelAbsVector& r) {
-    return isValidRelAbsVectorPositiveValue(sBase, r);
+const bool isValidGradientRValue(const RelAbsVector& r, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(r, sBase);
 }
 
-const bool isValidEnableRotationalMappingValue(SBase* sBase, const bool& enableRotationalMapping) {
+const bool isValidEnableRotationalMappingValue(const bool& enableRotationalMapping, SBase* sBase) {
     return true;
 }
 
-const bool isValidStrokeColorValue(SBase* sBase, const std::string& stroke) {
+const bool isValidStrokeColorValue(const std::string& stroke, SBase* sBase) {
     if (isValidColorValue(stroke))
         return true;
 
@@ -1486,32 +1486,32 @@ const bool isValidStrokeColorValue(SBase* sBase, const std::string& stroke) {
     return false;
 }
 
-const bool isValidStrokeWidthValue(SBase* sBase, const double& strokeWidth) {
-    if (isValidDoubleValue(sBase, strokeWidth) && strokeWidth > 0.0001)
+const bool isValidStrokeWidthValue(const double& strokeWidth, SBase* sBase) {
+    if (isValidDoubleValue(strokeWidth, sBase) && strokeWidth > 0.0001)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
     return false;
 }
 
-const bool isValidStrokeDashArrayValue(SBase* sBase, const std::vector<unsigned int>& strokeDashArray) {
+const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDashArray, SBase* sBase) {
     for (unsigned int i = 0; i < strokeDashArray.size(); i++) {
-        if (!isValidStrokeDashValue(sBase, strokeDashArray.at(i)))
+        if (!isValidStrokeDashValue(strokeDashArray.at(i), sBase))
             return false;
     }
 
     return true;
 }
 
-const bool isValidStrokeDashValue(SBase* sBase, const unsigned int& dash) {
-    if (isValidDoubleValue(sBase, dash) && dash > 0.000)
+const bool isValidStrokeDashValue(const unsigned int& dash, SBase* sBase) {
+    if (isValidDoubleValue(dash, sBase) && dash > 0.000)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
     return false;
 }
 
-const bool isValidFontColorValue(SBase* sBase, const std::string& fontColor) {
+const bool isValidFontColorValue(const std::string& fontColor, SBase* sBase) {
     if (isValidColorValue(fontColor))
         return true;
 
@@ -1519,15 +1519,15 @@ const bool isValidFontColorValue(SBase* sBase, const std::string& fontColor) {
     return false;
 }
 
-const bool isValidFontFamilyValue(SBase* sBase, const std::string& fontFamily) {
+const bool isValidFontFamilyValue(const std::string& fontFamily, SBase* sBase) {
     return true;
 }
 
-const bool isValidFontSizeValue(SBase* sBase, const RelAbsVector& fontSize) {
-    return isValidRelAbsVectorPositiveValue(sBase, fontSize);
+const bool isValidFontSizeValue(const RelAbsVector& fontSize, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(fontSize, sBase);
 }
 
-const bool isValidFontWeightValue(SBase* sBase, const std::string& fontWeight) {
+const bool isValidFontWeightValue(const std::string& fontWeight, SBase* sBase) {
     if (isValueValid(fontWeight, getValidFontWeightValues()))
         return true;
 
@@ -1535,7 +1535,7 @@ const bool isValidFontWeightValue(SBase* sBase, const std::string& fontWeight) {
     return false;
 }
 
-const bool isValidFontStyleValue(SBase* sBase, const std::string& fontStyle) {
+const bool isValidFontStyleValue(const std::string& fontStyle, SBase* sBase) {
     if (isValueValid(fontStyle, getValidFontStyleValues()))
         return true;
 
@@ -1543,7 +1543,7 @@ const bool isValidFontStyleValue(SBase* sBase, const std::string& fontStyle) {
     return false;
 }
 
-const bool isValidTextAnchorValue(SBase* sBase, const std::string& textAnchor) {
+const bool isValidTextAnchorValue(const std::string& textAnchor, SBase* sBase) {
     if (isValueValid(textAnchor, getValidTextAnchorValues()))
         return true;
 
@@ -1551,7 +1551,7 @@ const bool isValidTextAnchorValue(SBase* sBase, const std::string& textAnchor) {
     return false;
 }
 
-const bool isValidVTextAnchorValue(SBase* sBase, const std::string& vtextAnchor) {
+const bool isValidVTextAnchorValue(const std::string& vtextAnchor, SBase* sBase) {
     if (isValueValid(vtextAnchor, getValidVTextAnchorValues()))
         return true;
 
@@ -1559,7 +1559,7 @@ const bool isValidVTextAnchorValue(SBase* sBase, const std::string& vtextAnchor)
     return false;
 }
 
-const bool isValidFillColorValue(SBase* sBase, const std::string& fillColor) {
+const bool isValidFillColorValue(const std::string& fillColor, SBase* sBase) {
     if (isValidColorValue(fillColor))
         return true;
 
@@ -1567,7 +1567,7 @@ const bool isValidFillColorValue(SBase* sBase, const std::string& fillColor) {
     return false;
 }
 
-const bool isValidFillRuleValue(SBase* sBase, const std::string& fillRule) {
+const bool isValidFillRuleValue(const std::string& fillRule, SBase* sBase) {
     if (isValueValid(fillRule, getValidFillRuleValues()))
         return true;
 
@@ -1575,15 +1575,15 @@ const bool isValidFillRuleValue(SBase* sBase, const std::string& fillRule) {
     return false;
 }
 
-const bool isValidStartHeadValue(SBase* sBase, const std::string& startHead) {
+const bool isValidStartHeadValue(const std::string& startHead, SBase* sBase) {
     return true;
 }
 
-const bool isValidEndHeadValue(SBase* sBase, const std::string& endHead) {
+const bool isValidEndHeadValue(const std::string& endHead, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeName(SBase* sBase, const std::string& geometricShapeName) {
+const bool isValidGeometricShapeName(const std::string& geometricShapeName, SBase* sBase) {
     if (isValueValid(geometricShapeName, getValidGeometricShapeNameValues()))
         return true;
 
@@ -1591,100 +1591,100 @@ const bool isValidGeometricShapeName(SBase* sBase, const std::string& geometricS
     return false;
 }
 
-const bool isValidGeometricShapeXValue(SBase* sBase, const RelAbsVector& x) {
+const bool isValidGeometricShapeXValue(const RelAbsVector& x, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeYValue(SBase* sBase, const RelAbsVector& y) {
+const bool isValidGeometricShapeYValue(const RelAbsVector& y, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeWidthValue(SBase* sBase, const RelAbsVector& width) {
-    return isValidRelAbsVectorPositiveValue(sBase, width);
+const bool isValidGeometricShapeWidthValue(const RelAbsVector& width, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(width, sBase);
 }
 
-const bool isValidGeometricShapeHeightValue(SBase* sBase, const RelAbsVector& height) {
-    return isValidRelAbsVectorPositiveValue(sBase, height);
+const bool isValidGeometricShapeHeightValue(const RelAbsVector& height, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(height, sBase);
 }
 
-const bool isValidGeometricShapeRatioValue(SBase* sBase, const double& ratio) {
-    if (isValidDoubleValue(sBase, ratio) && ratio > 0.0001)
+const bool isValidGeometricShapeRatioValue(const double& ratio, SBase* sBase) {
+    if (isValidDoubleValue(ratio, sBase) && ratio > 0.0001)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
     return false;
 }
 
-const bool isValidGeometricShapeCornerCurvatureRadiusX(SBase* sBase, const RelAbsVector& rx) {
-    return isValidRelAbsVectorPositiveValue(sBase, rx);
+const bool isValidGeometricShapeCornerCurvatureRadiusX(const RelAbsVector& rx, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(rx, sBase);
 }
 
-const bool isValidGeometricShapeCornerCurvatureRadiusY(SBase* sBase, const RelAbsVector& ry) {
-    return isValidRelAbsVectorPositiveValue(sBase, ry);
+const bool isValidGeometricShapeCornerCurvatureRadiusY(const RelAbsVector& ry, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(ry, sBase);
 }
 
-const bool isValidGeometricShapeCenterX(SBase* sBase, const RelAbsVector& cx) {
+const bool isValidGeometricShapeCenterX(const RelAbsVector& cx, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeCenterY(SBase* sBase, const RelAbsVector& cy) {
+const bool isValidGeometricShapeCenterY(const RelAbsVector& cy, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeRadiusX(SBase* sBase, const RelAbsVector& rx) {
-    return isValidRelAbsVectorPositiveValue(sBase, rx);
+const bool isValidGeometricShapeRadiusX(const RelAbsVector& rx, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(rx, sBase);
 }
 
-const bool isValidGeometricShapeRadiusY(SBase* sBase, const RelAbsVector& ry) {
-    return isValidRelAbsVectorPositiveValue(sBase, ry);
+const bool isValidGeometricShapeRadiusY(const RelAbsVector& ry, SBase* sBase) {
+    return isValidRelAbsVectorPositiveValue(ry, sBase);
 }
 
-const bool isValidGeometricShapeElementX(SBase* sBase, const RelAbsVector& x) {
+const bool isValidGeometricShapeElementX(const RelAbsVector& x, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeElementY(SBase* sBase, const RelAbsVector& y) {
+const bool isValidGeometricShapeElementY(const RelAbsVector& y, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint1X(SBase* sBase, const RelAbsVector& x) {
+const bool isValidGeometricShapeBasePoint1X(const RelAbsVector& x, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint1Y(SBase* sBase, const RelAbsVector& y) {
+const bool isValidGeometricShapeBasePoint1Y(const RelAbsVector& y, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint2X(SBase* sBase, const RelAbsVector& x) {
+const bool isValidGeometricShapeBasePoint2X(const RelAbsVector& x, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeBasePoint2Y(SBase* sBase, const RelAbsVector& y) {
+const bool isValidGeometricShapeBasePoint2Y(const RelAbsVector& y, SBase* sBase) {
     return true;
 }
 
-const bool isValidGeometricShapeHref(SBase* sBase, const std::string& href) {
+const bool isValidGeometricShapeHref(const std::string& href, SBase* sBase) {
     return true;
 }
 
-const bool isValidRelAbsVectorPositiveValue(SBase* sBase, const RelAbsVector& relAbsVectorValue) {
-    if (isValidRelAbsVectorValue(sBase, relAbsVectorValue) && relAbsVectorValue.getAbsoluteValue() >= 0.000)
+const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValue, SBase* sBase) {
+    if (isValidRelAbsVectorValue(relAbsVectorValue, sBase) && relAbsVectorValue.getAbsoluteValue() >= 0.000)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
     return false;
 }
 
-const bool isValidRelAbsVectorValue(SBase* sBase, const RelAbsVector& relAbsVectorValue) {
-    if (isValidDoubleValue(sBase, relAbsVectorValue.getAbsoluteValue()) && isValidDoubleValue(sBase, relAbsVectorValue.getRelativeValue()))
+const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase* sBase) {
+    if (isValidDoubleValue(relAbsVectorValue.getAbsoluteValue(), sBase) && isValidDoubleValue(relAbsVectorValue.getRelativeValue(), sBase))
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
     return false;
 }
 
-const bool isValidRelAbsVectorRelativeValue(SBase* sBase, const double& relativeValue) {
-    if (isValidDoubleValue(sBase, relativeValue) && relativeValue >= 0.0 && relativeValue <= 100.0)
+const bool isValidRelAbsVectorRelativeValue(const double& relativeValue, SBase* sBase) {
+    if (isValidDoubleValue(relativeValue, sBase) && relativeValue >= 0.0 && relativeValue <= 100.0)
         return true;
     addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
     return false;
