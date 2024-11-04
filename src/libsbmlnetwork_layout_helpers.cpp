@@ -1568,7 +1568,7 @@ int setCurveMiddlePositionY(Curve* curve, const double& y) {
 }
 
 void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes) {
-    if (isValidAlignment(layout, alignment)) {
+    if (isValidAlignment(alignment, layout)) {
         if (stringCompare(alignment, "top"))
             alignGraphicalObjectsToTop(layout, graphicalObjects, ignoreLockedNodes);
         else if (stringCompare(alignment, "vCenter"))
@@ -1736,7 +1736,7 @@ void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject
 }
 
 void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing) {
-    if (isValidDistributionDirection(layout, direction)) {
+    if (isValidDistributionDirection(direction, layout)) {
         if (stringCompare(direction, "horizontal"))
             distributeGraphicalObjectsHorizontally(layout, graphicalObjects, spacing);
         else if (stringCompare(direction, "vertical"))
@@ -1931,21 +1931,21 @@ const double getAliasReactionGlyphPadding() {
     return 30.0;
 }
 
-const bool isValidLayoutDimensionWidthValue(SBase* sBase, const double& width) {
-    if (isValidDimensionValue(sBase, width) && width > 6 * getDefaultAutoLayoutPadding())
+const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase) {
+    if (isValidDimensionValue(width, sBase) && width > 6 * getDefaultAutoLayoutPadding())
         return true;
 
     return false;
 }
 
-const bool isValidLayoutDimensionHeightValue(SBase* sBase, const double& height) {
-    if (isValidDimensionValue(sBase, height) && height > 6 * getDefaultAutoLayoutPadding())
+const bool isValidLayoutDimensionHeightValue(const double& height, SBase* sBase) {
+    if (isValidDimensionValue(height, sBase) && height > 6 * getDefaultAutoLayoutPadding())
         return true;
 
     return false;
 }
 
-const bool isValidRoleValue(SBase* sBase, const std::string& role) {
+const bool isValidRoleValue(const std::string& role, SBase* sBase) {
     if (isValueValid(role, getValidRoleValues()))
         return true;
 
@@ -1953,63 +1953,63 @@ const bool isValidRoleValue(SBase* sBase, const std::string& role) {
     return false;
 }
 
-const bool isValidBoundingBoxXValue(SBase* sBase, const double& x) {
-    return isValidDoubleValue(sBase, x);
+const bool isValidBoundingBoxXValue(const double& x, SBase* sBase) {
+    return isValidDoubleValue(x, sBase);
 }
 
-const bool isValidBoundingBoxYValue(SBase* sBase, const double& y) {
-    return isValidDoubleValue(sBase, y);
+const bool isValidBoundingBoxYValue(const double& y, SBase* sBase) {
+    return isValidDoubleValue(y, sBase);
 }
 
-const bool isValidBoundingBoxWidthValue(SBase* sBase, const double& width) {
-    return isValidDimensionValue(sBase, width);
+const bool isValidBoundingBoxWidthValue(const double& width, SBase* sBase) {
+    return isValidDimensionValue(width, sBase);
 }
 
-const bool isValidBoundingBoxHeightValue(SBase* sBase, const double& height) {
-    return isValidDimensionValue(sBase, height);
+const bool isValidBoundingBoxHeightValue(const double& height, SBase* sBase) {
+    return isValidDimensionValue(height, sBase);
 }
 
-const bool isValidCurveSegmentStartPointXValue(SBase* sBase, const double& x) {
-    return isValidDoubleValue(sBase, x);
+const bool isValidCurveSegmentStartPointXValue(const double& x, SBase* sBase) {
+    return isValidDoubleValue(x, sBase);
 }
 
-const bool isValidCurveSegmentStartPointYValue(SBase* sBase, const double& y) {
-    return isValidDoubleValue(sBase, y);
+const bool isValidCurveSegmentStartPointYValue(const double& y, SBase* sBase) {
+    return isValidDoubleValue(y, sBase);
 }
 
-const bool isValidCurveSegmentEndPointXValue(SBase* sBase, const double& x) {
-    return isValidDoubleValue(sBase, x);
+const bool isValidCurveSegmentEndPointXValue(const double& x, SBase* sBase) {
+    return isValidDoubleValue(x, sBase);
 }
 
-const bool isValidCurveSegmentEndPointYValue(SBase* sBase, const double& y) {
-    return isValidDoubleValue(sBase, y);
+const bool isValidCurveSegmentEndPointYValue(const double& y, SBase* sBase) {
+    return isValidDoubleValue(y, sBase);
 }
 
-const bool isValidCurveSegmentBasePoint1XValue(SBase* sBase, const double& x) {
-    return isValidDoubleValue(sBase, x);
+const bool isValidCurveSegmentBasePoint1XValue(const double& x, SBase* sBase) {
+    return isValidDoubleValue(x, sBase);
 }
 
-const bool isValidCurveSegmentBasePoint1YValue(SBase* sBase, const double& y) {
-    return isValidDoubleValue(sBase, y);
+const bool isValidCurveSegmentBasePoint1YValue(const double& y, SBase* sBase) {
+    return isValidDoubleValue(y, sBase);
 }
 
-const bool isValidCurveSegmentBasePoint2XValue(SBase* sBase, const double& x) {
-    return isValidDoubleValue(sBase, x);
+const bool isValidCurveSegmentBasePoint2XValue(const double& x, SBase* sBase) {
+    return isValidDoubleValue(x, sBase);
 }
 
-const bool isValidCurveSegmentBasePoint2YValue(SBase* sBase, const double& y) {
-    return isValidDoubleValue(sBase, y);
+const bool isValidCurveSegmentBasePoint2YValue(const double& y, SBase* sBase) {
+    return isValidDoubleValue(y, sBase);
 }
 
-const bool isValidDimensionValue(SBase* sBase, const double& dimensionValue) {
-    if (isValidDoubleValue(sBase, dimensionValue) && dimensionValue > 0.000)
+const bool isValidDimensionValue(const double& dimensionValue, SBase* sBase) {
+    if (isValidDoubleValue(dimensionValue, sBase) && dimensionValue > 0.000)
         return true;
 
     addErrorToLog(sBase, "A dimension value must be greater than 0");
     return false;
 }
 
-const bool isValidDoubleValue(SBase* sBase, const double& doubleValue) {
+const bool isValidDoubleValue(const double& doubleValue, SBase* sBase) {
     if (!std::isnan(doubleValue) && !std::isinf(doubleValue))
         return true;
 
@@ -2017,7 +2017,7 @@ const bool isValidDoubleValue(SBase* sBase, const double& doubleValue) {
     return false;
 }
 
-const bool isValidAlignment(SBase* sBase, const std::string& alignment) {
+const bool isValidAlignment(const std::string& alignment, SBase* sBase) {
     if (isValueValid(alignment, getValidAlignmentValues()))
         return true;
 
@@ -2025,7 +2025,7 @@ const bool isValidAlignment(SBase* sBase, const std::string& alignment) {
     return false;
 }
 
-const bool isValidDistributionDirection(SBase* sBase, const std::string& direction) {
+const bool isValidDistributionDirection(const std::string& direction, SBase* sBase) {
     if (isValueValid(direction, getValidDistributionDirectionValues()))
         return true;
 

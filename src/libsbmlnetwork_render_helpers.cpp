@@ -1487,7 +1487,7 @@ const bool isValidStrokeColorValue(const std::string& stroke, SBase* sBase) {
 }
 
 const bool isValidStrokeWidthValue(const double& strokeWidth, SBase* sBase) {
-    if (isValidDoubleValue(sBase, strokeWidth) && strokeWidth > 0.0001)
+    if (isValidDoubleValue(strokeWidth, sBase) && strokeWidth > 0.0001)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
@@ -1504,7 +1504,7 @@ const bool isValidStrokeDashArrayValue(const std::vector<unsigned int>& strokeDa
 }
 
 const bool isValidStrokeDashValue(const unsigned int& dash, SBase* sBase) {
-    if (isValidDoubleValue(sBase, dash) && dash > 0.000)
+    if (isValidDoubleValue(dash, sBase) && dash > 0.000)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
@@ -1608,7 +1608,7 @@ const bool isValidGeometricShapeHeightValue(const RelAbsVector& height, SBase* s
 }
 
 const bool isValidGeometricShapeRatioValue(const double& ratio, SBase* sBase) {
-    if (isValidDoubleValue(sBase, ratio) && ratio > 0.0001)
+    if (isValidDoubleValue(ratio, sBase) && ratio > 0.0001)
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
@@ -1676,7 +1676,7 @@ const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValu
 }
 
 const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase* sBase) {
-    if (isValidDoubleValue(sBase, relAbsVectorValue.getAbsoluteValue()) && isValidDoubleValue(sBase, relAbsVectorValue.getRelativeValue()))
+    if (isValidDoubleValue(relAbsVectorValue.getAbsoluteValue(), sBase) && isValidDoubleValue(relAbsVectorValue.getRelativeValue(), sBase))
         return true;
 
     addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
@@ -1684,7 +1684,7 @@ const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase
 }
 
 const bool isValidRelAbsVectorRelativeValue(const double& relativeValue, SBase* sBase) {
-    if (isValidDoubleValue(sBase, relativeValue) && relativeValue >= 0.0 && relativeValue <= 100.0)
+    if (isValidDoubleValue(relativeValue, sBase) && relativeValue >= 0.0 && relativeValue <= 100.0)
         return true;
     addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
     return false;

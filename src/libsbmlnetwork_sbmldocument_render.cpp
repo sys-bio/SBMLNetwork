@@ -4133,7 +4133,7 @@ const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layou
     for (unsigned int renderIndex = 0; renderIndex < getNumLocalRenderInformation(document, layoutIndex); renderIndex++) {
         for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getLocalRenderInformation(document, layoutIndex, renderIndex)); lineEndingIndex++) {
             double strokeWidth = getLineEndingStrokeWidth(document, renderIndex, getLineEnding(getLocalRenderInformation(document, layoutIndex, renderIndex), lineEndingIndex)->getId());
-            if (isValidDoubleValue(document, strokeWidth))
+            if (isValidDoubleValue(strokeWidth, document))
                 lineEndingStrokeWidths.push_back(strokeWidth);
         }
     }
@@ -4141,7 +4141,7 @@ const double getLineEndingStrokeWidth(SBMLDocument* document, unsigned int layou
         for (unsigned int renderIndex = 0; renderIndex < getNumGlobalRenderInformation(document); renderIndex++) {
             for (unsigned int lineEndingIndex = 0; lineEndingIndex < getNumLineEndings(getGlobalRenderInformation(document, renderIndex)); lineEndingIndex++) {
                 double strokeWidth = getLineEndingStrokeWidth(document, renderIndex, getLineEnding(getGlobalRenderInformation(document, renderIndex), lineEndingIndex)->getId());
-                if (isValidDoubleValue(document, strokeWidth))
+                if (isValidDoubleValue(strokeWidth, document))
                     lineEndingStrokeWidths.push_back(strokeWidth);
             }
         }

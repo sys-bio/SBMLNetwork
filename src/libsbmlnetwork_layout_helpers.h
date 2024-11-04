@@ -386,43 +386,43 @@ const double getAliasSpeciesGlyphPadding();
 
 const double getAliasReactionGlyphPadding();
 
-const bool isValidLayoutDimensionWidthValue(SBase* sBase, const double& width);
+const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase = NULL);
 
-const bool isValidLayoutDimensionHeightValue(SBase* sBase, const double& height);
+const bool isValidLayoutDimensionHeightValue(const double& height, SBase* sBase = NULL);
 
-const bool isValidRoleValue(SBase* sBase, const std::string& role);
+const bool isValidRoleValue(const std::string& role, SBase* sBase = NULL);
 
-const bool isValidBoundingBoxXValue(SBase* sBase, const double& x);
+const bool isValidBoundingBoxXValue(const double& x, SBase* sBase = NULL);
 
-const bool isValidBoundingBoxYValue(SBase* sBase, const double& y);
+const bool isValidBoundingBoxYValue(const double& y, SBase* sBase = NULL);
 
-const bool isValidBoundingBoxWidthValue(SBase* sBase, const double& width);
+const bool isValidBoundingBoxWidthValue(const double& width, SBase* sBase = NULL);
 
-const bool isValidBoundingBoxHeightValue(SBase* sBase, const double& height);
+const bool isValidBoundingBoxHeightValue(const double& height, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentStartPointXValue(SBase* sBase, const double& x);
+const bool isValidCurveSegmentStartPointXValue(const double& x, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentStartPointYValue(SBase* sBase, const double& y);
+const bool isValidCurveSegmentStartPointYValue(const double& y, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentEndPointXValue(SBase* sBase, const double& x);
+const bool isValidCurveSegmentEndPointXValue(const double& x, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentEndPointYValue(SBase* sBase, const double& y);
+const bool isValidCurveSegmentEndPointYValue(const double& y, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentBasePoint1XValue(SBase* sBase, const double& x);
+const bool isValidCurveSegmentBasePoint1XValue(const double& x, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentBasePoint1YValue(SBase* sBase, const double& y);
+const bool isValidCurveSegmentBasePoint1YValue(const double& y, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentBasePoint2XValue(SBase* sBase, const double& x);
+const bool isValidCurveSegmentBasePoint2XValue(const double& x, SBase* sBase = NULL);
 
-const bool isValidCurveSegmentBasePoint2YValue(SBase* sBase, const double& y);
+const bool isValidCurveSegmentBasePoint2YValue(const double& y, SBase* sBase = NULL);
 
-const bool isValidDimensionValue(SBase* sBase, const double& dimension);
+const bool isValidDimensionValue(const double& dimension, SBase* sBase = NULL);
 
-const bool isValidDoubleValue(SBase* sBase, const double& value);
+const bool isValidDoubleValue(const double& value, SBase* sBase = NULL);
 
-const bool isValidAlignment(SBase* sBase, const std::string& alignment);
+const bool isValidAlignment(const std::string& alignment, SBase* sBase = NULL);
 
-const bool isValidDistributionDirection(SBase* sBase, const std::string& direction);
+const bool isValidDistributionDirection(const std::string& direction, SBase* sBase = NULL);
 
 std::vector<std::string> getValidRoleValues();
 
