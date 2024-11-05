@@ -2422,6 +2422,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return setGeometricShapeType(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
     }
 
+    const char* c_api_getGeometricShapeId(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getGeometricShapeId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex).c_str());
+    }
+
+    int c_api_setGeometricShapeId(SBMLDocument* document, const char* id, const char* geometricShapeId, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return setGeometricShapeId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, geometricShapeId);
+    }
+
     const char* c_api_getCompartmentsGeometricShapeType(SBMLDocument* document) {
         return strdup(getCompartmentGeometricShapeType(document).c_str());
     }

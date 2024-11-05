@@ -4765,6 +4765,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeType(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the id of the geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the geometric shape of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getGeometricShapesId(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the id of the geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeId a string value indicating the id of the geometric shape to be set.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapesId(SBMLDocument* document, const char* id, const char* geometricShapeId, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param shape a string value indicating the shape of the geometric shape to be set.

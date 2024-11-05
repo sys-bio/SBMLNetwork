@@ -5853,6 +5853,64 @@ int removeGeometricShape(SBMLDocument* document, const std::string& attribute, u
     return -1;
 }
 
+const std::string getGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return getGeometricShapeId(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return "";
+}
+
+const std::string getGeometricShapeId(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return getGeometricShapeId(getStyle(document, attribute), geometricShapeIndex);
+
+    return "";
+}
+
+int setGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& id) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeId(style, id);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& id) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeId(style, geometricShapeIndex, id);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeId(SBMLDocument* document, const std::string& attribute, const std::string& id) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeId(style, id);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeId(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& id) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeId(style, geometricShapeIndex, id);
+    }
+
+    return -1;
+}
+
 const std::string getGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     if (canHaveGeometricShape(graphicalObject))
         return getGeometricShapeType(getStyle(document, graphicalObject), geometricShapeIndex);

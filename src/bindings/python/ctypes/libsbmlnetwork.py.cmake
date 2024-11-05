@@ -9145,6 +9145,42 @@ class LibSBMLNetwork:
         """
         return lib.c_api_removeGeometricShape(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
+    def getGeometricShapeId(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Returns the id of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+        """
+        lib.c_api_getGeometricShapeId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGeometricShapeId(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)).value.decode()
+
+    def setGeometricShapeId(self, id, geometric_shape_id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
+        """
+        Sets the id of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - geometric_shape_id (string): a string that determines the id of the GeometricShape object to be added to the model entity
+            - geometric_shape_index (int, optional): an integer (default: 0) that determines the index of the GeometricShape object associated with the model entity with the given id in the given SBMLDocument
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the id of the GeometricShape object could not be set
+            """
+        return lib.c_api_setGeometricShapeId(self.sbml_object, str(id).encode(), str(geometric_shape_id).encode(), geometric_shape_index, graphical_object_index, layout_index)
+
     def getGeometricShapeType(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
         """
         Returns the type of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument
