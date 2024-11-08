@@ -5836,7 +5836,12 @@ int removeGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObjec
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return removeGeometricShape(style, geometricShapeIndex);
+        if (!removeGeometricShape(style, geometricShapeIndex)) {
+            if (getNumGeometricShapes(style) == 0 && isReactionGlyph(graphicalObject))
+                setReactionGlyphCurve((ReactionGlyph*) graphicalObject);
+
+            return 0;
+        }
     }
 
     return -1;
@@ -5926,7 +5931,7 @@ const std::string getGeometricShapeType(SBMLDocument* document, const std::strin
 }
 
 int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
-    if (canHaveGeometricShape(graphicalObject)) {
+    if (canPotentiallyHaveGeometricShape(graphicalObject)) {
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
@@ -5944,7 +5949,7 @@ int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObje
 }
 
 int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
-    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+    if (canPotentiallyHaveGeometricShape(getGraphicalObject(document, attribute))) {
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);

@@ -1181,7 +1181,14 @@ const bool canHaveEndHead(GraphicalObject* graphicalObject) {
 }
 
 const bool canHaveGeometricShape(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !isSetCurve(graphicalObject)))
+        return true;
+
+    return false;
+}
+
+const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || isReactionGlyph(graphicalObject))
         return true;
 
     return false;

@@ -224,13 +224,13 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph,
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
+int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
-void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
 
 void addCurveSegment(Curve* curve, LineSegment* referenceLineSegment, const double& padding);
 
-void setCurveCubicBezier(Curve* curve);
+void setCurveCubicBezier(Curve* curve, const double& x = 0.0, const double& y = 0.0);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);
 
