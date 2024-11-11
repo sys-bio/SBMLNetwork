@@ -490,13 +490,17 @@ class LibSBMLNetwork:
         """
         return lib.c_api_makeSpeciesGlyphVisible(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), visible, reaction_glyph_index, layout_index)
 
-    def makeSpeciesGlyphsVisible(self, species_ids=None, visible=True, layout_index=0):
+    def makeSpeciesGlyphsVisible(self, species=None, visible=True, layout_index=0):
         """
         Makes the SpeciesGlyphs of Species with the given species_ids in the Layout object with the given index in the given SBMLDocument visible or invisible
 
         :Parameters:
 
-            - species_ids (list of strings): a list of strings that determines the ids of the Species
+            - species = (list of lists or list of strings, optional): a list (default: None) that determines the list of Species. The list contains:
+                - a list of lists where each list includes:
+                    - 'id' (str): the ID of the Species
+                    - 'reaction_id' (str): the ID of the Reaction
+                    - 'reaction_glyph_index' (int, optional): the index (default: 0) of the ReactionGlyph in the given SBMLDocument
             - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyphs visible or invisible
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
@@ -504,15 +508,26 @@ class LibSBMLNetwork:
 
             true on success and false if the SpeciesGlyphs could not be hidden
         """
-        species_ids_ptr = None
-        species_ids_len = 0
-        if species_ids is not None:
-            species_ids_len = len(species_ids)
-            species_ids_ptr = (ctypes.c_char_p * len(species_ids))()
-            for i in range(len(species_ids)):
-                species_ids_ptr[i] = ctypes.c_char_p(species_ids[i].encode())
+        species_ptr = None
+        if species is not None:
+            species_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(species))()
+            for i in range(len(species)):
+                a_species_ptr = (ctypes.c_char_p * 3)()
+                if isinstance(species[i], list):
+                    if len(species[i]) == 3:
+                        print(species[i])
+                        a_species_ptr[0] = ctypes.c_char_p(str(species[i][0]).encode())
+                        a_species_ptr[1] = ctypes.c_char_p(str(species[i][1]).encode())
+                        a_species_ptr[2] = ctypes.c_char_p(str(species[i][2]).encode())
+                    elif len(species[i]) == 2:
+                        a_species_ptr[0] = ctypes.c_char_p(str(species[i][0]).encode())
+                        a_species_ptr[1] = ctypes.c_char_p(str(species[i][1]).encode())
+                        a_species_ptr[2] = ctypes.c_char_p(str(0).encode())
+                else:
+                    raise Exception("The species parameter should be a list of lists with species id, reaction id, and reaction glyph index or a list of lists with species id and reaction id.")
+                species_ptr[i] = a_species_ptr
 
-        return lib.c_api_makeSpeciesGlyphsVisible(self.sbml_object, species_ids_ptr, species_ids_len, visible, layout_index)
+        return lib.c_api_makeSpeciesGlyphsVisible(self.sbml_object, species_ptr, len(species_ptr), visible, layout_index)
 
     def getCanvasWidth(self, layout_index=0):
         """

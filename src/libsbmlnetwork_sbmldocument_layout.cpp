@@ -190,9 +190,9 @@ int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, co
     return -1;
 }
 
-int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::string>& speciesIds, bool visible) {
+int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible) {
     if (document && document->isSetModel()) {
-        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), speciesIds, visible))
+        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), species, visible))
             return setDefaultLayoutLocations(document, getLayout(document));
     }
 
@@ -200,9 +200,9 @@ int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::string>
     return -1;
 }
 
-int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::string>& speciesIds, bool visible) {
+int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible) {
     if (document && document->isSetModel()) {
-        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), speciesIds, visible))
+        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), species, visible))
             return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
     }
 

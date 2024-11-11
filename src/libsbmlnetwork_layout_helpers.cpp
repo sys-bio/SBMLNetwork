@@ -655,16 +655,11 @@ int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string specie
     return -1;
 }
 
-int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::string> speciesIds, bool visible) {
-    if (!speciesIds.size()) {
-        for (unsigned int i = 0; i < model->getNumSpecies(); i++)
-            speciesIds.insert(model->getSpecies(i)->getId());
+int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::tuple<std::string, std::string, int> > species, bool visible) {
+    for (std::set<std::tuple<std::string, std::string, int> >::const_iterator speciesIt = species.cbegin(); speciesIt != species.cend(); speciesIt++) {
+        if (makeSpeciesGlyphVisible(getReactionGlyph(layout, std::get<1>(*speciesIt), std::get<2>(*speciesIt)), std::get<0>(*speciesIt), visible))
+            return -1;
     }
-
-    if (!visible)
-        hideSpeciesGlyphs(layout, speciesIds);
-    else
-        unHideSpeciesGlyphs(layout, speciesIds);
 
     return 0;
 }
@@ -674,28 +669,6 @@ int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string spec
         return hideSpeciesGlyph(reactionGlyph, speciesId);
     else
         return unHideSpeciesGlyph(reactionGlyph, speciesId);
-}
-
-int hideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds) {
-    for (std::set<std::string>::const_iterator speciesIdsIt = speciesIds.cbegin(); speciesIdsIt != speciesIds.cend(); speciesIdsIt++) {
-        if (hideSpeciesGlyph(layout, *speciesIdsIt))
-            return -1;
-    }
-
-    return 0;
-}
-
-int unHideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds) {
-    for (std::set<std::string>::const_iterator speciesIdsIt = speciesIds.cbegin(); speciesIdsIt != speciesIds.cend(); speciesIdsIt++) {
-        if (unHideSpeciesGlyph(layout, *speciesIdsIt))
-            return -1;
-        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
-            makeSpeciesGlyphVisible(reactionGlyph, *speciesIdsIt, true);
-        }
-    }
-
-    return 0;
 }
 
 int hideSpeciesGlyph(SBase* sBase, const std::string speciesId) {

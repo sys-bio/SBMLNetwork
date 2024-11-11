@@ -163,12 +163,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Hide the SpeciesGlyphs with the given species Ids in the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param speciesIds an array of strings containing the ids of the species to hide the SpeciesGlyphs for.
+    /// @param species an array of strings containing the ids of the species, ids of the reactions, and the indices of the reaction glyphs that the species are participants of.
     /// @param speciesIdsSize the size of speciesIds
     /// @param visible a boolean value to determine whether make SpeciesGlyph visible or invisible.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char** speciesIds, const int speciesIdsSize, bool visible = true, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char ***species, const int speciesSize, const bool visible, int layoutIndex);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
