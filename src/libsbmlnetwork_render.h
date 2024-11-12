@@ -2895,6 +2895,34 @@ LIBSBMLNETWORK_EXTERN int removeGeometricShape(RenderGroup* renderGroup, unsigne
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int addGeometricShape(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& shape);
 
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeId(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeId(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeId(Style* style, unsigned int geometricShapeIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeId(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0);
+
+LIBSBMLNETWORK_EXTERN const std::string getGeometricShapeId(Transformation2D* shape);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(Style* style, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(Style* style, unsigned int geometricShapeIndex, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(RenderGroup* renderGroup, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& id);
+
+LIBSBMLNETWORK_EXTERN int setGeometricShapeId(Transformation2D* shape, const std::string& id);
+
 /// @brief Returns the geometric shape as a string based on the RenderInformationBase and GraphicalObject.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

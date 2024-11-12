@@ -138,12 +138,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return makeSpeciesGlyphVisible(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, visible);
     }
 
-    int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char** speciesIds, const int speciesIdsSize, const bool visible, int layoutIndex) {
-        std::set<std::string> speciesIdsSet = std::set<std::string>();
-        for (int i = 0; i < speciesIdsSize; i++)
-            speciesIdsSet.insert(speciesIds[i]);
+    int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char ***species, const int speciesSize, const bool visible, int layoutIndex) {
+        std::set<std::tuple<std::string, std::string, int> > speciesSet = std::set<std::tuple<std::string, std::string, int> >();
+        if (species) {
+            for (int i = 0; i < speciesSize; i++) {
+                const char **aSpecies = species[i];
+                const char *speciesId = aSpecies[0];
+                const char *reactionId = aSpecies[1];
+                int reactionGlyphIndex = atoi(aSpecies[2]);
+                speciesSet.insert(std::make_tuple(speciesId, reactionId, reactionGlyphIndex));
+            }
+        }
 
-        return makeSpeciesGlyphsVisible(document, layoutIndex, speciesIdsSet, visible);
+        return makeSpeciesGlyphsVisible(document, layoutIndex, speciesSet, visible);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {
@@ -2420,6 +2427,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setGeometricShapeType(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex, int layoutIndex) {
         return setGeometricShapeType(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), shape);
+    }
+
+    const char* c_api_getGeometricShapeId(SBMLDocument* document, const char* id, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getGeometricShapeId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex).c_str());
+    }
+
+    int c_api_setGeometricShapeId(SBMLDocument* document, const char* id, const char* geometricShapeId, int geometricShapeIndex, int graphicalObjectIndex, int layoutIndex) {
+        return setGeometricShapeId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), geometricShapeIndex, geometricShapeId);
     }
 
     const char* c_api_getCompartmentsGeometricShapeType(SBMLDocument* document) {

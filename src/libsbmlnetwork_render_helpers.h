@@ -281,6 +281,8 @@ const bool canHaveEndHead(GraphicalObject* graphicalObject);
 
 const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
 
+const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject);
+
 std::string getErrorLog(RenderInformationBase* renderInformation);
 
 std::string getErrorLog(ColorDefinition* colorDefinition);

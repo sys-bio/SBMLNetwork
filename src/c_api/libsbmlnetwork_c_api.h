@@ -163,12 +163,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     /// @brief Hide the SpeciesGlyphs with the given species Ids in the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param speciesIds an array of strings containing the ids of the species to hide the SpeciesGlyphs for.
+    /// @param species an array of strings containing the ids of the species, ids of the reactions, and the indices of the reaction glyphs that the species are participants of.
     /// @param speciesIdsSize the size of speciesIds
     /// @param visible a boolean value to determine whether make SpeciesGlyph visible or invisible.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char** speciesIds, const int speciesIdsSize, bool visible = true, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char ***species, const int speciesSize, const bool visible, int layoutIndex);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.
@@ -4764,6 +4764,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapeType(SBMLDocument* document, const char* id, const char* shape, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Returns the id of the geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the geometric shape of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getGeometricShapesId(SBMLDocument* document, const char* id, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Sets the id of the geometric shape of the RenderGroup of the Style that matches this id of model entity associated with GraphicalObject.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of a model entity.
+    /// @param geometricShapeId a string value indicating the id of the geometric shape to be set.
+    /// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+    /// @param graphicalObjectIndex the index of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapesId(SBMLDocument* document, const char* id, const char* geometricShapeId, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.

@@ -7996,6 +7996,50 @@ LIBSBMLNETWORK_EXTERN int removeGeometricShape(SBMLDocument* document, Graphical
 /// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
 LIBSBMLNETWORK_EXTERN int removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
+/// @brief Returns the ID of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the ID of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+const std::string getGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value the ID of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the ID of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject, or @c "" if the object is @c NULL
+const std::string getGeometricShapeId(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex);
+
+/// @brief Sets the ID of the first geometric shape of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param id the value to be set as the id of the geometric shape.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& id);
+
+/// @brief Sets the ID of the geometric shape with the given index of the RenderGroup of the Style for this GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @param id the value to be set as the id of the geometric shape.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& id);
+
+/// @brief Sets the ID of the first geometric shape of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param id the value to be set as the id of the geometric shape.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeId(SBMLDocument* document, const std::string& attribute, const std::string& id);
+
+/// @brief Sets the ID of the geometric shape with the given index of the RenderGroup of the Style that matches this attribute (id, role, type) of a GraphicalObject.
+/// @param document a pointer to the SBMLDocument object.
+/// @param attribute the attribute (id, role, type) of a GraphicalObject.
+/// @param id the value to be set as the id of the geometric shape.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+int setGeometricShapeId(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& id);
+
 /// @brief Returns the value the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

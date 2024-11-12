@@ -3345,6 +3345,70 @@ int removeGeometricShape(RenderGroup* renderGroup, unsigned int geometricShapeIn
     return -1;
 }
 
+const std::string getGeometricShapeId(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    return getGeometricShapeId(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeId(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex ) {
+    return getGeometricShapeId(getStyle(renderInformationBase, attribute), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeId(Style* style, unsigned int geometricShapeIndex) {
+    return getGeometricShapeId(getRenderGroup(style), geometricShapeIndex);
+}
+
+const std::string getGeometricShapeId(RenderGroup* renderGroup, unsigned int geometricShapeIndex) {
+    return getGeometricShapeId(getGeometricShape(renderGroup, geometricShapeIndex));
+}
+
+const std::string getGeometricShapeId(Transformation2D* shape) {
+    if (shape)
+        return shape->getId();
+
+    return "";
+}
+
+int setGeometricShapeId(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, const std::string& id) {
+    return setGeometricShapeId(getStyle(renderInformationBase, graphicalObject), id);
+}
+
+int setGeometricShapeId(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& id) {
+    return setGeometricShapeId(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex, id);
+}
+
+int setGeometricShapeId(RenderInformationBase* renderInformationBase, const std::string& attribute, const std::string& id) {
+    return setGeometricShapeId(getStyle(renderInformationBase, attribute), id);
+}
+
+int setGeometricShapeId(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& id) {
+    return setGeometricShapeId(getStyle(renderInformationBase, attribute), geometricShapeIndex, id);
+}
+
+int setGeometricShapeId(Style* style, const std::string& id) {
+    return setGeometricShapeId(getRenderGroup(style), id);
+}
+
+int setGeometricShapeId(Style* style, unsigned int geometricShapeIndex, const std::string& id) {
+    return setGeometricShapeId(getRenderGroup(style), geometricShapeIndex, id);
+}
+
+int setGeometricShapeId(RenderGroup* renderGroup, const std::string& id) {
+    return setGeometricShapeId(getGeometricShape(renderGroup), id);
+}
+
+int setGeometricShapeId(RenderGroup* renderGroup, unsigned int geometricShapeIndex, const std::string& id) {
+    return setGeometricShapeId(getGeometricShape(renderGroup, geometricShapeIndex), id);
+}
+
+int setGeometricShapeId(Transformation2D* shape, const std::string& id) {
+    if (shape) {
+        shape->setId(id);
+        return 0;
+    }
+
+    return -1;
+}
+
 const std::string getGeometricShapeType(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
     return getGeometricShapeType(getStyle(renderInformationBase, graphicalObject), geometricShapeIndex);
 }

@@ -167,18 +167,18 @@ LIBSBMLNETWORK_EXTERN int makeSpeciesGlyphVisible(SBMLDocument* document, unsign
 
 /// @brief Makes the Species Glyph with the given species Id which is a participant of the reaction with the given Id and index in the first Layout object in the ListOfLayouts of the SBML document visible or invisible.
 /// @param document a pointer to the SBMLDocument object.
-/// @param speciesIds a set of the ids of the Species to hide/show.
+/// @param species a set of tuples of the ids of the Species, the id of the Reaction, and the index of the ReactionGlyph object to hide/show the SpeciesGlyph for.
 /// @param visible a boolean value to determine whether to make the SpeciesGlyph visible or invisible.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::string>& speciesIds, bool visible);
+LIBSBMLNETWORK_EXTERN int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible);
 
 /// @brief Makes the Species Glyph with the given species Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the ListOfLayouts of the SBML document visible or invisible.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @param speciesIds a set of the ids of the Species to hide/show.
+/// @param species a set of tuples of the ids of the Species, the id of the Reaction, and the index of the ReactionGlyph object to hide/show the SpeciesGlyph for.
 /// @param visible a boolean value to determine whether to make the SpeciesGlyph visible or invisible.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::string>& speciesIds, bool visible);
+LIBSBMLNETWORK_EXTERN int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible);
 
 /// @brief Returns the Dimensions object of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.

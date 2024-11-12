@@ -136,13 +136,9 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& speciesId, cons
 
 int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph, const unsigned int index);
 
-int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::string> speciesIds, bool visible = true);
+int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::tuple<std::string, std::string, int> > species, bool visible = true);
 
 int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string speciesId, bool visible = true);
-
-int hideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds);
-
-int unHideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds);
 
 int hideSpeciesGlyph(SBase* sBase, const std::string speciesId);
 
@@ -224,13 +220,13 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph,
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
+int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
-void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
+void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
 
 void addCurveSegment(Curve* curve, LineSegment* referenceLineSegment, const double& padding);
 
-void setCurveCubicBezier(Curve* curve);
+void setCurveCubicBezier(Curve* curve, const double& x = 0.0, const double& y = 0.0);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);
 
