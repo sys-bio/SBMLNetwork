@@ -1131,10 +1131,8 @@ Curve* getCurve(GraphicalObject* graphicalObject) {
 }
 
 int removeCurve(GraphicalObject* graphicalObject) {
-    if (isReactionGlyph(graphicalObject)) {
-        removeReactionGlyphCurve((ReactionGlyph *) graphicalObject);
-        return 0;
-    }
+    if (isReactionGlyph(graphicalObject))
+        return removeReactionGlyphCurve((ReactionGlyph*)graphicalObject);
 
     return -1;
 }

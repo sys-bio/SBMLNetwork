@@ -50,15 +50,15 @@ void setSpeciesGlyphDimensions(Model *model, SpeciesGlyph* speciesGlyph);
 
 void initializeCompartmentGlyphExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
 
-void updateCompartmentExtents(Model *model, Layout *layout);
+void updateCompartmentsExtents(Model *model, Layout *layout);
 
-void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layout);
+void updateCompartmentsExtentsUsingTheirElementsExtents(Model *model, Layout *layout);
 
 void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* compartmentGlyphBoundingBox, BoundingBox* speciesGlyphBoundingBox);
 
 void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* compartmentGlyphBoundingBox, Curve* reactionCurve);
 
-void updateCompartmentExtentsUsingItsPresetAttributes(Layout *layout);
+void updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout);
 
 void updateLayoutDimensions(Layout* layout);
 

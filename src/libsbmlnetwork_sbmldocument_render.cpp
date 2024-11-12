@@ -5836,7 +5836,12 @@ int removeGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObjec
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
-        return removeGeometricShape(style, geometricShapeIndex);
+        if (!removeGeometricShape(style, geometricShapeIndex)) {
+            if (getNumGeometricShapes(style) == 0 && isReactionGlyph(graphicalObject))
+                setReactionGlyphCurve((ReactionGlyph*) graphicalObject);
+
+            return 0;
+        }
     }
 
     return -1;
@@ -5848,6 +5853,64 @@ int removeGeometricShape(SBMLDocument* document, const std::string& attribute, u
         if (!style)
             style = createLocalStyle(document, attribute);
         return removeGeometricShape(style, geometricShapeIndex);
+    }
+
+    return -1;
+}
+
+const std::string getGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(graphicalObject))
+        return getGeometricShapeId(getStyle(document, graphicalObject), geometricShapeIndex);
+
+    return "";
+}
+
+const std::string getGeometricShapeId(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute)))
+        return getGeometricShapeId(getStyle(document, attribute), geometricShapeIndex);
+
+    return "";
+}
+
+int setGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& id) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeId(style, id);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeId(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex, const std::string& id) {
+    if (canHaveGeometricShape(graphicalObject)) {
+        Style* style = getLocalStyle(document, graphicalObject);
+        if (!style)
+            style = createLocalStyle(document, graphicalObject);
+        return setGeometricShapeId(style, geometricShapeIndex, id);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeId(SBMLDocument* document, const std::string& attribute, const std::string& id) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeId(style, id);
+    }
+
+    return -1;
+}
+
+int setGeometricShapeId(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex, const std::string& id) {
+    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+        Style* style = getLocalStyle(document, attribute);
+        if (!style)
+            style = createLocalStyle(document, attribute);
+        return setGeometricShapeId(style, geometricShapeIndex, id);
     }
 
     return -1;
@@ -5868,7 +5931,7 @@ const std::string getGeometricShapeType(SBMLDocument* document, const std::strin
 }
 
 int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObject, const std::string& shape) {
-    if (canHaveGeometricShape(graphicalObject)) {
+    if (canPotentiallyHaveGeometricShape(graphicalObject)) {
         Style* style = getLocalStyle(document, graphicalObject);
         if (!style)
             style = createLocalStyle(document, graphicalObject);
@@ -5886,7 +5949,7 @@ int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObje
 }
 
 int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, const std::string& shape) {
-    if (canHaveGeometricShape(getGraphicalObject(document, attribute))) {
+    if (canPotentiallyHaveGeometricShape(getGraphicalObject(document, attribute))) {
         Style* style = getLocalStyle(document, attribute);
         if (!style)
             style = createLocalStyle(document, attribute);

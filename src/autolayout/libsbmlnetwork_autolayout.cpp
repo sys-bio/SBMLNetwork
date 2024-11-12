@@ -28,7 +28,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout);
+    updateCompartmentsExtents(model, layout);
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
     if (!adjustLayoutDimensions(layout)) {
@@ -57,7 +57,7 @@ void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabe
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
-    updateCompartmentExtents(model, layout);
+    updateCompartmentsExtents(model, layout);
     updateLayoutDimensions(layout);
     delete autoLayoutAlgorithm;
 }
@@ -154,8 +154,12 @@ randomizeSpeciesGlyphsLocations(Model *model, Layout *layout, const double &canv
 }
 
 void randomizeReactionGlyphsLocations(Model *model, Layout *layout, const double &canvasWidth, const double &canvasHeight) {
-    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
+    for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (layout->getReactionGlyph(i)->isSetCurve())
+            randomizeCurveCenterPoint(layout->getReactionGlyph(i)->getCurve(), canvasWidth, canvasHeight);
+        else
+            randomizeBoundingBoxesPosition(layout->getReactionGlyph(i)->getBoundingBox(), canvasWidth, canvasHeight);
+    }
 }
 
 void
@@ -189,12 +193,13 @@ initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, Boun
     compartmentGlyphBoundingBox->setHeight(speciesGlyphBoundingBox->height() + 2 * padding);
 }
 
-void updateCompartmentExtents(Model *model, Layout *layout) {
-    updateCompartmentExtentsUsingItsElementsExtents(model, layout);
-    updateCompartmentExtentsUsingItsPresetAttributes(layout);
+void updateCompartmentsExtents(Model *model, Layout *layout) {
+    updateCompartmentsExtentsUsingTheirElementsExtents(model, layout);
+    updateCompartmentsExtentsUsingTheirPresetAttributes(layout);
 }
 
-void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layout) {
+void updateCompartmentsExtentsUsingTheirElementsExtents(Model *model, Layout *layout) {
+    std::vector<std::string> extentsInitializedCompartmentGlyphIds;
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
         Compartment *compartment = findSpeciesGlyphCompartment(model, layout->getSpeciesGlyph(i));
         if (compartment) {
@@ -202,9 +207,13 @@ void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layou
                     layout, compartment->getId());
             for (int j = 0; j < compartmentGlyphs.size(); j++) {
                 CompartmentGlyph *compartmentGlyph = compartmentGlyphs.at(j);
-                if (i == 0)
+                if (std::find(extentsInitializedCompartmentGlyphIds.begin(),
+                              extentsInitializedCompartmentGlyphIds.end(), compartmentGlyph->getId()) ==
+                    extentsInitializedCompartmentGlyphIds.end()) {
                     initializeCompartmentGlyphExtents(compartmentGlyph->getBoundingBox(),
                                                       layout->getSpeciesGlyph(i)->getBoundingBox());
+                    extentsInitializedCompartmentGlyphIds.push_back(compartmentGlyph->getId());
+                }
                 updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
                                          layout->getSpeciesGlyph(i)->getBoundingBox());
             }
@@ -213,9 +222,14 @@ void updateCompartmentExtentsUsingItsElementsExtents(Model *model, Layout *layou
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
         CompartmentGlyph *compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout,
                                                                                 layout->getReactionGlyph(i));
-        if (compartmentGlyph)
-            updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
-                                     layout->getReactionGlyph(i)->getCurve());
+        if (compartmentGlyph) {
+            if (layout->getReactionGlyph(i)->isSetCurve())
+                updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
+                                                                layout->getReactionGlyph(i)->getCurve());
+            else
+                updateCompartmentExtentsUsingItsElementsExtents(compartmentGlyph->getBoundingBox(),
+                                                  layout->getReactionGlyph(i)->getBoundingBox());
+        }
     }
 }
 
@@ -280,7 +294,7 @@ void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGly
     }
 }
 
-void updateCompartmentExtentsUsingItsPresetAttributes(Layout *layout) {
+void updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout) {
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         CompartmentGlyph *compartmentGlyph = layout->getCompartmentGlyph(i);
         if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "locked") == "true") {
@@ -324,7 +338,7 @@ const bool adjustLayoutDimensions(Layout *layout) {
     double widthGap = desiredWidth - layout->getDimensions()->width();
     double desiredHeight = getLayoutDimensionsDesiredHeight(layout);
     double heightGap = desiredHeight - layout->getDimensions()->height();
-    if (widthGap < 0.1 * desiredWidth && heightGap < 0.1 * desiredHeight) {
+    if (widthGap <= 0.1 * desiredWidth && heightGap <= 0.1 * desiredHeight) {
         setLayoutDimensionsDesiredWidth(layout, layout->getDimensions()->width());
         setLayoutDimensionsDesiredHeight(layout, layout->getDimensions()->height());
         return true;
@@ -375,8 +389,12 @@ void extractExtents(Layout *layout, double &maxX, double &maxY) {
         extractExtents(layout->getCompartmentGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
         extractExtents(layout->getSpeciesGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
-    for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        extractExtents(layout->getReactionGlyph(i)->getCurve(), minX, minY, maxX, maxY);
+    for (int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+        if (layout->getReactionGlyph(i)->isSetCurve())
+            extractExtents(layout->getReactionGlyph(i)->getCurve(), minX, minY, maxX, maxY);
+        else
+            extractExtents(layout->getReactionGlyph(i)->getBoundingBox(), minX, minY, maxX, maxY);
+    }
 }
 
 void extractExtents(BoundingBox *boundingBox, double &minX, double &minY, double &maxX, double &maxY) {

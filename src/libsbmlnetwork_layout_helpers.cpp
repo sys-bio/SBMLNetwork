@@ -655,16 +655,11 @@ int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string specie
     return -1;
 }
 
-int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::string> speciesIds, bool visible) {
-    if (!speciesIds.size()) {
-        for (unsigned int i = 0; i < model->getNumSpecies(); i++)
-            speciesIds.insert(model->getSpecies(i)->getId());
+int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::tuple<std::string, std::string, int> > species, bool visible) {
+    for (std::set<std::tuple<std::string, std::string, int> >::const_iterator speciesIt = species.cbegin(); speciesIt != species.cend(); speciesIt++) {
+        if (makeSpeciesGlyphVisible(getReactionGlyph(layout, std::get<1>(*speciesIt), std::get<2>(*speciesIt)), std::get<0>(*speciesIt), visible))
+            return -1;
     }
-
-    if (!visible)
-        hideSpeciesGlyphs(layout, speciesIds);
-    else
-        unHideSpeciesGlyphs(layout, speciesIds);
 
     return 0;
 }
@@ -674,28 +669,6 @@ int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string spec
         return hideSpeciesGlyph(reactionGlyph, speciesId);
     else
         return unHideSpeciesGlyph(reactionGlyph, speciesId);
-}
-
-int hideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds) {
-    for (std::set<std::string>::const_iterator speciesIdsIt = speciesIds.cbegin(); speciesIdsIt != speciesIds.cend(); speciesIdsIt++) {
-        if (hideSpeciesGlyph(layout, *speciesIdsIt))
-            return -1;
-    }
-
-    return 0;
-}
-
-int unHideSpeciesGlyphs(Layout* layout, std::set<std::string> speciesIds) {
-    for (std::set<std::string>::const_iterator speciesIdsIt = speciesIds.cbegin(); speciesIdsIt != speciesIds.cend(); speciesIdsIt++) {
-        if (unHideSpeciesGlyph(layout, *speciesIdsIt))
-            return -1;
-        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
-            makeSpeciesGlyphVisible(reactionGlyph, *speciesIdsIt, true);
-        }
-    }
-
-    return 0;
 }
 
 int hideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
@@ -1095,8 +1068,13 @@ void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject) {
 }
 
 void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
-    if (!reactionGlyph->isSetCurve())
-        setCurveCubicBezier(reactionGlyph->getCurve());
+    if (!reactionGlyph->isSetCurve()) {
+        double x = reactionGlyph->getBoundingBox()->x();
+        double y = reactionGlyph->getBoundingBox()->y();
+        double width = reactionGlyph->getBoundingBox()->width();
+        double height = reactionGlyph->getBoundingBox()->height();
+        setCurveCubicBezier(reactionGlyph->getCurve(), x + 0.5 * width, y + 0.5 * height);
+    }
 }
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph) {
@@ -1114,17 +1092,26 @@ void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph)
         setCurveCubicBezier(speciesReferenceGlyph->getCurve());
 }
 
+int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
+    double x = getPositionX(reactionGlyph);
+    double y = getPositionY(reactionGlyph);
+    double width = getDimensionWidth(reactionGlyph);
+    double height = getDimensionHeight(reactionGlyph);
+    while (reactionGlyph->getCurve()->getNumCurveSegments())
+        reactionGlyph->getCurve()->getCurveSegment(0)->removeFromParentAndDelete();
+    setPositionX(reactionGlyph->getBoundingBox(), x);
+    setPositionY(reactionGlyph->getBoundingBox(), y);
+    setDimensionWidth(reactionGlyph->getBoundingBox(), width);
+    setDimensionHeight(reactionGlyph->getBoundingBox(), height);
+    return 0;
+}
+
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding) {
     textGlyph->getBoundingBox()->setId(textGlyph->getId() + "_bb");
     textGlyph->getBoundingBox()->setX(graphicalObject->getBoundingBox()->x() + padding);
     textGlyph->getBoundingBox()->setY(graphicalObject->getBoundingBox()->y() + padding);
     textGlyph->getBoundingBox()->setWidth(graphicalObject->getBoundingBox()->width());
     textGlyph->getBoundingBox()->setHeight(graphicalObject->getBoundingBox()->height());
-}
-
-void removeReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
-    while (reactionGlyph->getCurve()->getNumCurveSegments())
-        reactionGlyph->getCurve()->getCurveSegment(0)->removeFromParentAndDelete();
 }
 
 void addCurveSegment(Curve* curve, LineSegment* referenceLineSegment, const double& padding) {
@@ -1149,8 +1136,16 @@ void addCurveSegment(Curve* curve, LineSegment* referenceLineSegment, const doub
     }
 }
 
-void setCurveCubicBezier(Curve* curve) {
+void setCurveCubicBezier(Curve* curve, const double& x, const double& y) {
     CubicBezier* cubicBezier = curve->createCubicBezier();
+    cubicBezier->getStart()->setX(x);
+    cubicBezier->getStart()->setY(y);
+    cubicBezier->getBasePoint1()->setX(x);
+    cubicBezier->getBasePoint1()->setY(y);
+    cubicBezier->getBasePoint2()->setX(x);
+    cubicBezier->getBasePoint2()->setY(y);
+    cubicBezier->getEnd()->setX(x);
+    cubicBezier->getEnd()->setY(y);
 }
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph) {
