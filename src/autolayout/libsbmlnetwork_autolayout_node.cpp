@@ -169,51 +169,65 @@ GraphicalObject* AutoLayoutCentroidNode::getGraphicalObject() {
 void AutoLayoutCentroidNode::updateDimensions() {
     std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
     if (fixedWidth.empty())
-        setBoundingBoxWidth(std::max(calculateWidth(), getWidth()));
-    else {
+        setWidth(std::max(calculateWidth(), getWidth()));
+    else
         setWidth(std::stod(fixedWidth));
-        setBoundingBoxWidth(std::stod(fixedWidth));
-    }
     std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
     if (fixedHeight.empty())
-        setBoundingBoxHeight(std::max(calculateHeight(), getHeight()));
-    else {
+        setHeight(std::max(calculateHeight(), getHeight()));
+    else
         setHeight(std::stod(fixedHeight));
-        setBoundingBoxHeight(std::stod(fixedHeight));
-    }
 }
 
 const double AutoLayoutCentroidNode::getX() {
-    const LineSegment* ls = getCurve()->getCurveSegment(0);
-    return 0.5 * (ls->getStart()->x() + ls->getEnd()->x());
+    if (isSetCurve()) {
+        const LineSegment* ls = getCurve()->getCurveSegment(0);
+        return 0.5 * (ls->getStart()->x() + ls->getEnd()->x());
+    }
+
+    return _graphicalObject->getBoundingBox()->x();
 }
 
 void AutoLayoutCentroidNode::setX(const double& x) {
-    Curve* curve = getCurve();
-    curve->getCurveSegment(0)->getStart()->setX(x);
-    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(x);
-    curve->getCurveSegment(0)->getEnd()->setX(x);
-    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(x);
-    _graphicalObject->getBoundingBox()->setX(x);
+    if (isSetCurve()) {
+        Curve* curve = getCurve();
+        curve->getCurveSegment(0)->getStart()->setX(x);
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(x);
+        curve->getCurveSegment(0)->getEnd()->setX(x);
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(x);
+    }
+    else
+        _graphicalObject->getBoundingBox()->setX(x);
 }
 
 const double AutoLayoutCentroidNode::getY() {
-    const LineSegment* ls = getCurve()->getCurveSegment(0);
-    return 0.5 * (ls->getStart()->y() + ls->getEnd()->y());
+    if (isSetCurve()) {
+        const LineSegment* ls = getCurve()->getCurveSegment(0);
+        return 0.5 * (ls->getStart()->y() + ls->getEnd()->y());
+    }
+
+    return _graphicalObject->getBoundingBox()->y();
 }
 
 void AutoLayoutCentroidNode::setY(const double& y) {
-    Curve* curve = getCurve();
-    curve->getCurveSegment(0)->getStart()->setY(y);
-    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(y);
-    curve->getCurveSegment(0)->getEnd()->setY(y);
-    ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(y);
-    _graphicalObject->getBoundingBox()->setY(y);
+    if (isSetCurve()) {
+        Curve* curve = getCurve();
+        curve->getCurveSegment(0)->getStart()->setY(y);
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(y);
+        curve->getCurveSegment(0)->getEnd()->setY(y);
+        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(y);
+    }
+    else
+        _graphicalObject->getBoundingBox()->setY(y);
 }
 
 const double AutoLayoutCentroidNode::getWidth() {
-    const LineSegment* ls = getCurve()->getCurveSegment(0);
-    return ls->getEnd()->x() - ls->getStart()->x();
+    if (isSetCurve()) {
+        const LineSegment* ls = getCurve()->getCurveSegment(0);
+        return ls->getEnd()->x() - ls->getStart()->x();
+    }
+
+    return _graphicalObject->getBoundingBox()->width();
 }
 
 const double AutoLayoutCentroidNode::getDefaultWidth() {
@@ -222,21 +236,25 @@ const double AutoLayoutCentroidNode::getDefaultWidth() {
 
 void AutoLayoutCentroidNode::setWidth(const double& width) {
     if (std::abs(width - getWidth())) {
-        Curve* curve = getCurve();
-        curve->getCurveSegment(0)->getStart()->setX(curve->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
-        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(width - getWidth()));
-        curve->getCurveSegment(0)->getEnd()->setX(curve->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
-        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(width - getWidth()));
+        if (isSetCurve()) {
+            Curve* curve = getCurve();
+            curve->getCurveSegment(0)->getStart()->setX(curve->getCurveSegment(0)->getStart()->x() - 0.5 * std::abs(width - getWidth()));
+            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setX(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->x() - 0.5 * std::abs(width - getWidth()));
+            curve->getCurveSegment(0)->getEnd()->setX(curve->getCurveSegment(0)->getEnd()->x() + 0.5 * std::abs(width - getWidth()));
+            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setX(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->x() - 0.5 * std::abs(width - getWidth()));
+        }
+        else
+            _graphicalObject->getBoundingBox()->setWidth(width);
     }
 }
 
-void AutoLayoutCentroidNode::setBoundingBoxWidth(const double& width) {
-    _graphicalObject->getBoundingBox()->setWidth(width);
-}
-
 const double AutoLayoutCentroidNode::getHeight() {
-    const LineSegment* ls = getCurve()->getCurveSegment(0);
-    return ls->getEnd()->y() - ls->getStart()->y();
+    if (isSetCurve()) {
+        const LineSegment* ls = getCurve()->getCurveSegment(0);
+        return ls->getEnd()->y() - ls->getStart()->y();
+    }
+
+    return _graphicalObject->getBoundingBox()->height();
 }
 
 const double AutoLayoutCentroidNode::getDefaultHeight() {
@@ -245,16 +263,16 @@ const double AutoLayoutCentroidNode::getDefaultHeight() {
 
 void AutoLayoutCentroidNode::setHeight(const double& height) {
     if (std::abs(height - getHeight())) {
-        Curve* curve = getCurve();
-        curve->getCurveSegment(0)->getStart()->setY(curve->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
-        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(height - getHeight()));
-        curve->getCurveSegment(0)->getEnd()->setY(curve->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
-        ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(height - getHeight()));
+        if (isSetCurve()) {
+            Curve* curve = getCurve();
+            curve->getCurveSegment(0)->getStart()->setY(curve->getCurveSegment(0)->getStart()->y() - 0.5 * std::abs(height - getHeight()));
+            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->setY(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint1()->y() - 0.5 * std::abs(height - getHeight()));
+            curve->getCurveSegment(0)->getEnd()->setY(curve->getCurveSegment(0)->getEnd()->y() + 0.5 * std::abs(height - getHeight()));
+            ((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->setY(((CubicBezier*)(curve->getCurveSegment(0)))->getBasePoint2()->y() - 0.5 * std::abs(height - getHeight()));
+        }
+        else
+            _graphicalObject->getBoundingBox()->setHeight(height);
     }
-}
-
-void AutoLayoutCentroidNode::setBoundingBoxHeight(const double& height) {
-    _graphicalObject->getBoundingBox()->setHeight(height);
 }
 
 const double AutoLayoutCentroidNode::calculateWidth() {
@@ -271,7 +289,13 @@ const double AutoLayoutCentroidNode::calculateHeight() {
     return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultHeight(), getHeight());
 }
 
+const bool AutoLayoutCentroidNode::isSetCurve() {
+    return ((ReactionGlyph*)_graphicalObject)->isSetCurve();
+}
+
 Curve* AutoLayoutCentroidNode::getCurve() {
-    ReactionGlyph* reactionGlyph = (ReactionGlyph*)_graphicalObject;
-    return reactionGlyph->getCurve();
+    if (isSetCurve())
+        return ((ReactionGlyph*)_graphicalObject)->getCurve();
+
+    return NULL;
 }

@@ -134,19 +134,17 @@ public:
 
     void setWidth(const double& width) override;
 
-    void setBoundingBoxWidth(const double& width);
-
     const double getHeight() override;
 
     const double getDefaultHeight() override;
 
     void setHeight(const double& height) override;
 
-    void setBoundingBoxHeight(const double& height);
-
     const double calculateWidth() override;
 
     const double calculateHeight() override;
+
+    const bool isSetCurve();
 
     Curve* getCurve();
 };
