@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_on_OSs:
-    name: Build RoadRunner on ${{ matrix.platform.name }}-python${{ matrix.python_version }}
+    name: Build SBMLNetwork on ${{ matrix.platform.name }}-python${{ matrix.python_version }}
     strategy:
       fail-fast: false
       matrix:
