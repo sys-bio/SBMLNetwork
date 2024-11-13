@@ -66,7 +66,7 @@ const double getSpeciesDefaultWidth();
 
 const double getSpeciesDefaultHeight();
 
-const double getDummySpeciesDefaultRadius();
+const double getEmptySpeciesDefaultRadius();
 
 const double getReactionDefaultWidth();
 
@@ -114,17 +114,21 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
-void setDummySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
+void setEmptySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+SpeciesReferenceGlyph* createEmptySpeciesReferenceGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* createDummySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
+SpeciesGlyph* createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* createDummySpeciesGlyph(ReactionGlyph* reactionGlyph);
+SpeciesGlyph* createEmptySpeciesGlyph(ReactionGlyph* reactionGlyph);
 
-SpeciesReferenceGlyph* createDummySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* dummySpeciesGlyph);
+SpeciesReferenceGlyph* createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* EmptySpeciesGlyph);
 
 void setAliasSpeciesGlyphs(Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData = {});
+
+bool isSetEmptySpeciesGlyph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
+const std::string getEmptySpeciesGlyphId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 int createAliasSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph);
 
@@ -184,7 +188,7 @@ CompartmentGlyph* createCompartmentGlyph(Layout* layout, const std::string& comp
 
 SpeciesGlyph* createSpeciesGlyph(Layout* layout, const std::string& speciesId, const std::vector<std::map<std::string, std::string>>& userData = {});
 
-SpeciesGlyph* createDummySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId);
+SpeciesGlyph* createEmptySpeciesGlyph(Layout* layout, const std::string& reactionGlyphId);
 
 ReactionGlyph* createReactionGlyph(Layout* layout, const std::string& reactionId, const std::vector<std::map<std::string, std::string>>& userData = {});
 

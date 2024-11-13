@@ -99,6 +99,8 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const
     std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
     if (graphicalObjectIndex < graphicalObjects.size())
         return graphicalObjects.at(graphicalObjectIndex);
+    else if (graphicalObjectIndex == 0)
+        return getGraphicalObjectUsingItsOwnId(layout, id);
 
     return NULL;
 }
@@ -221,6 +223,17 @@ bool isSpeciesGlyph(Layout* layout, const std::string& id, const unsigned int sp
 
 bool isSpeciesGlyph(GraphicalObject* graphicalObject) {
     if (dynamic_cast<SpeciesGlyph*>(graphicalObject))
+        return true;
+
+    return false;
+}
+
+bool isEmptySpeciesGlyph(Layout* layout, const std::string& id, const unsigned int speciesGlyphIndex) {
+    return isEmptySpeciesGlyph(getGraphicalObject(layout, id, speciesGlyphIndex));
+}
+
+bool isEmptySpeciesGlyph(GraphicalObject* graphicalObject) {
+    if (isSpeciesGlyph(graphicalObject) && !((SpeciesGlyph*)graphicalObject)->isSetSpeciesId())
         return true;
 
     return false;
@@ -360,6 +373,14 @@ const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesRefe
         return ((SpeciesReferenceGlyph*)speciesReferenceGlyph)->getSpeciesGlyphId();
 
     return "";
+}
+
+bool isSetEmptySpeciesGlyph(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEmptySpeciesGlyph(layout, getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+const std::string getEmptySpeciesGlyphId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEmptySpeciesGlyphId(layout, getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 bool isSetRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {

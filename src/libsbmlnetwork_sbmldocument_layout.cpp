@@ -483,6 +483,22 @@ const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, unsi
     return getSpeciesReferenceSpeciesGlyphId(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }
 
+bool isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEmptySpeciesGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+bool isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEmptySpeciesGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+const std::string getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEmptySpeciesGlyphId(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+const std::string getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEmptySpeciesGlyphId(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
 bool isSetSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
     return isSetRole(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }

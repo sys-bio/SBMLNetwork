@@ -49,6 +49,8 @@ const std::string getCompartmentGlyphStyleType();
 
 const std::string getSpeciesGlyphStyleType();
 
+const std::string getEmptySpeciesGlyphStyleType();
+
 const std::string getReactionGlyphStyleType();
 
 const std::string getSpeciesReferenceGlyphStyleType();
@@ -157,6 +159,8 @@ void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInforma
 
 void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
+void addEmptySpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
 void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
 void addSpeciesReferenceGlyphGlobalStyles(GlobalRenderInformation* globalRenderInformation);
@@ -213,6 +217,8 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
+void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
@@ -246,6 +252,8 @@ void setDefaultOctagonShapeFeatures(Polygon* pentagon);
 void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
 
 void setDefaultImageShapeFeatures(Image* image);
+
+void setDefaultDiagonalRenderCurveFeatures(RenderCurve* renderCurve);
 
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 

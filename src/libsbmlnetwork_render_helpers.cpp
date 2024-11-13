@@ -143,6 +143,8 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
     if (graphicalObject) {
         if (isCompartmentGlyph(graphicalObject))
             return getCompartmentGlyphStyleType();
+        else if (isEmptySpeciesGlyph(graphicalObject))
+            return getEmptySpeciesGlyphStyleType();
         else if (isSpeciesGlyph(graphicalObject))
             return getSpeciesGlyphStyleType();
         else if (isReactionGlyph(graphicalObject))
@@ -175,6 +177,10 @@ const std::string getCompartmentGlyphStyleType() {
 
 const std::string getSpeciesGlyphStyleType() {
     return "SPECIESGLYPH";
+}
+
+const std::string getEmptySpeciesGlyphStyleType() {
+    return "EMPTY_SPECIESGLYPH";
 }
 
 const std::string getReactionGlyphStyleType() {
@@ -619,6 +625,7 @@ void addGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
     addSpeciesGlyphGlobalStyle(globalRenderInformation);
     addReactionGlyphGlobalStyle(globalRenderInformation);
     addSpeciesReferenceGlyphGlobalStyles(globalRenderInformation);
+    addEmptySpeciesGlyphGlobalStyle(globalRenderInformation);
     addTextGlyphsGlobalStyles(globalRenderInformation);
 }
 
@@ -651,6 +658,14 @@ void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation
         RenderGroup* renderGroup = globalStyle->createGroup();
         setSpeciesGlyphRenderGroupFeatures(renderGroup);
         setSpeciesGlyphTextGlyphRenderGroupFeatures(renderGroup);
+    }
+}
+
+void addEmptySpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getEmptySpeciesGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setEmptySpeciesGlyphRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -836,6 +851,16 @@ void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-y"]), 0.0));
 }
 
+void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+    Ellipse* ellipse = renderGroup->createEllipse();
+    setDefaultEllipseShapeFeatures(ellipse);
+    ellipse->setFill(getDefaultPredefinedStyleFeatures()["species-fill-color"]);
+    ellipse->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    RenderCurve* curve = renderGroup->createCurve();
+    setDefaultDiagonalRenderCurveFeatures(curve);
+    curve->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    curve->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["species-border-width"]));
+}
 
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
@@ -1047,6 +1072,17 @@ void setDefaultImageShapeFeatures(Image* image) {
     image->setY(RelAbsVector(0.0, 0.0));
     image->setWidth(RelAbsVector(0.0, 100.0));
     image->setHeight(RelAbsVector(0.0, 100.0));
+}
+
+void setDefaultDiagonalRenderCurveFeatures(RenderCurve* renderCurve) {
+    setDefault1DShapeFeatures(renderCurve);
+    RenderPoint* point = NULL;
+    point = renderCurve->createPoint();
+    point->setX(RelAbsVector(0.0, 100.0));
+    point->setY(RelAbsVector(0.0, 0.0));
+    point = renderCurve->createPoint();
+    point->setX(RelAbsVector(0.0, 0.0));
+    point->setY(RelAbsVector(0.0, 100.0));
 }
 
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup) {

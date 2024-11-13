@@ -196,6 +196,18 @@ LIBSBMLNETWORK_EXTERN bool isSpeciesGlyph(Layout* layout, const std::string& id,
 /// @return @c true if this abstract GraphicalObject is of type SpeciesGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isSpeciesGlyph(GraphicalObject* graphicalObject);
 
+/// @brief Predicate returning true if the SpeciesGlyph object with the given id of the Layout object is an empty SpeciesGlyph.
+/// @param Layout a pointer to the Layout object.
+/// @param id the id of the species the the SpeciesGlyph objects of which to be returned.
+/// @param speciesGlyphIndex the index of the SpeciesGlyph to return.
+/// @return @c true if this SpeciesGlyph object is an empty SpeciesGlyph, false otherwise
+LIBSBMLNETWORK_EXTERN bool isEmptySpeciesGlyph(Layout* layout, const std::string& id, const unsigned int speciesGlyphIndex = 0);
+
+/// @brief Predicate returning true if this SpeciesGlyph object is an empty SpeciesGlyph.
+/// @param graphicalObject a pointer to the GraphicalObject object.
+/// @return @c true if this SpeciesGlyph object is an empty SpeciesGlyph, false otherwise
+LIBSBMLNETWORK_EXTERN bool isEmptySpeciesGlyph(GraphicalObject* graphicalObject);
+
 /// @brief Returns the ids of the ReactionGlyph objects of the Layout object
 /// @param layout a pointer to the Layout object
 /// @return the ids of the ReactionGlyph objects of the Layout object
@@ -337,6 +349,10 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesGlyphId(Graphi
 /// @param speciesReference a pointer to the GraphicalObject object.
 /// @return the value of the "speciesGlyph" attribute, or @c "" if the object is not of type SpeciesReferenceGlyph object or is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesReferenceGlyph);
+
+bool isSetEmptySpeciesGlyph(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+const std::string getEmptySpeciesGlyphId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
 /// @brief Predicates returning @c true if the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given id of the Layout object is set.
 /// @param Layout a pointer to the Layout object.

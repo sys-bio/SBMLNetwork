@@ -687,6 +687,42 @@ LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDo
 /// the SpeciesReference does not exits or the object is @c NULL
 LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
+/// @brief Predicate returning true if the SpeciesGlyph associated with the SpeciesReferenceGlyph with the given index in the given ReactionGlyph object with the given index associated with the entered reaction id is an empty SpeciesGlyph.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return @c true if the SpeciesGlyph associated with the SpeciesReferenceGlyph object with the given index is an empty SpeciesGlyph, @c false if either the SpeciesGlyph is not empty or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Predicate returning true if the SpeciesGlyph associated with the SpeciesReferenceGlyph with the given index in the given ReactionGlyph object with the given index associated with the entered reaction id is an empty SpeciesGlyph.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return @c true if the SpeciesGlyph associated with the SpeciesReferenceGlyph object with the given index is an empty SpeciesGlyph, @c false if either the SpeciesGlyph is not empty or the object is @c NULL.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Returns the id of the empty species glyph associated with the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// of the first Layout object in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the id of the empty SpeciesGlyph associated with the SpeciesReference object with the given index, or @c "" if the SpeciesGlyph is not empty or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
+/// @brief Returns the id of the empty species glyph associated with the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+/// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+/// @param reactionGlyphIndex the index of the ReactionGlyph.
+/// @param speciesReferenceIndex the index of the SpeciesReference.
+/// @return the id of the empty SpeciesGlyph associated with the SpeciesReference object with the given index, or @c "" if the SpeciesGlyph is not empty or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
 /// @brief Predicates returning @c true if the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document is set.
 /// @param document a pointer to the SBMLDocument object.
