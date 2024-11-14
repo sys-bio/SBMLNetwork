@@ -541,76 +541,76 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex) {
-        return setPositionX(document, layoutIndex, id, graphicalObjectIndex, x);
+    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setPositionX(document, layoutIndex, id, graphicalObjectIndex, x, updateCurves);
     }
 
     const double c_api_getY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getPositionY(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        return setPositionY(document, layoutIndex, id, graphicalObjectIndex, y);
+    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setPositionY(document, layoutIndex, id, graphicalObjectIndex, y, updateCurves);
     }
 
-    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        return setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y);
+    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y, updateCurves);
     }
 
     const double c_api_getWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex) {
-        return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width);
+    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width, updateCurves);
     }
 
-    int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex) {
-        return setCompartmentDimensionWidth(document, layoutIndex, width);
+    int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex, bool updateCurves) {
+        return setCompartmentDimensionWidth(document, layoutIndex, width, updateCurves);
     }
 
     const double c_api_getSpeciesWidth() {
         return getSpeciesDimensionWidth();
     }
 
-    int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex) {
-        return setSpeciesDimensionWidth(document, layoutIndex, width);
+    int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex, bool updateCurves) {
+        return setSpeciesDimensionWidth(document, layoutIndex, width, updateCurves);
     }
 
     const double c_api_getReactionsWidth() {
         return getReactionDimensionWidth();
     }
 
-    int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex) {
-        return setReactionDimensionWidth(document, layoutIndex, width);
+    int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex, bool updateCurves) {
+        return setReactionDimensionWidth(document, layoutIndex, width, updateCurves);
     }
 
     const double c_api_getHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
-        return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height);
+    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height, updateCurves);
     }
 
-    int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex) {
-        return setCompartmentDimensionHeight(document, layoutIndex, height);
+    int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex, bool updateCurves) {
+        return setCompartmentDimensionHeight(document, layoutIndex, height, updateCurves);
     }
 
     const double c_api_getSpeciesHeight() {
         return getSpeciesDimensionHeight();
     }
 
-    int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex) {
-        return setSpeciesDimensionHeight(document, layoutIndex, height);
+    int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex, bool updateCurves) {
+        return setSpeciesDimensionHeight(document, layoutIndex, height, updateCurves);
     }
 
     const double c_api_getReactionsHeight() {
         return getReactionDimensionHeight();
     }
 
-    int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex) {
-        return setReactionDimensionHeight(document, layoutIndex, height);
+    int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex, bool updateCurves) {
+        return setReactionDimensionHeight(document, layoutIndex, height, updateCurves);
     }
 
     const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
