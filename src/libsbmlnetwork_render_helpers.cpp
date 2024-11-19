@@ -6,6 +6,7 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "colors/libsbmlnetwork_colors.h"
 #include "styles/libsbmlnetwork_styles.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
 
 #include <cmath>
 
@@ -1230,157 +1231,6 @@ const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject) {
     return false;
 }
 
-std::string getErrorLog(RenderInformationBase* renderInformation) {
-    std::string errorLog = "";
-    if (renderInformation)
-        errorLog += prepareErrorMessage(getUserData(renderInformation, "error_log"), errorLog);
-        for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(renderInformation->getColorDefinition(i)), errorLog);
-        for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-            GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
-            errorLog += prepareErrorMessage(getErrorLog(gradientBase), errorLog);
-            for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
-                errorLog += prepareErrorMessage(getErrorLog(gradientBase->getGradientStop(j)), errorLog);
-        }
-        for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(renderInformation->getLineEnding(i)), errorLog);
-        if (renderInformation->isGlobalRenderInformation()) {
-            for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++)
-                errorLog += prepareErrorMessage(getErrorLog(((GlobalRenderInformation *) renderInformation)->getGlobalStyle(i)), errorLog);
-        }
-        else if (renderInformation->isLocalRenderInformation()) {
-            for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++)
-                errorLog += prepareErrorMessage(getErrorLog(((LocalRenderInformation *) renderInformation)->getLocalStyle(i)), errorLog);
-        }
-
-    return errorLog;
-}
-
-std::string getErrorLog(ColorDefinition* colorDefinition) {
-    std::string errorLog = "";
-    if (colorDefinition)
-        errorLog += prepareErrorMessage(getUserData(colorDefinition, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(GradientBase* gradientBase) {
-    std::string errorLog = "";
-    if (gradientBase)
-        errorLog += prepareErrorMessage(getUserData(gradientBase, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(GradientStop* gradientStop) {
-    std::string errorLog = "";
-    if (gradientStop)
-        errorLog += prepareErrorMessage(getUserData(gradientStop, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(LineEnding* lineEnding) {
-    std::string errorLog = "";
-    if (lineEnding)
-        errorLog += prepareErrorMessage(getUserData(lineEnding, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(Style* style) {
-    std::string errorLog = "";
-    if (style) {
-        errorLog += prepareErrorMessage(getUserData(style, "error_log"), errorLog);
-        errorLog += prepareErrorMessage(getErrorLog(style->getGroup()), errorLog);
-    }
-
-    return errorLog;
-}
-
-std::string getErrorLog(RenderGroup* renderGroup) {
-    std::string errorLog = "";
-    if (renderGroup) {
-        errorLog += prepareErrorMessage(getUserData(renderGroup, "error_log"), errorLog);
-        for (unsigned int i = 0; i < renderGroup->getNumElements(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(renderGroup->getElement(i)), errorLog);
-    }
-
-    return errorLog;
-}
-
-std::string getErrorLog(Transformation2D* transformation2D) {
-    std::string errorLog = "";
-    if (transformation2D)
-        errorLog += prepareErrorMessage(getUserData(transformation2D, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-void clearErrorLog(RenderInformationBase* renderInformation) {
-    if (renderInformation) {
-        setUserData(renderInformation, "error_log", "");
-        for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
-            clearErrorLog(renderInformation->getColorDefinition(i));
-        for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-            GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
-            clearErrorLog(gradientBase);
-            for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
-                clearErrorLog(gradientBase->getGradientStop(j));
-        }
-        for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++)
-            clearErrorLog(renderInformation->getLineEnding(i));
-        if (renderInformation->isGlobalRenderInformation()) {
-            for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++)
-                clearErrorLog(((GlobalRenderInformation*)renderInformation)->getGlobalStyle(i));
-        }
-        else if (renderInformation->isLocalRenderInformation()) {
-            for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++)
-                clearErrorLog(((LocalRenderInformation*)renderInformation)->getLocalStyle(i));
-        }
-    }
-}
-
-void clearErrorLog(ColorDefinition* colorDefinition) {
-    if (colorDefinition)
-        setUserData(colorDefinition, "error_log", "");
-}
-
-void clearErrorLog(GradientBase* gradientBase) {
-    if (gradientBase)
-        setUserData(gradientBase, "error_log", "");
-}
-
-void clearErrorLog(GradientStop* gradientStop) {
-    if (gradientStop)
-        setUserData(gradientStop, "error_log", "");
-}
-
-void clearErrorLog(LineEnding* lineEnding) {
-    if (lineEnding)
-        setUserData(lineEnding, "error_log", "");
-}
-
-void clearErrorLog(Style* style) {
-    if (style) {
-        setUserData(style, "error_log", "");
-        clearErrorLog( style->getGroup());
-    }
-}
-
-void clearErrorLog(RenderGroup* renderGroup) {
-    if (renderGroup) {
-        setUserData(renderGroup, "error_log", "");
-        for (unsigned int j = 0; j < renderGroup->getNumElements(); j++)
-            clearErrorLog(renderGroup->getElement(j));
-    }
-}
-
-void clearErrorLog(Transformation2D* transformation2D) {
-    if (transformation2D)
-        setUserData(transformation2D, "error_log", "");
-}
-
 void freeUserData(RenderInformationBase* renderInformation) {
     for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
         freeUserData(renderInformation->getColorDefinition(i));
@@ -1441,7 +1291,7 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase
     if (isValidColorValue(backgroundColor))
         return true;
 
-    addErrorToLog(sBase, "The entered value is not a valid background color value");
+    el_addErrorToLog(sBase, "The entered value is not a valid background color value");
     return false;
 }
 
@@ -1449,7 +1299,7 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBas
     if (isValueValid(spreadMethod, getValidSpreadMethodValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
+    el_addErrorToLog(sBase, createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
     return false;
 }
 
@@ -1477,7 +1327,7 @@ const bool isValidStopColorValue(const std::string& stopColor, SBase* sBase) {
     if (isValidColorValue(stopColor))
         return true;
 
-    addErrorToLog(sBase, "The entered value is not a valid stop color value");
+    el_addErrorToLog(sBase, "The entered value is not a valid stop color value");
     return false;
 }
 
@@ -1525,7 +1375,7 @@ const bool isValidStrokeColorValue(const std::string& stroke, SBase* sBase) {
     if (isValidColorValue(stroke))
         return true;
 
-    addErrorToLog(sBase, "The value entered is not a valid stroke color value");
+    el_addErrorToLog(sBase, "The value entered is not a valid stroke color value");
     return false;
 }
 
@@ -1533,7 +1383,7 @@ const bool isValidStrokeWidthValue(const double& strokeWidth, SBase* sBase) {
     if (isValidDoubleValue(strokeWidth, sBase) && strokeWidth > 0.0001)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
+    el_addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
     return false;
 }
 
@@ -1550,7 +1400,7 @@ const bool isValidStrokeDashValue(const unsigned int& dash, SBase* sBase) {
     if (isValidDoubleValue(dash, sBase) && dash > 0.000)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
+    el_addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
     return false;
 }
 
@@ -1558,7 +1408,7 @@ const bool isValidFontColorValue(const std::string& fontColor, SBase* sBase) {
     if (isValidColorValue(fontColor))
         return true;
 
-    addErrorToLog(sBase, "The value entered value is not a valid font color value");
+    el_addErrorToLog(sBase, "The value entered value is not a valid font color value");
     return false;
 }
 
@@ -1574,7 +1424,7 @@ const bool isValidFontWeightValue(const std::string& fontWeight, SBase* sBase) {
     if (isValueValid(fontWeight, getValidFontWeightValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(fontWeight, getValidFontWeightValues()));
+    el_addErrorToLog(sBase, createErrorMessage(fontWeight, getValidFontWeightValues()));
     return false;
 }
 
@@ -1582,7 +1432,7 @@ const bool isValidFontStyleValue(const std::string& fontStyle, SBase* sBase) {
     if (isValueValid(fontStyle, getValidFontStyleValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(fontStyle, getValidFontStyleValues()));
+    el_addErrorToLog(sBase, createErrorMessage(fontStyle, getValidFontStyleValues()));
     return false;
 }
 
@@ -1590,7 +1440,7 @@ const bool isValidTextAnchorValue(const std::string& textAnchor, SBase* sBase) {
     if (isValueValid(textAnchor, getValidTextAnchorValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(textAnchor, getValidTextAnchorValues()));
+    el_addErrorToLog(sBase, createErrorMessage(textAnchor, getValidTextAnchorValues()));
     return false;
 }
 
@@ -1598,7 +1448,7 @@ const bool isValidVTextAnchorValue(const std::string& vtextAnchor, SBase* sBase)
     if (isValueValid(vtextAnchor, getValidVTextAnchorValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
+    el_addErrorToLog(sBase, createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
     return false;
 }
 
@@ -1606,7 +1456,7 @@ const bool isValidFillColorValue(const std::string& fillColor, SBase* sBase) {
     if (isValidColorValue(fillColor))
         return true;
 
-    addErrorToLog(sBase, "The entered value is not a valid fill color value");
+    el_addErrorToLog(sBase, "The entered value is not a valid fill color value");
     return false;
 }
 
@@ -1614,7 +1464,7 @@ const bool isValidFillRuleValue(const std::string& fillRule, SBase* sBase) {
     if (isValueValid(fillRule, getValidFillRuleValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(fillRule, getValidFillRuleValues()));
+    el_addErrorToLog(sBase, createErrorMessage(fillRule, getValidFillRuleValues()));
     return false;
 }
 
@@ -1630,7 +1480,7 @@ const bool isValidGeometricShapeName(const std::string& geometricShapeName, SBas
     if (isValueValid(geometricShapeName, getValidGeometricShapeNameValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
+    el_addErrorToLog(sBase, createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
     return false;
 }
 
@@ -1654,7 +1504,7 @@ const bool isValidGeometricShapeRatioValue(const double& ratio, SBase* sBase) {
     if (isValidDoubleValue(ratio, sBase) && ratio > 0.0001)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
+    el_addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
     return false;
 }
 
@@ -1714,7 +1564,7 @@ const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValu
     if (isValidRelAbsVectorValue(relAbsVectorValue, sBase) && relAbsVectorValue.getAbsoluteValue() >= 0.000)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
+    el_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
     return false;
 }
 
@@ -1722,14 +1572,14 @@ const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase
     if (isValidDoubleValue(relAbsVectorValue.getAbsoluteValue(), sBase) && isValidDoubleValue(relAbsVectorValue.getRelativeValue(), sBase))
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
+    el_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
     return false;
 }
 
 const bool isValidRelAbsVectorRelativeValue(const double& relativeValue, SBase* sBase) {
     if (isValidDoubleValue(relativeValue, sBase) && relativeValue >= 0.0 && relativeValue <= 100.0)
         return true;
-    addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
+    el_addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
     return false;
 }
 

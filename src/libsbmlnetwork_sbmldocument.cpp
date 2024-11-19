@@ -5,6 +5,7 @@
 #include "libsbmlnetwork_sbmldocument_render.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -50,45 +51,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     }
 
     const std::string getErrorLog(SBMLDocument* document) {
-        std::string errorLog = "";
-        if (document) {
-            errorLog = prepareErrorMessage(getUserData(document, "error_log"), errorLog);
-            ListOfLayouts* listOfLayouts = getListOfLayouts(document);
-            errorLog += prepareErrorMessage(getErrorLog(listOfLayouts), errorLog);
-            const int numLayouts = getNumLayouts(document);
-            for (int i = 0; i < numLayouts; i++) {
-                Layout* layout = getLayout(document, i);
-                errorLog += prepareErrorMessage(getErrorLog(layout), errorLog);
-                const int numLocalRenderInformation = getNumLocalRenderInformation(layout);
-                for (int j = 0; j < numLocalRenderInformation; j++)
-                    errorLog += prepareErrorMessage(getErrorLog(getLocalRenderInformation(layout, j)), errorLog);
-
-            }
-            const int numGlobalRenderInformation = getNumGlobalRenderInformation(document);
-            for (int i = 0; i < numGlobalRenderInformation; i++)
-                errorLog += prepareErrorMessage(getErrorLog(getGlobalRenderInformation(document, i)), errorLog);
-        }
-
-        return errorLog;
+        return el_getErrorLog(document);
     }
 
     void clearErrorLog(SBMLDocument* document) {
-        if (document) {
-            setUserData(document, "error_log", "");
-            ListOfLayouts* listOfLayouts = getListOfLayouts(document);
-            clearErrorLog(listOfLayouts);
-            const int numLayouts = getNumLayouts(document);
-            for (int i = 0; i < numLayouts; i++) {
-                Layout* layout = getLayout(document, i);
-                clearErrorLog(layout);
-                const int numLocalRenderInformation = getNumLocalRenderInformation(layout);
-                for (int j = 0; j < numLocalRenderInformation; j++)
-                    clearErrorLog(getLocalRenderInformation(layout, j));
-            }
-            const int numGlobalRenderInformation = getNumGlobalRenderInformation(document);
-            for (int i = 0; i < numGlobalRenderInformation; i++)
-                clearErrorLog(getGlobalRenderInformation(document, i));
-        }
+        return el_clearErrorLog(document);
     }
 
     bool freeSBMLDocument(SBMLDocument* document) {

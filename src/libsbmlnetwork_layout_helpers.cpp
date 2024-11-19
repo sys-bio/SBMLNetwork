@@ -3,6 +3,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_sbmldocument_layout.h"
 #include "libsbmlnetwork_sbmldocument_helpers.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
 
 #include <cmath>
 #include <climits>
@@ -38,7 +39,7 @@ SBasePlugin* getLayoutPlugin(SBMLDocument* document) {
     if (model)
         return model->getPlugin("layout");
     else
-        addErrorToLog(document, "Failed to load model");
+        el_addErrorToLog(document, "Failed to load model");
     
     return NULL;
 }
@@ -54,109 +55,6 @@ void enableLayoutPlugin(SBMLDocument* document) {
     else if (document->getLevel() == 3)
         document->enablePackage(LayoutExtension::getXmlnsL3V1V1(), "layout",  true);
     document->setPackageRequired("layout", false);
-}
-
-std::string getErrorLog(Layout* layout) {
-    std::string errorLog = "";
-    if (layout) {
-        errorLog += prepareErrorMessage(getUserData(layout, "error_log"), errorLog);
-        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(layout->getCompartmentGlyph(i)), errorLog);
-        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(layout->getSpeciesGlyph(i)), errorLog);
-        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-            errorLog += prepareErrorMessage(getErrorLog(layout->getReactionGlyph(i)), errorLog);
-            for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++)
-                errorLog += prepareErrorMessage(getErrorLog(layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j)), errorLog);
-        }
-        for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(layout->getTextGlyph(i)), errorLog);
-    }
-
-    return errorLog;
-}
-
-std::string getErrorLog(GraphicalObject* graphicalObject) {
-    std::string errorLog = "";
-    if (graphicalObject)
-        errorLog += prepareErrorMessage(getUserData(graphicalObject, "error_log"), errorLog);
-    if (graphicalObject->getBoundingBox())
-        errorLog += prepareErrorMessage(getErrorLog(graphicalObject->getBoundingBox()), errorLog);
-    if (isSetCurve(graphicalObject))
-        errorLog += prepareErrorMessage(getErrorLog(getCurve(graphicalObject)), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(BoundingBox* boundingBox) {
-    std::string errorLog = "";
-    if (boundingBox)
-        errorLog += prepareErrorMessage(getUserData(boundingBox, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(Curve* curve) {
-    std::string errorLog = "";
-    if (curve)
-        errorLog += prepareErrorMessage(getUserData(curve, "error_log"), errorLog);
-    for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
-        errorLog += prepareErrorMessage(getErrorLog(getCurveSegment(curve, i)), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(LineSegment* lineSegment) {
-    std::string errorLog = "";
-    if (lineSegment)
-        errorLog += prepareErrorMessage(getUserData(lineSegment, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-void clearErrorLog(Layout* layout) {
-    if (layout) {
-        setUserData(layout, "error_log", "");
-        for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
-            clearErrorLog(layout->getCompartmentGlyph(i));
-        for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-            clearErrorLog(layout->getSpeciesGlyph(i));
-        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
-            clearErrorLog(layout->getReactionGlyph(i));
-            for (unsigned int j = 0; j < layout->getReactionGlyph(i)->getNumSpeciesReferenceGlyphs(); j++)
-                clearErrorLog(layout->getReactionGlyph(i)->getSpeciesReferenceGlyph(j));
-        }
-        for (unsigned int i = 0; i < layout->getNumTextGlyphs(); i++)
-            clearErrorLog(layout->getTextGlyph(i));
-    }
-}
-
-void clearErrorLog(GraphicalObject* graphicalObject) {
-    if (graphicalObject) {
-        setUserData(graphicalObject, "error_log", "");
-        if (graphicalObject->getBoundingBox())
-            clearErrorLog(graphicalObject->getBoundingBox());
-        if (isSetCurve(graphicalObject))
-            clearErrorLog(getCurve(graphicalObject));
-    }
-}
-
-void clearErrorLog(BoundingBox* boundingBox) {
-    if (boundingBox)
-        setUserData(boundingBox, "error_log", "");
-}
-
-void clearErrorLog(Curve* curve) {
-    if (curve) {
-        setUserData(curve, "error_log", "");
-        for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
-            clearErrorLog(getCurveSegment(curve, i));
-    }
-}
-
-void clearErrorLog(LineSegment* lineSegment) {
-    if (lineSegment)
-        setUserData(lineSegment, "error_log", "");
 }
 
 void freeUserData(Layout* layout) {
@@ -1604,7 +1502,7 @@ void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> gr
             setPositionY(layout, graphicalObjects.at(i), minY);
     }
     catch (const std::invalid_argument& e) {
-        addErrorToLog(layout, e.what());
+        el_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1627,7 +1525,7 @@ void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<Graphic
             setPositionX(layout, graphicalObjects.at(i), centerX);
     }
     catch (const std::invalid_argument& e) {
-        addErrorToLog(layout, e.what());
+        el_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1650,7 +1548,7 @@ void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*>
             setPositionY(layout, graphicalObjects.at(i), maxY);
     }
     catch (const std::invalid_argument& e) {
-        addErrorToLog(layout, e.what());
+        el_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1673,7 +1571,7 @@ void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> g
             setPositionX(layout, graphicalObjects.at(i), minX);
     }
     catch (const std::invalid_argument& e) {
-        addErrorToLog(layout, e.what());
+        el_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1696,7 +1594,7 @@ void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<Graphical
             setPositionY(layout, graphicalObjects.at(i), centerY);
     }
     catch (const std::invalid_argument& e) {
-        addErrorToLog(layout, e.what());
+        el_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1719,7 +1617,7 @@ void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> 
             setPositionX(layout, graphicalObjects.at(i), maxX);
     }
     catch (const std::invalid_argument& e) {
-        addErrorToLog(layout, e.what());
+        el_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1960,7 +1858,7 @@ const bool isValidRoleValue(const std::string& role, SBase* sBase) {
     if (isValueValid(role, getValidRoleValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(role, getValidRoleValues()));
+    el_addErrorToLog(sBase, createErrorMessage(role, getValidRoleValues()));
     return false;
 }
 
@@ -2016,7 +1914,7 @@ const bool isValidDimensionValue(const double& dimensionValue, SBase* sBase) {
     if (isValidDoubleValue(dimensionValue, sBase) && dimensionValue > 0.000)
         return true;
 
-    addErrorToLog(sBase, "A dimension value must be greater than 0");
+    el_addErrorToLog(sBase, "A dimension value must be greater than 0");
     return false;
 }
 
@@ -2024,7 +1922,7 @@ const bool isValidDoubleValue(const double& doubleValue, SBase* sBase) {
     if (!std::isnan(doubleValue) && !std::isinf(doubleValue))
         return true;
 
-    addErrorToLog(sBase, "A double value must be a valid number");
+    el_addErrorToLog(sBase, "A double value must be a valid number");
     return false;
 }
 
@@ -2032,7 +1930,7 @@ const bool isValidAlignment(const std::string& alignment, SBase* sBase) {
     if (isValueValid(alignment, getValidAlignmentValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(alignment, getValidAlignmentValues()));
+    el_addErrorToLog(sBase, createErrorMessage(alignment, getValidAlignmentValues()));
     return false;
 }
 
@@ -2040,7 +1938,7 @@ const bool isValidDistributionDirection(const std::string& direction, SBase* sBa
     if (isValueValid(direction, getValidDistributionDirectionValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(direction, getValidDistributionDirectionValues()));
+    el_addErrorToLog(sBase, createErrorMessage(direction, getValidDistributionDirectionValues()));
     return false;
 }
 

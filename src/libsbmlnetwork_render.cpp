@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "colors/libsbmlnetwork_colors.h"
 #include "styles/libsbmlnetwork_styles.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -115,7 +116,7 @@ int setValue(ColorDefinition* colorDefinition, const std::string& value) {
             return 0;
         }
         else
-            addErrorToLog(colorDefinition, "The value " + value + " is not a valid color value.");
+            el_addErrorToLog(colorDefinition, "The value " + value + " is not a valid color value.");
     }
 
     return -1;

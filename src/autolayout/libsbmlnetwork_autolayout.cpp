@@ -3,6 +3,7 @@
 #include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_common.h"
 #include "libsbmlnetwork_fruchterman_reingold_algorithm.h"
+#include "../features/error_log/libsbmlnetwork_error_log.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -38,7 +39,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
             locateGlyphs(model, layout, useNameAsTextLabel);
         }
         else
-            addErrorToLog(layout, "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again.");
+            el_addErrorToLog(layout, "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again.");
     }
 }
 

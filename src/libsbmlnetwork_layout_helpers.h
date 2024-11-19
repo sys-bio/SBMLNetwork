@@ -22,26 +22,6 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-std::string getErrorLog(Layout* layout);
-
-std::string getErrorLog(GraphicalObject* graphicalObject);
-
-std::string getErrorLog(BoundingBox* boundingBox);
-
-std::string getErrorLog(Curve* curve);
-
-std::string getErrorLog(LineSegment* lineSegment);
-
-void clearErrorLog(Layout* layout);
-
-void clearErrorLog(GraphicalObject* graphicalObject);
-
-void clearErrorLog(BoundingBox* boundingBox);
-
-void clearErrorLog(Curve* curve);
-
-void clearErrorLog(LineSegment* lineSegment);
-
 void freeUserData(Layout* layout);
 
 std::vector<std::map<std::string, std::string>> getUserData(Layout* layout);

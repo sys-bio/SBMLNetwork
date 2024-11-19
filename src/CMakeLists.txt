@@ -21,6 +21,7 @@ set(SOURCES
 		autolayout/libsbmlnetwork_autolayout_connection.cpp
 		autolayout/libsbmlnetwork_autolayout_curve.cpp
 		autolayout/libsbmlnetwork_autolayout_point.cpp
+		features/error_log/libsbmlnetwork_error_log.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -44,6 +45,7 @@ set(HEADERS
 		autolayout/libsbmlnetwork_autolayout_connection.h
 		autolayout/libsbmlnetwork_autolayout_curve.h
 		autolayout/libsbmlnetwork_autolayout_point.h
+		features/error_log/libsbmlnetwork_error_log.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies

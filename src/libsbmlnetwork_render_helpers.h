@@ -291,38 +291,6 @@ const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
 
 const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject);
 
-std::string getErrorLog(RenderInformationBase* renderInformation);
-
-std::string getErrorLog(ColorDefinition* colorDefinition);
-
-std::string getErrorLog(GradientBase* gradientBase);
-
-std::string getErrorLog(GradientStop* gradientStop);
-
-std::string getErrorLog(LineEnding* lineEnding);
-
-std::string getErrorLog(Style* style);
-
-std::string getErrorLog(RenderGroup* renderGroup);
-
-std::string getErrorLog(Transformation2D* transformation2D);
-
-void clearErrorLog(RenderInformationBase* renderInformation);
-
-void clearErrorLog(ColorDefinition* colorDefinition);
-
-void clearErrorLog(GradientBase* gradientBase);
-
-void clearErrorLog(GradientStop* gradientStop);
-
-void clearErrorLog(LineEnding* lineEnding);
-
-void clearErrorLog(Style* style);
-
-void clearErrorLog(RenderGroup* renderGroup);
-
-void clearErrorLog(Transformation2D* transformation2D);
-
 void freeUserData(RenderInformationBase* renderInformation);
 
 std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformationBase);

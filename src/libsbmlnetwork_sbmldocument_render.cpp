@@ -7,6 +7,7 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "styles/libsbmlnetwork_styles.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -10706,7 +10707,7 @@ const std::string getStyle(SBMLDocument* document, unsigned int renderIndex) {
 
 int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName) {
     if (!isValidPredefinedStyleName(styleName)) {
-        addErrorToLog(document, "The style name is not valid.");
+        el_addErrorToLog(document, "The style name is not valid.");
         return -1;
     }
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
