@@ -481,6 +481,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// the SpeciesReference does not exits or the object is @c NULL
     LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
+    /// @brief Predicate returning true if the SpeciesGlyph associated with the SpeciesReferenceGlyph with the given index in the given ReactionGlyph object with the given index associated with the entered reaction id is an empty SpeciesGlyph.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the SpeciesGlyph associated with the SpeciesReferenceGlyph with the given index is an empty SpeciesGlyph, @c false otherwise.
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
+    /// @brief Returns the id of the empty species glyph associated with the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
+    /// of the the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
+    /// @param reactionGlyphIndex the index of the ReactionGlyph.
+    /// @param speciesReferenceIndex the index of the SpeciesReference.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the id of the empty SpeciesGlyph associated with the SpeciesReference object with the given index, or @c "" if the SpeciesGlyph is not empty or the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex);
+
     /// @brief Predicates returning @c true if the "role" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document is set.
     /// @param document a pointer to the SBMLDocument object.
@@ -963,8 +982,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
     /// @param x a double value to be set as "x" attribute of the bounding box of the GraphicalObject object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the value of the "y" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -980,8 +1000,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
     /// @param y a double value to be set as "y" attribute of the bounding box of the GraphicalObject object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Sets the values of the "x" and "y" attributes of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -990,8 +1011,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param x a double value to be set as "x" attribute of the bounding box of the GraphicalObject object.
     /// @param y a double value to be set as "y" attribute of the bounding box of the GraphicalObject object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the value of the "width" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -1007,15 +1029,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
     /// @param width a double value to be set as "width" attribute of the bounding box of the GraphicalObject object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Sets the values of the "width" attribute of the bounding box of all the Compartments of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double value to be set as "width" attribute of the bounding box of the Compartments object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
     /// @return the default value of the "width" attribute of the bounding box of the SpeciesGlyph objects.
@@ -1025,8 +1049,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double value to be set as "width" attribute of the bounding box of the Species object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
     /// @return the default value of the "width" attribute of the bounding box of the ReactionGlyph objects.
@@ -1036,8 +1061,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param width a double value to be set as "width" attribute of the bounding box of the Reactions object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the value of the "height" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -1053,15 +1079,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
     /// @param height a double value to be set as "height" attribute of the bounding box of the GraphicalObject object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex = 0, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Sets the values of the "height" attribute of the bounding box of all the Compartments of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double value to be set as "height" attribute of the bounding box of the Compartments object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
     /// @return the default value of the "height" attribute of the bounding box of the SpeciesGlyph objects.
@@ -1071,8 +1099,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double value to be set as "height" attribute of the bounding box of the Species object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
     /// @return the default value of the "height" attribute of the bounding box of the ReactionGlyph objects.
@@ -1082,8 +1111,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param height a double value to be set as "height" attribute of the bounding box of the Reactions object.
     /// @param layoutIndex the index number of the Layout to return.
+    /// @param updateCurves a boolean value to indicate whether the function should update the curves after setting the value.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex = 0, bool updateCurves = true);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the TextGlyph object with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
