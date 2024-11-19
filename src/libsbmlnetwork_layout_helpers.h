@@ -22,20 +22,6 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-void freeUserData(Layout* layout);
-
-std::vector<std::map<std::string, std::string>> getUserData(Layout* layout);
-
-void setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
-
-void setPositionData(GraphicalObject* graphicalObject);
-
-void unsetPositionData(GraphicalObject* graphicalObject);
-
-void setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
-
-void unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
-
 void setDefaultLayoutId(Layout* layout);
 
 const std::string getDefaultLayoutId();
@@ -193,8 +179,6 @@ const int getSpeciesReferenceIndex(Layout* layout, ReactionGlyph* reactionGlyph,
 const int getIndexOfConnectedSpeciesGlyph(std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs, std::vector<SpeciesGlyph*> speciesGlyphs);
 
 TextGlyph* createAssociatedTextGlyph(Layout* layout, GraphicalObject* graphicalObject);
-
-void setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData);
 
 void setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 

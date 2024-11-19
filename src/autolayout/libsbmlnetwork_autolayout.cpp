@@ -1,9 +1,9 @@
 #include "libsbmlnetwork_autolayout.h"
 #include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_common.h"
 #include "libsbmlnetwork_fruchterman_reingold_algorithm.h"
 #include "../features/error_log/libsbmlnetwork_error_log.h"
+#include "../features/user_data/libsbmlnetwork_user_data.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -64,7 +64,7 @@ void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabe
 }
 
 const double getStiffness(Layout *layout) {
-    std::string stiffness = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "stiffness");
+    std::string stiffness = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout, "stiffness");
     if (stiffness.empty()) {
         setStiffness(layout, 10.0);
         return 10.0;
@@ -74,7 +74,7 @@ const double getStiffness(Layout *layout) {
 }
 
 void setStiffness(Layout *layout, const double &stiffness) {
-    LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "stiffness", std::to_string(stiffness));
+    LIBSBMLNETWORK_CPP_NAMESPACE::ud_setUserData(layout, "stiffness", std::to_string(stiffness));
 }
 
 void updateStiffness(Layout *layout) {
@@ -86,7 +86,7 @@ double getStiffnessAdjustmentFactor(Layout *layout) {
 }
 
 const double getGravity(Layout *layout) {
-    std::string gravity = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout, "gravity");
+    std::string gravity = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout, "gravity");
     if (gravity.empty()) {
         setGravity(layout, 15.0);
         return 15.0;
@@ -96,7 +96,7 @@ const double getGravity(Layout *layout) {
 }
 
 void setGravity(Layout *layout, const double &gravity) {
-    LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout, "gravity", std::to_string(gravity));
+    LIBSBMLNETWORK_CPP_NAMESPACE::ud_setUserData(layout, "gravity", std::to_string(gravity));
 }
 
 void updateGravity(Layout *layout) {
@@ -298,21 +298,21 @@ void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGly
 void updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout) {
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         CompartmentGlyph *compartmentGlyph = layout->getCompartmentGlyph(i);
-        if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "locked") == "true") {
-            std::string x = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "x");
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "locked") == "true") {
+            std::string x = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "x");
             if (!x.empty())
                 compartmentGlyph->getBoundingBox()->setX(std::stod(x));
-            std::string y = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "y");
+            std::string y = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "y");
             if (!y.empty())
                 compartmentGlyph->getBoundingBox()->setY(std::stod(y));
         }
-        if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "fixed_width") == "true") {
-            std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "width");
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "fixed_width") == "true") {
+            std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "width");
             if (!width.empty())
                 compartmentGlyph->getBoundingBox()->setWidth(std::stod(width));
         }
-        if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "fixed_height") == "true") {
-            std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(compartmentGlyph, "height");
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "fixed_height") == "true") {
+            std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(compartmentGlyph, "height");
             if (!height.empty())
                 compartmentGlyph->getBoundingBox()->setHeight(std::stod(height));
         }
@@ -349,7 +349,7 @@ const bool adjustLayoutDimensions(Layout *layout) {
 }
 
 const double getLayoutDimensionsDesiredWidth(Layout *layout) {;
-    std::string presetWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    std::string presetWidth = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "width");
     if (!presetWidth.empty())
         return std::stod(presetWidth);
 
@@ -357,12 +357,12 @@ const double getLayoutDimensionsDesiredWidth(Layout *layout) {;
 }
 
 void setLayoutDimensionsDesiredWidth(Layout *layout, const double &width) {
-    if (!LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width").empty())
-        LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout->getDimensions(), "width", std::to_string(width));
+    if (!LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "width").empty())
+        LIBSBMLNETWORK_CPP_NAMESPACE::ud_setUserData(layout->getDimensions(), "width", std::to_string(width));
 }
 
 const double getLayoutDimensionsDesiredHeight(Layout *layout) {
-    std::string presetHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    std::string presetHeight = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "height");
     if (!presetHeight.empty())
         return std::stod(presetHeight);
 
@@ -370,8 +370,8 @@ const double getLayoutDimensionsDesiredHeight(Layout *layout) {
 }
 
 void setLayoutDimensionsDesiredHeight(Layout *layout, const double &height) {
-    if (!LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height").empty())
-        LIBSBMLNETWORK_CPP_NAMESPACE::setUserData(layout->getDimensions(), "height", std::to_string(height));
+    if (!LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "height").empty())
+        LIBSBMLNETWORK_CPP_NAMESPACE::ud_setUserData(layout->getDimensions(), "height", std::to_string(height));
 }
 
 const bool autolayoutMayStillConverge(Layout *layout) {

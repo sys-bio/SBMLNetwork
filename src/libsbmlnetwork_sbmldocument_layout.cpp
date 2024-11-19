@@ -3,6 +3,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "autolayout/libsbmlnetwork_autolayout.h"
+#include "features/user_data/libsbmlnetwork_user_data.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -82,7 +83,7 @@ int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int 
         Model* model = document->getModel();
         if (model) {
             lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
-            std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
+            std::vector<std::map<std::string, std::string>> userData = ud_getUserData(layout);
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout, userData);
             setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);

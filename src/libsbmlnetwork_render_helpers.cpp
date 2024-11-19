@@ -2,7 +2,6 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_sbmldocument_render.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "colors/libsbmlnetwork_colors.h"
 #include "styles/libsbmlnetwork_styles.h"
@@ -1229,62 +1228,6 @@ const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject) {
         return true;
 
     return false;
-}
-
-void freeUserData(RenderInformationBase* renderInformation) {
-    for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
-        freeUserData(renderInformation->getColorDefinition(i));
-    for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-        GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
-        freeUserData(gradientBase);
-        for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
-            freeUserData(gradientBase->getGradientStop(j));
-    }
-    for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++)
-        freeUserData(renderInformation->getLineEnding(i));
-    if (renderInformation->isGlobalRenderInformation()) {
-        for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++)
-            freeUserData(((GlobalRenderInformation*)renderInformation)->getGlobalStyle(i));
-    }
-    else if (renderInformation->isLocalRenderInformation()) {
-        for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++)
-            freeUserData(((LocalRenderInformation*)renderInformation)->getLocalStyle(i));
-    }
-}
-
-std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformation) {
-    std::vector<std::map<std::string, std::string>> userData;
-    for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++) {
-        auto colorDefinitionUserData = renderInformation->getColorDefinition(i)->getUserData();
-        if (colorDefinitionUserData)
-            userData.push_back(*(std::map<std::string, std::string>*)colorDefinitionUserData);
-    }
-    for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-        auto gradientDefinitionUserData = renderInformation->getGradientDefinition(i)->getUserData();
-        if (gradientDefinitionUserData)
-            userData.push_back(*(std::map<std::string, std::string>*)gradientDefinitionUserData);
-    }
-    for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++) {
-        auto lineEndingUserData = renderInformation->getLineEnding(i)->getUserData();
-        if (lineEndingUserData)
-            userData.push_back(*(std::map<std::string, std::string>*)lineEndingUserData);
-    }
-    if (renderInformation->isGlobalRenderInformation()) {
-        for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++) {
-            auto globalStyleUserData = ((GlobalRenderInformation*)renderInformation)->getGlobalStyle(i)->getUserData();
-            if (globalStyleUserData)
-                userData.push_back(*(std::map<std::string, std::string>*)globalStyleUserData);
-        }
-    }
-    else if (renderInformation->isLocalRenderInformation()) {
-        for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++) {
-            auto localStyleUserData = ((LocalRenderInformation*)renderInformation)->getLocalStyle(i)->getUserData();
-            if (localStyleUserData)
-                userData.push_back(*(std::map<std::string, std::string>*)localStyleUserData);
-        }
-    }
-
-    return userData;
 }
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase) {

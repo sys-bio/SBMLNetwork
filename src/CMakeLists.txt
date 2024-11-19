@@ -8,7 +8,6 @@ set(SOURCES
 		libsbmlnetwork_render.cpp
 		libsbmlnetwork_render_helpers.cpp
 		libsbmlnetwork_sbmldocument.cpp
-        libsbmlnetwork_sbmldocument_helpers.cpp
 		libsbmlnetwork_sbmldocument_layout.cpp
 		libsbmlnetwork_layout_render.cpp
 		libsbmlnetwork_sbmldocument_render.cpp
@@ -22,6 +21,7 @@ set(SOURCES
 		autolayout/libsbmlnetwork_autolayout_curve.cpp
 		autolayout/libsbmlnetwork_autolayout_point.cpp
 		features/error_log/libsbmlnetwork_error_log.cpp
+		features/user_data/libsbmlnetwork_user_data.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -32,7 +32,6 @@ set(HEADERS
 		libsbmlnetwork_render.h
 		libsbmlnetwork_render_helpers.h
 		libsbmlnetwork_sbmldocument.h
-		libsbmlnetwork_sbmldocument_helpers.h
 		libsbmlnetwork_sbmldocument_layout.h
 		libsbmlnetwork_layout_render.h
 		libsbmlnetwork_sbmldocument_render.h
@@ -46,6 +45,7 @@ set(HEADERS
 		autolayout/libsbmlnetwork_autolayout_curve.h
 		autolayout/libsbmlnetwork_autolayout_point.h
 		features/error_log/libsbmlnetwork_error_log.h
+		features/user_data/libsbmlnetwork_user_data.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies

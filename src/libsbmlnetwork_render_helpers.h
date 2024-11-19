@@ -291,10 +291,6 @@ const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
 
 const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject);
 
-void freeUserData(RenderInformationBase* renderInformation);
-
-std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformationBase);
-
 const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase = NULL);
 
 const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBase = NULL);

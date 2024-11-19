@@ -1,7 +1,7 @@
 #include "libsbmlnetwork_autolayout_node.h"
 #include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_common.h"
+#include "../features/user_data/libsbmlnetwork_user_data.h"
 
 // AutoLayoutNodeBase
 
@@ -63,10 +63,10 @@ void AutoLayoutNodeBase::setLocked(const bool& locked) {
 }
 
 void AutoLayoutNodeBase::updateLockedStatus() {;
-    if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_graphicalObject, "locked") == "true") {
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(_graphicalObject, "locked") == "true") {
         setLocked(true);
-        setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_graphicalObject, "x")));
-        setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_graphicalObject, "y")));
+        setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(_graphicalObject, "x")));
+        setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(_graphicalObject, "y")));
     }
 }
 
@@ -85,12 +85,12 @@ GraphicalObject* AutoLayoutNode::getGraphicalObject() {
 }
 
 void AutoLayoutNode::updateDimensions() {
-    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
+    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(getGraphicalObject(), "width");
     if (fixedWidth.empty())
         setWidth(std::max(calculateWidth(), std::max(getWidth(), getDefaultWidth())));
     else
         setWidth(std::stod(fixedWidth));
-    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
+    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(getGraphicalObject(), "height");
     if (fixedHeight.empty())
         setHeight(std::max(calculateHeight(), std::max(getHeight(), getDefaultHeight())));
     else
@@ -167,14 +167,14 @@ GraphicalObject* AutoLayoutCentroidNode::getGraphicalObject() {
 }
 
 void AutoLayoutCentroidNode::updateDimensions() {
-    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
+    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(getGraphicalObject(), "width");
     if (fixedWidth.empty()) {
         if (!isSetCurve())
             setWidth(std::max(calculateWidth(), getWidth()));
     }
     else
         setWidth(std::stod(fixedWidth));
-    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
+    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(getGraphicalObject(), "height");
     if (fixedHeight.empty()) {
         if (!isSetCurve())
             setHeight(std::max(calculateHeight(), getHeight()));

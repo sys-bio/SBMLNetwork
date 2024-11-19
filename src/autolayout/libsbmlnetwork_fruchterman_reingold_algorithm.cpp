@@ -3,7 +3,7 @@
 #include "libsbmlnetwork_autolayout_connection.h"
 #include "libsbmlnetwork_autolayout_curve.h"
 #include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
+#include "../features/user_data/libsbmlnetwork_user_data.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -66,7 +66,7 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 }
 
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
-    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "width");
     if (!width.empty() && std::stod(width) > 0.0) {
         _width = std::max(0.0, std::stod(width) - 6 * getDefaultAutoLayoutPadding());
         _useHorizontalBoundary = true;
@@ -76,7 +76,7 @@ void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
 }
 
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
-    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "height");
     if (!height.empty() && std::stod(height) > 0.0) {
         _height = std::max(0.0, std::stod(height) - 6 * getDefaultAutoLayoutPadding());
         _useVerticalBoundary = true;

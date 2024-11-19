@@ -5,7 +5,6 @@
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "styles/libsbmlnetwork_styles.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
 

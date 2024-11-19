@@ -1,6 +1,6 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
+#include "features/user_data/libsbmlnetwork_user_data.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -40,7 +40,7 @@ int setDimensionWidth(Layout* layout, const double& width) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setWidth(width);
-            setUserData(dimensions, "width", std::to_string(width));
+            ud_setUserData(dimensions, "width", std::to_string(width));
             return 0;
         }
     }
@@ -61,7 +61,7 @@ int setDimensionHeight(Layout* layout, const double& height) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setHeight(height);
-            setUserData(dimensions, "height", std::to_string(height));
+            ud_setUserData(dimensions, "height", std::to_string(height));
             return 0;
         }
     }

@@ -2,7 +2,6 @@
 #include "../libsbmlnetwork_sbmldocument.h"
 #include "../libsbmlnetwork_sbmldocument_layout.h"
 #include "../libsbmlnetwork_sbmldocument_render.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
 #include "../colors/libsbmlnetwork_colors.h"

@@ -1,11 +1,11 @@
 #include "libsbmlnetwork_sbmldocument.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "libsbmlnetwork_layout_render.h"
 #include "libsbmlnetwork_sbmldocument_layout.h"
 #include "libsbmlnetwork_sbmldocument_render.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_render_helpers.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/user_data/libsbmlnetwork_user_data.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -60,7 +60,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
     bool freeSBMLDocument(SBMLDocument* document) {
         if (document) {
-            freeUserData(document);
+            ud_freeUserData(document);
             delete document;
             return true;
         }
