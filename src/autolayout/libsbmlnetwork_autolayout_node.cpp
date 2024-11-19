@@ -168,13 +168,17 @@ GraphicalObject* AutoLayoutCentroidNode::getGraphicalObject() {
 
 void AutoLayoutCentroidNode::updateDimensions() {
     std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
-    if (fixedWidth.empty())
-        setWidth(std::max(calculateWidth(), getWidth()));
+    if (fixedWidth.empty()) {
+        if (!isSetCurve())
+            setWidth(std::max(calculateWidth(), getWidth()));
+    }
     else
         setWidth(std::stod(fixedWidth));
     std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
-    if (fixedHeight.empty())
-        setHeight(std::max(calculateHeight(), getHeight()));
+    if (fixedHeight.empty()) {
+        if (!isSetCurve())
+            setHeight(std::max(calculateHeight(), getHeight()));
+    }
     else
         setHeight(std::stod(fixedHeight));
 }
