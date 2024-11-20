@@ -5,6 +5,8 @@
 #include "autolayout/libsbmlnetwork_autolayout.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/defaults/libsbmlnetwork_defaults_layout.h"
+#include "features/alias_elements/libsbmlnetwork_alias_species.h"
+#include "features/alias_elements/libsbmlnetwork_alias_reaction.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -129,25 +131,25 @@ int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnect
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!createAliasSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+    if (!alias_element_createAliasSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
         return updateLayoutCurves(document, getLayout(document));
 
     return -1;
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+    if (!alias_element_createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
 }
 
 int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId) {
-    return createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
+    return alias_element_createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
 }
 
 int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
-    return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
+    return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
 }
 
 int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {

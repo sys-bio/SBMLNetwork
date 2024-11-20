@@ -1,0 +1,71 @@
+#include "libsbmlnetwork_alias_reaction.h"
+#include "../../libsbmlnetwork_layout.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
+#include "../../features/alias_elements/libsbmlnetwork_alias_element.h"
+#include "../../features/alias_elements/libsbmlnetwork_alias_species.h"
+#include "../../features/defaults/libsbmlnetwork_defaults_layout.h"
+
+namespace LIBSBMLNETWORK_CPP_NAMESPACE {
+
+    int alias_element_createAliasReactionGlyph(SBMLDocument* document, Layout* layout, ReactionGlyph* reactionGlyph) {
+        if (document && reactionGlyph) {
+            ReactionGlyph* aliasReactionGlyph = alias_element_createAliasReactionGlyph(layout, reactionGlyph);
+            return alias_element_createAliasSpeciesReferenceGlyphs(document, layout, reactionGlyph, aliasReactionGlyph);
+        }
+
+        return -1;
+    }
+
+    ReactionGlyph* alias_element_createAliasReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph) {
+        ReactionGlyph* aliasReactionGlyph = NULL;
+        if (reactionGlyph) {
+            aliasReactionGlyph = createReactionGlyph(layout, reactionGlyph->getReactionId());
+            alias_element_setAliasGraphicalObjectPosition(aliasReactionGlyph, reactionGlyph, defaults_getAliasReactionGlyphPadding());
+            alias_element_setAliasReactionGlyphTextGlyph(layout, aliasReactionGlyph, reactionGlyph);
+        }
+
+        return aliasReactionGlyph;
+    }
+
+    void alias_element_setAliasReactionGlyphTextGlyph(Layout* layout, ReactionGlyph* aliasReactionGlyph, ReactionGlyph* reactionGlyph) {
+        std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, reactionGlyph);
+        if (textGlyphs.size()) {
+            TextGlyph* textGlyph = createAssociatedTextGlyph(layout, aliasReactionGlyph);
+            setTextGlyphBoundingBox(textGlyph, textGlyphs.at(0));
+        }
+    }
+
+    int alias_element_createAliasSpeciesReferenceGlyphs(SBMLDocument* document, Layout* layout, ReactionGlyph* referenceReactionGlyph, ReactionGlyph* reactionGlyph) {
+        std::map <std::string, std::string> speciesGlyphAliasSpeciesGlyphIds;
+        for (unsigned int i = 0; i < referenceReactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
+            SpeciesReferenceGlyph *speciesReferenceGlyph = referenceReactionGlyph->getSpeciesReferenceGlyph(i);
+            SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
+            if (speciesGlyph) {
+                SpeciesGlyph *connectedSpeciesGlyph = NULL;
+                if (speciesGlyphAliasSpeciesGlyphIds.find(speciesGlyph->getId()) == speciesGlyphAliasSpeciesGlyphIds.end())
+                    connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph);
+                else
+                    connectedSpeciesGlyph = layout->getSpeciesGlyph(
+                            speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
+                if (connectedSpeciesGlyph) {
+                    speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
+                    int stoichiometry = getStoichiometryAsInteger(
+                            findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
+                    for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
+                        alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
+                                                         connectedSpeciesGlyph->getId(), stoichiometryIndex);
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    SpeciesReferenceGlyph* alias_element_createAliasSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const std::string& speciesGlyphId, unsigned int stoichiometryIndex) {
+        SpeciesReferenceGlyph* aliasSpeciesReferenceGlyph = createSpeciesReferenceGlyph(reactionGlyph, speciesGlyphId, stoichiometryIndex);
+        aliasSpeciesReferenceGlyph->setRole(referenceSpeciesReferenceGlyph->getRole());
+        setSpeciesReferenceGlyphCurve(aliasSpeciesReferenceGlyph, referenceSpeciesReferenceGlyph);
+        return aliasSpeciesReferenceGlyph;
+    }
+
+}

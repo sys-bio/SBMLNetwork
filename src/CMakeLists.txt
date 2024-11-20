@@ -24,6 +24,9 @@ set(SOURCES
 		features/user_data/libsbmlnetwork_user_data.cpp
 		features/defaults/libsbmlnetwork_defaults_layout.cpp
 		features/defaults/libsbmlnetwork_defaults_render.cpp
+		features/alias_elements/libsbmlnetwork_alias_element.cpp
+		features/alias_elements/libsbmlnetwork_alias_species.cpp
+		features/alias_elements/libsbmlnetwork_alias_reaction.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -50,6 +53,9 @@ set(HEADERS
 		features/user_data/libsbmlnetwork_user_data.h
         features/defaults/libsbmlnetwork_defaults_layout.h
 		features/defaults/libsbmlnetwork_defaults_render.h
+		features/alias_elements/libsbmlnetwork_alias_element.h
+		features/alias_elements/libsbmlnetwork_alias_species.h
+		features/alias_elements/libsbmlnetwork_alias_reaction.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies
