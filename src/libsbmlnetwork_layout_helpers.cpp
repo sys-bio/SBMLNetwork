@@ -68,11 +68,11 @@ void lockCompartmentGlyphs(Layout* layout, const bool resetLockedElements) {
     if (resetLockedElements) {
         for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
             CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(i);
-            if (ud_getUserData(compartmentGlyph, "locked") == "true")
+            if (user_data_getUserData(compartmentGlyph, "locked") == "true")
                 unlockGraphicalObject(compartmentGlyph);
-            if (ud_getUserData(compartmentGlyph, "fixed_width") == "true")
+            if (user_data_getUserData(compartmentGlyph, "fixed_width") == "true")
                 unfixGraphicalObjectWidth(compartmentGlyph);
-            if (ud_getUserData(compartmentGlyph, "fixed_height") == "true")
+            if (user_data_getUserData(compartmentGlyph, "fixed_height") == "true")
                 unfixGraphicalObjectHeight(compartmentGlyph);
         }
     }
@@ -82,11 +82,11 @@ void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lo
     if (resetLockedElements) {
         for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++) {
             SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(i);
-            if (ud_getUserData(speciesGlyph, "locked") == "true")
+            if (user_data_getUserData(speciesGlyph, "locked") == "true")
                 unlockGraphicalObject(speciesGlyph);
-            if (ud_getUserData(speciesGlyph, "fixed_width") == "true")
+            if (user_data_getUserData(speciesGlyph, "fixed_width") == "true")
                 unfixGraphicalObjectWidth(speciesGlyph);
-            if (ud_getUserData(speciesGlyph, "fixed_height") == "true")
+            if (user_data_getUserData(speciesGlyph, "fixed_height") == "true")
                 unfixGraphicalObjectHeight(speciesGlyph);
         }
     }
@@ -103,15 +103,15 @@ void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > l
     if (resetLockedElements) {
         for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
             ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
-            if (ud_getUserData(reactionGlyph, "locked") == "true")
+            if (user_data_getUserData(reactionGlyph, "locked") == "true")
                 unlockGraphicalObject(reactionGlyph);
-            if (ud_getUserData(reactionGlyph, "fixed_width") == "true")
+            if (user_data_getUserData(reactionGlyph, "fixed_width") == "true")
                 unfixGraphicalObjectWidth(reactionGlyph);
-            if (ud_getUserData(reactionGlyph, "fixed_height") == "true")
+            if (user_data_getUserData(reactionGlyph, "fixed_height") == "true")
                 unfixGraphicalObjectHeight(reactionGlyph);
             for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
                 SpeciesReferenceGlyph *speciesReferenceGlyph = reactionGlyph->getSpeciesReferenceGlyph(j);
-                if (ud_getUserData(speciesReferenceGlyph, "locked") == "true")
+                if (user_data_getUserData(speciesReferenceGlyph, "locked") == "true")
                     unlockGraphicalObject(speciesReferenceGlyph);
             }
         }
@@ -126,48 +126,48 @@ void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > l
 }
 
 void lockGraphicalObject(GraphicalObject* graphicalObject) {
-    ud_setUserData(graphicalObject, "locked", "true");
+    user_data_setUserData(graphicalObject, "locked", "true");
     if (isSpeciesReferenceGlyph(graphicalObject))
-        ud_setPositionData((SpeciesReferenceGlyph*)graphicalObject);
+        user_data_setPositionData((SpeciesReferenceGlyph*)graphicalObject);
     else
-        ud_setPositionData(graphicalObject);
+        user_data_setPositionData(graphicalObject);
 }
 
 void unlockGraphicalObject(GraphicalObject* graphicalObject) {
-    ud_setUserData(graphicalObject, "locked", "false");
+    user_data_setUserData(graphicalObject, "locked", "false");
     if (isSpeciesReferenceGlyph(graphicalObject))
-        ud_unsetPositionData((SpeciesReferenceGlyph*)graphicalObject);
+        user_data_unsetPositionData((SpeciesReferenceGlyph*)graphicalObject);
     else
-        ud_unsetPositionData(graphicalObject);
+        user_data_unsetPositionData(graphicalObject);
 }
 
 std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects) {
     std::vector<GraphicalObject*> lockedGraphicalObjects;
     for (unsigned int i = 0; i < graphicalObjects.size(); i++)
-        if (ud_getUserData(graphicalObjects.at(i), "locked") == "true")
+        if (user_data_getUserData(graphicalObjects.at(i), "locked") == "true")
             lockedGraphicalObjects.push_back(graphicalObjects.at(i));
 
     return lockedGraphicalObjects;
 }
 
 void fixGraphicalObjectWidth(GraphicalObject* graphicalObject) {
-    ud_setUserData(graphicalObject, "fixed_width", "true");
-    ud_setUserData(graphicalObject, "width", std::to_string(graphicalObject->getBoundingBox()->width()));
+    user_data_setUserData(graphicalObject, "fixed_width", "true");
+    user_data_setUserData(graphicalObject, "width", std::to_string(graphicalObject->getBoundingBox()->width()));
 }
 
 void unfixGraphicalObjectWidth(GraphicalObject* graphicalObject) {
-    ud_setUserData(graphicalObject, "fixed_width", "false");
-    ud_setUserData(graphicalObject, "width", "");
+    user_data_setUserData(graphicalObject, "fixed_width", "false");
+    user_data_setUserData(graphicalObject, "width", "");
 }
 
 void fixGraphicalObjectHeight(GraphicalObject* graphicalObject) {
-    ud_setUserData(graphicalObject, "fixed_height", "true");
-    ud_setUserData(graphicalObject, "height", std::to_string(graphicalObject->getBoundingBox()->height()));
+    user_data_setUserData(graphicalObject, "fixed_height", "true");
+    user_data_setUserData(graphicalObject, "height", std::to_string(graphicalObject->getBoundingBox()->height()));
 }
 
 void unfixGraphicalObjectHeight(GraphicalObject* graphicalObject) {
-    ud_setUserData(graphicalObject, "fixed_height", "false");
-    ud_setUserData(graphicalObject, "height", "");
+    user_data_setUserData(graphicalObject, "fixed_height", "false");
+    user_data_setUserData(graphicalObject, "height", "");
 }
 
 void clearGraphicalObjects(Layout* layout) {
@@ -179,14 +179,14 @@ void clearGraphicalObjects(Layout* layout) {
 
 void clearCompartmentGlyphs(Layout* layout) {
     while (layout->getNumCompartmentGlyphs()) {
-        ud_freeUserData(layout->getCompartmentGlyph(0));
+        user_data_freeUserData(layout->getCompartmentGlyph(0));
         delete layout->removeCompartmentGlyph(0);
     }
 }
 
 void clearSpeciesGlyphs(Layout* layout) {
     while (layout->getNumSpeciesGlyphs()) {
-        ud_freeUserData(layout->getSpeciesGlyph(0));
+        user_data_freeUserData(layout->getSpeciesGlyph(0));
         delete layout->removeSpeciesGlyph(0);
     }
 }
@@ -194,7 +194,7 @@ void clearSpeciesGlyphs(Layout* layout) {
 void clearReactionGlyphs(Layout* layout) {
     while (layout->getNumReactionGlyphs()) {
         clearReactionGlyphSpeciesReferenceGlyphs(layout->getReactionGlyph(0));
-        ud_freeUserData(layout->getReactionGlyph(0));
+        user_data_freeUserData(layout->getReactionGlyph(0));
         delete layout->removeReactionGlyph(0);
     }
 
@@ -202,14 +202,14 @@ void clearReactionGlyphs(Layout* layout) {
 
 void clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph) {
     while (reactionGlyph->getNumSpeciesReferenceGlyphs()) {
-        ud_freeUserData(reactionGlyph->getSpeciesReferenceGlyph(0));
+        user_data_freeUserData(reactionGlyph->getSpeciesReferenceGlyph(0));
         delete reactionGlyph->removeSpeciesReferenceGlyph(0);
     }
 }
 
 void clearTextGlyphs(Layout* layout) {
     while (layout->getNumTextGlyphs()) {
-        ud_freeUserData(layout->getTextGlyph(0));
+        user_data_freeUserData(layout->getTextGlyph(0));
         delete layout->removeTextGlyph(0);
     }
 }
@@ -219,7 +219,7 @@ void clearReactionTextGlyphs(Layout* layout) {
         ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
         std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, reactionGlyph);
         for (unsigned int j = 0; j < textGlyphs.size(); j++) {
-            ud_freeUserData(textGlyphs.at(j));
+            user_data_freeUserData(textGlyphs.at(j));
             delete layout->removeTextGlyph(textGlyphs.at(j)->getId());
         }
     }
@@ -288,12 +288,12 @@ void setEmptySpeciesReferenceGlyphs(Model* model, Layout* layout, ReactionGlyph*
     if (reaction->getNumReactants() == 0) {
         SpeciesReferenceGlyph* emptyReactantGlyph = createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph);
         emptyReactantGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-        ud_setGraphicalObjectUserData(emptyReactantGlyph, userData);
+        user_data_setGraphicalObjectUserData(emptyReactantGlyph, userData);
     }
     else if (reaction->getNumProducts() == 0) {
         SpeciesReferenceGlyph* emptyProductGlyph = createEmptySpeciesReferenceGlyph(model, layout, reactionGlyph);
         emptyProductGlyph->setRole(SPECIES_ROLE_PRODUCT);
-        ud_setGraphicalObjectUserData(emptyProductGlyph, userData);
+        user_data_setGraphicalObjectUserData(emptyProductGlyph, userData);
     }
 }
 
@@ -306,9 +306,9 @@ SpeciesGlyph* createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyp
     SpeciesGlyph* emptySpeciesGlyph = createEmptySpeciesGlyph(layout, reactionGlyph->getId());
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
     if (compartmentGlyph)
-        ud_setUserData(emptySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
-    ud_setUserData(emptySpeciesGlyph, "width", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
-    ud_setUserData(emptySpeciesGlyph, "height", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
+        user_data_setUserData(emptySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
+    user_data_setUserData(emptySpeciesGlyph, "width", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
+    user_data_setUserData(emptySpeciesGlyph, "height", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
     setGraphicalObjectBoundingBox(emptySpeciesGlyph);
 
     return emptySpeciesGlyph;
@@ -408,7 +408,7 @@ int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string specie
             speciesReferenceGlyph->setSpeciesGlyphId(newSpeciesGlyph->getId());
         }
         if (!getSpeciesReferencesAssociatedWithSpeciesGlyph(layout, originalSpeciesGlyph->getId()).size()) {
-            ud_freeUserData(originalSpeciesGlyph);
+            user_data_freeUserData(originalSpeciesGlyph);
             layout->removeSpeciesGlyph(originalSpeciesGlyph->getId());
         }
 
@@ -436,15 +436,15 @@ int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string spec
 
 int hideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
     if (sBase) {
-        std::string hiddenSpeciesIds = ud_getUserData(sBase, "hidden_species_ids");
+        std::string hiddenSpeciesIds = user_data_getUserData(sBase, "hidden_species_ids");
         if (hiddenSpeciesIds.find(speciesId) == std::string::npos) {
             if (hiddenSpeciesIds.size())
                 hiddenSpeciesIds += ",";
             hiddenSpeciesIds += speciesId;
             if (isGraphicalObject(sBase))
-                ud_setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
+                user_data_setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
             else
-                ud_setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
+                user_data_setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
         }
 
         return 0;
@@ -455,16 +455,16 @@ int hideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
 
 int unHideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
     if (sBase) {
-        std::string hiddenSpeciesIds = ud_getUserData(sBase, "hidden_species_ids");
+        std::string hiddenSpeciesIds = user_data_getUserData(sBase, "hidden_species_ids");
         size_t found = hiddenSpeciesIds.find(speciesId);
         if (found != std::string::npos) {
             hiddenSpeciesIds.erase(found, speciesId.size());
             if (hiddenSpeciesIds.back() == ',')
                 hiddenSpeciesIds.pop_back();
             if (isGraphicalObject(sBase))
-                ud_setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
+                user_data_setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
             else
-                ud_setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
+                user_data_setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
         }
 
         return 0;
@@ -474,7 +474,7 @@ int unHideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
 }
 
 const bool isSpeciesGlyphHidden(Layout* layout, ReactionGlyph* reactionGlyph, const std::string speciesId) {
-    return ud_getUserData(layout, "hidden_species_ids").find(speciesId) != std::string::npos ||  ud_getUserData(reactionGlyph, "hidden_species_ids").find(speciesId) != std::string::npos;
+    return user_data_getUserData(layout, "hidden_species_ids").find(speciesId) != std::string::npos ||  user_data_getUserData(reactionGlyph, "hidden_species_ids").find(speciesId) != std::string::npos;
 }
 
 const bool canHaveAlias(Layout* layout, std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfReactionGlyph) {
@@ -635,7 +635,7 @@ CompartmentGlyph* createCompartmentGlyph(Layout* layout, const std::string& comp
     compartmentGlyph->setId(getCompartmentGlyphId(layout, compartmentId));
     compartmentGlyph->setCompartmentId(compartmentId);
     setGraphicalObjectBoundingBox(compartmentGlyph);
-    ud_setGraphicalObjectUserData(compartmentGlyph, userData);
+    user_data_setGraphicalObjectUserData(compartmentGlyph, userData);
     
     return compartmentGlyph;
 }
@@ -645,7 +645,7 @@ SpeciesGlyph* createSpeciesGlyph(Layout* layout, const std::string& speciesId, c
     speciesGlyph->setId(getSpeciesGlyphId(layout, speciesId));
     speciesGlyph->setSpeciesId(speciesId);
     setGraphicalObjectBoundingBox(speciesGlyph);
-    ud_setGraphicalObjectUserData(speciesGlyph, userData);
+    user_data_setGraphicalObjectUserData(speciesGlyph, userData);
 
     return speciesGlyph;
 }
@@ -663,7 +663,7 @@ ReactionGlyph* createReactionGlyph(Layout* layout, const std::string& reactionId
     reactionGlyph->setId(getReactionGlyphId(layout, reactionId));
     reactionGlyph->setReactionId(reactionId);
     setReactionGlyphCurve(reactionGlyph);
-    ud_setGraphicalObjectUserData(reactionGlyph, userData);
+    user_data_setGraphicalObjectUserData(reactionGlyph, userData);
     
     return reactionGlyph;
 }
@@ -674,7 +674,7 @@ SpeciesReferenceGlyph* createSpeciesReferenceGlyph(Layout* layout, ReactionGlyph
     speciesReferenceGlyph->setId(getSpeciesReferenceGlyphId(reactionGlyph, speciesGlyph->getId(), stoichiometryIndex));
     speciesReferenceGlyph->setSpeciesGlyphId(speciesGlyph->getId());
     setSpeciesReferenceGlyphCurve(speciesReferenceGlyph);
-    ud_setGraphicalObjectUserData(speciesReferenceGlyph, userData);
+    user_data_setGraphicalObjectUserData(speciesReferenceGlyph, userData);
 
     return speciesReferenceGlyph;
 }
@@ -902,7 +902,7 @@ Compartment* findSpeciesGlyphCompartment(Model* model, SpeciesGlyph* speciesGlyp
     if (species)
         return model->getCompartment(species->getCompartment());
     else
-        return model->getCompartment(ud_getUserData(speciesGlyph, "compartment"));
+        return model->getCompartment(user_data_getUserData(speciesGlyph, "compartment"));
 }
 
 Species* findSpeciesGlyphSpecies(Model* model, SpeciesGlyph* speciesGlyph) {

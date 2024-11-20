@@ -60,7 +60,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
     bool freeSBMLDocument(SBMLDocument* document) {
         if (document) {
-            ud_freeUserData(document);
+            user_data_freeUserData(document);
             delete document;
             return true;
         }

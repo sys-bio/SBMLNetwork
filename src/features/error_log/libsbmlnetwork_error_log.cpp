@@ -13,7 +13,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 const std::string error_log_getErrorLog(SBMLDocument* document) {
     std::string errorLog = "";
     if (document) {
-        errorLog = error_log_prepareErrorMessage(ud_getUserData(document, "error_log"), errorLog);
+        errorLog = error_log_prepareErrorMessage(user_data_getUserData(document, "error_log"), errorLog);
         ListOfLayouts* listOfLayouts = getListOfLayouts(document);
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(listOfLayouts), errorLog);
         const int numLayouts = getNumLayouts(document);
@@ -35,7 +35,7 @@ const std::string error_log_getErrorLog(SBMLDocument* document) {
 
 void error_log_clearErrorLog(SBMLDocument* document) {
     if (document) {
-        ud_setUserData(document, "error_log", "");
+        user_data_setUserData(document, "error_log", "");
         ListOfLayouts* listOfLayouts = getListOfLayouts(document);
         error_log_clearErrorLog(listOfLayouts);
         const int numLayouts = getNumLayouts(document);
@@ -55,7 +55,7 @@ void error_log_clearErrorLog(SBMLDocument* document) {
 const std::string error_log_getErrorLog(Layout* layout) {
     std::string errorLog = "";
     if (layout) {
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(layout, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(layout, "error_log"), errorLog);
         for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
             errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(layout->getCompartmentGlyph(i)), errorLog);
         for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
@@ -74,7 +74,7 @@ const std::string error_log_getErrorLog(Layout* layout) {
 
 void error_log_clearErrorLog(Layout* layout) {
     if (layout) {
-        ud_setUserData(layout, "error_log", "");
+        user_data_setUserData(layout, "error_log", "");
         for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++)
             error_log_clearErrorLog(layout->getCompartmentGlyph(i));
         for (unsigned int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
@@ -92,7 +92,7 @@ void error_log_clearErrorLog(Layout* layout) {
 const std::string error_log_getErrorLog(GraphicalObject* graphicalObject) {
     std::string errorLog = "";
     if (graphicalObject)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(graphicalObject, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(graphicalObject, "error_log"), errorLog);
     if (graphicalObject->getBoundingBox())
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(graphicalObject->getBoundingBox()), errorLog);
     if (isSetCurve(graphicalObject))
@@ -103,7 +103,7 @@ const std::string error_log_getErrorLog(GraphicalObject* graphicalObject) {
 
 void error_log_clearErrorLog(GraphicalObject* graphicalObject) {
     if (graphicalObject) {
-        ud_setUserData(graphicalObject, "error_log", "");
+        user_data_setUserData(graphicalObject, "error_log", "");
         if (graphicalObject->getBoundingBox())
             error_log_clearErrorLog(graphicalObject->getBoundingBox());
         if (isSetCurve(graphicalObject))
@@ -114,20 +114,20 @@ void error_log_clearErrorLog(GraphicalObject* graphicalObject) {
 const std::string error_log_getErrorLog(BoundingBox* boundingBox) {
     std::string errorLog = "";
     if (boundingBox)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(boundingBox, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(boundingBox, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(BoundingBox* boundingBox) {
     if (boundingBox)
-        ud_setUserData(boundingBox, "error_log", "");
+        user_data_setUserData(boundingBox, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(Curve* curve) {
     std::string errorLog = "";
     if (curve)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(curve, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(curve, "error_log"), errorLog);
     for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(getCurveSegment(curve, i)), errorLog);
 
@@ -136,7 +136,7 @@ const std::string error_log_getErrorLog(Curve* curve) {
 
 void error_log_clearErrorLog(Curve* curve) {
     if (curve) {
-        ud_setUserData(curve, "error_log", "");
+        user_data_setUserData(curve, "error_log", "");
         for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
             error_log_clearErrorLog(getCurveSegment(curve, i));
     }
@@ -145,20 +145,20 @@ void error_log_clearErrorLog(Curve* curve) {
 const std::string error_log_getErrorLog(LineSegment* lineSegment) {
     std::string errorLog = "";
     if (lineSegment)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(lineSegment, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(lineSegment, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(LineSegment* lineSegment) {
     if (lineSegment)
-        ud_setUserData(lineSegment, "error_log", "");
+        user_data_setUserData(lineSegment, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(RenderInformationBase* renderInformation) {
     std::string errorLog = "";
     if (renderInformation)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(renderInformation, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(renderInformation, "error_log"), errorLog);
     for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(renderInformation->getColorDefinition(i)), errorLog);
     for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
@@ -183,7 +183,7 @@ const std::string error_log_getErrorLog(RenderInformationBase* renderInformation
 
 void error_log_clearErrorLog(RenderInformationBase* renderInformation) {
     if (renderInformation) {
-        ud_setUserData(renderInformation, "error_log", "");
+        user_data_setUserData(renderInformation, "error_log", "");
         for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
             error_log_clearErrorLog(renderInformation->getColorDefinition(i));
         for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
@@ -208,59 +208,59 @@ void error_log_clearErrorLog(RenderInformationBase* renderInformation) {
 const std::string error_log_getErrorLog(ColorDefinition* colorDefinition) {
     std::string errorLog = "";
     if (colorDefinition)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(colorDefinition, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(colorDefinition, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(ColorDefinition* colorDefinition) {
     if (colorDefinition)
-        ud_setUserData(colorDefinition, "error_log", "");
+        user_data_setUserData(colorDefinition, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(GradientBase* gradientBase) {
     std::string errorLog = "";
     if (gradientBase)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(gradientBase, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(gradientBase, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(GradientBase* gradientBase) {
     if (gradientBase)
-        ud_setUserData(gradientBase, "error_log", "");
+        user_data_setUserData(gradientBase, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(GradientStop* gradientStop) {
     std::string errorLog = "";
     if (gradientStop)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(gradientStop, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(gradientStop, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(GradientStop* gradientStop) {
     if (gradientStop)
-        ud_setUserData(gradientStop, "error_log", "");
+        user_data_setUserData(gradientStop, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(LineEnding* lineEnding) {
     std::string errorLog = "";
     if (lineEnding)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(lineEnding, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(lineEnding, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(LineEnding* lineEnding) {
     if (lineEnding)
-        ud_setUserData(lineEnding, "error_log", "");
+        user_data_setUserData(lineEnding, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(Style* style) {
     std::string errorLog = "";
     if (style) {
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(style, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(style, "error_log"), errorLog);
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(style->getGroup()), errorLog);
     }
 
@@ -269,7 +269,7 @@ const std::string error_log_getErrorLog(Style* style) {
 
 void error_log_clearErrorLog(Style* style) {
     if (style) {
-        ud_setUserData(style, "error_log", "");
+        user_data_setUserData(style, "error_log", "");
         error_log_clearErrorLog( style->getGroup());
     }
 }
@@ -277,7 +277,7 @@ void error_log_clearErrorLog(Style* style) {
 const std::string error_log_getErrorLog(RenderGroup* renderGroup) {
     std::string errorLog = "";
     if (renderGroup) {
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(renderGroup, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(renderGroup, "error_log"), errorLog);
         for (unsigned int i = 0; i < renderGroup->getNumElements(); i++)
             errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(renderGroup->getElement(i)), errorLog);
     }
@@ -287,7 +287,7 @@ const std::string error_log_getErrorLog(RenderGroup* renderGroup) {
 
 void error_log_clearErrorLog(RenderGroup* renderGroup) {
     if (renderGroup) {
-        ud_setUserData(renderGroup, "error_log", "");
+        user_data_setUserData(renderGroup, "error_log", "");
         for (unsigned int j = 0; j < renderGroup->getNumElements(); j++)
             error_log_clearErrorLog(renderGroup->getElement(j));
     }
@@ -296,20 +296,20 @@ void error_log_clearErrorLog(RenderGroup* renderGroup) {
 const std::string error_log_getErrorLog(Transformation2D* transformation2D) {
     std::string errorLog = "";
     if (transformation2D)
-        errorLog += error_log_prepareErrorMessage(ud_getUserData(transformation2D, "error_log"), errorLog);
+        errorLog += error_log_prepareErrorMessage(user_data_getUserData(transformation2D, "error_log"), errorLog);
 
     return errorLog;
 }
 
 void error_log_clearErrorLog(Transformation2D* transformation2D) {
     if (transformation2D)
-        ud_setUserData(transformation2D, "error_log", "");
+        user_data_setUserData(transformation2D, "error_log", "");
 }
 
 const std::string error_log_getErrorLog(SBase* sBase) {
     std::string errorLog = "";
     if (sBase)
-        errorLog = error_log_prepareErrorMessage(ud_getUserData(sBase, "error_log"), errorLog);
+        errorLog = error_log_prepareErrorMessage(user_data_getUserData(sBase, "error_log"), errorLog);
 
     return errorLog;
 
@@ -317,7 +317,7 @@ const std::string error_log_getErrorLog(SBase* sBase) {
 
 void error_log_clearErrorLog(SBase* sBase) {
     if (sBase)
-        ud_setUserData(sBase, "error_log", "");
+        user_data_setUserData(sBase, "error_log", "");
 }
 
 const std::string error_log_prepareErrorMessage(const std::string& errorMessage, const std::string& errorLog) {
@@ -334,11 +334,11 @@ const std::string error_log_prepareErrorMessage(const std::string& errorMessage,
 
 void error_log_addErrorToLog(SBase* sBase, const std::string& errorMessage) {
     if (sBase && !errorMessage.empty()) {
-        std::string errorLog = ud_getUserData(sBase, "error_log");
+        std::string errorLog = user_data_getUserData(sBase, "error_log");
         if (!errorLog.empty())
             errorLog += "\n";
         errorLog += errorMessage;
-        ud_setUserData(sBase, "error_log", errorLog);
+        user_data_setUserData(sBase, "error_log", errorLog);
     }
 }
 

@@ -67,7 +67,7 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 }
 
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
-    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "width");
+    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout->getDimensions(), "width");
     if (!width.empty() && std::stod(width) > 0.0) {
         _width = std::max(0.0, std::stod(width) - 6 * defaults_getDefaultAutoLayoutPadding());
         _useHorizontalBoundary = true;
@@ -77,7 +77,7 @@ void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
 }
 
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
-    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "height");
+    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout->getDimensions(), "height");
     if (!height.empty() && std::stod(height) > 0.0) {
         _height = std::max(0.0, std::stod(height) - 6 * defaults_getDefaultAutoLayoutPadding());
         _useVerticalBoundary = true;

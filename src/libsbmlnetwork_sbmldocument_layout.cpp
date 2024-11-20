@@ -84,7 +84,7 @@ int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int 
         Model* model = document->getModel();
         if (model) {
             lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
-            std::vector<std::map<std::string, std::string>> userData = ud_getUserData(layout);
+            std::vector<std::map<std::string, std::string>> userData = user_data_getUserData(layout);
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout, userData);
             setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
