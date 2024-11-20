@@ -2,9 +2,9 @@
 #include "libsbmlnetwork_autolayout_node.h"
 #include "libsbmlnetwork_autolayout_connection.h"
 #include "libsbmlnetwork_autolayout_curve.h"
-#include "../libsbmlnetwork_layout_helpers.h"
-#include "../features/user_data/libsbmlnetwork_user_data.h"
-#include "../features/defaults/libsbmlnetwork_defaults_layout.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
+#include "../user_data/libsbmlnetwork_user_data.h"
+#include "../defaults/libsbmlnetwork_defaults_layout.h"
 #include <cstdlib>
 #include <cmath>
 

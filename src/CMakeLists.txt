@@ -13,13 +13,13 @@ set(SOURCES
 		libsbmlnetwork_sbmldocument_render.cpp
 		features/colors/libsbmlnetwork_colors.cpp
 		features/styles/libsbmlnetwork_styles.cpp
-        autolayout/libsbmlnetwork_autolayout.cpp
-		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.cpp
-		autolayout/libsbmlnetwork_autolayout_object_base.cpp
-		autolayout/libsbmlnetwork_autolayout_node.cpp
-		autolayout/libsbmlnetwork_autolayout_connection.cpp
-		autolayout/libsbmlnetwork_autolayout_curve.cpp
-		autolayout/libsbmlnetwork_autolayout_point.cpp
+		features/autolayout/libsbmlnetwork_autolayout.cpp
+		features/autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.cpp
+		features/autolayout/libsbmlnetwork_autolayout_object_base.cpp
+		features/autolayout/libsbmlnetwork_autolayout_node.cpp
+		features/autolayout/libsbmlnetwork_autolayout_connection.cpp
+		features/autolayout/libsbmlnetwork_autolayout_curve.cpp
+		features/autolayout/libsbmlnetwork_autolayout_point.cpp
 		features/error_log/libsbmlnetwork_error_log.cpp
 		features/user_data/libsbmlnetwork_user_data.cpp
 		features/defaults/libsbmlnetwork_defaults_layout.cpp
@@ -42,13 +42,13 @@ set(HEADERS
 		libsbmlnetwork_sbmldocument_render.h
 		features/colors/libsbmlnetwork_colors.h
 		features/styles/libsbmlnetwork_styles.h
-		autolayout/libsbmlnetwork_autolayout.h
-		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.h
-		autolayout/libsbmlnetwork_autolayout_object_base.h
-		autolayout/libsbmlnetwork_autolayout_node.h
-		autolayout/libsbmlnetwork_autolayout_connection.h
-		autolayout/libsbmlnetwork_autolayout_curve.h
-		autolayout/libsbmlnetwork_autolayout_point.h
+		features/autolayout/libsbmlnetwork_autolayout.h
+		features/autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.h
+		features/autolayout/libsbmlnetwork_autolayout_object_base.h
+		features/autolayout/libsbmlnetwork_autolayout_node.h
+		features/autolayout/libsbmlnetwork_autolayout_connection.h
+		features/autolayout/libsbmlnetwork_autolayout_curve.h
+		features/autolayout/libsbmlnetwork_autolayout_point.h
 		features/error_log/libsbmlnetwork_error_log.h
 		features/user_data/libsbmlnetwork_user_data.h
         features/defaults/libsbmlnetwork_defaults_layout.h
@@ -101,7 +101,7 @@ endif()
 ### install
 file(GLOB SOURCE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 install(FILES ${SOURCE_HEADERS} DESTINATION include/sbmlnetwork COMPONENT libsbmlnetwork_api)
-file(GLOB AUTOLAYOUT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/autolayout/*.h")
+file(GLOB AUTOLAYOUT_HEADERS "features/autolayout/*.h")
 install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/sbmlnetwork/autolayout COMPONENT libsbmlnetwork_api)
 file(GLOB COLORS_HEADERS "features/colors/*.h")
 install(FILES ${COLORS_HEADERS} DESTINATION include/sbmlnetwork/colors COMPONENT libsbmlnetwork_api)

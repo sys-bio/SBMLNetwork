@@ -2,7 +2,7 @@
 #include "libsbmlnetwork_sbmldocument.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "autolayout/libsbmlnetwork_autolayout.h"
+#include "features/autolayout/libsbmlnetwork_autolayout.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/defaults/libsbmlnetwork_defaults_layout.h"
 #include "features/alias_elements/libsbmlnetwork_alias_species.h"

@@ -1,10 +1,10 @@
 #include "libsbmlnetwork_autolayout.h"
-#include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_common.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
+#include "../../libsbmlnetwork_common.h"
 #include "libsbmlnetwork_fruchterman_reingold_algorithm.h"
-#include "../features/error_log/libsbmlnetwork_error_log.h"
-#include "../features/user_data/libsbmlnetwork_user_data.h"
-#include "../features/defaults/libsbmlnetwork_defaults_layout.h"
+#include "../error_log/libsbmlnetwork_error_log.h"
+#include "../user_data/libsbmlnetwork_user_data.h"
+#include "../defaults/libsbmlnetwork_defaults_layout.h"
 
 #include <cstdlib>
 #include <cmath>
