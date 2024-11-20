@@ -6,6 +6,7 @@
 #include "../libsbmlnetwork_render_helpers.h"
 #include "../features/colors/libsbmlnetwork_colors.h"
 #include "../features/styles/libsbmlnetwork_styles.h"
+#include "../features/align_elements/libsbmlnetwork_align_element.h"
 
 extern "C" {
 
@@ -3287,23 +3288,23 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_getNumValidAlignmentValues() {
-        return getValidAlignmentValues().size();
+        return align_elements_getValidAlignmentValues().size();
     }
 
     const char* c_api_getNthValidAlignmentValue(int index) {
         if (index >= 0 && index < c_api_getNumValidAlignmentValues())
-            return strdup(getValidAlignmentValues().at(index).c_str());
+            return strdup(align_elements_getValidAlignmentValues().at(index).c_str());
 
         return "";
     }
 
     int c_api_getNumValidDistributionDirectionValues() {
-        return getValidDistributionDirectionValues().size();
+        return align_elements_getValidDistributionDirectionValues().size();
     }
 
     const char* c_api_getNthValidDistributionDirectionValue(int index) {
         if (index >= 0 && index < c_api_getNumValidDistributionDirectionValues())
-            return strdup(getValidDistributionDirectionValues().at(index).c_str());
+            return strdup(align_elements_getValidDistributionDirectionValues().at(index).c_str());
 
         return "";
     }

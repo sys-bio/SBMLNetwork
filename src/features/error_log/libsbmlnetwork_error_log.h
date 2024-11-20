@@ -71,6 +71,8 @@ const std::string error_log_prepareErrorMessage(const std::string& errorMessage,
 
 void error_log_addErrorToLog(SBase* sBase, const std::string& errorMessage);
 
+const std::string error_log_createErrorMessage(const std::string& value, std::vector<std::string> validValues);
+
 }
 
 #endif

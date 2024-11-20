@@ -6,6 +6,7 @@
 #include "libsbmlnetwork_render_helpers.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
+#include "features/align_elements/libsbmlnetwork_align_species.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -103,7 +104,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 }
                 allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
-            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
+            align_elements_alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
             return updateLayoutCurves(document, getLayout(document));
         }
 
@@ -120,7 +121,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 }
                 allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
-            distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
+            align_elements_distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
             return updateLayoutCurves(document, getLayout(document));
         }
 

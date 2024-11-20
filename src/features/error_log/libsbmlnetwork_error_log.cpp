@@ -342,4 +342,19 @@ void error_log_addErrorToLog(SBase* sBase, const std::string& errorMessage) {
     }
 }
 
+const std::string error_log_createErrorMessage(const std::string& value, std::vector<std::string> validValues) {
+    std::string errorMessage = "error: " + value + " is not a valid value. It must be one of the following: ";
+    for (unsigned int i = 0; i < validValues.size(); i++) {
+        if (i != validValues.size() - 1) {
+            errorMessage += validValues[i];
+            errorMessage += ", ";
+        } else {
+            errorMessage += "or ";
+            errorMessage += validValues[i];
+        }
+    }
+
+    return errorMessage;
+}
+
 }

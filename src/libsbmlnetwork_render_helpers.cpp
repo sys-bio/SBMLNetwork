@@ -1031,7 +1031,7 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBas
     if (isValueValid(spreadMethod, getValidSpreadMethodValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
     return false;
 }
 
@@ -1156,7 +1156,7 @@ const bool isValidFontWeightValue(const std::string& fontWeight, SBase* sBase) {
     if (isValueValid(fontWeight, getValidFontWeightValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(fontWeight, getValidFontWeightValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(fontWeight, getValidFontWeightValues()));
     return false;
 }
 
@@ -1164,7 +1164,7 @@ const bool isValidFontStyleValue(const std::string& fontStyle, SBase* sBase) {
     if (isValueValid(fontStyle, getValidFontStyleValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(fontStyle, getValidFontStyleValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(fontStyle, getValidFontStyleValues()));
     return false;
 }
 
@@ -1172,7 +1172,7 @@ const bool isValidTextAnchorValue(const std::string& textAnchor, SBase* sBase) {
     if (isValueValid(textAnchor, getValidTextAnchorValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(textAnchor, getValidTextAnchorValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(textAnchor, getValidTextAnchorValues()));
     return false;
 }
 
@@ -1180,7 +1180,7 @@ const bool isValidVTextAnchorValue(const std::string& vtextAnchor, SBase* sBase)
     if (isValueValid(vtextAnchor, getValidVTextAnchorValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
     return false;
 }
 
@@ -1196,7 +1196,7 @@ const bool isValidFillRuleValue(const std::string& fillRule, SBase* sBase) {
     if (isValueValid(fillRule, getValidFillRuleValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(fillRule, getValidFillRuleValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(fillRule, getValidFillRuleValues()));
     return false;
 }
 
@@ -1212,7 +1212,7 @@ const bool isValidGeometricShapeName(const std::string& geometricShapeName, SBas
     if (isValueValid(geometricShapeName, getValidGeometricShapeNameValues()))
         return true;
 
-    error_log_addErrorToLog(sBase, createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
     return false;
 }
 

@@ -228,68 +228,6 @@ int setCurveMiddlePositionX(Curve* curve, const double& x);
 
 int setCurveMiddlePositionY(Curve* curve, const double& y);
 
-void alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-const double getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-const double getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-const double getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-const double getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-const double getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-const double getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
-
-void distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing);
-
-void distributeGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
-
-void distributeEvenGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
-
-void distributeOddGraphicalObjectsHorizontally(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minX, const double& maxX, const double& distance);
-
-void distributeGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& spacing);
-
-void distributeEvenGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
-
-void distributeOddGraphicalObjectsVertically(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const double& minY, const double& maxY, const double& distance);
-
-const double findDistributionDistance(const double& minPosition, const double& maxPosition, const unsigned int& numGraphicalObjects, const double& spacing);
-
-std::vector<std::string> getSortedNodeIdsVector(std::set <std::pair<std::string, unsigned int>> nodeIds);
-
-const double getMinPositionX(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMinPositionY(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMaxPositionX(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMaxPositionY(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMinCenterX(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
-
 const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase = NULL);
 
 const bool isValidLayoutDimensionHeightValue(const double& height, SBase* sBase = NULL);
@@ -324,15 +262,7 @@ const bool isValidDimensionValue(const double& dimension, SBase* sBase = NULL);
 
 const bool isValidDoubleValue(const double& value, SBase* sBase = NULL);
 
-const bool isValidAlignment(const std::string& alignment, SBase* sBase = NULL);
-
-const bool isValidDistributionDirection(const std::string& direction, SBase* sBase = NULL);
-
 std::vector<std::string> getValidRoleValues();
-
-std::vector<std::string> getValidAlignmentValues();
-
-std::vector<std::string> getValidDistributionDirectionValues();
 
 }
 
