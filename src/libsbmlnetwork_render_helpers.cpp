@@ -1023,7 +1023,7 @@ const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase
     if (isValidColorValue(backgroundColor))
         return true;
 
-    el_addErrorToLog(sBase, "The entered value is not a valid background color value");
+    error_log_addErrorToLog(sBase, "The entered value is not a valid background color value");
     return false;
 }
 
@@ -1031,7 +1031,7 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBas
     if (isValueValid(spreadMethod, getValidSpreadMethodValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
     return false;
 }
 
@@ -1059,7 +1059,7 @@ const bool isValidStopColorValue(const std::string& stopColor, SBase* sBase) {
     if (isValidColorValue(stopColor))
         return true;
 
-    el_addErrorToLog(sBase, "The entered value is not a valid stop color value");
+    error_log_addErrorToLog(sBase, "The entered value is not a valid stop color value");
     return false;
 }
 
@@ -1107,7 +1107,7 @@ const bool isValidStrokeColorValue(const std::string& stroke, SBase* sBase) {
     if (isValidColorValue(stroke))
         return true;
 
-    el_addErrorToLog(sBase, "The value entered is not a valid stroke color value");
+    error_log_addErrorToLog(sBase, "The value entered is not a valid stroke color value");
     return false;
 }
 
@@ -1115,7 +1115,7 @@ const bool isValidStrokeWidthValue(const double& strokeWidth, SBase* sBase) {
     if (isValidDoubleValue(strokeWidth, sBase) && strokeWidth > 0.0001)
         return true;
 
-    el_addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
     return false;
 }
 
@@ -1132,7 +1132,7 @@ const bool isValidStrokeDashValue(const unsigned int& dash, SBase* sBase) {
     if (isValidDoubleValue(dash, sBase) && dash > 0.000)
         return true;
 
-    el_addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
     return false;
 }
 
@@ -1140,7 +1140,7 @@ const bool isValidFontColorValue(const std::string& fontColor, SBase* sBase) {
     if (isValidColorValue(fontColor))
         return true;
 
-    el_addErrorToLog(sBase, "The value entered value is not a valid font color value");
+    error_log_addErrorToLog(sBase, "The value entered value is not a valid font color value");
     return false;
 }
 
@@ -1156,7 +1156,7 @@ const bool isValidFontWeightValue(const std::string& fontWeight, SBase* sBase) {
     if (isValueValid(fontWeight, getValidFontWeightValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(fontWeight, getValidFontWeightValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(fontWeight, getValidFontWeightValues()));
     return false;
 }
 
@@ -1164,7 +1164,7 @@ const bool isValidFontStyleValue(const std::string& fontStyle, SBase* sBase) {
     if (isValueValid(fontStyle, getValidFontStyleValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(fontStyle, getValidFontStyleValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(fontStyle, getValidFontStyleValues()));
     return false;
 }
 
@@ -1172,7 +1172,7 @@ const bool isValidTextAnchorValue(const std::string& textAnchor, SBase* sBase) {
     if (isValueValid(textAnchor, getValidTextAnchorValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(textAnchor, getValidTextAnchorValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(textAnchor, getValidTextAnchorValues()));
     return false;
 }
 
@@ -1180,7 +1180,7 @@ const bool isValidVTextAnchorValue(const std::string& vtextAnchor, SBase* sBase)
     if (isValueValid(vtextAnchor, getValidVTextAnchorValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
     return false;
 }
 
@@ -1188,7 +1188,7 @@ const bool isValidFillColorValue(const std::string& fillColor, SBase* sBase) {
     if (isValidColorValue(fillColor))
         return true;
 
-    el_addErrorToLog(sBase, "The entered value is not a valid fill color value");
+    error_log_addErrorToLog(sBase, "The entered value is not a valid fill color value");
     return false;
 }
 
@@ -1196,7 +1196,7 @@ const bool isValidFillRuleValue(const std::string& fillRule, SBase* sBase) {
     if (isValueValid(fillRule, getValidFillRuleValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(fillRule, getValidFillRuleValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(fillRule, getValidFillRuleValues()));
     return false;
 }
 
@@ -1212,7 +1212,7 @@ const bool isValidGeometricShapeName(const std::string& geometricShapeName, SBas
     if (isValueValid(geometricShapeName, getValidGeometricShapeNameValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
     return false;
 }
 
@@ -1236,7 +1236,7 @@ const bool isValidGeometricShapeRatioValue(const double& ratio, SBase* sBase) {
     if (isValidDoubleValue(ratio, sBase) && ratio > 0.0001)
         return true;
 
-    el_addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
     return false;
 }
 
@@ -1296,7 +1296,7 @@ const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValu
     if (isValidRelAbsVectorValue(relAbsVectorValue, sBase) && relAbsVectorValue.getAbsoluteValue() >= 0.000)
         return true;
 
-    el_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
     return false;
 }
 
@@ -1304,14 +1304,14 @@ const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase
     if (isValidDoubleValue(relAbsVectorValue.getAbsoluteValue(), sBase) && isValidDoubleValue(relAbsVectorValue.getRelativeValue(), sBase))
         return true;
 
-    el_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
     return false;
 }
 
 const bool isValidRelAbsVectorRelativeValue(const double& relativeValue, SBase* sBase) {
     if (isValidDoubleValue(relativeValue, sBase) && relativeValue >= 0.0 && relativeValue <= 100.0)
         return true;
-    el_addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
     return false;
 }
 

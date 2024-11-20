@@ -51,11 +51,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     }
 
     const std::string getErrorLog(SBMLDocument* document) {
-        return el_getErrorLog(document);
+        return error_log_getErrorLog(document);
     }
 
     void clearErrorLog(SBMLDocument* document) {
-        return el_clearErrorLog(document);
+        return error_log_clearErrorLog(document);
     }
 
     bool freeSBMLDocument(SBMLDocument* document) {

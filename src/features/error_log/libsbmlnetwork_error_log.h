@@ -11,65 +11,65 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-const std::string el_getErrorLog(Layout *layout);
+const std::string error_log_getErrorLog(Layout *layout);
 
-void el_clearErrorLog(Layout *layout);
+void error_log_clearErrorLog(Layout *layout);
 
-const std::string el_getErrorLog(GraphicalObject *graphicalObject);
+const std::string error_log_getErrorLog(GraphicalObject *graphicalObject);
 
-void el_clearErrorLog(GraphicalObject *graphicalObject);
+void error_log_clearErrorLog(GraphicalObject *graphicalObject);
 
-const std::string el_getErrorLog(BoundingBox *boundingBox);
+const std::string error_log_getErrorLog(BoundingBox *boundingBox);
 
-void el_clearErrorLog(BoundingBox *boundingBox);
+void error_log_clearErrorLog(BoundingBox *boundingBox);
 
-const std::string el_getErrorLog(Curve *curve);
+const std::string error_log_getErrorLog(Curve *curve);
 
-void el_clearErrorLog(Curve *curve);
+void error_log_clearErrorLog(Curve *curve);
 
-const std::string el_getErrorLog(LineSegment *lineSegment);
+const std::string error_log_getErrorLog(LineSegment *lineSegment);
 
-void el_clearErrorLog(LineSegment *lineSegment);
+void error_log_clearErrorLog(LineSegment *lineSegment);
 
-const std::string el_getErrorLog(RenderInformationBase* renderInformation);
+const std::string error_log_getErrorLog(RenderInformationBase* renderInformation);
 
-void el_clearErrorLog(RenderInformationBase* renderInformation);
+void error_log_clearErrorLog(RenderInformationBase* renderInformation);
 
-const std::string el_getErrorLog(ColorDefinition* colorDefinition);
+const std::string error_log_getErrorLog(ColorDefinition* colorDefinition);
 
-void el_clearErrorLog(ColorDefinition* colorDefinition);
+void error_log_clearErrorLog(ColorDefinition* colorDefinition);
 
-const std::string el_getErrorLog(GradientBase* gradientBase);
+const std::string error_log_getErrorLog(GradientBase* gradientBase);
 
-void el_clearErrorLog(GradientBase* gradientBase);
+void error_log_clearErrorLog(GradientBase* gradientBase);
 
-const std::string el_getErrorLog(GradientStop* gradientStop);
+const std::string error_log_getErrorLog(GradientStop* gradientStop);
 
-void el_clearErrorLog(GradientStop* gradientStop);
+void error_log_clearErrorLog(GradientStop* gradientStop);
 
-const std::string el_getErrorLog(LineEnding* lineEnding);
+const std::string error_log_getErrorLog(LineEnding* lineEnding);
 
-void el_clearErrorLog(LineEnding* lineEnding);
+void error_log_clearErrorLog(LineEnding* lineEnding);
 
-const std::string el_getErrorLog(Style* style);
+const std::string error_log_getErrorLog(Style* style);
 
-void el_clearErrorLog(Style* style);
+void error_log_clearErrorLog(Style* style);
 
-const std::string el_getErrorLog(RenderGroup* renderGroup);
+const std::string error_log_getErrorLog(RenderGroup* renderGroup);
 
-void el_clearErrorLog(RenderGroup* renderGroup);
+void error_log_clearErrorLog(RenderGroup* renderGroup);
 
-const std::string el_getErrorLog(Transformation2D* transformation2D);
+const std::string error_log_getErrorLog(Transformation2D* transformation2D);
 
-void el_clearErrorLog(Transformation2D* transformation2D);
+void error_log_clearErrorLog(Transformation2D* transformation2D);
 
-const std::string el_getErrorLog(SBase* sBase);
+const std::string error_log_getErrorLog(SBase* sBase);
 
-void el_clearErrorLog(SBase* sBase);
+void error_log_clearErrorLog(SBase* sBase);
 
-const std::string el_prepareErrorMessage(const std::string& errorMessage, const std::string& errorLog);
+const std::string error_log_prepareErrorMessage(const std::string& errorMessage, const std::string& errorLog);
 
-void el_addErrorToLog(SBase* sBase, const std::string& errorMessage);
+void error_log_addErrorToLog(SBase* sBase, const std::string& errorMessage);
 
 }
 

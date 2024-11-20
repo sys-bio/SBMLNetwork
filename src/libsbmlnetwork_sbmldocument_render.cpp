@@ -10707,7 +10707,7 @@ const std::string getStyle(SBMLDocument* document, unsigned int renderIndex) {
 
 int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName) {
     if (!isValidPredefinedStyleName(styleName)) {
-        el_addErrorToLog(document, "The style name is not valid.");
+        error_log_addErrorToLog(document, "The style name is not valid.");
         return -1;
     }
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);

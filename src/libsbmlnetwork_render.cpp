@@ -116,7 +116,7 @@ int setValue(ColorDefinition* colorDefinition, const std::string& value) {
             return 0;
         }
         else
-            el_addErrorToLog(colorDefinition, "The value " + value + " is not a valid color value.");
+            error_log_addErrorToLog(colorDefinition, "The value " + value + " is not a valid color value.");
     }
 
     return -1;

@@ -40,7 +40,7 @@ SBasePlugin* getLayoutPlugin(SBMLDocument* document) {
     if (model)
         return model->getPlugin("layout");
     else
-        el_addErrorToLog(document, "Failed to load model");
+        error_log_addErrorToLog(document, "Failed to load model");
     
     return NULL;
 }
@@ -1333,7 +1333,7 @@ void alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> gr
             setPositionY(layout, graphicalObjects.at(i), minY);
     }
     catch (const std::invalid_argument& e) {
-        el_addErrorToLog(layout, e.what());
+        error_log_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1356,7 +1356,7 @@ void alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<Graphic
             setPositionX(layout, graphicalObjects.at(i), centerX);
     }
     catch (const std::invalid_argument& e) {
-        el_addErrorToLog(layout, e.what());
+        error_log_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1379,7 +1379,7 @@ void alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*>
             setPositionY(layout, graphicalObjects.at(i), maxY);
     }
     catch (const std::invalid_argument& e) {
-        el_addErrorToLog(layout, e.what());
+        error_log_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1402,7 +1402,7 @@ void alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> g
             setPositionX(layout, graphicalObjects.at(i), minX);
     }
     catch (const std::invalid_argument& e) {
-        el_addErrorToLog(layout, e.what());
+        error_log_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1425,7 +1425,7 @@ void alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<Graphical
             setPositionY(layout, graphicalObjects.at(i), centerY);
     }
     catch (const std::invalid_argument& e) {
-        el_addErrorToLog(layout, e.what());
+        error_log_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1448,7 +1448,7 @@ void alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> 
             setPositionX(layout, graphicalObjects.at(i), maxX);
     }
     catch (const std::invalid_argument& e) {
-        el_addErrorToLog(layout, e.what());
+        error_log_addErrorToLog(layout, e.what());
     }
 }
 
@@ -1677,7 +1677,7 @@ const bool isValidRoleValue(const std::string& role, SBase* sBase) {
     if (isValueValid(role, getValidRoleValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(role, getValidRoleValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(role, getValidRoleValues()));
     return false;
 }
 
@@ -1733,7 +1733,7 @@ const bool isValidDimensionValue(const double& dimensionValue, SBase* sBase) {
     if (isValidDoubleValue(dimensionValue, sBase) && dimensionValue > 0.000)
         return true;
 
-    el_addErrorToLog(sBase, "A dimension value must be greater than 0");
+    error_log_addErrorToLog(sBase, "A dimension value must be greater than 0");
     return false;
 }
 
@@ -1741,7 +1741,7 @@ const bool isValidDoubleValue(const double& doubleValue, SBase* sBase) {
     if (!std::isnan(doubleValue) && !std::isinf(doubleValue))
         return true;
 
-    el_addErrorToLog(sBase, "A double value must be a valid number");
+    error_log_addErrorToLog(sBase, "A double value must be a valid number");
     return false;
 }
 
@@ -1749,7 +1749,7 @@ const bool isValidAlignment(const std::string& alignment, SBase* sBase) {
     if (isValueValid(alignment, getValidAlignmentValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(alignment, getValidAlignmentValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(alignment, getValidAlignmentValues()));
     return false;
 }
 
@@ -1757,7 +1757,7 @@ const bool isValidDistributionDirection(const std::string& direction, SBase* sBa
     if (isValueValid(direction, getValidDistributionDirectionValues()))
         return true;
 
-    el_addErrorToLog(sBase, createErrorMessage(direction, getValidDistributionDirectionValues()));
+    error_log_addErrorToLog(sBase, createErrorMessage(direction, getValidDistributionDirectionValues()));
     return false;
 }
 

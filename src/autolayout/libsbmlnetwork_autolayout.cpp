@@ -40,7 +40,7 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
             locateGlyphs(model, layout, useNameAsTextLabel);
         }
         else
-            el_addErrorToLog(layout, "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again.");
+            error_log_addErrorToLog(layout, "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again.");
     }
 }
 
