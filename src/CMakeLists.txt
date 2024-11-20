@@ -113,7 +113,7 @@ if (BUILD_STATIC_LIBS)
 endif()
 
 ### install
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION include FILES_MATCHING PATTERN "*.h" PATTERN "bindings" EXCLUDE)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION include/sbmlnetwork FILES_MATCHING PATTERN "*.h" PATTERN "bindings" EXCLUDE)
 if (WIN32)
 	include (InstallRequiredSystemLibraries)
 endif()
