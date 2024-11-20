@@ -5,6 +5,13 @@
 #include "../../features/error_log/libsbmlnetwork_error_log.h"
 #include "../../features/fix_elements/libsbmlnetwork_fix_element_position.h"
 
+#include <climits>
+#include <cmath>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     void align_elements_alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreFixedPositionNodes) {

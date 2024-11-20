@@ -1,6 +1,12 @@
 #include "libsbmlnetwork_defaults_render.h"
 #include "../../libsbmlnetwork_render_helpers.h"
 
+#include <cmath>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     
     void defaults_addDefaultColors(GlobalRenderInformation* globalRenderInformation) {
@@ -114,23 +120,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
     void defaults_setDefaultPentagonShapeFeatures(Polygon* pentagon) {
         defaults_setDefault2DShapeFeatures(pentagon);
-        const double pi = 3.14159265;
         RenderPoint* point = NULL;
         point = pentagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.4 * pi))));
-        point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
+        point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.4 * M_PI))));
+        point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * M_PI))));
         point = pentagon->createPoint();
         point->setX(RelAbsVector(0.0, 50.));
         point->setY(RelAbsVector(0.0, 0.));
         point = pentagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.4 * pi))));
-        point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
+        point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.4 * M_PI))));
+        point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * M_PI))));
         point = pentagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.2 * pi))));
-        point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
+        point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.2 * M_PI))));
+        point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * M_PI))));
         point = pentagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.2 * pi))));
-        point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
+        point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.2 * M_PI))));
+        point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * M_PI))));
     }
 
     void defaults_setDefaultHexagonShapeFeatures(Polygon* hexagon) {
@@ -164,26 +169,26 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         point->setX(RelAbsVector(0.0, 0.0));
         point->setY(RelAbsVector(0.0, 50.0));
         point = octagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
-        point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
+        point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(M_PI / 4.0))));
+        point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(M_PI / 4.0))));
         point = octagon->createPoint();
         point->setX(RelAbsVector(0.0, 50.0));
         point->setY(RelAbsVector(0.0, 0.0));
         point = octagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
-        point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
+        point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(M_PI / 4.0))));
+        point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(M_PI / 4.0))));
         point = octagon->createPoint();
         point->setX(RelAbsVector(0.0, 100.0));
         point->setY(RelAbsVector(0.0, 50.0));
         point = octagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
-        point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
+        point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(M_PI / 4.0))));
+        point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(M_PI / 4.0))));
         point = octagon->createPoint();
         point->setX(RelAbsVector(0.0, 50.0));
         point->setY(RelAbsVector(0.0, 100.0));
         point = octagon->createPoint();
-        point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
-        point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
+        point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(M_PI / 4.0))));
+        point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(M_PI / 4.0))));
     }
 
     void defaults_setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve) {
