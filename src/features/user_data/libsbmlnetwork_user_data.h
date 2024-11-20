@@ -11,7 +11,9 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void freeUserData(Layout* layout);
+void user_data_freeUserData(SBMLDocument* document);
+
+void user_data_freeUserData(Layout* layout);
 
 std::vector<std::map<std::string, std::string>> user_data_getUserData(Layout* layout);
 
