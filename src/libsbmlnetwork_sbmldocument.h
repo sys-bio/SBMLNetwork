@@ -66,6 +66,11 @@ LIBSBMLNETWORK_EXTERN void clearErrorLog(SBMLDocument* document);
 /// @return boolean value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN bool freeSBMLDocument(SBMLDocument* document);
 
+/// @breif Free the user data of the given SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @return boolean value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN bool freeUserData(SBMLDocument* document);
+
 /// @brief Returns true if the Model object has been set, otherwise returns false.
 /// @param document a pointer to the SBMLDocument object.
 /// @return true if the Model object has been set, otherwise returns false.
