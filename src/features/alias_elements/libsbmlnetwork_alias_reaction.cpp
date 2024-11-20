@@ -1,6 +1,7 @@
 #include "libsbmlnetwork_alias_reaction.h"
 #include "../../libsbmlnetwork_layout.h"
 #include "../../libsbmlnetwork_layout_helpers.h"
+#include "../../features/set_layout_features/libsbmlnetwork_set_layout_features.h"
 #include "../../features/alias_elements/libsbmlnetwork_alias_element.h"
 #include "../../features/alias_elements/libsbmlnetwork_alias_species.h"
 #include "../../features/defaults/libsbmlnetwork_defaults_layout.h"
@@ -19,7 +20,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     ReactionGlyph* alias_element_createAliasReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph) {
         ReactionGlyph* aliasReactionGlyph = NULL;
         if (reactionGlyph) {
-            aliasReactionGlyph = createReactionGlyph(layout, reactionGlyph->getReactionId());
+            aliasReactionGlyph = set_layout_features_createReactionGlyph(layout, reactionGlyph->getReactionId());
             alias_element_setAliasGraphicalObjectPosition(aliasReactionGlyph, reactionGlyph, defaults_getAliasReactionGlyphPadding());
             alias_element_setAliasReactionGlyphTextGlyph(layout, aliasReactionGlyph, reactionGlyph);
         }
@@ -62,9 +63,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     SpeciesReferenceGlyph* alias_element_createAliasSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const std::string& speciesGlyphId, unsigned int stoichiometryIndex) {
-        SpeciesReferenceGlyph* aliasSpeciesReferenceGlyph = createSpeciesReferenceGlyph(reactionGlyph, speciesGlyphId, stoichiometryIndex);
+        SpeciesReferenceGlyph* aliasSpeciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(reactionGlyph, speciesGlyphId, stoichiometryIndex);
         aliasSpeciesReferenceGlyph->setRole(referenceSpeciesReferenceGlyph->getRole());
-        setSpeciesReferenceGlyphCurve(aliasSpeciesReferenceGlyph, referenceSpeciesReferenceGlyph);
+        set_layout_features_setSpeciesReferenceGlyphCurve(aliasSpeciesReferenceGlyph, referenceSpeciesReferenceGlyph);
         return aliasSpeciesReferenceGlyph;
     }
 

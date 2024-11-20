@@ -1,6 +1,7 @@
 #include "libsbmlnetwork_alias_species.h"
 #include "../../libsbmlnetwork_layout.h"
 #include "../../libsbmlnetwork_layout_helpers.h"
+#include "../../features/set_layout_features/libsbmlnetwork_set_layout_features.h"
 #include "../../features/alias_elements/libsbmlnetwork_alias_element.h"
 #include "../../features/defaults/libsbmlnetwork_defaults_layout.h"
 
@@ -26,7 +27,7 @@ int alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string spec
 SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph) {
     SpeciesGlyph* aliasSpeciesGlyph = NULL;
     if (speciesGlyph) {
-        aliasSpeciesGlyph = createSpeciesGlyph(layout, speciesGlyph->getSpeciesId());
+        aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesGlyph->getSpeciesId());
         alias_element_setAliasGraphicalObjectPosition(aliasSpeciesGlyph, speciesGlyph, defaults_getAliasSpeciesGlyphPadding());
         alias_element_setAliasSpeciesGlyphDimensions(aliasSpeciesGlyph, speciesGlyph);
         alias_element_setAliasSpeciesGlyphTextGlyph(layout, aliasSpeciesGlyph);
@@ -38,7 +39,7 @@ SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph
 SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string& speciesId, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences) {
     SpeciesGlyph* aliasSpeciesGlyph = NULL;
     if (speciesGlyphReferences.size()) {
-        aliasSpeciesGlyph = createSpeciesGlyph(layout, speciesId);
+        aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesId);
         while (speciesGlyphReferences.size()) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = speciesGlyphReferences.back();
             speciesReferenceGlyph->setId(getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(speciesReferenceGlyph->getId(), speciesReferenceGlyph->getSpeciesGlyphId(), aliasSpeciesGlyph->getId()));
@@ -53,7 +54,7 @@ SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, const std::s
 const bool alias_element_canHaveAlias(Layout* layout, std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfReactionGlyph) {
     if (connectedSpeciesGlyphReferencesOfReactionGlyph.size()) {
         SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(connectedSpeciesGlyphReferencesOfReactionGlyph.at(0)->getSpeciesGlyphId());
-        std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfSpeciesGlyph = getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
+        std::vector<SpeciesReferenceGlyph*> connectedSpeciesGlyphReferencesOfSpeciesGlyph = set_layout_features_getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
         if (connectedSpeciesGlyphReferencesOfSpeciesGlyph.size() > connectedSpeciesGlyphReferencesOfReactionGlyph.size())
             return true;
     }

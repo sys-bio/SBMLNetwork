@@ -32,6 +32,8 @@ set(SOURCES
 		features/align_elements/libsbmlnetwork_align_species.cpp
 		features/fix_elements/libsbmlnetwork_fix_element_position.cpp
 		features/fix_elements/libsbmlnetwork_fix_element_dimensions.cpp
+		features/set_layout_features/libsbmlnetwork_set_layout_features.cpp
+		features/update_curves/libsbmlnetwork_update_curves.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -66,6 +68,8 @@ set(HEADERS
 		features/align_elements/libsbmlnetwork_align_species.h
 		features/fix_elements/libsbmlnetwork_fix_element_position.h
 		features/fix_elements/libsbmlnetwork_fix_element_dimensions.h
+		features/set_layout_features/libsbmlnetwork_set_layout_features.h
+		features/update_curves/libsbmlnetwork_update_curves.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies

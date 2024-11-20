@@ -2,6 +2,8 @@
 #include "libsbmlnetwork_sbmldocument.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
+#include "features/set_layout_features/libsbmlnetwork_set_layout_features.h"
+#include "features/update_curves/libsbmlnetwork_update_curves.h"
 #include "features/autolayout/libsbmlnetwork_autolayout.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/defaults/libsbmlnetwork_defaults_layout.h"
@@ -64,55 +66,16 @@ int removeAllLayouts(SBMLDocument* document) {
 }
 
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges) {
-    if (document && layout) {
-        defaults_setDefaultLayoutId(layout);
-        defaults_setDefaultLayoutDimensions(layout);
-        Model* model = document->getModel();
-        if (model) {
-            clearGraphicalObjects(layout);
-            setCompartmentGlyphs(model, layout);
-            setReactionGlyphs(model, layout, maxNumConnectedEdges);
-            setTextGlyphs(layout);
-            return 0;
-        }
-    }
-
-    return -1;
+    return set_layout_features_setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
 }
 
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
                              bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
-    if (document && layout) {
-        defaults_setDefaultLayoutId(layout);
-        defaults_setDefaultLayoutDimensions(layout);
-        Model* model = document->getModel();
-        if (model) {
-            fix_elements_fixGraphicalObjectsPosition(layout, fixedPositionNodesSet, resetFixedPositionElements);
-            std::vector<std::map<std::string, std::string>> userData = user_data_getUserData(layout);
-            clearGraphicalObjects(layout);
-            setCompartmentGlyphs(model, layout, userData);
-            setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
-            locateGlyphs(model, layout, useNameAsTextLabel);
-            setTextGlyphs(layout);
-            return 0;
-        }
-    }
-
-    return -1;
+    return set_layout_features_setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
 }
 
 int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
-    if (document && layout) {
-        Model* model = document->getModel();
-        if (model) {
-            clearReactionTextGlyphs(layout);
-            locateReactions(model, layout, true);
-            setReactionTextGlyphs(layout);
-            return 0;
-        }
-    }
-
-    return -1;
+    return  update_curves_updateLayoutCurves(document, layout);
 }
 
 int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges) {
