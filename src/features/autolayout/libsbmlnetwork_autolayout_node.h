@@ -7,7 +7,7 @@
 class AutoLayoutNodeBase : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked = false);
+    AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed = false);
 
     virtual GraphicalObject* getGraphicalObject() = 0;
 
@@ -57,18 +57,18 @@ public:
 
     void incrementDegree();
 
-    void updateLockedStatus();
+    void updateFixedPositionStatus();
 
-    const bool isLocked();
+    const bool isPositionFixed();
 
-    void setLocked(const bool& locked);
+    void setPositionFixed(const bool& positionFixed);
 
 protected:
 
     double _displacementX;
     double _displacementY;
     int _degree;
-    bool _locked;
+    bool _positionFixed;
     bool _useNameAsTextLabel;
     GraphicalObject* _graphicalObject;
 };
@@ -76,7 +76,7 @@ protected:
 class AutoLayoutNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked = false);
+    AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed = false);
 
     const std::string getId() override;
 
@@ -112,7 +112,7 @@ public:
 class AutoLayoutCentroidNode : public AutoLayoutNodeBase {
 public:
 
-    AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked = false);
+    AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed = false);
 
     const std::string getId() override;
 

@@ -27,8 +27,6 @@ std::string toLowerCase(const std::string& str);
 
 bool isValueValid(const std::string& value, const std::vector<std::string>& validValues);
 
-std::string createErrorMessage(const std::string& value, std::vector<std::string> validValues);
-
 const double roundToTwoDecimalPlaces(const double& value);
 
 #endif

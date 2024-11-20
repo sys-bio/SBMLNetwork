@@ -126,15 +126,15 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, max_num_connected_edges=3, reset_locked_elements=False, locked_nodes=[]):
+    def autolayout(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
         :Parameters:
 
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
-            - reset_locked_elements (boolean, optional): a boolean (default: False) that determines whether to reset the locked elements before applying the autolayout algorithm.
-            - locked_nodes (list of lists or list of strings, optional): a list (default: []) that determines the nodes that should not be moved during the autolayout algorithm. The list contains:
+            - reset_fixed_position_elements (boolean, optional): a boolean (default: False) that determines whether to reset the fixed position elements before applying the autolayout algorithm.
+            - fixed_position_nodes (list of lists or list of strings, optional): a list (default: []) that determines the nodes that should not be moved during the autolayout algorithm. The list contains:
                 - a list of lists where each list includes:
                     - 'id' (str): the ID of the node that must not be moved when autolayout algorithm is applied.
                     - 'index' (int): the index of the graphical object associated with the node that must not be moved when autolayout algorithm is applied.
@@ -145,22 +145,22 @@ class LibSBMLNetwork:
             true on success and false if autolayout algorithm was not applied successfully
         """
 
-        locked_nodes_ptr = None
-        if locked_nodes is not None:
-            locked_nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(locked_nodes))()
-            for i in range(len(locked_nodes)):
-                locked_node_ptr = (ctypes.c_char_p * 2)()
-                if isinstance(locked_nodes[i], list) and len(locked_nodes[i]) == 2:
-                    locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i][0]).encode())
-                    locked_node_ptr[1] = ctypes.c_char_p(str(locked_nodes[i][1]).encode())
-                elif isinstance(locked_nodes[i], str):
-                    locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i]).encode())
-                    locked_node_ptr[1] = ctypes.c_char_p(str(0).encode())
+        fixed_position_nodes_ptr = None
+        if fixed_position_nodes is not None:
+            fixed_position_nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(fixed_position_nodes))()
+            for i in range(len(fixed_position_nodes)):
+                fixed_position_node_ptr = (ctypes.c_char_p * 2)()
+                if isinstance(fixed_position_nodes[i], list) and len(fixed_position_nodes[i]) == 2:
+                    fixed_position_node_ptr[0] = ctypes.c_char_p(str(fixed_position_nodes[i][0]).encode())
+                    fixed_position_node_ptr[1] = ctypes.c_char_p(str(fixed_position_nodes[i][1]).encode())
+                elif isinstance(fixed_position_nodes[i], str):
+                    fixed_position_node_ptr[0] = ctypes.c_char_p(str(fixed_position_nodes[i]).encode())
+                    fixed_position_node_ptr[1] = ctypes.c_char_p(str(0).encode())
                 else:
-                    raise Exception("The locked_nodes parameter should be a list of lists or a list of strings.")
-                locked_nodes_ptr[i] = locked_node_ptr
+                    raise Exception("The fixed_position_nodes parameter should be a list of lists or a list of strings.")
+                fixed_position_nodes_ptr[i] = fixed_position_node_ptr
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_elements, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_fixed_position_elements, fixed_position_nodes_ptr, len(fixed_position_nodes))
     
     def autorender(self, max_num_connected_edges=3):
         """
@@ -176,7 +176,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_autorender(self.sbml_object, ctypes.c_int(max_num_connected_edges))
 
-    def align(self, nodes, alignment="center", ignore_locked_nodes=False):
+    def align(self, nodes, alignment="center", ignore_fixed_position_nodes=False):
         """
         Aligns the given nodes in the given alignment type form in the given SBMLDocument
 
@@ -188,7 +188,7 @@ class LibSBMLNetwork:
                     - 'index' (int): the index of the graphical object associated with the node that must be aligned.
                 - or a list of node IDs (str) that must be aligned.
             - alignment (string, optional): a string (default: "center") that determines the type of alignment to be applied ("top", "bottom", "left", "right", "vCenter", "hCenter", "circular")
-            - ignore_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to ignore the locked nodes during the alignment
+            - ignore_fixed_position_nodes (boolean, optional): a boolean (default: False) that determines whether to ignore the fixed position nodes during the alignment
 
         :Returns:
 
@@ -209,7 +209,7 @@ class LibSBMLNetwork:
                     raise Exception("The nodes parameter should be a list of lists or a list of strings.")
                 nodes_ptr[i] = node_ptr
 
-        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_locked_nodes)
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_fixed_position_nodes)
 
     def distribute(self, nodes, direction="horizontal", spacing=-1):
         """
@@ -402,25 +402,25 @@ class LibSBMLNetwork:
         """
         return lib.c_api_createDefaultLayoutFeatures(self.sbml_object)
 
-    def createDefaultLayoutLocations(self, locked_nodes=[]):
+    def createDefaultLayoutLocations(self, fixed_position_nodes=[]):
         """
         Creates a default Layout object in the given SBMLDocument and sets the locations of all the graphical objects in the Layout object
 
         :Parameters:
 
-            - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
+            - fixed_position_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
 
             true on success and false if the default Layout object could not be created
         """
-        locked_nodes_ptr = None
-        if locked_nodes is not None:
-            locked_nodes_ptr = (ctypes.c_char_p * len(locked_nodes))()
-            for i in range(len(locked_nodes)):
-                locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
+        fixed_position_nodes_ptr = None
+        if fixed_position_nodes is not None:
+            fixed_position_nodes_ptr = (ctypes.c_char_p * len(fixed_position_nodes))()
+            for i in range(len(fixed_position_nodes)):
+                fixed_position_nodes_ptr[i] = ctypes.c_char_p(fixed_position_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, fixed_position_nodes_ptr, len(fixed_position_nodes))
 
     def createAliasSpeciesGlyph(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
@@ -1038,6 +1038,41 @@ class LibSBMLNetwork:
         """
         lib.c_api_getSpeciesReferenceSpeciesGlyphId.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getSpeciesReferenceSpeciesGlyphId(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)).value.decode()
+
+    def isSetSpeciesReferenceEmptySpeciesGlyph(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns whether the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is associated with an empty SpeciesGlyph
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is associated with an empty SpeciesGlyph and false otherwise
+        """
+        return lib.c_api_isSetSpeciesReferenceEmptySpeciesGlyph(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def getSpeciesReferenceEmptySpeciesGlyphId(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns the id of the empty SpeciesGlyph associated with the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the empty SpeciesGlyph associated with the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getSpeciesReferenceEmptySpeciesGlyphId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceEmptySpeciesGlyphId(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)).value.decode()
 
     def isSetSpeciesReferenceRole(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
@@ -1851,7 +1886,7 @@ class LibSBMLNetwork:
         lib.c_api_getX.restype = ctypes.c_double
         return lib.c_api_getX(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def setX(self, id, x, graphical_object_index=0, layout_index=0):
+    def setX(self, id, x, graphical_object_index=0, layout_index=0, update_curves=True):
         """
         Sets the x-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -1861,12 +1896,13 @@ class LibSBMLNetwork:
             - x (float): a float that determines the x-coordinate of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the x-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index)
+        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index, update_curves)
 
     def getY(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1885,7 +1921,7 @@ class LibSBMLNetwork:
         lib.c_api_getY.restype = ctypes.c_double
         return lib.c_api_getY(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def setY(self, id, y, graphical_object_index=0, layout_index=0):
+    def setY(self, id, y, graphical_object_index=0, layout_index=0, update_curves=True):
         """
         Sets the y-coordinate of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -1895,12 +1931,13 @@ class LibSBMLNetwork:
             - y (float): a float that determines the y-coordinate of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the y-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index)
+        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, update_curves)
 
     def getPosition(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1920,7 +1957,7 @@ class LibSBMLNetwork:
         lib.c_api_getY.restype = ctypes.c_double
         return (lib.c_api_getX(self.sbml_object, str(id).encode(), graphical_object_index, layout_index), lib.c_api_getY(self.sbml_object, str(id).encode(), graphical_object_index, layout_index))
 
-    def setPosition(self, id, x, y, graphical_object_index=0, layout_index=0):
+    def setPosition(self, id, x, y, graphical_object_index=0, layout_index=0, update_curves=True):
         """
         Sets the position of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -1931,12 +1968,13 @@ class LibSBMLNetwork:
             - y (float): a float that determines the y-coordinate of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the position of the GraphicalObject could not be set
         """
-        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index)
+        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, update_curves)
 
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -1955,7 +1993,7 @@ class LibSBMLNetwork:
         lib.c_api_getWidth.restype = ctypes.c_double
         return lib.c_api_getWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def setWidth(self, id, width, graphical_object_index=0, layout_index=0):
+    def setWidth(self, id, width, graphical_object_index=0, layout_index=0, update_curves=True):
         """
         Sets the width of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -1965,14 +2003,15 @@ class LibSBMLNetwork:
             - width (float): a float that determines the width of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the width of the GraphicalObject could not be set
         """
-        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index)
+        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index, update_curves)
 
-    def setCompartmentsWidth(self, width, layout_index=0):
+    def setCompartmentsWidth(self, width, layout_index=0, update_curves=True):
         """
         Sets the width of all the Compartments in the Layout object with the given index in the given SBMLDocument
 
@@ -1980,12 +2019,13 @@ class LibSBMLNetwork:
 
             - width (float): a float that determines the width of the Compartments
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the width of the Compartments could not be set
         """
-        return lib.c_api_setCompartmentsWidth(self.sbml_object, ctypes.c_double(width), layout_index)
+        return lib.c_api_setCompartmentsWidth(self.sbml_object, ctypes.c_double(width), layout_index, update_curves)
 
     def getSpeciesWidth(self, layout_index=0):
         """
@@ -2002,7 +2042,7 @@ class LibSBMLNetwork:
         lib.c_api_getSpeciesWidth.restype = ctypes.c_double
         return lib.c_api_getSpeciesWidth(self.sbml_object, layout_index)
 
-    def setSpeciesWidth(self, width, layout_index=0):
+    def setSpeciesWidth(self, width, layout_index=0, update_curves=True):
         """
         Sets the width of all the Species in the Layout object with the given index in the given SBMLDocument
 
@@ -2010,12 +2050,13 @@ class LibSBMLNetwork:
 
             - width (float): a float that determines the width of the Species
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the width of the Species could not be set
         """
-        return lib.c_api_setSpeciesWidth(self.sbml_object, ctypes.c_double(width), layout_index)
+        return lib.c_api_setSpeciesWidth(self.sbml_object, ctypes.c_double(width), layout_index, update_curves)
 
     def getReactionsWidth(self, layout_index=0):
         """
@@ -2032,7 +2073,7 @@ class LibSBMLNetwork:
         lib.c_api_getReactionsWidth.restype = ctypes.c_double
         return lib.c_api_getReactionsWidth(self.sbml_object, layout_index)
 
-    def setReactionsWidth(self, width, layout_index=0):
+    def setReactionsWidth(self, width, layout_index=0, update_curves=True):
         """
         Sets the width of all the Reactions in the Layout object with the given index in the given SBMLDocument
 
@@ -2040,12 +2081,13 @@ class LibSBMLNetwork:
 
             - width (float): a float that determines the width of the Reactions
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the width of the Reactions could not be set
         """
-        return lib.c_api_setReactionsWidth(self.sbml_object, ctypes.c_double(width), layout_index)
+        return lib.c_api_setReactionsWidth(self.sbml_object, ctypes.c_double(width), layout_index, update_curves)
 
     def getHeight(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -2064,7 +2106,7 @@ class LibSBMLNetwork:
         lib.c_api_getHeight.restype = ctypes.c_double
         return lib.c_api_getHeight(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def setHeight(self, id, height, graphical_object_index=0, layout_index=0):
+    def setHeight(self, id, height, graphical_object_index=0, layout_index=0, update_curves=True):
         """
         Sets the height of the GraphicalObject associated with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -2074,14 +2116,15 @@ class LibSBMLNetwork:
             - height (float): a float that determines the height of the GraphicalObject
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the height of the GraphicalObject could not be set
         """
-        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index)
+        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index, update_curves)
 
-    def setCompartmentsHeight(self, height, layout_index=0):
+    def setCompartmentsHeight(self, height, layout_index=0, update_curves=True):
         """
         Sets the height of all the Compartments in the Layout object with the given index in the given SBMLDocument
 
@@ -2089,12 +2132,13 @@ class LibSBMLNetwork:
 
             - height (float): a float that determines the height of the Compartments
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the height of the Compartments could not be set
         """
-        return lib.c_api_setCompartmentsHeight(self.sbml_object, ctypes.c_double(height), layout_index)
+        return lib.c_api_setCompartmentsHeight(self.sbml_object, ctypes.c_double(height), layout_index, update_curves)
 
     def getSpeciesHeight(self, layout_index=0):
         """
@@ -2111,7 +2155,7 @@ class LibSBMLNetwork:
         lib.c_api_getSpeciesHeight.restype = ctypes.c_double
         return lib.c_api_getSpeciesHeight(self.sbml_object, layout_index)
 
-    def setSpeciesHeight(self, height, layout_index=0):
+    def setSpeciesHeight(self, height, layout_index=0, update_curves=True):
         """
         Sets the height of all the Species in the Layout object with the given index in the given SBMLDocument
 
@@ -2119,12 +2163,13 @@ class LibSBMLNetwork:
 
             - height (float): a float that determines the height of the Species
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the height of the Species could not be set
         """
-        return lib.c_api_setSpeciesHeight(self.sbml_object, ctypes.c_double(height), layout_index)
+        return lib.c_api_setSpeciesHeight(self.sbml_object, ctypes.c_double(height), layout_index, update_curves)
 
     def getReactionsHeight(self, layout_index=0):
         """
@@ -2141,7 +2186,7 @@ class LibSBMLNetwork:
         lib.c_api_getReactionsHeight.restype = ctypes.c_double
         return lib.c_api_getReactionsHeight(self.sbml_object, layout_index)
 
-    def setReactionsHeight(self, height, layout_index=0):
+    def setReactionsHeight(self, height, layout_index=0, update_curves=True):
         """
         Sets the height of all the Reactions in the Layout object with the given index in the given SBMLDocument
 
@@ -2149,12 +2194,13 @@ class LibSBMLNetwork:
 
             - height (float): a float that determines the height of the Reactions
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+            - update_curves (bool, optional): a boolean (default: True) that determines whether the curves should be updated
 
         :Returns:
 
             true on success and false if the height of the Reactions could not be set
         """
-        return lib.c_api_setReactionsHeight(self.sbml_object, ctypes.c_double(height), layout_index)
+        return lib.c_api_setReactionsHeight(self.sbml_object, ctypes.c_double(height), layout_index, update_curves)
 
     def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -12422,7 +12468,7 @@ class LibSBMLNetwork:
         """
         self.use_name_as_text_label = use_name_as_text_label
         if self.layout_is_added:
-            self.autolayout(locked_nodes=self.getListOfSpeciesIds())
+            self.autolayout(fixed_position_nodes=self.getListOfSpeciesIds())
             
     def enableDisplayCompartmentsTextLabel(self, display_compartments_text_label):
         """

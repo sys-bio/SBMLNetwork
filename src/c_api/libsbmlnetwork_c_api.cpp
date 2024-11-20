@@ -2,11 +2,11 @@
 #include "../libsbmlnetwork_sbmldocument.h"
 #include "../libsbmlnetwork_sbmldocument_layout.h"
 #include "../libsbmlnetwork_sbmldocument_render.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
-#include "../colors/libsbmlnetwork_colors.h"
-#include "../styles/libsbmlnetwork_styles.h"
+#include "../features/colors/libsbmlnetwork_colors.h"
+#include "../features/styles/libsbmlnetwork_styles.h"
+#include "../features/align_elements/libsbmlnetwork_align_element.h"
 
 extern "C" {
 
@@ -55,25 +55,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedElements, const char ***lockedNodes, const int lockedNodesSize) {
-        std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
-        if (lockedNodes) {
-            for (int i = 0; i < lockedNodesSize; i++) {
-                const char **lockedNode = lockedNodes[i];
-                const char *id = lockedNode[0];
-                int index = atoi(lockedNode[1]);
-                lockedNodesSet.insert(std::make_pair(id, index));
+    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetFixedPositionElements, const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+        std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
+        if (fixedPositionNodes) {
+            for (int i = 0; i < fixedPositionNodesSize; i++) {
+                const char **fixedPositionNode = fixedPositionNodes[i];
+                const char *id = fixedPositionNode[0];
+                int index = atoi(fixedPositionNode[1]);
+                fixedPositionNodesSet.insert(std::make_pair(id, index));
             }
         }
 
-        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
     }
 
     int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges) {
         return autorender(document, maxNumConnectedEdges);
     }
 
-    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreLockedNodes) {
+    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignorefixedPositionNodes) {
         std::set<std::pair<std::string, int> > nodesSet = std::set<std::pair<std::string, int> >();
         if (nodes) {
             for (int i = 0; i < nodesSize; i++) {
@@ -83,7 +83,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 nodesSet.insert(std::make_pair(id, index));
             }
         }
-        return align(document, nodesSet, alignment, ignoreLockedNodes);
+        return align(document, nodesSet, alignment, ignorefixedPositionNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char ***nodes, const int nodesSize, const char* direction, const double spacing) {
@@ -113,17 +113,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges,
-                                  bool useNameAsTextLabel, bool resetLockedElements,
-                                  const char ***lockedNodes, const int lockedNodesSize) {
-        std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
-        for (int i = 0; i < lockedNodesSize; i++) {
-            const char **lockedNode = lockedNodes[i];
-            const char *id = lockedNode[0];
-            int index = atoi(lockedNode[1]);
-            lockedNodesSet.insert(std::make_pair(id, index));
+                                  bool useNameAsTextLabel, bool resetFixedPositionElements,
+                                  const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+        std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
+        for (int i = 0; i < fixedPositionNodesSize; i++) {
+            const char **fixedPositionNode = fixedPositionNodes[i];
+            const char *id = fixedPositionNode[0];
+            int index = atoi(fixedPositionNode[1]);
+            fixedPositionNodesSet.insert(std::make_pair(id, index));
         }
 
-        return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+        return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
     }
 
     int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
@@ -353,6 +353,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return strdup(getSpeciesReferenceSpeciesGlyphId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
     }
 
+    bool c_api_isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return isSetSpeciesReferenceEmptySpeciesGlyph(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    }
+
+    const char* c_api_getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return strdup(getSpeciesReferenceEmptySpeciesGlyphId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
+    }
+
     bool c_api_isSetSpeciesReferenceRole(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
         return isSetSpeciesReferenceRole(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex);
     }
@@ -533,76 +541,76 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getPositionX(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex) {
-        return setPositionX(document, layoutIndex, id, graphicalObjectIndex, x);
+    int c_api_setX(SBMLDocument* document, const char* id, const double x, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setPositionX(document, layoutIndex, id, graphicalObjectIndex, x, updateCurves);
     }
 
     const double c_api_getY(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getPositionY(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        return setPositionY(document, layoutIndex, id, graphicalObjectIndex, y);
+    int c_api_setY(SBMLDocument* document, const char* id, const double y, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setPositionY(document, layoutIndex, id, graphicalObjectIndex, y, updateCurves);
     }
 
-    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex) {
-        return setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y);
+    int c_api_setPosition(SBMLDocument* document, const char* id, const double x, const double y, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setPosition(document, layoutIndex, id, graphicalObjectIndex, x, y, updateCurves);
     }
 
     const double c_api_getWidth(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionWidth(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex) {
-        return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width);
+    int c_api_setWidth(SBMLDocument* document, const char* id, const double width, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setDimensionWidth(document, layoutIndex, id, graphicalObjectIndex, width, updateCurves);
     }
 
-    int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex) {
-        return setCompartmentDimensionWidth(document, layoutIndex, width);
+    int c_api_setCompartmentsWidth(SBMLDocument* document, const double width, int layoutIndex, bool updateCurves) {
+        return setCompartmentDimensionWidth(document, layoutIndex, width, updateCurves);
     }
 
     const double c_api_getSpeciesWidth() {
         return getSpeciesDimensionWidth();
     }
 
-    int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex) {
-        return setSpeciesDimensionWidth(document, layoutIndex, width);
+    int c_api_setSpeciesWidth(SBMLDocument* document, const double width, int layoutIndex, bool updateCurves) {
+        return setSpeciesDimensionWidth(document, layoutIndex, width, updateCurves);
     }
 
     const double c_api_getReactionsWidth() {
         return getReactionDimensionWidth();
     }
 
-    int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex) {
-        return setReactionDimensionWidth(document, layoutIndex, width);
+    int c_api_setReactionsWidth(SBMLDocument* document, const double width, int layoutIndex, bool updateCurves) {
+        return setReactionDimensionWidth(document, layoutIndex, width, updateCurves);
     }
 
     const double c_api_getHeight(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {
         return getDimensionHeight(document, layoutIndex, id, graphicalObjectIndex);
     }
 
-    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex) {
-        return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height);
+    int c_api_setHeight(SBMLDocument* document, const char* id, const double height, const int graphicalObjectIndex, int layoutIndex, bool updateCurves) {
+        return setDimensionHeight(document, layoutIndex, id, graphicalObjectIndex, height, updateCurves);
     }
 
-    int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex) {
-        return setCompartmentDimensionHeight(document, layoutIndex, height);
+    int c_api_setCompartmentsHeight(SBMLDocument* document, const double height, int layoutIndex, bool updateCurves) {
+        return setCompartmentDimensionHeight(document, layoutIndex, height, updateCurves);
     }
 
     const double c_api_getSpeciesHeight() {
         return getSpeciesDimensionHeight();
     }
 
-    int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex) {
-        return setSpeciesDimensionHeight(document, layoutIndex, height);
+    int c_api_setSpeciesHeight(SBMLDocument* document, const double height, int layoutIndex, bool updateCurves) {
+        return setSpeciesDimensionHeight(document, layoutIndex, height, updateCurves);
     }
 
     const double c_api_getReactionsHeight() {
         return getReactionDimensionHeight();
     }
 
-    int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex) {
-        return setReactionDimensionHeight(document, layoutIndex, height);
+    int c_api_setReactionsHeight(SBMLDocument* document, const double height, int layoutIndex, bool updateCurves) {
+        return setReactionDimensionHeight(document, layoutIndex, height, updateCurves);
     }
 
     const double c_api_getTextX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, const int textGlyphIndex, int layoutIndex) {
@@ -3280,23 +3288,23 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_getNumValidAlignmentValues() {
-        return getValidAlignmentValues().size();
+        return align_elements_getValidAlignmentValues().size();
     }
 
     const char* c_api_getNthValidAlignmentValue(int index) {
         if (index >= 0 && index < c_api_getNumValidAlignmentValues())
-            return strdup(getValidAlignmentValues().at(index).c_str());
+            return strdup(align_elements_getValidAlignmentValues().at(index).c_str());
 
         return "";
     }
 
     int c_api_getNumValidDistributionDirectionValues() {
-        return getValidDistributionDirectionValues().size();
+        return align_elements_getValidDistributionDirectionValues().size();
     }
 
     const char* c_api_getNthValidDistributionDirectionValue(int index) {
         if (index >= 0 && index < c_api_getNumValidDistributionDirectionValues())
-            return strdup(getValidDistributionDirectionValues().at(index).c_str());
+            return strdup(align_elements_getValidDistributionDirectionValues().at(index).c_str());
 
         return "";
     }

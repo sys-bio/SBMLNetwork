@@ -2,8 +2,9 @@
 #include "libsbmlnetwork_autolayout_node.h"
 #include "libsbmlnetwork_autolayout_connection.h"
 #include "libsbmlnetwork_autolayout_curve.h"
-#include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
+#include "../user_data/libsbmlnetwork_user_data.h"
+#include "../defaults/libsbmlnetwork_defaults_layout.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -66,9 +67,9 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 }
 
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
-    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "width");
+    std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout->getDimensions(), "width");
     if (!width.empty() && std::stod(width) > 0.0) {
-        _width = std::max(0.0, std::stod(width) - 6 * getDefaultAutoLayoutPadding());
+        _width = std::max(0.0, std::stod(width) - 6 * defaults_getDefaultAutoLayoutPadding());
         _useHorizontalBoundary = true;
     }
     else
@@ -76,9 +77,9 @@ void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
 }
 
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
-    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(layout->getDimensions(), "height");
+    std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout->getDimensions(), "height");
     if (!height.empty() && std::stod(height) > 0.0) {
-        _height = std::max(0.0, std::stod(height) - 6 * getDefaultAutoLayoutPadding());
+        _height = std::max(0.0, std::stod(height) - 6 * defaults_getDefaultAutoLayoutPadding());
         _useVerticalBoundary = true;
     }
     else
@@ -101,14 +102,14 @@ void FruchtermanReingoldAlgorithmBase::setUseGrid(const bool &useGrid) {
     _useGrid = useGrid;
 }
 
-void FruchtermanReingoldAlgorithmBase::updateNodesLockedStatus() {
+void FruchtermanReingoldAlgorithmBase::updateNodesFixedPositionStatus() {
     for (int i = 0; i < _nodes.size(); i++)
-        ((AutoLayoutNodeBase *) _nodes.at(i))->updateLockedStatus();
+        ((AutoLayoutNodeBase *) _nodes.at(i))->updateFixedPositionStatus();
 }
 
-void FruchtermanReingoldAlgorithmBase::updateConnectionsLockedStatus() {
+void FruchtermanReingoldAlgorithmBase::updateConnectionsFixedPositionStatus() {
     for (int i = 0; i < _connections.size(); i++)
-        ((AutoLayoutConnection *) _connections.at(i))->updateLockedStatus();
+        ((AutoLayoutConnection *) _connections.at(i))->updateFixedPositionStatus();
 }
 
 void FruchtermanReingoldAlgorithmBase::apply() {
@@ -160,18 +161,18 @@ void FruchtermanReingoldAlgorithmBase::computeRepulsiveForces() {
                 double distanceY = vNode->getY() - uNode->getY();
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                 if (distance < 0.000001)  {
-                    if (!vNode->isLocked()) {
+                    if (!vNode->isPositionFixed()) {
                         vNode->setX(vNode->getX() + std::rand() % int(_stiffness));
                         vNode->setY(vNode->getY() + std::rand() % int(_stiffness));
                     }
                 }
                 else {
                     double repulsionForce = calculateRepulsionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                    if (!vNode->isLocked()) {
+                    if (!vNode->isPositionFixed()) {
                         vNode->setDisplacementX(vNode->getDisplacementX() + (distanceX / distance * repulsionForce));
                         vNode->setDisplacementY(vNode->getDisplacementY() + (distanceY /distance * repulsionForce));
                     }
-                    if (!uNode->isLocked()) {
+                    if (!uNode->isPositionFixed()) {
                         uNode->setDisplacementX(uNode->getDisplacementX() - (distanceX / distance * repulsionForce));
                         uNode->setDisplacementY(uNode->getDisplacementY() - (distanceY / distance * repulsionForce));
                     }
@@ -196,11 +197,11 @@ void FruchtermanReingoldAlgorithmBase::computeAttractiveForces() {
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                 if (distance > 0.000001) {
                     double attractionForce = calculateAttractionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                    if (!vNode->isLocked()) {
+                    if (!vNode->isPositionFixed()) {
                         vNode->setDisplacementX(vNode->getDisplacementX() - (distanceX / distance * attractionForce));
                         vNode->setDisplacementY(vNode->getDisplacementY() - (distanceY /distance * attractionForce));
                     }
-                    if (!uNode->isLocked()) {
+                    if (!uNode->isPositionFixed()) {
                         uNode->setDisplacementX(uNode->getDisplacementX() + (distanceX / distance * attractionForce));
                         uNode->setDisplacementY(uNode->getDisplacementY() + (distanceY /distance * attractionForce));
                     }
@@ -230,11 +231,11 @@ void FruchtermanReingoldAlgorithmBase::applyMagnetism() {
                             double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
                             if (distance > 0.000001) {
                                 double attractionForce = calculateAttractionForce(_stiffness * calculateStiffnessAdjustmentFactor(vNode, uNode), distance);
-                                if (!vNode->isLocked()) {
+                                if (!vNode->isPositionFixed()) {
                                     vNode->setDisplacementX(vNode->getDisplacementX() - 0.25 * (distanceX / distance * attractionForce));
                                     vNode->setDisplacementY(vNode->getDisplacementY() - 0.25 * (distanceY /distance * attractionForce));
                                 }
-                                if (!uNode->isLocked()) {
+                                if (!uNode->isPositionFixed()) {
                                     uNode->setDisplacementX(uNode->getDisplacementX() + 0.25 * (distanceX / distance * attractionForce));
                                     uNode->setDisplacementY(uNode->getDisplacementY() + 0.25 * (distanceY /distance * attractionForce));
                                 }
@@ -252,7 +253,7 @@ void FruchtermanReingoldAlgorithmBase::applyGravity() {
         AutoLayoutNodeBase* node = NULL;
         for(int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
             node = (AutoLayoutNodeBase*)_nodes.at(nodeIndex);
-            if (!node->isLocked()) {
+            if (!node->isPositionFixed()) {
                 double distanceX = node->getX() - _barycenter.getX();
                 double distanceY = node->getY() - _barycenter.getY();
                 double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
@@ -272,7 +273,7 @@ void FruchtermanReingoldAlgorithmBase::adjustCoordinates() {
 }
 
 void FruchtermanReingoldAlgorithmBase::adjustNodeCoordinates(AutoLayoutObjectBase* node) {
-    if (!((AutoLayoutNodeBase*)node)->isLocked()) {
+    if (!((AutoLayoutNodeBase*)node)->isPositionFixed()) {
         double distanceX = ((AutoLayoutNodeBase*)node)->getDisplacementX();
         double distanceY = ((AutoLayoutNodeBase*)node)->getDisplacementY();
         double distance = calculateEuclideanDistance(AutoLayoutPoint(distanceX, distanceY));
@@ -323,10 +324,10 @@ void FruchtermanReingoldAlgorithmBase::adjustCoordinateOrigin() {
         if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < _origin.getY())
             _origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
     }
-    _origin.setX(_origin.getX() - getDefaultAutoLayoutPadding());
-    _origin.setY(_origin.getY() - getDefaultAutoLayoutPadding());
+    _origin.setX(_origin.getX() - defaults_getDefaultAutoLayoutPadding());
+    _origin.setY(_origin.getY() - defaults_getDefaultAutoLayoutPadding());
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
-        if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isLocked()) {
+        if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isPositionFixed()) {
             ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());
             ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() - _origin.getY());
         }
@@ -420,7 +421,7 @@ void FruchtermanReingoldAlgorithmBase::setCurvePoints(AutoLayoutObjectBase* conn
     for (int curveIndex = 0; curveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); curveIndex++) {
         curve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(curveIndex));
         curveNode = (AutoLayoutNodeBase*)findObject(_nodes, curve->getNodeId());
-        if (!curve->isLocked() && curveNode) {
+        if (!curve->isPositionFixed() && curveNode) {
             curve->setNodeSidePoint(curveNode->getPosition());
             curve->setNodeSideControlPoint(curveNode->getPosition());
             curve->setCentroidSidePoint(centroidNode->getPosition());
@@ -461,12 +462,12 @@ void FruchtermanReingoldAlgorithmBase::setCurvePoints(AutoLayoutObjectBase* conn
 void FruchtermanReingoldAlgorithmBase::adjustCurvePoints(AutoLayoutObjectBase* connection) {
     for (int firstCurveIndex = 0; firstCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); firstCurveIndex++) {
         AutoLayoutCurve* firstCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(firstCurveIndex));
-        if (!firstCurve->isLocked()) {
+        if (!firstCurve->isPositionFixed()) {
             AutoLayoutNodeBase* firstCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, firstCurve->getNodeId());
             if (firstCurveNode) {
                 for (int secondCurveIndex = firstCurveIndex + 1; secondCurveIndex < ((AutoLayoutConnection*)connection)->getCurves().size(); secondCurveIndex++) {
                     AutoLayoutCurve* secondCurve = (AutoLayoutCurve*)(((AutoLayoutConnection*)connection)->getCurves().at(secondCurveIndex));
-                    if (!secondCurve->isLocked()) {
+                    if (!secondCurve->isPositionFixed()) {
                         AutoLayoutNodeBase* secondCurveNode = (AutoLayoutNodeBase*)findObject(_nodes, secondCurve->getNodeId());
                         if (firstCurve->getNodeId() == secondCurve->getNodeId() ) {
                             if (firstCurve->getRole() == secondCurve->getRole()) {
@@ -488,7 +489,7 @@ void FruchtermanReingoldAlgorithmBase::adjustCurvePoints(AutoLayoutObjectBase* c
 }
 
 void FruchtermanReingoldAlgorithmBase::adjustUniUniConnections(AutoLayoutObjectBase* connection) {
-    if (!((AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode())->isLocked()) {
+    if (!((AutoLayoutNodeBase*)((AutoLayoutConnection*)connection)->getCentroidNode())->isPositionFixed()) {
         std::vector<std::string> nodeIds = ((AutoLayoutConnection*)connection)->getNodeIds();
         double slope = getNodePairSlope(_nodes, nodeIds.at(0), nodeIds.at(1));
         if (slope < 0.0)

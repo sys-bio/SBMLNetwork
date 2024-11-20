@@ -2,10 +2,11 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_sbmldocument_render.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "colors/libsbmlnetwork_colors.h"
-#include "styles/libsbmlnetwork_styles.h"
+#include "features/colors/libsbmlnetwork_colors.h"
+#include "features/styles/libsbmlnetwork_styles.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/defaults/libsbmlnetwork_defaults_render.h"
 
 #include <cmath>
 
@@ -143,6 +144,8 @@ const std::string getStyleType(GraphicalObject* graphicalObject) {
     if (graphicalObject) {
         if (isCompartmentGlyph(graphicalObject))
             return getCompartmentGlyphStyleType();
+        else if (isEmptySpeciesGlyph(graphicalObject))
+            return getEmptySpeciesGlyphStyleType();
         else if (isSpeciesGlyph(graphicalObject))
             return getSpeciesGlyphStyleType();
         else if (isReactionGlyph(graphicalObject))
@@ -175,6 +178,10 @@ const std::string getCompartmentGlyphStyleType() {
 
 const std::string getSpeciesGlyphStyleType() {
     return "SPECIESGLYPH";
+}
+
+const std::string getEmptySpeciesGlyphStyleType() {
+    return "EMPTY_SPECIESGLYPH";
 }
 
 const std::string getReactionGlyphStyleType() {
@@ -215,26 +222,6 @@ std::vector<std::pair<SpeciesReferenceRole_t, std::string>> getStyleRoles() {
     roles.push_back(std::make_pair(SPECIES_ROLE_ACTIVATOR, "activator"));
     roles.push_back(std::make_pair(SPECIES_ROLE_INHIBITOR, "inhibitor"));
     return roles;
-}
-
-void addDefaultColors(GlobalRenderInformation* globalRenderInformation) {
-    addColor(globalRenderInformation, "white");
-    addColor(globalRenderInformation, "black");
-    addColor(globalRenderInformation, "lightgray");
-    addColor(globalRenderInformation, "darkslategray");
-    addColor(globalRenderInformation, "darkcyan");
-    addColor(globalRenderInformation, "teal");
-    addColor(globalRenderInformation, "silver");
-}
-
-void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style) {
-    addColor(document, style, "white");
-    addColor(document, style, "black");
-}
-
-void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation) {
-    addColor(globalRenderInformation, "white");
-    addColor(globalRenderInformation, "black");
 }
 
 const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId) {
@@ -504,13 +491,6 @@ const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceG
     return "";
 }
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation) {
-    addProductHeadLineEnding(globalRenderInformation);
-    addModifierHeadLineEnding(globalRenderInformation);
-    addActivatorHeadLineEnding(globalRenderInformation);
-    addInhibitorHeadLineEnding(globalRenderInformation);
-}
-
 void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
     if (!globalRenderInformation->getLineEnding("productHead")) {
         RenderPkgNamespaces renderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
@@ -530,7 +510,7 @@ LineEnding* createProductHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces
 void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* triangle = renderGroup->createPolygon();
-    setDefaultTriangleShapeFeatures(triangle);
+    defaults_setDefaultTriangleShapeFeatures(triangle);
     triangle->getElement(1)->setY(RelAbsVector(0.0, 50.0));
     triangle->getElement(2)->setX(RelAbsVector(0.0, 0.0));
     triangle->setFill("black");
@@ -555,7 +535,7 @@ LineEnding* createModifierHeadLineEnding(RenderPkgNamespaces* renderPkgNamespace
 void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
+    defaults_setDefaultEllipseShapeFeatures(ellipse);
 }
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
@@ -577,7 +557,7 @@ LineEnding* createActivatorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespac
 void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* diamond = renderGroup->createPolygon();
-    setDefaultDiamondShapeFeatures(diamond);
+    defaults_setDefaultDiamondShapeFeatures(diamond);
 }
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
@@ -600,7 +580,7 @@ LineEnding* createInhibitorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespac
 void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Rectangle* rectangle = renderGroup->createRectangle();
-    setDefaultRectangleShapeFeatures(rectangle);
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setX(RelAbsVector(0.0, 80.0));
     rectangle->setWidth(RelAbsVector(0.0, 20.0));
     rectangle->setRX(RelAbsVector(0.0, 0.0));
@@ -619,6 +599,7 @@ void addGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
     addSpeciesGlyphGlobalStyle(globalRenderInformation);
     addReactionGlyphGlobalStyle(globalRenderInformation);
     addSpeciesReferenceGlyphGlobalStyles(globalRenderInformation);
+    addEmptySpeciesGlyphGlobalStyle(globalRenderInformation);
     addTextGlyphsGlobalStyles(globalRenderInformation);
 }
 
@@ -651,6 +632,14 @@ void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation
         RenderGroup* renderGroup = globalStyle->createGroup();
         setSpeciesGlyphRenderGroupFeatures(renderGroup);
         setSpeciesGlyphTextGlyphRenderGroupFeatures(renderGroup);
+    }
+}
+
+void addEmptySpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getEmptySpeciesGlyphStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getEmptySpeciesGlyphStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setEmptySpeciesGlyphRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -813,7 +802,7 @@ void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceG
 
 void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
-    setDefaultRectangleShapeFeatures(rectangle);
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setStroke(getDefaultPredefinedStyleFeatures()["compartment-border-color"]);
     rectangle->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-width"]));
     rectangle->setFill(getDefaultPredefinedStyleFeatures()["compartment-fill-color"]);
@@ -831,11 +820,21 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
-    setDefaultRectangleShapeFeatures(rectangle);
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setRX(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-x"]), 0.0));
     rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-y"]), 0.0));
 }
 
+void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
+    Ellipse* ellipse = renderGroup->createEllipse();
+    defaults_setDefaultEllipseShapeFeatures(ellipse);
+    ellipse->setFill(getDefaultPredefinedStyleFeatures()["species-fill-color"]);
+    ellipse->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    RenderCurve* curve = renderGroup->createCurve();
+    defaults_setDefaultDiagonalRenderCurveFeatures(curve);
+    curve->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
+    curve->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["species-border-width"]));
+}
 
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     setGeneralTextGlyphRenderGroupFeatures(renderGroup);
@@ -844,7 +843,7 @@ void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
+    defaults_setDefaultEllipseShapeFeatures(ellipse);
 }
 
 void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
@@ -854,7 +853,7 @@ void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 }
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role) {
-    setDefault1DShapeFeatures(renderGroup);
+    defaults_setDefault1DShapeFeatures(renderGroup);
     if (role == SPECIES_ROLE_PRODUCT || role == SPECIES_ROLE_SIDEPRODUCT)
         renderGroup->setEndHead("productHead");
     else if (role == SPECIES_ROLE_MODIFIER)
@@ -873,180 +872,6 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["species-font-style"]);
     renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-horizontal-alignment"]);
     renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-vertical-alignment"]);
-}
-
-void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    graphicalPrimitive1D->setStroke("black");
-    graphicalPrimitive1D->setStrokeWidth(2.0);
-}
-
-void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D) {
-    setDefault1DShapeFeatures(graphicalPrimitive2D);
-    graphicalPrimitive2D->setFill("white");
-}
-
-void setDefaultRectangleShapeFeatures(Rectangle* rectangle) {
-    setDefault2DShapeFeatures(rectangle);
-    rectangle->setX(RelAbsVector(0.0, 0.0));
-    rectangle->setY(RelAbsVector(0.0, 0.0));
-    rectangle->setWidth(RelAbsVector(0.0, 100.0));
-    rectangle->setHeight(RelAbsVector(0.0, 100.0));
-    rectangle->setRX(RelAbsVector(0.0, 10.0));
-    rectangle->setRY(RelAbsVector(0.0, 10.0));
-}
-
-void setDefaultSquareShapeFeatures(Rectangle* square) {
-    setDefault2DShapeFeatures(square);
-    square->setX(RelAbsVector(0.0, 0.0));
-    square->setY(RelAbsVector(0.0, 0.0));
-    square->setWidth(RelAbsVector(0.0, 100.0));
-    square->setRatio(1.0);
-    square->setRX(RelAbsVector(0.0, 0.0));
-    square->setRY(RelAbsVector(0.0, 0.0));
-}
-
-void setDefaultEllipseShapeFeatures(Ellipse* ellipse) {
-    setDefault2DShapeFeatures(ellipse);
-    ellipse->setCX(RelAbsVector(0.0, 50.0));
-    ellipse->setCY(RelAbsVector(0.0, 50.0));
-    ellipse->setRX(RelAbsVector(0.0, 50.0));
-    ellipse->setRY(RelAbsVector(0.0, 50.0));
-    ellipse->setStroke("black");
-    ellipse->setStrokeWidth(2.0);
-}
-
-void setDefaultCircleShapeFeatures(Ellipse* circle) {
-    setDefault2DShapeFeatures(circle);
-    circle->setCX(RelAbsVector(0.0, 50.0));
-    circle->setCY(RelAbsVector(0.0, 50.0));
-    circle->setRX(RelAbsVector(0.0, 50.0));
-    circle->setRatio(1.0);
-    circle->setStroke("black");
-    circle->setStrokeWidth(2.0);
-}
-
-void setDefaultTriangleShapeFeatures(Polygon* triangle) {
-    setDefault2DShapeFeatures(triangle);
-    RenderPoint* point = NULL;
-    point = triangle->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = triangle->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = triangle->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-}
-
-void setDefaultDiamondShapeFeatures(Polygon* diamond) {
-    setDefault2DShapeFeatures(diamond);
-    RenderPoint* point = NULL;
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-
-}
-
-void setDefaultPentagonShapeFeatures(Polygon* pentagon) {
-    setDefault2DShapeFeatures(pentagon);
-    const double pi = 3.14159265;
-    RenderPoint* point = NULL;
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.4 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.));
-    point->setY(RelAbsVector(0.0, 0.));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.4 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.2 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.2 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
-}
-
-void setDefaultHexagonShapeFeatures(Polygon* hexagon) {
-    setDefault2DShapeFeatures(hexagon);
-    RenderPoint* point = NULL;
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 25.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 25.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 75.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 75.0));
-}
-
-void setDefaultOctagonShapeFeatures(Polygon* octagon) {
-    setDefault2DShapeFeatures(octagon);
-    const double pi = 3.14159265;
-    RenderPoint* point = NULL;
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
-}
-
-void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve) {
-    setDefault1DShapeFeatures(renderCurve);
-    RenderPoint* point = NULL;
-    point = renderCurve->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = renderCurve->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-}
-
-void setDefaultImageShapeFeatures(Image* image) {
-    image->setX(RelAbsVector(0.0, 0.0));
-    image->setY(RelAbsVector(0.0, 0.0));
-    image->setWidth(RelAbsVector(0.0, 100.0));
-    image->setHeight(RelAbsVector(0.0, 100.0));
 }
 
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup) {
@@ -1194,218 +1019,11 @@ const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject) {
     return false;
 }
 
-std::string getErrorLog(RenderInformationBase* renderInformation) {
-    std::string errorLog = "";
-    if (renderInformation)
-        errorLog += prepareErrorMessage(getUserData(renderInformation, "error_log"), errorLog);
-        for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(renderInformation->getColorDefinition(i)), errorLog);
-        for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-            GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
-            errorLog += prepareErrorMessage(getErrorLog(gradientBase), errorLog);
-            for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
-                errorLog += prepareErrorMessage(getErrorLog(gradientBase->getGradientStop(j)), errorLog);
-        }
-        for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(renderInformation->getLineEnding(i)), errorLog);
-        if (renderInformation->isGlobalRenderInformation()) {
-            for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++)
-                errorLog += prepareErrorMessage(getErrorLog(((GlobalRenderInformation *) renderInformation)->getGlobalStyle(i)), errorLog);
-        }
-        else if (renderInformation->isLocalRenderInformation()) {
-            for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++)
-                errorLog += prepareErrorMessage(getErrorLog(((LocalRenderInformation *) renderInformation)->getLocalStyle(i)), errorLog);
-        }
-
-    return errorLog;
-}
-
-std::string getErrorLog(ColorDefinition* colorDefinition) {
-    std::string errorLog = "";
-    if (colorDefinition)
-        errorLog += prepareErrorMessage(getUserData(colorDefinition, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(GradientBase* gradientBase) {
-    std::string errorLog = "";
-    if (gradientBase)
-        errorLog += prepareErrorMessage(getUserData(gradientBase, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(GradientStop* gradientStop) {
-    std::string errorLog = "";
-    if (gradientStop)
-        errorLog += prepareErrorMessage(getUserData(gradientStop, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(LineEnding* lineEnding) {
-    std::string errorLog = "";
-    if (lineEnding)
-        errorLog += prepareErrorMessage(getUserData(lineEnding, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-std::string getErrorLog(Style* style) {
-    std::string errorLog = "";
-    if (style) {
-        errorLog += prepareErrorMessage(getUserData(style, "error_log"), errorLog);
-        errorLog += prepareErrorMessage(getErrorLog(style->getGroup()), errorLog);
-    }
-
-    return errorLog;
-}
-
-std::string getErrorLog(RenderGroup* renderGroup) {
-    std::string errorLog = "";
-    if (renderGroup) {
-        errorLog += prepareErrorMessage(getUserData(renderGroup, "error_log"), errorLog);
-        for (unsigned int i = 0; i < renderGroup->getNumElements(); i++)
-            errorLog += prepareErrorMessage(getErrorLog(renderGroup->getElement(i)), errorLog);
-    }
-
-    return errorLog;
-}
-
-std::string getErrorLog(Transformation2D* transformation2D) {
-    std::string errorLog = "";
-    if (transformation2D)
-        errorLog += prepareErrorMessage(getUserData(transformation2D, "error_log"), errorLog);
-
-    return errorLog;
-}
-
-void clearErrorLog(RenderInformationBase* renderInformation) {
-    if (renderInformation) {
-        setUserData(renderInformation, "error_log", "");
-        for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
-            clearErrorLog(renderInformation->getColorDefinition(i));
-        for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-            GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
-            clearErrorLog(gradientBase);
-            for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
-                clearErrorLog(gradientBase->getGradientStop(j));
-        }
-        for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++)
-            clearErrorLog(renderInformation->getLineEnding(i));
-        if (renderInformation->isGlobalRenderInformation()) {
-            for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++)
-                clearErrorLog(((GlobalRenderInformation*)renderInformation)->getGlobalStyle(i));
-        }
-        else if (renderInformation->isLocalRenderInformation()) {
-            for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++)
-                clearErrorLog(((LocalRenderInformation*)renderInformation)->getLocalStyle(i));
-        }
-    }
-}
-
-void clearErrorLog(ColorDefinition* colorDefinition) {
-    if (colorDefinition)
-        setUserData(colorDefinition, "error_log", "");
-}
-
-void clearErrorLog(GradientBase* gradientBase) {
-    if (gradientBase)
-        setUserData(gradientBase, "error_log", "");
-}
-
-void clearErrorLog(GradientStop* gradientStop) {
-    if (gradientStop)
-        setUserData(gradientStop, "error_log", "");
-}
-
-void clearErrorLog(LineEnding* lineEnding) {
-    if (lineEnding)
-        setUserData(lineEnding, "error_log", "");
-}
-
-void clearErrorLog(Style* style) {
-    if (style) {
-        setUserData(style, "error_log", "");
-        clearErrorLog( style->getGroup());
-    }
-}
-
-void clearErrorLog(RenderGroup* renderGroup) {
-    if (renderGroup) {
-        setUserData(renderGroup, "error_log", "");
-        for (unsigned int j = 0; j < renderGroup->getNumElements(); j++)
-            clearErrorLog(renderGroup->getElement(j));
-    }
-}
-
-void clearErrorLog(Transformation2D* transformation2D) {
-    if (transformation2D)
-        setUserData(transformation2D, "error_log", "");
-}
-
-void freeUserData(RenderInformationBase* renderInformation) {
-    for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
-        freeUserData(renderInformation->getColorDefinition(i));
-    for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-        GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
-        freeUserData(gradientBase);
-        for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
-            freeUserData(gradientBase->getGradientStop(j));
-    }
-    for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++)
-        freeUserData(renderInformation->getLineEnding(i));
-    if (renderInformation->isGlobalRenderInformation()) {
-        for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++)
-            freeUserData(((GlobalRenderInformation*)renderInformation)->getGlobalStyle(i));
-    }
-    else if (renderInformation->isLocalRenderInformation()) {
-        for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++)
-            freeUserData(((LocalRenderInformation*)renderInformation)->getLocalStyle(i));
-    }
-}
-
-std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformation) {
-    std::vector<std::map<std::string, std::string>> userData;
-    for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++) {
-        auto colorDefinitionUserData = renderInformation->getColorDefinition(i)->getUserData();
-        if (colorDefinitionUserData)
-            userData.push_back(*(std::map<std::string, std::string>*)colorDefinitionUserData);
-    }
-    for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-        auto gradientDefinitionUserData = renderInformation->getGradientDefinition(i)->getUserData();
-        if (gradientDefinitionUserData)
-            userData.push_back(*(std::map<std::string, std::string>*)gradientDefinitionUserData);
-    }
-    for (unsigned int i = 0; i < renderInformation->getNumLineEndings(); i++) {
-        auto lineEndingUserData = renderInformation->getLineEnding(i)->getUserData();
-        if (lineEndingUserData)
-            userData.push_back(*(std::map<std::string, std::string>*)lineEndingUserData);
-    }
-    if (renderInformation->isGlobalRenderInformation()) {
-        for (unsigned int i = 0; i < ((GlobalRenderInformation*)renderInformation)->getNumGlobalStyles(); i++) {
-            auto globalStyleUserData = ((GlobalRenderInformation*)renderInformation)->getGlobalStyle(i)->getUserData();
-            if (globalStyleUserData)
-                userData.push_back(*(std::map<std::string, std::string>*)globalStyleUserData);
-        }
-    }
-    else if (renderInformation->isLocalRenderInformation()) {
-        for (unsigned int i = 0; i < ((LocalRenderInformation*)renderInformation)->getNumLocalStyles(); i++) {
-            auto localStyleUserData = ((LocalRenderInformation*)renderInformation)->getLocalStyle(i)->getUserData();
-            if (localStyleUserData)
-                userData.push_back(*(std::map<std::string, std::string>*)localStyleUserData);
-        }
-    }
-
-    return userData;
-}
-
 const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase) {
     if (isValidColorValue(backgroundColor))
         return true;
 
-    addErrorToLog(sBase, "The entered value is not a valid background color value");
+    error_log_addErrorToLog(sBase, "The entered value is not a valid background color value");
     return false;
 }
 
@@ -1413,7 +1031,7 @@ const bool isValidSpreadMethodValue(const std::string& spreadMethod, SBase* sBas
     if (isValueValid(spreadMethod, getValidSpreadMethodValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(spreadMethod, getValidSpreadMethodValues()));
     return false;
 }
 
@@ -1441,7 +1059,7 @@ const bool isValidStopColorValue(const std::string& stopColor, SBase* sBase) {
     if (isValidColorValue(stopColor))
         return true;
 
-    addErrorToLog(sBase, "The entered value is not a valid stop color value");
+    error_log_addErrorToLog(sBase, "The entered value is not a valid stop color value");
     return false;
 }
 
@@ -1489,7 +1107,7 @@ const bool isValidStrokeColorValue(const std::string& stroke, SBase* sBase) {
     if (isValidColorValue(stroke))
         return true;
 
-    addErrorToLog(sBase, "The value entered is not a valid stroke color value");
+    error_log_addErrorToLog(sBase, "The value entered is not a valid stroke color value");
     return false;
 }
 
@@ -1497,7 +1115,7 @@ const bool isValidStrokeWidthValue(const double& strokeWidth, SBase* sBase) {
     if (isValidDoubleValue(strokeWidth, sBase) && strokeWidth > 0.0001)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(strokeWidth) + " is not a valid stroke width value");
     return false;
 }
 
@@ -1514,7 +1132,7 @@ const bool isValidStrokeDashValue(const unsigned int& dash, SBase* sBase) {
     if (isValidDoubleValue(dash, sBase) && dash > 0.000)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(dash) + " is not a valid stroke dash value");
     return false;
 }
 
@@ -1522,7 +1140,7 @@ const bool isValidFontColorValue(const std::string& fontColor, SBase* sBase) {
     if (isValidColorValue(fontColor))
         return true;
 
-    addErrorToLog(sBase, "The value entered value is not a valid font color value");
+    error_log_addErrorToLog(sBase, "The value entered value is not a valid font color value");
     return false;
 }
 
@@ -1538,7 +1156,7 @@ const bool isValidFontWeightValue(const std::string& fontWeight, SBase* sBase) {
     if (isValueValid(fontWeight, getValidFontWeightValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(fontWeight, getValidFontWeightValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(fontWeight, getValidFontWeightValues()));
     return false;
 }
 
@@ -1546,7 +1164,7 @@ const bool isValidFontStyleValue(const std::string& fontStyle, SBase* sBase) {
     if (isValueValid(fontStyle, getValidFontStyleValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(fontStyle, getValidFontStyleValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(fontStyle, getValidFontStyleValues()));
     return false;
 }
 
@@ -1554,7 +1172,7 @@ const bool isValidTextAnchorValue(const std::string& textAnchor, SBase* sBase) {
     if (isValueValid(textAnchor, getValidTextAnchorValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(textAnchor, getValidTextAnchorValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(textAnchor, getValidTextAnchorValues()));
     return false;
 }
 
@@ -1562,7 +1180,7 @@ const bool isValidVTextAnchorValue(const std::string& vtextAnchor, SBase* sBase)
     if (isValueValid(vtextAnchor, getValidVTextAnchorValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(vtextAnchor, getValidVTextAnchorValues()));
     return false;
 }
 
@@ -1570,7 +1188,7 @@ const bool isValidFillColorValue(const std::string& fillColor, SBase* sBase) {
     if (isValidColorValue(fillColor))
         return true;
 
-    addErrorToLog(sBase, "The entered value is not a valid fill color value");
+    error_log_addErrorToLog(sBase, "The entered value is not a valid fill color value");
     return false;
 }
 
@@ -1578,7 +1196,7 @@ const bool isValidFillRuleValue(const std::string& fillRule, SBase* sBase) {
     if (isValueValid(fillRule, getValidFillRuleValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(fillRule, getValidFillRuleValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(fillRule, getValidFillRuleValues()));
     return false;
 }
 
@@ -1594,7 +1212,7 @@ const bool isValidGeometricShapeName(const std::string& geometricShapeName, SBas
     if (isValueValid(geometricShapeName, getValidGeometricShapeNameValues()))
         return true;
 
-    addErrorToLog(sBase, createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
+    error_log_addErrorToLog(sBase, error_log_createErrorMessage(geometricShapeName, getValidGeometricShapeNameValues()));
     return false;
 }
 
@@ -1618,7 +1236,7 @@ const bool isValidGeometricShapeRatioValue(const double& ratio, SBase* sBase) {
     if (isValidDoubleValue(ratio, sBase) && ratio > 0.0001)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(ratio) + " is not a valid geometric shape ratio value");
     return false;
 }
 
@@ -1678,7 +1296,7 @@ const bool isValidRelAbsVectorPositiveValue(const RelAbsVector& relAbsVectorValu
     if (isValidRelAbsVectorValue(relAbsVectorValue, sBase) && relAbsVectorValue.getAbsoluteValue() >= 0.000)
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid positive value");
     return false;
 }
 
@@ -1686,14 +1304,14 @@ const bool isValidRelAbsVectorValue(const RelAbsVector& relAbsVectorValue, SBase
     if (isValidDoubleValue(relAbsVectorValue.getAbsoluteValue(), sBase) && isValidDoubleValue(relAbsVectorValue.getRelativeValue(), sBase))
         return true;
 
-    addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(relAbsVectorValue.getAbsoluteValue()) + " is not a valid double value");
     return false;
 }
 
 const bool isValidRelAbsVectorRelativeValue(const double& relativeValue, SBase* sBase) {
     if (isValidDoubleValue(relativeValue, sBase) && relativeValue >= 0.0 && relativeValue <= 100.0)
         return true;
-    addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
+    error_log_addErrorToLog(sBase, "The value " + std::to_string(relativeValue) + " is not a valid relative value");
     return false;
 }
 

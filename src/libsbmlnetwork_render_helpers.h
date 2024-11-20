@@ -49,6 +49,8 @@ const std::string getCompartmentGlyphStyleType();
 
 const std::string getSpeciesGlyphStyleType();
 
+const std::string getEmptySpeciesGlyphStyleType();
+
 const std::string getReactionGlyphStyleType();
 
 const std::string getSpeciesReferenceGlyphStyleType();
@@ -68,12 +70,6 @@ const std::string getGraphicalObjectStyleType();
 std::vector<std::pair<SpeciesReferenceRole_t, std::string>> getStyleRoles();
 
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
-
-void addDefaultColors(GlobalRenderInformation* globalRenderInformation);
-
-void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style);
-
-void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation);
 
 const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId);
 
@@ -119,8 +115,6 @@ const bool isLocal(SBMLDocument* document, LineEnding* lineEnding, SpeciesRefere
 
 const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation);
-
 void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation);
 
 LineEnding* createProductHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces);
@@ -156,6 +150,8 @@ GlobalStyle* createGlobalStyleByRole(GlobalRenderInformation* globalRenderInform
 void addCompartmentGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
 void addSpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
+void addEmptySpeciesGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
 void addReactionGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
@@ -213,6 +209,8 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
+void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup);
+
 void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
@@ -220,32 +218,6 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
-
-void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D);
-
-void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D);
-
-void setDefaultRectangleShapeFeatures(Rectangle* rectangle);
-
-void setDefaultSquareShapeFeatures(Rectangle* square);
-
-void setDefaultEllipseShapeFeatures(Ellipse* ellipse);
-
-void setDefaultCircleShapeFeatures(Ellipse* circle);
-
-void setDefaultTriangleShapeFeatures(Polygon* triangle);
-
-void setDefaultDiamondShapeFeatures(Polygon* diamond);
-
-void setDefaultPentagonShapeFeatures(Polygon* pentagon);
-
-void setDefaultHexagonShapeFeatures(Polygon* pentagon);
-
-void setDefaultOctagonShapeFeatures(Polygon* pentagon);
-
-void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
-
-void setDefaultImageShapeFeatures(Image* image);
 
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 
@@ -282,42 +254,6 @@ const bool canHaveEndHead(GraphicalObject* graphicalObject);
 const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
 
 const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject);
-
-std::string getErrorLog(RenderInformationBase* renderInformation);
-
-std::string getErrorLog(ColorDefinition* colorDefinition);
-
-std::string getErrorLog(GradientBase* gradientBase);
-
-std::string getErrorLog(GradientStop* gradientStop);
-
-std::string getErrorLog(LineEnding* lineEnding);
-
-std::string getErrorLog(Style* style);
-
-std::string getErrorLog(RenderGroup* renderGroup);
-
-std::string getErrorLog(Transformation2D* transformation2D);
-
-void clearErrorLog(RenderInformationBase* renderInformation);
-
-void clearErrorLog(ColorDefinition* colorDefinition);
-
-void clearErrorLog(GradientBase* gradientBase);
-
-void clearErrorLog(GradientStop* gradientStop);
-
-void clearErrorLog(LineEnding* lineEnding);
-
-void clearErrorLog(Style* style);
-
-void clearErrorLog(RenderGroup* renderGroup);
-
-void clearErrorLog(Transformation2D* transformation2D);
-
-void freeUserData(RenderInformationBase* renderInformation);
-
-std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformationBase);
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase = NULL);
 

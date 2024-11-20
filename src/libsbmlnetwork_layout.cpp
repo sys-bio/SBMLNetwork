@@ -1,6 +1,8 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
+#include "features/user_data/libsbmlnetwork_user_data.h"
+#include "features/fix_elements/libsbmlnetwork_fix_element_position.h"
+#include "features/fix_elements/libsbmlnetwork_fix_element_dimensions.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -40,7 +42,7 @@ int setDimensionWidth(Layout* layout, const double& width) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setWidth(width);
-            setUserData(dimensions, "width", std::to_string(width));
+            user_data_setUserData(dimensions, "width", std::to_string(width));
             return 0;
         }
     }
@@ -61,7 +63,7 @@ int setDimensionHeight(Layout* layout, const double& height) {
         Dimensions* dimensions = getDimensions(layout);
         if (dimensions) {
             dimensions->setHeight(height);
-            setUserData(dimensions, "height", std::to_string(height));
+            user_data_setUserData(dimensions, "height", std::to_string(height));
             return 0;
         }
     }
@@ -99,6 +101,8 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const
     std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
     if (graphicalObjectIndex < graphicalObjects.size())
         return graphicalObjects.at(graphicalObjectIndex);
+    else if (graphicalObjectIndex == 0)
+        return getGraphicalObjectUsingItsOwnId(layout, id);
 
     return NULL;
 }
@@ -221,6 +225,17 @@ bool isSpeciesGlyph(Layout* layout, const std::string& id, const unsigned int sp
 
 bool isSpeciesGlyph(GraphicalObject* graphicalObject) {
     if (dynamic_cast<SpeciesGlyph*>(graphicalObject))
+        return true;
+
+    return false;
+}
+
+bool isEmptySpeciesGlyph(Layout* layout, const std::string& id, const unsigned int speciesGlyphIndex) {
+    return isEmptySpeciesGlyph(getGraphicalObject(layout, id, speciesGlyphIndex));
+}
+
+bool isEmptySpeciesGlyph(GraphicalObject* graphicalObject) {
+    if (isSpeciesGlyph(graphicalObject) && !((SpeciesGlyph*)graphicalObject)->isSetSpeciesId())
         return true;
 
     return false;
@@ -360,6 +375,14 @@ const std::string getSpeciesReferenceSpeciesGlyphId(GraphicalObject* speciesRefe
         return ((SpeciesReferenceGlyph*)speciesReferenceGlyph)->getSpeciesGlyphId();
 
     return "";
+}
+
+bool isSetEmptySpeciesGlyph(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEmptySpeciesGlyph(layout, getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+const std::string getEmptySpeciesGlyphId(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEmptySpeciesGlyphId(layout, getSpeciesReference(layout, id, reactionGlyphIndex, speciesReferenceIndex));
 }
 
 bool isSetRole(Layout* layout, const std::string& id, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
@@ -720,7 +743,7 @@ int setPositionX(Layout* layout, GraphicalObject* graphicalObject, const double&
     double moveDistance = x - getPositionX(graphicalObject);
     if ((isSetCurve(graphicalObject) && !setPositionX(getCurve(graphicalObject), x)) || !setPositionX(getBoundingBox(graphicalObject), x)) {
         updateAssociatedTextGlyphsPositionX(layout, graphicalObject, moveDistance);
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -782,7 +805,7 @@ int setPositionY(Layout* layout, GraphicalObject* graphicalObject, const double&
     double moveDistance = y - getPositionY(graphicalObject);
     if ((isSetCurve(graphicalObject) && !setPositionY(getCurve(graphicalObject), y)) || !setPositionY(getBoundingBox(graphicalObject), y)) {
         updateAssociatedTextGlyphsPositionY(layout, graphicalObject, moveDistance);
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -872,7 +895,7 @@ int setDimensionWidth(Layout* layout, const std::string& id, unsigned int graphi
 int setDimensionWidth(Layout* layout, GraphicalObject* graphicalObject, const double& width) {
     double changedWidth = width - getDimensionWidth(graphicalObject);
     if (!setDimensionWidth(getBoundingBox(graphicalObject), width)) {
-        fixGraphicalObjectWidth(graphicalObject);
+        fix_elements_fixGraphicalObjectWidth(graphicalObject);
         updateAssociatedTextGlyphsDimensionWidth(layout, graphicalObject, changedWidth);
         return 0;
     }
@@ -942,7 +965,7 @@ int setDimensionHeight(Layout* layout, const std::string& id, unsigned int graph
 int setDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, const double& height) {
     double changedHeight = height - getDimensionHeight(graphicalObject);
     if (!setDimensionHeight(getBoundingBox(graphicalObject), height)) {
-        fixGraphicalObjectHeight(graphicalObject);
+        fix_elements_fixGraphicalObjectHeight(graphicalObject);
         updateAssociatedTextGlyphsDimensionHeight(layout, graphicalObject, changedHeight);
         return 0;
     }
@@ -1266,7 +1289,7 @@ int setCurveSegmentStartPointX(Layout* layout, const std::string& id, unsigned i
 
 int setCurveSegmentStartPointX(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
     if (!setCurveSegmentStartPointX(getCurve(graphicalObject), curveSegmentIndex, x)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1311,7 +1334,7 @@ int setCurveSegmentStartPointY(Layout* layout, const std::string& id, unsigned i
 
 int setCurveSegmentStartPointY(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
     if (!setCurveSegmentStartPointY(getCurve(graphicalObject), curveSegmentIndex, y)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1356,7 +1379,7 @@ int setCurveSegmentEndPointX(Layout* layout, const std::string& id, unsigned int
 
 int setCurveSegmentEndPointX(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
     if (!setCurveSegmentEndPointX(getCurve(graphicalObject), curveSegmentIndex, x)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1401,7 +1424,7 @@ int setCurveSegmentEndPointY(Layout* layout, const std::string& id, unsigned int
 
 int setCurveSegmentEndPointY(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
     if (!setCurveSegmentEndPointY(getCurve(graphicalObject), curveSegmentIndex, y)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1446,7 +1469,7 @@ int setCurveSegmentBasePoint1X(Layout* layout, const std::string& id, unsigned i
 
 int setCurveSegmentBasePoint1X(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
     if (!setCurveSegmentBasePoint1X(getCurve(graphicalObject), curveSegmentIndex, x)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1491,7 +1514,7 @@ int setCurveSegmentBasePoint1Y(Layout* layout, const std::string& id, unsigned i
 
 int setCurveSegmentBasePoint1Y(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
     if (!setCurveSegmentBasePoint1Y(getCurve(graphicalObject), curveSegmentIndex, y)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1536,7 +1559,7 @@ int setCurveSegmentBasePoint2X(Layout* layout, const std::string& id, unsigned i
 
 int setCurveSegmentBasePoint2X(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& x) {
     if (!setCurveSegmentBasePoint2X(getCurve(graphicalObject), curveSegmentIndex, x)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 
@@ -1581,7 +1604,7 @@ int setCurveSegmentBasePoint2Y(Layout* layout, const std::string& id, unsigned i
 
 int setCurveSegmentBasePoint2Y(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex, const double& y) {
     if (!setCurveSegmentBasePoint2Y(getCurve(graphicalObject), curveSegmentIndex, y)) {
-        lockGraphicalObject(graphicalObject);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 

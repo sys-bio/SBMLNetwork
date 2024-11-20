@@ -8,19 +8,32 @@ set(SOURCES
 		libsbmlnetwork_render.cpp
 		libsbmlnetwork_render_helpers.cpp
 		libsbmlnetwork_sbmldocument.cpp
-        libsbmlnetwork_sbmldocument_helpers.cpp
 		libsbmlnetwork_sbmldocument_layout.cpp
 		libsbmlnetwork_layout_render.cpp
 		libsbmlnetwork_sbmldocument_render.cpp
-		colors/libsbmlnetwork_colors.cpp
-		styles/libsbmlnetwork_styles.cpp
-        autolayout/libsbmlnetwork_autolayout.cpp
-		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.cpp
-		autolayout/libsbmlnetwork_autolayout_object_base.cpp
-		autolayout/libsbmlnetwork_autolayout_node.cpp
-		autolayout/libsbmlnetwork_autolayout_connection.cpp
-		autolayout/libsbmlnetwork_autolayout_curve.cpp
-		autolayout/libsbmlnetwork_autolayout_point.cpp
+		features/colors/libsbmlnetwork_colors.cpp
+		features/styles/libsbmlnetwork_styles.cpp
+		features/autolayout/libsbmlnetwork_autolayout.cpp
+		features/autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.cpp
+		features/autolayout/libsbmlnetwork_autolayout_object_base.cpp
+		features/autolayout/libsbmlnetwork_autolayout_node.cpp
+		features/autolayout/libsbmlnetwork_autolayout_connection.cpp
+		features/autolayout/libsbmlnetwork_autolayout_curve.cpp
+		features/autolayout/libsbmlnetwork_autolayout_point.cpp
+		features/error_log/libsbmlnetwork_error_log.cpp
+		features/user_data/libsbmlnetwork_user_data.cpp
+		features/defaults/libsbmlnetwork_defaults_layout.cpp
+		features/defaults/libsbmlnetwork_defaults_render.cpp
+		features/alias_elements/libsbmlnetwork_alias_element.cpp
+		features/alias_elements/libsbmlnetwork_alias_species.cpp
+		features/alias_elements/libsbmlnetwork_alias_reaction.cpp
+		features/hide_elements/libsbmlnetwork_hide_species.cpp
+		features/align_elements/libsbmlnetwork_align_element.cpp
+		features/align_elements/libsbmlnetwork_align_species.cpp
+		features/fix_elements/libsbmlnetwork_fix_element_position.cpp
+		features/fix_elements/libsbmlnetwork_fix_element_dimensions.cpp
+		features/set_layout_features/libsbmlnetwork_set_layout_features.cpp
+		features/update_curves/libsbmlnetwork_update_curves.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -31,19 +44,32 @@ set(HEADERS
 		libsbmlnetwork_render.h
 		libsbmlnetwork_render_helpers.h
 		libsbmlnetwork_sbmldocument.h
-		libsbmlnetwork_sbmldocument_helpers.h
 		libsbmlnetwork_sbmldocument_layout.h
 		libsbmlnetwork_layout_render.h
 		libsbmlnetwork_sbmldocument_render.h
-		colors/libsbmlnetwork_colors.h
-		styles/libsbmlnetwork_styles.h
-		autolayout/libsbmlnetwork_autolayout.h
-		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.h
-		autolayout/libsbmlnetwork_autolayout_object_base.h
-		autolayout/libsbmlnetwork_autolayout_node.h
-		autolayout/libsbmlnetwork_autolayout_connection.h
-		autolayout/libsbmlnetwork_autolayout_curve.h
-		autolayout/libsbmlnetwork_autolayout_point.h
+		features/colors/libsbmlnetwork_colors.h
+		features/styles/libsbmlnetwork_styles.h
+		features/autolayout/libsbmlnetwork_autolayout.h
+		features/autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.h
+		features/autolayout/libsbmlnetwork_autolayout_object_base.h
+		features/autolayout/libsbmlnetwork_autolayout_node.h
+		features/autolayout/libsbmlnetwork_autolayout_connection.h
+		features/autolayout/libsbmlnetwork_autolayout_curve.h
+		features/autolayout/libsbmlnetwork_autolayout_point.h
+		features/error_log/libsbmlnetwork_error_log.h
+		features/user_data/libsbmlnetwork_user_data.h
+        features/defaults/libsbmlnetwork_defaults_layout.h
+		features/defaults/libsbmlnetwork_defaults_render.h
+		features/alias_elements/libsbmlnetwork_alias_element.h
+		features/alias_elements/libsbmlnetwork_alias_species.h
+		features/alias_elements/libsbmlnetwork_alias_reaction.h
+		features/hide_elements/libsbmlnetwork_hide_species.h
+		features/align_elements/libsbmlnetwork_align_element.h
+		features/align_elements/libsbmlnetwork_align_species.h
+		features/fix_elements/libsbmlnetwork_fix_element_position.h
+		features/fix_elements/libsbmlnetwork_fix_element_dimensions.h
+		features/set_layout_features/libsbmlnetwork_set_layout_features.h
+		features/update_curves/libsbmlnetwork_update_curves.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies
@@ -87,16 +113,7 @@ if (BUILD_STATIC_LIBS)
 endif()
 
 ### install
-file(GLOB SOURCE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
-install(FILES ${SOURCE_HEADERS} DESTINATION include/sbmlnetwork COMPONENT libsbmlnetwork_api)
-file(GLOB AUTOLAYOUT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/autolayout/*.h")
-install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/sbmlnetwork/autolayout COMPONENT libsbmlnetwork_api)
-file(GLOB COLORS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/colors/*.h")
-install(FILES ${COLORS_HEADERS} DESTINATION include/sbmlnetwork/colors COMPONENT libsbmlnetwork_api)
-file(GLOB STYLES_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/styles/*.h")
-install(FILES ${STYLES_HEADERS} DESTINATION include/sbmlnetwork/styles COMPONENT libsbmlnetwork_api)
-file(GLOB C_API_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/c_api/*.h")
-install(FILES ${C_API_HEADERS} DESTINATION include/sbmlnetwork/c_api COMPONENT libsbmlnetwork_api)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION include FILES_MATCHING PATTERN "*.h" PATTERN "bindings" EXCLUDE)
 if (WIN32)
 	include (InstallRequiredSystemLibraries)
 endif()

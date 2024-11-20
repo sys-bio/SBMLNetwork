@@ -2,7 +2,15 @@
 #include "libsbmlnetwork_sbmldocument.h"
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "autolayout/libsbmlnetwork_autolayout.h"
+#include "features/set_layout_features/libsbmlnetwork_set_layout_features.h"
+#include "features/update_curves/libsbmlnetwork_update_curves.h"
+#include "features/autolayout/libsbmlnetwork_autolayout.h"
+#include "features/user_data/libsbmlnetwork_user_data.h"
+#include "features/defaults/libsbmlnetwork_defaults_layout.h"
+#include "features/alias_elements/libsbmlnetwork_alias_species.h"
+#include "features/alias_elements/libsbmlnetwork_alias_reaction.h"
+#include "features/hide_elements/libsbmlnetwork_hide_species.h"
+#include "features/fix_elements/libsbmlnetwork_fix_element_position.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -58,55 +66,16 @@ int removeAllLayouts(SBMLDocument* document) {
 }
 
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges) {
-    if (document && layout) {
-        setDefaultLayoutId(layout);
-        setDefaultLayoutDimensions(layout);
-        Model* model = document->getModel();
-        if (model) {
-            clearGraphicalObjects(layout);
-            setCompartmentGlyphs(model, layout);
-            setReactionGlyphs(model, layout, maxNumConnectedEdges);
-            setTextGlyphs(layout);
-            return 0;
-        }
-    }
-
-    return -1;
+    return set_layout_features_setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
 }
 
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
-    if (document && layout) {
-        setDefaultLayoutId(layout);
-        setDefaultLayoutDimensions(layout);
-        Model* model = document->getModel();
-        if (model) {
-            lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
-            std::vector<std::map<std::string, std::string>> userData = getUserData(layout);
-            clearGraphicalObjects(layout);
-            setCompartmentGlyphs(model, layout, userData);
-            setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
-            locateGlyphs(model, layout, useNameAsTextLabel);
-            setTextGlyphs(layout);
-            return 0;
-        }
-    }
-
-    return -1;
+                             bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+    return set_layout_features_setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
 }
 
 int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
-    if (document && layout) {
-        Model* model = document->getModel();
-        if (model) {
-            clearReactionTextGlyphs(layout);
-            locateReactions(model, layout, true);
-            setReactionTextGlyphs(layout);
-            return 0;
-        }
-    }
-
-    return -1;
+    return  update_curves_updateLayoutCurves(document, layout);
 }
 
 int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges) {
@@ -118,34 +87,34 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
 }
 
 int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                                bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                                bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!createAliasSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+    if (!alias_element_createAliasSpeciesGlyph(getLayout(document), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
         return updateLayoutCurves(document, getLayout(document));
 
     return -1;
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+    if (!alias_element_createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
 }
 
 int createAliasReactionGlyph(SBMLDocument* document, const std::string& reactionId) {
-    return createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
+    return alias_element_createAliasReactionGlyph(document, getLayout(document), getReactionGlyph(document, reactionId));
 }
 
 int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
-    return createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
+    return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
 }
 
 int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
@@ -177,14 +146,14 @@ int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int lay
 }
 
 int makeSpeciesGlyphVisible(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
-    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
+    if (!hide_elements_makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document));
 
     return -1;
 }
 
 int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
-    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesId, visible))
+    if (!hide_elements_makeSpeciesGlyphVisible(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
 
     return -1;
@@ -192,7 +161,7 @@ int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, co
 
 int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible) {
     if (document && document->isSetModel()) {
-        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), species, visible))
+        if (!hide_elements_makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), species, visible))
             return setDefaultLayoutLocations(document, getLayout(document));
     }
 
@@ -202,7 +171,7 @@ int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::tuple<s
 
 int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible) {
     if (document && document->isSetModel()) {
-        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), species, visible))
+        if (!hide_elements_makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), species, visible))
             return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
     }
 
@@ -481,6 +450,22 @@ const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, cons
 
 const std::string getSpeciesReferenceSpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
     return getSpeciesReferenceSpeciesGlyphId(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+bool isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEmptySpeciesGlyph(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+bool isSetSpeciesReferenceEmptySpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return isSetEmptySpeciesGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+const std::string getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEmptySpeciesGlyphId(getLayout(document), reactionId, reactionGlyphIndex, speciesReferenceIndex);
+}
+
+const std::string getSpeciesReferenceEmptySpeciesGlyphId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
+    return getEmptySpeciesGlyphId(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex, speciesReferenceIndex);
 }
 
 bool isSetSpeciesReferenceRole(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
@@ -1125,7 +1110,7 @@ int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutInde
 }
 
 const double getSpeciesDimensionWidth() {
-    return getSpeciesDefaultWidth();
+    return defaults_getSpeciesDefaultWidth();
 }
 
 
@@ -1141,7 +1126,7 @@ int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, c
 }
 
 const double getReactionDimensionWidth() {
-    return getReactionDefaultWidth();
+    return defaults_getReactionDefaultWidth();
 }
 
 int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width, bool updateCurves) {
@@ -1219,7 +1204,7 @@ int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutInd
 }
 
 const double getSpeciesDimensionHeight() {
-    return getSpeciesDefaultHeight();
+    return defaults_getSpeciesDefaultHeight();
 }
 
 int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves) {
@@ -1234,7 +1219,7 @@ int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, 
 }
 
 const double getReactionDimensionHeight() {
-    return getReactionDefaultHeight();
+    return defaults_getReactionDefaultHeight();
 }
 
 int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves) {

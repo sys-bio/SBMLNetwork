@@ -1,5 +1,5 @@
 #include "libsbmlnetwork_colors.h"
-#include "../libsbmlnetwork_common.h"
+#include "../../libsbmlnetwork_common.h"
 
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
