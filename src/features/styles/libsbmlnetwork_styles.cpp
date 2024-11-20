@@ -1,5 +1,5 @@
 #include "libsbmlnetwork_styles.h"
-#include "../libsbmlnetwork_common.h"
+#include "../../libsbmlnetwork_common.h"
 
 #include <algorithm>
 

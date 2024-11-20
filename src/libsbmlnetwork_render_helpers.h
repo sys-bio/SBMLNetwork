@@ -71,12 +71,6 @@ std::vector<std::pair<SpeciesReferenceRole_t, std::string>> getStyleRoles();
 
 void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
-void addDefaultColors(GlobalRenderInformation* globalRenderInformation);
-
-void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style);
-
-void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation);
-
 const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId);
 
 const std::string getColorId(RenderInformationBase* renderInformationBase, const std::string &colorValue);
@@ -120,8 +114,6 @@ LineEnding* createLocalLineEnding(SBMLDocument* document, RenderInformationBase*
 const bool isLocal(SBMLDocument* document, LineEnding* lineEnding, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph);
-
-void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation);
 
 void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation);
 
@@ -227,34 +219,6 @@ void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
 
-void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D);
-
-void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D);
-
-void setDefaultRectangleShapeFeatures(Rectangle* rectangle);
-
-void setDefaultSquareShapeFeatures(Rectangle* square);
-
-void setDefaultEllipseShapeFeatures(Ellipse* ellipse);
-
-void setDefaultCircleShapeFeatures(Ellipse* circle);
-
-void setDefaultTriangleShapeFeatures(Polygon* triangle);
-
-void setDefaultDiamondShapeFeatures(Polygon* diamond);
-
-void setDefaultPentagonShapeFeatures(Polygon* pentagon);
-
-void setDefaultHexagonShapeFeatures(Polygon* pentagon);
-
-void setDefaultOctagonShapeFeatures(Polygon* pentagon);
-
-void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve);
-
-void setDefaultImageShapeFeatures(Image* image);
-
-void setDefaultDiagonalRenderCurveFeatures(RenderCurve* renderCurve);
-
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 
 const std::string getGlobalStyleUniqueId(GlobalRenderInformation* globalRenderInformation, const std::string& type);
@@ -290,42 +254,6 @@ const bool canHaveEndHead(GraphicalObject* graphicalObject);
 const bool canHaveGeometricShape(GraphicalObject* graphicalObject);
 
 const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject);
-
-std::string getErrorLog(RenderInformationBase* renderInformation);
-
-std::string getErrorLog(ColorDefinition* colorDefinition);
-
-std::string getErrorLog(GradientBase* gradientBase);
-
-std::string getErrorLog(GradientStop* gradientStop);
-
-std::string getErrorLog(LineEnding* lineEnding);
-
-std::string getErrorLog(Style* style);
-
-std::string getErrorLog(RenderGroup* renderGroup);
-
-std::string getErrorLog(Transformation2D* transformation2D);
-
-void clearErrorLog(RenderInformationBase* renderInformation);
-
-void clearErrorLog(ColorDefinition* colorDefinition);
-
-void clearErrorLog(GradientBase* gradientBase);
-
-void clearErrorLog(GradientStop* gradientStop);
-
-void clearErrorLog(LineEnding* lineEnding);
-
-void clearErrorLog(Style* style);
-
-void clearErrorLog(RenderGroup* renderGroup);
-
-void clearErrorLog(Transformation2D* transformation2D);
-
-void freeUserData(RenderInformationBase* renderInformation);
-
-std::vector<std::map<std::string, std::string>> getUserData(RenderInformationBase* renderInformationBase);
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase = NULL);
 

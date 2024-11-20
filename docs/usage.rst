@@ -31,7 +31,7 @@ Given the non-deterministic nature of the autolayout algorithm, users can apply 
    network.autolayout()
 
    # run autolayout with set parameters
-   network.autolayout(stiffness=10, gravity=15, use_magnetism=True, use_boundary=True, use_grid=True, locked_nodes=["S1", "S2"])
+   network.autolayout(stiffness=10, gravity=15, use_magnetism=True, use_boundary=True, use_grid=True, fixed_position_nodes=["S1", "S2"])
 
 Get/Set Layout and Render data attributes
 -----------------------------------------

@@ -1,10 +1,12 @@
 #include "libsbmlnetwork_sbmldocument.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
 #include "libsbmlnetwork_layout_render.h"
 #include "libsbmlnetwork_sbmldocument_layout.h"
 #include "libsbmlnetwork_sbmldocument_render.h"
 #include "libsbmlnetwork_layout_helpers.h"
 #include "libsbmlnetwork_render_helpers.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/user_data/libsbmlnetwork_user_data.h"
+#include "features/align_elements/libsbmlnetwork_align_species.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -50,50 +52,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     }
 
     const std::string getErrorLog(SBMLDocument* document) {
-        std::string errorLog = "";
-        if (document) {
-            errorLog = prepareErrorMessage(getUserData(document, "error_log"), errorLog);
-            ListOfLayouts* listOfLayouts = getListOfLayouts(document);
-            errorLog += prepareErrorMessage(getErrorLog(listOfLayouts), errorLog);
-            const int numLayouts = getNumLayouts(document);
-            for (int i = 0; i < numLayouts; i++) {
-                Layout* layout = getLayout(document, i);
-                errorLog += prepareErrorMessage(getErrorLog(layout), errorLog);
-                const int numLocalRenderInformation = getNumLocalRenderInformation(layout);
-                for (int j = 0; j < numLocalRenderInformation; j++)
-                    errorLog += prepareErrorMessage(getErrorLog(getLocalRenderInformation(layout, j)), errorLog);
-
-            }
-            const int numGlobalRenderInformation = getNumGlobalRenderInformation(document);
-            for (int i = 0; i < numGlobalRenderInformation; i++)
-                errorLog += prepareErrorMessage(getErrorLog(getGlobalRenderInformation(document, i)), errorLog);
-        }
-
-        return errorLog;
+        return error_log_getErrorLog(document);
     }
 
     void clearErrorLog(SBMLDocument* document) {
-        if (document) {
-            setUserData(document, "error_log", "");
-            ListOfLayouts* listOfLayouts = getListOfLayouts(document);
-            clearErrorLog(listOfLayouts);
-            const int numLayouts = getNumLayouts(document);
-            for (int i = 0; i < numLayouts; i++) {
-                Layout* layout = getLayout(document, i);
-                clearErrorLog(layout);
-                const int numLocalRenderInformation = getNumLocalRenderInformation(layout);
-                for (int j = 0; j < numLocalRenderInformation; j++)
-                    clearErrorLog(getLocalRenderInformation(layout, j));
-            }
-            const int numGlobalRenderInformation = getNumGlobalRenderInformation(document);
-            for (int i = 0; i < numGlobalRenderInformation; i++)
-                clearErrorLog(getGlobalRenderInformation(document, i));
-        }
+        return error_log_clearErrorLog(document);
     }
 
     bool freeSBMLDocument(SBMLDocument* document) {
         if (document) {
-            freeUserData(document);
+            user_data_freeUserData(document);
             delete document;
             return true;
         }
@@ -108,8 +76,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedElements, std::set<std::pair<std::string, int> > lockedNodesSet) {
-        const bool layoutIsAdded = !createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetFixedPositionElements, std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+        const bool layoutIsAdded = !createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;
@@ -126,7 +94,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet, const std::string& alignment, const bool ignoreLockedNodes) {
+    int align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet, const std::string& alignment, const bool ignoreFixedPositionNodes) {
         if (nodesSet.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
             for (std::set<std::pair<std::string, int> >::const_iterator nodeIt = nodesSet.cbegin(); nodeIt != nodesSet.cend(); nodeIt++) {
@@ -136,7 +104,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 }
                 allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
-            alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
+            align_elements_alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreFixedPositionNodes);
             return updateLayoutCurves(document, getLayout(document));
         }
 
@@ -153,7 +121,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 }
                 allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
-            distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
+            align_elements_distributeGraphicalObjects(getLayout(document), allGraphicalObjects, direction, spacing);
             return updateLayoutCurves(document, getLayout(document));
         }
 

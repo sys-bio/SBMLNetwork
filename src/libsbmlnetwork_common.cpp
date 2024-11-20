@@ -80,21 +80,6 @@ bool isValueValid(const std::string& value, const std::vector<std::string>& vali
     return false;
 }
 
-std::string createErrorMessage(const std::string& value, std::vector<std::string> validValues) {
-    std::string errorMessage = "error: " + value + " is not a valid value. It must be one of the following: ";
-    for (unsigned int i = 0; i < validValues.size(); i++) {
-        if (i != validValues.size() - 1) {
-            errorMessage += validValues[i];
-            errorMessage += ", ";
-        } else {
-            errorMessage += "or ";
-            errorMessage += validValues[i];
-        }
-    }
-
-    return errorMessage;
-}
-
 const double roundToTwoDecimalPlaces(const double& value) {
     return round(value * 100.0) / 100.0;
 }

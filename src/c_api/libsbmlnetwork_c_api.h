@@ -75,12 +75,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
-    /// @param resetLockedElements a variable that determines whether to reset the locked elements in the autolayout algorithm.
-    /// @param lockedNodeIds an array of strings containing the ids of the nodes and the indices of their associated graphical objects that should be locked in the autolayout algorithm.
-    /// @param lockedNodesSize the size of lockedNodeIds
+    /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
+    /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes and the indices of their associated graphical objects that must have fixed position in the autolayout algorithm.
+    /// @param fixedPositionNodesSize the size of fixedPositionNodeIds
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                bool resetLockedElements = false, const char ***locked_nodes = NULL, const int lockedNodesSize = 0);
+                                                bool resetFixedPositionElements = false, const char ***fixedPositionNodes = NULL, const int fixedPositionNodesSize = 0);
 
     /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
     /// @param document a pointer to the SBMLDocument object.
@@ -93,9 +93,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param nodes an array of strings containing the ids of the nodes and their associated graphical objects that should be aligned.
     /// @param nodesSize the size of nodeIds
     /// @param alignment determines how to align the nodes.
-    /// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the autolayout algorithm.
+    /// @param ignoreFixedPositionNodes a variable that determines whether to ignore the fixed position nodes in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreLockedNodes = false);
+    LIBSBMLNETWORK_EXTERN int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreFixedPositionNodes = false);
 
     /// @brief Distribute the nodes position in the SBML document in the given direction.
     /// @param document a pointer to the SBMLDocument object.
@@ -128,12 +128,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
     /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
-    /// @param resetLockedElements a variable that determines whether to reset the locked elements in the autolayout algorithm.
-    /// @param lockedNodesSize the size of lockedNodeIds
-    /// @param lockedNodeIds an array of strings containing the ids of the nodes that should be locked in the autolayout algorithm.
+    /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
+    /// @param fixedPositionNodesSize the size of fixedPositionNodeIds
+    /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes that must have fixed position in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
-                                                               bool resetLockedElements = false, const char*** lockedNodeIds = NULL, const int lockedNodesSize = 0);
+                                                               bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0);
 
     /// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
     /// @param document a pointer to the SBMLDocument object.

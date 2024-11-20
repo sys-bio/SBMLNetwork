@@ -76,10 +76,10 @@ LIBSBMLNETWORK_EXTERN bool isSetModel(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param maxNumConnectedEdges the maximum number of connected edges to a node in the autolayout algorithm.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the species/reaction as the text label in the autolayout algorithm.
-/// @param resetLockedElements a variable that determines whether to reset the locked elements in the autolayout algorithm.
-/// @param lockedNodesSet a set of locked nodes and their graphical object indices to be used in the autolayout algorithm.
+/// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
+/// @param fixedPositionNodesSet a set of fixed position nodes and their graphical object indices to be used in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetLockedElements = false, std::set<std::pair<std::string, int> > lockedNodesSet = {});
+LIBSBMLNETWORK_EXTERN int autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true, bool resetFixedPositionElements = false, std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
 
 /// @brief Create a Render object and add it to the the SBML document if it does not exist.
 /// @param document a pointer to the SBMLDocument object.
@@ -91,9 +91,9 @@ LIBSBMLNETWORK_EXTERN int autorender(SBMLDocument* document, const int maxNumCon
 /// @param document a pointer to the SBMLDocument object.
 /// @param nodes a set of node ids and their graphical object indices to be aligned.
 /// @param alignment determines how to align the nodes.
-/// @param ignoreLockedNodes a variable that determines whether to ignore the locked nodes in the alignment algorithm.
+/// @param ignoreFixedPositionNodes a variable that determines whether to ignore the fixed position nodes in the alignment algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet,  const std::string& alignment, const bool ignoreLockedNodes = false);
+LIBSBMLNETWORK_EXTERN int align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet,  const std::string& alignment, const bool ignoreFixedPositionNodes = false);
 
 /// @brief Distribute the nodes position in the SBML document in the given distribution direction.
 /// @param document a pointer to the SBMLDocument object.

@@ -1,15 +1,16 @@
 #include "libsbmlnetwork_autolayout_node.h"
-#include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
-#include "../libsbmlnetwork_common.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
+#include "../../libsbmlnetwork_common.h"
+#include "../user_data/libsbmlnetwork_user_data.h"
+#include "../defaults/libsbmlnetwork_defaults_layout.h"
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutObjectBase(model, layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
     _useNameAsTextLabel = useNameAsTextLabel;
     _graphicalObject = graphicalObject;
-    setLocked(locked);
+    setPositionFixed(positionFixed);
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -54,25 +55,25 @@ void AutoLayoutNodeBase::incrementDegree() {
     _degree++;
 }
 
-const bool AutoLayoutNodeBase::isLocked() {
-    return _locked;
+const bool AutoLayoutNodeBase::isPositionFixed() {
+    return _positionFixed;
 }
 
-void AutoLayoutNodeBase::setLocked(const bool& locked) {
-    _locked = locked;
+void AutoLayoutNodeBase::setPositionFixed(const bool& positionFixed) {
+    _positionFixed = positionFixed;
 }
 
-void AutoLayoutNodeBase::updateLockedStatus() {;
-    if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_graphicalObject, "locked") == "true") {
-        setLocked(true);
-        setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_graphicalObject, "x")));
-        setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_graphicalObject, "y")));
+void AutoLayoutNodeBase::updateFixedPositionStatus() {;
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "fixed_position") == "true") {
+        setPositionFixed(true);
+        setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "x")));
+        setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "y")));
     }
 }
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, locked) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, positionFixed) {
 
 }
 
@@ -85,12 +86,12 @@ GraphicalObject* AutoLayoutNode::getGraphicalObject() {
 }
 
 void AutoLayoutNode::updateDimensions() {
-    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
+    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(getGraphicalObject(), "width");
     if (fixedWidth.empty())
         setWidth(std::max(calculateWidth(), std::max(getWidth(), getDefaultWidth())));
     else
         setWidth(std::stod(fixedWidth));
-    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
+    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(getGraphicalObject(), "height");
     if (fixedHeight.empty())
         setHeight(std::max(calculateHeight(), std::max(getHeight(), getDefaultHeight())));
     else
@@ -118,7 +119,7 @@ const double AutoLayoutNode::getWidth() {
 }
 
 const double AutoLayoutNode::getDefaultWidth() {
-    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultWidth();
+    return LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getSpeciesDefaultWidth();
 }
 
 void AutoLayoutNode::setWidth(const double& width) {
@@ -130,7 +131,7 @@ const double AutoLayoutNode::getHeight() {
 }
 
 const double AutoLayoutNode::getDefaultHeight() {
-    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultHeight();
+    return LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getSpeciesDefaultHeight();
 }
 
 void AutoLayoutNode::setHeight(const double& height) {
@@ -154,7 +155,7 @@ const double AutoLayoutNode::calculateHeight() {
 // AutoLayoutCentroidNode
 
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, locked) {
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, positionFixed) {
 
 }
 
@@ -167,14 +168,14 @@ GraphicalObject* AutoLayoutCentroidNode::getGraphicalObject() {
 }
 
 void AutoLayoutCentroidNode::updateDimensions() {
-    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "width");
+    std::string fixedWidth = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(getGraphicalObject(), "width");
     if (fixedWidth.empty()) {
         if (!isSetCurve())
             setWidth(std::max(calculateWidth(), getWidth()));
     }
     else
         setWidth(std::stod(fixedWidth));
-    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(getGraphicalObject(), "height");
+    std::string fixedHeight = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(getGraphicalObject(), "height");
     if (fixedHeight.empty()) {
         if (!isSetCurve())
             setHeight(std::max(calculateHeight(), getHeight()));
@@ -286,11 +287,11 @@ const double AutoLayoutCentroidNode::calculateWidth() {
     if (reaction && reaction->isSetName() && _useNameAsTextLabel)
         displayedText = reaction->getName();
 
-    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultWidth(), displayedText.size() * 9.0);
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultWidth(), displayedText.size() * 9.0);
 }
 
 const double AutoLayoutCentroidNode::calculateHeight() {
-    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultHeight(), getHeight());
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultHeight(), getHeight());
 }
 
 const bool AutoLayoutCentroidNode::isSetCurve() {

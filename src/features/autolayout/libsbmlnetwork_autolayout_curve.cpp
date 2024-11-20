@@ -1,11 +1,11 @@
 #include "libsbmlnetwork_autolayout_curve.h"
 #include "libsbmlnetwork_autolayout_node.h"
-#include "../libsbmlnetwork_layout_helpers.h"
-#include "../libsbmlnetwork_sbmldocument_helpers.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
+#include "../user_data/libsbmlnetwork_user_data.h"
 
 AutoLayoutCurve::AutoLayoutCurve(Model* model, Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) : AutoLayoutObjectBase(model, layout) {
     _speciesReferenceGlyph = speciesReferenceGlyph;
-    setLocked(false);
+    setPositionFixed(false);
 }
 
 const std::string AutoLayoutCurve::getId() {
@@ -24,28 +24,28 @@ const std::string AutoLayoutCurve::getRoleString() {
     return _speciesReferenceGlyph->getRoleString();
 }
 
-const bool AutoLayoutCurve::isLocked() {
-    return _locked;
+const bool AutoLayoutCurve::isPositionFixed() {
+    return _positionFixed;
 }
 
-void AutoLayoutCurve::setLocked(const bool& locked) {
-    _locked = locked;
+void AutoLayoutCurve::setPositionFixed(const bool& value) {
+    _positionFixed = value;
 }
 
-void AutoLayoutCurve::updateLockedStatus() {;
-    if (LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, "locked") == "true") {
-        setLocked(true);
+void AutoLayoutCurve::updateFixedPositionStatus() {;
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, "fixed_position") == "true") {
+        setPositionFixed(true);
         int curveSegmentIndex = 0;
         LineSegment* lineSegment = _speciesReferenceGlyph->getCurve()->getCurveSegment(curveSegmentIndex);
-        lineSegment->getStart()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_x")));
-        lineSegment->getStart()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_y")));
-        lineSegment->getEnd()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_x")));
-        lineSegment->getEnd()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_y")));
+        lineSegment->getStart()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_x")));
+        lineSegment->getStart()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_y")));
+        lineSegment->getEnd()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_x")));
+        lineSegment->getEnd()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":end_y")));
         if (dynamic_cast<CubicBezier*>(lineSegment) != NULL) {
-            ((CubicBezier*)lineSegment)->getBasePoint1()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_x")));
-            ((CubicBezier*)lineSegment)->getBasePoint1()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_y")));
-            ((CubicBezier*)lineSegment)->getBasePoint2()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_x")));
-            ((CubicBezier*)lineSegment)->getBasePoint2()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_y")));
+            ((CubicBezier*)lineSegment)->getBasePoint1()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_x")));
+            ((CubicBezier*)lineSegment)->getBasePoint1()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b1_y")));
+            ((CubicBezier*)lineSegment)->getBasePoint2()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_x")));
+            ((CubicBezier*)lineSegment)->getBasePoint2()->setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":b2_y")));
         }
     }
 }

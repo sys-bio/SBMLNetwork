@@ -5,8 +5,9 @@
 #include "libsbmlnetwork_render.h"
 #include "libsbmlnetwork_render_helpers.h"
 #include "libsbmlnetwork_layout_helpers.h"
-#include "libsbmlnetwork_sbmldocument_helpers.h"
-#include "styles/libsbmlnetwork_styles.h"
+#include "features/styles/libsbmlnetwork_styles.h"
+#include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/defaults/libsbmlnetwork_defaults_render.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -66,8 +67,8 @@ int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRend
     if (document && globalRenderInformation) {
         globalRenderInformation->setId("libSBMLNetwork_Global_Render");
         globalRenderInformation->setBackgroundColor("white");
-        addDefaultColors(globalRenderInformation);
-        addDefaultLineEndings(globalRenderInformation);
+        defaults_addDefaultColors(globalRenderInformation);
+        defaults_addDefaultLineEndings(globalRenderInformation);
         addGlobalStyles(globalRenderInformation);
         return 0;
     }
@@ -5937,9 +5938,9 @@ int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObje
             style = createLocalStyle(document, graphicalObject);
         if (!setGeometricShapeType(style, shape)) {
             if (getGlobalRenderInformation(document))
-                addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
+                defaults_addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
             else
-                addColorsOfDefaultGeometricShapes(document, style);
+                defaults_addColorsOfDefaultGeometricShapes(document, style);
             removeCurve(graphicalObject);
             return 0;
         }
@@ -5955,9 +5956,9 @@ int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, 
             style = createLocalStyle(document, attribute);
         if (!setGeometricShapeType(style, shape)) {
             if (getGlobalRenderInformation(document))
-                addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
+                defaults_addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
             else
-                addColorsOfDefaultGeometricShapes(document, style);
+                defaults_addColorsOfDefaultGeometricShapes(document, style);
             removeCurve(getGraphicalObject(document, attribute));
             return 0;
         }
@@ -10706,7 +10707,7 @@ const std::string getStyle(SBMLDocument* document, unsigned int renderIndex) {
 
 int setStyle(SBMLDocument* document, unsigned int renderIndex, const std::string& styleName) {
     if (!isValidPredefinedStyleName(styleName)) {
-        addErrorToLog(document, "The style name is not valid.");
+        error_log_addErrorToLog(document, "The style name is not valid.");
         return -1;
     }
     std::map<std::string, std::string> styleFeatures = getPredefinedStyleFeatures(styleName);
