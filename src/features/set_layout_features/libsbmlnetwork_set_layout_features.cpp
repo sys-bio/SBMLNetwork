@@ -38,7 +38,7 @@ int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout, userData);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
-            locateGlyphs(model, layout, useNameAsTextLabel);
+            autolayout_locateGlyphs(model, layout, useNameAsTextLabel);
             set_layout_features_setTextGlyphs(layout);
             return 0;
         }

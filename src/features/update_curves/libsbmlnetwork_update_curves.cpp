@@ -9,7 +9,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             Model* model = document->getModel();
             if (model) {
                 set_layout_features_clearReactionTextGlyphs(layout);
-                locateReactions(model, layout, true);
+                autolayout_locateReactions(model, layout, true);
                 set_layout_features_setReactionTextGlyphs(layout);
                 return 0;
             }
