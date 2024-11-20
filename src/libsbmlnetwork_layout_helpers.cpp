@@ -5,6 +5,7 @@
 #include "features/error_log/libsbmlnetwork_error_log.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/defaults/libsbmlnetwork_defaults_layout.h"
+#include "features/hide_elements/libsbmlnetwork_hide_species.h"
 
 #include <cmath>
 #include <climits>
@@ -247,7 +248,7 @@ void setReactionGlyphs(Model* model, Layout* layout, const int maxNumConnectedEd
 void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        if (!isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
+        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
             int stoichiometry = getStoichiometryAsInteger(speciesReference);
             for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
                 SpeciesReferenceGlyph *speciesReferenceGlyph = createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
@@ -260,7 +261,7 @@ void setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reacti
 void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        if (!isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
+        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
             int stoichiometry = getStoichiometryAsInteger(speciesReference);
             for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
                 SpeciesReferenceGlyph* speciesReferenceGlyph = createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
@@ -273,7 +274,7 @@ void setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactio
 void setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
-        if (!isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
+        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), 0, maxNumConnectedEdges, userData);
             if (speciesReference->getSBOTermID() == "SBO:0000020")
                 speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
@@ -372,65 +373,6 @@ int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string specie
     }
 
     return -1;
-}
-
-int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::tuple<std::string, std::string, int> > species, bool visible) {
-    for (std::set<std::tuple<std::string, std::string, int> >::const_iterator speciesIt = species.cbegin(); speciesIt != species.cend(); speciesIt++) {
-        if (makeSpeciesGlyphVisible(getReactionGlyph(layout, std::get<1>(*speciesIt), std::get<2>(*speciesIt)), std::get<0>(*speciesIt), visible))
-            return -1;
-    }
-
-    return 0;
-}
-
-int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string speciesId, bool visible) {
-    if (!visible)
-        return hideSpeciesGlyph(reactionGlyph, speciesId);
-    else
-        return unHideSpeciesGlyph(reactionGlyph, speciesId);
-}
-
-int hideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
-    if (sBase) {
-        std::string hiddenSpeciesIds = user_data_getUserData(sBase, "hidden_species_ids");
-        if (hiddenSpeciesIds.find(speciesId) == std::string::npos) {
-            if (hiddenSpeciesIds.size())
-                hiddenSpeciesIds += ",";
-            hiddenSpeciesIds += speciesId;
-            if (isGraphicalObject(sBase))
-                user_data_setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
-            else
-                user_data_setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
-        }
-
-        return 0;
-    }
-
-    return -1;
-}
-
-int unHideSpeciesGlyph(SBase* sBase, const std::string speciesId) {
-    if (sBase) {
-        std::string hiddenSpeciesIds = user_data_getUserData(sBase, "hidden_species_ids");
-        size_t found = hiddenSpeciesIds.find(speciesId);
-        if (found != std::string::npos) {
-            hiddenSpeciesIds.erase(found, speciesId.size());
-            if (hiddenSpeciesIds.back() == ',')
-                hiddenSpeciesIds.pop_back();
-            if (isGraphicalObject(sBase))
-                user_data_setUserData((GraphicalObject*)sBase, "hidden_species_ids", hiddenSpeciesIds);
-            else
-                user_data_setUserData(sBase, "hidden_species_ids", hiddenSpeciesIds);
-        }
-
-        return 0;
-    }
-
-    return -1;
-}
-
-const bool isSpeciesGlyphHidden(Layout* layout, ReactionGlyph* reactionGlyph, const std::string speciesId) {
-    return user_data_getUserData(layout, "hidden_species_ids").find(speciesId) != std::string::npos ||  user_data_getUserData(reactionGlyph, "hidden_species_ids").find(speciesId) != std::string::npos;
 }
 
 std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph) {

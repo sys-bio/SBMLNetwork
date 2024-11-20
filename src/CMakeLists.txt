@@ -27,6 +27,7 @@ set(SOURCES
 		features/alias_elements/libsbmlnetwork_alias_element.cpp
 		features/alias_elements/libsbmlnetwork_alias_species.cpp
 		features/alias_elements/libsbmlnetwork_alias_reaction.cpp
+		features/hide_elements/libsbmlnetwork_hide_species.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -56,6 +57,7 @@ set(HEADERS
 		features/alias_elements/libsbmlnetwork_alias_element.h
 		features/alias_elements/libsbmlnetwork_alias_species.h
 		features/alias_elements/libsbmlnetwork_alias_reaction.h
+		features/hide_elements/libsbmlnetwork_hide_species.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies

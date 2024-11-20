@@ -7,6 +7,7 @@
 #include "features/defaults/libsbmlnetwork_defaults_layout.h"
 #include "features/alias_elements/libsbmlnetwork_alias_species.h"
 #include "features/alias_elements/libsbmlnetwork_alias_reaction.h"
+#include "features/hide_elements/libsbmlnetwork_hide_species.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -181,14 +182,14 @@ int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int lay
 }
 
 int makeSpeciesGlyphVisible(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
-    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
+    if (!hide_elements_makeSpeciesGlyphVisible(getReactionGlyph(document, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document));
 
     return -1;
 }
 
 int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, bool visible) {
-    if (!makeSpeciesGlyphVisible(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesId, visible))
+    if (!hide_elements_makeSpeciesGlyphVisible(getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), speciesId, visible))
         return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
 
     return -1;
@@ -196,7 +197,7 @@ int makeSpeciesGlyphVisible(SBMLDocument* document, unsigned int layoutIndex, co
 
 int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible) {
     if (document && document->isSetModel()) {
-        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), species, visible))
+        if (!hide_elements_makeSpeciesGlyphsVisible(document->getModel(), getLayout(document), species, visible))
             return setDefaultLayoutLocations(document, getLayout(document));
     }
 
@@ -206,7 +207,7 @@ int makeSpeciesGlyphsVisible(SBMLDocument* document, const std::set<std::tuple<s
 
 int makeSpeciesGlyphsVisible(SBMLDocument* document, unsigned int layoutIndex, const std::set<std::tuple<std::string, std::string, int> >& species, bool visible) {
     if (document && document->isSetModel()) {
-        if (!makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), species, visible))
+        if (!hide_elements_makeSpeciesGlyphsVisible(document->getModel(), getLayout(document, layoutIndex), species, visible))
             return setDefaultLayoutLocations(document, getLayout(document, layoutIndex));
     }
 

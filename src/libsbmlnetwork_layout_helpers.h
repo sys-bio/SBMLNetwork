@@ -82,16 +82,6 @@ SpeciesGlyph* getSpeciesGlyph(Layout* layout, const std::string& speciesId, cons
 
 int setSpeciesGlyphIndexInReactionGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph, const unsigned int index);
 
-int makeSpeciesGlyphsVisible(Model* model, Layout* layout, std::set<std::tuple<std::string, std::string, int> > species, bool visible = true);
-
-int makeSpeciesGlyphVisible(ReactionGlyph* reactionGlyph, const std::string speciesId, bool visible = true);
-
-int hideSpeciesGlyph(SBase* sBase, const std::string speciesId);
-
-int unHideSpeciesGlyph(SBase* sBase, const std::string speciesId);
-
-const bool isSpeciesGlyphHidden(Layout* layout, ReactionGlyph* reactionGlyph, const std::string speciesId);
-
 std::vector<SpeciesReferenceGlyph*> getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
 
 void setTextGlyphs(Layout* layout);
