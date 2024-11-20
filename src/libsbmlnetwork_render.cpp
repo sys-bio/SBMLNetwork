@@ -4,6 +4,7 @@
 #include "colors/libsbmlnetwork_colors.h"
 #include "styles/libsbmlnetwork_styles.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/defaults/libsbmlnetwork_defaults_render.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -3271,47 +3272,47 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
         Transformation2D* shapeObject = NULL;
         if (stringCompare(shape, "square")) {
             shapeObject = renderGroup->createRectangle();
-            setDefaultSquareShapeFeatures((Rectangle*)shapeObject);
+            defaults_setDefaultSquareShapeFeatures((Rectangle*)shapeObject);
         }
         else if (stringCompare(shape, "rectangle")) {
             shapeObject = renderGroup->createRectangle();
-            setDefaultRectangleShapeFeatures((Rectangle*)shapeObject);
+            defaults_setDefaultRectangleShapeFeatures((Rectangle*)shapeObject);
         }
         else if (stringCompare(shape, "circle")) {
             shapeObject = renderGroup->createEllipse();
-            setDefaultCircleShapeFeatures((Ellipse*)shapeObject);
+            defaults_setDefaultCircleShapeFeatures((Ellipse*)shapeObject);
         }
         else if (stringCompare(shape, "ellipse")) {
             shapeObject = renderGroup->createEllipse();
-            setDefaultEllipseShapeFeatures((Ellipse*)shapeObject);
+            defaults_setDefaultEllipseShapeFeatures((Ellipse*)shapeObject);
         }
         else if (stringCompare(shape, "triangle")) {
             shapeObject = renderGroup->createPolygon();
-            setDefaultTriangleShapeFeatures((Polygon*)shapeObject);
+            defaults_setDefaultTriangleShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "diamond")) {
             shapeObject = renderGroup->createPolygon();
-            setDefaultDiamondShapeFeatures((Polygon*)shapeObject);
+            defaults_setDefaultDiamondShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "pentagon")) {
             shapeObject = renderGroup->createPolygon();
-            setDefaultPentagonShapeFeatures((Polygon*)shapeObject);
+            defaults_setDefaultPentagonShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "hexagon")) {
             shapeObject = renderGroup->createPolygon();
-            setDefaultHexagonShapeFeatures((Polygon*)shapeObject);
+            defaults_setDefaultHexagonShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "octagon")) {
             shapeObject = renderGroup->createPolygon();
-            setDefaultOctagonShapeFeatures((Polygon*)shapeObject);
+            defaults_setDefaultOctagonShapeFeatures((Polygon*)shapeObject);
         }
         else if (stringCompare(shape, "rendercurve")) {
             shapeObject = renderGroup->createCurve();
-            setDefaultRenderCurveShapeFeatures((RenderCurve*)shapeObject);
+            defaults_setDefaultRenderCurveShapeFeatures((RenderCurve*)shapeObject);
         }
         else if (stringCompare(shape, "image")) {
             shapeObject = renderGroup->createImage();
-            setDefaultImageShapeFeatures((Image*)shapeObject);
+            defaults_setDefaultImageShapeFeatures((Image*)shapeObject);
         }
 
         if (shapeObject) {

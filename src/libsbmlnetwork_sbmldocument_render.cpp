@@ -7,6 +7,7 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "styles/libsbmlnetwork_styles.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/defaults/libsbmlnetwork_defaults_render.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -66,8 +67,8 @@ int setDefaultGlobalRenderInformationFeatures(SBMLDocument* document, GlobalRend
     if (document && globalRenderInformation) {
         globalRenderInformation->setId("libSBMLNetwork_Global_Render");
         globalRenderInformation->setBackgroundColor("white");
-        addDefaultColors(globalRenderInformation);
-        addDefaultLineEndings(globalRenderInformation);
+        defaults_addDefaultColors(globalRenderInformation);
+        defaults_addDefaultLineEndings(globalRenderInformation);
         addGlobalStyles(globalRenderInformation);
         return 0;
     }
@@ -5937,9 +5938,9 @@ int setGeometricShapeType(SBMLDocument* document, GraphicalObject* graphicalObje
             style = createLocalStyle(document, graphicalObject);
         if (!setGeometricShapeType(style, shape)) {
             if (getGlobalRenderInformation(document))
-                addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
+                defaults_addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
             else
-                addColorsOfDefaultGeometricShapes(document, style);
+                defaults_addColorsOfDefaultGeometricShapes(document, style);
             removeCurve(graphicalObject);
             return 0;
         }
@@ -5955,9 +5956,9 @@ int setGeometricShapeType(SBMLDocument* document, const std::string& attribute, 
             style = createLocalStyle(document, attribute);
         if (!setGeometricShapeType(style, shape)) {
             if (getGlobalRenderInformation(document))
-                addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
+                defaults_addColorsOfDefaultGeometricShapes(getGlobalRenderInformation(document));
             else
-                addColorsOfDefaultGeometricShapes(document, style);
+                defaults_addColorsOfDefaultGeometricShapes(document, style);
             removeCurve(getGraphicalObject(document, attribute));
             return 0;
         }

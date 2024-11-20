@@ -22,22 +22,6 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-void setDefaultLayoutId(Layout* layout);
-
-const std::string getDefaultLayoutId();
-
-void setDefaultLayoutDimensions(Layout* layout);
-
-const double getSpeciesDefaultWidth();
-
-const double getSpeciesDefaultHeight();
-
-const double getEmptySpeciesDefaultRadius();
-
-const double getReactionDefaultWidth();
-
-const double getReactionDefaultHeight();
-
 void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
 
 void lockCompartmentGlyphs(Layout* layout, const bool resetLockedElements);
@@ -343,12 +327,6 @@ const double getMinCenterY(std::vector<GraphicalObject*> graphicalObjects);
 const double getMaxCenterX(std::vector<GraphicalObject*> graphicalObjects);
 
 const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects);
-
-const double getDefaultAutoLayoutPadding();
-
-const double getAliasSpeciesGlyphPadding();
-
-const double getAliasReactionGlyphPadding();
 
 const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase = NULL);
 

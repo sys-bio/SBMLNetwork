@@ -6,6 +6,7 @@
 #include "colors/libsbmlnetwork_colors.h"
 #include "styles/libsbmlnetwork_styles.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
+#include "features/defaults/libsbmlnetwork_defaults_render.h"
 
 #include <cmath>
 
@@ -221,26 +222,6 @@ std::vector<std::pair<SpeciesReferenceRole_t, std::string>> getStyleRoles() {
     roles.push_back(std::make_pair(SPECIES_ROLE_ACTIVATOR, "activator"));
     roles.push_back(std::make_pair(SPECIES_ROLE_INHIBITOR, "inhibitor"));
     return roles;
-}
-
-void addDefaultColors(GlobalRenderInformation* globalRenderInformation) {
-    addColor(globalRenderInformation, "white");
-    addColor(globalRenderInformation, "black");
-    addColor(globalRenderInformation, "lightgray");
-    addColor(globalRenderInformation, "darkslategray");
-    addColor(globalRenderInformation, "darkcyan");
-    addColor(globalRenderInformation, "teal");
-    addColor(globalRenderInformation, "silver");
-}
-
-void addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style) {
-    addColor(document, style, "white");
-    addColor(document, style, "black");
-}
-
-void addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation) {
-    addColor(globalRenderInformation, "white");
-    addColor(globalRenderInformation, "black");
 }
 
 const std::string getColorValue(RenderInformationBase* renderInformationBase, const std::string &colorId) {
@@ -510,13 +491,6 @@ const std::string getLocalLineEndingId(SBMLDocument* document, SpeciesReferenceG
     return "";
 }
 
-void addDefaultLineEndings(GlobalRenderInformation* globalRenderInformation) {
-    addProductHeadLineEnding(globalRenderInformation);
-    addModifierHeadLineEnding(globalRenderInformation);
-    addActivatorHeadLineEnding(globalRenderInformation);
-    addInhibitorHeadLineEnding(globalRenderInformation);
-}
-
 void addProductHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
     if (!globalRenderInformation->getLineEnding("productHead")) {
         RenderPkgNamespaces renderPkgNamespaces(globalRenderInformation->getLevel(), globalRenderInformation->getVersion());
@@ -536,7 +510,7 @@ LineEnding* createProductHeadLineEnding(RenderPkgNamespaces* renderPkgNamespaces
 void setProductHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* triangle = renderGroup->createPolygon();
-    setDefaultTriangleShapeFeatures(triangle);
+    defaults_setDefaultTriangleShapeFeatures(triangle);
     triangle->getElement(1)->setY(RelAbsVector(0.0, 50.0));
     triangle->getElement(2)->setX(RelAbsVector(0.0, 0.0));
     triangle->setFill("black");
@@ -561,7 +535,7 @@ LineEnding* createModifierHeadLineEnding(RenderPkgNamespaces* renderPkgNamespace
 void setModifierHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
+    defaults_setDefaultEllipseShapeFeatures(ellipse);
 }
 
 void addActivatorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
@@ -583,7 +557,7 @@ LineEnding* createActivatorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespac
 void setActivatorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Polygon* diamond = renderGroup->createPolygon();
-    setDefaultDiamondShapeFeatures(diamond);
+    defaults_setDefaultDiamondShapeFeatures(diamond);
 }
 
 void addInhibitorHeadLineEnding(GlobalRenderInformation* globalRenderInformation) {
@@ -606,7 +580,7 @@ LineEnding* createInhibitorHeadLineEnding(RenderPkgNamespaces* renderPkgNamespac
 void setInhibitorHeadLineEndingExclusiveFeatures(LineEnding* lineEnding) {
     RenderGroup* renderGroup = lineEnding->getGroup();
     Rectangle* rectangle = renderGroup->createRectangle();
-    setDefaultRectangleShapeFeatures(rectangle);
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setX(RelAbsVector(0.0, 80.0));
     rectangle->setWidth(RelAbsVector(0.0, 20.0));
     rectangle->setRX(RelAbsVector(0.0, 0.0));
@@ -828,7 +802,7 @@ void addSpeciesReferenceGlyphLocalStyle(SpeciesReferenceGlyph* speciesReferenceG
 
 void setCompartmentGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
-    setDefaultRectangleShapeFeatures(rectangle);
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setStroke(getDefaultPredefinedStyleFeatures()["compartment-border-color"]);
     rectangle->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["compartment-border-width"]));
     rectangle->setFill(getDefaultPredefinedStyleFeatures()["compartment-fill-color"]);
@@ -846,18 +820,18 @@ void setCompartmentGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 
 void setSpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Rectangle* rectangle = renderGroup->createRectangle();
-    setDefaultRectangleShapeFeatures(rectangle);
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
     rectangle->setRX(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-x"]), 0.0));
     rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-y"]), 0.0));
 }
 
 void setEmptySpeciesGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
+    defaults_setDefaultEllipseShapeFeatures(ellipse);
     ellipse->setFill(getDefaultPredefinedStyleFeatures()["species-fill-color"]);
     ellipse->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
     RenderCurve* curve = renderGroup->createCurve();
-    setDefaultDiagonalRenderCurveFeatures(curve);
+    defaults_setDefaultDiagonalRenderCurveFeatures(curve);
     curve->setStroke(getDefaultPredefinedStyleFeatures()["species-border-color"]);
     curve->setStrokeWidth(std::stod(getDefaultPredefinedStyleFeatures()["species-border-width"]));
 }
@@ -869,7 +843,7 @@ void setSpeciesGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 
 void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     Ellipse* ellipse = renderGroup->createEllipse();
-    setDefaultEllipseShapeFeatures(ellipse);
+    defaults_setDefaultEllipseShapeFeatures(ellipse);
 }
 
 void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
@@ -879,7 +853,7 @@ void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
 }
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role) {
-    setDefault1DShapeFeatures(renderGroup);
+    defaults_setDefault1DShapeFeatures(renderGroup);
     if (role == SPECIES_ROLE_PRODUCT || role == SPECIES_ROLE_SIDEPRODUCT)
         renderGroup->setEndHead("productHead");
     else if (role == SPECIES_ROLE_MODIFIER)
@@ -898,191 +872,6 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     renderGroup->setFontStyle(getDefaultPredefinedStyleFeatures()["species-font-style"]);
     renderGroup->setTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-horizontal-alignment"]);
     renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-vertical-alignment"]);
-}
-
-void setDefault1DShapeFeatures(GraphicalPrimitive1D* graphicalPrimitive1D) {
-    graphicalPrimitive1D->setStroke("black");
-    graphicalPrimitive1D->setStrokeWidth(2.0);
-}
-
-void setDefault2DShapeFeatures(GraphicalPrimitive2D* graphicalPrimitive2D) {
-    setDefault1DShapeFeatures(graphicalPrimitive2D);
-    graphicalPrimitive2D->setFill("white");
-}
-
-void setDefaultRectangleShapeFeatures(Rectangle* rectangle) {
-    setDefault2DShapeFeatures(rectangle);
-    rectangle->setX(RelAbsVector(0.0, 0.0));
-    rectangle->setY(RelAbsVector(0.0, 0.0));
-    rectangle->setWidth(RelAbsVector(0.0, 100.0));
-    rectangle->setHeight(RelAbsVector(0.0, 100.0));
-    rectangle->setRX(RelAbsVector(0.0, 10.0));
-    rectangle->setRY(RelAbsVector(0.0, 10.0));
-}
-
-void setDefaultSquareShapeFeatures(Rectangle* square) {
-    setDefault2DShapeFeatures(square);
-    square->setX(RelAbsVector(0.0, 0.0));
-    square->setY(RelAbsVector(0.0, 0.0));
-    square->setWidth(RelAbsVector(0.0, 100.0));
-    square->setRatio(1.0);
-    square->setRX(RelAbsVector(0.0, 0.0));
-    square->setRY(RelAbsVector(0.0, 0.0));
-}
-
-void setDefaultEllipseShapeFeatures(Ellipse* ellipse) {
-    setDefault2DShapeFeatures(ellipse);
-    ellipse->setCX(RelAbsVector(0.0, 50.0));
-    ellipse->setCY(RelAbsVector(0.0, 50.0));
-    ellipse->setRX(RelAbsVector(0.0, 50.0));
-    ellipse->setRY(RelAbsVector(0.0, 50.0));
-    ellipse->setStroke("black");
-    ellipse->setStrokeWidth(2.0);
-}
-
-void setDefaultCircleShapeFeatures(Ellipse* circle) {
-    setDefault2DShapeFeatures(circle);
-    circle->setCX(RelAbsVector(0.0, 50.0));
-    circle->setCY(RelAbsVector(0.0, 50.0));
-    circle->setRX(RelAbsVector(0.0, 50.0));
-    circle->setRatio(1.0);
-    circle->setStroke("black");
-    circle->setStrokeWidth(2.0);
-}
-
-void setDefaultTriangleShapeFeatures(Polygon* triangle) {
-    setDefault2DShapeFeatures(triangle);
-    RenderPoint* point = NULL;
-    point = triangle->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = triangle->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = triangle->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-}
-
-void setDefaultDiamondShapeFeatures(Polygon* diamond) {
-    setDefault2DShapeFeatures(diamond);
-    RenderPoint* point = NULL;
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = diamond->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-
-}
-
-void setDefaultPentagonShapeFeatures(Polygon* pentagon) {
-    setDefault2DShapeFeatures(pentagon);
-    const double pi = 3.14159265;
-    RenderPoint* point = NULL;
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.4 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.));
-    point->setY(RelAbsVector(0.0, 0.));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.4 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::cos(0.4 * pi))));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::sin(0.2 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
-    point = pentagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::sin(0.2 * pi))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::cos(0.2 * pi))));
-}
-
-void setDefaultHexagonShapeFeatures(Polygon* hexagon) {
-    setDefault2DShapeFeatures(hexagon);
-    RenderPoint* point = NULL;
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 25.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 25.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 75.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-    point = hexagon->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 75.0));
-}
-
-void setDefaultOctagonShapeFeatures(Polygon* octagon) {
-    setDefault2DShapeFeatures(octagon);
-    const double pi = 3.14159265;
-    RenderPoint* point = NULL;
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 - std::sin(pi / 4.0))));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 + std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50.0));
-    point->setY(RelAbsVector(0.0, 100.0));
-    point = octagon->createPoint();
-    point->setX(RelAbsVector(0.0, 50. * (1 - std::cos(pi / 4.0))));
-    point->setY(RelAbsVector(0.0, 50. * (1 + std::sin(pi / 4.0))));
-}
-
-void setDefaultRenderCurveShapeFeatures(RenderCurve* renderCurve) {
-    setDefault1DShapeFeatures(renderCurve);
-    RenderPoint* point = NULL;
-    point = renderCurve->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-    point = renderCurve->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 50.0));
-}
-
-void setDefaultImageShapeFeatures(Image* image) {
-    image->setX(RelAbsVector(0.0, 0.0));
-    image->setY(RelAbsVector(0.0, 0.0));
-    image->setWidth(RelAbsVector(0.0, 100.0));
-    image->setHeight(RelAbsVector(0.0, 100.0));
-}
-
-void setDefaultDiagonalRenderCurveFeatures(RenderCurve* renderCurve) {
-    setDefault1DShapeFeatures(renderCurve);
-    RenderPoint* point = NULL;
-    point = renderCurve->createPoint();
-    point->setX(RelAbsVector(0.0, 100.0));
-    point->setY(RelAbsVector(0.0, 0.0));
-    point = renderCurve->createPoint();
-    point->setX(RelAbsVector(0.0, 0.0));
-    point->setY(RelAbsVector(0.0, 100.0));
 }
 
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup) {

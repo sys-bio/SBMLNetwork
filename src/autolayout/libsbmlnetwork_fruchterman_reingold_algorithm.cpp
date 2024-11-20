@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_autolayout_curve.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../features/user_data/libsbmlnetwork_user_data.h"
+#include "../features/defaults/libsbmlnetwork_defaults_layout.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -68,7 +69,7 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
     std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "width");
     if (!width.empty() && std::stod(width) > 0.0) {
-        _width = std::max(0.0, std::stod(width) - 6 * getDefaultAutoLayoutPadding());
+        _width = std::max(0.0, std::stod(width) - 6 * defaults_getDefaultAutoLayoutPadding());
         _useHorizontalBoundary = true;
     }
     else
@@ -78,7 +79,7 @@ void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
     std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::ud_getUserData(layout->getDimensions(), "height");
     if (!height.empty() && std::stod(height) > 0.0) {
-        _height = std::max(0.0, std::stod(height) - 6 * getDefaultAutoLayoutPadding());
+        _height = std::max(0.0, std::stod(height) - 6 * defaults_getDefaultAutoLayoutPadding());
         _useVerticalBoundary = true;
     }
     else
@@ -323,8 +324,8 @@ void FruchtermanReingoldAlgorithmBase::adjustCoordinateOrigin() {
         if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < _origin.getY())
             _origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
     }
-    _origin.setX(_origin.getX() - getDefaultAutoLayoutPadding());
-    _origin.setY(_origin.getY() - getDefaultAutoLayoutPadding());
+    _origin.setX(_origin.getX() - defaults_getDefaultAutoLayoutPadding());
+    _origin.setY(_origin.getY() - defaults_getDefaultAutoLayoutPadding());
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
         if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isLocked()) {
             ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());

@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_fruchterman_reingold_algorithm.h"
 #include "../features/error_log/libsbmlnetwork_error_log.h"
 #include "../features/user_data/libsbmlnetwork_user_data.h"
+#include "../features/defaults/libsbmlnetwork_defaults_layout.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -187,7 +188,7 @@ void randomizeCurveCenterPoint(Curve *curve, const double &canvasWidth, const do
 
 void
 initializeCompartmentGlyphExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
-    const double padding = getDefaultAutoLayoutPadding();
+    const double padding = defaults_getDefaultAutoLayoutPadding();
     compartmentGlyphBoundingBox->setX(speciesGlyphBoundingBox->x() - padding);
     compartmentGlyphBoundingBox->setY(speciesGlyphBoundingBox->y() - padding);
     compartmentGlyphBoundingBox->setWidth(speciesGlyphBoundingBox->width() + 2 * padding);
@@ -235,7 +236,7 @@ void updateCompartmentsExtentsUsingTheirElementsExtents(Model *model, Layout *la
 }
 
 void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGlyphBoundingBox, BoundingBox *speciesGlyphBoundingBox) {
-    const double padding = getDefaultAutoLayoutPadding();
+    const double padding = defaults_getDefaultAutoLayoutPadding();
     if (speciesGlyphBoundingBox->x() - padding < compartmentGlyphBoundingBox->x()) {
         compartmentGlyphBoundingBox->setWidth(compartmentGlyphBoundingBox->width() +
                                               (compartmentGlyphBoundingBox->x() -
@@ -268,7 +269,7 @@ void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGly
 }
 
 void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGlyphBoundingBox, Curve *reactionCurve) {
-    const double padding = getDefaultAutoLayoutPadding();
+    const double padding = defaults_getDefaultAutoLayoutPadding();
     double reactionCenterX = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->x() +
                                     reactionCurve->getCurveSegment(0)->getEnd()->x());
     double reactionCenterY = 0.5 * (reactionCurve->getCurveSegment(0)->getStart()->y() +
@@ -320,7 +321,7 @@ void updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout) {
 }
 
 void updateLayoutDimensions(Layout *layout) {
-    const double padding = getDefaultAutoLayoutPadding();
+    const double padding = defaults_getDefaultAutoLayoutPadding();
     if (!layoutContainsGlyphs(layout)) {
         layout->getDimensions()->setWidth(0);
         layout->getDimensions()->setHeight(0);

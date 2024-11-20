@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_sbmldocument_layout.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
+#include "features/defaults/libsbmlnetwork_defaults_layout.h"
 
 #include <cmath>
 #include <climits>
@@ -55,47 +56,6 @@ void enableLayoutPlugin(SBMLDocument* document) {
     else if (document->getLevel() == 3)
         document->enablePackage(LayoutExtension::getXmlnsL3V1V1(), "layout",  true);
     document->setPackageRequired("layout", false);
-}
-
-void setDefaultLayoutId(Layout* layout) {
-    if (!layout->isSetId())
-        layout->setId(getDefaultLayoutId());
-}
-
-const std::string getDefaultLayoutId() {
-    return  "libSBMLNetwork_Layout";
-}
-
-void setDefaultLayoutDimensions(Layout* layout) {
-    Dimensions* dimensions = layout->getDimensions();
-    if (!dimensions) {
-        dimensions = new Dimensions(layout->getLevel(), layout->getVersion(), layout->getPackageVersion());
-        layout->setDimensions(dimensions);
-    }
-    if (dimensions->getWidth() < 0.0001)
-        dimensions->setWidth(1024.0);
-    if (dimensions->getHeight() < 0.0001)
-        dimensions->setHeight(1024.0);
-}
-
-const double getSpeciesDefaultWidth() {
-    return 60.0;
-}
-
-const double getSpeciesDefaultHeight() {
-    return 36.0;
-}
-
-const double getEmptySpeciesDefaultRadius() {
-    return 15.0;
-}
-
-const double getReactionDefaultWidth() {
-    return 30.0;
-}
-
-const double getReactionDefaultHeight() {
-    return 20.0;
 }
 
 void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements) {
@@ -347,8 +307,8 @@ SpeciesGlyph* createEmptySpeciesGlyph(Model* model, Layout* layout, ReactionGlyp
     CompartmentGlyph* compartmentGlyph = getCompartmentGlyphOfReactionGlyph(model, layout, reactionGlyph);
     if (compartmentGlyph)
         ud_setUserData(emptySpeciesGlyph, "compartment", compartmentGlyph->getCompartmentId());
-    ud_setUserData(emptySpeciesGlyph, "width", std::to_string(2* getEmptySpeciesDefaultRadius()));
-    ud_setUserData(emptySpeciesGlyph, "height", std::to_string(2* getEmptySpeciesDefaultRadius()));
+    ud_setUserData(emptySpeciesGlyph, "width", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
+    ud_setUserData(emptySpeciesGlyph, "height", std::to_string(2* defaults_getEmptySpeciesDefaultRadius()));
     setGraphicalObjectBoundingBox(emptySpeciesGlyph);
 
     return emptySpeciesGlyph;
@@ -400,7 +360,7 @@ SpeciesGlyph* createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph
     SpeciesGlyph* aliasSpeciesGlyph = NULL;
     if (speciesGlyph) {
         aliasSpeciesGlyph = createSpeciesGlyph(layout, speciesGlyph->getSpeciesId());
-        setAliasGraphicalObjectPosition(aliasSpeciesGlyph, speciesGlyph, getAliasSpeciesGlyphPadding());
+        setAliasGraphicalObjectPosition(aliasSpeciesGlyph, speciesGlyph, defaults_getAliasSpeciesGlyphPadding());
         setAliasSpeciesGlyphDimensions(aliasSpeciesGlyph, speciesGlyph);
         setAliasSpeciesGlyphTextGlyph(layout, aliasSpeciesGlyph);
     }
@@ -542,11 +502,11 @@ void setAliasGraphicalObjectPosition(GraphicalObject* aliasGraphicalObject, Grap
 }
 
 void setAliasSpeciesGlyphDimensions(SpeciesGlyph* aliasSpeciesGlyph, GraphicalObject* graphicalObject) {
-    double width = getSpeciesDefaultWidth();;
+    double width = defaults_getSpeciesDefaultWidth();;
     if (isSpeciesGlyph(graphicalObject))
         width = getDimensionWidth(graphicalObject);
     aliasSpeciesGlyph->getBoundingBox()->setWidth(width);
-    double height = getSpeciesDefaultHeight();
+    double height = defaults_getSpeciesDefaultHeight();
     if (isSpeciesGlyph(graphicalObject))
         height = getDimensionHeight(graphicalObject);
     aliasSpeciesGlyph->getBoundingBox()->setHeight(height);
@@ -594,7 +554,7 @@ ReactionGlyph* createAliasReactionGlyph(Layout* layout, ReactionGlyph* reactionG
     ReactionGlyph* aliasReactionGlyph = NULL;
     if (reactionGlyph) {
         aliasReactionGlyph = createReactionGlyph(layout, reactionGlyph->getReactionId());
-        setAliasGraphicalObjectPosition(aliasReactionGlyph, reactionGlyph, getAliasReactionGlyphPadding());
+        setAliasGraphicalObjectPosition(aliasReactionGlyph, reactionGlyph, defaults_getAliasReactionGlyphPadding());
         setAliasReactionGlyphTextGlyph(layout, aliasReactionGlyph, reactionGlyph);
     }
 
@@ -735,14 +695,7 @@ CompartmentGlyph* getCompartmentGlyphOfReactionGlyph(Model* model, Layout* layou
             return compartmentGlyphs.at(0);
     }
 
-    return getDefaultCompartmentGlyph(layout);
-}
-
-CompartmentGlyph* getDefaultCompartmentGlyph(Layout* layout) {
-    if (layout->getNumCompartmentGlyphs() == 1 && layout->getCompartmentGlyph(0)->getCompartmentId() == "default_compartment")
-        return layout->getCompartmentGlyph(0);
-
-    return NULL;
+    return defaults_getDefaultCompartmentGlyph(layout);
 }
 
 const int getNumSpeciesReferencesAssociatedWithSpecies(Reaction* reaction, const std::string& speciesId) {
@@ -872,11 +825,10 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
 
 void setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph) {
     if (referenceSpeciesReferenceGlyph->isSetCurve()) {
-        double padding = getAliasReactionGlyphPadding();
         Curve* referenceCurve = referenceSpeciesReferenceGlyph->getCurve();
         Curve* curve = speciesReferenceGlyph->getCurve();
         for (unsigned int i = 0; i < referenceCurve->getNumCurveSegments(); i++)
-            addCurveSegment(curve, referenceCurve->getCurveSegment(i), getAliasReactionGlyphPadding());
+            addCurveSegment(curve, referenceCurve->getCurveSegment(i), defaults_getAliasReactionGlyphPadding());
     }
 }
 
@@ -1707,27 +1659,15 @@ const double getMaxCenterY(std::vector<GraphicalObject*> graphicalObjects) {
     return 0.0;
 }
 
-const double getDefaultAutoLayoutPadding() {
-    return 30.0;
-}
-
-const double getAliasSpeciesGlyphPadding() {
-    return 30.0;
-}
-
-const double getAliasReactionGlyphPadding() {
-    return 30.0;
-}
-
 const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase) {
-    if (isValidDimensionValue(width, sBase) && width > 6 * getDefaultAutoLayoutPadding())
+    if (isValidDimensionValue(width, sBase) && width > 6 * defaults_getDefaultAutoLayoutPadding())
         return true;
 
     return false;
 }
 
 const bool isValidLayoutDimensionHeightValue(const double& height, SBase* sBase) {
-    if (isValidDimensionValue(height, sBase) && height > 6 * getDefaultAutoLayoutPadding())
+    if (isValidDimensionValue(height, sBase) && height > 6 * defaults_getDefaultAutoLayoutPadding())
         return true;
 
     return false;

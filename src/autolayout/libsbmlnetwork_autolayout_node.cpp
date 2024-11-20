@@ -2,6 +2,7 @@
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_common.h"
 #include "../features/user_data/libsbmlnetwork_user_data.h"
+#include "../features/defaults/libsbmlnetwork_defaults_layout.h"
 
 // AutoLayoutNodeBase
 
@@ -118,7 +119,7 @@ const double AutoLayoutNode::getWidth() {
 }
 
 const double AutoLayoutNode::getDefaultWidth() {
-    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultWidth();
+    return LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getSpeciesDefaultWidth();
 }
 
 void AutoLayoutNode::setWidth(const double& width) {
@@ -130,7 +131,7 @@ const double AutoLayoutNode::getHeight() {
 }
 
 const double AutoLayoutNode::getDefaultHeight() {
-    return LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesDefaultHeight();
+    return LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getSpeciesDefaultHeight();
 }
 
 void AutoLayoutNode::setHeight(const double& height) {
@@ -286,11 +287,11 @@ const double AutoLayoutCentroidNode::calculateWidth() {
     if (reaction && reaction->isSetName() && _useNameAsTextLabel)
         displayedText = reaction->getName();
 
-    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultWidth(), displayedText.size() * 9.0);
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultWidth(), displayedText.size() * 9.0);
 }
 
 const double AutoLayoutCentroidNode::calculateHeight() {
-    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::getReactionDefaultHeight(), getHeight());
+    return std::max(LIBSBMLNETWORK_CPP_NAMESPACE::defaults_getReactionDefaultHeight(), getHeight());
 }
 
 const bool AutoLayoutCentroidNode::isSetCurve() {

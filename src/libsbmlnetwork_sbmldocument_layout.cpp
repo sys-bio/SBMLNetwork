@@ -4,6 +4,7 @@
 #include "libsbmlnetwork_layout_helpers.h"
 #include "autolayout/libsbmlnetwork_autolayout.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
+#include "features/defaults/libsbmlnetwork_defaults_layout.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -60,8 +61,8 @@ int removeAllLayouts(SBMLDocument* document) {
 
 int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges) {
     if (document && layout) {
-        setDefaultLayoutId(layout);
-        setDefaultLayoutDimensions(layout);
+        defaults_setDefaultLayoutId(layout);
+        defaults_setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
             clearGraphicalObjects(layout);
@@ -78,8 +79,8 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
                              bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
     if (document && layout) {
-        setDefaultLayoutId(layout);
-        setDefaultLayoutDimensions(layout);
+        defaults_setDefaultLayoutId(layout);
+        defaults_setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
             lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
@@ -1207,7 +1208,7 @@ int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutInde
 }
 
 const double getSpeciesDimensionWidth() {
-    return getSpeciesDefaultWidth();
+    return defaults_getSpeciesDefaultWidth();
 }
 
 
@@ -1223,7 +1224,7 @@ int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, c
 }
 
 const double getReactionDimensionWidth() {
-    return getReactionDefaultWidth();
+    return defaults_getReactionDefaultWidth();
 }
 
 int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width, bool updateCurves) {
@@ -1301,7 +1302,7 @@ int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutInd
 }
 
 const double getSpeciesDimensionHeight() {
-    return getSpeciesDefaultHeight();
+    return defaults_getSpeciesDefaultHeight();
 }
 
 int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves) {
@@ -1316,7 +1317,7 @@ int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, 
 }
 
 const double getReactionDimensionHeight() {
-    return getReactionDefaultHeight();
+    return defaults_getReactionDefaultHeight();
 }
 
 int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves) {
