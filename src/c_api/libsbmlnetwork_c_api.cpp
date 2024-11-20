@@ -4,7 +4,7 @@
 #include "../libsbmlnetwork_sbmldocument_render.h"
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
-#include "../colors/libsbmlnetwork_colors.h"
+#include "../features/colors/libsbmlnetwork_colors.h"
 #include "../features/styles/libsbmlnetwork_styles.h"
 
 extern "C" {

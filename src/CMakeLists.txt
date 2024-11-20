@@ -11,7 +11,7 @@ set(SOURCES
 		libsbmlnetwork_sbmldocument_layout.cpp
 		libsbmlnetwork_layout_render.cpp
 		libsbmlnetwork_sbmldocument_render.cpp
-		colors/libsbmlnetwork_colors.cpp
+		features/colors/libsbmlnetwork_colors.cpp
 		features/styles/libsbmlnetwork_styles.cpp
         autolayout/libsbmlnetwork_autolayout.cpp
 		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.cpp
@@ -40,7 +40,7 @@ set(HEADERS
 		libsbmlnetwork_sbmldocument_layout.h
 		libsbmlnetwork_layout_render.h
 		libsbmlnetwork_sbmldocument_render.h
-		colors/libsbmlnetwork_colors.h
+		features/colors/libsbmlnetwork_colors.h
 		features/styles/libsbmlnetwork_styles.h
 		autolayout/libsbmlnetwork_autolayout.h
 		autolayout/libsbmlnetwork_fruchterman_reingold_algorithm.h
@@ -103,7 +103,7 @@ file(GLOB SOURCE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 install(FILES ${SOURCE_HEADERS} DESTINATION include/sbmlnetwork COMPONENT libsbmlnetwork_api)
 file(GLOB AUTOLAYOUT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/autolayout/*.h")
 install(FILES ${AUTOLAYOUT_HEADERS} DESTINATION include/sbmlnetwork/autolayout COMPONENT libsbmlnetwork_api)
-file(GLOB COLORS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/colors/*.h")
+file(GLOB COLORS_HEADERS "features/colors/*.h")
 install(FILES ${COLORS_HEADERS} DESTINATION include/sbmlnetwork/colors COMPONENT libsbmlnetwork_api)
 file(GLOB STYLES_HEADERS "features/styles/*.h")
 install(FILES ${STYLES_HEADERS} DESTINATION include/sbmlnetwork/styles COMPONENT libsbmlnetwork_api)
