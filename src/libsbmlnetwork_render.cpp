@@ -2,7 +2,7 @@
 #include "libsbmlnetwork_layout.h"
 #include "libsbmlnetwork_render_helpers.h"
 #include "colors/libsbmlnetwork_colors.h"
-#include "styles/libsbmlnetwork_styles.h"
+#include "features/styles/libsbmlnetwork_styles.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
 #include "features/defaults/libsbmlnetwork_defaults_render.h"
 

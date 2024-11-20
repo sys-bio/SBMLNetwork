@@ -5,7 +5,7 @@
 #include "../libsbmlnetwork_layout_helpers.h"
 #include "../libsbmlnetwork_render_helpers.h"
 #include "../colors/libsbmlnetwork_colors.h"
-#include "../styles/libsbmlnetwork_styles.h"
+#include "../features/styles/libsbmlnetwork_styles.h"
 
 extern "C" {
 
