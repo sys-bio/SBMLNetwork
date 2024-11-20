@@ -6,11 +6,11 @@
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutObjectBase(model, layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
     _useNameAsTextLabel = useNameAsTextLabel;
     _graphicalObject = graphicalObject;
-    setLocked(locked);
+    setPositionFixed(positionFixed);
 }
 
 void AutoLayoutNodeBase::setPosition(const AutoLayoutPoint position) {
@@ -55,17 +55,17 @@ void AutoLayoutNodeBase::incrementDegree() {
     _degree++;
 }
 
-const bool AutoLayoutNodeBase::isLocked() {
-    return _locked;
+const bool AutoLayoutNodeBase::isPositionFixed() {
+    return _positionFixed;
 }
 
-void AutoLayoutNodeBase::setLocked(const bool& locked) {
-    _locked = locked;
+void AutoLayoutNodeBase::setPositionFixed(const bool& positionFixed) {
+    _positionFixed = positionFixed;
 }
 
-void AutoLayoutNodeBase::updateLockedStatus() {;
-    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "locked") == "true") {
-        setLocked(true);
+void AutoLayoutNodeBase::updateFixedPositionStatus() {;
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "fixed_position") == "true") {
+        setPositionFixed(true);
         setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "x")));
         setY(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_graphicalObject, "y")));
     }
@@ -73,7 +73,7 @@ void AutoLayoutNodeBase::updateLockedStatus() {;
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, locked) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, positionFixed) {
 
 }
 
@@ -155,7 +155,7 @@ const double AutoLayoutNode::calculateHeight() {
 // AutoLayoutCentroidNode
 
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& locked) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, locked) {
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, positionFixed) {
 
 }
 

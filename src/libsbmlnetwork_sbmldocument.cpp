@@ -76,8 +76,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return false;
     }
 
-    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedElements, std::set<std::pair<std::string, int> > lockedNodesSet) {
-        const bool layoutIsAdded = !createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+    int autolayout(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetFixedPositionElements, std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+        const bool layoutIsAdded = !createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
         const bool renderIsAdded = !createDefaultRenderInformation(document);
         if (layoutIsAdded || renderIsAdded)
             return 0;
@@ -94,7 +94,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return -1;
     }
 
-    int align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet, const std::string& alignment, const bool ignoreLockedNodes) {
+    int align(SBMLDocument* document, std::set<std::pair<std::string, int> > nodesSet, const std::string& alignment, const bool ignoreFixedPositionNodes) {
         if (nodesSet.size() > 1) {
             std::vector<GraphicalObject*> allGraphicalObjects;
             for (std::set<std::pair<std::string, int> >::const_iterator nodeIt = nodesSet.cbegin(); nodeIt != nodesSet.cend(); nodeIt++) {
@@ -104,7 +104,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
                 }
                 allGraphicalObjects.push_back(graphicalObjects[nodeIt->second]);
             }
-            align_elements_alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreLockedNodes);
+            align_elements_alignGraphicalObjects(getLayout(document), allGraphicalObjects, alignment, ignoreFixedPositionNodes);
             return updateLayoutCurves(document, getLayout(document));
         }
 

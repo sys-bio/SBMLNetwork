@@ -25,8 +25,8 @@ void locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) 
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->updateNodesLockedStatus();
-    autoLayoutAlgorithm->updateConnectionsLockedStatus();
+    autoLayoutAlgorithm->updateNodesFixedPositionStatus();
+    autoLayoutAlgorithm->updateConnectionsFixedPositionStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
@@ -55,7 +55,7 @@ void locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabe
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
     autoLayoutAlgorithm->setUseGrid(useGrid);
-    autoLayoutAlgorithm->updateNodesLockedStatus();
+    autoLayoutAlgorithm->updateNodesFixedPositionStatus();
     autoLayoutAlgorithm->setWidth(layout);
     autoLayoutAlgorithm->setHeight(layout);
     autoLayoutAlgorithm->apply();
@@ -299,7 +299,7 @@ void updateCompartmentExtentsUsingItsElementsExtents(BoundingBox *compartmentGly
 void updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout) {
     for (int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         CompartmentGlyph *compartmentGlyph = layout->getCompartmentGlyph(i);
-        if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(compartmentGlyph, "locked") == "true") {
+        if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(compartmentGlyph, "fixed_position") == "true") {
             std::string x = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(compartmentGlyph, "x");
             if (!x.empty())
                 compartmentGlyph->getBoundingBox()->setX(std::stod(x));

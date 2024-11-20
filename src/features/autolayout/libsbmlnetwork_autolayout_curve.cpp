@@ -5,7 +5,7 @@
 
 AutoLayoutCurve::AutoLayoutCurve(Model* model, Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) : AutoLayoutObjectBase(model, layout) {
     _speciesReferenceGlyph = speciesReferenceGlyph;
-    setLocked(false);
+    setPositionFixed(false);
 }
 
 const std::string AutoLayoutCurve::getId() {
@@ -24,17 +24,17 @@ const std::string AutoLayoutCurve::getRoleString() {
     return _speciesReferenceGlyph->getRoleString();
 }
 
-const bool AutoLayoutCurve::isLocked() {
-    return _locked;
+const bool AutoLayoutCurve::isPositionFixed() {
+    return _positionFixed;
 }
 
-void AutoLayoutCurve::setLocked(const bool& locked) {
-    _locked = locked;
+void AutoLayoutCurve::setPositionFixed(const bool& value) {
+    _positionFixed = value;
 }
 
-void AutoLayoutCurve::updateLockedStatus() {;
-    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, "locked") == "true") {
-        setLocked(true);
+void AutoLayoutCurve::updateFixedPositionStatus() {;
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, "fixed_position") == "true") {
+        setPositionFixed(true);
         int curveSegmentIndex = 0;
         LineSegment* lineSegment = _speciesReferenceGlyph->getCurve()->getCurveSegment(curveSegmentIndex);
         lineSegment->getStart()->setX(std::stod(LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(_speciesReferenceGlyph, std::to_string(curveSegmentIndex) + ":start_x")));

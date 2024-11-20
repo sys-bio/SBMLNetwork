@@ -3,31 +3,32 @@
 #include "../../libsbmlnetwork_layout_helpers.h"
 #include "../../features/align_elements/libsbmlnetwork_align_element.h"
 #include "../../features/error_log/libsbmlnetwork_error_log.h"
+#include "../../features/fix_elements/libsbmlnetwork_fix_element_position.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-    void align_elements_alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreFixedPositionNodes) {
         if (align_elements_isValidAlignment(alignment, layout)) {
             if (stringCompare(alignment, "top"))
-                align_elements_alignGraphicalObjectsToTop(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsToTop(layout, graphicalObjects, ignoreFixedPositionNodes);
             else if (stringCompare(alignment, "vCenter"))
-                align_elements_alignGraphicalObjectsToVerticalCenter(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsToVerticalCenter(layout, graphicalObjects, ignoreFixedPositionNodes);
             else if (stringCompare(alignment, "bottom"))
-                align_elements_alignGraphicalObjectsToBottom(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsToBottom(layout, graphicalObjects, ignoreFixedPositionNodes);
             else if (stringCompare(alignment, "left"))
-                align_elements_alignGraphicalObjectsToLeft(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsToLeft(layout, graphicalObjects, ignoreFixedPositionNodes);
             else if (stringCompare(alignment, "hCenter"))
-                align_elements_alignGraphicalObjectsToHorizontalCenter(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsToHorizontalCenter(layout, graphicalObjects, ignoreFixedPositionNodes);
             else if (stringCompare(alignment, "right"))
-                align_elements_alignGraphicalObjectsToRight(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsToRight(layout, graphicalObjects, ignoreFixedPositionNodes);
             else if (stringCompare(alignment, "circular") || stringCompare(alignment, "circle"))
-                align_elements_alignGraphicalObjectsCircularly(layout, graphicalObjects, ignoreLockedNodes);
+                align_elements_alignGraphicalObjectsCircularly(layout, graphicalObjects, ignoreFixedPositionNodes);
         }
     }
 
-    void align_elements_alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         try {
-            double minY = align_elements_getTopAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+            double minY = align_elements_getTopAlignmentPosition(graphicalObjects, ignoreFixedPositionNodes);
             for (unsigned int i = 0; i < graphicalObjects.size(); i++)
                 setPositionY(layout, graphicalObjects.at(i), minY);
         }
@@ -36,21 +37,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    const double align_elements_getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
-        if (ignoreLockedNodes)
+    const double align_elements_getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
+        if (ignoreFixedPositionNodes)
             return align_elements_getMinPositionY(graphicalObjects);
-        std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
-        if (lockedGraphicalObjects.size() == 0)
+        std::vector<GraphicalObject*> fixedPositionGraphicalObjects = fix_elements_getFixedPositionGraphicalObjects(graphicalObjects);
+        if (fixedPositionGraphicalObjects.size() == 0)
             return align_elements_getMinPositionY(graphicalObjects);
-        else if (lockedGraphicalObjects.size() == 1)
-            return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+        else if (fixedPositionGraphicalObjects.size() == 1)
+            return fixedPositionGraphicalObjects.at(0)->getBoundingBox()->y();
         else
-            throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+            throw std::invalid_argument("error: Multiple graphical objects in your align list have fixed position, so the alignment cannot be applied. Use the ignoreFixedPositionNodes option to ignore fixed position nodes.\n");
     }
 
-    void align_elements_alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         try {
-            double centerX = align_elements_getHorizontalCenterAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+            double centerX = align_elements_getHorizontalCenterAlignmentPosition(graphicalObjects, ignoreFixedPositionNodes);
             for (unsigned int i = 0; i < graphicalObjects.size(); i++)
                 setPositionX(layout, graphicalObjects.at(i), centerX);
         }
@@ -59,21 +60,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    const double align_elements_getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
-        if (ignoreLockedNodes)
+    const double align_elements_getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
+        if (ignoreFixedPositionNodes)
             return 0.5 * (align_elements_getMinPositionX(graphicalObjects) + align_elements_getMaxPositionX(graphicalObjects));
-        std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
-        if (lockedGraphicalObjects.size() == 0)
+        std::vector<GraphicalObject*> fixedPositionGraphicalObjects = fix_elements_getFixedPositionGraphicalObjects(graphicalObjects);
+        if (fixedPositionGraphicalObjects.size() == 0)
             return 0.5 * (align_elements_getMinPositionX(graphicalObjects) + align_elements_getMaxPositionX(graphicalObjects));
-        else if (lockedGraphicalObjects.size() == 1)
-            return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+        else if (fixedPositionGraphicalObjects.size() == 1)
+            return fixedPositionGraphicalObjects.at(0)->getBoundingBox()->x();
         else
-            throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+            throw std::invalid_argument("error: Multiple graphical objects in your align list have fixed position, so the alignment cannot be applied. Use the ignoreFixedPositionNodes option to ignore fixed position nodes.\n");
     }
 
-    void align_elements_alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         try {
-            double maxY = align_elements_getBottomAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+            double maxY = align_elements_getBottomAlignmentPosition(graphicalObjects, ignoreFixedPositionNodes);
             for (unsigned int i = 0; i < graphicalObjects.size(); i++)
                 setPositionY(layout, graphicalObjects.at(i), maxY);
         }
@@ -82,21 +83,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    const double align_elements_getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
-        if (ignoreLockedNodes)
+    const double align_elements_getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
+        if (ignoreFixedPositionNodes)
             return align_elements_getMaxPositionY(graphicalObjects);
-        std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
-        if (lockedGraphicalObjects.size() == 0)
+        std::vector<GraphicalObject*> fixedPositionGraphicalObjects = fix_elements_getFixedPositionGraphicalObjects(graphicalObjects);
+        if (fixedPositionGraphicalObjects.size() == 0)
             return align_elements_getMaxPositionY(graphicalObjects);
-        else if (lockedGraphicalObjects.size() == 1)
-            return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+        else if (fixedPositionGraphicalObjects.size() == 1)
+            return fixedPositionGraphicalObjects.at(0)->getBoundingBox()->y();
         else
-            throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+            throw std::invalid_argument("error: Multiple graphical objects in your align list have fixed position, so the alignment cannot be applied. Use the ignoreFixedPositionNodes option to ignore fixed position nodes.\n");
     }
 
-    void align_elements_alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         try {
-            double minX = align_elements_getLeftAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+            double minX = align_elements_getLeftAlignmentPosition(graphicalObjects, ignoreFixedPositionNodes);
             for (unsigned int i = 0; i < graphicalObjects.size(); i++)
                 setPositionX(layout, graphicalObjects.at(i), minX);
         }
@@ -105,21 +106,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    const double align_elements_getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
-        if (ignoreLockedNodes)
+    const double align_elements_getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
+        if (ignoreFixedPositionNodes)
             return align_elements_getMinPositionX(graphicalObjects);
-        std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
-        if (lockedGraphicalObjects.size() == 0)
+        std::vector<GraphicalObject*> fixedPositionGraphicalObjects = fix_elements_getFixedPositionGraphicalObjects(graphicalObjects);
+        if (fixedPositionGraphicalObjects.size() == 0)
             return align_elements_getMinPositionX(graphicalObjects);
-        else if (lockedGraphicalObjects.size() == 1)
-            return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+        else if (fixedPositionGraphicalObjects.size() == 1)
+            return fixedPositionGraphicalObjects.at(0)->getBoundingBox()->x();
         else
-            throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+            throw std::invalid_argument("error: Multiple graphical objects in your align list have fixed position, so the alignment cannot be applied. Use the ignoreFixedPositionNodes option to ignore fixed position nodes.\n");
     }
 
-    void align_elements_alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         try {
-            double centerY = align_elements_getVerticalCenterAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+            double centerY = align_elements_getVerticalCenterAlignmentPosition(graphicalObjects, ignoreFixedPositionNodes);
             for (unsigned int i = 0; i < graphicalObjects.size(); i++)
                 setPositionY(layout, graphicalObjects.at(i), centerY);
         }
@@ -128,21 +129,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    const double align_elements_getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
-        if (ignoreLockedNodes)
+    const double align_elements_getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
+        if (ignoreFixedPositionNodes)
             return 0.5 * (align_elements_getMinPositionY(graphicalObjects) + align_elements_getMaxPositionY(graphicalObjects));
-        std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
-        if (lockedGraphicalObjects.size() == 0)
+        std::vector<GraphicalObject*> fixedPositionGraphicalObjects = fix_elements_getFixedPositionGraphicalObjects(graphicalObjects);
+        if (fixedPositionGraphicalObjects.size() == 0)
             return 0.5 * (align_elements_getMinPositionY(graphicalObjects) + align_elements_getMaxPositionY(graphicalObjects));
-        else if (lockedGraphicalObjects.size() == 1)
-            return lockedGraphicalObjects.at(0)->getBoundingBox()->y();
+        else if (fixedPositionGraphicalObjects.size() == 1)
+            return fixedPositionGraphicalObjects.at(0)->getBoundingBox()->y();
         else
-            throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+            throw std::invalid_argument("error: Multiple graphical objects in your align list have fixed position, so the alignment cannot be applied. Use the ignoreFixedPositionNodes option to ignore fixed position nodes.\n");
     }
 
-    void align_elements_alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         try {
-            double maxX = align_elements_getRightAlignmentPosition(graphicalObjects, ignoreLockedNodes);
+            double maxX = align_elements_getRightAlignmentPosition(graphicalObjects, ignoreFixedPositionNodes);
             for (unsigned int i = 0; i < graphicalObjects.size(); i++)
                 setPositionX(layout, graphicalObjects.at(i), maxX);
         }
@@ -151,19 +152,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    const double align_elements_getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
-        if (ignoreLockedNodes)
+    const double align_elements_getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
+        if (ignoreFixedPositionNodes)
             return align_elements_getMaxPositionX(graphicalObjects);
-        std::vector<GraphicalObject*> lockedGraphicalObjects = getLockedGraphicalObjects(graphicalObjects);
-        if (lockedGraphicalObjects.size() == 0)
+        std::vector<GraphicalObject*> fixedPositionGraphicalObjects = fix_elements_getFixedPositionGraphicalObjects(graphicalObjects);
+        if (fixedPositionGraphicalObjects.size() == 0)
             return align_elements_getMaxPositionX(graphicalObjects);
-        else if (lockedGraphicalObjects.size() == 1)
-            return lockedGraphicalObjects.at(0)->getBoundingBox()->x();
+        else if (fixedPositionGraphicalObjects.size() == 1)
+            return fixedPositionGraphicalObjects.at(0)->getBoundingBox()->x();
         else
-            throw std::invalid_argument("error: Multiple graphical objects in your align list are locked, so the alignment cannot be applied. Use the ignoreLockedNodes option to ignore locked nodes.\n");
+            throw std::invalid_argument("error: Multiple graphical objects in your align list have fixed position, so the alignment cannot be applied. Use the ignoreFixedPositionNodes option to ignore fixed position nodes.\n");
     }
 
-    void align_elements_alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes) {
+    void align_elements_alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes) {
         double radius = graphicalObjects.size() * 50.0;
         double angle = 2 * M_PI / graphicalObjects.size();
         double centerX = std::max(radius, 0.5 * (align_elements_getMinCenterX(graphicalObjects) + align_elements_getMaxCenterX(graphicalObjects)));

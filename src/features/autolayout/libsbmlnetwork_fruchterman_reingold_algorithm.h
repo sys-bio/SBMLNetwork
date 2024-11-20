@@ -40,11 +40,11 @@ public:
 
     void setUseGrid(const bool& useGrid);
 
-    void updateNodesLockedStatus();
+    void updateNodesFixedPositionStatus();
 
-    void updateConnectionsLockedStatus();
+    void updateConnectionsFixedPositionStatus();
 
-    void lockNodes();
+    void fixedPositionNodes();
 
     void apply();
 

@@ -10,33 +10,33 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-    void align_elements_alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& alignment, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsToTop(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    const double align_elements_getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    const double align_elements_getTopAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsToVerticalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    const double align_elements_getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    const double align_elements_getVerticalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsToBottom(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    const double align_elements_getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    const double align_elements_getBottomAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsToLeft(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    const double align_elements_getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    const double align_elements_getLeftAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsToHorizontalCenter(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    const double align_elements_getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    const double align_elements_getHorizontalCenterAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsToRight(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    const double align_elements_getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    const double align_elements_getRightAlignmentPosition(std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
-    void align_elements_alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreLockedNodes);
+    void align_elements_alignGraphicalObjectsCircularly(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const bool ignoreFixedPositionNodes);
 
     void align_elements_distributeGraphicalObjects(Layout* layout, std::vector<GraphicalObject*> graphicalObjects, const std::string& direction, const double& spacing);
 

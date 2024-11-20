@@ -8,6 +8,7 @@
 #include "features/alias_elements/libsbmlnetwork_alias_species.h"
 #include "features/alias_elements/libsbmlnetwork_alias_reaction.h"
 #include "features/hide_elements/libsbmlnetwork_hide_species.h"
+#include "features/fix_elements/libsbmlnetwork_fix_element_position.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -80,13 +81,13 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
 }
 
 int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                             bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     if (document && layout) {
         defaults_setDefaultLayoutId(layout);
         defaults_setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
         if (model) {
-            lockGraphicalObjects(layout, lockedNodesSet, resetLockedElements);
+            fix_elements_fixGraphicalObjectsPosition(layout, fixedPositionNodesSet, resetFixedPositionElements);
             std::vector<std::map<std::string, std::string>> userData = user_data_getUserData(layout);
             clearGraphicalObjects(layout);
             setCompartmentGlyphs(model, layout, userData);
@@ -123,12 +124,12 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
 }
 
 int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                                bool resetLockedElements, const std::set<std::pair<std::string, int> > lockedNodesSet) {
+                                bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {

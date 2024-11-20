@@ -22,28 +22,6 @@ LayoutModelPlugin* getLayoutModelPlugin(SBasePlugin* layoutBase);
 
 void enableLayoutPlugin(SBMLDocument* document);
 
-void lockGraphicalObjects(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
-
-void lockCompartmentGlyphs(Layout* layout, const bool resetLockedElements);
-
-void lockSpeciesGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
-
-void lockReactionGlyphs(Layout* layout, std::set<std::pair<std::string, int> > lockedNodesSet, const bool resetLockedElements);
-
-void lockGraphicalObject(GraphicalObject* graphicalObject);
-
-void unlockGraphicalObject(GraphicalObject* graphicalObject);
-
-std::vector<GraphicalObject*> getLockedGraphicalObjects(std::vector<GraphicalObject*> graphicalObjects);
-
-void fixGraphicalObjectWidth(GraphicalObject* graphicalObject);
-
-void unfixGraphicalObjectWidth(GraphicalObject* graphicalObject);
-
-void fixGraphicalObjectHeight(GraphicalObject* graphicalObject);
-
-void unfixGraphicalObjectHeight(GraphicalObject* graphicalObject);
-
 void clearGraphicalObjects(Layout* layout);
 
 void clearCompartmentGlyphs(Layout* layout);

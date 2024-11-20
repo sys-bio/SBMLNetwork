@@ -55,25 +55,25 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return isSetModel(document);
     }
 
-    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetLockedElements, const char ***lockedNodes, const int lockedNodesSize) {
-        std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
-        if (lockedNodes) {
-            for (int i = 0; i < lockedNodesSize; i++) {
-                const char **lockedNode = lockedNodes[i];
-                const char *id = lockedNode[0];
-                int index = atoi(lockedNode[1]);
-                lockedNodesSet.insert(std::make_pair(id, index));
+    int c_api_autolayout(SBMLDocument *document, const int maxNumConnectedEdges, bool useNameAsTextLabel, bool resetFixedPositionElements, const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+        std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
+        if (fixedPositionNodes) {
+            for (int i = 0; i < fixedPositionNodesSize; i++) {
+                const char **fixedPositionNode = fixedPositionNodes[i];
+                const char *id = fixedPositionNode[0];
+                int index = atoi(fixedPositionNode[1]);
+                fixedPositionNodesSet.insert(std::make_pair(id, index));
             }
         }
 
-        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+        return autolayout(document, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
     }
 
     int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges) {
         return autorender(document, maxNumConnectedEdges);
     }
 
-    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignoreLockedNodes) {
+    int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignorefixedPositionNodes) {
         std::set<std::pair<std::string, int> > nodesSet = std::set<std::pair<std::string, int> >();
         if (nodes) {
             for (int i = 0; i < nodesSize; i++) {
@@ -83,7 +83,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 nodesSet.insert(std::make_pair(id, index));
             }
         }
-        return align(document, nodesSet, alignment, ignoreLockedNodes);
+        return align(document, nodesSet, alignment, ignorefixedPositionNodes);
     }
 
     int c_api_distribute(SBMLDocument* document, const char ***nodes, const int nodesSize, const char* direction, const double spacing) {
@@ -113,17 +113,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges,
-                                  bool useNameAsTextLabel, bool resetLockedElements,
-                                  const char ***lockedNodes, const int lockedNodesSize) {
-        std::set<std::pair<std::string, int> > lockedNodesSet = std::set<std::pair<std::string, int> >();
-        for (int i = 0; i < lockedNodesSize; i++) {
-            const char **lockedNode = lockedNodes[i];
-            const char *id = lockedNode[0];
-            int index = atoi(lockedNode[1]);
-            lockedNodesSet.insert(std::make_pair(id, index));
+                                  bool useNameAsTextLabel, bool resetFixedPositionElements,
+                                  const char ***fixedPositionNodes, const int fixedPositionNodesSize) {
+        std::set<std::pair<std::string, int> > fixedPositionNodesSet = std::set<std::pair<std::string, int> >();
+        for (int i = 0; i < fixedPositionNodesSize; i++) {
+            const char **fixedPositionNode = fixedPositionNodes[i];
+            const char *id = fixedPositionNode[0];
+            int index = atoi(fixedPositionNode[1]);
+            fixedPositionNodesSet.insert(std::make_pair(id, index));
         }
 
-        return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetLockedElements, lockedNodesSet);
+        return createDefaultLayoutLocations(document, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
     }
 
     int c_api_createAliasSpeciesGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {

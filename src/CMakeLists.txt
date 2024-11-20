@@ -30,6 +30,8 @@ set(SOURCES
 		features/hide_elements/libsbmlnetwork_hide_species.cpp
 		features/align_elements/libsbmlnetwork_align_element.cpp
 		features/align_elements/libsbmlnetwork_align_species.cpp
+		features/fix_elements/libsbmlnetwork_fix_element_position.cpp
+		features/fix_elements/libsbmlnetwork_fix_element_dimensions.cpp
         c_api/libsbmlnetwork_c_api.cpp)
 
 ## headers
@@ -62,6 +64,8 @@ set(HEADERS
 		features/hide_elements/libsbmlnetwork_hide_species.h
 		features/align_elements/libsbmlnetwork_align_element.h
 		features/align_elements/libsbmlnetwork_align_species.h
+		features/fix_elements/libsbmlnetwork_fix_element_position.h
+		features/fix_elements/libsbmlnetwork_fix_element_dimensions.h
 		c_api/libsbmlnetwork_c_api.h)
 
 #### dependencies

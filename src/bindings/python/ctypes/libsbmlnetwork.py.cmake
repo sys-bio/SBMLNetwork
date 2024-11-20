@@ -126,15 +126,15 @@ class LibSBMLNetwork:
 
         return self.save(file_name)
 
-    def autolayout(self, max_num_connected_edges=3, reset_locked_elements=False, locked_nodes=[]):
+    def autolayout(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[]):
         """
         checks if a Layout object, a GlobalRenderInformation object, and LocalRenderInformation object does not exists in the SBMLDocument, then adds them to it, and set all the necessary features for them.
 
         :Parameters:
 
             - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
-            - reset_locked_elements (boolean, optional): a boolean (default: False) that determines whether to reset the locked elements before applying the autolayout algorithm.
-            - locked_nodes (list of lists or list of strings, optional): a list (default: []) that determines the nodes that should not be moved during the autolayout algorithm. The list contains:
+            - reset_fixed_position_elements (boolean, optional): a boolean (default: False) that determines whether to reset the fixed position elements before applying the autolayout algorithm.
+            - fixed_position_nodes (list of lists or list of strings, optional): a list (default: []) that determines the nodes that should not be moved during the autolayout algorithm. The list contains:
                 - a list of lists where each list includes:
                     - 'id' (str): the ID of the node that must not be moved when autolayout algorithm is applied.
                     - 'index' (int): the index of the graphical object associated with the node that must not be moved when autolayout algorithm is applied.
@@ -145,22 +145,22 @@ class LibSBMLNetwork:
             true on success and false if autolayout algorithm was not applied successfully
         """
 
-        locked_nodes_ptr = None
-        if locked_nodes is not None:
-            locked_nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(locked_nodes))()
-            for i in range(len(locked_nodes)):
-                locked_node_ptr = (ctypes.c_char_p * 2)()
-                if isinstance(locked_nodes[i], list) and len(locked_nodes[i]) == 2:
-                    locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i][0]).encode())
-                    locked_node_ptr[1] = ctypes.c_char_p(str(locked_nodes[i][1]).encode())
-                elif isinstance(locked_nodes[i], str):
-                    locked_node_ptr[0] = ctypes.c_char_p(str(locked_nodes[i]).encode())
-                    locked_node_ptr[1] = ctypes.c_char_p(str(0).encode())
+        fixed_position_nodes_ptr = None
+        if fixed_position_nodes is not None:
+            fixed_position_nodes_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(fixed_position_nodes))()
+            for i in range(len(fixed_position_nodes)):
+                fixed_position_node_ptr = (ctypes.c_char_p * 2)()
+                if isinstance(fixed_position_nodes[i], list) and len(fixed_position_nodes[i]) == 2:
+                    fixed_position_node_ptr[0] = ctypes.c_char_p(str(fixed_position_nodes[i][0]).encode())
+                    fixed_position_node_ptr[1] = ctypes.c_char_p(str(fixed_position_nodes[i][1]).encode())
+                elif isinstance(fixed_position_nodes[i], str):
+                    fixed_position_node_ptr[0] = ctypes.c_char_p(str(fixed_position_nodes[i]).encode())
+                    fixed_position_node_ptr[1] = ctypes.c_char_p(str(0).encode())
                 else:
-                    raise Exception("The locked_nodes parameter should be a list of lists or a list of strings.")
-                locked_nodes_ptr[i] = locked_node_ptr
+                    raise Exception("The fixed_position_nodes parameter should be a list of lists or a list of strings.")
+                fixed_position_nodes_ptr[i] = fixed_position_node_ptr
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_locked_elements, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_fixed_position_elements, fixed_position_nodes_ptr, len(fixed_position_nodes))
     
     def autorender(self, max_num_connected_edges=3):
         """
@@ -176,7 +176,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_autorender(self.sbml_object, ctypes.c_int(max_num_connected_edges))
 
-    def align(self, nodes, alignment="center", ignore_locked_nodes=False):
+    def align(self, nodes, alignment="center", ignore_fixed_position_nodes=False):
         """
         Aligns the given nodes in the given alignment type form in the given SBMLDocument
 
@@ -188,7 +188,7 @@ class LibSBMLNetwork:
                     - 'index' (int): the index of the graphical object associated with the node that must be aligned.
                 - or a list of node IDs (str) that must be aligned.
             - alignment (string, optional): a string (default: "center") that determines the type of alignment to be applied ("top", "bottom", "left", "right", "vCenter", "hCenter", "circular")
-            - ignore_locked_nodes (boolean, optional): a boolean (default: False) that determines whether to ignore the locked nodes during the alignment
+            - ignore_fixed_position_nodes (boolean, optional): a boolean (default: False) that determines whether to ignore the fixed position nodes during the alignment
 
         :Returns:
 
@@ -209,7 +209,7 @@ class LibSBMLNetwork:
                     raise Exception("The nodes parameter should be a list of lists or a list of strings.")
                 nodes_ptr[i] = node_ptr
 
-        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_locked_nodes)
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_fixed_position_nodes)
 
     def distribute(self, nodes, direction="horizontal", spacing=-1):
         """
@@ -402,25 +402,25 @@ class LibSBMLNetwork:
         """
         return lib.c_api_createDefaultLayoutFeatures(self.sbml_object)
 
-    def createDefaultLayoutLocations(self, locked_nodes=[]):
+    def createDefaultLayoutLocations(self, fixed_position_nodes=[]):
         """
         Creates a default Layout object in the given SBMLDocument and sets the locations of all the graphical objects in the Layout object
 
         :Parameters:
 
-            - locked_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
+            - fixed_position_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
 
             true on success and false if the default Layout object could not be created
         """
-        locked_nodes_ptr = None
-        if locked_nodes is not None:
-            locked_nodes_ptr = (ctypes.c_char_p * len(locked_nodes))()
-            for i in range(len(locked_nodes)):
-                locked_nodes_ptr[i] = ctypes.c_char_p(locked_nodes[i].encode())
+        fixed_position_nodes_ptr = None
+        if fixed_position_nodes is not None:
+            fixed_position_nodes_ptr = (ctypes.c_char_p * len(fixed_position_nodes))()
+            for i in range(len(fixed_position_nodes)):
+                fixed_position_nodes_ptr[i] = ctypes.c_char_p(fixed_position_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, locked_nodes_ptr, len(locked_nodes))
+        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, fixed_position_nodes_ptr, len(fixed_position_nodes))
 
     def createAliasSpeciesGlyph(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
@@ -12468,7 +12468,7 @@ class LibSBMLNetwork:
         """
         self.use_name_as_text_label = use_name_as_text_label
         if self.layout_is_added:
-            self.autolayout(locked_nodes=self.getListOfSpeciesIds())
+            self.autolayout(fixed_position_nodes=self.getListOfSpeciesIds())
             
     def enableDisplayCompartmentsTextLabel(self, display_compartments_text_label):
         """

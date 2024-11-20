@@ -49,21 +49,21 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param layout a pointer to the Layout object.
 /// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
-/// @param resetLockedElements a variable that determines whether to reset the locked elements in the autolayout algorithm.
-/// @param lockedNodesSet a set of ids of the model entities and the graphical objects indices that are going to be locked in the autolayout algorithm.
+/// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
+/// @param fixedPositionNodesSet a set of ids of the model entities and the graphical objects indices that are going to be have fixed position in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                          bool resetLockedElements = false, const std::set<std::pair<std::string, int> > lockedNodesSet = {});
+                                                          bool resetFixedPositionElements = false, const std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, set all the necessary features for it, and apply autolayout algorithm.
 /// @param document a pointer to the SBMLDocument object.
 /// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
 /// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
-/// @param resetLockedElements a variable that determines whether to reset the locked elements in the autolayout algorithm.
-/// @param lockedNodeIds a set of ids of the model entities and their graphical objects indices that are going to be locked in the autolayout algorithm.
+/// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
+/// @param fixedPositionNodeIds a set of ids of the model entities and their graphical objects indices that are going to have fixed position in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                     bool resetLockedElements = false, const std::set<std::pair<std::string, int> > lockedNodesSet = {});
+                                                     bool resetFixedPositionElements = false, const std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and set all the necessary features for it.
 /// @param document a pointer to the SBMLDocument object.
@@ -71,7 +71,7 @@ LIBSBMLNETWORK_EXTERN int createDefaultLayoutLocations(SBMLDocument* document, c
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges = 3);
 
-/// @brief lock all the species and reaction nodes in the layout and apply autolayout
+/// @brief fix the position of all the species and reaction nodes in the layout and apply autolayout
 /// @param document a pointer to the SBMLDocument object.
 /// @param layout a pointer to the Layout object.
 /// @param updatedGraphicalObject a set of the ids of the GraphicalObject objects the position of which has been updated recently.
@@ -1947,7 +1947,7 @@ LIBSBMLNETWORK_EXTERN const double getPositionX(SBMLDocument* document, unsigned
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, const std::string& id, const double& x, bool updateCurves = true);
 
@@ -1957,7 +1957,7 @@ LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, const std::string
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, bool updateCurves = true);
 
@@ -1967,7 +1967,7 @@ LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, unsigned int layo
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, bool updateCurves = true);
 
@@ -1978,7 +1978,7 @@ LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, const std::string
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionX(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, bool updateCurves = true);
 
@@ -2004,7 +2004,7 @@ LIBSBMLNETWORK_EXTERN const double getPositionY(SBMLDocument* document, unsigned
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, const std::string& id, const double& y, bool updateCurves = true);
 
@@ -2014,7 +2014,7 @@ LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, const std::string
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& y, bool updateCurves = true);
 
@@ -2024,7 +2024,7 @@ LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, unsigned int layo
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& y, bool updateCurves = true);
 
@@ -2035,7 +2035,7 @@ LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, const std::string
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& y, bool updateCurves = true);
 
@@ -2045,7 +2045,7 @@ LIBSBMLNETWORK_EXTERN int setPositionY(SBMLDocument* document, unsigned int layo
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string& id, const double& x, const double& y, bool updateCurves = true);
 
@@ -2056,7 +2056,7 @@ LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string&
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& x, const double& y, bool updateCurves = true);
 
@@ -2068,7 +2068,7 @@ LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layou
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y, bool updateCurves = true);
 
@@ -2080,7 +2080,7 @@ LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, const std::string&
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param x a double value to use as the value of the "x" attribute of the bounding box of this GraphicalObject object.
 /// @param y a double value to use as the value of the "y" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setPosition(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& x, const double& y, bool updateCurves = true);
 
@@ -2106,7 +2106,7 @@ LIBSBMLNETWORK_EXTERN const double getDimensionWidth(SBMLDocument* document, uns
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, const std::string& id, const double& width, bool updateCurves = true);
 
@@ -2116,7 +2116,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, const std::s
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& width, bool updateCurves = true);
 
@@ -2126,7 +2126,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& width, bool updateCurves = true);
 
@@ -2137,7 +2137,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, const std::s
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& width, bool updateCurves = true);
 
@@ -2145,7 +2145,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionWidth(SBMLDocument* document, unsigned int
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of all the CompartmentGlyph objects.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width, bool updateCurves = true);
 
@@ -2157,7 +2157,7 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesDimensionWidth();
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of all the SpeciesGlyph objects.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width, bool updateCurves = true);
 
@@ -2169,7 +2169,7 @@ LIBSBMLNETWORK_EXTERN const double getReactionDimensionWidth();
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param width a double value to use as the value of the "width" attribute of the bounding box of all the ReactionGlyph objects.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionDimensionWidth(SBMLDocument* document, unsigned int layoutIndex, const double& width, bool updateCurves = true);
 
@@ -2195,7 +2195,7 @@ LIBSBMLNETWORK_EXTERN const double getDimensionHeight(SBMLDocument* document, un
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::string& id, const double& height, bool updateCurves = true);
 
@@ -2205,7 +2205,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, const double& height, bool updateCurves = true);
 
@@ -2215,7 +2215,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned in
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const double& height, bool updateCurves = true);
 
@@ -2226,7 +2226,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, const std::
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of this GraphicalObject object.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const double& height, bool updateCurves = true);
 
@@ -2234,7 +2234,7 @@ LIBSBMLNETWORK_EXTERN int setDimensionHeight(SBMLDocument* document, unsigned in
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of all the CompartmentGlyph objects.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setCompartmentDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves = true);
 
@@ -2246,7 +2246,7 @@ LIBSBMLNETWORK_EXTERN const double getSpeciesDimensionHeight();
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of all the SpeciesGlyph objects.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setSpeciesDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves = true);
 
@@ -2258,7 +2258,7 @@ LIBSBMLNETWORK_EXTERN const double getReactionDimensionHeight();
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param height a double value to use as the value of the "height" attribute of the bounding box of all the ReactionGlyph objects.
-/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with locked nodes) should be adjusted.  Default 'true'.
+/// @param updateCurves a boolean value, indicating whether the rest of the layout curves (with fixed position nodes) should be adjusted.  Default 'true'.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setReactionDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, const double& height, bool updateCurves = true);
 
