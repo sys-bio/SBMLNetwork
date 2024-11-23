@@ -12,6 +12,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     void defaults_addDefaultColors(GlobalRenderInformation* globalRenderInformation);
 
+    void defaults_addColorsOfDefaultGeometricShapes(SBMLDocument* document, LineEnding* lineEnding);
+
     void defaults_addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style);
 
     void defaults_addColorsOfDefaultGeometricShapes(GlobalRenderInformation* globalRenderInformation);

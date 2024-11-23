@@ -164,7 +164,7 @@ std::vector<SpeciesReferenceGlyph*> getSpeciesReferencesAssociatedWithSpecies(La
     if (reactionGlyph) {
         for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
             SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId());
-            if (speciesGlyph && speciesGlyph->getSpeciesId() == speciesId)
+            if (speciesGlyph && (speciesGlyph->getSpeciesId() == speciesId || speciesGlyph->getId() == speciesId))
                 speciesReferencesAssociatedWithSpecies.push_back(reactionGlyph->getSpeciesReferenceGlyph(i));
         }
     }

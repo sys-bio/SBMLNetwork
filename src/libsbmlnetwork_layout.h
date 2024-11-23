@@ -1080,36 +1080,36 @@ LIBSBMLNETWORK_EXTERN LineSegment* getCurveSegment(Curve* curve, unsigned int cu
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new LineSegment and adds it to the end of the list of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(GraphicalObject* graphicalObject);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(GraphicalObject* graphicalObject);
 
 /// @brief Creates a new LineSegment and adds it to the end of the list of this Curve object.
 /// @param curve a pointer to the Curve object.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(Curve* curve);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(Curve* curve);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject
 ///// with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(GraphicalObject* graphicalObject);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of this Curve object.
 /// @param curve a pointer to the Curve object.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(Curve* curve);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(Curve* curve);
 
 /// @brief Removes and deletes the curve segment with the given index from the list of the Curve of the GraphicalObject
 ///// with the given index associated with the model entity with the given id of the Layout object.
@@ -1118,7 +1118,7 @@ LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(Curve* curve);
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param curveSegmentIndex an unsigned int representing the index of the curve segment to remove.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int removeCurveSegment(Layout* layout, const std::string& id, unsigned int curveSegmentIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
 
 /// @brief Removes and deletes the curve segment with the given index from the list of the Curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

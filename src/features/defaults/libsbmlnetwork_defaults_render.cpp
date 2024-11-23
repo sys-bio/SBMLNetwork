@@ -19,6 +19,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         addColor(globalRenderInformation, "silver");
     }
 
+    void defaults_addColorsOfDefaultGeometricShapes(SBMLDocument* document, LineEnding* lineEnding) {
+        addColor(document, lineEnding, "white");
+        addColor(document, lineEnding, "black");
+    }
+
     void defaults_addColorsOfDefaultGeometricShapes(SBMLDocument* document, Style* style) {
         addColor(document, style, "white");
         addColor(document, style, "black");

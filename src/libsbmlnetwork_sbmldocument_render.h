@@ -1718,21 +1718,21 @@ LIBSBMLNETWORK_EXTERN bool isSetLineEndingStrokeColor(SBMLDocument* document, co
 /// attribute is not set or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
 
-/// @brief Predicates returning \c true if the "stroke" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "stroke" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "stroke" attribute is not set or the object is \c NULL.
+/// @return @c true if the "stroke" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
-/// @brief Predicates returning \c true if the "stroke" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @brief Predicates returning @c true if the "stroke" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "stroke" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "stroke" attribute is not set or the object is \c NULL.
+/// @return @c true if the "stroke" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup for the LineEnding with the given identifier
@@ -1846,21 +1846,21 @@ LIBSBMLNETWORK_EXTERN bool isSetLineEndingStrokeWidth(SBMLDocument* document, co
 /// attribute is not set or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
 
-/// @brief Predicates returning \c true if the "stroke-width" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "stroke-width" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "stroke-width" attribute is not set or the object is \c NULL.
+/// @return @c true if the "stroke-width" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke-width" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
-/// @brief Predicates returning \c true if the "stroke-width" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "stroke-width" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "stroke-width" attribute is not set or the object is \c NULL.
+/// @return @c true if the "stroke-width" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "stroke-width" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
@@ -2134,21 +2134,21 @@ LIBSBMLNETWORK_EXTERN bool isSetLineEndingFillColor(SBMLDocument* document, cons
 /// attribute is not set or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
 
-/// @brief Predicates returning \c true if the "fill" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "fill" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "fill" attribute is not set or the object is \c NULL.
+/// @return @c true if the "fill" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
-/// @brief Predicates returning \c true if the "fill" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @brief Predicates returning @c true if the "fill" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "fill" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "fill" attribute is not set or the object is \c NULL.
+/// @return @c true if the "fill" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill" attribute is not set or the object is \c NULL.
 
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 /// @brief Returns the value of the "fill" attribute of the RenderGroup for the LineEnding with the given identifier
@@ -2304,23 +2304,23 @@ LIBSBMLNETWORK_EXTERN bool isSetLineEndingFillRule(SBMLDocument* document, const
 /// attribute is not set or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetLineEndingFillRule(SBMLDocument* document, unsigned int renderIndex, const std::string& id);
 
-/// @brief Predicates returning \c true if the "fill-rule" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "fill-rule" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "fill-rule" attribute is not set or the object is \c NULL.
+/// @return @c true if the "fill-rule" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill-rule" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingFillRule(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
 
-/// @brief Predicates returning \c true if the "fill-rule" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @brief Predicates returning @c true if the "fill-rule" attribute of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
-/// @return \c true if the "fill-rule" attribute of the RenderGroup for this LineEnding object is set, \c false if either the "fill-rule" attribute is not set or the object is \c NULL.
-
+/// @return @c true if the "fill-rule" attribute of the RenderGroup for this LineEnding object is set, @c false if either the "fill-rule" attribute is not set or the object is \c NULL.
 LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingFillRule(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+
 /// @brief Returns the value of the "fill-rule" attribute of the RenderGroup for the LineEnding with the given identifier
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
@@ -2420,7 +2420,7 @@ LIBSBMLNETWORK_EXTERN unsigned int getNumLineEndingGeometricShapes(SBMLDocument*
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @return the number of Transformation2D objects in the RenderGroup for this LineEnding object, or @c 0 if the object is @c NULL.
-LIBSBMLNETWORK_EXTERN unsigned int getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+LIBSBMLNETWORK_EXTERN unsigned int getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
 /// @brief Returns the number of Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -2429,8 +2429,212 @@ LIBSBMLNETWORK_EXTERN unsigned int getNumSpeciesReferenceLineEndingGeometricShap
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @return the number of Transformation2D objects in the RenderGroup for this LineEnding object, or @c 0 if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN unsigned int getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
-LIBSBMLNETWORK_EXTERN unsigned int getNumSpeciesReferenceLineEndingGeometricShapes(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex);
+/// @brief Adds a geometric shape to the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the first RenderInformationBase object of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineEndingGeometricShape(SBMLDocument* document, const std::string& id, const std::string& shape);
+
+/// @brief Adds a geometric shape to the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the RenderInformationBase object with the given index of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineEndingGeometricShape(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& shape);
+
+/// @brief Adds a geometric shape to the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape);
+
+/// @brief Adds a geometric shape to the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape);
+
+/// @brief Removes the geometric shape with the given index from the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the first RenderInformationBase object of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeLineEndingGeometricShape(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Removes the geometric shape with the given index from the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the RenderInformationBase object with the given index of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeLineEndingGeometricShape(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Removes the geometric shape with the given index from the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Removes the geometric shape with the given index from the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeSpeciesReferenceLineEndingGeometricShape(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the type of the geometric shape with the given index in the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the first RenderInformationBase object of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN std::string getLineEndingGeometricShapeType(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the type of the geometric shape with the given index in the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the RenderInformationBase object with the given index of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN std::string getLineEndingGeometricShapeType(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the type of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN std::string getSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the type of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN std::string getSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the type of the geometric shape of the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the first RenderInformationBase object of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeType(SBMLDocument* document, const std::string& id, const std::string& shape);
+
+/// @brief Sets the type of the geometric shape of the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the RenderInformationBase object with the given index of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param shape a string value indicating the shape of the geometric shape to be set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeType(SBMLDocument* document, unsigned int renderIndex, const std::string& id, const std::string& shape);
+
+/// @brief Sets the type of the geometric shape of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape);
+
+/// @brief Sets the type of the geometric shape of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeType(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, const std::string& shape) ;
+
+/// @brief Returns the id of the geometric shape with the given index in the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the first RenderInformationBase object of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the id of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeId(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the id of the geometric shape with the given index in the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the RenderInformationBase object with the given index of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeId(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the id of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return the id of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
+
+/// @brief Returns the type of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to remove.
+/// @return the type of the geometric shape of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
+
+/// @brief Sets the type of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the first RenderInformationBase object of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param shapeId a string value indicating the id of the geometric shape to be set.
+/// @return the type of the geometric shape with the given index of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeId(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& shapeId);
+
+/// @brief Sets the type of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding with the given identifier in the RenderInformationBase object with the given index of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param shapeId a string value indicating the id of the geometric shape to be set.
+/// @return the type of the geometric shape with the given index of the Transformation2D at the given index of the RenderGroup of this LineEnding, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeId(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& shapeId);
+
+/// @brief Sets the type of the geometric shape with the given index of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& shapeId);
+
+/// @brief Sets the type of the geometric shape of the Transformation2D objects in the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeId(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& shapeId);
+
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Rectangle.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id a string representing the identifier of the LineEnding to retrieve.
@@ -2446,23 +2650,23 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingRectangle(SBMLDocument* document, const s
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingRectangle(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Rectangle.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Rectangle.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingRectangle(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Rectangle.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Rectangle.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Rectangle, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingRectangle(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Ellipse.
@@ -2480,23 +2684,23 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingEllipse(SBMLDocument* document, const std
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingEllipse(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Ellipse.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Ellipse.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingEllipse(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Ellipse.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Ellipse.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Ellipse, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingEllipse(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Polygon.
@@ -2514,23 +2718,23 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingPolygon(SBMLDocument* document, const std
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingPolygon(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Polygon.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Polygon.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingPolygon(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Polygon.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Polygon.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Polygon, @c false otherwise.
 
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingPolygon(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Image.
@@ -2548,23 +2752,23 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingImage(SBMLDocument* document, const std::
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingImage(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Image.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Image.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingImage(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Image.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Image.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Image, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingImage(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type RenderCurve.
@@ -2582,23 +2786,23 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingRenderCurve(SBMLDocument* document, const
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingRenderCurve(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type RenderCurve.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type RenderCurve.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingRenderCurve(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type RenderCurve.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type RenderCurve.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type RenderCurve, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingRenderCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
 /// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is of type Text.
@@ -2616,24 +2820,381 @@ LIBSBMLNETWORK_EXTERN bool isLineEndingText(SBMLDocument* document, const std::s
 /// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isLineEndingText(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Text.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is of type Text.
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingText(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
 
-/// @brief Predicates returning \c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Text.
+/// @brief Predicates returning @c true if the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is of type Text.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout object.
 /// @param reactionId a string representing the identifier of the Reaction object.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object.
 /// @param speciesReferenceIndex the index number of the SpeciesReference object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
-/// @return \c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, \c false otherwise.
+/// @return @c true if the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
 LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceLineEndingText(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is of type Text, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param strokeColor a string to use as the value of the "stroke" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& strokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param strokeColor a string to use as the value of the "stroke" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& strokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeColor a string to use as the value of the "stroke" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& strokeColor);
+
+/// @brief Sets the value of the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeColor a string to use as the value of the "stroke" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& strokeColor);
+
+/// @brief Predicates returning @c true if "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase object of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const double getLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const double getLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const double getSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a string to use as the value of the "stroke-width" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, double strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a string to use as the value of the "stroke-width" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, double strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a string to use as the value of the "stroke-width" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, double strokeWidth);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param strokeWidth a string to use as the value of the "stroke-width" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, double strokeWidth);
+
+/// @brief Predicates returning @c true if "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase objec of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Predicates returning @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return @c true if the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0, unsigned int geometricShapeIndex = 0);
+
+/// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @return the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
+
+/// @brief Returns the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @return the "fill" attribute of the Transformation2D at the given index of the RenderGroup for this LineEnding object, or @c "" if the object is @c NULL.
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string to use as the value of the "fill" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string to use as the value of the "fill" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the first RenderInformationBase of the SBML document as gradient.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param gradientType a string representing the type of gradient to use.
+/// @param stopsVector a vector of pairs where each pair consists of a string representing the color and a double representing the offset for the gradient stop.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& id, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup of the LineEnding object of the RenderInformationBase with the given index of the SBML document as gradient.
+/// @param document a pointer to the SBMLDocument object.
+/// @param renderIndex the index number of the RenderInformationBase object.
+/// @param id a string representing the identifier of the LineEnding to retrieve.
+/// @param geometricShapeIndex an int representing the index of the Transformation2D to retrieve.
+/// @param gradientType a string representing the type of gradient to use.
+/// @param stopsVector a vector of pairs where each pair consists of a string representing the color and a double representing the offset for the gradient stop.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, unsigned int renderIndex, const std::string& id, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string to use as the value of the "fill" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param fillColor a string to use as the value of the "fill" attribute of the RenderGroup for this LineEnding object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeFillColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& fillColor);
+
+/// @brief Sets the value of the "fill" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the first Layout of the SBML document as gradient.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param gradientType a string representing the type of gradient to use.
+/// @param stopsVector a vector of pairs where each pair consists of a string representing the color and a double representing the offset for the gradient stop.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
+
+/// @brief Sets the value of the "stroke-width" attribute of the Transformation2D at the given index of the RenderGroup for the LineEnding associated with the SpeciesReferenceGlyph with the given index of the reaction glyph with the given index of the reaction with the given identifier in the Layout with the given index of the SBML document as gradient.
+/// @param document a pointer to the SBMLDocument object.
+/// @param reactionId a string representing the identifier of the Reaction object.
+/// @param reactionGlyphIndex the index number of the ReactionGlyph object.
+/// @param speciesReferenceIndex the index number of the SpeciesReference object.
+/// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
+/// @param gradientType a string representing the type of gradient to use.
+/// @param stopsVector a vector of pairs where each pair consists of a string representing the color and a double representing the offset for the gradient stop.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setSpeciesReferenceLineEndingGeometricShapeFillColorAsGradient(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex, unsigned int geometricShapeIndex, const std::string& gradientType, std::vector<std::pair<std::string, double>> stopsVector);
 
 /// @brief Checks if the X coordinate of the geometric shape for the LineEnding with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.

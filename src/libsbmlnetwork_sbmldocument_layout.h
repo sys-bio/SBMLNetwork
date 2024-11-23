@@ -949,9 +949,8 @@ LIBSBMLNETWORK_EXTERN LineSegment* getSpeciesReferenceCurveSegment(SBMLDocument*
 /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param speciesReferenceIndex the index of the SpeciesReference.
-/// @return a pointer to the newly created LineSegment object, or @c NULL if
-/// the SpeciesReference object does not exits or the object is @c NULL
-LIBSBMLNETWORK_EXTERN LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addSpeciesReferenceLineCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
 /// @brief Creates a new LineSegment and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -960,9 +959,8 @@ LIBSBMLNETWORK_EXTERN LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDo
 /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param speciesReferenceIndex the index of the SpeciesReference.
-/// @return a pointer to the newly created LineSegment object, or @c NULL if
-/// the SpeciesReference object does not exits or the object is @c NULL
-LIBSBMLNETWORK_EXTERN LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addSpeciesReferenceLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
 /// @brief Creates a new CubicBezier object and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
@@ -970,9 +968,8 @@ LIBSBMLNETWORK_EXTERN LineSegment* createSpeciesReferenceLineCurveSegment(SBMLDo
 /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param speciesReferenceIndex the index of the SpeciesReference.
-/// @return a pointer to the newly created CubicBezier object, or @c NULL if
-/// the SpeciesReference object does not exits or the object is @c NULL
-LIBSBMLNETWORK_EXTERN CubicBezier* createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
 /// @brief Creates a new CubicBezier object and adds it to the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -981,9 +978,8 @@ LIBSBMLNETWORK_EXTERN CubicBezier* createSpeciesReferenceCubicBezierCurveSegment
 /// @param reactionId the id of the reaction the SpeciesReference object of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param speciesReferenceIndex the index of the SpeciesReference.
-/// @return a pointer to the newly created CubicBezier object, or @c NULL if
-/// the SpeciesReference object does not exits or the object is @c NULL
-LIBSBMLNETWORK_EXTERN CubicBezier* createSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addSpeciesReferenceCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int speciesReferenceIndex = 0);
 
 /// @brief Removes the Curve object of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
 /// of the first Layout object in the ListOfLayouts of the SBML document.
@@ -2550,8 +2546,8 @@ LIBSBMLNETWORK_EXTERN LineSegment* getCurveSegment(SBMLDocument* document, unsig
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new LineSegment and adds it to the end of the list of the curve of the GraphicalObject
 /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -2559,16 +2555,16 @@ LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(SBMLDocument* document
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject
 /// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject
 /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -2576,8 +2572,8 @@ LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(SBMLDocument* d
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Removes and deletes the curve segment with the given index from the list of the Curve of the GraphicalObject
 /// with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
@@ -2586,7 +2582,7 @@ LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(SBMLDocument* d
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param curveSegmentIndex an unsigned int representing the index of the curve segment to remove.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int removeCurveSegment(SBMLDocument* document, const std::string& id, unsigned int curveSegmentIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
 
 /// @brief Removes and deletes the curve segment with the given index from the list of the Curve of the GraphicalObject
 /// with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
@@ -2596,7 +2592,7 @@ LIBSBMLNETWORK_EXTERN int removeCurveSegment(SBMLDocument* document, const std::
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param curveSegmentIndex an unsigned int representing the index of the curve segment to remove.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int removeCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int curveSegmentIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeCurveSegment(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
 
 /// @brief Predicate returning true if the curve segment with the given index of the Curve of the GraphicalObject
 /// with the given index associated with the model entity with the given id of the first Layout object in the SBML document is of type CubicBezier.

@@ -1190,38 +1190,42 @@ LineSegment* getCurveSegment(Curve* curve, unsigned int curveSegmentIndex) {
     return  NULL;
 }
 
-LineSegment* createLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return createLineCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
+int addLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return addLineCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
-LineSegment* createLineCurveSegment(GraphicalObject* graphicalObject) {
-    return createLineCurveSegment(getCurve(graphicalObject));
+int addLineCurveSegment(GraphicalObject* graphicalObject) {
+    return addLineCurveSegment(getCurve(graphicalObject));
 }
 
-LineSegment* createLineCurveSegment(Curve* curve) {
-    if (curve)
-        return curve->createLineSegment();
+int addLineCurveSegment(Curve* curve) {
+    if (curve) {
+        curve->createLineSegment();
+        return 0;
+    }
 
-    return NULL;
+    return -1;
 }
 
-CubicBezier* createCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return createCubicBezierCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
+int addCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return addCubicBezierCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
-CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject) {
-    return createCubicBezierCurveSegment(getCurve(graphicalObject));
+int addCubicBezierCurveSegment(GraphicalObject* graphicalObject) {
+    return addCubicBezierCurveSegment(getCurve(graphicalObject));
 }
 
-CubicBezier* createCubicBezierCurveSegment(Curve* curve) {
-    if (curve)
-        return curve->createCubicBezier();
+int addCubicBezierCurveSegment(Curve* curve) {
+    if (curve) {
+        curve->createCubicBezier();
+        return 0;
+    }
 
-    return NULL;
+    return -1;
 }
 
-int removeCurveSegment(Layout* layout, const std::string& id, unsigned int curveSegmentIndex) {
-    return removeCurveSegment(getGraphicalObject(layout, id), curveSegmentIndex);
+int removeCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return removeCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex), curveSegmentIndex);
 }
 
 int removeCurveSegment(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex) {
