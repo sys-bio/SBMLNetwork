@@ -18,6 +18,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
             set_layout_features_setCompartmentGlyphs(model, layout);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges);
             set_layout_features_setTextGlyphs(layout);
+            user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
         }
     }
@@ -25,7 +26,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
     return -1;
 }
 
-int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges,
                       bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     if (document && layout) {
         defaults_setDefaultLayoutId(layout);
@@ -37,8 +38,9 @@ int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout, userData);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
-            autolayout_locateGlyphs(model, layout, useNameAsTextLabel);
+            autolayout_locateGlyphs(model, layout);
             set_layout_features_setTextGlyphs(layout);
+            user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
         }
 }

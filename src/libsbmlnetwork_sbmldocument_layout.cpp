@@ -68,13 +68,20 @@ int setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int m
     return set_layout_features_setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
 }
 
-int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                             bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
-    return set_layout_features_setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
+int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+    return set_layout_features_setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
 }
 
 int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
-    return  update_curves_updateLayoutCurves(document, layout);
+    return update_curves_updateLayoutCurves(document, layout);
+}
+
+bool getUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex) {
+    return user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false";
+}
+
+int setUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex, bool useNameAsTextLabel) {
+    return user_data_setUserData(getLayout(document, layoutIndex), "use_name_as_text_label", useNameAsTextLabel ? "true" : "false");
 }
 
 int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnectedEdges) {
@@ -85,13 +92,12 @@ int createDefaultLayoutFeatures(SBMLDocument* document, const int maxNumConnecte
     return setDefaultLayoutFeatures(document, layout, maxNumConnectedEdges);
 }
 
-int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool useNameAsTextLabel,
-                                bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
+int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges, bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     Layout* layout = getLayout(document);
     if (!layout)
         layout = createLayout(document);
 
-    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, useNameAsTextLabel, resetFixedPositionElements, fixedPositionNodesSet);
+    return setDefaultLayoutLocations(document, layout, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
@@ -725,16 +731,16 @@ bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::stri
     return isSetText(getLayout(document, layoutIndex), id);
 }
 
-const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, bool useNameAsTextLabel) {
-    return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex, useNameAsTextLabel);
+const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex, bool useNameAsTextLabel) {
+const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     std::string text = getText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
     if (!text.empty()) {
         return text;
     }
-    if (useNameAsTextLabel) {
+    if (user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false") {
         text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
         if (!text.empty())
             return text;

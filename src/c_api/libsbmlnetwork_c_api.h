@@ -74,12 +74,11 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// to the the SBML document, and set all the necessary features for them.
     /// @param document a pointer to the SBMLDocument object.
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
-    /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
     /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes and the indices of their associated graphical objects that must have fixed position in the autolayout algorithm.
     /// @param fixedPositionNodesSize the size of fixedPositionNodeIds
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
+    LIBSBMLNETWORK_EXTERN int c_api_autolayout(SBMLDocument* document, const int maxNumConnectedEdges = 3,
                                                 bool resetFixedPositionElements = false, const char ***fixedPositionNodes = NULL, const int fixedPositionNodesSize = 0);
 
     /// @brief Create a Render object, add it to the the SBML document, and set all the necessary features for it.
@@ -217,13 +216,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param maxNumConnectedEdges the maximum number of connected edges to a species glyph.
     /// @param useMagnetism a variable that determines whether to use magnetism in the autolayout algorithm.
     /// @param useGrid a variable that determines whether to use grid restriction in the autolayout algorithm.
-    /// @param useNameAsTextLabel a variable that determines whether to use the name of the nodes as text labels in the autolayout algorithm.
     /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
     /// @param fixedPositionNodesSize the size of fixedPositionNodeIds
     /// @param fixedPositionNodeIds an array of strings containing the ids of the nodes that must have fixed position in the autolayout algorithm.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel= true,
+    LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3,
                                                                bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0);
+
+    LIBSBMLNETWORK_EXTERN int c_api_setUseNameAsTextLabel(SBMLDocument* document, bool useNameAsTextLabel, int layoutIndex);
 
     /// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
     /// @param document a pointer to the SBMLDocument object.
@@ -1054,10 +1054,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
-    /// @package checkForName a boolean value to indicate whether the function should check for the "name" attribute of the TextGlyph object.
     /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
     /// , TextGlyph does not exits or the object is @c NULL.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0, bool checkForName = true);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getText(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the "text" attribute of the TextGlyph object with the given index associated with the given id in
     /// the Layout object with the given index of the SBML document.

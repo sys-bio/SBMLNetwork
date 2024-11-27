@@ -24,7 +24,7 @@ public:
 
     void clearConnections();
 
-    void setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+    void setElements(Model* model, Layout* layout);
 
     void setWidth(Layout* layout);
 
@@ -94,9 +94,9 @@ public:
 
 protected:
 
-    void setConnections(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+    void setConnections(Model* model, Layout* layout);
 
-    virtual void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel) = 0;
+    virtual void setNodes(Model* model, Layout* layout) = 0;
 
     void setNodesDegrees();
 
@@ -130,7 +130,7 @@ public:
 
 protected:
 
-    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+    void setNodes(Model* model, Layout* layout);
 
 };
 
@@ -142,7 +142,7 @@ public:
 
 protected:
 
-    void setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel);
+    void setNodes(Model* model, Layout* layout);
 };
 
 const double calculateEuclideanDistance(AutoLayoutPoint point1, AutoLayoutPoint point2);

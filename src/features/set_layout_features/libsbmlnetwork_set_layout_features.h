@@ -14,7 +14,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges);
 
-int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges,
                               bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet);
 
 void set_layout_features_clearGraphicalObjects(Layout* layout);

@@ -12,7 +12,7 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void autolayout_locateGlyphs(Model *model, Layout *layout, const bool &useNameAsTextLabel) {
+void autolayout_locateGlyphs(Model *model, Layout *layout) {
     double stiffness = autolayout_getStiffness(layout);
     double gravity = autolayout_getGravity(layout);
     bool useMagnetism = false;
@@ -20,7 +20,7 @@ void autolayout_locateGlyphs(Model *model, Layout *layout, const bool &useNameAs
     std::srand(time(0));
     autolayout_randomizeGlyphsLocations(model, layout);
     FruchtermanReingoldAlgorithmBase *autoLayoutAlgorithm = new FruchtermanReingoldAutoLayoutAlgorithm();
-    autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
+    autoLayoutAlgorithm->setElements(model, layout);
     autoLayoutAlgorithm->setStiffness(stiffness);
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);
@@ -37,20 +37,20 @@ void autolayout_locateGlyphs(Model *model, Layout *layout, const bool &useNameAs
         if (autolayout_autolayoutMayStillConverge(layout)) {
             autolayout_updateGravity(layout);
             autolayout_updateStiffness(layout);
-            autolayout_locateGlyphs(model, layout, useNameAsTextLabel);
+            autolayout_locateGlyphs(model, layout);
         }
         else
             error_log_addErrorToLog(layout, "Auto-layout fails to converge with the given layout dimensions. Please adjust layout width and height and try again.");
     }
 }
 
-void autolayout_locateReactions(Model *model, Layout *layout, const bool &useNameAsTextLabel) {
+void autolayout_locateReactions(Model *model, Layout *layout) {
     double stiffness = autolayout_getStiffness(layout);
     double gravity = autolayout_getGravity(layout);
     bool useMagnetism = false;
     bool useGrid = false;
     FruchtermanReingoldAlgorithmBase* autoLayoutAlgorithm = new FruchtermanReingoldUpdateCurvesAlgorithm();
-    autoLayoutAlgorithm->setElements(model, layout, useNameAsTextLabel);
+    autoLayoutAlgorithm->setElements(model, layout);
     autoLayoutAlgorithm->setStiffness(stiffness);
     autoLayoutAlgorithm->setGravity(gravity);
     autoLayoutAlgorithm->setUseMagnetism(useMagnetism);

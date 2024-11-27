@@ -48,22 +48,20 @@ LIBSBMLNETWORK_EXTERN int removeAllLayouts(SBMLDocument* document);
 /// @param document a pointer to the SBMLDocument object.
 /// @param layout a pointer to the Layout object.
 /// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
-/// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
 /// @param fixedPositionNodesSet a set of ids of the model entities and the graphical objects indices that are going to be have fixed position in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
+LIBSBMLNETWORK_EXTERN int setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges = 3,
                                                           bool resetFixedPositionElements = false, const std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, set all the necessary features for it, and apply autolayout algorithm.
 /// @param document a pointer to the SBMLDocument object.
 /// @param maxNumConnectedEdges the maximum number of connected edges before creating an alias SpeciesGlyph.
-/// @param useNameAsTextLabel a variable that determines whether to use the name of the model entities as text labels in the autolayout algorithm.
 /// @param resetFixedPositionElements a variable that determines whether to reset the fixed position elements in the autolayout algorithm.
 /// @param fixedPositionNodeIds a set of ids of the model entities and their graphical objects indices that are going to have fixed position in the autolayout algorithm.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool useNameAsTextLabel = true,
-                                                     bool resetFixedPositionElements = false, const std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
+LIBSBMLNETWORK_EXTERN int createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3, bool resetFixedPositionElements = false,
+                                                       const std::set<std::pair<std::string, int> > fixedPositionNodesSet = {});
 
 /// @brief Create a Layout object, add it to list of layouts of the SBML document, and set all the necessary features for it.
 /// @param document a pointer to the SBMLDocument object.
@@ -77,6 +75,19 @@ LIBSBMLNETWORK_EXTERN int createDefaultLayoutFeatures(SBMLDocument* document, co
 /// @param updatedGraphicalObject a set of the ids of the GraphicalObject objects the position of which has been updated recently.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int updateLayoutCurves(SBMLDocument* document, Layout* layout);
+
+/// @brief Get whether the name of the GraphicalObjects must be used as the label of TextGlyph objects associated with them in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @return boolean value indicating whether the name of the GraphicalObjects must be used as the label of TextGlyph objects associated with them.
+LIBSBMLNETWORK_EXTERN bool getUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Set whether the name of the GraphicalObjects must be used as the label of TextGlyph objects associated with them in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param useNameAsTextLabel a boolean value indicating whether the name of the GraphicalObjects must be used as the label of TextGlyph objects associated with them.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex, bool useNameAsTextLabel);
 
 /// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the first Layout object in the ListOfLayouts of the SBMLDocument.
 /// @param document a pointer to the SBMLDocument object.
@@ -1448,10 +1459,9 @@ LIBSBMLNETWORK_EXTERN bool isSetText(SBMLDocument* document, unsigned int layout
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject.
 /// @param textGlyphIndex the index of the TextGlyph to return.
-/// @param useNameAsTextLabel a boolean value to indicate whether to return the name of the model entity as the text label.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0, bool useNameAsTextLabel = false);
+LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
@@ -1460,10 +1470,9 @@ LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const st
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject.
 /// @param textGlyphIndex the index of the TextGlyph to return.
-/// @param useNameAsTextLabel a boolean value to indicate whether to return the name of the model entity as the text label.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0, bool useNameAsTextLabel = false);
+LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id in
 /// the first Layout object of the SBML document.

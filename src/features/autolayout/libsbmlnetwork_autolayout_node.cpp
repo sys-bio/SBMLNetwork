@@ -6,9 +6,9 @@
 
 // AutoLayoutNodeBase
 
-AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutObjectBase(model, layout) {
+AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& positionFixed) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
-    _useNameAsTextLabel = useNameAsTextLabel;
+    _useNameAsTextLabel = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout, "use_name_as_text_label") != "false";
     _graphicalObject = graphicalObject;
     setPositionFixed(positionFixed);
 }
@@ -73,7 +73,7 @@ void AutoLayoutNodeBase::updateFixedPositionStatus() {;
 
 // AutoLayoutNode
 
-AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, positionFixed) {
+AutoLayoutNode::AutoLayoutNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, positionFixed) {
 
 }
 
@@ -155,7 +155,7 @@ const double AutoLayoutNode::calculateHeight() {
 // AutoLayoutCentroidNode
 
 
-AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& useNameAsTextLabel, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, useNameAsTextLabel, positionFixed) {
+AutoLayoutCentroidNode::AutoLayoutCentroidNode(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& positionFixed) : AutoLayoutNodeBase(model, layout, graphicalObject, positionFixed) {
 
 }
 

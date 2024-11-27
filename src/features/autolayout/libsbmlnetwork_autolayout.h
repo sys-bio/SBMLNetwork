@@ -10,9 +10,9 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
-void autolayout_locateGlyphs(Model* model, Layout* layout, const bool& useNameAsTextLabel = true);
+void autolayout_locateGlyphs(Model* model, Layout* layout);
 
-void autolayout_locateReactions(Model *model, Layout *layout, const bool& useNameAsTextLabel = false);
+void autolayout_locateReactions(Model *model, Layout *layout);
 
 const double autolayout_getStiffness(Layout *layout);
 
