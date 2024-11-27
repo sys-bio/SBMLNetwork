@@ -106,6 +106,96 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_distribute(SBMLDocument* document, const char ***nodes, const int nodesSize, const char* direction, const double spacing = -1.0);
 
+    /// @brief Make all the elements in the Layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeAllVisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the elements in the Layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeAllInvisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the compartments in the Layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeCompartmentsVisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the compartments in the Layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeAllCompartmentsInvisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the species in the Layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesVisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the species in the Layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesInvisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the reactions in the Layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeReactionsVisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the reactions in the Layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeReactionsInvisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the species references in the Layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesReferencesVisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the species references in the Layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesReferencesInvisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the line endings in the Layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeLineEndingsVisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make all the line endings in the Layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeLineEndingsInvisible(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Make the graphical object with the given index associated with the entered model in the layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the graphical object to make visible.
+    /// @param applyToConnectedElements a variable that determines whether to apply the visibility change to the connected elements.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeVisible(SBMLDocument* document, const char* id, bool applyToConnectedElements = true, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
+    /// @brief Make the graphical object with the given index associated with the entered model in the layout object with the given index of the SBML document invisible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the graphical object to make invisible.
+    /// @param applyToConnectedElements a variable that determines whether to apply the visibility change to the connected elements.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_makeInvisible(SBMLDocument* document, const char* id, bool applyToConnectedElements = true, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
     /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @return the number of items in of this SBML document, or @c 0 if the object is @c NULL
@@ -150,25 +240,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_createAliasReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex);
-
-    /// @brief Hide the SpeciesGlyph with the given species Id which is a participant of the reaction with the given Id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param speciesId the id of the species to hide the SpeciesGlyph for.
-    /// @param reactionId the id of the reaction to hide the SpeciesGlyph for.
-    /// @param visible a boolean value to determine whether make SpeciesGlyph visible or invisible.
-    /// @reactionGlyphIndex the index of the ReactionGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphVisible(SBMLDocument* document, const char* speciesId, const char* reactionId, bool visible = true, int reactionGlyphIndex = 0, int layoutIndex = 0);
-
-    /// @brief Hide the SpeciesGlyphs with the given species Ids in the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param species an array of strings containing the ids of the species, ids of the reactions, and the indices of the reaction glyphs that the species are participants of.
-    /// @param speciesIdsSize the size of speciesIds
-    /// @param visible a boolean value to determine whether make SpeciesGlyph visible or invisible.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char ***species, const int speciesSize, const bool visible, int layoutIndex);
 
     /// @brief Returns the value of the "width" attribute of the Dimensions object of the Layout object
     /// with the given index in the ListOfLayouts of the SBML document.

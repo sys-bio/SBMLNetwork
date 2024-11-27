@@ -8,6 +8,7 @@
 #include "features/styles/libsbmlnetwork_styles.h"
 #include "features/error_log/libsbmlnetwork_error_log.h"
 #include "features/defaults/libsbmlnetwork_defaults_render.h"
+#include "features/hide_elements/libsbmlnetwork_hide_elements.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -869,7 +870,10 @@ LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, const std::str
 }
 
 LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReference(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    return getSpeciesReferenceLineEnding(document, getSpeciesReference(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+LineEnding* getSpeciesReferenceLineEnding(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph) {
     LineEnding* lineEnding = getLineEnding(document, getStartHead(document, speciesReferenceGlyph));
     if (!lineEnding)
         lineEnding = getLineEnding(document, getEndHead(document, speciesReferenceGlyph));
@@ -882,8 +886,11 @@ LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, const std
 }
 
 LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex, unsigned int speciesReferenceIndex) {
-    LineEnding* lineEnding = getSpeciesReferenceLineEnding(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
-    SpeciesReferenceGlyph* speciesReferenceGlyph = getSpeciesReference(document, reactionId, reactionGlyphIndex, speciesReferenceIndex);
+    return getSpeciesReferenceLocalLineEnding(document, getSpeciesReference(document, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+}
+
+LineEnding* getSpeciesReferenceLocalLineEnding(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    LineEnding* lineEnding = getSpeciesReferenceLineEnding(document, speciesReferenceGlyph);
     if(!isLocal(document, lineEnding, speciesReferenceGlyph))
         lineEnding = createLocalLineEnding(document, lineEnding, speciesReferenceGlyph);
 
@@ -11119,6 +11126,62 @@ bool whetherDisplayReactionTextLabel(const std::string& styleName) {
         return styleFeatures.find("display-reaction-text-label")->second == "true";
 
     return false;
+}
+
+int makeVisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeVisible(document, layoutIndex);
+}
+
+int makeInvisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeInvisible(document, layoutIndex);
+}
+
+int makeCompartmentVisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeCompartmentVisible(document, layoutIndex);
+}
+
+int makeCompartmentInvisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeCompartmentInvisible(document, layoutIndex);
+}
+
+int makeSpeciesVisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeSpeciesVisible(document, layoutIndex);
+}
+
+int makeSpeciesInvisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeSpeciesInvisible(document, layoutIndex);
+}
+
+int makeReactionVisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeReactionVisible(document, layoutIndex);
+}
+
+int makeReactionInvisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeReactionInvisible(document, layoutIndex);
+}
+
+int makeSpeciesReferenceVisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeSpeciesReferenceVisible(document, layoutIndex);
+}
+
+int makeSpeciesReferenceInvisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeSpeciesReferenceInvisible(document, layoutIndex);
+}
+
+int makeLineEndingVisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeLineEndingVisible(document, layoutIndex);
+}
+
+int makeLineEndingInvisible(SBMLDocument* document, unsigned int layoutIndex) {
+    return hide_elements_makeLineEndingInvisible(document, layoutIndex);
+}
+
+int makeVisible(SBMLDocument* document, GraphicalObject* graphicalObject, const bool& applyToConnectedElements) {
+    return hide_elements_makeVisible(document, graphicalObject, applyToConnectedElements);
+}
+
+int makeInvisible(SBMLDocument* document, GraphicalObject* graphicalObject, const bool& applyToConnectedElements) {
+    return hide_elements_makeInvisible(document, graphicalObject, applyToConnectedElements);
 }
 
 }

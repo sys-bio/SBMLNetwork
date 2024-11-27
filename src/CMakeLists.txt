@@ -27,7 +27,7 @@ set(SOURCES
 		features/alias_elements/libsbmlnetwork_alias_element.cpp
 		features/alias_elements/libsbmlnetwork_alias_species.cpp
 		features/alias_elements/libsbmlnetwork_alias_reaction.cpp
-		features/hide_elements/libsbmlnetwork_hide_species.cpp
+        features/hide_elements/libsbmlnetwork_hide_elements.cpp
 		features/align_elements/libsbmlnetwork_align_element.cpp
 		features/align_elements/libsbmlnetwork_align_species.cpp
 		features/fix_elements/libsbmlnetwork_fix_element_position.cpp
@@ -63,7 +63,7 @@ set(HEADERS
 		features/alias_elements/libsbmlnetwork_alias_element.h
 		features/alias_elements/libsbmlnetwork_alias_species.h
 		features/alias_elements/libsbmlnetwork_alias_reaction.h
-		features/hide_elements/libsbmlnetwork_hide_species.h
+		features/hide_elements/libsbmlnetwork_hide_elements.h
 		features/align_elements/libsbmlnetwork_align_element.h
 		features/align_elements/libsbmlnetwork_align_species.h
 		features/fix_elements/libsbmlnetwork_fix_element_position.h

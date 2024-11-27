@@ -8,17 +8,30 @@
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-    const std::map<std::string, std::string>* colorData();
+const std::map<std::string, std::string>* colorData();
 
-    const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
+const std::string getHexColorCodeFromHtmlColorName(const std::string& htmlColorName);
 
-    const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
+const std::string getHtmlColorNameFromHexColorCode(const std::string& hexColorCode);
 
-    const bool isValidHexColorCode(const std::string& value);
+const bool isTransparentColorName(const std::string& colorName);
 
-    const bool isxdigit(const char& c);
+const bool isTransparentColorValue(const std::string& colorValue);
 
-    const bool isValidColorValue(const std::string& value);
+const std::string addTransparencyToColorName(const std::string& colorName);
+
+const std::string addTransparencyToColorValue(const std::string& colorValue);
+
+const std::string removeTransparencyFromColorName(const std::string& colorName);
+
+const std::string removeTransparencyFromColorValue(const std::string& colorValue);
+
+const bool isValidHexColorCode(const std::string& value);
+
+const bool isxdigit(const char& c);
+
+const bool isValidColorValue(const std::string& value);
+
 }
 
 #endif

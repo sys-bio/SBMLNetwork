@@ -472,62 +472,207 @@ class LibSBMLNetwork:
             """
         return lib.c_api_setSpeciesGlyphIndexInReactionGlyph(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), index, reaction_glyph_index, layout_index)
 
-    def makeSpeciesGlyphVisible(self, species_id, reaction_id, visible=True, reaction_glyph_index=0, layout_index=0):
+    def makeAllVisible(self, layout_index=0):
         """
-        Makes the SpeciesGlyph of Species with the given species_id in the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument visible or invisible
+        Makes all the GraphicalObjects in the Layout object with the given index in the given SBMLDocument visible on the canvas
 
         :Parameters:
 
-            - species_id (string): a string that determines the id of the Species
-            - reaction_id (string): a string that determines the id of the Reaction
-            - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyph visible or invisible
-            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the SpeciesGlyph could not be hidden
+            true on success and false if the GraphicalObjects could not be made visible
         """
-        return lib.c_api_makeSpeciesGlyphVisible(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), visible, reaction_glyph_index, layout_index)
+        return lib.c_api_makeAllVisible(self.sbml_object, layout_index)
 
-    def makeSpeciesGlyphsVisible(self, species=None, visible=True, layout_index=0):
+    def makeAllInvisible(self, layout_index=0):
         """
-        Makes the SpeciesGlyphs of Species with the given species_ids in the Layout object with the given index in the given SBMLDocument visible or invisible
+        Makes all the GraphicalObjects in the Layout object with the given index in the given SBMLDocument invisible on the canvas
 
         :Parameters:
 
-            - species = (list of lists or list of strings, optional): a list (default: None) that determines the list of Species. The list contains:
-                - a list of lists where each list includes:
-                    - 'id' (str): the ID of the Species
-                    - 'reaction_id' (str): the ID of the Reaction
-                    - 'reaction_glyph_index' (int, optional): the index (default: 0) of the ReactionGlyph in the given SBMLDocument
-            - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyphs visible or invisible
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the SpeciesGlyphs could not be hidden
+            true on success and false if the GraphicalObjects could not be made invisible
         """
-        species_ptr = None
-        if species is not None:
-            species_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(species))()
-            for i in range(len(species)):
-                a_species_ptr = (ctypes.c_char_p * 3)()
-                if isinstance(species[i], list):
-                    if len(species[i]) == 3:
-                        print(species[i])
-                        a_species_ptr[0] = ctypes.c_char_p(str(species[i][0]).encode())
-                        a_species_ptr[1] = ctypes.c_char_p(str(species[i][1]).encode())
-                        a_species_ptr[2] = ctypes.c_char_p(str(species[i][2]).encode())
-                    elif len(species[i]) == 2:
-                        a_species_ptr[0] = ctypes.c_char_p(str(species[i][0]).encode())
-                        a_species_ptr[1] = ctypes.c_char_p(str(species[i][1]).encode())
-                        a_species_ptr[2] = ctypes.c_char_p(str(0).encode())
-                else:
-                    raise Exception("The species parameter should be a list of lists with species id, reaction id, and reaction glyph index or a list of lists with species id and reaction id.")
-                species_ptr[i] = a_species_ptr
+        return lib.c_api_makeAllInvisible(self.sbml_object, layout_index)
 
-        return lib.c_api_makeSpeciesGlyphsVisible(self.sbml_object, species_ptr, len(species_ptr), visible, layout_index)
+    def makeCompartmentsVisible(self, layout_index=0):
+        """
+        Makes all the CompartmentGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CompartmentGlyphs could not be made visible
+        """
+        return lib.c_api_makeCompartmentsVisible(self.sbml_object, layout_index)
+
+    def makeCompartmentsInvisible(self, layout_index=0):
+        """
+        Makes all the CompartmentGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CompartmentGlyphs could not be made invisible
+        """
+        return lib.c_api_makeCompartmentsInvisible(self.sbml_object, layout_index)
+
+    def makeSpeciesVisible(self, layout_index=0):
+        """
+        Makes all the SpeciesGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesGlyphs could not be made visible
+        """
+        return lib.c_api_makeSpeciesVisible(self.sbml_object, layout_index)
+
+    def makeSpeciesInvisible(self, layout_index=0):
+        """
+        Makes all the SpeciesGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesGlyphs could not be made invisible
+        """
+        return lib.c_api_makeSpeciesInvisible(self.sbml_object, layout_index)
+
+    def makeReactionsVisible(self, layout_index=0):
+        """
+        Makes all the ReactionGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ReactionGlyphs could not be made visible
+        """
+        return lib.c_api_makeReactionsVisible(self.sbml_object, layout_index)
+
+    def makeReactionsInvisible(self, layout_index=0):
+        """
+        Makes all the ReactionGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the ReactionGlyphs could not be made invisible
+            """
+        return lib.c_api_makeReactionsInvisible(self.sbml_object, layout_index)
+
+    def makeSpeciesReferencesVisible(self, layout_index=0):
+        """
+        Makes all the SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReferenceGlyphs could not be made visible
+        """
+        return lib.c_api_makeSpeciesReferencesVisible(self.sbml_object, layout_index)
+
+    def makeSpeciesReferencesInvisible(self, layout_index=0):
+        """
+        Makes all the SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReferenceGlyphs could not be made invisible
+        """
+        return lib.c_api_makeSpeciesReferencesInvisible(self.sbml_object, layout_index)
+
+    def makeLineEndingsVisible(self, layout_index=0):
+        """
+        Makes all the LineEndings in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the LineEndings could not be made visible
+        """
+        return lib.c_api_makeLineEndingsVisible(self.sbml_object, layout_index)
+
+    def makeLineEndingsInvisible(self, layout_index=0):
+        """
+        Makes all the LineEndings in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the LineEndings could not be made invisible
+        """
+        return lib.c_api_makeLineEndingsInvisible(self.sbml_object, layout_index)
+
+    def makeVisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
+        """
+        Makes the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the GraphicalObject
+            - apply_to_connected_elements (boolean, optional): a boolean (default: True) that determines whether to apply the visibility to the connected elements
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GraphicalObject could not be made visible
+        """
+        return lib.c_api_makeVisible(self.sbml_object, str(id).encode(), apply_to_connected_elements, graphical_object_index, layout_index)
+
+    def makeInvisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
+        """
+        Makes the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the GraphicalObject
+            - apply_to_connected_elements (boolean, optional): a boolean (default: True) that determines whether to apply the visibility to the connected elements
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GraphicalObject could not be made invisible
+        """
+        return lib.c_api_makeInvisible(self.sbml_object, str(id).encode(), apply_to_connected_elements, graphical_object_index, layout_index)
 
     def getCanvasWidth(self, layout_index=0):
         """

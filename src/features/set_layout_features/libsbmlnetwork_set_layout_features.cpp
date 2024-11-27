@@ -4,7 +4,6 @@
 #include "../../features/autolayout/libsbmlnetwork_autolayout.h"
 #include "../../features/user_data/libsbmlnetwork_user_data.h"
 #include "../../features/defaults/libsbmlnetwork_defaults_layout.h"
-#include "../../features/hide_elements/libsbmlnetwork_hide_species.h"
 #include "../../features/fix_elements/libsbmlnetwork_fix_element_position.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
@@ -124,12 +123,10 @@ void set_layout_features_setReactionGlyphs(Model* model, Layout* layout, const i
 void set_layout_features_setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
-            int stoichiometry = getStoichiometryAsInteger(speciesReference);
-            for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
-                SpeciesReferenceGlyph *speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-            }
+        int stoichiometry = getStoichiometryAsInteger(speciesReference);
+        for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
+            SpeciesReferenceGlyph *speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
         }
     }
 }
@@ -137,12 +134,10 @@ void set_layout_features_setReactantGlyphs(Layout* layout, Reaction* reaction, R
 void set_layout_features_setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
-            int stoichiometry = getStoichiometryAsInteger(speciesReference);
-            for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
-                SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
-            }
+        int stoichiometry = getStoichiometryAsInteger(speciesReference);
+        for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
         }
     }
 }
@@ -150,13 +145,11 @@ void set_layout_features_setProductGlyphs(Layout* layout, Reaction* reaction, Re
 void set_layout_features_setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
-        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
-            SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), 0, maxNumConnectedEdges, userData);
-            if (speciesReference->getSBOTermID() == "SBO:0000020")
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
-            else
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
-        }
+        SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), 0, maxNumConnectedEdges, userData);
+        if (speciesReference->getSBOTermID() == "SBO:0000020")
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
+        else
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
     }
 }
 

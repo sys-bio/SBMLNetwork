@@ -100,6 +100,62 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return distribute(document, nodesSet, direction, spacing);
     }
 
+    int c_api_makeAllVisible(SBMLDocument* document, int layoutIndex) {
+        return makeVisible(document, layoutIndex);
+    }
+
+    int c_api_makeAllInvisible(SBMLDocument* document, int layoutIndex) {
+        return makeInvisible(document, layoutIndex);
+    }
+
+    int c_api_makeCompartmentsVisible(SBMLDocument* document, int layoutIndex) {
+        return makeCompartmentVisible(document, layoutIndex);
+    }
+
+    int c_api_makeCompartmentsInvisible(SBMLDocument* document, int layoutIndex) {
+        return makeCompartmentInvisible(document, layoutIndex);
+    }
+
+    int c_api_makeSpeciesVisible(SBMLDocument* document,  int layoutIndex) {
+        return makeSpeciesVisible(document, layoutIndex);
+    }
+
+    int c_api_makeSpeciesInvisible(SBMLDocument* document, int layoutIndex) {
+        return makeSpeciesInvisible(document, layoutIndex);
+    }
+
+    int c_api_makeReactionsVisible(SBMLDocument* document, int layoutIndex) {
+        return makeReactionVisible(document, layoutIndex);
+    }
+
+    int c_api_makeReactionsInvisible(SBMLDocument* document, int layoutIndex) {
+        return makeReactionInvisible(document, layoutIndex);
+    }
+
+    int c_api_makeSpeciesReferencesVisible(SBMLDocument* document, int layoutIndex) {
+        return makeSpeciesReferenceVisible(document, layoutIndex);
+    }
+
+    int c_api_makeSpeciesReferencesInvisible(SBMLDocument* document, int layoutIndex) {
+        return makeSpeciesReferenceInvisible(document, layoutIndex);
+    }
+
+    int c_api_makeLineEndingsVisible(SBMLDocument* document, int layoutIndex) {
+        return makeLineEndingVisible(document, layoutIndex);
+    }
+
+    int c_api_makeLineEndingsInvisible(SBMLDocument* document, int layoutIndex) {
+        return makeLineEndingInvisible(document, layoutIndex);
+    }
+
+    int c_api_makeVisible(SBMLDocument* document, const char* id, bool applyToConnectedElements, int graphicalObjectIndex, int layoutIndex) {
+        return makeVisible(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), applyToConnectedElements);
+    }
+
+    int c_api_makeInvisible(SBMLDocument* document, const char* id, bool applyToConnectedElements, int graphicalObjectIndex, int layoutIndex) {
+        return makeInvisible(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), applyToConnectedElements);
+    }
+
     const int c_api_getNumLayouts(SBMLDocument* document) {
         return getNumLayouts(document);
     }
@@ -132,25 +188,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_createAliasReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex) {
         return createAliasReactionGlyph(document, layoutIndex, reactionId);
-    }
-
-    int c_api_makeSpeciesGlyphVisible(SBMLDocument* document, const char* speciesId, const char* reactionId, bool visible, int reactionGlyphIndex, int layoutIndex) {
-        return makeSpeciesGlyphVisible(document, layoutIndex, speciesId, reactionId, reactionGlyphIndex, visible);
-    }
-
-    int c_api_makeSpeciesGlyphsVisible(SBMLDocument* document, const char ***species, const int speciesSize, const bool visible, int layoutIndex) {
-        std::set<std::tuple<std::string, std::string, int> > speciesSet = std::set<std::tuple<std::string, std::string, int> >();
-        if (species) {
-            for (int i = 0; i < speciesSize; i++) {
-                const char **aSpecies = species[i];
-                const char *speciesId = aSpecies[0];
-                const char *reactionId = aSpecies[1];
-                int reactionGlyphIndex = atoi(aSpecies[2]);
-                speciesSet.insert(std::make_tuple(speciesId, reactionId, reactionGlyphIndex));
-            }
-        }
-
-        return makeSpeciesGlyphsVisible(document, layoutIndex, speciesSet, visible);
     }
 
     double c_api_getCanvasWidth(SBMLDocument* document, int layoutIndex) {

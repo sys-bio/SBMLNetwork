@@ -294,10 +294,11 @@ const std::string addColor(RenderInformationBase* renderInformationBase, const s
 }
 
 const std::string addColor(RenderInformationBase* renderInformationBase, const std::string &colorId, const std::string &colorValue) {
+    if (colorValue.empty())
+        return "";
     if (stringCompare(getColorValue(renderInformationBase, colorId), colorValue))
         return colorId;
-
-    if (!colorId.empty() && !colorValue.empty()) {
+    if (!colorId.empty()) {
         RenderPkgNamespaces renderPkgNamespaces(renderInformationBase->getLevel(), renderInformationBase->getVersion());
         ColorDefinition* cd = createColorDefinition(&renderPkgNamespaces, toLowerCase(colorId), colorValue);
         if (!renderInformationBase->addColorDefinition(cd)) {

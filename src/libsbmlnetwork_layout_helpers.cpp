@@ -5,7 +5,7 @@
 #include "features/error_log/libsbmlnetwork_error_log.h"
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/defaults/libsbmlnetwork_defaults_layout.h"
-#include "features/hide_elements/libsbmlnetwork_hide_species.h"
+#include "features/hide_elements/libsbmlnetwork_hide_elements.h"
 #include "features/set_layout_features/libsbmlnetwork_set_layout_features.h"
 
 #include <cmath>
