@@ -25,7 +25,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumLayouts(SBMLDocument* document);
 /// @brief Returns a pointer to the Layout with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
-/// @return the @c the nth Layout in the ListOfLayouts of the SBML document or NULL if no such Layout exists or the document is @c NULL.
+/// @return the @c the Layout with the given index in the ListOfLayouts of the SBML document or NULL if no such Layout exists or the document is @c NULL.
 LIBSBMLNETWORK_EXTERN Layout* getLayout(SBMLDocument* document, unsigned int layoutIndex = 0);
 
 /// @brief Add Layout to list of layouts of the SBML document.
@@ -244,7 +244,7 @@ LIBSBMLNETWORK_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(SBMLDocu
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
 /// @param graphicalObjectIndex the index number of the GraphicalObject object to return.
-/// @return a pointer the nth GraphicalObject object associated with the entered model entity id.
+/// @return a pointer the GraphicalObject object with the given index associated with the entered model entity id.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the GraphicalObject object with the given index of the Layout object with the given index in the ListOfLayouts of the SBML document
@@ -252,7 +252,7 @@ LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
 /// @param graphicalObjectIndexIndex the index number of the GraphicalObject object to return.
-/// @return a pointer the nth GraphicalObject object associated with the entered model entity id.
+/// @return a pointer the GraphicalObject object with the given index associated with the entered model entity id.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -298,7 +298,7 @@ LIBSBMLNETWORK_EXTERN std::vector<CompartmentGlyph*> getCompartmentGlyphs(SBMLDo
 /// @param document a pointer to the SBMLDocument object.
 /// @param compartmentId the id of the compartment the CompartmentGlyph object associated with it is going to be returned.
 /// @param compartmentGlyphIndex the index number of the CompartmentGlyph object to return.
-/// @return a pointer the nth CompartmentGlyph object associated with the entered compartment id.
+/// @return a pointer the CompartmentGlyph object with the given index associated with the entered compartment id.
 LIBSBMLNETWORK_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, const std::string& compartmentId, unsigned int compartmentGlyphIndex = 0);
 
 /// @brief Returns the CompartmentGlyph object with the given index of the Layout object with the given index in the ListOfLayouts of the SBML document
@@ -307,7 +307,7 @@ LIBSBMLNETWORK_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* docume
 /// @param layoutIndex the index number of the Layout to return.
 /// @param compartmentId the id of the compartment the CompartmentGlyph object associated with it is going to be returned.
 /// @param compartmentGlyphIndex the index number of the CompartmentGlyph object to return.
-/// @return a pointer to the nth CompartmentGlyph object associated with the entered compartment id.
+/// @return a pointer to the CompartmentGlyph object with the given index associated with the entered compartment id.
 LIBSBMLNETWORK_EXTERN CompartmentGlyph* getCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& compartmentId, unsigned int compartmentGlyphIndex = 0);
 
 /// @brief Returns the CompartmentGlyph object with the given index in the the Layout object with the given index in the ListOfLayouts of the SBML document.
@@ -335,7 +335,7 @@ LIBSBMLNETWORK_EXTERN bool isCompartmentGlyph(SBMLDocument* document, unsigned i
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
-LIBSBMLNETWORK_EXTERN std::string getCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN std::string getGraphicalObjectCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// Returns the id of the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -343,13 +343,13 @@ LIBSBMLNETWORK_EXTERN std::string getCompartmentId(SBMLDocument* document, const
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
-LIBSBMLNETWORK_EXTERN std::string getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN std::string getGraphicalObjectCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// Returns the id of the compartment associated with the graphical object.
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the id of the compartment associated with the graphical object, or @c "" if the object does not have an associated compartment or is @c NULL
-LIBSBMLNETWORK_EXTERN std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN std::string getGraphicalObjectCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject);
 
 /// Returns a pointer to the compartment associated with the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -420,7 +420,7 @@ LIBSBMLNETWORK_EXTERN std::vector<SpeciesGlyph*> getSpeciesGlyphs(SBMLDocument* 
 /// @param document a pointer to the SBMLDocument object.
 /// @param speciesId the id of the species the SpeciesGlyph object associated with it is going to be returned.
 /// @param speciesGlyphIndex the index number of the SpeciesGlyph object to return.
-/// @return a pointer the nth SpeciesGlyph object associated with the entered species id.
+/// @return a pointer the SpeciesGlyph object with the given index associated with the entered species id.
 LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, const std::string& speciesId, unsigned int speciesGlyphIndex = 0);
 
 /// @brief Returns the SpeciesGlyph object with the given index of the Layout object with the given index in the ListOfLayouts of the SBML document
@@ -429,14 +429,14 @@ LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, cons
 /// @param layoutIndex the index number of the Layout to return.
 /// @param speciesId the id of the species the SpeciesGlyph object associated with it is going to be returned.
 /// @param speciesGlyphIndex the index number of the SpeciesGlyph object to return.
-/// @return a pointer the nth SpeciesGlyph object associated with the entered species id.
+/// @return a pointer the SpeciesGlyph object with the given index associated with the entered species id.
 LIBSBMLNETWORK_EXTERN SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, unsigned int speciesGlyphIndex = 0);
 
 /// @brief Returns the SpeciesGlyph object with the given index in the the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param speciesGlyphIndex the index number of the SpeciesGlyph object to return.
-/// @return a pointer to the nth SpeciesGlyph object with the given index in the ListOfSpeciesGlyphs of the Layout object.
+/// @return a pointer to the SpeciesGlyph object with the given index with the given index in the ListOfSpeciesGlyphs of the Layout object.
 LIBSBMLNETWORK_EXTERN  SpeciesGlyph* getSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int speciesGlyphIndex = 0);
 
 /// @brief Returns the index of the SpeciesGlyph object associated in the list of SpeciesGlyph objects among the list of SpeciesGlyph objects associated with the given species id that is associated with the given reaction id with the given index in the first Layout object in the ListOfLayouts of the SBML document.
@@ -519,7 +519,7 @@ LIBSBMLNETWORK_EXTERN std::vector<ReactionGlyph*> getReactionGlyphs(SBMLDocument
 /// @param document a pointer to the SBMLDocument object.
 /// @param reactionId the id of the reaction the ReactionGlyph object associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return a pointer the nth ReactionGlyph object associated with the entered reaction id.
+/// @return a pointer the ReactionGlyph object with the given index associated with the entered reaction id.
 LIBSBMLNETWORK_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the ReactionGlyph object with the given index of the Layout object with the given index in the ListOfLayouts of the SBML document
@@ -528,14 +528,14 @@ LIBSBMLNETWORK_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, co
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionId the id of the reaction the ReactionGlyph object associated with it is going to be returned.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return a pointer the nth ReactionGlyph object associated with the entered reaction id.
+/// @return a pointer the ReactionGlyph object with the given index associated with the entered reaction id.
 LIBSBMLNETWORK_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Returns the ReactionGlyph object with the given index in the the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return a pointer to the nth ReactionGlyph object with the given index in the ListOfReactionGlyphs of the Layout object.
+/// @return a pointer to the ReactionGlyph object with the given index with the given index in the ListOfReactionGlyphs of the Layout object.
 LIBSBMLNETWORK_EXTERN  ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int reactionGlyphIndex = 0);
 
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the first Layout object of the SBML document is of type ReactionGlyph.
@@ -816,24 +816,24 @@ LIBSBMLNETWORK_EXTERN const int getNumSpeciesReferencesAssociatedWithSpecies(SBM
 /// or @c 0 if the object is @c NULL or has no associated SpeciesReference objects.
 LIBSBMLNETWORK_EXTERN const int getNumSpeciesReferencesAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
-/// @brief Returns the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Returns the index of the SpeciesReference object with the given index associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id in the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param speciesId the id of the species the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param n the index of the SpeciesReference object.
-/// @return the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id,
+/// @return the index of the SpeciesReference object with the given index associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id,
 /// or @c -1 if the object is @c NULL or has no associated SpeciesReference objects.
 LIBSBMLNETWORK_EXTERN const int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0);
 
-/// @brief Returns the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id in the Layout object with the given index in the ListOfLayouts of the SBML document.
+/// @brief Returns the index of the SpeciesReference object with the given index associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id in the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param speciesId the id of the species the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionId the id of the reaction the number of SpeciesReference objects of its ReactionGlyph object with the given index associated with it is going to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph.
 /// @param n the index of the SpeciesReference object.
-/// @return the index of the nth SpeciesReference object associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id,
+/// @return the index of the SpeciesReference object with the given index associated with the given species id in the ReactionGlyph object with the given index associated with the entered reaction id,
 /// or @c -1 if the object is @c NULL or has no associated SpeciesReference objects.
 LIBSBMLNETWORK_EXTERN const int getSpeciesReferenceIndexAssociatedWithSpecies(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex = 0, unsigned int n = 0);
 

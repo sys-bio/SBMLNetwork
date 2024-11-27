@@ -246,15 +246,15 @@ bool isCompartmentGlyph(SBMLDocument* document, unsigned int layoutIndex, const 
     return isCompartmentGlyph(getLayout(document, layoutIndex), id);
 }
 
-std::string getCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getCompartmentId(document, getGraphicalObject(document, id, graphicalObjectIndex));
+std::string getGraphicalObjectCompartmentId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getGraphicalObjectCompartmentId(document, getGraphicalObject(document, id, graphicalObjectIndex));
 }
 
-std::string getCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getCompartmentId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+std::string getGraphicalObjectCompartmentId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getGraphicalObjectCompartmentId(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
 }
 
-std::string getCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
+std::string getGraphicalObjectCompartmentId(SBMLDocument* document, GraphicalObject* graphicalObject) {
     Compartment* compartment = getAssociatedCompartment(document, graphicalObject);
     if (compartment)
         return compartment->getId();

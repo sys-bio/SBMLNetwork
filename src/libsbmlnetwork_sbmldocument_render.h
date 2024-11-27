@@ -25,7 +25,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumGlobalRenderInformation(SBMLDocum
 
 /// @brief Returns a pointer to the GlobalRenderInformation with the given index in the ListOfGlobalRenderInformation of the SBML document.
 /// @param renderIndex the index number of the GlobalRenderInformation to return.
-/// @return the @c the nth GlobalRenderInformation in the ListOfGlobalRenderInformation of the SBML document or NULL if
+/// @return the @c the GlobalRenderInformation with the given index in the ListOfGlobalRenderInformation of the SBML document or NULL if
 /// no such GlobalRenderInformation exists or the document is @c NULL.
 LIBSBMLNETWORK_EXTERN GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int renderIndex = 0);
 
@@ -166,12 +166,12 @@ LIBSBMLNETWORK_EXTERN int setBackgroundColor(SBMLDocument* document, unsigned in
 /// @return the number of ColorDefinitions of this GlobalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const unsigned int getNumGlobalColorDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
 
-/// @brief Returns the id of the nth ColorDefinition object of the GlobalRenderInformation object with the given index of the SBML document.
+/// @brief Returns the id of the ColorDefinition object with the given index of the GlobalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
 /// @param colorIndex the of the ColorDefinition.
-/// @return the id of the nth ColorDefinition object in the ListOfColorDefinitions within this GlobalRenderInformation, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getNthGlobalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
+/// @return the id of the ColorDefinition object with the given index in the ListOfColorDefinitions within this GlobalRenderInformation, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getGlobalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
 
 /// @brief Returns the number of ColorDefinitions of the LocalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -179,12 +179,12 @@ LIBSBMLNETWORK_EXTERN const std::string getNthGlobalColorDefinitionId(SBMLDocume
 /// @return the number of ColorDefinitions of this LocalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const unsigned int getNumLocalColorDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
 
-/// @brief Returns the id of the nth ColorDefinition object of the LocalRenderInformation object with the given index of the SBML document.
+/// @brief Returns the id of the ColorDefinition object with the given index of the LocalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the LocalRenderInformation object.
 /// @param colorIndex the of the ColorDefinition.
-/// @return the id of the nth ColorDefinition object in the ListOfColorDefinitions within this LocalRenderInformation, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getNthLocalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
+/// @return the id of the ColorDefinition object with the given index in the ListOfColorDefinitions within this LocalRenderInformation, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getLocalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0);
 
 /// @brief Returns a ColorDefinition from all RenderInformationBase objects of the SBML document based on its identifier.
 /// @param document a pointer to the SBMLDocument object.
@@ -262,19 +262,19 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumGlobalGradientDefinitions(SBMLDoc
 /// @return the number of GradientDefinitions of this LocalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const unsigned int getNumLocalGradientDefinitions(SBMLDocument* document, unsigned int renderIndex = 0);
 
-/// @brief Returns the id of the nth GradientDefinition object of the GlobalRenderInformation object with the given index of the SBML document.
+/// @brief Returns the id of the GradientDefinition object with the given index of the GlobalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
 /// @param gradientIndex the of the GlobalRenderInformation.
-/// @return the id of the nth GradientDefinition object in the ListOfGradientDefinitions within this GlobalRenderInformation, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getNthGlobalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
+/// @return the id of the GradientDefinition object with the given index in the ListOfGradientDefinitions within this GlobalRenderInformation, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getGlobalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
 
-/// @breif Returns the id of the nth GradientDefinition object of the LocalRenderInformation object with the given index of the SBML document.
+/// @breif Returns the id of the GradientDefinition object with the given index of the LocalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the LocalRenderInformation object.
 /// @param gradientIndex the of the LocalRenderInformation.
-/// @return the id of the nth GradientDefinition object in the ListOfGradientDefinitions within this LocalRenderInformation, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getNthLocalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
+/// @return the id of the GradientDefinition object with the given index in the ListOfGradientDefinitions within this LocalRenderInformation, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getLocalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0);
 
 /// @brief Returns a GradientBase from all the RenderInformationBase objects of the SBML document based on its identifier.
 /// @param document a pointer to the SBMLDocument object.
@@ -507,7 +507,7 @@ LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(SBMLDocument* document, unsigned int
 /// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of the GradientBase in all RenderInformationBase objects of SBML document with the given identifier is set.
 /// @param document a pointer to the SBMLDocument object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// @return @c true if the "stop-color" attribute of GradientStop with the given index of this GradientBase object is set, @c false if either the "stop-color"
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStopColor(SBMLDocument* document, const std::string& sid, unsigned int gradientStopIndex = 0);
 
@@ -515,7 +515,7 @@ LIBSBMLNETWORK_EXTERN bool isSetStopColor(SBMLDocument* document, const std::str
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// @return @c true if the "stop-color" attribute of GradientStop with the given index of this GradientBase object is set, @c false if either the "stop-color"
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStopColor(SBMLDocument* document, unsigned int renderIndex, const std::string& sid, unsigned int gradientStopIndex = 0);
 
@@ -1215,19 +1215,19 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumGlobalLineEndings(SBMLDocument* d
 /// @return the number of LineEndings of this LocalRenderInformation object, or @c 0 if the object is @c NULL
 LIBSBMLNETWORK_EXTERN const unsigned int getNumLocalLineEndings(SBMLDocument* document, unsigned int renderIndex = 0);
 
-/// @brief Returns the id of the nth LineEnding of the GlobalRenderInformation object with the given index of the SBML document.
+/// @brief Returns the id of the LineEnding with the given index of the GlobalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the GlobalRenderInformation object.
 /// @param lineEndingIndex the index number of the LineEnding to return.
-/// @return the id of the nth LineEnding of this GlobalRenderInformation object, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getNthGlobalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0);
+/// @return the id of the LineEnding with the given index of this GlobalRenderInformation object, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getGlobalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0);
 
-/// @brief Returns the id of the nth LineEnding of the LocalRenderInformation object with the given index of the SBML document.
+/// @brief Returns the id of the LineEnding with the given index of the LocalRenderInformation object with the given index of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param renderIndex the index number of the LocalRenderInformation object.
 /// @param lineEndingIndex the index number of the LineEnding to return.
-/// @return the id of the nth LineEnding of this LocalRenderInformation object, or @c NULL if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getNthLocalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0);
+/// @return the id of the LineEnding with the given index of this LocalRenderInformation object, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getLocalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0);
 
 /// @brief Returns a LineEnding from all the RenderInformationBase objects of the SBML document based on its identifier.
 /// @param sid a string representing the identifier of the LineEnding to retrieve.
@@ -8551,14 +8551,14 @@ LIBSBMLNETWORK_EXTERN int addGeometricShape(SBMLDocument* document, const std::s
 /// @param document a pointer to the SBMLDocument object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
+/// @return a pointer to the Transformation2D with the given index of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
 LIBSBMLNETWORK_EXTERN int removeGeometricShape(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0);
 
 /// @brief Remove a geometric shape from the Style that matches this attribute (id, role, type) of a GraphicalObject.
 /// @param document a pointer to the SBMLDocument object.
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to remove.
-/// @return a pointer to the nth Transformation2D of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
+/// @return a pointer to the Transformation2D with the given index of the RenderGroup of the Style for this GraphicalObject, or @c NULL if the object is @c NULL
 LIBSBMLNETWORK_EXTERN int removeGeometricShape(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0);
 
 /// @brief Returns the ID of the geometric shape of the Transformation2D at the given index of the RenderGroup of the Style for this GraphicalObject.
@@ -11080,7 +11080,7 @@ LIBSBMLNETWORK_EXTERN bool isGeometricShapeElementCubicBezier(SBMLDocument* docu
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11089,7 +11089,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(SBMLDocument*
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11098,7 +11098,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(SBMLDocument*
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeElementXAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11107,7 +11107,7 @@ LIBSBMLNETWORK_EXTERN const double getGeometricShapeElementXAsDouble(SBMLDocumen
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeElementXAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11306,7 +11306,7 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementXAsDouble(SBMLDocument* docume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11315,7 +11315,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(SBMLDocument*
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11324,7 +11324,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(SBMLDocument*
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "y" attribute of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeElementYAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11333,7 +11333,7 @@ LIBSBMLNETWORK_EXTERN const double getGeometricShapeElementYAsDouble(SBMLDocumen
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "y" attribute of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeElementYAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11532,7 +11532,7 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementYAsDouble(SBMLDocument* docume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11541,7 +11541,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocume
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11550,7 +11550,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(SBMLDocume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "x" attribute of base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11559,7 +11559,7 @@ LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint1XAsDouble(SBMLDocu
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "x" attribute of base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint1XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11758,7 +11758,7 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1XAsDouble(SBMLDocument* doc
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11767,7 +11767,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocume
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11776,7 +11776,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(SBMLDocume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "y" attribute of base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11785,7 +11785,7 @@ LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint1YAsDouble(SBMLDocu
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "y" attribute of base point 1 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint1YAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11984,7 +11984,7 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint1YAsDouble(SBMLDocument* doc
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -11993,7 +11993,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocume
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -12002,7 +12002,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(SBMLDocume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "x" attribute of base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -12011,7 +12011,7 @@ LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint2XAsDouble(SBMLDocu
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "x" attribute of base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint2XAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -12209,7 +12209,7 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeBasePoint2XAsDouble(SBMLDocument* doc
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -12218,7 +12218,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocume
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -12227,7 +12227,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(SBMLDocume
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "y" attribute of base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -12236,7 +12236,7 @@ LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint2YAsDouble(SBMLDocu
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
+/// @return the "y" attribute of base point 2 of the  element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject as a double, or @c 0.0 if
 /// either Transformation2D object does not exist, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const double getGeometricShapeBasePoint2YAsDouble(SBMLDocument* document, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
