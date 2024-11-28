@@ -108,7 +108,7 @@ int createAliasSpeciesGlyph(SBMLDocument* document, const std::string& speciesId
 }
 
 int createAliasSpeciesGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex) {
-    if (!alias_element_createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex)))
+    if (!alias_element_createAliasSpeciesGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex)))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
@@ -119,7 +119,7 @@ int createAliasReactionGlyph(SBMLDocument* document, const std::string& reaction
 }
 
 int createAliasReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId) {
-    return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, reactionId));
+    return alias_element_createAliasReactionGlyph(document, getLayout(document, layoutIndex), getReactionGlyph(document, layoutIndex, reactionId));
 }
 
 int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
@@ -130,7 +130,7 @@ int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::strin
 }
 
 int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, const unsigned int index) {
-    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId), index))
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId), index))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
@@ -144,7 +144,7 @@ int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const std::strin
 }
 
 int setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& speciesId, const std::string& reactionId, unsigned int reactionGlyphIndex, const unsigned int index) {
-    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, reactionId, reactionGlyphIndex), index))
+    if (!setSpeciesGlyphIndexInReactionGlyph(getLayout(document, layoutIndex), speciesId, getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex), index))
         return updateLayoutCurves(document, getLayout(document, layoutIndex));
 
     return -1;
