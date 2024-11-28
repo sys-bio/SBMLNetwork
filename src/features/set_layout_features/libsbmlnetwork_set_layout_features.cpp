@@ -392,12 +392,12 @@ void set_layout_features_setGraphicalObjectBoundingBox(GraphicalObject* graphica
         graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
-void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph) {
+void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const double& padding) {
     if (referenceSpeciesReferenceGlyph->isSetCurve()) {
         Curve* referenceCurve = referenceSpeciesReferenceGlyph->getCurve();
         Curve* curve = speciesReferenceGlyph->getCurve();
         for (unsigned int i = 0; i < referenceCurve->getNumCurveSegments(); i++)
-            set_layout_features_addCurveSegment(curve, referenceCurve->getCurveSegment(i), defaults_getAliasReactionGlyphPadding());
+            set_layout_features_addCurveSegment(curve, referenceCurve->getCurveSegment(i), padding);
     }
 }
 

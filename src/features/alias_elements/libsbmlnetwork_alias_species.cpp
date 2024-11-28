@@ -24,11 +24,11 @@ int alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string spec
     return -1;
 }
 
-SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph) {
+SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph, const double& padding) {
     SpeciesGlyph* aliasSpeciesGlyph = NULL;
     if (speciesGlyph) {
         aliasSpeciesGlyph = set_layout_features_createSpeciesGlyph(layout, speciesGlyph->getSpeciesId());
-        alias_element_setAliasGraphicalObjectPosition(aliasSpeciesGlyph, speciesGlyph, defaults_getAliasSpeciesGlyphPadding());
+        alias_element_setAliasGraphicalObjectPosition(aliasSpeciesGlyph, speciesGlyph, padding);
         alias_element_setAliasSpeciesGlyphDimensions(aliasSpeciesGlyph, speciesGlyph);
         alias_element_setAliasSpeciesGlyphTextGlyph(layout, aliasSpeciesGlyph);
     }

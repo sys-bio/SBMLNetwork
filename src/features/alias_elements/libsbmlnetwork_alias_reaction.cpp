@@ -10,18 +10,19 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int alias_element_createAliasReactionGlyph(SBMLDocument* document, Layout* layout, ReactionGlyph* reactionGlyph) {
         if (document && reactionGlyph) {
-            ReactionGlyph* aliasReactionGlyph = alias_element_createAliasReactionGlyph(layout, reactionGlyph);
-            return alias_element_createAliasSpeciesReferenceGlyphs(document, layout, reactionGlyph, aliasReactionGlyph);
+            double padding = getReactionGlyphs(layout, reactionGlyph->getReactionId()).size() * defaults_getAliasReactionGlyphPadding();
+            ReactionGlyph* aliasReactionGlyph = alias_element_createAliasReactionGlyph(layout, reactionGlyph, padding);
+            return alias_element_createAliasSpeciesReferenceGlyphs(document, layout, reactionGlyph, aliasReactionGlyph, padding);
         }
 
         return -1;
     }
 
-    ReactionGlyph* alias_element_createAliasReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph) {
+    ReactionGlyph* alias_element_createAliasReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph, const double& padding) {
         ReactionGlyph* aliasReactionGlyph = NULL;
         if (reactionGlyph) {
             aliasReactionGlyph = set_layout_features_createReactionGlyph(layout, reactionGlyph->getReactionId());
-            alias_element_setAliasGraphicalObjectPosition(aliasReactionGlyph, reactionGlyph, defaults_getAliasReactionGlyphPadding());
+            alias_element_setAliasGraphicalObjectPosition(aliasReactionGlyph, reactionGlyph, padding);
             alias_element_setAliasReactionGlyphTextGlyph(layout, aliasReactionGlyph, reactionGlyph);
         }
 
@@ -36,7 +37,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         }
     }
 
-    int alias_element_createAliasSpeciesReferenceGlyphs(SBMLDocument* document, Layout* layout, ReactionGlyph* referenceReactionGlyph, ReactionGlyph* reactionGlyph) {
+    int alias_element_createAliasSpeciesReferenceGlyphs(SBMLDocument* document, Layout* layout, ReactionGlyph* referenceReactionGlyph, ReactionGlyph* reactionGlyph, const double& padding) {
         std::map <std::string, std::string> speciesGlyphAliasSpeciesGlyphIds;
         for (unsigned int i = 0; i < referenceReactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
             SpeciesReferenceGlyph *speciesReferenceGlyph = referenceReactionGlyph->getSpeciesReferenceGlyph(i);
@@ -44,7 +45,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
             if (speciesGlyph) {
                 SpeciesGlyph *connectedSpeciesGlyph = NULL;
                 if (speciesGlyphAliasSpeciesGlyphIds.find(speciesGlyph->getId()) == speciesGlyphAliasSpeciesGlyphIds.end())
-                    connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph);
+                    connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph, padding);
                 else
                     connectedSpeciesGlyph = layout->getSpeciesGlyph(
                             speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
@@ -54,7 +55,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                             findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
                     for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
                         alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
-                                                         connectedSpeciesGlyph->getId(), stoichiometryIndex);
+                                                         connectedSpeciesGlyph->getId(), stoichiometryIndex, padding);
                 }
             }
             else
@@ -64,10 +65,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return 0;
     }
 
-    SpeciesReferenceGlyph* alias_element_createAliasSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const std::string& speciesGlyphId, unsigned int stoichiometryIndex) {
+    SpeciesReferenceGlyph* alias_element_createAliasSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const std::string& speciesGlyphId, unsigned int stoichiometryIndex, const double& padding) {
         SpeciesReferenceGlyph* aliasSpeciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(reactionGlyph, speciesGlyphId, stoichiometryIndex);
         aliasSpeciesReferenceGlyph->setRole(referenceSpeciesReferenceGlyph->getRole());
-        set_layout_features_setSpeciesReferenceGlyphCurve(aliasSpeciesReferenceGlyph, referenceSpeciesReferenceGlyph);
+        set_layout_features_setSpeciesReferenceGlyphCurve(aliasSpeciesReferenceGlyph, referenceSpeciesReferenceGlyph, padding);
         return aliasSpeciesReferenceGlyph;
     }
 

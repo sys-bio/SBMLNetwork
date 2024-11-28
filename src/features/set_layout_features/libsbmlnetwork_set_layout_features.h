@@ -87,7 +87,7 @@ const std::string set_layout_features_getSpeciesReferenceGlyphId(ReactionGlyph* 
 
 void set_layout_features_setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
-void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph);
+void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const double& padding=0.0);
 
 void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
