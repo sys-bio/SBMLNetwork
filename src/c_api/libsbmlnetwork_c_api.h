@@ -283,21 +283,80 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// or @c 0 if the object is @c NULL or has no associated GraphicalObject objects
     LIBSBMLNETWORK_EXTERN const int c_api_getNumGraphicalObjects(SBMLDocument* document, const char* id, int layoutIndex = 0);
 
-    /// @brief Returns the id of the GraphicalObject with the given index associated with the given model entity id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @brief Predicate returning true if the id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id is set.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param id the id of the model entity the id of the GraphicalObject associated with it is going to be returned.
-    /// @param graphicalObjectIndex the index of the GraphicalObject.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
-    /// @return the id of the GraphicalObject with the given index associated with the given model entity id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getGraphicalObjectId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0);
+    /// @return @c true if the id of the GraphicalObject is set, false otherwise
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex);
 
-    /// @brief Returns the meta id of the GraphicalObject with the given index associated with the given model entity id of the Layout object with the given index in the ListOfLayouts of the SBML document.
+    /// @brief Returns the id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
     /// @param document a pointer to the SBMLDocument object.
-    /// @param id the id of the model entity the id of the GraphicalObject associated with it is going to be returned.
-    /// @param graphicalObjectIndex the index of the GraphicalObject.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
-    /// @return the meta id of the GraphicalObject with the given index associated with the given model entity id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getGraphicalObjectMetaId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0);
+    /// @return the id of the GraphicalObject, or @c "" if the id is not set or the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Sets the id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectId the id of the GraphicalObject.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Predicate returning true if the meta id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the meta id of the GraphicalObject is set, false otherwise
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Returns the meta id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the meta id of the GraphicalObject, or @c "" if the meta id is not set or the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Sets the meta id of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param metaId the meta id of the GraphicalObject.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setMetaId(SBMLDocument* document, const char* entityId, const char* metaId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Predicate returning true if the name of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id is set.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @c true if the name of the GraphicalObject is set, false otherwise
+    LIBSBMLNETWORK_EXTERN bool c_api_isSetName(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Returns the name of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the name of the GraphicalObject, or @c "" if the name is not set or the object does not exists.
+    LIBSBMLNETWORK_EXTERN const char* c_api_getName(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex);
+
+    /// @brief Sets the name of the GraphicalObject with the given id in the Layout object with the given index of the SBML document associated with the entered model entity id.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param entityId the id of the model entity.
+    /// @param name the name of the GraphicalObject.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setName(SBMLDocument* document, const char* entityId, const char* name, int graphicalObjectIndex, int layoutIndex);
 
     /// @brief Returns the number of Compartment objects in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -324,22 +383,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the number of CompartmentGlyph objects associated with the entered compartment id,
     /// or @c 0 if the object is @c NULL or has no associated CompartmentGlyph objects
     LIBSBMLNETWORK_EXTERN const int c_api_getNumCompartmentGlyphs(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0);
-
-    /// @brief Returns the id of the CompartmentGlyph with the given index associated with the given compartment id of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param compartmentId the id of the compartment the id of the CompartmentGlyph object associated with it is going to be returned.
-    /// @param compartmentGlyphIndex the index of the CompartmentGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the id of the CompartmentGlyph with the given index associated with the given compartment id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentGlyphId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0);
-
-    /// @brief Returns the meta id of the CompartmentGlyph with the given index associated with the given compartment id of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param compartmentId the id of the compartment the id of the CompartmentGlyph object associated with it is going to be returned.
-    /// @param compartmentGlyphIndex the index of the CompartmentGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the meta id of the CompartmentGlyph with the given index associated with the given compartment id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentGlyphMetaId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0);
 
     /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the Layout object with the given index of the SBML document is of type CompartmentGlyph.
     /// @param document a pointer to the SBMLDocument object.
@@ -381,22 +424,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the number of SpeciesGlyph objects associated with the entered species id,
     /// or @c 0 if the object is @c NULL or has no associated SpeciesGlyph objects
     LIBSBMLNETWORK_EXTERN const int c_api_getNumSpeciesGlyphs(SBMLDocument* document, const char* speciesId, int layoutIndex);
-
-    /// @brief Returns the id of the SpeciesGlyph object with the given index associated with the given species id of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param speciesId the id of the species the id of the SpeciesGlyph object associated with it is going to be returned.
-    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the id of the SpeciesGlyph with the given index associated with the given species id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesGlyphId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0);
-
-    /// @brief Returns the meta id of the SpeciesGlyph object with the given index associated with the given species id of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param speciesId the id of the species the id of the SpeciesGlyph object associated with it is going to be returned.
-    /// @param speciesGlyphIndex the index of the SpeciesGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the meta id of the SpeciesGlyph object with the given index associated with the given species id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0);
 
     /// @brief Sets which SpeciesGlyph of Species with the given id  to be assigned to the ReactionGlyph with the given id and index in the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -448,22 +475,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return the number of ReactionGlyph objects associated with the entered reaction id,
     /// or @c 0 if the object is @c NULL or has no associated ReactionGlyph objects
     LIBSBMLNETWORK_EXTERN const int c_api_getNumReactionGlyphs(SBMLDocument* document, const char* reactionId, int layoutIndex);
-
-    /// @brief Returns the id of the ReactionGlyph object with the given index associated with the given reaction id of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param reactionId the id of the reaction the id of the ReactionGlyph object associated with it is going to be returned.
-    /// @param reactionGlyphIndex the index of the ReactionGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the id of the ReactionGlyph object with the given index associated with the given reaction id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0);
-
-    /// @brief Returns the meta id of the ReactionGlyph object with the given index associated with the given reaction id of the Layout object with the given index in the ListOfLayouts of the SBML document.
-    /// @param document a pointer to the SBMLDocument object.
-    /// @param reactionId the id of the reaction the id of the ReactionGlyph object associated with it is going to be returned.
-    /// @param reactionGlyphIndex the index of the ReactionGlyph object.
-    /// @param layoutIndex the index number of the Layout to return.
-    /// @return the meta id of the ReactionGlyph object with the given index associated with the given reaction id, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0);
 
     /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the Layout object with the given index of the SBML document is of type SpeciesGlyph.
     /// @param document a pointer to the SBMLDocument object.

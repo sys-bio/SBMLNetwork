@@ -113,57 +113,6 @@ LIBSBMLNETWORK_EXTERN int distribute(SBMLDocument* document, std::set<std::pair<
 /// @return a pointer to the first element found with the given identifier.
 SBase* getSBMLObject(SBMLDocument* document, const std::string& id);
 
-/// @brief Predicates returning @c true if the "id" attribute of this SBML object is set.
-/// @param object a pointer to the SBML object.
-/// @return @c true if the "id" attribute of this SBML object is set, @c false if either the "id"
-/// attribute is not set or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN bool isSetId(SBase* object);
-
-/// Returns the value of the "id" attribute of this SBML object.
-/// @param object a pointer to the SBML object.
-/// @return the "id" attribute of the SBML object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getId(SBase* object);
-
-/// @brief Sets the value of the "id" attribute this SBML object.
-/// @param object a pointer to the SBML object.
-/// @param sid a string value to be set as "id" attribute of the SBML object.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setId(SBase* object, const std::string& sid);
-
-/// @brief Predicates returning @c true if the "name" attribute of this SBML object is set.
-/// @param object a pointer to the SBML object.
-/// @return @c true if the "name" attribute of this SBML object is set, @c false if either the "name"
-/// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetName(SBase* object);
-
-/// Returns the value of the "name" attribute of this SBML object.
-/// @param object a pointer to the SBML object.
-/// @return the "name" attribute of the SBML object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getName(SBase* object);
-
-/// @brief Sets the value of the "name" attribute this SBML object.
-/// @param object a pointer to the SBML object.
-/// @param name a string value to be set as "name" attribute of the SBML object.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setName(SBase* object, const std::string& name);
-
-/// @brief Predicates returning @c true if the "metaid" attribute of this SBML object is set.
-/// @param object a pointer to the SBML object.
-/// @return @c true if the "metaid" attribute of this SBML object is set, @c false if either the "metaid"
-/// attribute is not set or the object is @c NULL .
-LIBSBMLNETWORK_EXTERN bool isSetMetaId(SBase* object);
-
-/// Returns the value of the "metaid" attribute of this SBML object.
-/// @param object a pointer to the SBML object.
-/// @return the "metaid" attribute of the SBML object, or @c "" if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const std::string getMetaId(SBase* object);
-
-/// @brief Sets the value of the "metaid" attribute this SBML object.
-/// @param object a pointer to the SBML object.
-/// @param metaid a string value to be set as "metaid" attribute of the SBML object.
-/// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int setMetaId(SBase* object, const std::string& metaid);
-
 /// @brief Returns the number of Compartment objects in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the number of Compartment objects in the given SBML document.

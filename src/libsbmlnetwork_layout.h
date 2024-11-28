@@ -73,6 +73,75 @@ LIBSBMLNETWORK_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(Layout* 
 /// @return a pointer to the GraphicalObject object with the given index associated with the entered id, or NULL is GraphicalObject object does not exist or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
+/// @brief Predicates returning true if the id of the GraphicalObject with the given index inf the Layout object associated with the entered model entity id is set.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the id of the GraphicalObject with the given index is set, false otherwise
+LIBSBMLNETWORK_EXTERN bool isSetId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Returns the id of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the value of the "id" attribute of the GraphicalObject object with the given index associated with the entered id, or @c "" if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Sets the id of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param graphicalObjectId the id to set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectId);
+
+/// @brief Predicate returning true if the metaId of the GraphicalObject with the given index of the Layout object associated with the entered id is set.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the metaId of the GraphicalObject with the given index is set, false otherwise
+LIBSBMLNETWORK_EXTERN bool isSetMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Returns the metaId of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the value of the "metaId" attribute of the GraphicalObject object with the given index associated with the entered id, or @c "" if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Sets the metaId of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param graphicalObjectMetaId the metaId to set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId);
+
+/// @brief Predicate returning true if the name of the GraphicalObject with the given index of the Layout object associated with the entered id is set.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the name of the GraphicalObject with the given index is set, false otherwise
+LIBSBMLNETWORK_EXTERN bool isSetName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Returns the name of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the value of the "name" attribute of the GraphicalObject object with the given index associated with the entered id, or @c "" if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Sets the name of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param name the name to set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& name);
+
 /// @brief Returns the number of CompartmentGlyph objects of the Layout object.
 /// @param layout a pointer to the Layout object
 /// @return the number of the CompartmentGlyph objects of the Layout object, or @c 0 if the object is @c NULL

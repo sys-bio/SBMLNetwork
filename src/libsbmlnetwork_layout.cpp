@@ -107,6 +107,78 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const
     return NULL;
 }
 
+bool isSetId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->isSetId();
+
+    return false;
+}
+
+const std::string getId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getId();
+
+    return "";
+}
+
+int setId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectId) {
+    return updateGraphicalObjectId(layout, getGraphicalObject(layout, id, graphicalObjectIndex), graphicalObjectId);
+}
+
+bool isSetMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->isSetMetaId();
+
+    return false;
+}
+
+const std::string getMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getMetaId();
+
+    return "";
+}
+
+int setMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject) {
+        graphicalObject->setMetaId(graphicalObjectMetaId);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->isSetName();
+
+    return false;
+}
+
+const std::string getName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getName();
+
+    return "";
+}
+
+int setName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& name) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject) {
+        graphicalObject->setName(name);
+        return 0;
+    }
+
+    return -1;
+}
+
 const unsigned int getNumCompartmentGlyphs(Layout* layout) {
     if (layout)
         return layout->getNumCompartmentGlyphs();

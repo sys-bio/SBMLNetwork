@@ -206,6 +206,42 @@ GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutI
     return getGraphicalObject(getLayout(document, layoutIndex), id, graphicalObjectIndex);
 }
 
+bool isSetId(SBMLDocument* document, unsigned int layoutIndex,  const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetId(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+const std::string getId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getId(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+int setId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId) {
+    return setId(getLayout(document, layoutIndex), id, graphicalObjectIndex, graphicalObjectId);
+}
+
+bool isSetMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetMetaId(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+const std::string getMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getMetaId(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+int setMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId) {
+    return setMetaId(getLayout(document, layoutIndex), id, graphicalObjectIndex, graphicalObjectMetaId);
+}
+
+bool isSetName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetName(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+const std::string getName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getName(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
+int setName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectName) {
+    return setName(getLayout(document, layoutIndex), id, graphicalObjectIndex, graphicalObjectName);
+}
+
 const unsigned int getNumCompartmentGlyphs(SBMLDocument* document, unsigned int layoutIndex) {
     return getNumCompartmentGlyphs(getLayout(document, layoutIndex));
 }
@@ -740,14 +776,16 @@ const std::string getText(SBMLDocument* document, unsigned int layoutIndex, cons
     if (!text.empty()) {
         return text;
     }
-    if (user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false") {
-        text = getName(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
+    SBase* sBase = getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex));
+    if (sBase) {
+        if (user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false") {
+            text = sBase->getName();
+            if (!text.empty())
+                return text;
+        }
+        text = sBase->getId();
         if (!text.empty())
             return text;
-    }
-    text = getId(getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex)));
-    if (!text.empty()) {
-        return text;
     }
     text = getGraphicalObjectId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
     if (!text.empty()) {

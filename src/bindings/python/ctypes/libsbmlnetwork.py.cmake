@@ -763,39 +763,155 @@ class LibSBMLNetwork:
             """
         return lib.c_api_getNumGraphicalObjects(self.sbml_object, str(id).encode(), layout_index)
 
-    def getGraphicalObjectId(self, id, index, layout_index=0):
+    def isSetId(self, id, graphical_object_index=0, layout_index=0):
         """
-        Returns the id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+        Returns whether the id GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
 
         :Parameters:
 
-            - id (string): a string that determines the id of the GraphicalObject
-            - index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+            true if the id GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
         """
-        lib.c_api_getGraphicalObjectId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getGraphicalObjectId(self.sbml_object, str(id).encode(), index, layout_index)).value.decode()
+        return lib.c_api_isSetId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def getGraphicalObjectMetaId(self, id, index, layout_index=0):
+    def getId(self, id, graphical_object_index=0, layout_index=0):
         """
-        Returns the meta id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+        Returns the id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
 
         :Parameters:
 
-            - id (string): a string that determines the id of the GraphicalObject
-            - index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the meta id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+            a string that determines the id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
         """
-        lib.c_api_getGraphicalObjectMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getGraphicalObjectMetaId(self.sbml_object, str(id).encode(), index, layout_index)).value.decode()
+        lib.c_api_getId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
+    def setId(self, id, graphical_object_id, graphical_object_index=0, layout_index=0):
+        """
+        Sets the id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_id (string): a string to be set as the id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the id of the GraphicalObject could not be set
+        """
+        return lib.c_api_setId(self.sbml_object, str(id).encode(), str(graphical_object_id).encode(), graphical_object_index, layout_index)
+
+    def isSetMetaId(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetMetaId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def getMetaId(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getMetaId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getMetaId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
+    def setMetaId(self, id, meta_id, graphical_object_index=0, layout_index=0):
+        """
+        Sets the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - meta_id (string): a string to be set as the meta id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the meta id of the GraphicalObject could not be set
+        """
+        return lib.c_api_setMetaId(self.sbml_object, str(id).encode(), str(meta_id).encode(), graphical_object_index, layout_index)
+
+    def isSetName(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetName(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def getName(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getName.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getName(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
+    def setName(self, id, name, graphical_object_index=0, layout_index=0):
+        """
+        Sets the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - name (string): a string to be set as the name of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the name of the GraphicalObject could not be set
+        """
+        return lib.c_api_setName(self.sbml_object, str(id).encode(), str(name).encode(), graphical_object_index, layout_index)
 
     def getListOfCompartmentIds(self):
         """
@@ -841,40 +957,6 @@ class LibSBMLNetwork:
                 an integer that determines the number of CompartmentGlyphs associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
             """
         return lib.c_api_getNumCompartmentGlyphs(self.sbml_object, str(compartment_id).encode(), layout_index)
-
-    def getCompartmentGlyphId(self, compartment_id, index, layout_index=0):
-        """
-        Returns the id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - compartment_id (string): a string that determines the id of the Compartment
-            - index (int): an integer that determines the index of the CompartmentGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getCompartmentGlyphId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getCompartmentGlyphId(self.sbml_object, str(compartment_id).encode(), index, layout_index)).value.decode()
-
-    def getCompartmentGlyphMetaId(self, compartment_id, index, layout_index=0):
-        """
-        Returns the meta id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - compartment_id (string): a string that determines the id of the Compartment
-            - index (int): an integer that determines the index of the CompartmentGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the meta id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getCompartmentGlyphMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getCompartmentGlyphMetaId(self.sbml_object, str(compartment_id).encode(), index, layout_index)).value.decode()
 
     def isCompartmentGlyph(self, compartment_id, layout_index=0):
         """
@@ -952,40 +1034,6 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumSpeciesGlyphs(self.sbml_object, str(species_id).encode(), layout_index)
 
-    def getSpeciesGlyphId(self, species_id, index, layout_index=0):
-        """
-        Returns the id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - species_id (string): a string that determines the id of the Species
-            - index (int): an integer that determines the index of the SpeciesGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getSpeciesGlyphId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getSpeciesGlyphId(self.sbml_object, str(species_id).encode(), index, layout_index)).value.decode()
-
-    def getSpeciesGlyphMetaId(self, species_id, index, layout_index=0):
-        """
-        Returns the meta id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - species_id (string): a string that determines the id of the Species
-            - index (int): an integer that determines the index of the SpeciesGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the meta id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getSpeciesGlyphMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getSpeciesGlyphMetaId(self.sbml_object, str(species_id).encode(), index, layout_index)).value.decode()
-
     def getSpeciesGlyphIndex(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
         Returns the index of the SpeciesGlyph with the given species_id associated with the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
@@ -1002,7 +1050,6 @@ class LibSBMLNetwork:
             an integer that determines the index of the SpeciesGlyph with the given species_id associated with the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
         """
         return lib.c_api_getSpeciesGlyphIndex(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, layout_index)
-
 
     def isSpeciesGlyph(self, species_id, layout_index=0):
         """
@@ -1063,40 +1110,6 @@ class LibSBMLNetwork:
             """
 
         return lib.c_api_getNumReactionGlyphs(self.sbml_object, str(reaction_id).encode(), layout_index)
-
-    def getReactionGlyphId(self, reaction_id, index, layout_index=0):
-        """
-        Returns the id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - reaction_id (string): a string that determines the id of the Reaction
-            - index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getReactionGlyphId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getReactionGlyphId(self.sbml_object, str(reaction_id).encode(), index, layout_index)).value.decode()
-
-    def getReactionGlyphMetaId(self, reaction_id, index, layout_index=0):
-        """
-        Returns the meta id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - reaction_id (string): a string that determines the id of the Reaction
-            - index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the meta id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getReactionGlyphMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getReactionGlyphMetaId(self.sbml_object, str(reaction_id).encode(), index, layout_index)).value.decode()
 
     def isReactionGlyph(self, reaction_id, layout_index=0):
         """

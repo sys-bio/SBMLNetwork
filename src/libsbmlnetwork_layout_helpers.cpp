@@ -581,6 +581,84 @@ int setCurveMiddlePositionY(Curve* curve, const double& y) {
     return -1;
 }
 
+int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId) {
+    if (graphicalObject && !newId.empty() && getGraphicalObjectUsingItsOwnId(layout, newId) == NULL) {
+        if (isSpeciesGlyph(graphicalObject)) {
+            std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = getSpeciesReferencesAssociatedWithSpeciesGlyph(layout, graphicalObject->getId());
+            for (unsigned int i = 0; i < speciesReferenceGlyphs.size(); i++)
+                updateSpeciesReferenceGlyphSpeciesGlyphId(speciesReferenceGlyphs.at(i), graphicalObject->getId(), newId);
+            std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+            for (unsigned int i = 0; i < textGlyphs.size(); i++)
+                updateTextGlyphGraphicalObjectId(textGlyphs.at(i), graphicalObject->getId(), newId);
+            BoundingBox* boundingBox = graphicalObject->getBoundingBox();
+            if (boundingBox)
+                boundingBox->setId(newId + "_bb");
+        }
+        else if (isReactionGlyph(graphicalObject)) {
+            std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = getSpeciesReferenceGlyphs((ReactionGlyph*)graphicalObject);
+            for (unsigned int i = 0; i < speciesReferenceGlyphs.size(); i++)
+                updateSpeciesReferenceGlyphReactionGlyphId(speciesReferenceGlyphs.at(i), graphicalObject->getId(), newId);
+            std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
+            for (unsigned int i = 0; i < textGlyphs.size(); i++)
+                updateTextGlyphGraphicalObjectId(textGlyphs.at(i), graphicalObject->getId(), newId);
+            BoundingBox* boundingBox = graphicalObject->getBoundingBox();
+            if (boundingBox)
+                boundingBox->setId(newId + "_bb");
+        }
+        graphicalObject->setId(newId);
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int updateSpeciesReferenceGlyphSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalSpeciesGlyphId, const std::string& newSpeciesGlyphId) {
+    if (speciesReferenceGlyph) {
+        std::string speciesReferenceGlyphId = speciesReferenceGlyph->getId();
+        std::string::size_type pos = speciesReferenceGlyphId.find(originalSpeciesGlyphId);
+        if (pos != std::string::npos)
+            speciesReferenceGlyphId.replace(pos, originalSpeciesGlyphId.length(), newSpeciesGlyphId);
+        speciesReferenceGlyph->setId(speciesReferenceGlyphId);
+        if (speciesReferenceGlyph->getSpeciesGlyphId() == originalSpeciesGlyphId)
+            speciesReferenceGlyph->setSpeciesGlyphId(newSpeciesGlyphId);
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int updateSpeciesReferenceGlyphReactionGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalReactionGlyphId, const std::string& newReactionGlyphId) {
+    if (speciesReferenceGlyph) {
+        std::string speciesReferenceGlyphId = speciesReferenceGlyph->getId();
+        std::string::size_type pos = speciesReferenceGlyphId.find(originalReactionGlyphId);
+        if (pos != std::string::npos)
+            speciesReferenceGlyphId.replace(pos, originalReactionGlyphId.length(), newReactionGlyphId);
+        speciesReferenceGlyph->setId(speciesReferenceGlyphId);
+
+        return 0;
+    }
+
+    return -1;
+}
+
+int updateTextGlyphGraphicalObjectId(TextGlyph* textGlyph, const std::string& originalGraphicalObjectId, const std::string& newGraphicalObjectId) {
+    if (textGlyph) {
+        std::string textGlyphId = textGlyph->getId();
+        std::string::size_type pos = textGlyphId.find(originalGraphicalObjectId);
+        if (pos != std::string::npos)
+            textGlyphId.replace(pos, originalGraphicalObjectId.length(), newGraphicalObjectId);
+        textGlyph->setId(textGlyphId);
+        if (textGlyph->getGraphicalObjectId() == originalGraphicalObjectId)
+            textGlyph->setGraphicalObjectId(newGraphicalObjectId);
+
+        return 0;
+    }
+
+    return -1;
+}
+
 const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase) {
     if (isValidDimensionValue(width, sBase) && width > 6 * defaults_getDefaultAutoLayoutPadding())
         return true;

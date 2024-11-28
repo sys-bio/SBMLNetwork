@@ -221,20 +221,40 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getNumGraphicalObjects(document, layoutIndex, id);
     }
 
-    const char* c_api_getGraphicalObjectId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
-        GraphicalObject* graphicalObject = getGraphicalObject(document, layoutIndex, entityId, graphicalObjectIndex);
-        if (graphicalObject)
-            return strdup(graphicalObject->getId().c_str());
-
-        return "";
+    bool c_api_isSetId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        return isSetId(document, layoutIndex, entityId, graphicalObjectIndex);
     }
 
-    const char* c_api_getGraphicalObjectMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
-        GraphicalObject* graphicalObject = getGraphicalObject(document, layoutIndex, entityId, graphicalObjectIndex);
-        if (graphicalObject)
-            return strdup(graphicalObject->getMetaId().c_str());
+    const char* c_api_getId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getId(document, layoutIndex, entityId, graphicalObjectIndex).c_str());
+    }
 
-        return "";
+    int c_api_setId(SBMLDocument* document, const char* entityId, const char* graphicalObjectId, int graphicalObjectIndex, int layoutIndex) {
+        return setId(document, layoutIndex, entityId, graphicalObjectIndex, graphicalObjectId);
+    }
+
+    bool c_api_isSetMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        return isSetMetaId(document, layoutIndex, entityId, graphicalObjectIndex);
+    }
+
+    const char* c_api_getMetaId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getId(document, layoutIndex, entityId, graphicalObjectIndex).c_str());
+    }
+
+    int c_api_setMetaId(SBMLDocument* document, const char* entityId, const char* metaId, int graphicalObjectIndex, int layoutIndex) {
+        return setMetaId(document, layoutIndex, entityId, graphicalObjectIndex, metaId);
+    }
+
+    bool c_api_isSetName(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        return isSetName(document, layoutIndex, entityId, graphicalObjectIndex);
+    }
+
+    const char* c_api_getName(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
+        return strdup(getName(document, layoutIndex, entityId, graphicalObjectIndex).c_str());
+    }
+
+    int c_api_setName(SBMLDocument* document, const char* entityId, const char* name, int graphicalObjectIndex, int layoutIndex) {
+        return setName(document, layoutIndex, entityId, graphicalObjectIndex, name);
     }
 
     const int c_api_getNumCompartments(SBMLDocument* document) {
@@ -251,22 +271,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     const int c_api_getNumCompartmentGlyphs(SBMLDocument* document, const char* compartmentId, int layoutIndex) {
         return getNumCompartmentGlyphs(document, layoutIndex, compartmentId);
-    }
-
-    const char* c_api_getCompartmentGlyphId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex) {
-        CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(document, layoutIndex, compartmentId, compartmentGlyphIndex);
-        if (compartmentGlyph)
-            return strdup(compartmentGlyph->getId().c_str());
-
-        return "";
-    }
-
-    const char* c_api_getCompartmentGlyphMetaId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex) {
-        CompartmentGlyph* compartmentGlyph = getCompartmentGlyph(document, layoutIndex, compartmentId, compartmentGlyphIndex);
-        if (compartmentGlyph)
-            return strdup(compartmentGlyph->getMetaId().c_str());
-
-        return "";
     }
 
     bool c_api_isCompartmentGlyph(SBMLDocument* document, const char* compartmentId, int layoutIndex) {
@@ -291,22 +295,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     const int c_api_getNumSpeciesGlyphs(SBMLDocument* document, const char* speciesId, int layoutIndex) {
         return getNumSpeciesGlyphs(document, layoutIndex, speciesId);
-    }
-
-    const char* c_api_getSpeciesGlyphId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex) {
-        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(document, layoutIndex, speciesId, speciesGlyphIndex);
-        if (speciesGlyph)
-            return strdup(speciesGlyph->getId().c_str());
-
-        return "";
-    }
-
-    const char* c_api_getSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex) {
-        SpeciesGlyph* speciesGlyph = getSpeciesGlyph(document, layoutIndex, speciesId, speciesGlyphIndex);
-        if (speciesGlyph)
-            return strdup(speciesGlyph->getMetaId().c_str());
-
-        return "";
     }
 
     const int c_api_setSpeciesGlyphIndexInReactionGlyph(SBMLDocument* document, const char* speciesId, const char* reactionId, int index, int reactionGlyphIndex, int layoutIndex) {
@@ -335,22 +323,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     const int c_api_getNumReactionGlyphs(SBMLDocument* document, const char* reactionId, int layoutIndex) {
         return getNumReactionGlyphs(document, layoutIndex, reactionId);
-    }
-
-    const char* c_api_getReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
-        ReactionGlyph* reactionGlyph = getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex);
-        if (reactionGlyph)
-            return strdup(reactionGlyph->getId().c_str());
-
-        return "";
-    }
-
-    const char* c_api_getReactionGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex) {
-        ReactionGlyph* reactionGlyph = getReactionGlyph(document, layoutIndex, reactionId, reactionGlyphIndex);
-        if (reactionGlyph)
-            return strdup(reactionGlyph->getMetaId().c_str());
-
-        return "";
     }
 
     bool c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex) {

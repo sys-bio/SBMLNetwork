@@ -255,6 +255,81 @@ LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document
 /// @return a pointer the GraphicalObject object with the given index associated with the entered model entity id.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
+/// @brief Predicates Returning @c true if the id of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be checked.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to check.
+/// @return @c true if the id of the GraphicalObject object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
+/// @brief Returns the id of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to return.
+/// @return the id of the GraphicalObject object, or @c "" if the object is @c NULL or the id is not set.
+LIBSBMLNETWORK_EXTERN const std::string getId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
+/// @brief Sets the id of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be set.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to set.
+/// @param graphicalObjectId the id to set for the GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId);
+
+/// @brief Predicates Returning @c true if the metaid of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be checked.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to check.
+/// @return @c true if the metaid of the GraphicalObject object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
+/// @brief Returns the metaid of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to return.
+/// @return the metaid of the GraphicalObject object, or @c "" if the object is @c NULL or the metaid is not set.
+LIBSBMLNETWORK_EXTERN const std::string getMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
+/// @brief Sets the metaid of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be set.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to set.
+/// @param graphicalObjectMetaId the metaid to set for the GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setMetaId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId);
+
+/// @brief Predicates Returning @c true if the name of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id is set.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be checked.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to check.
+/// @return @c true if the name of the GraphicalObject object is set, @c false otherwise.
+LIBSBMLNETWORK_EXTERN bool isSetName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
+/// @brief Returns the name of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be returned.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to return.
+/// @return the name of the GraphicalObject object, or @c "" if the object is @c NULL or the name is not set.
+LIBSBMLNETWORK_EXTERN const std::string getName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
+/// @brief Sets the name of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
+/// associated with the entered model entity id.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the model entity the GraphicalObject object associated with it is going to be set.
+/// @param graphicalObjectIndex the index number of the GraphicalObject object to set.
+/// @param graphicalObjectName the name to set for the GraphicalObject object.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setName(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectName);
+
 /// @brief Returns the number of CompartmentGlyphs of the Layout object with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.

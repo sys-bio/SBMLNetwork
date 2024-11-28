@@ -130,6 +130,14 @@ int setCurveMiddlePositionX(Curve* curve, const double& x);
 
 int setCurveMiddlePositionY(Curve* curve, const double& y);
 
+int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId);
+
+int updateSpeciesReferenceGlyphSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalSpeciesGlyphId, const std::string& newSpeciesGlyphId);
+
+int updateSpeciesReferenceGlyphReactionGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalReactionGlyphId, const std::string& newReactionGlyphId);
+
+int updateTextGlyphGraphicalObjectId(TextGlyph* textGlyph, const std::string& originalGraphicalObjectId, const std::string& newGraphicalObjectId);
+
 const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase = NULL);
 
 const bool isValidLayoutDimensionHeightValue(const double& height, SBase* sBase = NULL);
