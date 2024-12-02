@@ -206,6 +206,14 @@ GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutI
     return getGraphicalObject(getLayout(document, layoutIndex), id, graphicalObjectIndex);
 }
 
+int removeGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return removeGraphicalObject(getLayout(document), id, graphicalObjectIndex);
+}
+
+int removeGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return removeGraphicalObject(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+}
+
 bool isSetId(SBMLDocument* document, unsigned int layoutIndex,  const std::string& id, unsigned int graphicalObjectIndex) {
     return isSetId(getLayout(document, layoutIndex), id, graphicalObjectIndex);
 }
@@ -897,6 +905,29 @@ bool isTextGlyph(SBMLDocument* document, const std::string& id, unsigned int tex
 
 bool isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex) {
     return isTextGlyph(getLayout(document, layoutIndex), id, textGlyphIndex);
+}
+
+const unsigned int getNumAdditionalGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex) {
+    return getNumAdditionalGraphicalObjects(getLayout(document, layoutIndex));
+}
+
+GraphicalObject* getAdditionalGraphicalObject(SBMLDocument* document, unsigned int additionalGraphicalObjectIndex) {
+    return getAdditionalGraphicalObject(getLayout(document), additionalGraphicalObjectIndex);
+}
+
+const std::string getAdditionalGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, unsigned int additionalGraphicalObjectIndex) {
+    return getAdditionalGraphicalObjectId(getLayout(document, layoutIndex), additionalGraphicalObjectIndex);
+}
+
+int addAdditionalGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id) {
+    if (set_layout_features_createAdditionalGraphicalObject(getLayout(document, layoutIndex), id))
+        return 0;
+
+    return -1;
+}
+
+int removeAdditionalGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, unsigned int additionalGraphicalObjectIndex) {
+    return set_layout_features_removeAdditionalGraphicalObject(getLayout(document, layoutIndex), additionalGraphicalObjectIndex);
 }
 
 BoundingBox* getBoundingBox(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {

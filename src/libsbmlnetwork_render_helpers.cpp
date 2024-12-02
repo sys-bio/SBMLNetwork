@@ -602,6 +602,7 @@ void addGlobalStyles(GlobalRenderInformation* globalRenderInformation) {
     addSpeciesReferenceGlyphGlobalStyles(globalRenderInformation);
     addEmptySpeciesGlyphGlobalStyle(globalRenderInformation);
     addTextGlyphsGlobalStyles(globalRenderInformation);
+    addGraphicalObjectGlobalStyle(globalRenderInformation);
 }
 
 GlobalStyle* createGlobalStyleByType(GlobalRenderInformation* globalRenderInformation, const std::string& type) {
@@ -690,6 +691,14 @@ void addReactionGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderI
         GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getReactionGlyphTextGlyphStyleType());
         RenderGroup* renderGroup = globalStyle->createGroup();
         setReactionGlyphTextGlyphRenderGroupFeatures(renderGroup);
+    }
+}
+
+void addGraphicalObjectGlobalStyle(GlobalRenderInformation* globalRenderInformation) {
+    if (!findStyleByTypeList(globalRenderInformation, getGraphicalObjectStyleType())) {
+        GlobalStyle* globalStyle = createGlobalStyleByType(globalRenderInformation, getGraphicalObjectStyleType());
+        RenderGroup* renderGroup = globalStyle->createGroup();
+        setGraphicalObjectRenderGroupFeatures(renderGroup);
     }
 }
 
@@ -875,6 +884,14 @@ void setGeneralTextGlyphRenderGroupFeatures(RenderGroup* renderGroup) {
     renderGroup->setVTextAnchor(getDefaultPredefinedStyleFeatures()["species-text-vertical-alignment"]);
 }
 
+void setGraphicalObjectRenderGroupFeatures(RenderGroup* renderGroup) {
+    Rectangle* rectangle = renderGroup->createRectangle();
+    defaults_setDefaultRectangleShapeFeatures(rectangle);
+    rectangle->setRX(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-x"]), 0.0));
+    rectangle->setRY(RelAbsVector(std::stod(getDefaultPredefinedStyleFeatures()["species-border-radius-y"]), 0.0));
+    setGeneralTextGlyphRenderGroupFeatures(renderGroup);
+}
+
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup) {
     if (renderGroup && getNumGeometricShapes(renderGroup) > 1) {
         std::string strokeColor = "black";
@@ -930,17 +947,17 @@ const bool canHaveStrokeDashArray(GraphicalObject* graphicalObject) {
 }
 
 const bool canHaveFillColor(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || isReactionGlyph(graphicalObject))
-        return true;
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return false;
 
-    return false;
+    return true;
 }
 
 const bool canHaveFillRule(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !getCurve(graphicalObject)))
-        return true;
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return false;
 
-    return false;
+    return true;
 }
 
 const bool canHaveFontColor(TextGlyph* textGlyph) {
@@ -1007,17 +1024,17 @@ const bool canHaveEndHead(GraphicalObject* graphicalObject) {
 }
 
 const bool canHaveGeometricShape(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || (isReactionGlyph(graphicalObject) && !isSetCurve(graphicalObject)))
-        return true;
+    if ((isReactionGlyph(graphicalObject) && isSetCurve(graphicalObject)) || isSpeciesReferenceGlyph(graphicalObject))
+        return false;
 
-    return false;
+    return true;
 }
 
 const bool canPotentiallyHaveGeometricShape(GraphicalObject* graphicalObject) {
-    if (isCompartmentGlyph(graphicalObject) || isSpeciesGlyph(graphicalObject) || isReactionGlyph(graphicalObject))
-        return true;
+    if (isSpeciesReferenceGlyph(graphicalObject))
+        return false;
 
-    return false;
+    return true;
 }
 
 const bool isValidBackgroundColorValue(const std::string& backgroundColor, SBase* sBase) {

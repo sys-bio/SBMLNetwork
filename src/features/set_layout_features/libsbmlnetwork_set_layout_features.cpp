@@ -53,6 +53,7 @@ void set_layout_features_clearGraphicalObjects(Layout* layout) {
     set_layout_features_clearSpeciesGlyphs(layout);
     set_layout_features_clearReactionGlyphs(layout);
     set_layout_features_clearTextGlyphs(layout);
+    set_layout_clearAdditionalGraphicalObjects(layout);
 }
 
 void set_layout_features_clearCompartmentGlyphs(Layout* layout) {
@@ -100,6 +101,13 @@ void set_layout_features_clearReactionTextGlyphs(Layout* layout) {
             user_data_freeUserData(textGlyphs.at(j));
             delete layout->removeTextGlyph(textGlyphs.at(j)->getId());
         }
+    }
+}
+
+void set_layout_clearAdditionalGraphicalObjects(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumAdditionalGraphicalObjects(); i++) {
+        user_data_freeUserData(layout->getAdditionalGraphicalObject(i));
+        delete layout->removeAdditionalGraphicalObject(i);
     }
 }
 
@@ -290,6 +298,31 @@ SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(ReactionG
     speciesReferenceGlyph->setSpeciesGlyphId(speciesGlyphId);
 
     return speciesReferenceGlyph;
+}
+
+GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* layout, const std::string& id) {
+    GraphicalObject* graphicalObject = layout->createAdditionalGraphicalObject();
+    graphicalObject->setId(id);
+    set_layout_features_setGraphicalObjectBoundingBox(graphicalObject);
+
+    return graphicalObject;
+}
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const std::string& id) {
+    if (layout->removeAdditionalGraphicalObject(id))
+        return 0;
+
+    return -1;
+}
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const unsigned int graphicalObjectIndex) {
+    if (layout && graphicalObjectIndex < layout->getNumAdditionalGraphicalObjects()) {
+        user_data_freeUserData(layout->getAdditionalGraphicalObject(graphicalObjectIndex));
+        delete layout->removeAdditionalGraphicalObject(graphicalObjectIndex);
+        return 0;
+    }
+
+    return -1;
 }
 
 std::vector<SpeciesReferenceGlyph*> set_layout_features_getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph) {

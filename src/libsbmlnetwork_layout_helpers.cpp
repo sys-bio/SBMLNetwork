@@ -372,8 +372,40 @@ GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::stri
     ReactionGlyph* reactionGlyph = layout->getReactionGlyph(graphicalObjectId);
     if (reactionGlyph)
         return reactionGlyph;
+    GraphicalObject* additionalGraphicalObject = layout->getAdditionalGraphicalObject(graphicalObjectId);
+    if (additionalGraphicalObject)
+        return additionalGraphicalObject;
 
     return NULL;
+}
+
+int removeGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId) {
+    CompartmentGlyph* compartmentGlyph = layout->getCompartmentGlyph(graphicalObjectId);
+    if (compartmentGlyph) {
+        user_data_freeUserData(compartmentGlyph);
+        delete layout->removeCompartmentGlyph(graphicalObjectId);
+        return 0;
+    }
+    SpeciesGlyph* speciesGlyph = layout->getSpeciesGlyph(graphicalObjectId);
+    if (speciesGlyph) {
+        user_data_freeUserData(speciesGlyph);
+        delete layout->removeSpeciesGlyph(graphicalObjectId);
+        return 0;
+    }
+    ReactionGlyph* reactionGlyph = layout->getReactionGlyph(graphicalObjectId);
+    if (reactionGlyph) {
+        user_data_freeUserData(reactionGlyph);
+        delete layout->removeReactionGlyph(graphicalObjectId);
+        return 0;
+    }
+    GraphicalObject* additionalGraphicalObject = layout->getAdditionalGraphicalObject(graphicalObjectId);
+    if (additionalGraphicalObject) {
+        user_data_freeUserData(additionalGraphicalObject);
+        delete layout->removeAdditionalGraphicalObject(graphicalObjectId);
+        return 0;
+    }
+
+    return -1;
 }
 
 const std::string getEntityId(GraphicalObject* graphicalObject) {

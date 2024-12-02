@@ -763,6 +763,22 @@ class LibSBMLNetwork:
             """
         return lib.c_api_getNumGraphicalObjects(self.sbml_object, str(id).encode(), layout_index)
 
+    def removeGraphicalObject(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Removes the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GraphicalObject could not be removed
+        """
+        return lib.c_api_removeGraphicalObject(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
     def isSetId(self, id, graphical_object_index=0, layout_index=0):
         """
         Returns whether the id GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
@@ -2076,6 +2092,66 @@ class LibSBMLNetwork:
             true on success and false if the TextGlyph could not be removed
         """
         return lib.c_api_removeText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
+    def getNumAllAdditionalGraphicalObjects(self, layout_index=0):
+        """
+        Returns the number of AdditionalGraphicalObjects in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of AdditionalGraphicalObjects in the Layout object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumAllAdditionalGraphicalObjects(self.sbml_object, layout_index)
+
+    def getAdditionalGraphicalObjectId(self, additional_graphical_object_index=0, layout_index=0):
+        """
+        Returns the id of the AdditionalGraphicalObject with the given additional_graphical_object_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - additional_graphical_object_index (int): an integer that determines the index of the AdditionalGraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the AdditionalGraphicalObject with the given additional_graphical_object_index and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getAdditionalGraphicalObjectId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getAdditionalGraphicalObjectId(self.sbml_object, additional_graphical_object_index, layout_index)).value.decode()
+
+    def addAdditionalGraphicalObject(self, id, layout_index=0):
+        """
+        Adds an AdditionalGraphicalObject with the given id and layout_index to the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the AdditionalGraphicalObject
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the AdditionalGraphicalObject could not be added
+        """
+        return lib.c_api_addAdditionalGraphicalObject(self.sbml_object, str(id).encode(), layout_index)
+
+    def removeAdditionalGraphicalObject(self, additional_graphical_object_index=0, layout_index=0):
+        """
+        Removes the AdditionalGraphicalObject with the given additional_graphical_object_index and layout_index from the given SBMLDocument
+
+        :Parameters:
+
+            - additional_graphical_object_index (int): an integer that determines the index of the AdditionalGraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the AdditionalGraphicalObject could not be removed
+        """
+        return lib.c_api_removeAdditionalGraphicalObject(self.sbml_object, additional_graphical_object_index, layout_index)
 
     def getX(self, id, graphical_object_index=0, layout_index=0):
         """

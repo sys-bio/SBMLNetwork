@@ -27,6 +27,8 @@ void set_layout_features_clearReactionGlyphs(Layout* layout);
 
 void set_layout_features_clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
 
+void set_layout_clearAdditionalGraphicalObjects(Layout* layout);
+
 void set_layout_features_setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData = {});
 
 void set_layout_features_setReactionGlyphs(Model* model, Layout* layout, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData = {});
@@ -72,6 +74,12 @@ ReactionGlyph* set_layout_features_createReactionGlyph(Layout* layout, const std
 SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData = {});
 
 SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex);
+
+GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* layout, const std::string& id);
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const std::string& id);
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const unsigned int index);
 
 std::vector<SpeciesReferenceGlyph*> set_layout_features_getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
 

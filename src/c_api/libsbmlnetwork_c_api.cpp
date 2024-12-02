@@ -221,6 +221,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return getNumGraphicalObjects(document, layoutIndex, id);
     }
 
+    int c_api_removeGraphicalObject(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return removeGraphicalObject(document, layoutIndex, id, graphicalObjectIndex);
+    }
+
     bool c_api_isSetId(SBMLDocument* document, const char* entityId, int graphicalObjectIndex, int layoutIndex) {
         return isSetId(document, layoutIndex, entityId, graphicalObjectIndex);
     }
@@ -563,6 +567,22 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_removeText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex, int layoutIndex) {
         return removeText(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex);
+    }
+
+    const int c_api_getNumAllAdditionalGraphicalObjects(SBMLDocument* document, int layoutIndex) {
+        return getNumAdditionalGraphicalObjects(document, layoutIndex);
+    }
+
+    const char* c_api_getAdditionalGraphicalObjectId(SBMLDocument* document, int additionalGraphicalObjectIndex, int layoutIndex) {
+        return strdup(getAdditionalGraphicalObjectId(document, layoutIndex, additionalGraphicalObjectIndex).c_str());
+    }
+
+    int c_api_addAdditionalGraphicalObject(SBMLDocument* document, const char* id, int layoutIndex) {
+        return addAdditionalGraphicalObject(document, layoutIndex, id);
+    }
+
+    int c_api_removeAdditionalGraphicalObject(SBMLDocument* document, int additionalGraphicalObjectIndex, int layoutIndex) {
+        return removeAdditionalGraphicalObject(document, layoutIndex, additionalGraphicalObjectIndex);
     }
 
     const double c_api_getX(SBMLDocument* document, const char* id, const int graphicalObjectIndex, int layoutIndex) {

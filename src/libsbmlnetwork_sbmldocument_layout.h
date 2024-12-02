@@ -255,6 +255,10 @@ LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document
 /// @return a pointer the GraphicalObject object with the given index associated with the entered model entity id.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
+LIBSBMLNETWORK_EXTERN int removeGraphicalObject(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex);
+
+LIBSBMLNETWORK_EXTERN int removeGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex);
+
 /// @brief Predicates Returning @c true if the id of the GraphicalObject object with the given index in the Layout object with the given index in the ListOfLayouts of the SBML document
 /// associated with the entered model entity id is set.
 /// @param document a pointer to the SBMLDocument object.
@@ -1804,13 +1808,45 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(SBMLDocument* document, const std::string
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isTextGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int textGlyphIndex = 0);
 
+/// @brief Returns the number of additional GraphicalObject objects associated with the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @return the number of the additional GraphicalObject objects associated with the Layout object, or @c 0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const unsigned int getNumAdditionalGraphicalObjects(SBMLDocument* document, unsigned int layoutIndex = 0);
+
+/// @brief Returns id of the additional GraphicalObject object with the given index associated with the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return the id of the additional GraphicalObject object with the given index, or @c empty string if the object is @c NULL
+LIBSBMLNETWORK_EXTERN GraphicalObject* getAdditionalGraphicalObject(SBMLDocument* document, unsigned int additionalGraphicalObjectIndex = 0);
+
+/// @brief Returns id of the additional GraphicalObject object with the given index associated with the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return the id of the additional GraphicalObject object with the given index, or @c empty string if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getAdditionalGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int additionalGraphicalObjectIndex = 0);
+
+/// @brief Adds a new GraphicalObject object to the first Layout object of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param id the id of the additional GraphicalObject object to be added.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addAdditionalGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, const std::string& id);
+
+/// @brief Removes the additional GraphicalObject object with the given index associated with the Layout object with the given index of the SBML document.
+/// @param document a pointer to the SBMLDocument object.
+/// @param layoutIndex the index number of the Layout to return.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeAdditionalGraphicalObject(SBMLDocument* document, unsigned int layoutIndex, unsigned int additionalGraphicalObjectIndex = 0);
+
 /// Returns the BoundingBox object of the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @param layoutIndex the index number of the Layout to return.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @return a pointer to the BoundingBox object of the GraphicalObject object associated with the entered id, or @c NULL if
 /// the GraphicalObject object does not exits or the object is @c NULL
-    LIBSBMLNETWORK_EXTERN BoundingBox* getBoundingBox(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN BoundingBox* getBoundingBox(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// Returns the BoundingBox object of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.

@@ -3,6 +3,7 @@
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/fix_elements/libsbmlnetwork_fix_element_position.h"
 #include "features/fix_elements/libsbmlnetwork_fix_element_dimensions.h"
+#include "features/set_layout_features/libsbmlnetwork_set_layout_features.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -92,6 +93,9 @@ std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::str
         graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
         std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
+        GraphicalObject* graphicalObject = getGraphicalObjectUsingItsOwnId(layout, id);
+        if (graphicalObject)
+            graphicalObjects.push_back(graphicalObject);
     }
 
     return graphicalObjects;
@@ -101,10 +105,19 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const
     std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
     if (graphicalObjectIndex < graphicalObjects.size())
         return graphicalObjects.at(graphicalObjectIndex);
-    else if (graphicalObjectIndex == 0)
-        return getGraphicalObjectUsingItsOwnId(layout, id);
 
     return NULL;
+}
+
+int removeGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
+    if (graphicalObjectIndex < graphicalObjects.size()) {
+        user_data_freeUserData(graphicalObjects.at(graphicalObjectIndex));
+        delete graphicalObjects.at(graphicalObjectIndex);
+        return 0;
+    }
+
+    return -1;
 }
 
 bool isSetId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
@@ -754,6 +767,36 @@ bool isTextGlyph(GraphicalObject* graphicalObject) {
         return true;
 
     return false;
+}
+
+const unsigned int getNumAdditionalGraphicalObjects(Layout* layout) {
+    if (layout)
+        return layout->getNumAdditionalGraphicalObjects();
+
+    return 0;
+}
+
+GraphicalObject* getAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex) {
+    if (layout && additionalGraphicalObjectIndex < getNumAdditionalGraphicalObjects(layout))
+        return layout->getAdditionalGraphicalObject(additionalGraphicalObjectIndex);
+
+    return NULL;
+}
+
+const std::string getAdditionalGraphicalObjectId(Layout* layout, const unsigned int additionalGraphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getAdditionalGraphicalObject(layout, additionalGraphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getId();
+
+    return "";
+}
+
+GraphicalObject* addAdditionalGraphicalObject(Layout* layout, const std::string& id) {
+    return set_layout_features_createAdditionalGraphicalObject(layout, id);
+}
+
+int removeAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex) {
+    return set_layout_features_removeAdditionalGraphicalObject(layout, additionalGraphicalObjectIndex);
 }
 
 const std::string getSBMLObjectId(Layout* layout, const std::string& graphicalObjectId) {

@@ -84,6 +84,8 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
+int removeGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
+
 const std::string getEntityId(GraphicalObject* graphicalObject);
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);

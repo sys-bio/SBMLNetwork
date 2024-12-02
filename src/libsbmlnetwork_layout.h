@@ -73,6 +73,8 @@ LIBSBMLNETWORK_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(Layout* 
 /// @return a pointer to the GraphicalObject object with the given index associated with the entered id, or NULL is GraphicalObject object does not exist or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
+LIBSBMLNETWORK_EXTERN int removeGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
 /// @brief Predicates returning true if the id of the GraphicalObject with the given index inf the Layout object associated with the entered model entity id is set.
 /// @param layout a pointer to the Layout object.
 /// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
@@ -770,6 +772,35 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(Layout* layout, const std::string& id, un
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isTextGlyph(GraphicalObject* graphicalObject);
+
+/// @brief Returns the number of additional GraphicalObject objects of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @return the number of additional GraphicalObject objects of the Layout object, or @c 0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const unsigned int getNumAdditionalGraphicalObjects(Layout* layout);
+
+/// @brief Returns a pointer to the additional GraphicalObject object with the given index of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return a pointer to the additional GraphicalObject object with the given index, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN GraphicalObject* getAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex = 0);
+
+/// @brief Returns the id of the additional GraphicalObject object with the given index of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return the id of the additional GraphicalObject object with the given index, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getAdditionalGraphicalObjectId(Layout* layout, const unsigned int additionalGraphicalObjectIndex = 0);
+
+/// @brief Adds a new GraphicalObject object to the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id a string value to be set as the id of the GraphicalObject object.
+/// @return a pointer to the newly created GraphicalObject object, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN GraphicalObject* addAdditionalGraphicalObject(Layout* layout, const std::string& id);
+
+/// @brief Removes the additional GraphicalObject object with the given index from the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex = 0);
 
 /// Returns the value of the "id" attribute of the SBML object associated with the GraphicalObject object with the given id.
 /// @param layout a pointer to the Layout object.
