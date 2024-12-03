@@ -66,6 +66,8 @@ Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph);
 
 SimpleSpeciesReference* findSpeciesReference(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* speciesGlyph);
 
+ReactionGlyph* findSpeciesReferenceReactionGlyph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
+
 bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph);
 
 bool compartmentGlyphBelongs(CompartmentGlyph* compartmentGlyph, Compartment* compartment);
@@ -77,8 +79,6 @@ bool reactionGlyphBelongs(ReactionGlyph* reactionGlyph, Reaction* reaction);
 const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph);
 
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject);
-
-bool graphicalObjectBelongsToReactionGlyph(Layout* layout, ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject);
 
 std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layout, GraphicalObject* graphicalObject);
 
@@ -109,6 +109,10 @@ const std::string getIdOfSpeciesReferenceGlyphConnectedToNewSpeciesGlyph(std::st
 const bool layoutContainsGlyphs(Layout* layout);
 
 const bool isGraphicalObject(SBase* sbase);
+
+const bool isUniUniReaction(Model* model, ReactionGlyph* reactionGlyph);
+
+const bool isUniUniReaction(Reaction* reaction);
 
 const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference);
 

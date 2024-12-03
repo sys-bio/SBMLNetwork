@@ -341,7 +341,7 @@ std::vector<SpeciesReferenceGlyph*> set_layout_features_getConnectedSpeciesGlyph
 
 const std::string set_layout_features_getCompartmentGlyphId(Layout* layout, const std::string compartmentId) {
     std::string compartmentGlyphId = "";
-    int compartmentGlyphIndex = 1;
+    int compartmentGlyphIndex = 0;
     std::vector<CompartmentGlyph*> compartmentGlyphs = getAssociatedCompartmentGlyphsWithCompartmentId(layout, compartmentId);
     while (true) {
         compartmentGlyphId = compartmentId + "_Glyph_" + std::to_string(compartmentGlyphIndex++);
@@ -361,7 +361,7 @@ const std::string set_layout_features_getCompartmentGlyphId(Layout* layout, cons
 
 const std::string set_layout_features_getSpeciesGlyphId(Layout* layout, const std::string speciesId) {
     std::string speciesGlyphId = "";
-    int speciesGlyphIndex = 1;
+    int speciesGlyphIndex = 0;
     std::vector<SpeciesGlyph*> speciesGlyphs = getAssociatedSpeciesGlyphsWithSpeciesId(layout, speciesId);
     while (true) {
         speciesGlyphId = speciesId + "_Glyph_" + std::to_string(speciesGlyphIndex++);
@@ -381,7 +381,7 @@ const std::string set_layout_features_getSpeciesGlyphId(Layout* layout, const st
 
 const std::string set_layout_features_getReactionGlyphId(Layout* layout, const std::string reactionId) {
     std::string reactionGlyphId = "";
-    int reactionGlyphIndex = 1;
+    int reactionGlyphIndex = 0;
     std::vector<ReactionGlyph*> reactionGlyphs = getAssociatedReactionGlyphsWithReactionId(layout, reactionId);
     while (true) {
         reactionGlyphId = reactionId + "_Glyph_" + std::to_string(reactionGlyphIndex++);
@@ -401,9 +401,9 @@ const std::string set_layout_features_getReactionGlyphId(Layout* layout, const s
 
 const std::string set_layout_features_getSpeciesReferenceGlyphId(ReactionGlyph* reactionGlyph, const std::string speciesGlyphId, unsigned int stoichiometryIndex) {
     std::string speciesReferenceGlyphId = "";
-    int speciesReferenceGlyphIndex = 1;
+    int speciesReferenceGlyphIndex = 0;
     std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = getSpeciesReferenceGlyphs(reactionGlyph);
-    std::string stoichiometryPhrase = "_Stoichiometry_" + std::to_string(stoichiometryIndex + 1);
+    std::string stoichiometryPhrase = "_Stoichiometry_" + std::to_string(stoichiometryIndex);
     while (true) {
         speciesReferenceGlyphId = speciesGlyphId + "_" + reactionGlyph->getId() + stoichiometryPhrase + "_Glyph_" + std::to_string(speciesReferenceGlyphIndex++);
         bool isUniqueId = true;

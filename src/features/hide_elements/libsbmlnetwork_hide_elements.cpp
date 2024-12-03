@@ -1,6 +1,7 @@
 #include "libsbmlnetwork_hide_elements.h"
 #include "../../libsbmlnetwork_sbmldocument_layout.h"
 #include "../../libsbmlnetwork_layout.h"
+#include "../../libsbmlnetwork_layout_helpers.h"
 #include "../../libsbmlnetwork_sbmldocument_render.h"
 #include "../../libsbmlnetwork_render.h"
 #include "../../libsbmlnetwork_render_helpers.h"
@@ -297,15 +298,19 @@ int hide_elements_makeSpeciesGlyphVisible(SBMLDocument* document, SpeciesGlyph* 
         Style* style = getLocalStyle(document, speciesGlyph);
         if (!style)
             style = createLocalStyle(document, speciesGlyph);
+        Layout* layout = getLayout(document);
         hide_elements_make2DGraphicalObjectVisible(document, style);
-        std::vector<TextGlyph*> textGlyphs = getTextGlyphs(getLayout(document), speciesGlyph);
+        std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, speciesGlyph);
         for (std::vector<TextGlyph*>::const_iterator textGlyphIt = textGlyphs.cbegin(); textGlyphIt != textGlyphs.cend(); textGlyphIt++)
             hide_elements_makeTextGlyphVisible(document, *textGlyphIt, speciesGlyph);
         if (applyToConnectedElements) {
-            std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = set_layout_features_getConnectedSpeciesGlyphReferences(getLayout(document), speciesGlyph);
+            std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = set_layout_features_getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
             for (std::vector<SpeciesReferenceGlyph*>::const_iterator speciesReferenceGlyphIt = speciesReferenceGlyphs.cbegin(); speciesReferenceGlyphIt != speciesReferenceGlyphs.cend(); speciesReferenceGlyphIt++) {
                 if (hide_elements_makeSpeciesReferenceGlyphVisible(document, *speciesReferenceGlyphIt))
                     return -1;
+                ReactionGlyph* reactionGlyph = findSpeciesReferenceReactionGlyph(layout, *speciesReferenceGlyphIt);
+                if (isUniUniReaction(document->getModel(), reactionGlyph))
+                    hide_elements_makeReactionGlyphVisible(document, reactionGlyph, true);
             }
         }
 
@@ -320,15 +325,19 @@ int hide_elements_makeSpeciesGlyphInvisible(SBMLDocument* document, SpeciesGlyph
         Style* style = getLocalStyle(document, speciesGlyph);
         if (!style)
             style = createLocalStyle(document, speciesGlyph);
+        Layout* layout = getLayout(document);
         hide_elements_make2DGraphicalObjectInvisible(document, style);
-        std::vector<TextGlyph*> textGlyphs = getTextGlyphs(getLayout(document), speciesGlyph);
+        std::vector<TextGlyph*> textGlyphs = getTextGlyphs(layout, speciesGlyph);
         for (std::vector<TextGlyph*>::const_iterator textGlyphIt = textGlyphs.cbegin(); textGlyphIt != textGlyphs.cend(); textGlyphIt++)
             hide_elements_makeTextGlyphInvisible(document, *textGlyphIt, speciesGlyph);
         if (applyToConnectedElements) {
-            std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = set_layout_features_getConnectedSpeciesGlyphReferences(getLayout(document), speciesGlyph);
+            std::vector<SpeciesReferenceGlyph*> speciesReferenceGlyphs = set_layout_features_getConnectedSpeciesGlyphReferences(layout, speciesGlyph);
             for (std::vector<SpeciesReferenceGlyph*>::const_iterator speciesReferenceGlyphIt = speciesReferenceGlyphs.cbegin(); speciesReferenceGlyphIt != speciesReferenceGlyphs.cend(); speciesReferenceGlyphIt++) {
                 if (hide_elements_makeSpeciesReferenceGlyphInvisible(document, *speciesReferenceGlyphIt))
                     return -1;
+                ReactionGlyph* reactionGlyph = findSpeciesReferenceReactionGlyph(layout, *speciesReferenceGlyphIt);
+                if (isUniUniReaction(document->getModel(), reactionGlyph))
+                    hide_elements_makeReactionGlyphInvisible(document, reactionGlyph, true);
             }
         }
 
