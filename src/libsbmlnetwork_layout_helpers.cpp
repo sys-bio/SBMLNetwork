@@ -301,13 +301,18 @@ SimpleSpeciesReference* findSpeciesReference(Model* model, Layout* layout, React
     return NULL;
 }
 
-bool containsSpecies(Model* model, Layout* layout, CompartmentGlyph* compartmentGlyph) {
-    std::string compartmentId = compartmentGlyph->getCompartmentId();
-    for (unsigned int i = 0; i < model->getNumSpecies(); i++)
-        if (model->getSpecies(i)->getCompartment() == compartmentId)
-            return true;
-    
-    return false;
+ReactionGlyph* findSpeciesReferenceReactionGlyph(Layout* layout, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (layout) {
+        for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
+            ReactionGlyph* reactionGlyph = layout->getReactionGlyph(i);
+            for (unsigned int j = 0; j < reactionGlyph->getNumSpeciesReferenceGlyphs(); j++) {
+                if (reactionGlyph->getSpeciesReferenceGlyph(j) == speciesReferenceGlyph)
+                    return reactionGlyph;
+            }
+        }
+    }
+
+    return NULL;
 }
 
 bool compartmentGlyphBelongs(CompartmentGlyph* compartmentGlyph, Compartment* compartment) {
@@ -335,19 +340,6 @@ const std::string getSpeciesReferenceGlyphSpeciesId(Layout* layout, SpeciesRefer
 bool textGlyphBelongs(TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     if (textGlyph && graphicalObject)
         return textGlyph->getGraphicalObjectId() == graphicalObject->getId() ? true : false;
-
-    return false;
-}
-
-bool graphicalObjectBelongsToReactionGlyph(ReactionGlyph* reactionGlyph, GraphicalObject* graphicalObject) {
-    if (graphicalObject) {
-        for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
-            if (reactionGlyph->getSpeciesReferenceGlyph(i) == graphicalObject)
-                return true;
-            else if (reactionGlyph->getSpeciesReferenceGlyph(i)->getSpeciesGlyphId() == graphicalObject->getId())
-                return true;
-        }
-    }
 
     return false;
 }
@@ -491,7 +483,7 @@ std::vector<SpeciesReferenceGlyph*> getSpeciesReferenceGlyphs(ReactionGlyph* rea
 
 const std::string getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject) {
     std::string textGlyphUniqueId = "";
-    int textGlyphIndex = 1;
+    int textGlyphIndex = 0;
     std::vector<TextGlyph*> textGlyphs = getAssociatedTextGlyphsWithGraphicalObject(layout, graphicalObject);
     while (true) {
         textGlyphUniqueId = graphicalObject->getId() + "_TextGlyph_" + std::to_string(textGlyphIndex++);
@@ -523,8 +515,16 @@ const bool layoutContainsGlyphs(Layout* layout) {
            (layout->getNumReactionGlyphs() > 0);
 }
 
-const bool isGraphicalObject(SBase* sbase) {
-    return dynamic_cast<GraphicalObject*>(sbase) ? true : false;
+const bool isGraphicalObject(SBase* sBase) {
+    return dynamic_cast<GraphicalObject*>(sBase) != nullptr;
+}
+
+const bool isUniUniReaction(Model* model, ReactionGlyph* reactionGlyph) {
+    return isUniUniReaction(findReactionGlyphReaction(model, reactionGlyph));
+}
+
+const bool isUniUniReaction(Reaction* reaction) {
+    return reaction && reaction->getNumReactants() == 1 && reaction->getNumProducts() == 1;
 }
 
 const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference) {
