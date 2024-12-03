@@ -73,6 +73,77 @@ LIBSBMLNETWORK_EXTERN std::vector<GraphicalObject*> getGraphicalObjects(Layout* 
 /// @return a pointer to the GraphicalObject object with the given index associated with the entered id, or NULL is GraphicalObject object does not exist or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex = 0);
 
+LIBSBMLNETWORK_EXTERN int removeGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Predicates returning true if the id of the GraphicalObject with the given index inf the Layout object associated with the entered model entity id is set.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the id of the GraphicalObject with the given index is set, false otherwise
+LIBSBMLNETWORK_EXTERN bool isSetId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Returns the id of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the value of the "id" attribute of the GraphicalObject object with the given index associated with the entered id, or @c "" if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Sets the id of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param graphicalObjectId the id to set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectId);
+
+/// @brief Predicate returning true if the metaId of the GraphicalObject with the given index of the Layout object associated with the entered id is set.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the metaId of the GraphicalObject with the given index is set, false otherwise
+LIBSBMLNETWORK_EXTERN bool isSetMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Returns the metaId of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the value of the "metaId" attribute of the GraphicalObject object with the given index associated with the entered id, or @c "" if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Sets the metaId of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param graphicalObjectMetaId the metaId to set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId);
+
+/// @brief Predicate returning true if the name of the GraphicalObject with the given index of the Layout object associated with the entered id is set.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return @c true if the name of the GraphicalObject with the given index is set, false otherwise
+LIBSBMLNETWORK_EXTERN bool isSetName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Returns the name of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @return the value of the "name" attribute of the GraphicalObject object with the given index associated with the entered id, or @c "" if
+/// the GraphicalObject object does not exits or the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex);
+
+/// @brief Sets the name of the GraphicalObject object with the given index associated with entered id of the Layout object.
+/// @param layout a pointer to the Layout object.
+/// @param id the id of the model entity the the GraphicalObject objects of which to be returned.
+/// @param graphicalObjectIndex the index of the GraphicalObject to return.
+/// @param name the name to set.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& name);
+
 /// @brief Returns the number of CompartmentGlyph objects of the Layout object.
 /// @param layout a pointer to the Layout object
 /// @return the number of the CompartmentGlyph objects of the Layout object, or @c 0 if the object is @c NULL
@@ -702,6 +773,35 @@ LIBSBMLNETWORK_EXTERN bool isTextGlyph(Layout* layout, const std::string& id, un
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
 LIBSBMLNETWORK_EXTERN bool isTextGlyph(GraphicalObject* graphicalObject);
 
+/// @brief Returns the number of additional GraphicalObject objects of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @return the number of additional GraphicalObject objects of the Layout object, or @c 0 if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const unsigned int getNumAdditionalGraphicalObjects(Layout* layout);
+
+/// @brief Returns a pointer to the additional GraphicalObject object with the given index of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return a pointer to the additional GraphicalObject object with the given index, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN GraphicalObject* getAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex = 0);
+
+/// @brief Returns the id of the additional GraphicalObject object with the given index of the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to return.
+/// @return the id of the additional GraphicalObject object with the given index, or @c "" if the object is @c NULL
+LIBSBMLNETWORK_EXTERN const std::string getAdditionalGraphicalObjectId(Layout* layout, const unsigned int additionalGraphicalObjectIndex = 0);
+
+/// @brief Adds a new GraphicalObject object to the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param id a string value to be set as the id of the GraphicalObject object.
+/// @return a pointer to the newly created GraphicalObject object, or @c NULL if the object is @c NULL
+LIBSBMLNETWORK_EXTERN GraphicalObject* addAdditionalGraphicalObject(Layout* layout, const std::string& id);
+
+/// @brief Removes the additional GraphicalObject object with the given index from the Layout object.
+/// @param Layout a pointer to the Layout object.
+/// @param additionalGraphicalObjectIndex the index of the additional GraphicalObject to remove.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int removeAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex = 0);
+
 /// Returns the value of the "id" attribute of the SBML object associated with the GraphicalObject object with the given id.
 /// @param layout a pointer to the Layout object.
 /// @param graphicalObjectId the id of the GraphicalObject object.
@@ -1080,36 +1180,36 @@ LIBSBMLNETWORK_EXTERN LineSegment* getCurveSegment(Curve* curve, unsigned int cu
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new LineSegment and adds it to the end of the list of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(GraphicalObject* graphicalObject);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(GraphicalObject* graphicalObject);
 
 /// @brief Creates a new LineSegment and adds it to the end of the list of this Curve object.
 /// @param curve a pointer to the Curve object.
-/// @return the created @c LineSegment, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN LineSegment* createLineCurveSegment(Curve* curve);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addLineCurveSegment(Curve* curve);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of the GraphicalObject
 ///// with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(GraphicalObject* graphicalObject);
 
 /// @brief Creates a new CubicBezier and adds it to the end of the list of this Curve object.
 /// @param curve a pointer to the Curve object.
-/// @return the created @c CubicBezier, or NULL if the line segment could not be created.
-LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(Curve* curve);
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int addCubicBezierCurveSegment(Curve* curve);
 
 /// @brief Removes and deletes the curve segment with the given index from the list of the Curve of the GraphicalObject
 ///// with the given index associated with the model entity with the given id of the Layout object.
@@ -1118,7 +1218,7 @@ LIBSBMLNETWORK_EXTERN CubicBezier* createCubicBezierCurveSegment(Curve* curve);
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @param curveSegmentIndex an unsigned int representing the index of the curve segment to remove.
 /// @return integer value indicating success/failure of the function.
-LIBSBMLNETWORK_EXTERN int removeCurveSegment(Layout* layout, const std::string& id, unsigned int curveSegmentIndex = 0);
+LIBSBMLNETWORK_EXTERN int removeCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int curveSegmentIndex = 0);
 
 /// @brief Removes and deletes the curve segment with the given index from the list of the Curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.

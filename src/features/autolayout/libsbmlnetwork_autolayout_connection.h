@@ -6,7 +6,7 @@
 class AutoLayoutConnection : public AutoLayoutObjectBase {
 public:
 
-    AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel);
+    AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph);
 
     ~AutoLayoutConnection();
 
@@ -14,7 +14,7 @@ public:
 
     void updateFixedPositionStatus();
 
-    void setCentroidNode(const bool& useNameAsTextLabel);
+    void setCentroidNode();
 
     AutoLayoutObjectBase* getCentroidNode();
 

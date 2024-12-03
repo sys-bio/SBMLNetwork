@@ -330,13 +330,13 @@ LIBSBMLNETWORK_EXTERN int setOffsetAsDouble(GradientStop* gradientStop, const do
 /// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of the GradientBase with the given identifier is set.
 /// @param renderInformationBase a pointer to the RenderInformationBase object.
 /// @param sid a string representing the identifier of the GradientBase to retrieve.
-/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// @return @c true if the "stop-color" attribute of the GradientStop with the given index of this GradientBase object is set, @c false if either the "stop-color"
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStopColor(RenderInformationBase* renderInformationBase, const std::string& sid, unsigned int gradientStopIndex = 0);
 
 /// @brief Predicates returning @c true if the "stop-color" attribute of the GradientStop with the given index of this GradientBase is set.
 /// @param gradientBase a pointer to the GradientBase object.
-/// @return @c true if the "stop-color" attribute of nth GradientStop of this GradientBase object is set, @c false if either the "stop-color"
+/// @return @c true if the "stop-color" attribute of the GradientStop with the given index of this GradientBase object is set, @c false if either the "stop-color"
 /// attribute is not set or the object is @c NULL .
 LIBSBMLNETWORK_EXTERN bool isSetStopColor(GradientBase* gradientBase, unsigned int gradientStopIndex = 0);
 
@@ -6682,7 +6682,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getGeometricShapeNumElements(Transforma
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -6691,7 +6691,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInforma
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -6699,7 +6699,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(RenderInforma
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(Style* style, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -6707,14 +6707,14 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(Style* style,
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// @return the "x" attribute of the element with the given index of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex = 0);
 
@@ -6810,14 +6810,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(RenderGroup* renderGroup, un
 
 /// @brief Sets the value of the "x" attribute of the first element of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this Transformation2D.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of element with the given index of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(Transformation2D* shape, const RelAbsVector& x);
 
 /// @brief Sets the value of the "x" attribute of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "x" attribute of nth element of this Transformation2D.
+/// @param x a RelAbsVector to use as the value of the "x" attribute of element with the given index of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementX(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& x);
 
@@ -6988,7 +6988,7 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementXAsDouble(GlobalRender
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -6997,7 +6997,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInforma
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7005,7 +7005,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(RenderInforma
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(Style* style, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7013,14 +7013,14 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(Style* style,
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// @return the "y" attribute of the element with the given index of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex = 0);
 
@@ -7116,14 +7116,14 @@ LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(RenderGroup* renderGroup, un
 
 /// @brief Sets the value of the "y" attribute of the first element of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Transformation2D.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of element with the given index of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(Transformation2D* shape, const RelAbsVector& y);
 
 /// @brief Sets the value of the "y" attribute of element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @param x a RelAbsVector to use as the value of the "y" attribute of nth element of this Transformation2D.
+/// @param x a RelAbsVector to use as the value of the "y" attribute of element with the given index of this Transformation2D.
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setGeometricShapeElementY(Transformation2D* shape, unsigned int elementIndex, const RelAbsVector& y);
 
@@ -7294,7 +7294,7 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeElementYAsDouble(GlobalRender
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7303,7 +7303,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInfo
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7311,7 +7311,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderInfo
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Style* style, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7319,14 +7319,14 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Style* sty
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the base point 1 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 1 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 1 of the element with the given index of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1X(Transformation2D* shape, unsigned int elementIndex = 0);
 
@@ -7600,7 +7600,7 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1XAsDouble(GlobalRen
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7609,7 +7609,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInfo
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7617,7 +7617,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderInfo
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Style* style, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7625,14 +7625,14 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Style* sty
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 1 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 1 of the element with the given index of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of the base point 1 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of he base point 1 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// @return the "y" attribute of he base point 1 of the element with the given index of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint1Y(Transformation2D* shape, unsigned int elementIndex = 0);
 
@@ -7905,7 +7905,7 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint1YAsDouble(GlobalRen
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7914,7 +7914,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInfo
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7922,7 +7922,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderInfo
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Style* style, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -7930,14 +7930,14 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Style* sty
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "x" attribute of the base point 2 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "x" attribute of the base point 2 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// @return the "x" attribute of the base point 2 of the element with the given index of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2X(Transformation2D* shape, unsigned int elementIndex = 0);
 
@@ -8210,7 +8210,7 @@ LIBSBMLNETWORK_EXTERN int setReactionGeometricShapeBasePoint2XAsDouble(GlobalRen
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, GraphicalObject* graphicalObject, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -8219,7 +8219,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInfo
 /// @param attribute the attribute (id, role, type) of a GraphicalObject.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of the Style for this GraphicalObject, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInformationBase* renderInformationBase, const std::string& attribute, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -8227,7 +8227,7 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderInfo
 /// @param style a pointer to the Style object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of the RenderGroup of this Style, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Style* style, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
@@ -8235,14 +8235,14 @@ LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Style* sty
 /// @param renderGroup a pointer to the RenderGroup object.
 /// @param geometricShapeIndex an unsigned int representing the index of the Transformation2D to retrieve.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of the base point 2 of the nth element of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
+/// @return the "y" attribute of the base point 2 of the element with the given index of the Transformation2D object at the given index of this RenderGroup, or @c RelAbsVector() if
 /// either Transformation2D object does not exists, does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(RenderGroup* renderGroup, unsigned int geometricShapeIndex = 0, unsigned int elementIndex = 0);
 
 /// @brief Returns the value of the "y" attribute of the base point 2 of the element at the given index of this Transformation2D.
 /// @param shape a pointer to the Transformation2D object.
 /// @param elementIndex an unsigned int representing the index of the element to retrieve.
-/// @return the "y" attribute of he base point 2 of the nth element of Transformation2D object, or @c RelAbsVector() if
+/// @return the "y" attribute of he base point 2 of the element with the given index of Transformation2D object, or @c RelAbsVector() if
 /// the Transformation2D object does not have any elements, it has less than n elements, or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN const RelAbsVector getGeometricShapeBasePoint2Y(Transformation2D* shape, unsigned int elementIndex = 0);
 

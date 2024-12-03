@@ -37,7 +37,6 @@ class LibSBMLNetwork:
         self.sbml_object = None
         self.layout_is_added = False
         self.render_is_added = False
-        self.use_name_as_text_label = True
         self.display_compartments_text_label = True
         self.display_species_text_label = True
         self.display_reactions_text_label = False
@@ -160,7 +159,7 @@ class LibSBMLNetwork:
                     raise Exception("The fixed_position_nodes parameter should be a list of lists or a list of strings.")
                 fixed_position_nodes_ptr[i] = fixed_position_node_ptr
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), self.use_name_as_text_label, reset_fixed_position_elements, fixed_position_nodes_ptr, len(fixed_position_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), reset_fixed_position_elements, fixed_position_nodes_ptr, len(fixed_position_nodes))
     
     def autorender(self, max_num_connected_edges=3):
         """
@@ -307,7 +306,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumCompartments(self.sbml_object)
 
-    def getNthCompartmentId(self, index):
+    def getCompartmentId(self, index):
         """
         Returns the id of the Compartment object with the given index in the given SBMLDocument
 
@@ -319,8 +318,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the Compartment object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthCompartmentId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthCompartmentId(self.sbml_object, index)).value.decode()
+        lib.c_api_getCompartmentId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getCompartmentId(self.sbml_object, index)).value.decode()
 
     def getNumSpecies(self):
         """
@@ -332,7 +331,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumSpecies(self.sbml_object)
 
-    def getNthSpeciesId(self, index):
+    def getSpeciesId(self, index):
         """
         Returns the id of the Species object with the given index in the given SBMLDocument
 
@@ -344,8 +343,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the Species object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthSpeciesId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthSpeciesId(self.sbml_object, index)).value.decode()
+        lib.c_api_getSpeciesId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesId(self.sbml_object, index)).value.decode()
 
     def getNumReactions(self):
         """
@@ -357,7 +356,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumReactions(self.sbml_object)
 
-    def getNthReactionId(self, index):
+    def getReactionId(self, index):
         """
         Returns the id of the Reaction object with the given index in the given SBMLDocument
 
@@ -369,8 +368,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the Reaction object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthReactionId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthReactionId(self.sbml_object, index)).value.decode()
+        lib.c_api_getReactionId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getReactionId(self.sbml_object, index)).value.decode()
 
     def getNumLayouts(self):
         """
@@ -472,62 +471,207 @@ class LibSBMLNetwork:
             """
         return lib.c_api_setSpeciesGlyphIndexInReactionGlyph(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), index, reaction_glyph_index, layout_index)
 
-    def makeSpeciesGlyphVisible(self, species_id, reaction_id, visible=True, reaction_glyph_index=0, layout_index=0):
+    def makeAllVisible(self, layout_index=0):
         """
-        Makes the SpeciesGlyph of Species with the given species_id in the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument visible or invisible
+        Makes all the GraphicalObjects in the Layout object with the given index in the given SBMLDocument visible on the canvas
 
         :Parameters:
 
-            - species_id (string): a string that determines the id of the Species
-            - reaction_id (string): a string that determines the id of the Reaction
-            - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyph visible or invisible
-            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the SpeciesGlyph could not be hidden
+            true on success and false if the GraphicalObjects could not be made visible
         """
-        return lib.c_api_makeSpeciesGlyphVisible(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), visible, reaction_glyph_index, layout_index)
+        return lib.c_api_makeAllVisible(self.sbml_object, layout_index)
 
-    def makeSpeciesGlyphsVisible(self, species=None, visible=True, layout_index=0):
+    def makeAllInvisible(self, layout_index=0):
         """
-        Makes the SpeciesGlyphs of Species with the given species_ids in the Layout object with the given index in the given SBMLDocument visible or invisible
+        Makes all the GraphicalObjects in the Layout object with the given index in the given SBMLDocument invisible on the canvas
 
         :Parameters:
 
-            - species = (list of lists or list of strings, optional): a list (default: None) that determines the list of Species. The list contains:
-                - a list of lists where each list includes:
-                    - 'id' (str): the ID of the Species
-                    - 'reaction_id' (str): the ID of the Reaction
-                    - 'reaction_glyph_index' (int, optional): the index (default: 0) of the ReactionGlyph in the given SBMLDocument
-            - visible = (boolean, optional): a boolean (default: True) that determines whether to make the SpeciesGlyphs visible or invisible
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            true on success and false if the SpeciesGlyphs could not be hidden
+            true on success and false if the GraphicalObjects could not be made invisible
         """
-        species_ptr = None
-        if species is not None:
-            species_ptr = (ctypes.POINTER(ctypes.c_char_p) * len(species))()
-            for i in range(len(species)):
-                a_species_ptr = (ctypes.c_char_p * 3)()
-                if isinstance(species[i], list):
-                    if len(species[i]) == 3:
-                        print(species[i])
-                        a_species_ptr[0] = ctypes.c_char_p(str(species[i][0]).encode())
-                        a_species_ptr[1] = ctypes.c_char_p(str(species[i][1]).encode())
-                        a_species_ptr[2] = ctypes.c_char_p(str(species[i][2]).encode())
-                    elif len(species[i]) == 2:
-                        a_species_ptr[0] = ctypes.c_char_p(str(species[i][0]).encode())
-                        a_species_ptr[1] = ctypes.c_char_p(str(species[i][1]).encode())
-                        a_species_ptr[2] = ctypes.c_char_p(str(0).encode())
-                else:
-                    raise Exception("The species parameter should be a list of lists with species id, reaction id, and reaction glyph index or a list of lists with species id and reaction id.")
-                species_ptr[i] = a_species_ptr
+        return lib.c_api_makeAllInvisible(self.sbml_object, layout_index)
 
-        return lib.c_api_makeSpeciesGlyphsVisible(self.sbml_object, species_ptr, len(species_ptr), visible, layout_index)
+    def makeCompartmentsVisible(self, layout_index=0):
+        """
+        Makes all the CompartmentGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CompartmentGlyphs could not be made visible
+        """
+        return lib.c_api_makeCompartmentsVisible(self.sbml_object, layout_index)
+
+    def makeCompartmentsInvisible(self, layout_index=0):
+        """
+        Makes all the CompartmentGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CompartmentGlyphs could not be made invisible
+        """
+        return lib.c_api_makeCompartmentsInvisible(self.sbml_object, layout_index)
+
+    def makeSpeciesVisible(self, layout_index=0):
+        """
+        Makes all the SpeciesGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesGlyphs could not be made visible
+        """
+        return lib.c_api_makeSpeciesVisible(self.sbml_object, layout_index)
+
+    def makeSpeciesInvisible(self, layout_index=0):
+        """
+        Makes all the SpeciesGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesGlyphs could not be made invisible
+        """
+        return lib.c_api_makeSpeciesInvisible(self.sbml_object, layout_index)
+
+    def makeReactionsVisible(self, layout_index=0):
+        """
+        Makes all the ReactionGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the ReactionGlyphs could not be made visible
+        """
+        return lib.c_api_makeReactionsVisible(self.sbml_object, layout_index)
+
+    def makeReactionsInvisible(self, layout_index=0):
+        """
+        Makes all the ReactionGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the ReactionGlyphs could not be made invisible
+            """
+        return lib.c_api_makeReactionsInvisible(self.sbml_object, layout_index)
+
+    def makeSpeciesReferencesVisible(self, layout_index=0):
+        """
+        Makes all the SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReferenceGlyphs could not be made visible
+        """
+        return lib.c_api_makeSpeciesReferencesVisible(self.sbml_object, layout_index)
+
+    def makeSpeciesReferencesInvisible(self, layout_index=0):
+        """
+        Makes all the SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReferenceGlyphs could not be made invisible
+        """
+        return lib.c_api_makeSpeciesReferencesInvisible(self.sbml_object, layout_index)
+
+    def makeLineEndingsVisible(self, layout_index=0):
+        """
+        Makes all the LineEndings in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the LineEndings could not be made visible
+        """
+        return lib.c_api_makeLineEndingsVisible(self.sbml_object, layout_index)
+
+    def makeLineEndingsInvisible(self, layout_index=0):
+        """
+        Makes all the LineEndings in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the LineEndings could not be made invisible
+        """
+        return lib.c_api_makeLineEndingsInvisible(self.sbml_object, layout_index)
+
+    def makeVisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
+        """
+        Makes the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument visible on the canvas
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the GraphicalObject
+            - apply_to_connected_elements (boolean, optional): a boolean (default: True) that determines whether to apply the visibility to the connected elements
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GraphicalObject could not be made visible
+        """
+        return lib.c_api_makeVisible(self.sbml_object, str(id).encode(), apply_to_connected_elements, graphical_object_index, layout_index)
+
+    def makeInvisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
+        """
+        Makes the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument invisible on the canvas
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the GraphicalObject
+            - apply_to_connected_elements (boolean, optional): a boolean (default: True) that determines whether to apply the visibility to the connected elements
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GraphicalObject could not be made invisible
+        """
+        return lib.c_api_makeInvisible(self.sbml_object, str(id).encode(), apply_to_connected_elements, graphical_object_index, layout_index)
 
     def getCanvasWidth(self, layout_index=0):
         """
@@ -619,39 +763,171 @@ class LibSBMLNetwork:
             """
         return lib.c_api_getNumGraphicalObjects(self.sbml_object, str(id).encode(), layout_index)
 
-    def getNthGraphicalObjectId(self, id, index, layout_index=0):
+    def removeGraphicalObject(self, id, graphical_object_index=0, layout_index=0):
         """
-        Returns the id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+        Removes the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
 
         :Parameters:
 
-            - id (string): a string that determines the id of the GraphicalObject
-            - index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+            true on success and false if the GraphicalObject could not be removed
         """
-        lib.c_api_getNthGraphicalObjectId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthGraphicalObjectId(self.sbml_object, str(id).encode(), index, layout_index)).value.decode()
+        return lib.c_api_removeGraphicalObject(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def getNthGraphicalObjectMetaId(self, id, index, layout_index=0):
+    def isSetId(self, id, graphical_object_index=0, layout_index=0):
         """
-        Returns the meta id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+        Returns whether the id GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
 
         :Parameters:
 
-            - id (string): a string that determines the id of the GraphicalObject
-            - index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the meta id of the GraphicalObject with the given index associated with the given id in the Layout object with the given index in the given SBMLDocument
+            true if the id GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
         """
-        lib.c_api_getNthGraphicalObjectMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthGraphicalObjectMetaId(self.sbml_object, str(id).encode(), index, layout_index)).value.decode()
+        return lib.c_api_isSetId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def getId(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
+    def setId(self, id, graphical_object_id, graphical_object_index=0, layout_index=0):
+        """
+        Sets the id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_id (string): a string to be set as the id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the id of the GraphicalObject could not be set
+        """
+        return lib.c_api_setId(self.sbml_object, str(id).encode(), str(graphical_object_id).encode(), graphical_object_index, layout_index)
+
+    def isSetMetaId(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetMetaId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def getMetaId(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getMetaId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getMetaId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
+    def setMetaId(self, id, meta_id, graphical_object_index=0, layout_index=0):
+        """
+        Sets the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - meta_id (string): a string to be set as the meta id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the meta id of the GraphicalObject could not be set
+        """
+        return lib.c_api_setMetaId(self.sbml_object, str(id).encode(), str(meta_id).encode(), graphical_object_index, layout_index)
+
+    def isSetName(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
+        """
+        return lib.c_api_isSetName(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
+    def getName(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+        """
+        lib.c_api_getName.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getName(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)).value.decode()
+
+    def setName(self, id, name, graphical_object_index=0, layout_index=0):
+        """
+        Sets the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the model entity
+            - name (string): a string to be set as the name of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the name of the GraphicalObject could not be set
+        """
+        return lib.c_api_setName(self.sbml_object, str(id).encode(), str(name).encode(), graphical_object_index, layout_index)
 
     def getListOfCompartmentIds(self):
         """
@@ -661,10 +937,10 @@ class LibSBMLNetwork:
 
             a list of strings that determines the list of Compartment ids in the given SBMLDocument
         """
-        lib.c_api_getNthCompartmentId.restype = ctypes.c_char_p
+        lib.c_api_getCompartmentId.restype = ctypes.c_char_p
         list_of_compartment_ids = []
         for n in range(lib.c_api_getNumCompartments(self.sbml_object)):
-            list_of_compartment_ids.append(ctypes.c_char_p(lib.c_api_getNthCompartmentId(self.sbml_object, n)).value.decode())
+            list_of_compartment_ids.append(ctypes.c_char_p(lib.c_api_getCompartmentId(self.sbml_object, n)).value.decode())
 
         return list_of_compartment_ids
 
@@ -698,40 +974,6 @@ class LibSBMLNetwork:
             """
         return lib.c_api_getNumCompartmentGlyphs(self.sbml_object, str(compartment_id).encode(), layout_index)
 
-    def getNthCompartmentGlyphId(self, compartment_id, index, layout_index=0):
-        """
-        Returns the id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - compartment_id (string): a string that determines the id of the Compartment
-            - index (int): an integer that determines the index of the CompartmentGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getNthCompartmentGlyphId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthCompartmentGlyphId(self.sbml_object, str(compartment_id).encode(), index, layout_index)).value.decode()
-
-    def getNthCompartmentGlyphMetaId(self, compartment_id, index, layout_index=0):
-        """
-        Returns the meta id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - compartment_id (string): a string that determines the id of the Compartment
-            - index (int): an integer that determines the index of the CompartmentGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the meta id of the CompartmentGlyph with the given index associated with the given compartment_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getNthCompartmentGlyphMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthCompartmentGlyphMetaId(self.sbml_object, str(compartment_id).encode(), index, layout_index)).value.decode()
-
     def isCompartmentGlyph(self, compartment_id, layout_index=0):
         """
         Returns whether the given compartment_id is associated with a CompartmentGlyph in the Layout object with the given index in the given SBMLDocument
@@ -747,7 +989,7 @@ class LibSBMLNetwork:
             """
         return lib.c_api_isCompartmentGlyph(self.sbml_object, str(compartment_id).encode(), layout_index)
 
-    def getCompartmentId(self, entity_id, graphical_object_id=0, layout_index=0):
+    def getGraphicalObjectCompartmentId(self, entity_id, graphical_object_id=0, layout_index=0):
         """
         Returns the id of the Compartment associated with the given entity_id and graphical_object_id in the Layout object with the given index in the given SBMLDocument
 
@@ -761,8 +1003,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the Compartment associated with the given entity_id and graphical_object_id in the Layout object with the given index in the given SBMLDocument
         """
-        lib.c_api_getCompartmentId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getCompartmentId(self.sbml_object, str(entity_id).encode(), str(graphical_object_id).encode(), layout_index)).value.decode()
+        lib.c_api_getGraphicalObjectCompartmentId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGraphicalObjectCompartmentId(self.sbml_object, str(entity_id).encode(), str(graphical_object_id).encode(), layout_index)).value.decode()
 
     def getListOfSpeciesIds(self):
         """
@@ -772,10 +1014,10 @@ class LibSBMLNetwork:
 
             a list of strings that determines the list of Species ids in the given SBMLDocument
         """
-        lib.c_api_getNthSpeciesId.restype = ctypes.c_char_p
+        lib.c_api_getSpeciesId.restype = ctypes.c_char_p
         list_of_species_ids = []
         for n in range(lib.c_api_getNumSpecies(self.sbml_object)):
-            list_of_species_ids.append(ctypes.c_char_p(lib.c_api_getNthSpeciesId(self.sbml_object, n)).value.decode())
+            list_of_species_ids.append(ctypes.c_char_p(lib.c_api_getSpeciesId(self.sbml_object, n)).value.decode())
 
         return list_of_species_ids
 
@@ -808,40 +1050,6 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumSpeciesGlyphs(self.sbml_object, str(species_id).encode(), layout_index)
 
-    def getNthSpeciesGlyphId(self, species_id, index, layout_index=0):
-        """
-        Returns the id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - species_id (string): a string that determines the id of the Species
-            - index (int): an integer that determines the index of the SpeciesGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getNthSpeciesGlyphId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthSpeciesGlyphId(self.sbml_object, str(species_id).encode(), index, layout_index)).value.decode()
-
-    def getNthSpeciesGlyphMetaId(self, species_id, index, layout_index=0):
-        """
-        Returns the meta id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - species_id (string): a string that determines the id of the Species
-            - index (int): an integer that determines the index of the SpeciesGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the meta id of the SpeciesGlyph with the given index associated with the given species_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getNthSpeciesGlyphMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthSpeciesGlyphMetaId(self.sbml_object, str(species_id).encode(), index, layout_index)).value.decode()
-
     def getSpeciesGlyphIndex(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
         Returns the index of the SpeciesGlyph with the given species_id associated with the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
@@ -858,7 +1066,6 @@ class LibSBMLNetwork:
             an integer that determines the index of the SpeciesGlyph with the given species_id associated with the ReactionGlyph with the given reaction_id and reaction_glyph_index in the Layout object with the given index in the given SBMLDocument
         """
         return lib.c_api_getSpeciesGlyphIndex(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, layout_index)
-
 
     def isSpeciesGlyph(self, species_id, layout_index=0):
         """
@@ -883,10 +1090,10 @@ class LibSBMLNetwork:
 
             a list of strings that determines the list of Reaction ids in the given SBMLDocument
         """
-        lib.c_api_getNthReactionId.restype = ctypes.c_char_p
+        lib.c_api_getReactionId.restype = ctypes.c_char_p
         list_of_reaction_ids = []
         for n in range(lib.c_api_getNumReactions(self.sbml_object)):
-            list_of_reaction_ids.append(ctypes.c_char_p(lib.c_api_getNthReactionId(self.sbml_object, n)).value.decode())
+            list_of_reaction_ids.append(ctypes.c_char_p(lib.c_api_getReactionId(self.sbml_object, n)).value.decode())
 
         return list_of_reaction_ids
 
@@ -919,40 +1126,6 @@ class LibSBMLNetwork:
             """
 
         return lib.c_api_getNumReactionGlyphs(self.sbml_object, str(reaction_id).encode(), layout_index)
-
-    def getNthReactionGlyphId(self, reaction_id, index, layout_index=0):
-        """
-        Returns the id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - reaction_id (string): a string that determines the id of the Reaction
-            - index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getNthReactionGlyphId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthReactionGlyphId(self.sbml_object, str(reaction_id).encode(), index, layout_index)).value.decode()
-
-    def getNthReactionGlyphMetaId(self, reaction_id, index, layout_index=0):
-        """
-        Returns the meta id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-
-        :Parameters:
-
-            - reaction_id (string): a string that determines the id of the Reaction
-            - index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
-            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-
-        :Returns:
-
-            a string that determines the meta id of the ReactionGlyph with the given index associated with the given reaction_id in the Layout object with the given index in the given SBMLDocument
-        """
-        lib.c_api_getNthReactionGlyphMetaId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthReactionGlyphMetaId(self.sbml_object, str(reaction_id).encode(), index, layout_index)).value.decode()
 
     def isReactionGlyph(self, reaction_id, layout_index=0):
         """
@@ -1002,7 +1175,7 @@ class LibSBMLNetwork:
         """
         lib.c_api_getSpeciesReferenceId.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getSpeciesReferenceId(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)).value.decode()
- 
+
     def getSpeciesReferenceSpeciesId(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns the species id of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
@@ -1177,6 +1350,58 @@ class LibSBMLNetwork:
             an integer that determines the number of CurveSegments associated with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
             """
         return lib.c_api_getNumSpeciesReferenceCurveSegments(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def addSpeciesReferenceLineCurveSegment(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Adds a LineSegment to the Curve of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the LineSegment could not be added to the Curve of the SpeciesReference
+                """
+        return lib.c_api_addSpeciesReferenceLineCurveSegment(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def addSpeciesReferenceCubicBezierCurveSegment(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Adds a CubicBezier to the Curve of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CubicBezier could not be added to the Curve of the SpeciesReference
+        """
+        return lib.c_api_addSpeciesReferenceCubicBezierCurveSegment(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def removeSpeciesReferenceCurveSegment(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Removes the CurveSegment with the given reaction_id, reaction_glyph_index, species_reference_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CurveSegment could not be removed
+        """
+        return lib.c_api_removeSpeciesReferenceCurveSegment(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
 
     def isSpeciesReferenceCurveSegmentCubicBezier(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, curve_segment_index=0, layout_index=0):
         """
@@ -1625,7 +1850,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumSpeciesReferenceLineDashes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def getSpeciesReferenceNthLineDash(self, reaction_id, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def getSpeciesReferenceLineDash(self, reaction_id, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns the dash at the given dash_index of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
@@ -1641,9 +1866,9 @@ class LibSBMLNetwork:
 
             an int that determines the dash at the given dash_index of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getSpeciesReferenceNthLineDash(self.sbml_object, str(reaction_id).encode(), dash_index, reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_getSpeciesReferenceLineDash(self.sbml_object, str(reaction_id).encode(), dash_index, reaction_glyph_index, species_reference_index, layout_index)
 
-    def setSpeciesReferenceNthLineDash(self, reaction_id, dash, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def setSpeciesReferenceLineDash(self, reaction_id, dash, dash_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Sets the dash at the given dash_index of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument
 
@@ -1660,7 +1885,7 @@ class LibSBMLNetwork:
 
             true on success and false if the dash at the given dash_index of the SpeciesReference could not be set
         """
-        return lib.c_api_setSpeciesReferenceNthLineDash(self.sbml_object, str(reaction_id).encode(), dash, dash_index, reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineDash(self.sbml_object, str(reaction_id).encode(), dash, dash_index, reaction_glyph_index, species_reference_index, layout_index)
 
     def isSetSpeciesReferenceStartHead(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
@@ -1798,7 +2023,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumTextGlyphs(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def getText(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0, use_name_as_text_label=True):
+    def getText(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
         Returns the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
 
@@ -1808,14 +2033,13 @@ class LibSBMLNetwork:
             - graphical_object_index (int): an integer that determines the index of the GraphicalObject in the given SBMLDocument
             - text_glyph_index (int): an integer that determines the index of the TextGlyph in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
-            - use_name_as_text_label (bool, optional): a boolean (default: True) that determines whether the name of the model entity should be used as the text label of the TextGlyph
 
         :Returns:
 
             a string that determines the text of the TextGlyph associated with the GraphicalObject associated with the given id, text_glyph_index, and layout_index in the given SBMLDocument
         """
         lib.c_api_getText.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index, use_name_as_text_label)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)).value.decode()
 
     def setText(self, id, text, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -1868,6 +2092,66 @@ class LibSBMLNetwork:
             true on success and false if the TextGlyph could not be removed
         """
         return lib.c_api_removeText(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
+
+    def getNumAllAdditionalGraphicalObjects(self, layout_index=0):
+        """
+        Returns the number of AdditionalGraphicalObjects in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            an integer that determines the number of AdditionalGraphicalObjects in the Layout object with the given index in the given SBMLDocument
+        """
+        return lib.c_api_getNumAllAdditionalGraphicalObjects(self.sbml_object, layout_index)
+
+    def getAdditionalGraphicalObjectId(self, additional_graphical_object_index=0, layout_index=0):
+        """
+        Returns the id of the AdditionalGraphicalObject with the given additional_graphical_object_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - additional_graphical_object_index (int): an integer that determines the index of the AdditionalGraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the AdditionalGraphicalObject with the given additional_graphical_object_index and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getAdditionalGraphicalObjectId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getAdditionalGraphicalObjectId(self.sbml_object, additional_graphical_object_index, layout_index)).value.decode()
+
+    def addAdditionalGraphicalObject(self, id, layout_index=0):
+        """
+        Adds an AdditionalGraphicalObject with the given id and layout_index to the given SBMLDocument
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the AdditionalGraphicalObject
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the AdditionalGraphicalObject could not be added
+        """
+        return lib.c_api_addAdditionalGraphicalObject(self.sbml_object, str(id).encode(), layout_index)
+
+    def removeAdditionalGraphicalObject(self, additional_graphical_object_index=0, layout_index=0):
+        """
+        Removes the AdditionalGraphicalObject with the given additional_graphical_object_index and layout_index from the given SBMLDocument
+
+        :Parameters:
+
+            - additional_graphical_object_index (int): an integer that determines the index of the AdditionalGraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the AdditionalGraphicalObject could not be removed
+        """
+        return lib.c_api_removeAdditionalGraphicalObject(self.sbml_object, additional_graphical_object_index, layout_index)
 
     def getX(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -2416,6 +2700,55 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumCurveSegments(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
 
+    def addLineCurveSegment(self, reaction_id, reaction_glyph_index=0, layout_index=0):
+        """
+        Adds a LineSegment to the Curve of the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the LineSegment could not be added to the Curve of the ReactionGlyph
+        """
+        return lib.c_api_addLineCurveSegment(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
+
+    def addCubicBezierCurveSegment(self, reaction_id, reaction_glyph_index=0, layout_index=0):
+        """
+        Adds a CubicBezier to the Curve of the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the CubicBezier could not be added to the Curve of the ReactionGlyph
+        """
+        return lib.c_api_addCubicBezierCurveSegment(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
+
+    def removeCurveSegment(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
+        """
+        Removes the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - curve_segment_index (int): an integer that determines the index of the CurveSegment in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the CurveSegment could not be removed
+            """
+        return lib.c_api_removeCurveSegment(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
+
     def isCurveSegmentCubicBezier(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
         """
         Returns whether the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument is a CubicBezier
@@ -2859,13 +3192,13 @@ class LibSBMLNetwork:
             a list of strings that determines the list of ColorDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
 
         """
-        lib.c_api_getNthGlobalColorId.restype = ctypes.c_char_p
-        lib.c_api_getNthLocalColorId.restype = ctypes.c_char_p
+        lib.c_api_getGlobalColorId.restype = ctypes.c_char_p
+        lib.c_api_getLocalColorId.restype = ctypes.c_char_p
         list_of_color_ids = []
         for n in range(lib.c_api_getNumGlobalColors(self.sbml_object, render_index)):
-            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalColorId(self.sbml_object, n, render_index)).value.decode())
+            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getGlobalColorId(self.sbml_object, n, render_index)).value.decode())
         for n in range(lib.c_api_getNumLocalColors(self.sbml_object, render_index)):
-            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalColorId(self.sbml_object, n, render_index)).value.decode())
+            list_of_color_ids.append(ctypes.c_char_p(lib.c_api_getLocalColorId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_color_ids
 
@@ -2911,7 +3244,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumLocalColors(self.sbml_object, render_index)
 
-    def getNthGlobalColorId(self, index, render_index=0):
+    def getGlobalColorId(self, index, render_index=0):
         """
         Returns the id of the ColorDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
 
@@ -2924,10 +3257,10 @@ class LibSBMLNetwork:
 
             a string that determines the id of the ColorDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGlobalColorId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthGlobalColorId(self.sbml_object, index, render_index)).value.decode()
+        lib.c_api_getGlobalColorId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGlobalColorId(self.sbml_object, index, render_index)).value.decode()
 
-    def getNthLocalColorId(self, index, render_index=0):
+    def getLocalColorId(self, index, render_index=0):
         """
         Returns the id of the ColorDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
 
@@ -2940,8 +3273,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the ColorDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthLocalColorId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthLocalColorId(self.sbml_object, index, render_index)).value.decode()
+        lib.c_api_getLocalColorId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLocalColorId(self.sbml_object, index, render_index)).value.decode()
 
     def isSetColorValue(self, color_id, render_index=0):
         """
@@ -3002,13 +3335,13 @@ class LibSBMLNetwork:
 
             a list of strings that determines the list of GradientDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGlobalGradientId.restype = ctypes.c_char_p
-        lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
+        lib.c_api_getGlobalGradientId.restype = ctypes.c_char_p
+        lib.c_api_getLocalGradientId.restype = ctypes.c_char_p
         list_of_gradient_ids = []
         for n in range(lib.c_api_getNumGlobalGradients(self.sbml_object, render_index)):
-            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalGradientId(self.sbml_object, n, render_index)).value.decode())
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getGlobalGradientId(self.sbml_object, n, render_index)).value.decode())
         for n in range(lib.c_api_getNumLocalGradients(self.sbml_object, render_index)):
-            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, n, render_index)).value.decode())
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getLocalGradientId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_gradient_ids
 
@@ -3024,13 +3357,13 @@ class LibSBMLNetwork:
 
             a list of strings that determines the list of GradientDefinition ids in the RenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGlobalGradientId.restype = ctypes.c_char_p
-        lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
+        lib.c_api_getGlobalGradientId.restype = ctypes.c_char_p
+        lib.c_api_getLocalGradientId.restype = ctypes.c_char_p
         list_of_gradient_ids = []
         for n in range(lib.c_api_getNumGlobalGradients(self.sbml_object, render_index)):
-            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalGradientId(self.sbml_object, n, render_index)).value.decode())
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getGlobalGradientId(self.sbml_object, n, render_index)).value.decode())
         for n in range(lib.c_api_getNumLocalGradients(self.sbml_object, render_index)):
-            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, n, render_index)).value.decode())
+            list_of_gradient_ids.append(ctypes.c_char_p(lib.c_api_getLocalGradientId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_gradient_ids
 
@@ -3076,7 +3409,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumLocalGradients(self.sbml_object, render_index)
 
-    def getNthGlobalGradientId(self, index, render_index=0):
+    def getGlobalGradientId(self, index, render_index=0):
         """
         Returns the id of the GradientDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
 
@@ -3089,10 +3422,10 @@ class LibSBMLNetwork:
 
             a string that determines the id of the GradientDefinition object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGlobalGradientId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthGlobalGradientId(self.sbml_object, index, render_index)).value.decode()
+        lib.c_api_getGlobalGradientId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGlobalGradientId(self.sbml_object, index, render_index)).value.decode()
 
-    def getNthLocalGradientId(self, index, render_index=0):
+    def getLocalGradientId(self, index, render_index=0):
         """
         Returns the id of the GradientDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
 
@@ -3105,8 +3438,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the GradientDefinition object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthLocalGradientId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthLocalGradientId(self.sbml_object, index, render_index)).value.decode()
+        lib.c_api_getLocalGradientId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLocalGradientId(self.sbml_object, index, render_index)).value.decode()
 
     def isLinearGradient(self, gradient_id, render_index=0):
         """
@@ -3735,13 +4068,13 @@ class LibSBMLNetwork:
 
             a list of strings that determines the list of LineEnding ids in the RenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGlobalLineEndingId.restype = ctypes.c_char_p
-        lib.c_api_getNthLocalLineEndingId.restype = ctypes.c_char_p
+        lib.c_api_getGlobalLineEndingId.restype = ctypes.c_char_p
+        lib.c_api_getLocalLineEndingId.restype = ctypes.c_char_p
         list_of_line_ending_ids = []
         for n in range(lib.c_api_getNumGlobalLineEndings(self.sbml_object, render_index)):
-            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getNthGlobalLineEndingId(self.sbml_object, n, render_index)).value.decode())
+            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getGlobalLineEndingId(self.sbml_object, n, render_index)).value.decode())
         for n in range(lib.c_api_getNumLocalLineEndings(self.sbml_object, render_index)):
-            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getNthLocalLineEndingId(self.sbml_object, n, render_index)).value.decode())
+            list_of_line_ending_ids.append(ctypes.c_char_p(lib.c_api_getLocalLineEndingId(self.sbml_object, n, render_index)).value.decode())
 
         return list_of_line_ending_ids
 
@@ -3787,7 +4120,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumLocalLineEndings(self.sbml_object, render_index)
 
-    def getNthGlobalLineEndingId(self, index, render_index=0):
+    def getGlobalLineEndingId(self, index, render_index=0):
         """
         Returns the id of the LineEnding object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
 
@@ -3800,10 +4133,10 @@ class LibSBMLNetwork:
 
             a string that determines the id of the LineEnding object with the given index in the GlobalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthGlobalLineEndingId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthGlobalLineEndingId(self.sbml_object, index, render_index)).value.decode()
+        lib.c_api_getGlobalLineEndingId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getGlobalLineEndingId(self.sbml_object, index, render_index)).value.decode()
 
-    def getNthLocalLineEndingId(self, index, render_index=0):
+    def getLocalLineEndingId(self, index, render_index=0):
         """
         Returns the id of the LineEnding object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
 
@@ -3816,8 +4149,8 @@ class LibSBMLNetwork:
 
             a string that determines the id of the LineEnding object with the given index in the LocalRenderInformation object with the given index in the given SBMLDocument
         """
-        lib.c_api_getNthLocalLineEndingId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getNthLocalLineEndingId(self.sbml_object, index, render_index)).value.decode()
+        lib.c_api_getLocalLineEndingId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLocalLineEndingId(self.sbml_object, index, render_index)).value.decode()
 
     def getLineEndingBoundingBoxX(self, line_ending_id, render_index=0):
         """
@@ -4408,7 +4741,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumLineEndingBorderDashes(self.sbml_object, str(line_ending_id).encode(), render_index)
 
-    def getLineEndingNthBorderDash(self, line_ending_id, index, render_index=0):
+    def getLineEndingBorderDash(self, line_ending_id, index, render_index=0):
         """
         Returns the border dash with the given index of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
 
@@ -4423,9 +4756,9 @@ class LibSBMLNetwork:
             an integer that determines the border dash with the given index of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
 
         """
-        return lib.c_api_getLineEndingNthBorderDash(self.sbml_object, str(line_ending_id).encode(), index, render_index)
+        return lib.c_api_getLineEndingBorderDash(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
-    def setLineEndingNthBorderDash(self, line_ending_id, index, border_dash, render_index=0):
+    def setLineEndingBorderDash(self, line_ending_id, index, border_dash, render_index=0):
         """
         Sets the border dash with the given index of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
 
@@ -4440,7 +4773,7 @@ class LibSBMLNetwork:
 
             true on success and false if the border dash of the LineEnding object could not be set
         """
-        return lib.c_api_setLineEndingNthBorderDash(self.sbml_object, str(line_ending_id).encode(), index, border_dash, render_index)
+        return lib.c_api_setLineEndingBorderDash(self.sbml_object, str(line_ending_id).encode(), index, border_dash, render_index)
 
     def getNumSpeciesReferenceLineEndingBorderDashes(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
@@ -4459,7 +4792,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumSpeciesReferenceLineEndingBorderDashes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def getSpeciesReferenceLineEndingNthBorderDash(self, reaction_id, index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def getSpeciesReferenceLineEndingBorderDash(self, reaction_id, index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns the border dash with the given index of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -4475,9 +4808,9 @@ class LibSBMLNetwork:
 
             an integer that determines the border dash with the given index of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getSpeciesReferenceLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_getSpeciesReferenceLineEndingBorderDash(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_index, layout_index)
 
-    def setSpeciesReferenceLineEndingNthBorderDash(self, reaction_id, index, border_dash, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+    def setSpeciesReferenceLineEndingBorderDash(self, reaction_id, index, border_dash, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Sets the border dash with the given index of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -4494,9 +4827,9 @@ class LibSBMLNetwork:
 
             true on success and false if the border dash of the LineEnding object of the SpeciesReference object could not be set
         """
-        return lib.c_api_setSpeciesReferenceLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, border_dash, reaction_glyph_index, species_reference_index, layout_index)
+        return lib.c_api_setSpeciesReferenceLineEndingBorderDash(self.sbml_object, str(reaction_id).encode(), index, border_dash, reaction_glyph_index, species_reference_index, layout_index)
 
-    def setReactionLineEndingNthBorderDash(self, reaction_id, index, border_dash, reaction_glyph_index=0, layout_index=0):
+    def setReactionLineEndingBorderDash(self, reaction_id, index, border_dash, reaction_glyph_index=0, layout_index=0):
         """
         Sets the border dash with the given index of the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -4512,7 +4845,7 @@ class LibSBMLNetwork:
 
             true on success and false if the border dash of the LineEnding object of the Reaction object could not be set
         """
-        return lib.c_api_setReactionLineEndingNthBorderDash(self.sbml_object, str(reaction_id).encode(), index, border_dash, reaction_glyph_index, layout_index)
+        return lib.c_api_setReactionLineEndingBorderDash(self.sbml_object, str(reaction_id).encode(), index, border_dash, reaction_glyph_index, layout_index)
 
     def isSetLineEndingFillColor(self, line_ending_id, render_index=0):
         """
@@ -4836,6 +5169,216 @@ class LibSBMLNetwork:
             an integer that determines the number of GeometricShape objects in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         return lib.c_api_getNumSpeciesReferenceLineEndingGeometricShapes(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def addLineEndingGeometricShape(self, line_ending_id, geometric_shape_type, render_index=0):
+        """
+        Adds a GeometricShape object to the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - geometric_shape_type (string): a string that determines the type of the GeometricShape object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be added to the LineEnding object
+        """
+        return lib.c_api_addLineEndingGeometricShape(self.sbml_object, str(line_ending_id).encode(), str(geometric_shape_type).encode(), render_index)
+
+    def addSpeciesReferenceLineEndingGeometricShape(self, reaction_id, geometric_shape_type, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Adds a GeometricShape object to the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - geometric_shape_type (string): a string that determines the type of the GeometricShape object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be added to the LineEnding object of the SpeciesReference object
+        """
+        return lib.c_api_addSpeciesReferenceLineEndingGeometricShape(self.sbml_object, str(reaction_id).encode(), str(geometric_shape_type).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def removeLineEndingGeometricShape(self, line_ending_id, index, render_index=0):
+        """
+        Removes the GeometricShape object with the given index from the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the GeometricShape object could not be removed from the LineEnding object
+        """
+        return lib.c_api_removeLineEndingGeometricShape(self.sbml_object, str(line_ending_id).encode(), index, render_index)
+
+    def removeSpeciesReferenceLineEndingGeometricShape(self, reaction_id, index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Removes the GeometricShape object with the given index from the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object of the SpeciesReference object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the GeometricShape object could not be removed from the LineEnding object of the SpeciesReference object
+            """
+        return lib.c_api_removeSpeciesReferenceLineEndingGeometricShape(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_index, layout_index)
+
+    def getLineEndingGeometricShapeType(self, line_ending_id, index, render_index=0):
+        """
+        Returns the type of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the type of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getLineEndingGeometricShapeType.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLineEndingGeometricShapeType(self.sbml_object, str(line_ending_id).encode(), index, render_index)).value.decode()
+
+    def getSpeciesReferenceLineEndingGeometricShapeType(self, reaction_id, index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns the type of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object of the SpeciesReference object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the type of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+        """
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeType.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceLineEndingGeometricShapeType(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_index, layout_index)).value.decode()
+
+    def setLineEndingGeometricShapeType(self, line_ending_id, geometric_shape_type, render_index=0):
+        """
+        Sets the type of the GeometricShape object of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - geometric_shape_type (string): a string that determines the type of the GeometricShape object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the type of the GeometricShape object could not be set
+        """
+        return lib.c_api_setLineEndingGeometricShapeType(self.sbml_object, str(line_ending_id).encode(), str(geometric_shape_type).encode(), render_index)
+
+    def setSpeciesReferenceLineEndingGeometricShapeType(self, reaction_id, geometric_shape_type, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Sets the type of the GeometricShape object of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - geometric_shape_type (string): a string that determines the type of the GeometricShape object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the type of the GeometricShape object could not be set
+            """
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeType(self.sbml_object, str(reaction_id).encode(), str(geometric_shape_type).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def getLineEndingGeometricShapeId(self, line_ending_id, index, render_index=0):
+        """
+        Returns the id of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the id of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+        """
+        lib.c_api_getLineEndingGeometricShapeId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getLineEndingGeometricShapeId(self.sbml_object, str(line_ending_id).encode(), index, render_index)).value.decode()
+
+    def getSpeciesReferenceLineEndingGeometricShapeId(self, reaction_id, index, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns the id of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object of the SpeciesReference object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                a string that determines the id of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+            """
+        lib.c_api_getSpeciesReferenceLineEndingGeometricShapeId.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getSpeciesReferenceLineEndingGeometricShapeId(self.sbml_object, str(reaction_id).encode(), index, reaction_glyph_index, species_reference_index, layout_index)).value.decode()
+
+    def setLineEndingGeometricShapeId(self, line_ending_id, index, geometric_shape_id, render_index=0):
+        """
+        Sets the id of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument
+
+        :Parameters:
+
+            - line_ending_id (string): a string that determines the id of the LineEnding object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object
+            - geometric_shape_id (string): a string that determines the id of the GeometricShape object
+            - render_index (int, optional): an integer (default: 0) that determines the index of the RenderInformation object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the id of the GeometricShape object could not be set
+        """
+        return lib.c_api_setLineEndingGeometricShapeId(self.sbml_object, str(line_ending_id).encode(), index, str(geometric_shape_id).encode(), render_index)
+
+    def setSpeciesReferenceLineEndingGeometricShapeId(self, reaction_id, index, geometric_shape_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Sets the id of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction object
+            - index (int): an integer that determines the index of the GeometricShape object in the LineEnding object of the SpeciesReference object
+            - geometric_shape_id (string): a string that determines the id of the GeometricShape object
+            - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph object in the given SBMLDocument
+            - species_reference_index (int, optional): an integer (default: 0) that determines the index of the SpeciesReference object in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+                true on success and false if the id of the GeometricShape object could not be set
+            """
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeId(self.sbml_object, str(reaction_id).encode(), index, str(geometric_shape_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def isLineEndingRectangle(self, line_ending_id, index=0, render_index=0):
         """
@@ -6473,7 +7016,7 @@ class LibSBMLNetwork:
 
             true if the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is a cubic bezier segment and false otherwise
         """
-        return lib.c_api_isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeSegmentX(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6529,9 +7072,9 @@ class LibSBMLNetwork:
             a float that determines the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentX.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setSpeciesReferenceLineEndingGeometricShapeSegmentX(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeSegmentX(self, reaction_id, x, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -6549,9 +7092,9 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the segment could not be set
         """
-        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setReactionLineEndingGeometricShapeSegmentX(self, reaction_id, segment_index, x, reaction_glyph_index=0, layout_index=0, index=0):
+    def setReactionLineEndingGeometricShapeSegmentX(self, reaction_id, x, segment_index, reaction_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -6568,7 +7111,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, layout_index, index)
+        return lib.c_api_setReactionLineEndingGeometricShapeSegmentX(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeSegmentY(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6624,9 +7167,9 @@ class LibSBMLNetwork:
             a float that determines the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentY.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setSpeciesReferenceLineEndingGeometricShapeSegmentY(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeSegmentY(self, reaction_id, y, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -6644,9 +7187,9 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the segment could not be set
         """
-        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setReactionLineEndingGeometricShapeSegmentY(self, reaction_id, segment_index, y, reaction_glyph_index=0, layout_index=0, index=0):
+    def setReactionLineEndingGeometricShapeSegmentY(self, reaction_id, y, segment_index, reaction_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -6663,7 +7206,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, layout_index, index)
+        return lib.c_api_setReactionLineEndingGeometricShapeSegmentY(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeBasePoint1X(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6719,9 +7262,9 @@ class LibSBMLNetwork:
             a float that determines the x-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1X.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self, reaction_id, x, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -6739,9 +7282,9 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the first base point of the segment could not be set
         """
-        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint1X(self, reaction_id, segment_index, x, reaction_glyph_index=0, layout_index=0, index=0):
+    def setReactionLineEndingGeometricShapeBasePoint1X(self, reaction_id, x, segment_index, reaction_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -6758,7 +7301,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the first base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, layout_index, index)
+        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint1X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeBasePoint1Y(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6814,9 +7357,9 @@ class LibSBMLNetwork:
             a float that determines the y-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self, reaction_id, y, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -6832,11 +7375,11 @@ class LibSBMLNetwork:
 
         :Returns:
 
-                true on success and false if the y-coordinate of the first base point of the segment could not be set
-            """
-        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_index, layout_index, index)
+            true on success and false if the y-coordinate of the first base point of the segment could not be set
+        """
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint1Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, layout_index=0, index=0):
+    def setReactionLineEndingGeometricShapeBasePoint1Y(self, reaction_id, y, segment_index, reaction_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the first base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -6853,7 +7396,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the first base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, layout_index, index)
+        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint1Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeBasePoint2X(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -6909,9 +7452,9 @@ class LibSBMLNetwork:
             a float that determines the x-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2X.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self, reaction_id, segment_index, x, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self, reaction_id, x, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -6929,9 +7472,9 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the second base point of the segment could not be set
         """
-        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint2X(self, reaction_id, segment_index, x, reaction_glyph_index=0, layout_index=0, index=0):
+    def setReactionLineEndingGeometricShapeBasePoint2X(self, reaction_id, x, segment_index, reaction_glyph_index=0, layout_index=0, index=0):
         """
         Sets the x-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -6948,7 +7491,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the second base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(x), reaction_glyph_index, layout_index, index)
+        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint2X(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(x), reaction_glyph_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeBasePoint2Y(self, line_ending_id, segment_index, index=0, render_index=0):
         """
@@ -7004,9 +7547,9 @@ class LibSBMLNetwork:
             a float that determines the y-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
         """
         lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y.restype = ctypes.c_double
-        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_getSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
+    def setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self, reaction_id, y, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument
 
@@ -7024,9 +7567,9 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the second base point of the segment could not be set
         """
-        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, species_reference_index, layout_index, index)
+        return lib.c_api_setSpeciesReferenceLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
-    def setReactionLineEndingGeometricShapeBasePoint2Y(self, reaction_id, segment_index, y, reaction_glyph_index=0, layout_index=0, index=0):
+    def setReactionLineEndingGeometricShapeBasePoint2Y(self, reaction_id, y, segment_index, reaction_glyph_index=0, layout_index=0, index=0):
         """
         Sets the y-coordinate of the second base point of the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the Reaction object with the given reaction_id, reaction_glyph_index and layout_index in the given SBMLDocument
 
@@ -7043,7 +7586,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the second base point of the segment could not be set
         """
-        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), segment_index, ctypes.c_double(y), reaction_glyph_index, layout_index, index)
+        return lib.c_api_setReactionLineEndingGeometricShapeBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, layout_index, segment_index, index)
 
     def isSetBorderColor(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -7518,7 +8061,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumBorderDashes(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def getNthBorderDash(self, id, border_dash_index, graphical_object_index=0, layout_index=0):
+    def getBorderDash(self, id, border_dash_index, graphical_object_index=0, layout_index=0):
         """
         Returns the border dash with the given border_dash_index of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -7533,9 +8076,9 @@ class LibSBMLNetwork:
 
             an integer that determines the border dash with the given border_dash_index of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getNthBorderDash(self.sbml_object, str(id).encode(), border_dash_index, graphical_object_index, layout_index)
+        return lib.c_api_getBorderDash(self.sbml_object, str(id).encode(), border_dash_index, graphical_object_index, layout_index)
 
-    def setNthBorderDash(self, id, dash, border_dash_index, graphical_object_index=0, layout_index=0):
+    def setBorderDash(self, id, dash, border_dash_index, graphical_object_index=0, layout_index=0):
         """
         Sets the border dash with the given border_dash_index of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -7551,7 +8094,7 @@ class LibSBMLNetwork:
 
             true on success and false if the border dash could not be set
         """
-        return lib.c_api_setNthBorderDash(self.sbml_object, str(id).encode(), dash, border_dash_index, graphical_object_index, layout_index)
+        return lib.c_api_setBorderDash(self.sbml_object, str(id).encode(), dash, border_dash_index, graphical_object_index, layout_index)
 
     def getNumLineDashes(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -7569,7 +8112,7 @@ class LibSBMLNetwork:
         """
         return lib.c_api_getNumLineDashes(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
-    def getNthLineDash(self, id, line_dash_index, graphical_object_index=0, layout_index=0):
+    def getLineDash(self, id, line_dash_index, graphical_object_index=0, layout_index=0):
         """
         Returns the line dash with the given line_dash_index of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -7584,9 +8127,9 @@ class LibSBMLNetwork:
 
             an integer that determines the line dash with the given line_dash_index of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
         """
-        return lib.c_api_getNthLineDash(self.sbml_object, str(id).encode(), line_dash_index, graphical_object_index, layout_index)
+        return lib.c_api_getLineDash(self.sbml_object, str(id).encode(), line_dash_index, graphical_object_index, layout_index)
 
-    def setNthLineDash(self, id, dash, line_dash_index, graphical_object_index=0, layout_index=0):
+    def setLineDash(self, id, dash, line_dash_index, graphical_object_index=0, layout_index=0):
         """
         Sets the line dash with the given line_dash_index of the GraphicalObject (ReactionGlyph) associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument
 
@@ -7602,7 +8145,7 @@ class LibSBMLNetwork:
 
             true on success and false if the line dash could not be set
         """
-        return lib.c_api_setNthLineDash(self.sbml_object, str(id).encode(), dash, line_dash_index, graphical_object_index, layout_index)
+        return lib.c_api_setLineDash(self.sbml_object, str(id).encode(), dash, line_dash_index, graphical_object_index, layout_index)
 
     def isSetFillColor(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -12271,10 +12814,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid SpeciesReference roles in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidRoleValue.restype = ctypes.c_char_p
+        lib.c_api_getValidRoleValue.restype = ctypes.c_char_p
         list_of_roles = []
         for n in range(lib.c_api_getNumValidRoleValues()):
-            list_of_roles.append(ctypes.c_char_p(lib.c_api_getNthValidRoleValue(n)).value.decode())
+            list_of_roles.append(ctypes.c_char_p(lib.c_api_getValidRoleValue(n)).value.decode())
 
         return list_of_roles
 
@@ -12287,10 +12830,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject alignments in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidAlignmentValue.restype = ctypes.c_char_p
+        lib.c_api_getValidAlignmentValue.restype = ctypes.c_char_p
         list_of_alignments = []
         for n in range(lib.c_api_getNumValidAlignmentValues()):
-            list_of_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidAlignmentValue(n)).value.decode())
+            list_of_alignments.append(ctypes.c_char_p(lib.c_api_getValidAlignmentValue(n)).value.decode())
 
         return list_of_alignments
 
@@ -12303,10 +12846,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject distribution directions in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidDistributionDirectionValue.restype = ctypes.c_char_p
+        lib.c_api_getValidDistributionDirectionValue.restype = ctypes.c_char_p
         list_of_distribution_directions = []
         for n in range(lib.c_api_getNumValidDistributionDirectionValues()):
-            list_of_distribution_directions.append(ctypes.c_char_p(lib.c_api_getNthValidDistributionDirectionValue(n)).value.decode())
+            list_of_distribution_directions.append(ctypes.c_char_p(lib.c_api_getValidDistributionDirectionValue(n)).value.decode())
 
         return list_of_distribution_directions
 
@@ -12354,10 +12897,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GradientBase spread methods in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidSpreadMethodValue.restype = ctypes.c_char_p
+        lib.c_api_getValidSpreadMethodValue.restype = ctypes.c_char_p
         list_of_spread_methods = []
         for n in range(lib.c_api_getNumValidSpreadMethodValues()):
-            list_of_spread_methods.append(ctypes.c_char_p(lib.c_api_getNthValidSpreadMethodValue(n)).value.decode())
+            list_of_spread_methods.append(ctypes.c_char_p(lib.c_api_getValidSpreadMethodValue(n)).value.decode())
 
         return list_of_spread_methods
 
@@ -12370,10 +12913,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject font weights in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidFontWeightValue.restype = ctypes.c_char_p
+        lib.c_api_getValidFontWeightValue.restype = ctypes.c_char_p
         list_of_font_weights = []
         for n in range(lib.c_api_getNumValidFontWeightValues()):
-            list_of_font_weights.append(ctypes.c_char_p(lib.c_api_getNthValidFontWeightValue(n)).value.decode())
+            list_of_font_weights.append(ctypes.c_char_p(lib.c_api_getValidFontWeightValue(n)).value.decode())
 
         return list_of_font_weights
 
@@ -12386,10 +12929,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject font styles in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidFontStyleValue.restype = ctypes.c_char_p
+        lib.c_api_getValidFontStyleValue.restype = ctypes.c_char_p
         list_of_font_styles = []
         for n in range(lib.c_api_getNumValidFontStyleValues()):
-            list_of_font_styles.append(ctypes.c_char_p(lib.c_api_getNthValidFontStyleValue(n)).value.decode())
+            list_of_font_styles.append(ctypes.c_char_p(lib.c_api_getValidFontStyleValue(n)).value.decode())
 
         return list_of_font_styles
 
@@ -12402,10 +12945,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject horizontal text alignments in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidHorizontalTextAlignmentValue.restype = ctypes.c_char_p
+        lib.c_api_getValidHorizontalTextAlignmentValue.restype = ctypes.c_char_p
         list_of_horizontal_text_alignments = []
         for n in range(lib.c_api_getNumValidHorizontalTextAlignmentValues()):
-            list_of_horizontal_text_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidHorizontalTextAlignmentValue(n)).value.decode())
+            list_of_horizontal_text_alignments.append(ctypes.c_char_p(lib.c_api_getValidHorizontalTextAlignmentValue(n)).value.decode())
 
         return list_of_horizontal_text_alignments
 
@@ -12418,10 +12961,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject vertical text alignments in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidVerticalTextAlignmentValue.restype = ctypes.c_char_p
+        lib.c_api_getValidVerticalTextAlignmentValue.restype = ctypes.c_char_p
         list_of_vertical_text_alignments = []
         for n in range(lib.c_api_getNumValidVerticalTextAlignmentValues()):
-            list_of_vertical_text_alignments.append(ctypes.c_char_p(lib.c_api_getNthValidVerticalTextAlignmentValue(n)).value.decode())
+            list_of_vertical_text_alignments.append(ctypes.c_char_p(lib.c_api_getValidVerticalTextAlignmentValue(n)).value.decode())
 
         return list_of_vertical_text_alignments
 
@@ -12434,10 +12977,10 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GraphicalObject fill rules in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidFillRuleValue.restype = ctypes.c_char_p
+        lib.c_api_getValidFillRuleValue.restype = ctypes.c_char_p
         list_of_fill_rules = []
         for n in range(lib.c_api_getNumValidFillRuleValues()):
-            list_of_fill_rules.append(ctypes.c_char_p(lib.c_api_getNthValidFillRuleValue(n)).value.decode())
+            list_of_fill_rules.append(ctypes.c_char_p(lib.c_api_getValidFillRuleValue(n)).value.decode())
 
         return list_of_fill_rules
 
@@ -12450,25 +12993,39 @@ class LibSBMLNetwork:
             a list of strings that determines the valid GeometricShape types in the given SBMLDocument
 
         """
-        lib.c_api_getNthValidGeometricShapeValue.restype = ctypes.c_char_p
+        lib.c_api_getValidGeometricShapeValue.restype = ctypes.c_char_p
         list_of_geometric_shapes = []
         for n in range(lib.c_api_getNumValidGeometricShapeValues()):
-            list_of_geometric_shapes.append(ctypes.c_char_p(lib.c_api_getNthValidGeometricShapeValue(n)).value.decode())
+            list_of_geometric_shapes.append(ctypes.c_char_p(lib.c_api_getValidGeometricShapeValue(n)).value.decode())
 
         return list_of_geometric_shapes
 
-    def setNamesAsTextLabels(self, use_name_as_text_label):
+    def getUseNameAsTextLabel(self, layout_index=0):
         """
-        Set the flag to use the name of the model entity as the text label of the GraphicalObject associated with the model entity
+        Returns the flag to use the name of the model entity as the text label of the GraphicalObject associated with the model entity in the layout with the given layout_index
 
         :Parameters:
 
-            - use_name_as_text_label (bool): a boolean that determines whether to use the name of the model entity as the text label of the GraphicalObject associated with the model entity
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            a boolean that determines whether to use the name of the model entity as the text label of the GraphicalObject associated with the model entity in the layout
 
         """
-        self.use_name_as_text_label = use_name_as_text_label
-        if self.layout_is_added:
-            self.autolayout(fixed_position_nodes=self.getListOfSpeciesIds())
+        return lib.c_api_getUseNameAsTextLabel(self.sbml_object, layout_index)
+
+    def setUseNameAsTextLabel(self, use_name_as_text_label, layout_index=0):
+        """
+        Set the flag to use the name of the model entity as the text label of the GraphicalObject associated with the model entities in the layout with the given layout_index
+
+        :Parameters:
+
+            - use_name_as_text_label (bool): a boolean that determines whether to use the name of the model entity as the text label of the GraphicalObject associated with the model entities in the layout
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        """
+        return lib.c_api_setUseNameAsTextLabel(self.sbml_object, use_name_as_text_label, layout_index)
             
     def enableDisplayCompartmentsTextLabel(self, display_compartments_text_label):
         """
@@ -12514,10 +13071,10 @@ class LibSBMLNetwork:
             a list of strings that determines the available style names
 
         """
-        lib.c_api_getNthPredefinedStyleName.restype = ctypes.c_char_p
+        lib.c_api_getPredefinedStyleName.restype = ctypes.c_char_p
         list_of_styles = []
         for n in range(lib.c_api_getNumPredefinedStyles()):
-            list_of_styles.append(ctypes.c_char_p(lib.c_api_getNthPredefinedStyleName(n)).value.decode())
+            list_of_styles.append(ctypes.c_char_p(lib.c_api_getPredefinedStyleName(n)).value.decode())
 
         return list_of_styles
 

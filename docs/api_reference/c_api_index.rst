@@ -55,21 +55,21 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumGraphicalObjects(SBMLDocument* document, const char* id, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthGraphicalObjectId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getGraphicalObjectId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthGraphicalObjectMetaId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getGraphicalObjectMetaId(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumCompartments(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthCompartmentId(SBMLDocument* document, int compartmentIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getCompartmentId(SBMLDocument* document, int compartmentIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumAllCompartmentGlyphs(SBMLDocument* document, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumCompartmentGlyphs(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthCompartmentGlyphId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getCompartmentGlyphId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthCompartmentGlyphMetaId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getCompartmentGlyphMetaId(SBMLDocument* document, const char* compartmentId, int compartmentGlyphIndex, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isCompartmentGlyph(SBMLDocument* document, const char* compartmentId, int layoutIndex = 0)
 
@@ -77,15 +77,15 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpecies(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesId(SBMLDocument* document, int speciesIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesId(SBMLDocument* document, int speciesIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumAllSpeciesGlyphs(SBMLDocument* document, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpeciesGlyphs(SBMLDocument* document, const char* speciesId, int layoutIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesGlyphId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesGlyphId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesGlyphMetaId(SBMLDocument* document, const char* speciesId, int speciesGlyphIndex, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_EXTERN::c_api_getSpeciesGlyphIndex(SBMLDocument* document, const char* speciesId, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0)
 
@@ -93,15 +93,15 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumReactions(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthReactionId(SBMLDocument* document, int reactionIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getReactionId(SBMLDocument* document, int reactionIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumAllReactionGlyphs(SBMLDocument* document, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumReactionGlyphs(SBMLDocument* document, const char* reactionId, int layoutIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getReactionGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthReactionGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getReactionGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isReactionGlyph(SBMLDocument* document, const char* reactionId, int layoutIndex = 0)
 
@@ -113,19 +113,19 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumModifiers(SBMLDocument* document, const char* reactionId)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthReactantId(SBMLDocument* document, const char* reactionId, int reactantIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getReactantId(SBMLDocument* document, const char* reactionId, int reactantIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthProductId(SBMLDocument* document, const char* reactionId, int productIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getProductId(SBMLDocument* document, const char* reactionId, int productIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthModifierId(SBMLDocument* document, const char* reactionId, int modifierIndex)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getModifierId(SBMLDocument* document, const char* reactionId, int modifierIndex)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpeciesReferenceGlyphs(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesReferenceGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceGlyphId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesReferenceGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceGlyphMetaId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthSpeciesReferenceGlyphSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceGlyphSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0)
 
@@ -193,9 +193,9 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpeciesReferenceBorderDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesReferenceNthBorderDash(SBMLDocument* document, const char* reactionId, const int borderDash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesReferenceBorderDash(SBMLDocument* document, const char* reactionId, const int borderDash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetSpeciesReferenceStartHead(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
@@ -337,9 +337,9 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumLocalColors(SBMLDocument* document, int renderIndex)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthGlobalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getGlobalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthLocalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLocalColorId(SBMLDocument* document, int colorIndex, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetColorValue(SBMLDocument* document, const char* id, int renderIndex = 0)
 
@@ -353,9 +353,9 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumLocalGradients(SBMLDocument* document, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthGlobalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getGlobalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthLocalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLocalGradientId(SBMLDocument* document, int gradientIndex, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isLinearGradient(SBMLDocument* document, const char* id, int renderIndex = 0)
 
@@ -441,9 +441,9 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumLocalLineEndings(SBMLDocument* document, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthGlobalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getGlobalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLocalLineEndingId(SBMLDocument* document, int lineEndingIndex, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingBoundingBoxX(SBMLDocument* document, const char* id, int renderIndex = 0)
 
@@ -515,17 +515,17 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumLineEndingBorderDashes(SBMLDocument* document, const char* id, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getLineEndingBorderDash(SBMLDocument* document, const char* id, int borderDashIndex, int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex, int renderIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setLineEndingBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex, int renderIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumSpeciesReferenceLineEndingBorderDashes(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceLineEndingNthBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getSpeciesReferenceLineEndingBorderDash(SBMLDocument* document, const char* reactionId, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesReferenceLineEndingNthBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setSpeciesReferenceLineEndingBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int borderDashIndex, int reactionGlyphIndex = 0, int speciesReferenceGlyphIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setReactionLineEndingNthBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int borderDashIndex, int reactionGlyphIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setReactionLineEndingBorderDash(SBMLDocument* document, const char* reactionId, const int dash, int borderDashIndex, int reactionGlyphIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetLineEndingFillColor(SBMLDocument* document, const char* id, int renderIndex = 0)
 
@@ -883,9 +883,9 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumBorderDashes(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getBorderDash(SBMLDocument* document, const char* id, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setNthBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_setBorderDash(SBMLDocument* document, const char* id, const int dash, int borderDashIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_isSetFillColor(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0)
 
@@ -1507,18 +1507,18 @@ Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumPredefinedStyles()
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthPredefinedStyleName(int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getPredefinedStyleName(int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumValidRoleValues()
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthValidRoleValue(int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getValidRoleValue(int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumValidAlignmentValues()
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthValidAlignmentValue(int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getValidAlignmentValue(int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumValidDistributionDirectionValues()
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNthValidDistributionDirectionValue(int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getValidDistributionDirectionValue(int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::c_api_getNumValidSpreadMethodValues()

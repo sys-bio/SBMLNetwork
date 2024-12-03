@@ -84,6 +84,8 @@ std::vector<TextGlyph*> getAssociatedTextGlyphsWithGraphicalObject(Layout* layou
 
 GraphicalObject* getGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
 
+int removeGraphicalObjectUsingItsOwnId(Layout* layout, const std::string& graphicalObjectId);
+
 const std::string getEntityId(GraphicalObject* graphicalObject);
 
 std::vector<CompartmentGlyph*> getCompartmentGlyphs(Layout* layout);
@@ -129,6 +131,14 @@ const double getCurveMiddlePositionY(Curve* curve);
 int setCurveMiddlePositionX(Curve* curve, const double& x);
 
 int setCurveMiddlePositionY(Curve* curve, const double& y);
+
+int updateGraphicalObjectId(Layout* layout, GraphicalObject* graphicalObject, const std::string& newId);
+
+int updateSpeciesReferenceGlyphSpeciesGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalSpeciesGlyphId, const std::string& newSpeciesGlyphId);
+
+int updateSpeciesReferenceGlyphReactionGlyphId(SpeciesReferenceGlyph* speciesReferenceGlyph, const std::string& originalReactionGlyphId, const std::string& newReactionGlyphId);
+
+int updateTextGlyphGraphicalObjectId(TextGlyph* textGlyph, const std::string& originalGraphicalObjectId, const std::string& newGraphicalObjectId);
 
 const bool isValidLayoutDimensionWidthValue(const double& width, SBase* sBase = NULL);
 

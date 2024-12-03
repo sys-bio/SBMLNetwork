@@ -4,7 +4,6 @@
 #include "../../features/autolayout/libsbmlnetwork_autolayout.h"
 #include "../../features/user_data/libsbmlnetwork_user_data.h"
 #include "../../features/defaults/libsbmlnetwork_defaults_layout.h"
-#include "../../features/hide_elements/libsbmlnetwork_hide_species.h"
 #include "../../features/fix_elements/libsbmlnetwork_fix_element_position.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
@@ -19,6 +18,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
             set_layout_features_setCompartmentGlyphs(model, layout);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges);
             set_layout_features_setTextGlyphs(layout);
+            user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
         }
     }
@@ -26,7 +26,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
     return -1;
 }
 
-int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges,
                       bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     if (document && layout) {
         defaults_setDefaultLayoutId(layout);
@@ -38,8 +38,9 @@ int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout, userData);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
-            autolayout_locateGlyphs(model, layout, useNameAsTextLabel);
+            autolayout_locateGlyphs(model, layout);
             set_layout_features_setTextGlyphs(layout);
+            user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
         }
 }
@@ -52,6 +53,7 @@ void set_layout_features_clearGraphicalObjects(Layout* layout) {
     set_layout_features_clearSpeciesGlyphs(layout);
     set_layout_features_clearReactionGlyphs(layout);
     set_layout_features_clearTextGlyphs(layout);
+    set_layout_clearAdditionalGraphicalObjects(layout);
 }
 
 void set_layout_features_clearCompartmentGlyphs(Layout* layout) {
@@ -102,6 +104,13 @@ void set_layout_features_clearReactionTextGlyphs(Layout* layout) {
     }
 }
 
+void set_layout_clearAdditionalGraphicalObjects(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumAdditionalGraphicalObjects(); i++) {
+        user_data_freeUserData(layout->getAdditionalGraphicalObject(i));
+        delete layout->removeAdditionalGraphicalObject(i);
+    }
+}
+
 void set_layout_features_setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < model->getNumCompartments(); i++) {
         Compartment *compartment = model->getCompartment(i);
@@ -124,12 +133,10 @@ void set_layout_features_setReactionGlyphs(Model* model, Layout* layout, const i
 void set_layout_features_setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
-            int stoichiometry = getStoichiometryAsInteger(speciesReference);
-            for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
-                SpeciesReferenceGlyph *speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
-            }
+        int stoichiometry = getStoichiometryAsInteger(speciesReference);
+        for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
+            SpeciesReferenceGlyph *speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
         }
     }
 }
@@ -137,12 +144,10 @@ void set_layout_features_setReactantGlyphs(Layout* layout, Reaction* reaction, R
 void set_layout_features_setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
-            int stoichiometry = getStoichiometryAsInteger(speciesReference);
-            for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
-                SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
-            }
+        int stoichiometry = getStoichiometryAsInteger(speciesReference);
+        for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
+            SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
         }
     }
 }
@@ -150,13 +155,11 @@ void set_layout_features_setProductGlyphs(Layout* layout, Reaction* reaction, Re
 void set_layout_features_setModifierGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumModifiers(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getModifier(i);
-        if (!hide_elements_isSpeciesGlyphHidden(layout, reactionGlyph, speciesReference->getSpecies())) {
-            SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), 0, maxNumConnectedEdges, userData);
-            if (speciesReference->getSBOTermID() == "SBO:0000020")
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
-            else
-                speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
-        }
+        SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), 0, maxNumConnectedEdges, userData);
+        if (speciesReference->getSBOTermID() == "SBO:0000020")
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
+        else
+            speciesReferenceGlyph->setRole(SPECIES_ROLE_MODIFIER);
     }
 }
 
@@ -297,6 +300,31 @@ SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(ReactionG
     return speciesReferenceGlyph;
 }
 
+GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* layout, const std::string& id) {
+    GraphicalObject* graphicalObject = layout->createAdditionalGraphicalObject();
+    graphicalObject->setId(id);
+    set_layout_features_setGraphicalObjectBoundingBox(graphicalObject);
+
+    return graphicalObject;
+}
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const std::string& id) {
+    if (layout->removeAdditionalGraphicalObject(id))
+        return 0;
+
+    return -1;
+}
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const unsigned int graphicalObjectIndex) {
+    if (layout && graphicalObjectIndex < layout->getNumAdditionalGraphicalObjects()) {
+        user_data_freeUserData(layout->getAdditionalGraphicalObject(graphicalObjectIndex));
+        delete layout->removeAdditionalGraphicalObject(graphicalObjectIndex);
+        return 0;
+    }
+
+    return -1;
+}
+
 std::vector<SpeciesReferenceGlyph*> set_layout_features_getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph) {
     std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences;
     for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++) {
@@ -397,12 +425,12 @@ void set_layout_features_setGraphicalObjectBoundingBox(GraphicalObject* graphica
         graphicalObject->getBoundingBox()->setId(graphicalObject->getId() + "_bb");
 }
 
-void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph) {
+void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const double& padding) {
     if (referenceSpeciesReferenceGlyph->isSetCurve()) {
         Curve* referenceCurve = referenceSpeciesReferenceGlyph->getCurve();
         Curve* curve = speciesReferenceGlyph->getCurve();
         for (unsigned int i = 0; i < referenceCurve->getNumCurveSegments(); i++)
-            set_layout_features_addCurveSegment(curve, referenceCurve->getCurveSegment(i), defaults_getAliasReactionGlyphPadding());
+            set_layout_features_addCurveSegment(curve, referenceCurve->getCurveSegment(i), padding);
     }
 }
 

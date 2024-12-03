@@ -38,15 +38,15 @@ void FruchtermanReingoldAlgorithmBase::clearConnections() {
     _connections.clear();
 }
 
-void FruchtermanReingoldAlgorithmBase::setElements(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
-    setConnections(model, layout, useNameAsTextLabel);
-    setNodes(model, layout, useNameAsTextLabel);
+void FruchtermanReingoldAlgorithmBase::setElements(Model* model, Layout* layout) {
+    setConnections(model, layout);
+    setNodes(model, layout);
     setNodesDegrees();
 }
 
-void FruchtermanReingoldAlgorithmBase::setConnections(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
+void FruchtermanReingoldAlgorithmBase::setConnections(Model* model, Layout* layout) {
     for (int i = 0; i < layout->getNumReactionGlyphs(); i++)
-        _connections.push_back(new AutoLayoutConnection(model, layout, layout->getReactionGlyph(i), useNameAsTextLabel));
+        _connections.push_back(new AutoLayoutConnection(model, layout, layout->getReactionGlyph(i)));
 }
 
 void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
@@ -530,9 +530,9 @@ FruchtermanReingoldAutoLayoutAlgorithm::FruchtermanReingoldAutoLayoutAlgorithm()
 
 }
 
-void FruchtermanReingoldAutoLayoutAlgorithm::setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
+void FruchtermanReingoldAutoLayoutAlgorithm::setNodes(Model* model, Layout* layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), useNameAsTextLabel, false));
+        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), false));
     for (int i = 0; i < _connections.size(); i++)
         _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }
@@ -543,9 +543,9 @@ FruchtermanReingoldUpdateCurvesAlgorithm::FruchtermanReingoldUpdateCurvesAlgorit
 
 }
 
-void FruchtermanReingoldUpdateCurvesAlgorithm::setNodes(Model* model, Layout* layout, const bool& useNameAsTextLabel) {
+void FruchtermanReingoldUpdateCurvesAlgorithm::setNodes(Model* model, Layout* layout) {
     for (int i = 0; i < layout->getNumSpeciesGlyphs(); i++)
-        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), useNameAsTextLabel, true));
+        _nodes.push_back(new AutoLayoutNode(model, layout, layout->getSpeciesGlyph(i), true));
     for (int i = 0; i < _connections.size(); i++)
         _nodes.push_back(((AutoLayoutConnection*)_connections.at(i))->getCentroidNode());
 }

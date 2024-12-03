@@ -740,7 +740,7 @@ class TestSBMLNetwork(unittest.TestCase):
 
     @staticmethod
     def _get_associated_compartment_id(network, element_id):
-        compartment_id = network.getCompartmentId(element_id)
+        compartment_id = network.getGraphicalObjectCompartmentId(element_id)
         if not compartment_id:
             list_of_compartment_ids = network.getListOfCompartmentIds()
             if len(list_of_compartment_ids) == 1:

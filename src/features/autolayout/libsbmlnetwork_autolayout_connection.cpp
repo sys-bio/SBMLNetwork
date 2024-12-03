@@ -2,9 +2,9 @@
 #include "libsbmlnetwork_autolayout_node.h"
 #include "libsbmlnetwork_autolayout_curve.h"
 
-AutoLayoutConnection::AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, const bool& useNameAsTextLabel) : AutoLayoutObjectBase(model, layout) {
+AutoLayoutConnection::AutoLayoutConnection(Model* model, Layout* layout, ReactionGlyph* reactionGlyph) : AutoLayoutObjectBase(model, layout) {
     _reactionGlyph = reactionGlyph;
-    setCentroidNode(useNameAsTextLabel);
+    setCentroidNode();
     setCurves();
 }
 
@@ -22,8 +22,8 @@ void AutoLayoutConnection::updateFixedPositionStatus() {;
         ((AutoLayoutCurve*)_curves.at(i))->updateFixedPositionStatus();
 }
 
-void AutoLayoutConnection::setCentroidNode(const bool& useNameAsTextLabel) {
-    _centroidNode = new AutoLayoutCentroidNode(_model, _layout, _reactionGlyph, useNameAsTextLabel);
+void AutoLayoutConnection::setCentroidNode() {
+    _centroidNode = new AutoLayoutCentroidNode(_model, _layout, _reactionGlyph);
 }
 
 AutoLayoutObjectBase* AutoLayoutConnection::getCentroidNode() {

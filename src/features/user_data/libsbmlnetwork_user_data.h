@@ -11,35 +11,35 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-void user_data_freeUserData(SBMLDocument* document);
+int user_data_freeUserData(SBMLDocument* document);
 
-void user_data_freeUserData(Layout* layout);
+int user_data_freeUserData(Layout* layout);
 
 std::vector<std::map<std::string, std::string>> user_data_getUserData(Layout* layout);
 
-void user_data_setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
+int user_data_setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
 
-void user_data_setPositionData(GraphicalObject* graphicalObject);
+int user_data_setPositionData(GraphicalObject* graphicalObject);
 
-void user_data_unsetPositionData(GraphicalObject* graphicalObject);
+int user_data_unsetPositionData(GraphicalObject* graphicalObject);
 
-void user_data_setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
+int user_data_setPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-void user_data_unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
+int user_data_unsetPositionData(SpeciesReferenceGlyph* speciesReferenceGlyph);
 
-void user_data_setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData);
+int user_data_setGraphicalObjectUserData(GraphicalObject* graphicalObject, const std::vector<std::map<std::string, std::string>>& userData);
 
-void user_data_freeUserData(RenderInformationBase* renderInformation);
+int user_data_freeUserData(RenderInformationBase* renderInformation);
 
 std::vector<std::map<std::string, std::string>> user_data_getUserData(RenderInformationBase* renderInformationBase);
 
 const std::string user_data_getUserData(SBase* sbase, const std::string& key);
 
-void user_data_setUserData(SBase* sBase, const std::string& key, const std::string& value);
+int user_data_setUserData(SBase* sBase, const std::string& key, const std::string& value);
 
-void user_data_freeUserData(SBMLDocument* document);
+int user_data_freeUserData(SBMLDocument* document);
 
-void user_data_freeUserData(SBase* sbase);
+int user_data_freeUserData(SBase* sBase);
 
 }
 

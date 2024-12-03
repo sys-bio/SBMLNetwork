@@ -26,7 +26,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumLocalRenderInformation(Layout* la
 /// @brief Returns a pointer to the LocalRenderInformation object with the given index in the ListOfLocalRenderInformation of this layout object.
 /// @param layout a pointer to the Layout object.
 /// @param n the index number of the GlobalRenderInformation to return.
-/// @return the @c the nth LocalRenderInformation in the ListOfLocalRenderInformation of this Layout object or NULL if
+/// @return the @c the LocalRenderInformation with the given index in the ListOfLocalRenderInformation of this Layout object or NULL if
 /// no such LocalRenderInformation exists or the object is @c NULL.
 LIBSBMLNETWORK_EXTERN LocalRenderInformation* getLocalRenderInformation(Layout* layout, unsigned int renderIndex = 0);
 

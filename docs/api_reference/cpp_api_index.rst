@@ -55,19 +55,19 @@ SBMLDocument Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumCompartments(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthCompartmentId(SBMLDocument* document, unsigned int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartmentId(SBMLDocument* document, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getCompartment(SBMLDocument* document, const std::string& id)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumSpecies(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthSpeciesId(SBMLDocument* document, unsigned int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesId(SBMLDocument* document, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpecies(SBMLDocument* document, const std::string& id)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumReactions(SBMLDocument* document)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthReactionId(SBMLDocument* document, unsigned int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactionId(SBMLDocument* document, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReaction(SBMLDocument* document, const std::string& id)
 
@@ -79,11 +79,11 @@ SBMLDocument Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumModifiers(SBMLDocument* document, const std::string& reactionId)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthReactantId(SBMLDocument* document, const std::string& reactionId, unsigned int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getReactantId(SBMLDocument* document, const std::string& reactionId, unsigned int index)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthProductId(SBMLDocument* document, const std::string& reactionId, unsigned int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getProductId(SBMLDocument* document, const std::string& reactionId, unsigned int index)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthModifierId(SBMLDocument* document, const std::string& reactionId, unsigned int index)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getModifierId(SBMLDocument* document, const std::string& reactionId, unsigned int index)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId)
 
@@ -798,11 +798,11 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumGlobalColorDefinitions(SBMLDocument* document, unsigned int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthGlobalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGlobalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumLocalColorDefinitions(SBMLDocument* document, unsigned int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthLocalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLocalColorDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int colorIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getColorDefinition(SBMLDocument* document, const std::string& sid)
 
@@ -826,9 +826,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumLocalGradientDefinitions(SBMLDocument* document, unsigned int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthGlobalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGlobalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthLocalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLocalGradientDefinitionId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int gradientIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGradientDefinition(SBMLDocument* document, const std::string& sid)
 
@@ -1092,9 +1092,9 @@ Render Functions
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNumLocalLineEndings(SBMLDocument* document, unsigned int renderIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthGlobalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getGlobalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0)
 
-.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getNthLocalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0)
+.. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLocalLineEndingId(SBMLDocument* document, unsigned int renderIndex = 0, unsigned int lineEndingIndex = 0)
 
 .. doxygenfunction:: LIBSBMLNETWORK_CPP_NAMESPACE::getLineEnding(SBMLDocument* document, const std::string& sid)
 

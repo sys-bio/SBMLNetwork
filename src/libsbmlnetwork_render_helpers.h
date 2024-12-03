@@ -165,6 +165,8 @@ void addSpeciesGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderIn
 
 void addReactionGlyphTextGlyphGlobalStyle(GlobalRenderInformation* globalRenderInformation);
 
+void addGraphicalObjectGlobalStyle(GlobalRenderInformation* globalRenderInformation);
+
 void addLocalStyles(Layout* layout, LocalRenderInformation* localRenderInformation);
 
 Style* createLocalStyle(RenderInformationBase* localRenderInformation, Style* globalStyle, GraphicalObject* graphicalObject);
@@ -218,6 +220,8 @@ void setReactionGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 void setReactionGlyphTextGlyphRenderGroupFeatures(RenderGroup* renderGroup);
 
 void setSpeciesReferenceGlyphRenderGroupFeatures(RenderGroup* renderGroup, SpeciesReferenceRole_t role);
+
+void setGraphicalObjectRenderGroupFeatures(RenderGroup* renderGroup);
 
 void unifyGeometricShapeMutualFeatures(RenderGroup* renderGroup);
 

@@ -14,7 +14,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges);
 
-int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges, bool useNameAsTextLabel,
+int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges,
                               bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet);
 
 void set_layout_features_clearGraphicalObjects(Layout* layout);
@@ -26,6 +26,8 @@ void set_layout_features_clearSpeciesGlyphs(Layout* layout);
 void set_layout_features_clearReactionGlyphs(Layout* layout);
 
 void set_layout_features_clearReactionGlyphSpeciesReferenceGlyphs(ReactionGlyph* reactionGlyph);
+
+void set_layout_clearAdditionalGraphicalObjects(Layout* layout);
 
 void set_layout_features_setCompartmentGlyphs(Model* model, Layout* layout, const std::vector<std::map<std::string, std::string>>& userData = {});
 
@@ -73,6 +75,12 @@ SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(Layout* l
 
 SpeciesReferenceGlyph* set_layout_features_createSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, const std::string& speciesId, unsigned int stoichiometryIndex);
 
+GraphicalObject* set_layout_features_createAdditionalGraphicalObject(Layout* layout, const std::string& id);
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const std::string& id);
+
+int set_layout_features_removeAdditionalGraphicalObject(Layout* layout, const unsigned int index);
+
 std::vector<SpeciesReferenceGlyph*> set_layout_features_getConnectedSpeciesGlyphReferences(Layout* layout, SpeciesGlyph* speciesGlyph);
 
 const std::string set_layout_features_getTextGlyphUniqueId(Layout* layout, GraphicalObject* graphicalObject);
@@ -87,7 +95,7 @@ const std::string set_layout_features_getSpeciesReferenceGlyphId(ReactionGlyph* 
 
 void set_layout_features_setGraphicalObjectBoundingBox(GraphicalObject* graphicalObject);
 
-void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph);
+void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const double& padding=0.0);
 
 void set_layout_features_setSpeciesReferenceGlyphCurve(SpeciesReferenceGlyph* speciesReferenceGlyph);
 

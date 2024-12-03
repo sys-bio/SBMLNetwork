@@ -12,7 +12,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 int alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string speciesId, ReactionGlyph* reactionGlyph);
 
-SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph);
+SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, SpeciesGlyph* speciesGlyph, const double& padding = 0.0);
 
 SpeciesGlyph* alias_element_createAliasSpeciesGlyph(Layout* layout, const std::string& speciesId, std::vector<SpeciesReferenceGlyph*> speciesGlyphReferences);
 

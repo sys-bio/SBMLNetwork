@@ -3,6 +3,7 @@
 #include "features/user_data/libsbmlnetwork_user_data.h"
 #include "features/fix_elements/libsbmlnetwork_fix_element_position.h"
 #include "features/fix_elements/libsbmlnetwork_fix_element_dimensions.h"
+#include "features/set_layout_features/libsbmlnetwork_set_layout_features.h"
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
@@ -92,6 +93,9 @@ std::vector<GraphicalObject*> getGraphicalObjects(Layout* layout, const std::str
         graphicalObjects.insert(graphicalObjects.end(), speciesGlyphs.begin(), speciesGlyphs.end());
         std::vector<ReactionGlyph*> reactionGlyphs = getReactionGlyphs(layout, id);
         graphicalObjects.insert(graphicalObjects.end(), reactionGlyphs.begin(), reactionGlyphs.end());
+        GraphicalObject* graphicalObject = getGraphicalObjectUsingItsOwnId(layout, id);
+        if (graphicalObject)
+            graphicalObjects.push_back(graphicalObject);
     }
 
     return graphicalObjects;
@@ -101,10 +105,91 @@ GraphicalObject* getGraphicalObject(Layout* layout, const std::string& id, const
     std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
     if (graphicalObjectIndex < graphicalObjects.size())
         return graphicalObjects.at(graphicalObjectIndex);
-    else if (graphicalObjectIndex == 0)
-        return getGraphicalObjectUsingItsOwnId(layout, id);
 
     return NULL;
+}
+
+int removeGraphicalObject(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    std::vector<GraphicalObject*> graphicalObjects = getGraphicalObjects(layout, id);
+    if (graphicalObjectIndex < graphicalObjects.size()) {
+        user_data_freeUserData(graphicalObjects.at(graphicalObjectIndex));
+        delete graphicalObjects.at(graphicalObjectIndex);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->isSetId();
+
+    return false;
+}
+
+const std::string getId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getId();
+
+    return "";
+}
+
+int setId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectId) {
+    return updateGraphicalObjectId(layout, getGraphicalObject(layout, id, graphicalObjectIndex), graphicalObjectId);
+}
+
+bool isSetMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->isSetMetaId();
+
+    return false;
+}
+
+const std::string getMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getMetaId();
+
+    return "";
+}
+
+int setMetaId(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& graphicalObjectMetaId) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject) {
+        graphicalObject->setMetaId(graphicalObjectMetaId);
+        return 0;
+    }
+
+    return -1;
+}
+
+bool isSetName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->isSetName();
+
+    return false;
+}
+
+const std::string getName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getName();
+
+    return "";
+}
+
+int setName(Layout* layout, const std::string& id, const unsigned int graphicalObjectIndex, const std::string& name) {
+    GraphicalObject* graphicalObject = getGraphicalObject(layout, id, graphicalObjectIndex);
+    if (graphicalObject) {
+        graphicalObject->setName(name);
+        return 0;
+    }
+
+    return -1;
 }
 
 const unsigned int getNumCompartmentGlyphs(Layout* layout) {
@@ -684,6 +769,36 @@ bool isTextGlyph(GraphicalObject* graphicalObject) {
     return false;
 }
 
+const unsigned int getNumAdditionalGraphicalObjects(Layout* layout) {
+    if (layout)
+        return layout->getNumAdditionalGraphicalObjects();
+
+    return 0;
+}
+
+GraphicalObject* getAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex) {
+    if (layout && additionalGraphicalObjectIndex < getNumAdditionalGraphicalObjects(layout))
+        return layout->getAdditionalGraphicalObject(additionalGraphicalObjectIndex);
+
+    return NULL;
+}
+
+const std::string getAdditionalGraphicalObjectId(Layout* layout, const unsigned int additionalGraphicalObjectIndex) {
+    GraphicalObject* graphicalObject = getAdditionalGraphicalObject(layout, additionalGraphicalObjectIndex);
+    if (graphicalObject)
+        return graphicalObject->getId();
+
+    return "";
+}
+
+GraphicalObject* addAdditionalGraphicalObject(Layout* layout, const std::string& id) {
+    return set_layout_features_createAdditionalGraphicalObject(layout, id);
+}
+
+int removeAdditionalGraphicalObject(Layout* layout, const unsigned int additionalGraphicalObjectIndex) {
+    return set_layout_features_removeAdditionalGraphicalObject(layout, additionalGraphicalObjectIndex);
+}
+
 const std::string getSBMLObjectId(Layout* layout, const std::string& graphicalObjectId) {
     return getSBMLObjectId(getGraphicalObjectUsingItsOwnId(layout, graphicalObjectId));
 }
@@ -1190,38 +1305,42 @@ LineSegment* getCurveSegment(Curve* curve, unsigned int curveSegmentIndex) {
     return  NULL;
 }
 
-LineSegment* createLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return createLineCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
+int addLineCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return addLineCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
-LineSegment* createLineCurveSegment(GraphicalObject* graphicalObject) {
-    return createLineCurveSegment(getCurve(graphicalObject));
+int addLineCurveSegment(GraphicalObject* graphicalObject) {
+    return addLineCurveSegment(getCurve(graphicalObject));
 }
 
-LineSegment* createLineCurveSegment(Curve* curve) {
-    if (curve)
-        return curve->createLineSegment();
+int addLineCurveSegment(Curve* curve) {
+    if (curve) {
+        curve->createLineSegment();
+        return 0;
+    }
 
-    return NULL;
+    return -1;
 }
 
-CubicBezier* createCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return createCubicBezierCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
+int addCubicBezierCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return addCubicBezierCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex));
 }
 
-CubicBezier* createCubicBezierCurveSegment(GraphicalObject* graphicalObject) {
-    return createCubicBezierCurveSegment(getCurve(graphicalObject));
+int addCubicBezierCurveSegment(GraphicalObject* graphicalObject) {
+    return addCubicBezierCurveSegment(getCurve(graphicalObject));
 }
 
-CubicBezier* createCubicBezierCurveSegment(Curve* curve) {
-    if (curve)
-        return curve->createCubicBezier();
+int addCubicBezierCurveSegment(Curve* curve) {
+    if (curve) {
+        curve->createCubicBezier();
+        return 0;
+    }
 
-    return NULL;
+    return -1;
 }
 
-int removeCurveSegment(Layout* layout, const std::string& id, unsigned int curveSegmentIndex) {
-    return removeCurveSegment(getGraphicalObject(layout, id), curveSegmentIndex);
+int removeCurveSegment(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
+    return removeCurveSegment(getGraphicalObject(layout, id, graphicalObjectIndex), curveSegmentIndex);
 }
 
 int removeCurveSegment(GraphicalObject* graphicalObject, unsigned int curveSegmentIndex) {
