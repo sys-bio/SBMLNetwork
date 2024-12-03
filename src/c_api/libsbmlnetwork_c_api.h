@@ -399,7 +399,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the id of the compartment associated with the given GraphicalObject, or @c "" if the object does not exists.
-    LIBSBMLNETWORK_EXTERN const char* c_api_getCGraphicalObjectCompartmentId(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getGraphicalObjectCompartmentId(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the number of Species objects in the given SBML document.
     /// @param document a pointer to the SBMLDocument object.
