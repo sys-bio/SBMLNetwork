@@ -1089,7 +1089,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    int c_api_addText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_addText(SBMLDocument* document, const char* id, const char* text, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Removes the TextGlyph object with the given index associated with the graphical object with the given index of the model entity with the given id in the Layout object with the given index of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
@@ -1098,34 +1098,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param textGlyphIndex the index of the TextGlyph to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    int c_api_removeText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_removeText(SBMLDocument* document, const char* id, int graphicalObjectIndex, int textGlyphIndex = 0, int layoutIndex = 0);
 
     /// @brief Returns the number of additional graphical objects of the Layout object with the given index in the ListOfLayouts of the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the number of additional graphical objects of this Layout object, or @c 0 if the object is @c NULL
-    const int c_api_getNumAllAdditionalGraphicalObjects(SBMLDocument* document, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const int c_api_getNumAllAdditionalGraphicalObjects(SBMLDocument* document, int layoutIndex = 0);
 
     /// @brief Returns the id of the additional graphical object with the given index of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param additionalGraphicalObjectIndex the index of the additional graphical object to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the id of the additional graphical object with the given index, or @c NULL if the object is @c NULL
-    const char* c_api_getAdditionalGraphicalObjectId(SBMLDocument* document, int additionalGraphicalObjectIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getAdditionalGraphicalObjectId(SBMLDocument* document, int additionalGraphicalObjectIndex = 0, int layoutIndex = 0);
 
     /// @brief Adds a new additional graphical object to the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of the additional graphical object to be added.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    int c_api_addAdditionalGraphicalObject(SBMLDocument* document, const char* id, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_addAdditionalGraphicalObject(SBMLDocument* document, const char* id, int layoutIndex = 0);
 
     /// @brief Removes the additional graphical object with the given index of the Layout object with the given index in the SBML document.
     /// @param document a pointer to the SBMLDocument object.
     /// @param additionalGraphicalObjectIndex the index of the additional graphical object to return.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    int c_api_removeAdditionalGraphicalObject(SBMLDocument* document, int additionalGraphicalObjectIndex, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_removeAdditionalGraphicalObject(SBMLDocument* document, int additionalGraphicalObjectIndex, int layoutIndex = 0);
 
     /// @brief Returns the value of the "x" attribute of the bounding box of the GraphicalObject with the given index associated with
     /// the model entity with the given id of the Layout object with the given index in the SBML document.
