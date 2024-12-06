@@ -79,7 +79,7 @@ jobs:
         run: mkdir build
         working-directory: SBMLNetwork
       - name: Build SBMLNetwork library
-        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/SBMLNetwork -DCMAKE_BUILD_TYPE=Release -DEXPAT_LIBRARY=$GITHUB_WORKSPACE/install/expat/lib/libexpat.a -DLIBSBML_INCLUDE_DIR=$GITHUB_WORKSPACE/install/sbml/include -DLIBSBML_INSTALL_DIR=$GITHUB_WORKSPACE/install/sbml -DLIBSBML_LIBRARY=$GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a -DWITH_PYTHON=OFF
+        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/SBMLNetwork -DCMAKE_BUILD_TYPE=Release -DLIBEXPAT_LIBRARY=$GITHUB_WORKSPACE/install/expat/lib/libexpat.a -DLIBSBML_INCLUDE_DIR=$GITHUB_WORKSPACE/install/sbml/include -DLIBSBML_INSTALL_DIR=$GITHUB_WORKSPACE/install/sbml -DLIBSBML_LIBRARY=$GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a -DWITH_PYTHON=OFF
         working-directory: SBMLNetwork/build
       - name: Compile SBMLNetwork lib
         run: emmake make
@@ -88,7 +88,7 @@ jobs:
         run: emmake make install
         working-directory: SBMLNetwork/build
       - name: Generate SBMLNetwork javascript and wasm files
-        run: em++ -I/Users/lab/Documents/Projects/Tests/js/sbmlnetwork/install/include -I/Users/lab/Documents/Projects/Tests/js/libsbml/install/include -I/Users/lab/Documents/Projects/Tests/js/libexpat/install/include /Users/lab/Documents/Projects/Tests/js/sbmlnetwork/install/lib/libsbmlnetwork.a /Users/lab/Documents/Projects/Tests/js/libsbml/install/lib/libsbml-static.a /Users/lab/Documents/Projects/Tests/js/libexpat/install/lib/libexpat.a -o sbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1
+        run: em++ -I$GITHUB_WORKSPACE/install/SBMLNetwork/include -I$GITHUB_WORKSPACE/install/sbml/include -I$GITHUB_WORKSPACE/install/expat/include $GITHUB_WORKSPACE/install/SBMLNetwork/lib/libsbmlnetwork.a $GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a $GITHUB_WORKSPACE/install/expat/lib/libexpat.a -o sbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1
         working-directory: install
       - name: List build libsbmlnetworkjs files
         run: ls -l
