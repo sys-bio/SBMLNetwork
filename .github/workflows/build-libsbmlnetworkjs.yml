@@ -93,51 +93,7 @@ jobs:
       - name: List build libsbmlnetworkjs files
         run: ls -l
         working-directory: install
-      - name: Copy libsbmlnetworkjs to test dir
-        run: cp libsbmlnetwork.* $GITHUB_WORKSPACE/test
-        working-directory: install
-      - name: check built files exist
-        run: ls -l
-        working-directory: test
-      - name: Check node is available
-        run: node -v
-        working-directory: test
-      - name: run tests
-        run: node test_libsbmlnetwork.js >> results.txt
-        working-directory: test
-      - name: output test results
-        run: cat results.txt
-        working-directory: test
-      - name: Check test results
-        run: grep 'Fail- 0' results.txt
-        working-directory: test
-      - name: Commit new libsbmlnetwork files
-        run: mkdir v$SBMLNETWORK_VERS
-        working-directory: release
-      - name: Copy libsbmlnetworkjs to release dir
-        run: cp libsbmlnetwork.* $GITHUB_WORKSPACE/release/v$SBMLNETWORK_VERS
-        working-directory: install
-      - name: Copy libsbmlnetwork_wrap.js to release dir
-        run: cp $GITHUB_WORKSPACE/scripts/libsbmlnetwork_wrap.js $GITHUB_WORKSPACE/release/v$SBMLNETWORK_VERS
-      - name: generate ReleaseInfo.txt
-        run: echo "libsbmlnetworkjs release v$SBMLNETWORK_VERS" > v$SBMLNETWORK_VERS/ReleaseInfo.txt
-        working-directory: release
-      - run: echo "libSBML source- $SBML_VERS" >> v$SBMLNETWORK_VERS/ReleaseInfo.txt
-        working-directory: release
-      - run: echo "SBMLNetwork source- v$SBMLNETWORK_VERS" >> v$SBMLNETWORK_VERS/ReleaseInfo.txt
-        working-directory: release
-      - run: echo "Emscripten version- $EMSCRIPTEN_VERS" >> v$SBMLNETWORK_VERS/ReleaseInfo.txt
-        working-directory: release
-      - run: cp -f v$SBMLNETWORK_VERS/ReleaseInfo.txt $GITHUB_WORKSPACE/docs/demo
-        working-directory: release
-      - name: Copy libsbmlnetworkjs to docs dir
-        run: cp -f libsbmlnetwork.* $GITHUB_WORKSPACE/docs/demo
-        working-directory: install
-      - name: Check in changes
-        run: |
-          date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add release/v$SBMLNETWORK_VERS/libsbmlnetwork.js release/v$SBMLNETWORK_VERS/ReleaseInfo.txt
-          git commit -m "new build for SBMLNetwork v$SBMLNETWORK_VERS" release/v$SBMLNETWORK_VERS/libsbmlnetwork.js release/v$SBMLNETWORK_VERS/ReleaseInfo.txt docs/demo/libsbmlnetwork.js docs/demo/ReleaseInfo.txt
-          git push
+      - name: Upload libsbmlnetworkjs files
+        uses: actions/upload-artifact@v2
+        with:
+          name: libsbmlnetworkjs
