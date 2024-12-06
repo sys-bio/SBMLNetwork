@@ -900,7 +900,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param layoutIndex the index number of the Layout to return.
     /// @return the value of the "stroke" attribute of the SpeciesReference object with the given index, or @c "" if
     /// the SpeciesReference does not exits or the object is @c NULL
-    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceLineolor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex = 0, int speciesReferenceIndex = 0, int layoutIndex = 0);
 
     /// @brief Sets the value of the "stroke" attribute of the SpeciesReference object with the given index of the ReactionGlyph object with the given index associated with the entered reaction id
     /// of the Layout object with the given index in the ListOfLayouts of the SBML document.
