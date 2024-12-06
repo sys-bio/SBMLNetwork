@@ -1,0 +1,143 @@
+name: build-libsbmlnetworkjs-github-actions
+run-name: ${{ github.actor }} is building libsbmlnetworkjs
+on:
+  workflow_dispatch:
+    inputs:
+      sbmlnetwork_version:
+        description: 'SBMLNetwork version number'
+        required: true
+        default: '0.4.5'
+      libsbml_version:
+        description: 'LibSBML version number'
+        required: true
+        default: '5.20.0'
+jobs:
+  build-new-version-libsbmlnetworkjs:
+    runs-on: ubuntu-latest
+    env:
+      EMSDK: emsdk
+      EMSCRIPTEN_VERS: '3.1.20'
+      EMSDK_NODE: emsdk/node/16.20.0_64bit/bin/node
+      SBML_VERS: ${{ inputs.libsbml_version }}
+      SBMLNETWORK_VERS: ${{ inputs.sbmlnetwork_version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: get emscripten
+        run: git clone https://github.com/emscripten-core/emsdk.git
+      - name: change emsdk script permissions
+        run: chmod +x emsdk
+        working-directory: emsdk
+      - name: install emscripten sdk
+        run: ./emsdk install $EMSCRIPTEN_VERS
+        working-directory: emsdk
+      - name: activate emscripten
+        run: ./emsdk activate $EMSCRIPTEN_VERS
+        working-directory: emsdk
+      - run: echo "$GITHUB_WORKSPACE/emsdk/upstream/emscripten" >> $GITHUB_PATH
+      - run: echo "$GITHUB_WORKSPACE/emsdk" >> $GITHUB_PATH
+      - name: confirm emscripten works
+        run: emcc -v
+      - run: echo $PATH
+      - run: echo $EMSDK_NODE
+      - run: mkdir install
+      - run: wget https://github.com/libexpat/libexpat/releases/download/R_2_2_10/expat-2.2.10.tar.bz2
+      - run: tar -xf expat-2.2.10.tar.bz2
+      - run: mv expat-2.2.10 expat
+      - name: make expat build dir
+        run: mkdir build
+        working-directory: expat
+      - name: build expat lib
+        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/expat
+        working-directory: expat/build
+      - name: Compile expat lib
+        run: emmake make
+        working-directory: expat/build
+      - name: install expat lib
+        run: emmake make install
+        working-directory: expat/build
+      - name: Get libSBML
+        run: wget https://github.com/sbmlteam/libsbml/archive/refs/tags/v$SBML_VERS.zip
+      - run: unzip v$SBML_VERS.zip
+      - run: mv libsbml-$SBML_VERS libsbml
+      - name: make libsbml build dir
+        run: mkdir build
+        working-directory: libsbml
+      - name: build libsbml library
+        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/sbml -DCMAKE_BUILD_TYPE=Release -DWITH_CPP_NAMESPACE=ON -DWITH_EXPAT=ON -DWITH_LIBXML=OFF -DLIBSBML_SKIP_SHARED_LIBRARY=ON -DENABLE_LAYOUT=ON -DENABLE_RENDER=ON -DWITH_STABLE_PACKAGES=ON -DWITH_SWIG=OFF -DEXPAT_INCLUDE_DIR=$GITHUB_WORKSPACE/install/expat/include -DEXPAT_LIBRARY=$GITHUB_WORKSPACE/install/expat/lib/libexpat.a
+        working-directory: libsbml/build
+      - name: compile libsbml lib
+        run: emmake make
+        working-directory: libsbml/build
+      - name: install libsbml
+        run: emmake make install
+        working-directory: libsbml/build
+      - name: Get SBMLNetwork
+        run: wget https://github.com/sys-bio/SBMLNetwork/archive/refs/tags/v$SBMLNetwork_VERS.zip
+      - run: unzip v$SBMLNetwork_VERS.zip
+      - run: mv SBMLNetwork-$SBMLNetwork_VERS/ SBMLNetwork
+      - name: make SBMLNetwork build dir
+        run: mkdir build
+        working-directory: SBMLNetwork
+      - name: Build SBMLNetwork library
+        run: emcmake cmake .. -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/SBMLNetwork -DCMAKE_BUILD_TYPE=Release -DEXPAT_LIBRARY=$GITHUB_WORKSPACE/install/expat/lib/libexpat.a -DLIBSBML_INCLUDE_DIR=$GITHUB_WORKSPACE/install/sbml/include -DLIBSBML_INSTALL_DIR=$GITHUB_WORKSPACE/install/sbml -DLIBSBML_LIBRARY=$GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a -DWITH_PYTHON=OFF
+        working-directory: SBMLNetwork/build
+      - name: Compile SBMLNetwork lib
+        run: emmake make
+        working-directory: SBMLNetwork/build
+      - name: Install SBMLNetwork lib
+        run: emmake make install
+        working-directory: SBMLNetwork/build
+      - name: Generate SBMLNetwork javascript and wasm files
+        run: em++ -I/Users/lab/Documents/Projects/Tests/js/sbmlnetwork/install/include -I/Users/lab/Documents/Projects/Tests/js/libsbml/install/include -I/Users/lab/Documents/Projects/Tests/js/libexpat/install/include /Users/lab/Documents/Projects/Tests/js/sbmlnetwork/install/lib/libsbmlnetwork.a /Users/lab/Documents/Projects/Tests/js/libsbml/install/lib/libsbml-static.a /Users/lab/Documents/Projects/Tests/js/libexpat/install/lib/libexpat.a -o sbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1
+        working-directory: install
+      - name: List build libsbmlnetworkjs files
+        run: ls -l
+        working-directory: install
+      - name: Copy libsbmlnetworkjs to test dir
+        run: cp libsbmlnetwork.* $GITHUB_WORKSPACE/test
+        working-directory: install
+      - name: check built files exist
+        run: ls -l
+        working-directory: test
+      - name: Check node is available
+        run: node -v
+        working-directory: test
+      - name: run tests
+        run: node test_libsbmlnetwork.js >> results.txt
+        working-directory: test
+      - name: output test results
+        run: cat results.txt
+        working-directory: test
+      - name: Check test results
+        run: grep 'Fail- 0' results.txt
+        working-directory: test
+      - name: Commit new libsbmlnetwork files
+        run: mkdir v$SBMLNetwork_VERS
+        working-directory: release
+      - name: Copy libsbmlnetworkjs to release dir
+        run: cp libsbmlnetwork.* $GITHUB_WORKSPACE/release/v$SBMLNetwork_VERS
+        working-directory: install
+      - name: Copy libsbmlnetwork_wrap.js to release dir
+        run: cp $GITHUB_WORKSPACE/scripts/libsbmlnetwork_wrap.js $GITHUB_WORKSPACE/release/v$SBMLNetwork_VERS
+      - name: generate ReleaseInfo.txt
+        run: echo "libsbmlnetworkjs release v$SBMLNetwork_VERS" > v$SBMLNetwork_VERS/ReleaseInfo.txt
+        working-directory: release
+      - run: echo "libSBML source- $SBML_VERS" >> v$SBMLNetwork_VERS/ReleaseInfo.txt
+        working-directory: release
+      - run: echo "SBMLNetwork source- v$SBMLNetwork_VERS" >> v$SBMLNetwork_VERS/ReleaseInfo.txt
+        working-directory: release
+      - run: echo "Emscripten version- $EMSCRIPTEN_VERS" >> v$SBMLNetwork_VERS/ReleaseInfo.txt
+        working-directory: release
+      - run: cp -f v$SBMLNetwork_VERS/ReleaseInfo.txt $GITHUB_WORKSPACE/docs/demo
+        working-directory: release
+      - name: Copy libsbmlnetworkjs to docs dir
+        run: cp -f libsbmlnetwork.* $GITHUB_WORKSPACE/docs/demo
+        working-directory: install
+      - name: Check in changes
+        run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add release/v$SBMLNetwork_VERS/libsbmlnetwork.js release/v$SBMLNetwork_VERS/ReleaseInfo.txt
+          git commit -m "new build for SBMLNetwork v$SBMLNetwork_VERS" release/v$SBMLNetwork_VERS/libsbmlnetwork.js release/v$SBMLNetwork_VERS/ReleaseInfo.txt docs/demo/libsbmlnetwork.js docs/demo/ReleaseInfo.txt
+          git push
