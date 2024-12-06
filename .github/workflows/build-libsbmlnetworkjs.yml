@@ -19,7 +19,7 @@ jobs:
       EMSCRIPTEN_VERS: '3.1.20'
       EMSDK_NODE: emsdk/node/16.20.0_64bit/bin/node
       SBML_VERS: ${{ inputs.libsbml_version }}
-      SBMLNETWORK_VERS: ${{ inputs.sbmlnetwork_version }}
+      SBMLNETWORK_VERS: ${{ inputs.SBMLNETWORK_VERSion }}
     steps:
       - uses: actions/checkout@v4
       - name: get emscripten
@@ -72,9 +72,9 @@ jobs:
         run: emmake make install
         working-directory: libsbml/build
       - name: Get SBMLNetwork
-        run: wget https://github.com/sys-bio/SBMLNetwork/archive/refs/tags/v$SBMLNetwork_VERS.zip
-      - run: unzip v$SBMLNetwork_VERS.zip
-      - run: mv SBMLNetwork-$SBMLNetwork_VERS/ SBMLNetwork
+        run: wget https://github.com/sys-bio/SBMLNetwork/archive/refs/tags/v$SBMLNETWORK_VERS.zip
+      - run: unzip v$SBMLNETWORK_VERS.zip
+      - run: mv SBMLNetwork-$SBMLNETWORK_VERS/ SBMLNetwork
       - name: make SBMLNetwork build dir
         run: mkdir build
         working-directory: SBMLNetwork
@@ -112,23 +112,23 @@ jobs:
         run: grep 'Fail- 0' results.txt
         working-directory: test
       - name: Commit new libsbmlnetwork files
-        run: mkdir v$SBMLNetwork_VERS
+        run: mkdir v$SBMLNETWORK_VERS
         working-directory: release
       - name: Copy libsbmlnetworkjs to release dir
-        run: cp libsbmlnetwork.* $GITHUB_WORKSPACE/release/v$SBMLNetwork_VERS
+        run: cp libsbmlnetwork.* $GITHUB_WORKSPACE/release/v$SBMLNETWORK_VERS
         working-directory: install
       - name: Copy libsbmlnetwork_wrap.js to release dir
-        run: cp $GITHUB_WORKSPACE/scripts/libsbmlnetwork_wrap.js $GITHUB_WORKSPACE/release/v$SBMLNetwork_VERS
+        run: cp $GITHUB_WORKSPACE/scripts/libsbmlnetwork_wrap.js $GITHUB_WORKSPACE/release/v$SBMLNETWORK_VERS
       - name: generate ReleaseInfo.txt
-        run: echo "libsbmlnetworkjs release v$SBMLNetwork_VERS" > v$SBMLNetwork_VERS/ReleaseInfo.txt
+        run: echo "libsbmlnetworkjs release v$SBMLNETWORK_VERS" > v$SBMLNETWORK_VERS/ReleaseInfo.txt
         working-directory: release
-      - run: echo "libSBML source- $SBML_VERS" >> v$SBMLNetwork_VERS/ReleaseInfo.txt
+      - run: echo "libSBML source- $SBML_VERS" >> v$SBMLNETWORK_VERS/ReleaseInfo.txt
         working-directory: release
-      - run: echo "SBMLNetwork source- v$SBMLNetwork_VERS" >> v$SBMLNetwork_VERS/ReleaseInfo.txt
+      - run: echo "SBMLNetwork source- v$SBMLNETWORK_VERS" >> v$SBMLNETWORK_VERS/ReleaseInfo.txt
         working-directory: release
-      - run: echo "Emscripten version- $EMSCRIPTEN_VERS" >> v$SBMLNetwork_VERS/ReleaseInfo.txt
+      - run: echo "Emscripten version- $EMSCRIPTEN_VERS" >> v$SBMLNETWORK_VERS/ReleaseInfo.txt
         working-directory: release
-      - run: cp -f v$SBMLNetwork_VERS/ReleaseInfo.txt $GITHUB_WORKSPACE/docs/demo
+      - run: cp -f v$SBMLNETWORK_VERS/ReleaseInfo.txt $GITHUB_WORKSPACE/docs/demo
         working-directory: release
       - name: Copy libsbmlnetworkjs to docs dir
         run: cp -f libsbmlnetwork.* $GITHUB_WORKSPACE/docs/demo
@@ -138,6 +138,6 @@ jobs:
           date > generated.txt
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add release/v$SBMLNetwork_VERS/libsbmlnetwork.js release/v$SBMLNetwork_VERS/ReleaseInfo.txt
-          git commit -m "new build for SBMLNetwork v$SBMLNetwork_VERS" release/v$SBMLNetwork_VERS/libsbmlnetwork.js release/v$SBMLNetwork_VERS/ReleaseInfo.txt docs/demo/libsbmlnetwork.js docs/demo/ReleaseInfo.txt
+          git add release/v$SBMLNETWORK_VERS/libsbmlnetwork.js release/v$SBMLNETWORK_VERS/ReleaseInfo.txt
+          git commit -m "new build for SBMLNetwork v$SBMLNETWORK_VERS" release/v$SBMLNETWORK_VERS/libsbmlnetwork.js release/v$SBMLNETWORK_VERS/ReleaseInfo.txt docs/demo/libsbmlnetwork.js docs/demo/ReleaseInfo.txt
           git push
