@@ -1,5 +1,5 @@
 name: build-libsbmlnetworkjs-github-actions
-run-name: ${{ github.actor }} is building libsbmlnetworkjs
+run-name: Building libsbmlnetworkjs
 on:
   workflow_dispatch:
     inputs:
