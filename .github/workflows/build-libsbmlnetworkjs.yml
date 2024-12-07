@@ -88,7 +88,7 @@ jobs:
         run: emmake make install
         working-directory: SBMLNetwork/build
       - name: Generate SBMLNetwork javascript and wasm files
-        run: em++ -I$GITHUB_WORKSPACE/install/SBMLNetwork/include -I$GITHUB_WORKSPACE/install/sbml/include -I$GITHUB_WORKSPACE/install/expat/include $GITHUB_WORKSPACE/install/SBMLNetwork/lib/libsbmlnetwork.a $GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a $GITHUB_WORKSPACE/install/expat/lib/libexpat.a -o libsbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1
+        run: em++ -I$GITHUB_WORKSPACE/install/SBMLNetwork/include -I$GITHUB_WORKSPACE/install/sbml/include -I$GITHUB_WORKSPACE/install/expat/include $GITHUB_WORKSPACE/install/SBMLNetwork/lib/libsbmlnetwork.a $GITHUB_WORKSPACE/install/sbml/lib/libsbml-static.a $GITHUB_WORKSPACE/install/expat/lib/libexpat.a -o libsbmlnetwork.js -s WASM=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "allocateUTF8", "UTF8ToString"]'
         working-directory: install
       - name: List build libsbmlnetworkjs files
         run: ls -l
