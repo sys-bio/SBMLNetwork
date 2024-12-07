@@ -94,7 +94,9 @@ jobs:
         run: ls -l
         working-directory: install
       - name: Build output directory
-        run: mkdir -p $GITHUB_WORKSPACE/libsbmlnetworkjs
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/libsbmlnetworkjs
+          echo "artifacts_path=$GITHUB_WORKSPACE/libsbmlnetworkjs" >> "${GITHUB_ENV}"
       - name: Copy libsbmlnetworkjs files to the workspace
         run: |
           cp install/libsbmlnetwork.js $GITHUB_WORKSPACE/libsbmlnetworkjs/
@@ -105,4 +107,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libsbmlnetworkjs
-          path: $GITHUB_WORKSPACE/libsbmlnetworkjs
+          path: ${{env.artifacts_path}}
