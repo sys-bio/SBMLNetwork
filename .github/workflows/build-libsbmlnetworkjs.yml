@@ -95,9 +95,12 @@ jobs:
         working-directory: install
       - name: Build output directory
         run: mkdir -p $GITHUB_WORKSPACE/libsbmlnetworkjs
-      - name: Copy libsbmlnetworkjs files
-        run: cp libsbmlnetwork.js libsbmlnetwork.wasm $GITHUB_WORKSPACE/libsbmlnetworkjs
-        working-directory: install
+      - name: Copy libsbmlnetworkjs files to the workspace
+        run: |
+          cp install/libsbmlnetwork.js $GITHUB_WORKSPACE/libsbmlnetworkjs/
+          cp install/libsbmlnetwork.wasm $GITHUB_WORKSPACE/libsbmlnetworkjs/
+      - name: Verify copied files
+        run: ls -l $GITHUB_WORKSPACE/libsbmlnetworkjs
       - name: Upload libsbmlnetworkjs files
         uses: actions/upload-artifact@v4
         with:
