@@ -5297,12 +5297,34 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setGeometricShapesId(SBMLDocument* document, const char* id, const char* geometricShapeId, int geometricShapeIndex = 0, int graphicalObjectIndex = 0, int layoutIndex = 0);
 
+    /// @brief Returns the type of the geometric shape of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the type of the geometric shape of the RenderGroup of the Style for all CompartmentGlyph objects, or @c "" if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getCompartmentsGeometricShapeType(SBMLDocument* document);
+
+    /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all CompartmentGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param shape a string value indicating the shape of the geometric shape to be set.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setCompartmentsGeometricShapeType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    /// @brief Returns the type of the geometric shape of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the type of the geometric shape of the RenderGroup of the Style for all SpeciesGlyph objects, or @c "" if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getSpeciesGeometricShapeType(SBMLDocument* document);
+
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all SpeciesGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
     /// @param shape a string value indicating the shape of the geometric shape to be set.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_setSpeciesGeometricShapeType(SBMLDocument* document, const char* shape, int layoutIndex = 0);
+
+    /// @brief Returns the type of the geometric shape of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the type of the geometric shape of the RenderGroup of the Style for all ReactionGlyph objects, or @c "" if the object is @c NULL
+    LIBSBMLNETWORK_EXTERN const char* c_api_getReactionsGeometricShapeType(SBMLDocument* document);
 
     /// @brief Sets the geometric shape as the single geometric shape of the RenderGroup of the Style of all ReactionGlyph objects in this Layout object.
     /// @param document a pointer to the SBMLDocument object.
