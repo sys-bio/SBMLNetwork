@@ -241,14 +241,17 @@ jobs:
             python -m pip install pytest ipython setuptools wheel
             python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+            python -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/tellurium
           elif [ "${{ matrix.platform.os_type }}" == 'manylinux' ]; then
             python${{ matrix.python_version }} -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest ipython setuptools wheel
             python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+            python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/tellurium
           else
             python${{ matrix.python_version }} -m pip install pytest ipython setuptools wheel
             python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/libsbmlnetwork
             python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/sbmlnetwork
+            python${{ matrix.python_version }} -m pip install ${RUNNER_WORKSPACE}/install-libsbmlnetwork/lib/python/site-packages/tellurium
           fi
 
       - name: Run libSBMLNetwork tests
