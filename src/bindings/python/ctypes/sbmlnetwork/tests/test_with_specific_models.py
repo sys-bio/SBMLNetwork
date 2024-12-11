@@ -514,6 +514,285 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertEqual(network.getSpeciesReferenceCurveSegmentEndPointX("J0", species_reference_index=species_reference_index), 99.98)
         self.assertEqual(network.getSpeciesReferenceCurveSegmentEndPointY("J0", species_reference_index=species_reference_index), 52.67)
 
+    def test_all_line_ending_settings(self):
+        model = '''
+            S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        network.setLineEndingsBorderColor("yellow")
+        self.assertEqual(network.getLineEndingsBorderColor(), "yellow")
+        network.setLineEndingsBorderWidth(10)
+        self.assertEqual(network.getLineEndingsBorderWidth(), 10)
+        network.setLineEndingsFillColor("blue")
+        self.assertEqual(network.getLineEndingsFillColor(), "blue")
+
+    def test_line_ending_in_a_reaction_settings(self):
+        model = """
+            J0: S1 -> S2 + S3;
+            J1: S2 -> S4 + S5;
+            J2: S3 -> S6 + S7;
+        """
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        # set all features in a reaction
+        reaction_id = "J0"
+        network.setBorderColor(reaction_id, "blue")
+        network.setBorderWidth(reaction_id, 8)
+        network.setFillColor(reaction_id, "green")
+        self.assertEqual(network.getBorderColor(reaction_id), "blue")
+        self.assertEqual(network.getBorderWidth(reaction_id), 8)
+        self.assertEqual(network.getFillColor(reaction_id), "green")
+        # set the features of the line endings in a reaction
+        reaction_id = "J1"
+        network.setReactionLineEndingBorderColor(reaction_id, "yellow")
+        network.setReactionLineEndingBorderWidth(reaction_id, 5)
+        network.setReactionLineEndingFillColor(reaction_id, "red")
+        for species_reference_index in range(network.getNumSpeciesReferences(reaction_id)):
+            if network.getSpeciesReferenceLineEndingGeometricShapeType(reaction_id, species_reference_index=species_reference_index, index=0) != "":
+                self.assertEqual(network.getSpeciesReferenceLineEndingBorderColor(reaction_id, species_reference_index=species_reference_index), "yellow")
+                self.assertEqual(network.getSpeciesReferenceLineEndingBorderWidth(reaction_id, species_reference_index=species_reference_index), 5)
+                self.assertEqual(network.getSpeciesReferenceLineEndingFillColor(reaction_id, species_reference_index=species_reference_index), "red")
+        # set the features of the line endings of a species reference in a reaction
+        reaction_id = "J2"
+        graphical_object_index = 0
+        species_reference_index = 1
+        network.setSpeciesReferenceLineEndingBorderColor(reaction_id, "purple", graphical_object_index, species_reference_index)
+        network.setSpeciesReferenceLineEndingBorderWidth(reaction_id, 3, graphical_object_index, species_reference_index)
+        network.setSpeciesReferenceLineEndingFillColor(reaction_id, "orange", graphical_object_index, species_reference_index)
+        self.assertEqual(network.getSpeciesReferenceLineEndingBorderColor(reaction_id, graphical_object_index, species_reference_index), "purple")
+        self.assertEqual(network.getSpeciesReferenceLineEndingBorderWidth(reaction_id, graphical_object_index, species_reference_index), 3)
+        self.assertEqual(network.getSpeciesReferenceLineEndingFillColor(reaction_id, graphical_object_index, species_reference_index), "orange")
+
+    def test_graphical_object_id(self):
+        model = '''
+            J0: S1 + S2 -> S3;
+            J1: S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        network.createAliasSpeciesGlyph("S1", "J1")
+        network.setId("S1", "MyMostFavoriteSpeciesGlyph", graphical_object_index=0)
+        network.setId("S1", "MyLeastFavoriteSpeciesGlyph", graphical_object_index=1)
+        network.setText("MyMostFavoriteSpeciesGlyph", "Favorite")
+        network.setText("MyLeastFavoriteSpeciesGlyph", "non-Favorite")
+        self.assertEqual(network.getId("S1", graphical_object_index=0), "MyMostFavoriteSpeciesGlyph")
+        self.assertEqual(network.getId("S1", graphical_object_index=1), "MyLeastFavoriteSpeciesGlyph")
+        self.assertEqual(network.getText("MyMostFavoriteSpeciesGlyph"), "Favorite")
+        self.assertEqual(network.getText("MyLeastFavoriteSpeciesGlyph"), "non-Favorite")
+
+    def test_fill_color_as_gradient(self):
+        model = '''
+            S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        # linear gradient
+        network.setFillColorAsGradient("S1", stop_colors=["#ff6600", "#ffff66"], stop_offsets=[0, 100], gradient_type="linear")
+        gradient_id = network.getListOfGradientIds()[-1]
+        network.setLinearGradientX1(gradient_id, 0)
+        network.setLinearGradientY1(gradient_id, 50)
+        network.setLinearGradientX2(gradient_id, 100)
+        network.setLinearGradientY2(gradient_id, 50)
+        self.assertEqual(network.getLinearGradientX1(gradient_id), 0)
+        self.assertEqual(network.getLinearGradientY1(gradient_id), 50)
+        self.assertEqual(network.getLinearGradientX2(gradient_id), 100)
+        self.assertEqual(network.getLinearGradientY2(gradient_id), 50)
+        # radial gradient
+        network.setFillColorAsGradient("S2", stop_colors=["#FF0000", "#0000FF", "#FF0000"], stop_offsets=[0, 50, 100], gradient_type="radial")
+        gradient_id = network.getListOfGradientIds()[-1]
+        network.setRadialGradientCenterX(gradient_id, 50)
+        network.setRadialGradientCenterY(gradient_id, 50)
+        network.setRadialGradientFocalX(gradient_id, 50)
+        network.setRadialGradientFocalY(gradient_id, 50)
+        network.setRadialGradientRadius(gradient_id, 300)
+        self.assertEqual(network.getRadialGradientCenterX(gradient_id), 50)
+        self.assertEqual(network.getRadialGradientCenterY(gradient_id), 50)
+        self.assertEqual(network.getRadialGradientFocalX(gradient_id), 50)
+        self.assertEqual(network.getRadialGradientFocalY(gradient_id), 50)
+        self.assertEqual(network.getRadialGradientRadius(gradient_id), 300)
+
+    def test_compartment_extents(self):
+        model = '''
+        S1 in C1;
+        S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        compartment_id = network.getListOfCompartmentIds()[0]
+        network.setX(compartment_id, 200)
+        network.setY(compartment_id, 250)
+        network.setWidth(compartment_id, 1500)
+        network.setHeight(compartment_id, 1000)
+        network.autolayout(reset_fixed_position_elements=False)
+        self.assertEqual(network.getX(compartment_id), 200)
+        self.assertEqual(network.getY(compartment_id), 250)
+        self.assertEqual(network.getWidth(compartment_id), 1500)
+        self.assertEqual(network.getHeight(compartment_id), 1000)
+
+    def test_graphical_objects_visibility(self):
+        model = '''
+            species S1 in C1, S2 in C1, S3 in C1, S4 in C1;
+            J0: S1 + S2 -> S3;
+            J1: S1 -> S4;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        # A specific compartment glyph
+        network.makeInvisible("C1")
+        self.assertFalse(network.isVisible("C1"))
+        network.makeVisible("C1")
+        self.assertTrue(network.isVisible("C1"))
+        # A specific species glyph
+        network.makeInvisible("S1")
+        self.assertFalse(network.isVisible("S1"))
+        network.makeVisible("S1")
+        self.assertTrue(network.isVisible("S1"))
+        # A specific reaction glyph
+        network.makeInvisible("J0")
+        self.assertFalse(network.isVisible("J0"))
+        network.makeVisible("J0")
+        # all compartment glyphs
+        network.makeCompartmentsInvisible()
+        self.assertFalse(all(network.isVisible(compartment) for compartment in network.getListOfCompartmentIds()))
+        network.makeCompartmentsVisible()
+        self.assertTrue(all(network.isVisible(compartment) for compartment in network.getListOfCompartmentIds()))
+        # all species glyphs
+        network.makeSpeciesInvisible()
+        self.assertFalse(all(network.isVisible(species) for species in network.getListOfSpeciesIds()))
+        network.makeSpeciesVisible()
+        self.assertTrue(all(network.isVisible(species) for species in network.getListOfSpeciesIds()))
+        # all reaction glyphs
+        network.makeReactionsInvisible()
+        self.assertFalse(all(network.isVisible(reaction) for reaction in network.getListOfReactionIds()))
+        network.makeReactionsVisible()
+        self.assertTrue(all(network.isVisible(reaction) for reaction in network.getListOfReactionIds()))
+        # all glyphs
+        all_graphical_objects = network.getListOfCompartmentIds() + network.getListOfSpeciesIds() + network.getListOfReactionIds()
+        network.makeAllInvisible()
+        self.assertFalse(all(network.isVisible(element) for element in all_graphical_objects))
+        network.makeAllVisible()
+        self.assertTrue(all(network.isVisible(element) for element in all_graphical_objects))
+
+    def test_species_reference_curve_segment_points(self):
+        model = '''
+            S1 + S2 -> S3;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        initial_start_x = network.getSpeciesReferenceCurveSegmentStartPointX("_J0")
+        initial_start_y = network.getSpeciesReferenceCurveSegmentStartPointY("_J0")
+        initial_base_point1_x = network.getSpeciesReferenceCurveSegmentBasePoint1X("_J0")
+        initial_base_point1_y = network.getSpeciesReferenceCurveSegmentBasePoint1Y("_J0")
+        initial_base_point2_x = network.getSpeciesReferenceCurveSegmentBasePoint2X("_J0")
+        initial_base_point2_y = network.getSpeciesReferenceCurveSegmentBasePoint2Y("_J0")
+        initial_end_x = network.getSpeciesReferenceCurveSegmentEndPointX("_J0")
+        initial_end_y = network.getSpeciesReferenceCurveSegmentEndPointY("_J0")
+        network.setSpeciesReferenceCurveSegmentStartPointX("_J0", initial_start_x + 10.0)
+        network.setSpeciesReferenceCurveSegmentStartPointY("_J0", initial_start_y + 20.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint1X("_J0", initial_base_point1_x + 30.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint1Y("_J0", initial_base_point1_y + 40.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint2X("_J0", initial_base_point2_x + 50.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint2Y("_J0", initial_base_point2_y + 60.0)
+        network.setSpeciesReferenceCurveSegmentEndPointX("_J0", initial_end_x + 70.0)
+        network.setSpeciesReferenceCurveSegmentEndPointY("_J0", initial_end_y + 80.0)
+        network.autolayout(fixed_position_nodes=["S1", "S2", "S3", "_J0"])
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentStartPointX("_J0"), initial_start_x + 10.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentStartPointY("_J0"), initial_start_y + 20.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint1X("_J0"), initial_base_point1_x + 30.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint1Y("_J0"), initial_base_point1_y + 40.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint2X("_J0"), initial_base_point2_x + 50.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint2Y("_J0"), initial_base_point2_y + 60.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentEndPointX("_J0"), initial_end_x + 70.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentEndPointY("_J0"), initial_end_y + 80.0, 1)
+        network.setSpeciesReferenceCurveSegmentStartPointX("_J0", initial_start_x + 11.0)
+        network.setSpeciesReferenceCurveSegmentStartPointY("_J0", initial_start_y + 21.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint1X("_J0", initial_base_point1_x + 31.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint1Y("_J0", initial_base_point1_y + 41.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint2X("_J0", initial_base_point2_x + 51.0)
+        network.setSpeciesReferenceCurveSegmentBasePoint2Y("_J0", initial_base_point2_y + 61.0)
+        network.setSpeciesReferenceCurveSegmentEndPointX("_J0", initial_end_x + 71.0)
+        network.setSpeciesReferenceCurveSegmentEndPointY("_J0", initial_end_y + 81.0)
+        network.autolayout(reset_fixed_position_elements=False)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentStartPointX("_J0"), initial_start_x + 11.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentStartPointY("_J0"), initial_start_y + 21.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint1X("_J0"), initial_base_point1_x + 31.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint1Y("_J0"), initial_base_point1_y + 41.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint2X("_J0"), initial_base_point2_x + 51.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentBasePoint2Y("_J0"), initial_base_point2_y + 61.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentEndPointX("_J0"), initial_end_x + 71.0, 1)
+        self.assertAlmostEqual(network.getSpeciesReferenceCurveSegmentEndPointY("_J0"), initial_end_y + 81.0, 1)
+
+    def test_index_of_species_glyph_in_reaction(self):
+        model = '''
+            J0: S1 + S2 -> S3;
+            J1: S1 + S4 -> S5;
+            J2: S1 + S6 -> S7;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        network.createAliasSpeciesGlyph("S1", "J1")
+        network.createAliasSpeciesGlyph("S1", "J2")
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J0"), 0)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 1)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J2"), 2)
+
+    def test_index_of_species_reference_in_reaction(self):
+        model = '''
+            J0: S1 ->S2 + S3 + S1 + S2 + S1 + S1;
+            S3 -| J0;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=0), 0)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=1), 3)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=2), 5)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=3), 6)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S2", "J0", n=0), 1)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S2", "J0", n=1), 4)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S3", "J0", n=0), 2)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S3", "J0", n=1), 7)
+
+    def test_border_color_vs_font_color(self):
+        model = '''
+            S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        network.setSpeciesBorderColor("red")
+        self.assertEqual(network.getSpeciesBorderColor(), "red")
+        network.setSpeciesFontColor("brown")
+        self.assertEqual(network.getSpeciesFontColor(), "brown")
+        network.setReactionsLineColor("purple")
+        self.assertEqual(network.getReactionsLineColor(), "purple")
+        network.setReactionsFontColor("yellow")
+        self.assertEqual(network.getReactionsFontColor(), "yellow")
+        network.setBorderColor("S1", "pink")
+        self.assertEqual(network.getBorderColor("S1"), "pink")
+        network.setFontColor("S1", "grey")
+        self.assertEqual(network.getFontColor("S1"), "grey")
+
+    def test_swap_species_glyph_in_reaction(self):
+        model = '''
+            J0: S1 -> S2;
+            J1: S1 + S4 + S5 -> S6;
+            J2: S4 -> S1;
+            J3: S1 + S2 -> S3;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J0"), 0)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 0)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J2"), 0)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J3"), 1)
+        network.createAliasSpeciesGlyph("S1", "J1")
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 2)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J0"), 0)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J2"), 0)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J3"), 1)
+        network.setSpeciesGlyphIndexInReactionGlyph("S1", "J2", 2)
+        self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 2)
+
     @staticmethod
     def _get_max_position_y(network, species_list):
         max_position_y = -math.inf
