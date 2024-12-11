@@ -11176,6 +11176,10 @@ int makeLineEndingInvisible(SBMLDocument* document, unsigned int layoutIndex) {
     return hide_elements_makeLineEndingInvisible(document, layoutIndex);
 }
 
+bool isVisible(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    return hide_elements_isVisible(document, graphicalObject);
+}
+
 int makeVisible(SBMLDocument* document, GraphicalObject* graphicalObject, const bool& applyToConnectedElements) {
     return hide_elements_makeVisible(document, graphicalObject, applyToConnectedElements);
 }

@@ -177,6 +177,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_makeLineEndingsInvisible(SBMLDocument* document, int layoutIndex = 0);
 
+    /// @brief Predicates returning @c true if the graphical object with the given index associated with the entered model in the layout object with the given index of the SBML document visible.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param id the id of the graphical object to check visibility.
+    /// @param graphicalObjectIndex the index number of the GraphicalObject to return.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return @true if the graphical object with the given index associated with the entered model in the layout object with the given index of the SBML document visible, @false otherwise.
+    LIBSBMLNETWORK_EXTERN bool c_api_isVisible(SBMLDocument* document, const char* id, int graphicalObjectIndex = 0, int layoutIndex = 0);
+
     /// @brief Make the graphical object with the given index associated with the entered model in the layout object with the given index of the SBML document visible.
     /// @param document a pointer to the SBMLDocument object.
     /// @param id the id of the graphical object to make visible.

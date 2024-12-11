@@ -148,6 +148,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return makeLineEndingInvisible(document, layoutIndex);
     }
 
+    bool c_api_isVisible(SBMLDocument* document, const char* id, int graphicalObjectIndex, int layoutIndex) {
+        return isVisible(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex));
+    }
+
     int c_api_makeVisible(SBMLDocument* document, const char* id, bool applyToConnectedElements, int graphicalObjectIndex, int layoutIndex) {
         return makeVisible(document, getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), applyToConnectedElements);
     }

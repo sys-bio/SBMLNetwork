@@ -639,6 +639,22 @@ class LibSBMLNetwork:
         """
         return lib.c_api_makeLineEndingsInvisible(self.sbml_object, layout_index)
 
+    def isVisible(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument is visible
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument is visible and false otherwise
+        """
+        return lib.c_api_isVisible(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
     def makeVisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
         """
         Makes the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument visible on the canvas

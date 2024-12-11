@@ -241,6 +241,17 @@ int hide_elements_makeGraphicalObjectLocalStyleInvisible(SBMLDocument* document,
     return 0;
 }
 
+bool hide_elements_isVisible(SBMLDocument* document, GraphicalObject* graphicalObject) {
+    if (isCompartmentGlyph(graphicalObject))
+        return hide_elements_isCompartmentGlyphVisible(document, (CompartmentGlyph*)graphicalObject);
+    else if (isSpeciesGlyph(graphicalObject))
+        return hide_elements_isSpeciesGlyphVisible(document, (SpeciesGlyph*)graphicalObject);
+    else if (isReactionGlyph(graphicalObject))
+        return hide_elements_isReactionGlyphVisible(document, (ReactionGlyph*)graphicalObject);
+
+    return false;
+}
+
 int hide_elements_makeVisible(SBMLDocument* document, GraphicalObject* graphicalObject, const bool& applyToConnectedElements) {
     if (isCompartmentGlyph(graphicalObject))
         return hide_elements_makeCompartmentGlyphVisible(document, (CompartmentGlyph*)graphicalObject);
@@ -261,6 +272,16 @@ int hide_elements_makeInvisible(SBMLDocument* document, GraphicalObject* graphic
         return hide_elements_makeReactionGlyphInvisible(document, (ReactionGlyph*)graphicalObject, applyToConnectedElements);
 
     return -1;
+}
+
+bool hide_elements_isCompartmentGlyphVisible(SBMLDocument* document, CompartmentGlyph* compartmentGlyph) {
+    if (compartmentGlyph) {
+        Style* style = getStyle(document, compartmentGlyph);
+        if (style)
+            return hide_elements_is2DGraphicalObjectVisible(document, style);
+    }
+
+    return false;
 }
 
 int hide_elements_makeCompartmentGlyphVisible(SBMLDocument* document, CompartmentGlyph* compartmentGlyph) {
@@ -291,6 +312,16 @@ int hide_elements_makeCompartmentGlyphInvisible(SBMLDocument* document, Compartm
     }
 
     return -1;
+}
+
+bool hide_elements_isSpeciesGlyphVisible(SBMLDocument* document, SpeciesGlyph* speciesGlyph) {
+    if (speciesGlyph) {
+        Style* style = getStyle(document, speciesGlyph);
+        if (style)
+            return hide_elements_is2DGraphicalObjectVisible(document, style);
+    }
+
+    return false;
 }
 
 int hide_elements_makeSpeciesGlyphVisible(SBMLDocument* document, SpeciesGlyph* speciesGlyph, const bool applyToConnectedElements) {
@@ -347,6 +378,27 @@ int hide_elements_makeSpeciesGlyphInvisible(SBMLDocument* document, SpeciesGlyph
     return -1;
 }
 
+bool hide_elements_isReactionGlyphVisible(SBMLDocument* document, ReactionGlyph* reactionGlyph) {
+    if (reactionGlyph) {
+        Style* style = getStyle(document, reactionGlyph);
+        if (style) {
+            if (!hide_elements_is2DGraphicalObjectVisible(document, style))
+                return false;
+            std::vector<TextGlyph*> textGlyphs = getTextGlyphs(getLayout(document), reactionGlyph);
+            for (std::vector<TextGlyph*>::const_iterator textGlyphIt = textGlyphs.cbegin(); textGlyphIt != textGlyphs.cend(); textGlyphIt++)
+                if (!hide_elements_isTextGlyphVisible(document, *textGlyphIt))
+                    return false;
+            for (unsigned int i = 0; i < reactionGlyph->getNumSpeciesReferenceGlyphs(); i++)
+                if (!hide_elements_isSpeciesReferenceGlyphVisible(document, reactionGlyph->getSpeciesReferenceGlyph(i)))
+                    return false;
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 int hide_elements_makeReactionGlyphVisible(SBMLDocument* document, ReactionGlyph* reactionGlyph, const bool applyToConnectedElements) {
     if (reactionGlyph) {
         Style* style = getLocalStyle(document, reactionGlyph);
@@ -389,6 +441,16 @@ int hide_elements_makeReactionGlyphInvisible(SBMLDocument* document, ReactionGly
     return -1;
 }
 
+bool hide_elements_isSpeciesReferenceGlyphVisible(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph) {
+    if (speciesReferenceGlyph) {
+        Style* style = getStyle(document, speciesReferenceGlyph);
+        if (style)
+            return hide_elements_is1DGraphicalObjectVisible(document, style);
+    }
+
+    return false;
+}
+
 int hide_elements_makeSpeciesReferenceGlyphVisible(SBMLDocument* document, SpeciesReferenceGlyph* speciesReferenceGlyph) {
     if (speciesReferenceGlyph) {
         Style* style = getLocalStyle(document, speciesReferenceGlyph);
@@ -415,6 +477,16 @@ int hide_elements_makeSpeciesReferenceGlyphInvisible(SBMLDocument* document, Spe
     return -1;
 }
 
+bool hide_elements_isTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph) {
+    if (textGlyph) {
+        Style* style = getStyle(document, textGlyph);
+        if (style)
+            return hide_elements_isTextVisible(document, style);
+    }
+
+    return false;
+}
+
 int hide_elements_makeTextGlyphVisible(SBMLDocument* document, TextGlyph* textGlyph, GraphicalObject* graphicalObject) {
     if (textGlyph) {
         Style* style = getLocalStyle(document, textGlyph);
@@ -439,6 +511,13 @@ int hide_elements_makeTextGlyphInvisible(SBMLDocument* document, TextGlyph* text
     return -1;
 }
 
+bool hide_elements_isLineEndingVisible(SBMLDocument* document, LineEnding* lineEnding) {
+    if (lineEnding)
+        return hide_elements_is2DGraphicalObjectVisible(document, lineEnding);
+
+    return false;
+}
+
 int hide_elements_makeLineEndingVisible(SBMLDocument* document, LineEnding* lineEnding) {
     if (lineEnding) {
         hide_elements_make2DGraphicalObjectVisible(document, lineEnding);
@@ -457,6 +536,15 @@ int hide_elements_makeLineEndingInvisible(SBMLDocument* document, LineEnding* li
     return -1;
 }
 
+bool hide_elements_is2DGraphicalObjectVisible(SBMLDocument* document, Style* style) {
+    if (style) {
+        if (isTransparentColorName(getFillColor(style)))
+            return false;
+    }
+
+    return true;
+}
+
 int hide_elements_make2DGraphicalObjectVisible(SBMLDocument* document, Style* style) {
     hide_elements_make1DGraphicalObjectVisible(document, style);
     std::string colorWithoutTransparency = removeTransparencyFromColorName(getFillColor(style));
@@ -471,6 +559,15 @@ int hide_elements_make2DGraphicalObjectInvisible(SBMLDocument* document, Style* 
     hide_elements_make1DGraphicalObjectInvisible(document, style);
     std::string fillColorId = addColor(document, style, addTransparencyToColorName(getFillColor(style)));
     return setFillColor(style, fillColorId, getValue(document, fillColorId));
+}
+
+bool hide_elements_is2DGraphicalObjectVisible(SBMLDocument* document, LineEnding* lineEnding) {
+    if (lineEnding) {
+        if (isTransparentColorName(getFillColor(getRenderGroup(lineEnding))))
+            return false;
+    }
+
+    return true;
 }
 
 int hide_elements_make2DGraphicalObjectVisible(SBMLDocument* document, LineEnding* lineEnding) {
@@ -488,6 +585,15 @@ int hide_elements_make2DGraphicalObjectInvisible(SBMLDocument* document, LineEnd
     return setFillColor(getRenderGroup(lineEnding), fillColorId, getValue(document, fillColorId));
 }
 
+bool hide_elements_is1DGraphicalObjectVisible(SBMLDocument* document, Style* style) {
+    if (style) {
+        if (isTransparentColorName(getStrokeColor(style)))
+            return false;
+    }
+
+    return true;
+}
+
 int hide_elements_make1DGraphicalObjectVisible(SBMLDocument* document, Style* style) {
     std::string strokeColorId = addColor(document, style, removeTransparencyFromColorName(getStrokeColor(style)));
     return setStrokeColor(style, strokeColorId, getValue(document, strokeColorId));
@@ -498,6 +604,15 @@ int hide_elements_make1DGraphicalObjectInvisible(SBMLDocument* document, Style* 
     return setStrokeColor(style, strokeColorId, getValue(document, strokeColorId));
 }
 
+bool hide_elements_is1DGraphicalObjectVisible(SBMLDocument* document, LineEnding* lineEnding) {
+    if (lineEnding) {
+        if (isTransparentColorName(getStrokeColor(getRenderGroup(lineEnding))))
+            return false;
+    }
+
+    return true;
+}
+
 int hide_elements_make1DGraphicalObjectVisible(SBMLDocument* document, LineEnding* lineEnding) {
     std::string strokeColorId = addColor(document, lineEnding, removeTransparencyFromColorName(getStrokeColor(getRenderGroup(lineEnding))));
     return setStrokeColor(getRenderGroup(lineEnding), strokeColorId, getValue(document, strokeColorId));
@@ -506,6 +621,15 @@ int hide_elements_make1DGraphicalObjectVisible(SBMLDocument* document, LineEndin
 int hide_elements_make1DGraphicalObjectInvisible(SBMLDocument* document, LineEnding* lineEnding) {
     std::string strokeColorId = addColor(document, lineEnding, addTransparencyToColorName(getStrokeColor(getRenderGroup(lineEnding))));
     return setStrokeColor(getRenderGroup(lineEnding), strokeColorId, getValue(document, strokeColorId));
+}
+
+bool hide_elements_isTextVisible(SBMLDocument* document, Style* style) {
+    if (style) {
+        if (isTransparentColorName(getFontColor(style)))
+            return false;
+    }
+
+    return true;
 }
 
 int hide_elements_makeTextVisible(SBMLDocument* document, Style* style) {
