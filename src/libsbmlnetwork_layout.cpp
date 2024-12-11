@@ -958,6 +958,7 @@ int setPosition(Layout* layout, GraphicalObject* graphicalObject, const double& 
     double moveDistanceY = y - getPositionY(graphicalObject);
     if ((isSetCurve(graphicalObject) && !setPosition(getCurve(graphicalObject), x, y)) || !setPosition(getBoundingBox(graphicalObject), x, y)) {
         updateAssociatedTextGlyphsPosition(layout, graphicalObject, moveDistanceX, moveDistanceY);
+        fix_elements_fixGraphicalObjectPosition(graphicalObject);
         return 0;
     }
 

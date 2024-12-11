@@ -639,6 +639,22 @@ class LibSBMLNetwork:
         """
         return lib.c_api_makeLineEndingsInvisible(self.sbml_object, layout_index)
 
+    def isVisible(self, id, graphical_object_index=0, layout_index=0):
+        """
+        Returns whether the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument is visible
+
+        :Parameters:
+
+            - id (string): a string that determines the id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument is visible and false otherwise
+        """
+        return lib.c_api_isVisible(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
+
     def makeVisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
         """
         Makes the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument visible on the canvas
@@ -1317,7 +1333,7 @@ class LibSBMLNetwork:
             """
         return lib.c_api_getNumSpeciesReferenceAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index)
 
-    def getSpeciesReferenceIndexAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0, n = 0):
+    def getSpeciesReferenceIndexAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0, n = 0, layout_index = 0):
         """
         Returns the index of the SpeciesReference associated with the given species_id in the given SBMLDocument
 
@@ -1327,12 +1343,13 @@ class LibSBMLNetwork:
             - reaction_id (string): a string that determines the id of the Reaction
             - reaction_glyph_index (int, optional): an integer (default: 0) that determines the index of the ReactionGlyph in the given SBMLDocument
             - n (int, optional): an integer (default: 0) that determines the index of the SpeciesReference among the associated SpeciesReferences to the given species_id in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
             an integer that determines the index of the SpeciesReference associated with the given species_id in the given SBMLDocument
             """
-        return lib.c_api_getSpeciesReferenceIndexAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, n)
+        return lib.c_api_getSpeciesReferenceIndexAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, n, layout_index)
 
     def getNumSpeciesReferenceCurveSegments(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
@@ -7739,6 +7756,17 @@ class LibSBMLNetwork:
             true on success and false if the border color of all the SpeciesGlyph object could not be set
         """
         return lib.c_api_setSpeciesBorderColor(self.sbml_object, str(border_color).encode(), layout_index)
+
+    def getReactionsLineColor(self, layout_index=0):
+        """
+        Returns the default line color of the ReactionGlyph objects in the given SBMLDocument
+
+        :Returns:
+
+            a string that determines the default line color of the ReactionGlyph objects in the given SBMLDocument
+        """
+        lib.c_api_getReactionsLineColor.restype = ctypes.c_char_p
+        return ctypes.c_char_p(lib.c_api_getReactionsLineColor(self.sbml_object, layout_index)).value.decode()
 
     def setReactionsLineColor(self, line_color, layout_index=0):
         """
