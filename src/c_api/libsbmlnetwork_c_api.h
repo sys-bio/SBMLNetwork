@@ -127,7 +127,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @param document a pointer to the SBMLDocument object.
     /// @param layoutIndex the index number of the Layout to return.
     /// @return integer value indicating success/failure of the function.
-    LIBSBMLNETWORK_EXTERN int c_api_makeAllCompartmentsInvisible(SBMLDocument* document, int layoutIndex = 0);
+    LIBSBMLNETWORK_EXTERN int c_api_makeCompartmentsInvisible(SBMLDocument* document, int layoutIndex = 0);
 
     /// @brief Make all the species in the Layout object with the given index of the SBML document visible.
     /// @param document a pointer to the SBMLDocument object.
