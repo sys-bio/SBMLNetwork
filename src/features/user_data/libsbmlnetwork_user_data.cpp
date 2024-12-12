@@ -233,7 +233,7 @@ std::vector<std::map<std::string, std::string>> user_data_getUserData(const Rend
     return userData;
 }
 
-const std::string user_data_getUserData(SBase* sBase, const std::string& key) {
+const std::string user_data_getUserData(const SBase* sBase, const std::string& key) {
     if (sBase && sBase->isSetUserData()) {
         auto userData = (std::map<std::string, std::string>*)sBase->getUserData();
         if (userData->find(key) != userData->end())

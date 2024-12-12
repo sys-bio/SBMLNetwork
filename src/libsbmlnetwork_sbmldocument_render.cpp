@@ -25,8 +25,8 @@ ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* do
     return NULL;
 }
 
-const unsigned int getNumGlobalRenderInformation(SBMLDocument* document) {
-    return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(document));
+const unsigned int getNumGlobalRenderInformation(const SBMLDocument* document) {
+    return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
 }
 
 GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int renderIndex) {
