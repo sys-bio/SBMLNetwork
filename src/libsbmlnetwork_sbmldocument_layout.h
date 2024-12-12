@@ -20,7 +20,7 @@ LIBSBMLNETWORK_EXTERN ListOfLayouts* getListOfLayouts(SBMLDocument* document);
 /// @brief Returns the number of items in the ListOfLayouts of this SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the number of items in of this SBML document, or @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const unsigned int getNumLayouts(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumLayouts(const SBMLDocument* document);
 
 /// @brief Returns a pointer to the Layout with the given index in the ListOfLayouts of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -1540,7 +1540,7 @@ LIBSBMLNETWORK_EXTERN bool isSetText(SBMLDocument* document, unsigned int layout
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getText(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the "text" attribute of the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
@@ -1551,7 +1551,7 @@ LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, const st
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getText(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id in
 /// the first Layout object of the SBML document.
@@ -1656,7 +1656,7 @@ LIBSBMLNETWORK_EXTERN bool isSetOriginOfTextId(SBMLDocument* document, unsigned 
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the id of the origin of text of this TextGlyph object or @c empty string if either the "originOfTextId" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getOriginOfTextId(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the id of the origin of text of the TextGlyph object with the given index associated with the given id in
 /// the Layout object with the given index of the SBML document.
@@ -1667,7 +1667,7 @@ LIBSBMLNETWORK_EXTERN const std::string getOriginOfTextId(SBMLDocument* document
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the id of the origin of text of this TextGlyph object or @c empty string if either the "originOfTextId" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getOriginOfTextId(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets id of the origin of text of the first TextGlyph object with the given index associated with the given id in
 /// the first Layout object of the SBML document.
@@ -1738,7 +1738,7 @@ LIBSBMLNETWORK_EXTERN bool isSetGraphicalObjectId(SBMLDocument* document, unsign
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the id of associated graphical object of this TextGlyph or @c empty string if either the "graphicalObjectId" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getGraphicalObjectId(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the id of the associated graphical object of the TextGlyph object with the given index associated with the given id
 /// in the Layout object with the given index of the SBML document.
@@ -1749,7 +1749,7 @@ LIBSBMLNETWORK_EXTERN const std::string getGraphicalObjectId(SBMLDocument* docum
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the id of associated graphical object of this TextGlyph or @c empty string if either the "graphicalObjectId" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getGraphicalObjectId(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Sets the id of the associated graphical object of the first TextGlyph object associated with the given id in
 /// the first Layout object of the SBML document.
@@ -2565,7 +2565,7 @@ LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(SBMLDocument* document, unsigne
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
-LIBSBMLNETWORK_EXTERN bool isSetCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN bool isSetCurve(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Predicate returning true if the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document
 /// has a Curve object and the curve consists of one or more segments.
@@ -2574,7 +2574,7 @@ LIBSBMLNETWORK_EXTERN bool isSetCurve(SBMLDocument* document, const std::string&
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
-LIBSBMLNETWORK_EXTERN bool isSetCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN bool isSetCurve(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the Curve object of the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -2597,7 +2597,7 @@ LIBSBMLNETWORK_EXTERN Curve* getCurve(SBMLDocument* document, unsigned int layou
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
 /// or does not have a curve
-LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the number of curve segments of the curve of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object with the given index in the SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -2606,7 +2606,7 @@ LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(SBMLDocument* docum
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
 /// or does not have a curve
-LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns a pointer to the curve segment with the given index of the GraphicalObject with the given index associated with the model entity with the given id of the first Layout object in the SBML document.
 /// @param document a pointer to the SBMLDocument object.

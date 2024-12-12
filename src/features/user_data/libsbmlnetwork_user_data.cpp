@@ -51,7 +51,7 @@ int user_data_freeUserData(Layout* layout) {
     return 0;
 }
 
-std::vector<std::map<std::string, std::string>> user_data_getUserData(Layout* layout) {
+std::vector<std::map<std::string, std::string>> user_data_getUserData(const Layout* layout) {
     std::vector<std::map<std::string, std::string>> userData;
     for (unsigned int i = 0; i < layout->getNumCompartmentGlyphs(); i++) {
         auto compartmentGlyphUserData = layout->getCompartmentGlyph(i)->getUserData();
@@ -198,7 +198,7 @@ int user_data_freeUserData(RenderInformationBase* renderInformation) {
     return 0;
 }
 
-std::vector<std::map<std::string, std::string>> user_data_getUserData(RenderInformationBase* renderInformation) {
+std::vector<std::map<std::string, std::string>> user_data_getUserData(const RenderInformationBase* renderInformation) {
     std::vector<std::map<std::string, std::string>> userData;
     for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++) {
         auto colorDefinitionUserData = renderInformation->getColorDefinition(i)->getUserData();

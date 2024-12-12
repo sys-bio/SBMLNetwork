@@ -37,21 +37,21 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return writeSBMLToString(document);
     }
 
-    const unsigned int getSBMLLevel(SBMLDocument* document) {
+    const unsigned int getSBMLLevel(const SBMLDocument* document) {
         if (document)
             return document->getLevel();
 
         return -1;
     }
 
-    const unsigned int getSBMLVersion(SBMLDocument* document) {
+    const unsigned int getSBMLVersion(const SBMLDocument* document) {
         if (document)
             return document->getVersion();
 
         return -1;
     }
 
-    const std::string getErrorLog(SBMLDocument* document) {
+    const std::string getErrorLog(const SBMLDocument* document) {
         return error_log_getErrorLog(document);
     }
 
@@ -144,7 +144,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return NULL;
     }
 
-    const unsigned int getNumCompartments(SBMLDocument* document) {
+    const unsigned int getNumCompartments(const SBMLDocument* document) {
         if (document && document->isSetModel())
             return document->getModel()->getNumCompartments();
 
@@ -165,7 +165,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return NULL;
     }
 
-    const unsigned int getNumSpecies(SBMLDocument* document) {
+    const unsigned int getNumSpecies(const SBMLDocument* document) {
         if (document && document->isSetModel())
             return document->getModel()->getNumSpecies();
 
@@ -186,7 +186,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
         return NULL;
     }
 
-    const unsigned int getNumReactions(SBMLDocument* document) {
+    const unsigned int getNumReactions(const SBMLDocument* document) {
         if (document && document->isSetModel())
             return document->getModel()->getNumReactions();
 
