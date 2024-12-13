@@ -44,17 +44,17 @@ LIBSBMLNETWORK_EXTERN const std::string writeSBML(SBMLDocument* document);
 /// @brief Returns the SBML Level of the SBMLDocument object containing this object.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the SBML Level of the SBMLDocument object containing this object.
-LIBSBMLNETWORK_EXTERN const unsigned int getSBMLLevel(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getSBMLLevel(const SBMLDocument* document);
 
 /// @brief Returns the Version within the SBML Level of the SBMLDocument object containing this object.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the Version within the SBML Level of the SBMLDocument object containing this object.
-LIBSBMLNETWORK_EXTERN const unsigned int getSBMLVersion(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getSBMLVersion(const SBMLDocument* document);
 
 /// @brief Returns the Error log containing the errors and warnings that occurred while working with the SBMLDocument object.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the Error log containing the errors and warnings that occurred while working with the SBMLDocument object.
-LIBSBMLNETWORK_EXTERN const std::string getErrorLog(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const std::string getErrorLog(const SBMLDocument* document);
 
 /// @brief Clears the Error log containing the errors and warnings that occurred while working with the SBMLDocument object.
 /// @param document a pointer to the SBMLDocument object.
@@ -116,7 +116,7 @@ SBase* getSBMLObject(SBMLDocument* document, const std::string& id);
 /// @brief Returns the number of Compartment objects in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the number of Compartment objects in the given SBML document.
-LIBSBMLNETWORK_EXTERN const unsigned int getNumCompartments(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumCompartments(const SBMLDocument* document);
 
 /// @brief Returns the id of the Compartment object with the given index in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -133,7 +133,7 @@ LIBSBMLNETWORK_EXTERN Compartment* getCompartment(SBMLDocument* document, const 
 /// @brief Returns the number of Species objects in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the number of Species objects in the given SBML document.
-LIBSBMLNETWORK_EXTERN const unsigned int getNumSpecies(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumSpecies(const SBMLDocument* document);
 
 /// @brief Returns the id of the Species object with the given index in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
@@ -150,7 +150,7 @@ LIBSBMLNETWORK_EXTERN Species* getSpecies(SBMLDocument* document, const std::str
 /// @brief Returns the number of Reaction objects in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the number of Reaction objects in the given SBML document.
-LIBSBMLNETWORK_EXTERN const unsigned int getNumReactions(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumReactions(const SBMLDocument* document);
 
 /// @brief Returns the id of the Reaction object with the given index in the given SBML document.
 /// @param document a pointer to the SBMLDocument object.

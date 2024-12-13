@@ -11,59 +11,59 @@ using namespace libsbml;
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
-const std::string error_log_getErrorLog(Layout *layout);
+const std::string error_log_getErrorLog(const Layout *layout);
 
 void error_log_clearErrorLog(Layout *layout);
 
-const std::string error_log_getErrorLog(GraphicalObject *graphicalObject);
+const std::string error_log_getErrorLog(const GraphicalObject *graphicalObject);
 
 void error_log_clearErrorLog(GraphicalObject *graphicalObject);
 
-const std::string error_log_getErrorLog(BoundingBox *boundingBox);
+const std::string error_log_getErrorLog(const BoundingBox *boundingBox);
 
 void error_log_clearErrorLog(BoundingBox *boundingBox);
 
-const std::string error_log_getErrorLog(Curve *curve);
+const std::string error_log_getErrorLog(const Curve *curve);
 
 void error_log_clearErrorLog(Curve *curve);
 
-const std::string error_log_getErrorLog(LineSegment *lineSegment);
+const std::string error_log_getErrorLog(const LineSegment *lineSegment);
 
 void error_log_clearErrorLog(LineSegment *lineSegment);
 
-const std::string error_log_getErrorLog(RenderInformationBase* renderInformation);
+const std::string error_log_getErrorLog(const RenderInformationBase* renderInformation);
 
 void error_log_clearErrorLog(RenderInformationBase* renderInformation);
 
-const std::string error_log_getErrorLog(ColorDefinition* colorDefinition);
+const std::string error_log_getErrorLog(const ColorDefinition* colorDefinition);
 
 void error_log_clearErrorLog(ColorDefinition* colorDefinition);
 
-const std::string error_log_getErrorLog(GradientBase* gradientBase);
+const std::string error_log_getErrorLog(const GradientBase* gradientBase);
 
 void error_log_clearErrorLog(GradientBase* gradientBase);
 
-const std::string error_log_getErrorLog(GradientStop* gradientStop);
+const std::string error_log_getErrorLog(const GradientStop* gradientStop);
 
 void error_log_clearErrorLog(GradientStop* gradientStop);
 
-const std::string error_log_getErrorLog(LineEnding* lineEnding);
+const std::string error_log_getErrorLog(const LineEnding* lineEnding);
 
 void error_log_clearErrorLog(LineEnding* lineEnding);
 
-const std::string error_log_getErrorLog(Style* style);
+const std::string error_log_getErrorLog(const Style* style);
 
 void error_log_clearErrorLog(Style* style);
 
-const std::string error_log_getErrorLog(RenderGroup* renderGroup);
+const std::string error_log_getErrorLog(const RenderGroup* renderGroup);
 
 void error_log_clearErrorLog(RenderGroup* renderGroup);
 
-const std::string error_log_getErrorLog(Transformation2D* transformation2D);
+const std::string error_log_getErrorLog(const Transformation2D* transformation2D);
 
 void error_log_clearErrorLog(Transformation2D* transformation2D);
 
-const std::string error_log_getErrorLog(SBase* sBase);
+const std::string error_log_getErrorLog(const SBase* sBase);
 
 void error_log_clearErrorLog(SBase* sBase);
 
