@@ -344,7 +344,7 @@ const bool autolayout_adjustLayoutDimensions(Layout *layout) {
     double widthGap = desiredWidth - layout->getDimensions()->width();
     double desiredHeight = autolayout_getLayoutDimensionsDesiredHeight(layout);
     double heightGap = desiredHeight - layout->getDimensions()->height();
-    if (widthGap >= 0.0 && widthGap <= 0.05 * desiredWidth && heightGap >= 0.0 && heightGap <= 0.05 * desiredHeight) {
+    if (widthGap >= 0.0 && widthGap <= 0.1 * desiredWidth && heightGap >= 0.0 && heightGap <= 0.1 * desiredHeight) {
         layout->getDimensions()->setWidth(desiredWidth);
         layout->getDimensions()->setHeight(desiredHeight);
         return true;
