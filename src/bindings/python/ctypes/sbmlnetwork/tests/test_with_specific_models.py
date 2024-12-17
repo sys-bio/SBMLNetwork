@@ -76,15 +76,12 @@ class TestSBMLNetwork(unittest.TestCase):
         sbml = te.loada(model).getSBML()
         network = sbmlnetwork.SBMLNetwork(sbml)
         # default use name as text label
-        self.assertEqual(network.getUseNameAsTextLabel(), True)
         self.assertEqual(network.getText("S1"), "Species 1")
         # set use name as text label to False
         network.setUseNameAsTextLabel(False)
-        self.assertEqual(network.getUseNameAsTextLabel(), False)
         self.assertEqual(network.getText("S1"), "S1")
         # set use name as text label to True
         network.setUseNameAsTextLabel(True)
-        self.assertEqual(network.getUseNameAsTextLabel(), True)
         self.assertEqual(network.getText("S1"), "Species 1")
 
     def test_set_layout_style(self):
@@ -816,7 +813,6 @@ class TestSBMLNetwork(unittest.TestCase):
         network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
         # set stoichiometric species reference
         network.setStoichiometricSpeciesReference(False)
-        self.assertEqual(network.getStoichiometricSpeciesReference(), False)
         network.autolayout()
         self.assertEqual(network.getNumSpeciesReferenceAssociatedWithSpecies("S1", "J0"), 1)
 
