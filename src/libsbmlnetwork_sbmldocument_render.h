@@ -21,7 +21,7 @@ LIBSBMLNETWORK_EXTERN ListOfGlobalRenderInformation* getListOfGlobalRenderInform
 /// @brief Returns the number of items in the ListOfGlobalRenderInformation of the SBML document.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the number of items in the ListOfGlobalRenderInformation of the SBML document, or @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const unsigned int getNumGlobalRenderInformation(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumGlobalRenderInformation(const SBMLDocument* document);
 
 /// @brief Returns a pointer to the GlobalRenderInformation with the given index in the ListOfGlobalRenderInformation of the SBML document.
 /// @param renderIndex the index number of the GlobalRenderInformation to return.
@@ -7173,7 +7173,7 @@ LIBSBMLNETWORK_EXTERN int setStrokeColor(SBMLDocument* document, const std::stri
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Compartment.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the "stroke" attribute of the RenderGroup of the Style for the Compartment, or @c "" if the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const std::string getCompartmentStrokeColor(const SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7185,7 +7185,7 @@ LIBSBMLNETWORK_EXTERN int setCompartmentStrokeColor(SBMLDocument* document, unsi
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Species.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the "stroke" attribute of the RenderGroup of the Style for the Species, or @c "" if the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const std::string getSpeciesStrokeColor(const SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all SpeciesGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7197,7 +7197,7 @@ LIBSBMLNETWORK_EXTERN int setSpeciesStrokeColor(SBMLDocument* document, unsigned
 /// @brief Returns the value of the "stroke" attribute of the RenderGroup of the Style for the Reaction.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the "stroke" attribute of the RenderGroup of the Style for the Reaction, or @c "" if the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const std::string getReactionStrokeColor(const SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke" attribute of the RenderGroup of the Style for all ReactionGlyph objects and their SpeciesReferenceGlyph objects.
 /// @param document a pointer to the SBMLDocument object.
@@ -7270,7 +7270,7 @@ LIBSBMLNETWORK_EXTERN int setStrokeWidth(SBMLDocument* document, const std::stri
 /// @brief Returns the value of the "stroke-width" attribute of the RenderGroup of the Style for the Compartment.
 /// @param document a pointer to the SBMLDocument object.
 /// @return the "stroke-width" attribute of the RenderGroup of the Style for the Compartment, or @c 0.0 if the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const double getCompartmentStrokeWidth(SBMLDocument* document);
+LIBSBMLNETWORK_EXTERN const double getCompartmentStrokeWidth(const SBMLDocument* document);
 
 /// @brief Sets the value of the "stroke-width" attribute of the RenderGroup of the Style for all CompartmentGlyph objects.
 /// @param document a pointer to the SBMLDocument object.

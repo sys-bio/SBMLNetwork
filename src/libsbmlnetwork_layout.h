@@ -332,12 +332,12 @@ LIBSBMLNETWORK_EXTERN const std::string getReactionId(GraphicalObject* reactionG
 /// @param id the id of the reaction the the ReactionGlyph objects of which to be returned.
 /// @param reactionGlyphIndex the index of the ReactionGlyph to return.
 /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
-LIBSBMLNETWORK_EXTERN bool isReactionGlyph(Layout* layout, const std::string& id, const unsigned int reactionGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN bool isReactionGlyph(const Layout* layout, const std::string& id, const unsigned int reactionGlyphIndex = 0);
 
 /// @brief Predicate returning true if this abstract GraphicalObject is of type ReactionGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject is of type ReactionGlyph, false otherwise
-LIBSBMLNETWORK_EXTERN bool isReactionGlyph(GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isReactionGlyph(const GraphicalObject* graphicalObject);
 
 /// @brief Returns the number of SpeciesReference objects of the ReactionGlyph with the given index associated with the reaction with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -525,7 +525,7 @@ LIBSBMLNETWORK_EXTERN const int getSpeciesReferenceIndexAssociatedWithSpecies(La
 /// @brief Predicate returning true if this abstract GraphicalObject object is of type SpeciesReferenceGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject object is of type SpeciesReferenceGlyph, false otherwise
-LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceGlyph(GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSpeciesReferenceGlyph(const GraphicalObject* graphicalObject);
 
 /// @brief Returns the number of TextGlyph objects of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -591,13 +591,13 @@ LIBSBMLNETWORK_EXTERN bool isSetText(GraphicalObject* textGlyph);
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set
 /// , TextGlyph does not exits or the object is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN const std::string getText(const Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0, unsigned int textGlyphIndex = 0);
 
 /// @brief Returns the text associated with this TextGlyph object.
 /// @param textGlyph a pointer to the GraphicalObject object.
 /// @return the "text" attribute of this TextGlyph object or @c empty string if either the "text" attribute is not set,
 /// or the object is not of type TextGlyph or is @c NULL.
-LIBSBMLNETWORK_EXTERN const std::string getText(GraphicalObject* textGlyph);
+LIBSBMLNETWORK_EXTERN const std::string getText(const GraphicalObject* textGlyph);
 
 /// @brief Sets the value of the "text" attribute of the first TextGlyph object associated with the given id.
 /// @param Layout a pointer to the Layout object.
@@ -766,12 +766,12 @@ LIBSBMLNETWORK_EXTERN GraphicalObject* getGraphicalObject(Layout* layout, Graphi
 /// @param id the id of the model entity the TextGlyph objects associated with it to be returned.
 /// @param textGlyphIndex the index of the TextGlyph to return.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
-LIBSBMLNETWORK_EXTERN bool isTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
+LIBSBMLNETWORK_EXTERN bool isTextGlyph(const Layout* layout, const std::string& id, unsigned int textGlyphIndex = 0);
 
 /// @brief Predicate returning true if this abstract GraphicalObject object is of type TextGlyph.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if this abstract GraphicalObject is of type TextGlyph, false otherwise
-LIBSBMLNETWORK_EXTERN bool isTextGlyph(GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isTextGlyph(const GraphicalObject* graphicalObject);
 
 /// @brief Returns the number of additional GraphicalObject objects of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -1113,12 +1113,12 @@ LIBSBMLNETWORK_EXTERN int setTextDimensionHeight(Layout* layout, GraphicalObject
 /// @param id the id of the model entity the GraphicalObject object associated with it to be returned.
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
-LIBSBMLNETWORK_EXTERN bool isSetCurve(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN bool isSetCurve(const Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Predicate returning true if this GraphicalObject object has a Curve object and the curve consists of one or more segments
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return @c true if the GraphicalObject has a Curve object and the curve consists of one or more segments, false otherwise
-LIBSBMLNETWORK_EXTERN bool isSetCurve(GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN bool isSetCurve(const GraphicalObject* graphicalObject);
 
 /// @brief Returns the Curve object of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 /// @param Layout a pointer to the Layout object.
@@ -1141,18 +1141,18 @@ LIBSBMLNETWORK_EXTERN int removeCurve(GraphicalObject* graphicalObject);
 /// @param graphicalObjectIndex the index of the GraphicalObject to return.
 /// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
 /// or does not have a curve
-LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(const Layout* layout, const std::string& id, unsigned int graphicalObjectIndex = 0);
 
 /// @brief Returns the number of curve segments of the curve of this GraphicalObject object.
 /// @param graphicalObject a pointer to the GraphicalObject object.
 /// @return the number of curve segments of the curve of the GraphicalObject object, or @c 0 if the object is @c NULL
 /// or does not have a curve
-LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(GraphicalObject* graphicalObject);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(const GraphicalObject* graphicalObject);
 
 /// @brief Returns the number of curve segments of this Curve object.
 /// @param curve a pointer to the Curve object.
 /// @return the number of curve segments of the Curve object, or @c 0 if the object is @c NULL
-LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(Curve* curve);
+LIBSBMLNETWORK_EXTERN const unsigned int getNumCurveSegments(const Curve* curve);
 
 /// @brief Returns a pointer to the curve segment with the given index of the GraphicalObject with the given index associated with the model entity with the given id of the Layout object.
 ///// @param Layout a pointer to the Layout object.

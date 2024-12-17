@@ -25,8 +25,8 @@ ListOfGlobalRenderInformation* getListOfGlobalRenderInformation(SBMLDocument* do
     return NULL;
 }
 
-const unsigned int getNumGlobalRenderInformation(SBMLDocument* document) {
-    return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(document));
+const unsigned int getNumGlobalRenderInformation(const SBMLDocument* document) {
+    return getNumGlobalRenderInformation(getListOfGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
 }
 
 GlobalRenderInformation* getGlobalRenderInformation(SBMLDocument* document, unsigned int renderIndex) {
@@ -4239,8 +4239,8 @@ int setStrokeColor(SBMLDocument* document, const std::string& attribute, const s
     return -1;
 }
 
-const std::string getCompartmentStrokeColor(SBMLDocument* document) {
-    return getCompartmentStrokeColor(getGlobalRenderInformation(document));
+const std::string getCompartmentStrokeColor(const SBMLDocument* document) {
+    return getCompartmentStrokeColor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
 }
 
 int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
@@ -4251,8 +4251,8 @@ int setCompartmentStrokeColor(SBMLDocument* document, unsigned int layoutIndex, 
     return -1;
 }
 
-const std::string getSpeciesStrokeColor(SBMLDocument* document) {
-    return getSpeciesStrokeColor(getGlobalRenderInformation(document));
+const std::string getSpeciesStrokeColor(const SBMLDocument* document) {
+    return getSpeciesStrokeColor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
 }
 
 int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke) {
@@ -4263,8 +4263,8 @@ int setSpeciesStrokeColor(SBMLDocument* document, unsigned int layoutIndex, cons
     return -1;
 }
 
-const std::string getReactionStrokeColor(SBMLDocument* document) {
-    return getReactionStrokeColor(getGlobalRenderInformation(document));
+const std::string getReactionStrokeColor(const SBMLDocument* document) {
+    return getReactionStrokeColor(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
 }
 
 int setReactionStrokeColor(SBMLDocument* document, unsigned int layoutIndex, const std::string& stroke, bool setSpeciesReferenceGlyphs) {
@@ -4389,8 +4389,8 @@ int setStrokeWidth(SBMLDocument* document, const std::string& attribute, const d
     return -1;
 }
 
-const double getCompartmentStrokeWidth(SBMLDocument* document) {
-    return getCompartmentStrokeWidth(getGlobalRenderInformation(document));
+const double getCompartmentStrokeWidth(const SBMLDocument* document) {
+    return getCompartmentStrokeWidth(getGlobalRenderInformation(const_cast<SBMLDocument*>(document)));
 }
 
 int setCompartmentStrokeWidth(SBMLDocument* document, unsigned int layoutIndex, const double& strokeWidth) {

@@ -52,7 +52,7 @@ void error_log_clearErrorLog(SBMLDocument* document) {
     }
 }
 
-const std::string error_log_getErrorLog(Layout* layout) {
+const std::string error_log_getErrorLog(const Layout* layout) {
     std::string errorLog = "";
     if (layout) {
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(layout, "error_log"), errorLog);
@@ -89,14 +89,14 @@ void error_log_clearErrorLog(Layout* layout) {
     }
 }
 
-const std::string error_log_getErrorLog(GraphicalObject* graphicalObject) {
+const std::string error_log_getErrorLog(const GraphicalObject* graphicalObject) {
     std::string errorLog = "";
     if (graphicalObject)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(graphicalObject, "error_log"), errorLog);
     if (graphicalObject->getBoundingBox())
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(graphicalObject->getBoundingBox()), errorLog);
     if (isSetCurve(graphicalObject))
-        errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(getCurve(graphicalObject)), errorLog);
+        errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(getCurve(const_cast<GraphicalObject*>(graphicalObject))), errorLog);
 
     return errorLog;
 }
@@ -111,7 +111,7 @@ void error_log_clearErrorLog(GraphicalObject* graphicalObject) {
     }
 }
 
-const std::string error_log_getErrorLog(BoundingBox* boundingBox) {
+const std::string error_log_getErrorLog(const BoundingBox* boundingBox) {
     std::string errorLog = "";
     if (boundingBox)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(boundingBox, "error_log"), errorLog);
@@ -124,12 +124,12 @@ void error_log_clearErrorLog(BoundingBox* boundingBox) {
         user_data_setUserData(boundingBox, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(Curve* curve) {
+const std::string error_log_getErrorLog(const Curve* curve) {
     std::string errorLog = "";
     if (curve)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(curve, "error_log"), errorLog);
     for (unsigned int i = 0; i < getNumCurveSegments(curve); i++)
-        errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(getCurveSegment(curve, i)), errorLog);
+        errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(getCurveSegment(const_cast<Curve*>(curve), i)), errorLog);
 
     return errorLog;
 }
@@ -142,7 +142,7 @@ void error_log_clearErrorLog(Curve* curve) {
     }
 }
 
-const std::string error_log_getErrorLog(LineSegment* lineSegment) {
+const std::string error_log_getErrorLog(const LineSegment* lineSegment) {
     std::string errorLog = "";
     if (lineSegment)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(lineSegment, "error_log"), errorLog);
@@ -155,14 +155,14 @@ void error_log_clearErrorLog(LineSegment* lineSegment) {
         user_data_setUserData(lineSegment, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(RenderInformationBase* renderInformation) {
+const std::string error_log_getErrorLog(const RenderInformationBase* renderInformation) {
     std::string errorLog = "";
     if (renderInformation)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(renderInformation, "error_log"), errorLog);
     for (unsigned int i = 0; i < renderInformation->getNumColorDefinitions(); i++)
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(renderInformation->getColorDefinition(i)), errorLog);
     for (unsigned int i = 0; i < renderInformation->getNumGradientDefinitions(); i++) {
-        GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
+        const GradientBase* gradientBase = renderInformation->getGradientDefinition(i);
         errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(gradientBase), errorLog);
         for (unsigned int j = 0; j < gradientBase->getNumGradientStops(); j++)
             errorLog += error_log_prepareErrorMessage(error_log_getErrorLog(gradientBase->getGradientStop(j)), errorLog);
@@ -205,7 +205,7 @@ void error_log_clearErrorLog(RenderInformationBase* renderInformation) {
     }
 }
 
-const std::string error_log_getErrorLog(ColorDefinition* colorDefinition) {
+const std::string error_log_getErrorLog(const ColorDefinition* colorDefinition) {
     std::string errorLog = "";
     if (colorDefinition)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(colorDefinition, "error_log"), errorLog);
@@ -218,7 +218,7 @@ void error_log_clearErrorLog(ColorDefinition* colorDefinition) {
         user_data_setUserData(colorDefinition, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(GradientBase* gradientBase) {
+const std::string error_log_getErrorLog(const GradientBase* gradientBase) {
     std::string errorLog = "";
     if (gradientBase)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(gradientBase, "error_log"), errorLog);
@@ -231,7 +231,7 @@ void error_log_clearErrorLog(GradientBase* gradientBase) {
         user_data_setUserData(gradientBase, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(GradientStop* gradientStop) {
+const std::string error_log_getErrorLog(const GradientStop* gradientStop) {
     std::string errorLog = "";
     if (gradientStop)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(gradientStop, "error_log"), errorLog);
@@ -244,7 +244,7 @@ void error_log_clearErrorLog(GradientStop* gradientStop) {
         user_data_setUserData(gradientStop, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(LineEnding* lineEnding) {
+const std::string error_log_getErrorLog(const LineEnding* lineEnding) {
     std::string errorLog = "";
     if (lineEnding)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(lineEnding, "error_log"), errorLog);
@@ -257,7 +257,7 @@ void error_log_clearErrorLog(LineEnding* lineEnding) {
         user_data_setUserData(lineEnding, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(Style* style) {
+const std::string error_log_getErrorLog(const Style* style) {
     std::string errorLog = "";
     if (style) {
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(style, "error_log"), errorLog);
@@ -274,7 +274,7 @@ void error_log_clearErrorLog(Style* style) {
     }
 }
 
-const std::string error_log_getErrorLog(RenderGroup* renderGroup) {
+const std::string error_log_getErrorLog(const RenderGroup* renderGroup) {
     std::string errorLog = "";
     if (renderGroup) {
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(renderGroup, "error_log"), errorLog);
@@ -293,7 +293,7 @@ void error_log_clearErrorLog(RenderGroup* renderGroup) {
     }
 }
 
-const std::string error_log_getErrorLog(Transformation2D* transformation2D) {
+const std::string error_log_getErrorLog(const Transformation2D* transformation2D) {
     std::string errorLog = "";
     if (transformation2D)
         errorLog += error_log_prepareErrorMessage(user_data_getUserData(transformation2D, "error_log"), errorLog);
@@ -306,7 +306,7 @@ void error_log_clearErrorLog(Transformation2D* transformation2D) {
         user_data_setUserData(transformation2D, "error_log", "");
 }
 
-const std::string error_log_getErrorLog(SBase* sBase) {
+const std::string error_log_getErrorLog(const SBase* sBase) {
     std::string errorLog = "";
     if (sBase)
         errorLog = error_log_prepareErrorMessage(user_data_getUserData(sBase, "error_log"), errorLog);

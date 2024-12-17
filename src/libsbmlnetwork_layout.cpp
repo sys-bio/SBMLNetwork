@@ -380,12 +380,12 @@ const std::string getReactionId(GraphicalObject* reactionGlyph) {
     return "";
 }
 
-bool isReactionGlyph(Layout* layout, const std::string& id, const unsigned int reactionGlyphIndex) {
-    return isReactionGlyph(getReactionGlyph(layout, id, reactionGlyphIndex));
+bool isReactionGlyph(const Layout* layout, const std::string& id, const unsigned int reactionGlyphIndex) {
+    return isReactionGlyph(getReactionGlyph(const_cast<Layout*>(layout), id, reactionGlyphIndex));
 }
 
-bool isReactionGlyph(GraphicalObject* graphicalObject) {
-    if (dynamic_cast<ReactionGlyph*>(graphicalObject))
+bool isReactionGlyph(const GraphicalObject* graphicalObject) {
+    if (dynamic_cast<const ReactionGlyph*>(graphicalObject))
         return true;
 
     return false;
@@ -552,8 +552,8 @@ const int getSpeciesReferenceIndexAssociatedWithSpecies(Layout* layout, const st
     return -1;
 }
 
-bool isSpeciesReferenceGlyph(GraphicalObject* graphicalObject) {
-    if (dynamic_cast<SpeciesReferenceGlyph*>(graphicalObject))
+bool isSpeciesReferenceGlyph(const GraphicalObject* graphicalObject) {
+    if (dynamic_cast<const SpeciesReferenceGlyph*>(graphicalObject))
         return true;
 
     return false;
@@ -617,11 +617,11 @@ bool isSetText(GraphicalObject* textGlyph) {
     return false;
 }
 
-const std::string getText(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getText(getTextGlyph(layout, getGraphicalObject(layout, id, graphicalObjectIndex), textGlyphIndex));
+const std::string getText(const Layout* layout, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getText(getTextGlyph(const_cast<Layout*>(layout), getGraphicalObject(const_cast<Layout*>(layout), id, graphicalObjectIndex), textGlyphIndex));
 }
 
-const std::string getText(GraphicalObject* textGlyph) {
+const std::string getText(const GraphicalObject* textGlyph) {
     if (isTextGlyph(textGlyph))
         return ((TextGlyph*)textGlyph)->getText();
 
@@ -758,12 +758,12 @@ GraphicalObject* getGraphicalObject(Layout* layout, GraphicalObject* textGlyph) 
     return getGraphicalObjectUsingItsOwnId(layout, getGraphicalObjectId(textGlyph));
 }
 
-bool isTextGlyph(Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
-    return isTextGlyph(getTextGlyph(layout, id, textGlyphIndex));
+bool isTextGlyph(const Layout* layout, const std::string& id, unsigned int textGlyphIndex) {
+    return isTextGlyph(getTextGlyph(const_cast<Layout*>(layout), id, textGlyphIndex));
 }
 
-bool isTextGlyph(GraphicalObject* graphicalObject) {
-    if (dynamic_cast<TextGlyph*>(graphicalObject))
+bool isTextGlyph(const GraphicalObject* graphicalObject) {
+    if (dynamic_cast<const TextGlyph*>(graphicalObject))
         return true;
 
     return false;
@@ -1243,11 +1243,11 @@ int setTextDimensionHeight(Layout* layout, GraphicalObject* graphicalObject, uns
     return -1;
 }
 
-bool isSetCurve(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return isSetCurve(getGraphicalObject(layout, id, graphicalObjectIndex));
+bool isSetCurve(const Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetCurve(getGraphicalObject(const_cast<Layout*>(layout), id, graphicalObjectIndex));
 }
 
-bool isSetCurve(GraphicalObject* graphicalObject) {
+bool isSetCurve(const GraphicalObject* graphicalObject) {
     if (isReactionGlyph(graphicalObject))
         return ((ReactionGlyph*)graphicalObject)->isSetCurve();
     if (isSpeciesReferenceGlyph(graphicalObject))
@@ -1276,15 +1276,15 @@ int removeCurve(GraphicalObject* graphicalObject) {
     return -1;
 }
 
-const unsigned int getNumCurveSegments(Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getNumCurveSegments(getGraphicalObject(layout, id, graphicalObjectIndex));
+const unsigned int getNumCurveSegments(const Layout* layout, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getNumCurveSegments(getGraphicalObject(const_cast<Layout*>(layout), id, graphicalObjectIndex));
 }
 
-const unsigned int getNumCurveSegments(GraphicalObject* graphicalObject) {
-    return getNumCurveSegments(getCurve(graphicalObject));
+const unsigned int getNumCurveSegments(const GraphicalObject* graphicalObject) {
+    return getNumCurveSegments(getCurve(const_cast<GraphicalObject*>(graphicalObject)));
 }
 
-const unsigned int getNumCurveSegments(Curve* curve) {
+const unsigned int getNumCurveSegments(const Curve* curve) {
     if (curve)
         return curve->getNumCurveSegments();
 

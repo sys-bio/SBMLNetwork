@@ -15,7 +15,7 @@ int user_data_freeUserData(SBMLDocument* document);
 
 int user_data_freeUserData(Layout* layout);
 
-std::vector<std::map<std::string, std::string>> user_data_getUserData(Layout* layout);
+std::vector<std::map<std::string, std::string>> user_data_getUserData(const Layout* layout);
 
 int user_data_setUserData(GraphicalObject* graphicalObject, const std::string& key, const std::string& value);
 
@@ -31,9 +31,9 @@ int user_data_setGraphicalObjectUserData(GraphicalObject* graphicalObject, const
 
 int user_data_freeUserData(RenderInformationBase* renderInformation);
 
-std::vector<std::map<std::string, std::string>> user_data_getUserData(RenderInformationBase* renderInformationBase);
+std::vector<std::map<std::string, std::string>> user_data_getUserData(const RenderInformationBase* renderInformationBase);
 
-const std::string user_data_getUserData(SBase* sbase, const std::string& key);
+const std::string user_data_getUserData(const SBase* sbase, const std::string& key);
 
 int user_data_setUserData(SBase* sBase, const std::string& key, const std::string& value);
 

@@ -8839,11 +8839,6 @@ LIBSBMLNETWORK_EXTERN const double getRelativeValue(const RelAbsVector& relAbsVe
 /// @return integer value indicating success/failure of the function.
 LIBSBMLNETWORK_EXTERN int setAbsoluteValue(RelAbsVector relAbsVector, const double& abs);
 
-/// @brief Returns the relative coordinate value of this RelAbsVector.
-/// @param relAbsVector a RelAbsVector.
-/// @return the relative coordinate value of this RelAbsVector
-LIBSBMLNETWORK_EXTERN const double getRelativeValue(const RelAbsVector& relAbsVector);
-
 /// @brief Sets the relative coordinate value of this RelAbsVector.
 /// @param relAbsVector a RelAbsVector.
 /// @param rel double value of the "rel" attribute to be set.

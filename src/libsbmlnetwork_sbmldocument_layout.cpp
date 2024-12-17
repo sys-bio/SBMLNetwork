@@ -23,8 +23,8 @@ ListOfLayouts* getListOfLayouts(SBMLDocument* document) {
     return NULL;
 }
 
-const unsigned int getNumLayouts(SBMLDocument* document) {
-    return getNumLayouts(getListOfLayouts(document));
+const unsigned int getNumLayouts(const SBMLDocument* document) {
+    return getNumLayouts(getListOfLayouts(const_cast<SBMLDocument*>(document)));
 }
 
 Layout* getLayout(SBMLDocument* document, unsigned int layoutIndex) {
@@ -779,16 +779,16 @@ bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::stri
     return isSetText(getLayout(document, layoutIndex), id);
 }
 
-const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+const std::string getText(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    std::string text = getText(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getText(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    std::string text = getText(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
     if (!text.empty()) {
         return text;
     }
-    SBase* sBase = getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex));
+    SBase* sBase = getSBMLObject(const_cast<SBMLDocument*>(document), getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex));
     if (sBase) {
         std::string useNameAsTextLabel = user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label");
         if (useNameAsTextLabel != "false") {
@@ -848,12 +848,12 @@ bool isSetOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const
     return isSetOriginOfTextId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getOriginOfTextId(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getOriginOfTextId(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getOriginOfTextId(getLayout(const_cast<SBMLDocument*>(document)), id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getOriginOfTextId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getOriginOfTextId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getOriginOfTextId(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getOriginOfTextId(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
 }
 
 int setOriginOfTextId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& orig) {
@@ -880,12 +880,12 @@ bool isSetGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, co
     return isSetGraphicalObjectId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getGraphicalObjectId(getLayout(document), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getGraphicalObjectId(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getGraphicalObjectId(getLayout(const_cast<SBMLDocument*>(document)), id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getGraphicalObjectId(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
-    return getGraphicalObjectId(getLayout(document, layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
+const std::string getGraphicalObjectId(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+    return getGraphicalObjectId(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
 }
 
 int setGraphicalObjectId(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, const std::string& graphicalObjectId) {
@@ -1430,12 +1430,12 @@ int setTextDimensionHeight(SBMLDocument* document, unsigned int layoutIndex, con
     return setTextDimensionHeight(getLayout(document, layoutIndex), getGraphicalObject(document, layoutIndex, id, graphicalObjectIndex), textGlyphIndex, height);
 }
 
-bool isSetCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
-    return isSetCurve(getLayout(document), id, graphicalObjectIndex);
+bool isSetCurve(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetCurve(getLayout(const_cast<SBMLDocument*>(document)), id, graphicalObjectIndex);
 }
 
-bool isSetCurve(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    return isSetCurve(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+bool isSetCurve(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return isSetCurve(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex);
 }
 
 Curve* getCurve(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
@@ -1446,12 +1446,12 @@ Curve* getCurve(SBMLDocument* document, unsigned int layoutIndex, const std::str
     return getCurve(getLayout(document, layoutIndex), id, graphicalObjectIndex);
 }
 
-const unsigned int getNumCurveSegments(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getNumCurveSegments(getLayout(document), id, graphicalObjectIndex);
+const unsigned int getNumCurveSegments(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getNumCurveSegments(getLayout(const_cast<SBMLDocument*>(document)), id, graphicalObjectIndex);
 }
 
-const unsigned int getNumCurveSegments(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
-    return getNumCurveSegments(getLayout(document, layoutIndex), id, graphicalObjectIndex);
+const unsigned int getNumCurveSegments(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex) {
+    return getNumCurveSegments(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex);
 }
 
 LineSegment* getCurveSegment(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int curveSegmentIndex) {
