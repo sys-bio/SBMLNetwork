@@ -25,13 +25,14 @@ class LibSBMLNetwork:
     A wrapper class to use libSBMLNetwork, which is an API to work with the Layout and Render packages of libSBML
     """
 
-    def __init__(self, sbml):
+    def __init__(self, sbml, disable_auto_layout=False):
         """
         Initializes the LibSBMLNetwork class by reading an SBML document from the given file name or the given text string
 
         :Parameters:
 
             - sbml: an SBML document in the form of either an SBML file (.xml) directory or an SBML string
+            - disable_auto_layout (boolean, optional): a boolean (default: False) that determines whether to disable the autolayout algorithm after loading the SBML document
         """
     
         self.sbml_object = None
@@ -40,7 +41,7 @@ class LibSBMLNetwork:
         self.display_compartments_text_label = True
         self.display_species_text_label = True
         self.display_reactions_text_label = False
-        self.load(sbml)
+        self.load(sbml, disable_auto_layout)
 
     def getVersion(self):
         """
@@ -65,13 +66,14 @@ class LibSBMLNetwork:
         lib.c_api_getLibraryCurrentDirectory.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getCurrentDirectoryOfLibrary()).value.decode()
 
-    def load(self, sbml):
+    def load(self, sbml, disable_auto_layout=False):
         """
         Reads an SBML document from the given file directory or the given text string
 
         :Parameters:
 
             - sbml (string): a string that determines either the name or full pathname of the SBML(.xml) file to be read or a string containing a full SBML model.
+            - disable_auto_layout (boolean, optional): a boolean (default: False) that determines whether to disable the autolayout algorithm after loading the SBML document
 
         :Returns:
 
@@ -81,12 +83,13 @@ class LibSBMLNetwork:
         self.sbml_object = lib.c_api_readSBML(str(sbml).encode())
         if not self.isSetModel():
             raise Exception(f"The SBML document could not be loaded. {sbml} is neither a valid SBML file path nor a valid SBML string.")
-        if not self._layout_is_specified():
-            self.autolayout()
-            self.layout_is_added = True
-        if not self._render_is_specified():
-            self.autorender()
-            self.render_is_added = True
+        if not disable_auto_layout:
+            if not self._layout_is_specified():
+                self.autolayout()
+                self.layout_is_added = True
+            if not self._render_is_specified():
+                self.autorender()
+                self.render_is_added = True
 
     def save(self, file_name=""):
         """
@@ -13027,6 +13030,28 @@ class LibSBMLNetwork:
             list_of_geometric_shapes.append(ctypes.c_char_p(lib.c_api_getValidGeometricShapeValue(n)).value.decode())
 
         return list_of_geometric_shapes
+
+    def getStoichiometricSpeciesReference(self):
+        """
+        Returns the flag to create a species reference for each stoichiometry in the autolayout algorithm
+
+        :Returns:
+
+            a boolean that determines whether the autolayout must create a species reference for each stoichiometry or not
+
+        """
+        return lib.c_api_getStoichiometricSpeciesReference(self.sbml_object)
+
+    def setStoichiometricSpeciesReference(self, stoichiometric_species_reference):
+        """
+        Set the flag to create a species reference for each stoichiometry in the autolayout algorithm
+
+        :Parameters:
+
+            - stoichiometric_species_reference (bool): a boolean that determines whether the autolayout must create a species reference for each stoichiometry or not
+
+        """
+        return lib.c_api_setStoichiometricSpeciesReference(self.sbml_object, stoichiometric_species_reference)
 
     def getUseNameAsTextLabel(self, layout_index=0):
         """

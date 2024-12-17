@@ -75,13 +75,16 @@ class TestSBMLNetwork(unittest.TestCase):
         """
         sbml = te.loada(model).getSBML()
         network = sbmlnetwork.SBMLNetwork(sbml)
-        # default use name as text label is False
+        # default use name as text label
+        self.assertEqual(network.getUseNameAsTextLabel(), True)
         self.assertEqual(network.getText("S1"), "Species 1")
         # set use name as text label to False
         network.setUseNameAsTextLabel(False)
+        self.assertEqual(network.getUseNameAsTextLabel(), False)
         self.assertEqual(network.getText("S1"), "S1")
         # set use name as text label to True
         network.setUseNameAsTextLabel(True)
+        self.assertEqual(network.getUseNameAsTextLabel(), True)
         self.assertEqual(network.getText("S1"), "Species 1")
 
     def test_set_layout_style(self):
@@ -805,7 +808,33 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0"), 0)
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S2", "J0"), 1)
 
-    @staticmethod
+    def test_set_stoichiometric_species_reference(self):
+        model = '''
+            J0: 100000 S1 -> 200000 S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
+        # set stoichiometric species reference
+        network.setStoichiometricSpeciesReference(False)
+        self.assertEqual(network.getStoichiometricSpeciesReference(), False)
+        network.autolayout()
+        self.assertEqual(network.getNumSpeciesReferenceAssociatedWithSpecies("S1", "J0"), 1)
+
+    def test_disable_autolayout_at_load(self):
+        model = '''
+            S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
+        self.assertEqual(network.getNumLayouts(), 0)
+        self.assertEqual(network.getNumGlobalRenderInformation(), 0)
+        self.assertEqual(network.getNumLocalRenderInformation(), 0)
+        network.autolayout()
+        self.assertEqual(network.getNumLayouts(), 1)
+        self.assertEqual(network.getNumGlobalRenderInformation(), 1)
+        self.assertEqual(network.getNumLocalRenderInformation(), 1)
+
+@staticmethod
     def _get_max_position_y(network, species_list):
         max_position_y = -math.inf
         for species in species_list:

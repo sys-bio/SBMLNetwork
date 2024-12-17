@@ -5,8 +5,13 @@ from IPython.display import display
 
 class SBMLNetwork(libsbmlnetwork.LibSBMLNetwork):
 
-    def __init__(self, sbml=""):
-        super().__init__(sbml)
+    def __init__(self, sbml="", disable_autolayout=False):
+        """
+        Initializes the SBMLNetwork object.
+        :param sbml:
+        :param disable_autolayout:
+        """
+        super().__init__(sbml, disable_autolayout)
 
     def draw(self, file_name=""):
         """
@@ -27,14 +32,15 @@ class SBMLNetwork(libsbmlnetwork.LibSBMLNetwork):
                                                                        self.display_reactions_text_label))
 
 
-def load(sbml):
+def load(sbml, disable_autolayout=False):
     """
     Loads the SBML model.
 
     :param sbml: The SBML model.
+    :param disable_autolayout: If True, the autolayout will not be applied.
     :return: SBMLNetwork
     """
-    return SBMLNetwork(sbml)
+    return SBMLNetwork(sbml, disable_autolayout)
 
 
 

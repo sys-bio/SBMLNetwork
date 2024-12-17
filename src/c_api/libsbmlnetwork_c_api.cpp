@@ -185,6 +185,14 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return createDefaultLayoutLocations(document, maxNumConnectedEdges, resetFixedPositionElements, fixedPositionNodesSet);
     }
 
+    bool c_api_getStoichiometricSpeciesReference(SBMLDocument* document) {
+        return getStoichiometricSpeciesReference(document);
+    }
+
+    int c_api_setStoichiometricSpeciesReference(SBMLDocument* document, bool stoichiometricSpeciesReference) {
+        return setStoichiometricSpeciesReference(document, stoichiometricSpeciesReference);
+    }
+
     bool c_api_getUseNameAsTextLabel(SBMLDocument* document, int layoutIndex) {
         return getUseNameAsTextLabel(document, layoutIndex);
     }
