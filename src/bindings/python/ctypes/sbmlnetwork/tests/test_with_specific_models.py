@@ -834,7 +834,7 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertEqual(network.getNumGlobalRenderInformation(), 1)
         self.assertEqual(network.getNumLocalRenderInformation(), 1)
 
-@staticmethod
+    @staticmethod
     def _get_max_position_y(network, species_list):
         max_position_y = -math.inf
         for species in species_list:
