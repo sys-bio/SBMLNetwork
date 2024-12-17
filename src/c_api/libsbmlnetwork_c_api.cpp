@@ -73,6 +73,10 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         return autorender(document, maxNumConnectedEdges);
     }
 
+    int c_api_updateReactionCurves(SBMLDocument* document, const int layoutIndex) {
+        return updateLayoutCurves(document, getLayout(document, layoutIndex));
+    }
+
     int c_api_align(SBMLDocument* document, const char ***nodes, const int nodesSize,  const char* alignment, bool ignorefixedPositionNodes) {
         std::set<std::pair<std::string, int> > nodesSet = std::set<std::pair<std::string, int> >();
         if (nodes) {

@@ -87,6 +87,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges = 3);
 
+    /// @brief Updates the curves of the centroid node position of the ReactionGlyphs and the curve of their SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_updateReactionCurves(SBMLDocument* document, const int layoutIndex = 0);
+
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.
     /// @param nodes an array of strings containing the ids of the nodes and their associated graphical objects that should be aligned.

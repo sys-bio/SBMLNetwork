@@ -178,6 +178,20 @@ class LibSBMLNetwork:
         """
         return lib.c_api_autorender(self.sbml_object, ctypes.c_int(max_num_connected_edges))
 
+    def updateReactionCurves(self, layout_index=0):
+        """
+        Updates the curves of the centroid node position of the ReactionGlyphs and the curve of their SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument
+
+        :Parameters:
+
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the curves could not be updated
+        """
+        return lib.c_api_updateReactionCurves(self.sbml_object, layout_index)
+
     def align(self, nodes, alignment="center", ignore_fixed_position_nodes=False):
         """
         Aligns the given nodes in the given alignment type form in the given SBMLDocument
