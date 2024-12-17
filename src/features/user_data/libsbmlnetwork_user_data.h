@@ -41,6 +41,8 @@ int user_data_freeUserData(SBMLDocument* document);
 
 int user_data_freeUserData(SBase* sBase);
 
+int user_data_passUserData(SBase* sBase1, SBase* sBase2);
+
 }
 
 #endif

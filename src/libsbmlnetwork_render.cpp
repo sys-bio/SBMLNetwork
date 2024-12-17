@@ -1189,7 +1189,7 @@ int setCompartmentStrokeColor(GlobalRenderInformation* globalRenderInformation, 
     Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style) {
         std::string colorId = addColor(globalRenderInformation, strokeColor);
-        return setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor));
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, colorId));
     }
 
     return -1;
@@ -1203,7 +1203,7 @@ int setSpeciesStrokeColor(GlobalRenderInformation* globalRenderInformation, cons
     Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style) {
         std::string colorId = addColor(globalRenderInformation, strokeColor);
-        return setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor));
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, colorId));
     }
 
     return -1;
@@ -1217,7 +1217,7 @@ int setReactionStrokeColor(GlobalRenderInformation* globalRenderInformation, con
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style) {
         std::string colorId = addColor(globalRenderInformation, strokeColor);
-        return setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor));
+        return setStrokeColor(style, colorId, getValue(globalRenderInformation, colorId));
     }
 
     return -1;
@@ -1228,14 +1228,14 @@ int setSpeciesReferenceStrokeColor(GlobalRenderInformation* globalRenderInformat
     std::string colorId = addColor(globalRenderInformation, strokeColor);
     Style* style = getStyleByType(globalRenderInformation, getSpeciesReferenceGlyphStyleType());
     if (style) {
-        if (!setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor)))
+        if (!setStrokeColor(style, colorId, getValue(globalRenderInformation, colorId)))
             stokeColorIsSet = true;
     }
     std::vector<std::pair<SpeciesReferenceRole_t, std::string>> styleRoles = getStyleRoles();
     for (unsigned int i = 0; i < styleRoles.size(); i++) {
         Style* style = getStyleByRole(globalRenderInformation, styleRoles[i].second);
         if (style) {
-            if (!setStrokeColor(style, colorId, getValue(globalRenderInformation, strokeColor)))
+            if (!setStrokeColor(style, colorId, getValue(globalRenderInformation, colorId)))
                 stokeColorIsSet = true;
         }
     }
@@ -2853,7 +2853,7 @@ int setCompartmentFillColor(GlobalRenderInformation* globalRenderInformation, co
     Style* style = getStyleByType(globalRenderInformation, getCompartmentGlyphStyleType());
     if (style) {
         std::string colorId = addColor(globalRenderInformation, fillColor);
-        return setFillColor(style, colorId, getValue(globalRenderInformation, fillColor));
+        return setFillColor(style, colorId, getValue(globalRenderInformation, colorId));
     }
 
     return -1;
@@ -2878,7 +2878,7 @@ int setSpeciesFillColor(GlobalRenderInformation* globalRenderInformation, const 
     Style* style = getStyleByType(globalRenderInformation, getSpeciesGlyphStyleType());
     if (style) {
         std::string colorId = addColor(globalRenderInformation, fillColor);
-        return setFillColor(style, colorId, getValue(globalRenderInformation, fillColor));
+        return setFillColor(style, colorId, getValue(globalRenderInformation, colorId));
     }
 
     return -1;
@@ -2903,7 +2903,7 @@ int setReactionFillColor(GlobalRenderInformation* globalRenderInformation, const
     Style* style = getStyleByType(globalRenderInformation, getReactionGlyphStyleType());
     if (style) {
         std::string colorId = addColor(globalRenderInformation, fillColor);
-        return setFillColor(style, colorId, getValue(globalRenderInformation, fillColor));
+        return setFillColor(style, colorId, getValue(globalRenderInformation, colorId));
     }
 
     return -1;

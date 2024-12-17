@@ -269,5 +269,20 @@ int user_data_freeUserData(SBase* sBase) {
 
     return -1;
 }
+
+int user_data_passUserData(SBase* sBase1, SBase* sBase2) {
+    if (sBase1 && sBase2) {
+        if (sBase1->isSetUserData()) {
+            auto userData = (std::map<std::string, std::string>*)sBase1->getUserData();
+            for (auto it = userData->begin(); it != userData->end(); it++) {
+                user_data_setUserData(sBase2, it->first, it->second);
+            }
+        }
+
+        return 0;
+    }
+
+    return -1;
+}
     
 }

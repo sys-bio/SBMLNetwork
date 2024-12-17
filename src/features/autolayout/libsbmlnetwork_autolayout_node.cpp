@@ -8,7 +8,10 @@
 
 AutoLayoutNodeBase::AutoLayoutNodeBase(Model* model, Layout* layout, GraphicalObject* graphicalObject, const bool& positionFixed) : AutoLayoutObjectBase(model, layout) {
     _degree = 0;
-    _useNameAsTextLabel = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout, "use_name_as_text_label") != "false";
+    if (LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout, "use_name_as_text_label") == "false")
+        _useNameAsTextLabel = false;
+    else
+        _useNameAsTextLabel = true;
     _graphicalObject = graphicalObject;
     setPositionFixed(positionFixed);
 }

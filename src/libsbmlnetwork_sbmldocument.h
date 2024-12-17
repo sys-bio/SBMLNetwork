@@ -223,6 +223,17 @@ LIBSBMLNETWORK_EXTERN SpeciesReference* getSpeciesReference(SBMLDocument* docume
 /// @return a pointer to the ModifierSpeciesReference object, or @c NULL if the object does not exists or is not of type modifier.
 LIBSBMLNETWORK_EXTERN ModifierSpeciesReference* getModifierSpeciesReference(SBMLDocument* document, const std::string& reactionId, const std::string& speciesId);
 
+/// @brief Returns the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+/// @param document a pointer to the SBMLDocument object.
+/// @return the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+LIBSBMLNETWORK_EXTERN bool getStoichiometricSpeciesReference(SBMLDocument* document);
+
+/// @brief Sets the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+/// @param document a pointer to the SBMLDocument object.q
+/// @param stoichiometricSpeciesReference the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+/// @return integer value indicating success/failure of the function.
+LIBSBMLNETWORK_EXTERN int setStoichiometricSpeciesReference(SBMLDocument* document, bool stoichiometricSpeciesReference);
+
 }
 
 #endif

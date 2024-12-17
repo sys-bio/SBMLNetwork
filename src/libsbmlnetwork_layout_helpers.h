@@ -114,7 +114,7 @@ const bool isUniUniReaction(Model* model, ReactionGlyph* reactionGlyph);
 
 const bool isUniUniReaction(Reaction* reaction);
 
-const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference);
+const int getStoichiometryAsInteger(Layout* layout, SimpleSpeciesReference* speciesReference);
 
 void updateAssociatedTextGlyphsPositionX(Layout* layout, GraphicalObject* graphicalObject, const double& movedDistanceX);
 

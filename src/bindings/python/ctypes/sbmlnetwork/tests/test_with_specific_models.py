@@ -75,7 +75,7 @@ class TestSBMLNetwork(unittest.TestCase):
         """
         sbml = te.loada(model).getSBML()
         network = sbmlnetwork.SBMLNetwork(sbml)
-        # default use name as text label is False
+        # default use name as text label
         self.assertEqual(network.getText("S1"), "Species 1")
         # set use name as text label to False
         network.setUseNameAsTextLabel(False)
@@ -119,10 +119,13 @@ class TestSBMLNetwork(unittest.TestCase):
         """
         sbml = te.loada(model).getSBML()
         network = sbmlnetwork.SBMLNetwork(sbml)
-        network.setCanvasWidth(1234.0)
-        network.setCanvasHeight(1432.0)
-        self.assertEqual(network.getCanvasWidth(), 1234.0)
-        self.assertEqual(network.getCanvasHeight(), 1432.0)
+        network.setCanvasWidth(1000.0)
+        network.setCanvasHeight(1000.0)
+        self.assertEqual(network.getCanvasWidth(), 1000.0)
+        self.assertEqual(network.getCanvasHeight(), 1000.0)
+        network.autolayout()
+        self.assertEqual(network.getCanvasWidth(), 1000.0)
+        self.assertEqual(network.getCanvasHeight(), 1000.0)
 
     def test_align_top(self):
         model = """
@@ -792,6 +795,65 @@ class TestSBMLNetwork(unittest.TestCase):
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J3"), 1)
         network.setSpeciesGlyphIndexInReactionGlyph("S1", "J2", 2)
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 2)
+
+    def test_species_reference_index_associated_with_species(self):
+        model = '''
+            J0: S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0"), 0)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S2", "J0"), 1)
+
+    def test_set_stoichiometric_species_reference(self):
+        model = '''
+            J0: 100000 S1 -> 200000 S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
+        # set stoichiometric species reference
+        network.setStoichiometricSpeciesReference(False)
+        network.autolayout()
+        self.assertEqual(network.getNumSpeciesReferenceAssociatedWithSpecies("S1", "J0"), 1)
+
+    def test_disable_autolayout_at_load(self):
+        model = '''
+            S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
+        self.assertEqual(network.getNumLayouts(), 0)
+        self.assertEqual(network.getNumGlobalRenderInformation(), 0)
+        self.assertEqual(network.getNumLocalRenderInformation(), 0)
+        network.autolayout()
+        self.assertEqual(network.getNumLayouts(), 1)
+        self.assertEqual(network.getNumGlobalRenderInformation(), 1)
+        self.assertEqual(network.getNumLocalRenderInformation(), 1)
+
+    def test_set_colors_of_a_group_of_graphical_objects(self):
+        model = '''
+            S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        network.setCompartmentsBorderColor("#FF0000")
+        network.setCompartmentsFontColor("#A52A2A")
+        network.setSpeciesBorderColor("#00FF00")
+        network.setSpeciesFontColor("#800080")
+        network.setReactionsLineColor("#0000FF")
+        network.setReactionsFontColor("#FFC0CB")
+        network.setCompartmentsFillColor("#FFFF00")
+        network.setSpeciesFillColor("#FFA500")
+        network.setReactionsFillColor("#FF00FF")
+        self.assertEqual(network.getCompartmentsBorderColor(), "red")
+        self.assertEqual(network.getCompartmentsFontColor(), "brown")
+        self.assertEqual(network.getSpeciesBorderColor(), "lime")
+        self.assertEqual(network.getSpeciesFontColor(), "purple")
+        self.assertEqual(network.getReactionsLineColor(), "blue")
+        self.assertEqual(network.getReactionsFontColor(), "pink")
+        self.assertEqual(network.getCompartmentsFillColor(), "yellow")
+        self.assertEqual(network.getSpeciesFillColor(), "orange")
+        self.assertEqual(network.getReactionsFillColor(), "fuchsia")
 
     @staticmethod
     def _get_max_position_y(network, species_list):

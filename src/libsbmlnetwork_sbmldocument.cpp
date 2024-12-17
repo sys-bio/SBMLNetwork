@@ -310,4 +310,16 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
         return NULL;
     }
+
+    bool getStoichiometricSpeciesReference(SBMLDocument* document) {
+        std::string stoichiometricSpeciesReference = user_data_getUserData(document, "stoichiometric_species_reference");
+        if (stoichiometricSpeciesReference == "false")
+            return false;
+
+        return true;
+    }
+
+    int setStoichiometricSpeciesReference(SBMLDocument* document, bool stoichiometricSpeciesReference) {
+        return user_data_setUserData(document, "stoichiometric_species_reference", stoichiometricSpeciesReference ? "true" : "false");
+    }
 }

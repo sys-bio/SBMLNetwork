@@ -10,6 +10,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
 int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges) {
     if (document && layout) {
+        user_data_passUserData(document, layout);
         defaults_setDefaultLayoutId(layout);
         defaults_setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
@@ -29,6 +30,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
 int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout* layout, const int maxNumConnectedEdges,
                       bool resetFixedPositionElements, const std::set<std::pair<std::string, int> > fixedPositionNodesSet) {
     if (document && layout) {
+        user_data_passUserData(document, layout);
         defaults_setDefaultLayoutId(layout);
         defaults_setDefaultLayoutDimensions(layout);
         Model* model = document->getModel();
@@ -133,7 +135,7 @@ void set_layout_features_setReactionGlyphs(Model* model, Layout* layout, const i
 void set_layout_features_setReactantGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumReactants(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getReactant(i);
-        int stoichiometry = getStoichiometryAsInteger(speciesReference);
+        int stoichiometry = getStoichiometryAsInteger(layout, speciesReference);
         for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
             SpeciesReferenceGlyph *speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
             speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
@@ -144,7 +146,7 @@ void set_layout_features_setReactantGlyphs(Layout* layout, Reaction* reaction, R
 void set_layout_features_setProductGlyphs(Layout* layout, Reaction* reaction, ReactionGlyph* reactionGlyph, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {
     for (unsigned int i = 0; i < reaction->getNumProducts(); i++) {
         SimpleSpeciesReference* speciesReference = reaction->getProduct(i);
-        int stoichiometry = getStoichiometryAsInteger(speciesReference);
+        int stoichiometry = getStoichiometryAsInteger(layout, speciesReference);
         for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
             SpeciesReferenceGlyph* speciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(layout, reactionGlyph, speciesReference->getSpecies(), stoichiometryIndex, maxNumConnectedEdges, userData);
             speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);

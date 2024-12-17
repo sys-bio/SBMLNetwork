@@ -527,9 +527,11 @@ const bool isUniUniReaction(Reaction* reaction) {
     return reaction && reaction->getNumReactants() == 1 && reaction->getNumProducts() == 1;
 }
 
-const int getStoichiometryAsInteger(SimpleSpeciesReference* speciesReference) {
-    if (speciesReference && dynamic_cast<SpeciesReference*>(speciesReference) && ((SpeciesReference*)speciesReference)->isSetStoichiometry())
-        return int(((SpeciesReference*)speciesReference)->getStoichiometry());
+const int getStoichiometryAsInteger(Layout* layout, SimpleSpeciesReference* speciesReference) {
+    if (user_data_getUserData(layout, "stoichiometric_species_reference") != "false") {
+        if (speciesReference && dynamic_cast<SpeciesReference*>(speciesReference) && ((SpeciesReference*)speciesReference)->isSetStoichiometry())
+            return int(((SpeciesReference*)speciesReference)->getStoichiometry());
+    }
 
     return 1;
 }

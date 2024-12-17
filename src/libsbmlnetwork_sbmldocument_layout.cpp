@@ -77,7 +77,11 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
 }
 
 bool getUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex) {
-    return user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false";
+    std::string useNameAsTextLabel = user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label");
+    if (useNameAsTextLabel == "false")
+        return false;
+
+    return true;
 }
 
 int setUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex, bool useNameAsTextLabel) {
@@ -775,18 +779,19 @@ bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::stri
     return isSetText(getLayout(document, layoutIndex), id);
 }
 
-const std::string getText(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getText(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     std::string text = getText(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
     if (!text.empty()) {
         return text;
     }
     SBase* sBase = getSBMLObject(const_cast<SBMLDocument*>(document), getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex));
     if (sBase) {
-        if (user_data_getUserData(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), "use_name_as_text_label") != "false") {
+        std::string useNameAsTextLabel = user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label");
+        if (useNameAsTextLabel != "false") {
             text = sBase->getName();
             if (!text.empty())
                 return text;

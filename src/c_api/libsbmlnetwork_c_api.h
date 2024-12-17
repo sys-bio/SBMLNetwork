@@ -87,6 +87,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     /// @return integer value indicating success/failure of the function.
     LIBSBMLNETWORK_EXTERN int c_api_autorender(SBMLDocument *document, const int maxNumConnectedEdges = 3);
 
+    /// @brief Updates the curves of the centroid node position of the ReactionGlyphs and the curve of their SpeciesReferenceGlyphs in the Layout object with the given index in the given SBMLDocument.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_updateReactionCurves(SBMLDocument* document, const int layoutIndex = 0);
+
     /// @brief Align the nodes position in the SBML document in the given alignment type.
     /// @param document a pointer to the SBMLDocument object.
     /// @param nodes an array of strings containing the ids of the nodes and their associated graphical objects that should be aligned.
@@ -231,7 +237,29 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     LIBSBMLNETWORK_EXTERN int c_api_createDefaultLayoutLocations(SBMLDocument* document, const int maxNumConnectedEdges = 3,
                                                                bool resetFixedPositionElements = false, const char*** fixedPositionNodeIds = NULL, const int fixedPositionNodesSize = 0);
 
-    LIBSBMLNETWORK_EXTERN int c_api_setUseNameAsTextLabel(SBMLDocument* document, bool useNameAsTextLabel, int layoutIndex);
+    /// @brief Returns the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @return the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+    LIBSBMLNETWORK_EXTERN bool c_api_getStoichiometricSpeciesReference(SBMLDocument* document);
+
+    /// @brief Sets the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param stoichiometricSpeciesReference the value of the option to generate stoichiometric species reference in the autolayout algorithm.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setStoichiometricSpeciesReference(SBMLDocument* document, bool stoichiometricSpeciesReference);
+
+    /// @brief Returns the option to use the name of the model entity as the text label of the GraphicalObject associated with the model entities in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return the option to use the name of the model entity as the text label of the GraphicalObject associated with the model entities.
+    LIBSBMLNETWORK_EXTERN bool c_api_getUseNameAsTextLabel(SBMLDocument* document, int layoutIndex = 0);
+
+    /// @brief Sets the option to use the name of the model entity as the text label of the GraphicalObject associated with the model entities in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
+    /// @param document a pointer to the SBMLDocument object.
+    /// @param useNameAsTextLabel the option to use the name of the model entity as the text label of the GraphicalObject associated with the model entities.
+    /// @param layoutIndex the index number of the Layout to return.
+    /// @return integer value indicating success/failure of the function.
+    LIBSBMLNETWORK_EXTERN int c_api_setUseNameAsTextLabel(SBMLDocument* document, bool useNameAsTextLabel, int layoutIndex = 0);
 
     /// @brief Create an alias SpeciesGlyph object for Species with the given id and connect all the SpeciesReferences in the ReactionGlyph object with the given id and index that contain Species as a participant to the alias SpeciesGlyph in the Layout object with the given index in the ListOfLayouts of the SBMLDocument.
     /// @param document a pointer to the SBMLDocument object.
