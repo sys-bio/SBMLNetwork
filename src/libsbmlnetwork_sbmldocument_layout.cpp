@@ -77,7 +77,11 @@ int updateLayoutCurves(SBMLDocument* document, Layout* layout) {
 }
 
 bool getUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex) {
-    return user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false";
+    std::string useNameAsTextLabel = user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label");
+    if (useNameAsTextLabel == "false")
+        return false;
+
+    return true;
 }
 
 int setUseNameAsTextLabel(SBMLDocument* document, unsigned int layoutIndex, bool useNameAsTextLabel) {
@@ -786,7 +790,8 @@ const std::string getText(SBMLDocument* document, unsigned int layoutIndex, cons
     }
     SBase* sBase = getSBMLObject(document, getOriginOfTextId(document, layoutIndex, id, graphicalObjectIndex, textGlyphIndex));
     if (sBase) {
-        if (user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label") != "false") {
+        std::string useNameAsTextLabel = user_data_getUserData(getLayout(document, layoutIndex), "use_name_as_text_label");
+        if (useNameAsTextLabel != "false") {
             text = sBase->getName();
             if (!text.empty())
                 return text;
