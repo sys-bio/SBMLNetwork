@@ -1317,7 +1317,7 @@ class LibSBMLNetwork:
             """
         return lib.c_api_setSpeciesReferenceRole(self.sbml_object, str(reaction_id).encode(), str(role).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
-    def getNumSpeciesReferenceAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0):
+    def getNumSpeciesReferenceAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0, layout_index = 0):
         """
         Returns the number of SpeciesReferences associated with the given species_id in the given SBMLDocument
 
@@ -1331,7 +1331,7 @@ class LibSBMLNetwork:
 
             an integer that determines the number of SpeciesReferences associated with the given species_id in the given SBMLDocument
             """
-        return lib.c_api_getNumSpeciesReferenceAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index)
+        return lib.c_api_getNumSpeciesReferenceAssociatedWithSpecies(self.sbml_object, str(species_id).encode(), str(reaction_id).encode(), reaction_glyph_index, layout_index)
 
     def getSpeciesReferenceIndexAssociatedWithSpecies(self, species_id, reaction_id, reaction_glyph_index = 0, n = 0, layout_index = 0):
         """
