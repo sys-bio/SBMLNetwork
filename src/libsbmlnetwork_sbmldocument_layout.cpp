@@ -779,11 +779,11 @@ bool isSetText(SBMLDocument* document, unsigned int layoutIndex, const std::stri
     return isSetText(getLayout(document, layoutIndex), id);
 }
 
-const std::string getText(const SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+const std::string getText(SBMLDocument* document, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     return getText(document, 0, id, graphicalObjectIndex, textGlyphIndex);
 }
 
-const std::string getText(const SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
+const std::string getText(SBMLDocument* document, unsigned int layoutIndex, const std::string& id, unsigned int graphicalObjectIndex, unsigned int textGlyphIndex) {
     std::string text = getText(getLayout(const_cast<SBMLDocument*>(document), layoutIndex), id, graphicalObjectIndex, textGlyphIndex);
     if (!text.empty()) {
         return text;
