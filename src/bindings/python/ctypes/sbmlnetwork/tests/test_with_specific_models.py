@@ -122,13 +122,13 @@ class TestSBMLNetwork(unittest.TestCase):
         """
         sbml = te.loada(model).getSBML()
         network = sbmlnetwork.SBMLNetwork(sbml)
-        network.setCanvasWidth(1234.0)
-        network.setCanvasHeight(1432.0)
-        self.assertEqual(network.getCanvasWidth(), 1234.0)
-        self.assertEqual(network.getCanvasHeight(), 1432.0)
+        network.setCanvasWidth(1000.0)
+        network.setCanvasHeight(1000.0)
+        self.assertEqual(network.getCanvasWidth(), 1000.0)
+        self.assertEqual(network.getCanvasHeight(), 1000.0)
         network.autolayout()
-        # self.assertEqual(network.getCanvasWidth(), 1234.0)
-        # self.assertEqual(network.getCanvasHeight(), 1432.0)
+        self.assertEqual(network.getCanvasWidth(), 1000.0)
+        self.assertEqual(network.getCanvasHeight(), 1000.0)
 
     def test_align_top(self):
         model = """

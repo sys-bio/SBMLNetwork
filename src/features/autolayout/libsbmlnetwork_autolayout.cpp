@@ -370,7 +370,7 @@ const double autolayout_getLayoutDimensionsDesiredHeight(Layout *layout) {
 }
 
 const bool autolayout_isGravityValueAcceptable(Layout *layout) {
-    if (autolayout_getGravity(layout) > 0.1)
+    if (autolayout_getGravity(layout) > 0.1 && autolayout_getGravity(layout) < 1000.0)
         return true;
 
     return false;
