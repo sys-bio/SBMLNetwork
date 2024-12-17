@@ -796,6 +796,15 @@ class TestSBMLNetwork(unittest.TestCase):
         network.setSpeciesGlyphIndexInReactionGlyph("S1", "J2", 2)
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 2)
 
+    def test_species_reference_index_associated_with_species(self):
+        model = '''
+            J0: S1 -> S2;
+        '''
+        sbml = te.loada(model).getSBML()
+        network = sbmlnetwork.SBMLNetwork(sbml)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0"), 0)
+        self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S2", "J0"), 1)
+
     @staticmethod
     def _get_max_position_y(network, species_list):
         max_position_y = -math.inf
