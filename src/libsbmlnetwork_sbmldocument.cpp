@@ -313,7 +313,7 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
 
     bool getStoichiometricSpeciesReference(SBMLDocument* document) {
         std::string stoichiometricSpeciesReference = user_data_getUserData(document, "stoichiometric_species_reference");
-        if (stoichiometricSpeciesReference == "false"
+        if (stoichiometricSpeciesReference == "false")
             return false;
 
         return true;
