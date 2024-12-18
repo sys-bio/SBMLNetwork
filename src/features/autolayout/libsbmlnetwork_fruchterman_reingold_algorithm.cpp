@@ -69,17 +69,17 @@ void FruchtermanReingoldAlgorithmBase::setNodesDegrees() {
 void FruchtermanReingoldAlgorithmBase::setWidth(Layout* layout) {
     std::string width = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout->getDimensions(), "width");
     if (!width.empty() && std::stod(width) > 0.0) {
-        _width = std::max(0.0, std::stod(width) - 6 * defaults_getDefaultAutoLayoutPadding());
+        _width = std::max(0.0, std::stod(width) - 2 * defaults_getDefaultAutoLayoutPadding());
         _useHorizontalBoundary = true;
     }
     else
-        _width = _nodes.size() * _nodes.size() * _stiffness * 5;
+        _width = _nodes.size() * 10 * _stiffness;
 }
 
 void FruchtermanReingoldAlgorithmBase::setHeight(Layout* layout) {
     std::string height = LIBSBMLNETWORK_CPP_NAMESPACE::user_data_getUserData(layout->getDimensions(), "height");
     if (!height.empty() && std::stod(height) > 0.0) {
-        _height = std::max(0.0, std::stod(height) - 6 * defaults_getDefaultAutoLayoutPadding());
+        _height = std::max(0.0, std::stod(height) - 2 * defaults_getDefaultAutoLayoutPadding());
         _useVerticalBoundary = true;
     }
     else
@@ -116,6 +116,7 @@ void FruchtermanReingoldAlgorithmBase::apply() {
     initialize();
     iterate();
     updateNodesDimensions();
+    scaleCoordinates();
     adjustCoordinateOrigin();
     updateConnectionsControlPoints();
 }
@@ -316,20 +317,47 @@ void FruchtermanReingoldAlgorithmBase::updateNodesDimensions() {
     }
 }
 
-void FruchtermanReingoldAlgorithmBase::adjustCoordinateOrigin() {
-    AutoLayoutPoint _origin = AutoLayoutPoint(0.0, 0.0);
+void FruchtermanReingoldAlgorithmBase::scaleCoordinates() {
+    double minX = INT_MAX;
+    double minY = INT_MAX;
+    double maxX = INT_MIN;
+    double maxY = INT_MIN;
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
-        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() < _origin.getX())
-            _origin.setX(((AutoLayoutNodeBase *) _nodes.at(nodeIndex))->getX());
-        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < _origin.getY())
-            _origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() < minX)
+            minX = ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX();
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < minY)
+            minY = ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY();
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() + ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getWidth() > maxX)
+            maxX = ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() + ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getWidth();
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() + ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getHeight() > maxY)
+            maxY = ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() + ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getHeight();
     }
-    _origin.setX(_origin.getX() - defaults_getDefaultAutoLayoutPadding());
-    _origin.setY(_origin.getY() - defaults_getDefaultAutoLayoutPadding());
+    double width = maxX - minX;
+    double height = maxY - minY;
+    double horizontalScale = _width / width;
+    double verticalScale = _height / height;
     for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
         if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isPositionFixed()) {
-            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - _origin.getX());
-            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() - _origin.getY());
+            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() * horizontalScale);
+            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() * verticalScale);
+        }
+    }
+}
+
+void FruchtermanReingoldAlgorithmBase::adjustCoordinateOrigin() {
+    AutoLayoutPoint origin = AutoLayoutPoint(0.0, 0.0);
+    for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() < origin.getX())
+            origin.setX(((AutoLayoutNodeBase *) _nodes.at(nodeIndex))->getX());
+        if (((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() < origin.getY())
+            origin.setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY());
+    }
+    origin.setX(origin.getX() - defaults_getDefaultAutoLayoutPadding());
+    origin.setY(origin.getY() - defaults_getDefaultAutoLayoutPadding());
+    for (int nodeIndex = 0; nodeIndex < _nodes.size(); nodeIndex++) {
+        if (!((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->isPositionFixed()) {
+            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setX(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getX() - origin.getX());
+            ((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->setY(((AutoLayoutNodeBase*)_nodes.at(nodeIndex))->getY() - origin.getY());
         }
     }
 }

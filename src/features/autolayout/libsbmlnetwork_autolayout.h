@@ -14,31 +14,13 @@ void autolayout_locateGlyphs(Model* model, Layout* layout);
 
 void autolayout_locateReactions(Model *model, Layout *layout);
 
-void autolayout_reiterateLocateGlyphs(Model *model, Layout *layout);
-
-void autolayout_resetNumberOfAutoLayoutParametersResets(Layout *layout);
-
 const double autolayout_getStiffness(Layout *layout);
 
 void autolayout_setStiffness(Layout *layout, const double& stiffness);
 
-void autolayout_updateStiffness(Layout *layout);
-
-double autolayout_getStiffnessAdjustmentFactor(Layout *layout);
-
 const double autolayout_getGravity(Layout *layout);
 
 void autolayout_setGravity(Layout *layout, const double& gravity);
-
-void autolayout_updateGravity(Layout *layout);
-
-double autolayout_getGravityAdjustmentFactor(Layout *layout);
-
-double autolayout_getCurrentDimensionToDesiredDimensionRatio(Layout *layout);
-
-double autolayout_getDesiredDimensionToCurrentDimensionRatio(Layout *layout);
-
-void autolayout_resetAutoLayoutParameters(Layout *layout);
 
 const int autolayout_getNumberOfAutoLayoutParametersResets(Layout *layout);
 
@@ -69,14 +51,6 @@ void autolayout_updateCompartmentExtentsUsingItsElementsExtents(BoundingBox* com
 void autolayout_updateCompartmentsExtentsUsingTheirPresetAttributes(Layout *layout);
 
 void autolayout_updateLayoutDimensions(Layout* layout);
-
-const bool autolayout_adjustLayoutDimensions(Layout *layout);
-
-const double autolayout_getLayoutDimensionsDesiredWidth(Layout *layout);
-
-const double autolayout_getLayoutDimensionsDesiredHeight(Layout *layout);
-
-const bool autolayout_isGravityValueAcceptable(Layout *layout);
 
 void autolayout_extractExtents(Layout* layout, double &maxX, double &maxY);
 

@@ -62,6 +62,8 @@ public:
 
     void applyGravity();
 
+    void scaleCoordinates();
+
     void adjustCoordinates();
 
     void adjustNodeCoordinates(AutoLayoutObjectBase* node);
