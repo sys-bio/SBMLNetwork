@@ -25,23 +25,15 @@ class LibSBMLNetwork:
     A wrapper class to use libSBMLNetwork, which is an API to work with the Layout and Render packages of libSBML
     """
 
-    def __init__(self, sbml, disable_auto_layout=False):
+    def __init__(self):
         """
-        Initializes the LibSBMLNetwork class by reading an SBML document from the given file name or the given text string
-
-        :Parameters:
-
-            - sbml: an SBML document in the form of either an SBML file (.xml) directory or an SBML string
-            - disable_auto_layout (boolean, optional): a boolean (default: False) that determines whether to disable the autolayout algorithm after loading the SBML document
+        Initializes the LibSBMLNetwork class
         """
     
         self.sbml_object = None
-        self.layout_is_added = False
-        self.render_is_added = False
         self.display_compartments_text_label = True
         self.display_species_text_label = True
         self.display_reactions_text_label = False
-        self.load(sbml, disable_auto_layout)
 
     def getVersion(self):
         """
@@ -66,14 +58,13 @@ class LibSBMLNetwork:
         lib.c_api_getLibraryCurrentDirectory.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getCurrentDirectoryOfLibrary()).value.decode()
 
-    def load(self, sbml, disable_auto_layout=False):
+    def load(self, sbml):
         """
         Reads an SBML document from the given file directory or the given text string
 
         :Parameters:
 
             - sbml (string): a string that determines either the name or full pathname of the SBML(.xml) file to be read or a string containing a full SBML model.
-            - disable_auto_layout (boolean, optional): a boolean (default: False) that determines whether to disable the autolayout algorithm after loading the SBML document
 
         :Returns:
 
@@ -83,13 +74,8 @@ class LibSBMLNetwork:
         self.sbml_object = lib.c_api_readSBML(str(sbml).encode())
         if not self.isSetModel():
             raise Exception(f"The SBML document could not be loaded. {sbml} is neither a valid SBML file path nor a valid SBML string.")
-        if not disable_auto_layout:
-            if not self._layout_is_specified():
-                self.autolayout()
-                self.layout_is_added = True
-            if not self._render_is_specified():
-                self.autorender()
-                self.render_is_added = True
+
+        return self
 
     def save(self, file_name=""):
         """
@@ -1022,22 +1008,22 @@ class LibSBMLNetwork:
             """
         return lib.c_api_isCompartmentGlyph(self.sbml_object, str(compartment_id).encode(), layout_index)
 
-    def getGraphicalObjectCompartmentId(self, entity_id, graphical_object_id=0, layout_index=0):
+    def getGraphicalObjectCompartmentId(self, entity_id, graphical_object_index=0, layout_index=0):
         """
         Returns the id of the Compartment associated with the given entity_id and graphical_object_id in the Layout object with the given index in the given SBMLDocument
 
         :Parameters:
 
             - entity_id (string): a string that determines the id of the Entity
-            - graphical_object_id (string): a string that determines the id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the Compartment associated with the given entity_id and graphical_object_id in the Layout object with the given index in the given SBMLDocument
+            a string that determines the id of the Compartment associated with the given entity_id and graphical_object_index in the Layout object with the given index in the given SBMLDocument
         """
         lib.c_api_getGraphicalObjectCompartmentId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getGraphicalObjectCompartmentId(self.sbml_object, str(entity_id).encode(), str(graphical_object_id).encode(), layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getGraphicalObjectCompartmentId(self.sbml_object, str(entity_id).encode(), graphical_object_index, layout_index)).value.decode()
 
     def getListOfSpeciesIds(self):
         """
@@ -13185,18 +13171,6 @@ class LibSBMLNetwork:
             a boolean that determines whether the text labels of the reactions are displayed in the layout
         """
         return lib.c_api_whetherDisplayReactionTextLabel(str(style_name).encode())
-
-    def _layout_is_specified(self):
-        if self.getNumLayouts():
-            return True
-
-        return False
-
-    def _render_is_specified(self):
-        if self.getNumGlobalRenderInformation() or self.getNumLocalRenderInformation():
-            return True
-
-        return False
 
 
 

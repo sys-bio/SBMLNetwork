@@ -320,6 +320,9 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE  {
     }
 
     int setStoichiometricSpeciesReference(SBMLDocument* document, bool stoichiometricSpeciesReference) {
-        return user_data_setUserData(document, "stoichiometric_species_reference", stoichiometricSpeciesReference ? "true" : "false");
+        if (stoichiometricSpeciesReference)
+            return user_data_setUserData(document, "stoichiometric_species_reference", "true");
+        else
+            return user_data_setUserData(document, "stoichiometric_species_reference", "false");
     }
 }

@@ -1390,6 +1390,7 @@ std::vector<std::string> getValidGeometricShapeNameValues() {
     geometricShapeNames.push_back("pentagon");
     geometricShapeNames.push_back("hexagon");
     geometricShapeNames.push_back("octagon");
+    geometricShapeNames.push_back("curve");
     return geometricShapeNames;
 }
 

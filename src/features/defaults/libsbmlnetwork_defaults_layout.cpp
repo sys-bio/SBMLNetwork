@@ -47,7 +47,7 @@ const double defaults_getReactionDefaultWidth() {
 }
 
 const double defaults_getReactionDefaultHeight() {
-    return 20.0;
+    return 30.0;
 }
 
 const double defaults_getDefaultAutoLayoutPadding() {

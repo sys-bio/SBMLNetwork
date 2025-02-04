@@ -49,6 +49,8 @@ SpeciesGlyph* set_layout_features_createEmptySpeciesGlyph(ReactionGlyph* reactio
 
 SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* EmptySpeciesGlyph);
 
+void set_layout_features_setReactionBoundingBoxes(Layout* layout);
+
 SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData);
 
 void set_layout_features_setTextGlyphs(Layout* layout);
