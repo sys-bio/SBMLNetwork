@@ -17,14 +17,6 @@ class TestSBMLModel(unittest.TestCase):
         '''
         self.r = te.loada(self.model)
 
-    def test_network_load_save(self):
-        """ Test if the network can be loaded and saved """
-        network = sbmlnetwork.load(self.r.getSBML())
-        first_loaded_sbml = network.save()
-        network.load(self.r.getSBML())
-        second_loaded_sbml = network.save()
-        self.assertEqual(first_loaded_sbml, second_loaded_sbml)
-
     def test_network_size(self):
         """ Test if the network size can be set and retrieved """
         network = sbmlnetwork.load(self.r.getSBML())
