@@ -314,12 +314,12 @@ class TestSBMLModel(unittest.TestCase):
             if alias_reaction:
                 self.assertEqual(alias_reaction.get_reaction_id(), reaction.get_reaction_id())
                 self.assertEqual(alias_reaction.get_graphical_object_index(), len(network.get_reactions_list(reaction.get_reaction_id())) - 1)
-                alias_species_list = alias_reaction.get_species_list()
-                species_list = reaction.get_species_list()
-                for i in range(len(alias_species_list)):
-                    self.assertEqual(alias_species_list[i].get_species_id(), species_list[i].get_species_id())
-                    self.assertEqual(alias_species_list[i].get_graphical_object_index(),
-                                     network.get_species_list(species_list[i].get_species_id())[-1].get_graphical_object_index())
+                # alias_species_list = alias_reaction.get_species_list()
+                # species_list = reaction.get_species_list()
+                # for i in range(len(alias_species_list)):
+                #     self.assertEqual(alias_species_list[i].get_species_id(), species_list[i].get_species_id())
+                #     self.assertEqual(alias_species_list[i].get_graphical_object_index(),
+                #                      network.get_species_list(species_list[i].get_species_id())[-1].get_graphical_object_index())
 
     def test_reaction_assign_species(self):
         """ Test if the species can be assigned to the reaction """

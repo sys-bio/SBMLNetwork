@@ -610,13 +610,6 @@ LIBSBMLNETWORK_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, co
 /// @return a pointer the ReactionGlyph object with the given index associated with the entered reaction id.
 LIBSBMLNETWORK_EXTERN ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, const std::string& reactionId, unsigned int reactionGlyphIndex = 0);
 
-/// @brief Returns the ReactionGlyph object with the given index in the the Layout object with the given index in the ListOfLayouts of the SBML document.
-/// @param document a pointer to the SBMLDocument object.
-/// @param layoutIndex the index number of the Layout to return.
-/// @param reactionGlyphIndex the index number of the ReactionGlyph object to return.
-/// @return a pointer to the ReactionGlyph object with the given index with the given index in the ListOfReactionGlyphs of the Layout object.
-LIBSBMLNETWORK_EXTERN  ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex = 0, unsigned int reactionGlyphIndex = 0);
-
 /// @brief Predicate returning true if the abstract GraphicalObject with the given id in the first Layout object of the SBML document is of type ReactionGlyph.
 /// @param document a pointer to the SBMLDocument object.
 /// @param id the id of the GraphicalObject.
