@@ -64,9 +64,12 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                     int stoichiometry = getStoichiometryAsInteger(layout,
                             findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
                     std::cout << "Stoichiometry: " << stoichiometry << std::endl;
-//                    for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
-//                        alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
-//                                                         connectedSpeciesGlyph->getId(), stoichiometryIndex, padding);
+                    for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
+                        std:cout << "StoichiometryIndex: " << stoichiometryIndex << std::endl;
+                        alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
+                                                                       connectedSpeciesGlyph->getId(),
+                                                                       stoichiometryIndex, padding);
+                    }
                 }
             }
             else
@@ -77,9 +80,13 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     SpeciesReferenceGlyph* alias_element_createAliasSpeciesReferenceGlyph(ReactionGlyph* reactionGlyph, SpeciesReferenceGlyph* referenceSpeciesReferenceGlyph, const std::string& speciesGlyphId, unsigned int stoichiometryIndex, const double& padding) {
+        std::cout << "inside) SpeciesReferenceGlyph: " << referenceSpeciesReferenceGlyph->getId() << std::endl;
         SpeciesReferenceGlyph* aliasSpeciesReferenceGlyph = set_layout_features_createSpeciesReferenceGlyph(reactionGlyph, speciesGlyphId, stoichiometryIndex);
+        std::cout << "inside) AliasSpeciesReferenceGlyph: " << aliasSpeciesReferenceGlyph->getId() << std::endl;
         aliasSpeciesReferenceGlyph->setRole(referenceSpeciesReferenceGlyph->getRole());
+        std::cout << "inside) AliasSpeciesReferenceGlyphRole: " << aliasSpeciesReferenceGlyph->getRole() << std::endl;
         set_layout_features_setSpeciesReferenceGlyphCurve(aliasSpeciesReferenceGlyph, referenceSpeciesReferenceGlyph, padding);
+        std::cout << "inside) AliasSpeciesReferenceGlyphCurve: " << aliasSpeciesReferenceGlyph->getCurve()->getId() << std::endl;
         return aliasSpeciesReferenceGlyph;
     }
 
