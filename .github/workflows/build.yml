@@ -15,14 +15,14 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - name: macos-12-release
+          - name: macos-13-release
             os_type: macos
-            os_name: macos-12
+            os_name: macos-13
             build_type: Release
             build_python: ON
-          - name: macos-12-debug
+          - name: macos-13-debug
             os_type: macos
-            os_name: macos-12
+            os_name: macos-13
             build_type: Debug
             build_python: ON
           - name: macos-latest-release
@@ -70,7 +70,7 @@ jobs:
         libroadrunner_deps_owner: [ "sys-bio" ]
         libroadrunner_deps_repo: [ "libroadrunner-deps" ]
         libroadrunner_deps_name: [ "libroadrunner-deps" ]
-        libroadrunner_deps_release_version: [ "v2.1.2" ]
+        libroadrunner_deps_release_version: [ "v2.2.13" ]
         python_version: [ "3.11" ]
     runs-on: ${{ matrix.platform.os_name }}
     container:
