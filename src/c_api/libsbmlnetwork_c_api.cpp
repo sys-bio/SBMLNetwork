@@ -8,6 +8,8 @@
 #include "../features/styles/libsbmlnetwork_styles.h"
 #include "../features/align_elements/libsbmlnetwork_align_element.h"
 
+#include <stdbool.h>
+
 extern "C" {
 
 namespace LIBSBMLNETWORK_CPP_NAMESPACE {
