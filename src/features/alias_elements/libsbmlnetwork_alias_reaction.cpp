@@ -66,7 +66,6 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                             findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
                     std::cout << "Stoichiometry: " << stoichiometry << std::endl;
                     for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
-                        std::cout << "StoichiometryIndex: " << stoichiometryIndex << std::endl;
                         alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
                                                                        connectedSpeciesGlyph->getId(),
                                                                        stoichiometryIndex, padding);
