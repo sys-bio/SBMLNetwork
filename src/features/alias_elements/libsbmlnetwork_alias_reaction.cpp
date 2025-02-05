@@ -55,12 +55,17 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                 else {
                     connectedSpeciesGlyph = layout->getSpeciesGlyph(
                             speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
+                    std::cout << "1) ConnectedSpeciesGlyph: " << connectedSpeciesGlyph->getId() << std::endl;
                 }
                 if (connectedSpeciesGlyph) {
+                    std::cout << "ConnectedSpeciesGlyph: " << connectedSpeciesGlyph->getId() << std::endl;
                     speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
+                    std::cout << "SpeciesGlyphAliasSpeciesGlyphIds: " << speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] << std::endl;
                     int stoichiometry = getStoichiometryAsInteger(layout,
                             findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
+                    std::cout << "Stoichiometry: " << stoichiometry << std::endl;
                     for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++) {
+                        std::cout << "StoichiometryIndex: " << stoichiometryIndex << std::endl;
                         alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
                                                                        connectedSpeciesGlyph->getId(),
                                                                        stoichiometryIndex, padding);
