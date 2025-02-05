@@ -57,7 +57,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
                             speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
                     std::cout << "1) ConnectedSpeciesGlyph: " << connectedSpeciesGlyph->getId() << std::endl;
                 }
-                if (connectedSpeciesGlyph) {
+                std::cout << "before if" << std::endl;
+                if (connectedSpeciesGlyph != NULL) {
                     std::cout << "ConnectedSpeciesGlyph: " << connectedSpeciesGlyph->getId() << std::endl;
                     speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
                     std::cout << "SpeciesGlyphAliasSpeciesGlyphIds: " << speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] << std::endl;
