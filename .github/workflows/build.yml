@@ -262,7 +262,7 @@ jobs:
           if [ "${{ matrix.platform.os_type }}" == 'windows' ]; then
             python -m pytest -p no:cacheprovider
           else
-            python${{ matrix.python_version }} -m pytest -p no:cacheprovider
+            python${{ matrix.python_version }} -m pytest -v -p no:cacheprovider 
           fi
 
       - name: Set artifacts path and name
