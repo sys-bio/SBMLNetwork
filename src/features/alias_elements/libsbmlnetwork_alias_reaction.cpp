@@ -43,24 +43,26 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         for (unsigned int i = 0; i < referenceReactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
             SpeciesReferenceGlyph *speciesReferenceGlyph = referenceReactionGlyph->getSpeciesReferenceGlyph(i);
             SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
-            if (!speciesGlyph)
-                return -1;
-
-            SpeciesGlyph *connectedSpeciesGlyph = NULL;
-            if (speciesGlyphAliasSpeciesGlyphIds.find(speciesGlyph->getId()) == speciesGlyphAliasSpeciesGlyphIds.end())
-                connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph, padding);
-            else
-                connectedSpeciesGlyph = layout->getSpeciesGlyph(
-                        speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
-            if (connectedSpeciesGlyph != NULL) {
-                speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
-                int stoichiometry = getStoichiometryAsInteger(layout,
-                                                              findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
-                for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
-                    alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
-                                                                   connectedSpeciesGlyph->getId(),
-                                                                   stoichiometryIndex, padding);
+            if (speciesGlyph) {
+                SpeciesGlyph *connectedSpeciesGlyph = NULL;
+                if (speciesGlyphAliasSpeciesGlyphIds.find(speciesGlyph->getId()) == speciesGlyphAliasSpeciesGlyphIds.end())
+                    connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph, padding);
+                else
+                    connectedSpeciesGlyph = layout->getSpeciesGlyph(
+                            speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
+                if (connectedSpeciesGlyph != NULL) {
+                    speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
+                    std::cout << "SpeciesGlyphAliasSpeciesGlyphIds: " <<  std::endl;
+                    int stoichiometry = getStoichiometryAsInteger(layout,
+                            findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
+                    for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
+                        alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
+                                                                       connectedSpeciesGlyph->getId(),
+                                                                       stoichiometryIndex, padding);
+                }
             }
+            else
+                return -1;
         }
 
         return 0;
