@@ -1,4 +1,4 @@
-class NetworkSettings:
+class Settings:
 
     def __init__(self, libsbmlnetwork):
         self.libsbmlnetwork = libsbmlnetwork
@@ -156,7 +156,7 @@ class NetworkSettings:
 
     def __str__(self):
         return (
-            f"NetworkSettings(\n"
+            f"Settings(\n"
             f"  Compartment Labels: {'Enabled' if self.compartment_labels else 'Disabled'},\n"
             f"  Species Labels: {'Enabled' if self.species_labels else 'Disabled'},\n"
             f"  Reaction Labels: {'Enabled' if self.reaction_labels else 'Disabled'},\n"

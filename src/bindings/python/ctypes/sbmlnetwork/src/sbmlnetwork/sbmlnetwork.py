@@ -1,15 +1,16 @@
 import libsbmlnetwork
 import networkinfotranslator
 from IPython.display import display
-from .network_settings import NetworkSettings
+from .settings import Settings
 from .network_elements import *
+from typing import Union
 
 
 class SBMLNetwork():
 
     def __init__(self):
         self.libsbmlnetwork = libsbmlnetwork.LibSBMLNetwork()
-        self.settings = NetworkSettings(self.libsbmlnetwork)
+        self.settings = Settings(self.libsbmlnetwork)
 
     def load(self, sbml: str):
         self.libsbmlnetwork.load(sbml)
@@ -129,32 +130,64 @@ class SBMLNetwork():
 
         return additional_elements
 
-    def add_additional_element(self, element_id: str, element_type: str, position: tuple[int, int], size: tuple[int, int]):
+    def add_additional_element(self, element_id: str, element_type: str = "rectangle", position: tuple[float, float] = (0, 0), size: tuple[float, float] = (100, 100)):
         if element_id is None:
             raise ValueError("Element id cannot be None")
         valid_geometric_shapes = self.libsbmlnetwork.getListOfGeometricShapes()
         if element_type not in valid_geometric_shapes:
             raise ValueError(f"Element type must be one of {valid_geometric_shapes}")
         if self.libsbmlnetwork.addAdditionalGraphicalObject(id=element_id) == 0:
-            graphical_object_index = self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects() - 1
-            if self.libsbmlnetwork.setGeometricShapeType(id=element_id, graphical_object_index=graphical_object_index, geometric_shape=element_type) == 0:
-                if self.libsbmlnetwork.setX(id=element_id, graphical_object_index=graphical_object_index, x=position[0]) == 0 and \
-                        self.libsbmlnetwork.setY(id=element_id, graphical_object_index=graphical_object_index, y=position[1]) == 0 and \
-                        self.libsbmlnetwork.setWidth(id=element_id, graphical_object_index=graphical_object_index, width=size[0]) == 0 and \
-                        self.libsbmlnetwork.setHeight(id=element_id, graphical_object_index=graphical_object_index, height=size[1]) == 0:
+            if self.libsbmlnetwork.setGeometricShapeType(id=element_id, geometric_shape=element_type) == 0:
+                if self.libsbmlnetwork.setX(id=element_id, x=position[0]) == 0 and \
+                        self.libsbmlnetwork.setY(id=element_id, y=position[1]) == 0 and \
+                        self.libsbmlnetwork.setWidth(id=element_id, width=size[0]) == 0 and \
+                        self.libsbmlnetwork.setHeight(id=element_id, height=size[1]) == 0:
                     return AdditionalElement(self.libsbmlnetwork, element_id)
                 else:
-                    self.libsbmlnetwork.removeAdditionalGraphicalObject(id=element_id, graphical_object_index=graphical_object_index)
+                    graphical_object_index = self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects() - 1
+                    self.libsbmlnetwork.removeAdditionalGraphicalObject(additional_graphical_object_index=graphical_object_index)
 
         return None
 
-    def remove_additional_element(self, element: AdditionalElement):
+    def remove_additional_element(self, element: Union[str, AdditionalElement]):
+        element_id = None
+        if isinstance(element, str):
+            element_id = element
+        elif isinstance(element, AdditionalElement):
+            element_id = element.get_id()
+        if element_id is None:
+            raise ValueError("Element id cannot be None")
         for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
-            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == element.get_id():
+            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == element_id:
                 if self.libsbmlnetwork.removeAdditionalGraphicalObject(additional_graphical_object_index=i) == 0:
                     return True
 
+        return False
+
     # Todo: Implement get color options method
+
+    def add_color_bar(self):
+        color_bar_id = "sbmlnetwork_color_bar"
+        self.remove_additional_element(color_bar_id)
+        if self.libsbmlnetwork.addAdditionalGraphicalObject(id=color_bar_id) == 0:
+            return ColorBar(self.libsbmlnetwork, color_bar_id)
+
+        return None
+
+    def get_color_bar(self):
+        for i in range(self.libsbmlnetwork.getNumAllAdditionalGraphicalObjects()):
+            if self.libsbmlnetwork.getAdditionalGraphicalObjectId(i) == "sbmlnetwork_color_bar":
+                return ColorBar(self.libsbmlnetwork, self.libsbmlnetwork.getAdditionalGraphicalObjectId(i))
+
+        return None
+
+    def remove_color_bar(self):
+        color_bar = self.get_color_bar()
+        if color_bar:
+            color_bar.clear_color_bar_space()
+
+        return self.remove_additional_element("sbmlnetwork_color_bar")
+
 
     def get_background_color(self):
         return self.libsbmlnetwork.getBackgroundColor()
