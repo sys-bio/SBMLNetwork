@@ -55,7 +55,7 @@ class ShapeBase:
 
     def set_border_thickness(self, thickness: float):
         if self.sub_element_index is None:
-            if self.libsbmlnetwork.setGeometricShapeBorderWidth(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index, border_width=thickness):
+            if self.libsbmlnetwork.setGeometricShapeBorderWidth(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index, border_width=thickness) == 0:
                 return True
         else:
             if self.libsbmlnetwork.setSpeciesReferenceLineEndingBorderWidth(reaction_id=self.element_id, reaction_glyph_index=self.graphical_object_index, species_reference_index=self.sub_element_index, border_width=thickness) == 0:

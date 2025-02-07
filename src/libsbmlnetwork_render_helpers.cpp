@@ -244,6 +244,11 @@ const std::string getColorId(RenderInformationBase* renderInformationBase, const
 
 
 const std::string addColor(SBMLDocument* document, Style* style, const std::string &color) {
+    if (!isValidHexColorCode(color)) {
+        if (getValue(document, color) != "")
+            return color;
+    }
+
     if (style) {
         for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
             LocalRenderInformation* localRenderInformation = getLocalRenderInformation(document, i);
@@ -265,6 +270,11 @@ const std::string addColor(SBMLDocument* document, Style* style, const std::stri
 }
 
 const std::string addColor(SBMLDocument* document, LineEnding* lineEnding, const std::string &color) {
+    if (!isValidHexColorCode(color)) {
+        if (getValue(document, color) != "")
+            return color;
+    }
+
     if (lineEnding) {
         for (unsigned int i = 0; i < getNumLocalRenderInformation(document); i++) {
             LocalRenderInformation *localRenderInformation = getLocalRenderInformation(document, i);
