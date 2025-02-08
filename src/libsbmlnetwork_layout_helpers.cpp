@@ -297,7 +297,6 @@ Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph) 
 
 SimpleSpeciesReference* findSpeciesReference(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* speciesGlyph) {
     if (model) {
-        SpeciesGlyph* speciesGlyph = (SpeciesGlyph*)getGraphicalObjectUsingItsOwnId(layout, speciesGlyph->getId());
         if (speciesGlyph) {
             Reaction* reaction = findReactionGlyphReaction(model, reactionGlyph);
             if (reaction) {
