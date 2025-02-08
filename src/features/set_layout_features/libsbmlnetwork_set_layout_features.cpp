@@ -18,6 +18,7 @@ int set_layout_features_setDefaultLayoutFeatures(SBMLDocument* document, Layout*
             set_layout_features_clearGraphicalObjects(layout);
             set_layout_features_setCompartmentGlyphs(model, layout);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges);
+            set_layout_features_setReactionBoundingBoxes(layout);
             set_layout_features_setTextGlyphs(layout);
             user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
@@ -41,6 +42,7 @@ int set_layout_features_setDefaultLayoutLocations(SBMLDocument* document, Layout
             set_layout_features_setCompartmentGlyphs(model, layout, userData);
             set_layout_features_setReactionGlyphs(model, layout, maxNumConnectedEdges, userData);
             autolayout_locateGlyphs(model, layout);
+            set_layout_features_setReactionBoundingBoxes(layout);
             set_layout_features_setTextGlyphs(layout);
             user_data_setUserData(layout, "max_num_connected_edges", std::to_string(maxNumConnectedEdges));
             return 0;
@@ -203,6 +205,11 @@ SpeciesReferenceGlyph* set_layout_features_createEmptySpeciesReferenceGlyph(Layo
     set_layout_features_setSpeciesReferenceGlyphCurve(emptySpeciesReferenceGlyph);
 
     return emptySpeciesReferenceGlyph;
+}
+
+void set_layout_features_setReactionBoundingBoxes(Layout* layout) {
+    for (unsigned int i = 0; i < layout->getNumReactionGlyphs(); i++)
+        setReactionGlyphBoundingBox(layout->getReactionGlyph(i));
 }
 
 SpeciesGlyph* set_layout_features_getSpeciesGlyph(Layout* layout, const std::string& speciesId, const int maxNumConnectedEdges, const std::vector<std::map<std::string, std::string>>& userData) {

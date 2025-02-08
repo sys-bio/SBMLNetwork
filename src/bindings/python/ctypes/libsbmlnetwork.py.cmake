@@ -25,23 +25,15 @@ class LibSBMLNetwork:
     A wrapper class to use libSBMLNetwork, which is an API to work with the Layout and Render packages of libSBML
     """
 
-    def __init__(self, sbml, disable_auto_layout=False):
+    def __init__(self):
         """
-        Initializes the LibSBMLNetwork class by reading an SBML document from the given file name or the given text string
-
-        :Parameters:
-
-            - sbml: an SBML document in the form of either an SBML file (.xml) directory or an SBML string
-            - disable_auto_layout (boolean, optional): a boolean (default: False) that determines whether to disable the autolayout algorithm after loading the SBML document
+        Initializes the LibSBMLNetwork class
         """
     
         self.sbml_object = None
-        self.layout_is_added = False
-        self.render_is_added = False
         self.display_compartments_text_label = True
         self.display_species_text_label = True
         self.display_reactions_text_label = False
-        self.load(sbml, disable_auto_layout)
 
     def getVersion(self):
         """
@@ -66,14 +58,13 @@ class LibSBMLNetwork:
         lib.c_api_getLibraryCurrentDirectory.restype = ctypes.c_char_p
         return ctypes.c_char_p(lib.c_api_getCurrentDirectoryOfLibrary()).value.decode()
 
-    def load(self, sbml, disable_auto_layout=False):
+    def load(self, sbml):
         """
         Reads an SBML document from the given file directory or the given text string
 
         :Parameters:
 
             - sbml (string): a string that determines either the name or full pathname of the SBML(.xml) file to be read or a string containing a full SBML model.
-            - disable_auto_layout (boolean, optional): a boolean (default: False) that determines whether to disable the autolayout algorithm after loading the SBML document
 
         :Returns:
 
@@ -83,13 +74,8 @@ class LibSBMLNetwork:
         self.sbml_object = lib.c_api_readSBML(str(sbml).encode())
         if not self.isSetModel():
             raise Exception(f"The SBML document could not be loaded. {sbml} is neither a valid SBML file path nor a valid SBML string.")
-        if not disable_auto_layout:
-            if not self._layout_is_specified():
-                self.autolayout()
-                self.layout_is_added = True
-            if not self._render_is_specified():
-                self.autorender()
-                self.render_is_added = True
+
+        return self
 
     def save(self, file_name=""):
         """
@@ -106,7 +92,7 @@ class LibSBMLNetwork:
         """
         
         if file_name:
-            lib.c_api_writeSBMLToFile.restype = ctypes.c_int
+            lib.c_api_writeSBMLToFile.restype = ctypes.c_bool
             return lib.c_api_writeSBMLToFile(self.sbml_object, str(file_name).encode())
         else:
             lib.c_api_writeSBMLToString.restype = ctypes.c_char_p
@@ -162,7 +148,7 @@ class LibSBMLNetwork:
                     raise Exception("The fixed_position_nodes parameter should be a list of lists or a list of strings.")
                 fixed_position_nodes_ptr[i] = fixed_position_node_ptr
 
-        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), reset_fixed_position_elements, fixed_position_nodes_ptr, len(fixed_position_nodes))
+        return lib.c_api_autolayout(self.sbml_object, ctypes.c_int(max_num_connected_edges), ctypes.c_bool(reset_fixed_position_elements), fixed_position_nodes_ptr, len(fixed_position_nodes))
     
     def autorender(self, max_num_connected_edges=3):
         """
@@ -225,7 +211,7 @@ class LibSBMLNetwork:
                     raise Exception("The nodes parameter should be a list of lists or a list of strings.")
                 nodes_ptr[i] = node_ptr
 
-        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ignore_fixed_position_nodes)
+        return lib.c_api_align(self.sbml_object, nodes_ptr, len(nodes), str(alignment).encode(), ctypes.c_bool(ignore_fixed_position_nodes))
 
     def distribute(self, nodes, direction="horizontal", spacing=-1):
         """
@@ -311,6 +297,7 @@ class LibSBMLNetwork:
 
             true if the SBMLDocument has a Model object and false otherwise
         """
+        lib.c_api_isSetModel.restype = ctypes.c_bool
         return lib.c_api_isSetModel(self.sbml_object)
 
     def getNumCompartments(self):
@@ -418,12 +405,14 @@ class LibSBMLNetwork:
         """
         return lib.c_api_createDefaultLayoutFeatures(self.sbml_object)
 
-    def createDefaultLayoutLocations(self, fixed_position_nodes=[]):
+    def createDefaultLayoutLocations(self, max_num_connected_edges=3, reset_fixed_position_elements=False, fixed_position_nodes=[]):
         """
         Creates a default Layout object in the given SBMLDocument and sets the locations of all the graphical objects in the Layout object
 
         :Parameters:
 
+            - max_num_connected_edges (int, optional): an integer (default: 3) that determines the maximum number of connected edges to a node in the autolayout algorithm (will set the criteria for creating alias nodes).
+            - reset_fixed_position_elements (boolean, optional): a boolean (default: False) that determines whether to reset the fixed position elements before applying the autolayout algorithm.
             - fixed_position_nodes (list, optional): a list (default: []) that determines the list of nodes that should not be moved during the autolayout algorithm.
 
         :Returns:
@@ -436,7 +425,7 @@ class LibSBMLNetwork:
             for i in range(len(fixed_position_nodes)):
                 fixed_position_nodes_ptr[i] = ctypes.c_char_p(fixed_position_nodes[i].encode())
 
-        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, fixed_position_nodes_ptr, len(fixed_position_nodes))
+        return lib.c_api_createDefaultLayoutLocations(self.sbml_object, ctypes.c_int(max_num_connected_edges), ctypes.c_bool(reset_fixed_position_elements), fixed_position_nodes_ptr, len(fixed_position_nodes))
 
     def createAliasSpeciesGlyph(self, species_id, reaction_id, reaction_glyph_index=0, layout_index=0):
         """
@@ -670,6 +659,7 @@ class LibSBMLNetwork:
 
             true if the GraphicalObject with the given id in the Layout object with the given index in the given SBMLDocument is visible and false otherwise
         """
+        lib.c_api_isVisible.restype = ctypes.c_bool
         return lib.c_api_isVisible(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def makeVisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
@@ -687,7 +677,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GraphicalObject could not be made visible
         """
-        return lib.c_api_makeVisible(self.sbml_object, str(id).encode(), apply_to_connected_elements, graphical_object_index, layout_index)
+        return lib.c_api_makeVisible(self.sbml_object, str(id).encode(), ctypes.c_bool(apply_to_connected_elements), graphical_object_index, layout_index)
 
     def makeInvisible(self, id, apply_to_connected_elements=True, graphical_object_index=0, layout_index=0):
         """
@@ -704,7 +694,7 @@ class LibSBMLNetwork:
 
             true on success and false if the GraphicalObject could not be made invisible
         """
-        return lib.c_api_makeInvisible(self.sbml_object, str(id).encode(), apply_to_connected_elements, graphical_object_index, layout_index)
+        return lib.c_api_makeInvisible(self.sbml_object, str(id).encode(), ctypes.c_bool(apply_to_connected_elements), graphical_object_index, layout_index)
 
     def getCanvasWidth(self, layout_index=0):
         """
@@ -826,6 +816,7 @@ class LibSBMLNetwork:
 
             true if the id GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetId.restype = ctypes.c_bool
         return lib.c_api_isSetId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getId(self, id, graphical_object_index=0, layout_index=0):
@@ -876,6 +867,7 @@ class LibSBMLNetwork:
 
             true if the meta id of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetMetaId.restype = ctypes.c_bool
         return lib.c_api_isSetMetaId(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getMetaId(self, id, graphical_object_index=0, layout_index=0):
@@ -926,6 +918,7 @@ class LibSBMLNetwork:
 
             true if the name of the GraphicalObject with the given index associated with the model entity with the given id in the Layout object with the given index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetName.restype = ctypes.c_bool
         return lib.c_api_isSetName(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getName(self, id, graphical_object_index=0, layout_index=0):
@@ -1019,25 +1012,26 @@ class LibSBMLNetwork:
         :Returns:
 
             true if the given compartment_id is associated with a CompartmentGlyph in the Layout object with the given index in the given SBMLDocument and false otherwise
-            """
+        """
+        lib.c_api_isCompartmentGlyph.restype = ctypes.c_bool
         return lib.c_api_isCompartmentGlyph(self.sbml_object, str(compartment_id).encode(), layout_index)
 
-    def getGraphicalObjectCompartmentId(self, entity_id, graphical_object_id=0, layout_index=0):
+    def getGraphicalObjectCompartmentId(self, entity_id, graphical_object_index=0, layout_index=0):
         """
         Returns the id of the Compartment associated with the given entity_id and graphical_object_id in the Layout object with the given index in the given SBMLDocument
 
         :Parameters:
 
             - entity_id (string): a string that determines the id of the Entity
-            - graphical_object_id (string): a string that determines the id of the GraphicalObject
+            - graphical_object_index (int, optional): an integer (default: 0) that determines the index of the GraphicalObject in the given SBMLDocument
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         :Returns:
 
-            a string that determines the id of the Compartment associated with the given entity_id and graphical_object_id in the Layout object with the given index in the given SBMLDocument
+            a string that determines the id of the Compartment associated with the given entity_id and graphical_object_index in the Layout object with the given index in the given SBMLDocument
         """
         lib.c_api_getGraphicalObjectCompartmentId.restype = ctypes.c_char_p
-        return ctypes.c_char_p(lib.c_api_getGraphicalObjectCompartmentId(self.sbml_object, str(entity_id).encode(), str(graphical_object_id).encode(), layout_index)).value.decode()
+        return ctypes.c_char_p(lib.c_api_getGraphicalObjectCompartmentId(self.sbml_object, str(entity_id).encode(), graphical_object_index, layout_index)).value.decode()
 
     def getListOfSpeciesIds(self):
         """
@@ -1112,7 +1106,8 @@ class LibSBMLNetwork:
         :Returns:
 
             true if the given species_id is associated with a SpeciesGlyph in the Layout object with the given index in the given SBMLDocument and false otherwise
-            """
+        """
+        lib.c_api_isSpeciesGlyph.restype = ctypes.c_bool
         return lib.c_api_isSpeciesGlyph(self.sbml_object, str(species_id).encode(), layout_index)
 
     def getListOfReactionIds(self):
@@ -1172,7 +1167,8 @@ class LibSBMLNetwork:
         :Returns:
 
             true if the given reaction_id is associated with a ReactionGlyph in the Layout object with the given index in the given SBMLDocument and false otherwise
-            """
+        """
+        lib.c_api_isReactionGlyph.restype = ctypes.c_bool
         return lib.c_api_isReactionGlyph(self.sbml_object, str(reaction_id).encode(), layout_index)
 
     def getNumSpeciesReferences(self, reaction_id, reaction_glyph_index=0, layout_index=0):
@@ -1260,6 +1256,7 @@ class LibSBMLNetwork:
 
             true if the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is associated with an empty SpeciesGlyph and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceEmptySpeciesGlyph.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceEmptySpeciesGlyph(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceEmptySpeciesGlyphId(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -1294,8 +1291,8 @@ class LibSBMLNetwork:
         :Returns:
 
             true if the role of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
-            """
-
+        """
+        lib.c_api_isSetSpeciesReferenceRole.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceRole(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceRole(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -1453,6 +1450,7 @@ class LibSBMLNetwork:
 
             true if the CurveSegment with the given reaction_id, reaction_glyph_index, species_reference_index, curve_segment_index, and layout_index in the given SBMLDocument is a CubicBezier and false otherwise
         """
+        lib.c_api_isSpeciesReferenceCurveSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceCurveSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
 
     def getSpeciesReferenceCurveSegmentStartPointX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, curve_segment_index=0, layout_index=0):
@@ -1776,6 +1774,7 @@ class LibSBMLNetwork:
 
             true if the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineColor.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceLineColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -1829,6 +1828,7 @@ class LibSBMLNetwork:
 
             true if the line width of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineWidth.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceLineWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -1936,6 +1936,7 @@ class LibSBMLNetwork:
 
             true if the start head of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceStartHead.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceStartHead(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceStartHead(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -1989,6 +1990,7 @@ class LibSBMLNetwork:
 
             true if the end head of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceEndHead.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceEndHead(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceEndHead(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -2220,7 +2222,7 @@ class LibSBMLNetwork:
 
             true on success and false if the x-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index, update_curves)
+        return lib.c_api_setX(self.sbml_object, str(id).encode(), ctypes.c_double(x), graphical_object_index, layout_index, ctypes.c_bool(update_curves))
 
     def getY(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -2255,7 +2257,7 @@ class LibSBMLNetwork:
 
             true on success and false if the y-coordinate of the GraphicalObject could not be set
         """
-        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, update_curves)
+        return lib.c_api_setY(self.sbml_object, str(id).encode(), ctypes.c_double(y), graphical_object_index, layout_index, ctypes.c_bool(update_curves))
 
     def getPosition(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -2292,7 +2294,7 @@ class LibSBMLNetwork:
 
             true on success and false if the position of the GraphicalObject could not be set
         """
-        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, update_curves)
+        return lib.c_api_setPosition(self.sbml_object, str(id).encode(), ctypes.c_double(x), ctypes.c_double(y), graphical_object_index, layout_index, ctypes.c_bool(update_curves))
 
     def getWidth(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -2327,7 +2329,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the GraphicalObject could not be set
         """
-        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index, update_curves)
+        return lib.c_api_setWidth(self.sbml_object, str(id).encode(), ctypes.c_double(width), graphical_object_index, layout_index, ctypes.c_bool(update_curves))
 
     def setCompartmentsWidth(self, width, layout_index=0, update_curves=True):
         """
@@ -2343,7 +2345,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the Compartments could not be set
         """
-        return lib.c_api_setCompartmentsWidth(self.sbml_object, ctypes.c_double(width), layout_index, update_curves)
+        return lib.c_api_setCompartmentsWidth(self.sbml_object, ctypes.c_double(width), layout_index, ctypes.c_bool(update_curves))
 
     def getSpeciesWidth(self, layout_index=0):
         """
@@ -2374,7 +2376,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the Species could not be set
         """
-        return lib.c_api_setSpeciesWidth(self.sbml_object, ctypes.c_double(width), layout_index, update_curves)
+        return lib.c_api_setSpeciesWidth(self.sbml_object, ctypes.c_double(width), layout_index, ctypes.c_bool(update_curves))
 
     def getReactionsWidth(self, layout_index=0):
         """
@@ -2405,7 +2407,7 @@ class LibSBMLNetwork:
 
             true on success and false if the width of the Reactions could not be set
         """
-        return lib.c_api_setReactionsWidth(self.sbml_object, ctypes.c_double(width), layout_index, update_curves)
+        return lib.c_api_setReactionsWidth(self.sbml_object, ctypes.c_double(width), layout_index, ctypes.c_bool(update_curves))
 
     def getHeight(self, id, graphical_object_index=0, layout_index=0):
         """
@@ -2440,7 +2442,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the GraphicalObject could not be set
         """
-        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index, update_curves)
+        return lib.c_api_setHeight(self.sbml_object, str(id).encode(), ctypes.c_double(height), graphical_object_index, layout_index, ctypes.c_bool(update_curves))
 
     def setCompartmentsHeight(self, height, layout_index=0, update_curves=True):
         """
@@ -2487,7 +2489,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the Species could not be set
         """
-        return lib.c_api_setSpeciesHeight(self.sbml_object, ctypes.c_double(height), layout_index, update_curves)
+        return lib.c_api_setSpeciesHeight(self.sbml_object, ctypes.c_double(height), layout_index, ctypes.c_bool(update_curves))
 
     def getReactionsHeight(self, layout_index=0):
         """
@@ -2518,7 +2520,7 @@ class LibSBMLNetwork:
 
             true on success and false if the height of the Reactions could not be set
         """
-        return lib.c_api_setReactionsHeight(self.sbml_object, ctypes.c_double(height), layout_index, update_curves)
+        return lib.c_api_setReactionsHeight(self.sbml_object, ctypes.c_double(height), layout_index, ctypes.c_bool(update_curves))
 
     def getTextX(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
         """
@@ -2716,6 +2718,7 @@ class LibSBMLNetwork:
 
             true if the curve of the ReactionGlyph with the given reaction_id, reaction_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetCurve.restype = ctypes.c_bool
         return lib.c_api_isSetCurve(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, layout_index)
 
     def getNumCurveSegments(self, reaction_id, reaction_glyph_index=0, layout_index=0):
@@ -2798,6 +2801,7 @@ class LibSBMLNetwork:
 
             true if the CurveSegment with the given reaction_id, reaction_glyph_index, curve_segment_index, and layout_index in the given SBMLDocument is a CubicBezier and false otherwise
         """
+        lib.c_api_isCurveSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isCurveSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, curve_segment_index, layout_index)
 
     def getCurveSegmentStartPointX(self, reaction_id, reaction_glyph_index=0, curve_segment_index=0, layout_index=0):
@@ -3181,6 +3185,7 @@ class LibSBMLNetwork:
 
             true if the background color of the RenderInformation object with the given index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetBackgroundColor.restype = ctypes.c_bool
         return lib.c_api_isSetBackgroundColor(self.sbml_object, render_index)
 
     def getBackgroundColor(self, render_index=0):
@@ -3323,6 +3328,7 @@ class LibSBMLNetwork:
 
             true if the color value of the ColorDefinition object with the given color_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetColorValue.restype = ctypes.c_bool
         return lib.c_api_isSetColorValue(self.sbml_object, str(color_id).encode(), render_index)
 
     def getColorValue(self, color_id, render_index=0):
@@ -3488,6 +3494,7 @@ class LibSBMLNetwork:
 
             true if the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is a LinearGradient object and false otherwise
         """
+        lib.c_api_isLinearGradient.restype = ctypes.c_bool
         return lib.c_api_isLinearGradient(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def isRadialGradient(self, gradient_id, render_index=0):
@@ -3503,6 +3510,7 @@ class LibSBMLNetwork:
 
             true if the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is a RadialGradient object and false otherwise
         """
+        lib.c_api_isRadialGradient.restype = ctypes.c_bool
         return lib.c_api_isRadialGradient(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def isSetSpreadMethod(self, gradient_id, render_index=0):
@@ -3518,6 +3526,7 @@ class LibSBMLNetwork:
 
             true if the spread method of the GradientDefinition object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpreadMethod.restype = ctypes.c_bool
         return lib.c_api_isSetSpreadMethod(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getSpreadMethod(self, gradient_id, render_index=0):
@@ -3581,6 +3590,7 @@ class LibSBMLNetwork:
 
             true if the offset of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetOffset.restype = ctypes.c_bool
         return lib.c_api_isSetOffset(self.sbml_object, str(gradient_id).encode(), gradient_stop_index, render_index)
 
     def getOffset(self, gradient_id, gradient_stop_index=0, render_index=0):
@@ -3631,6 +3641,7 @@ class LibSBMLNetwork:
 
             true if the stop color of the GradientStop object with the given gradient_id, gradient_stop_index, and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetStopColor.restype = ctypes.c_bool
         return lib.c_api_isSetStopColor(self.sbml_object, str(gradient_id).encode(), gradient_stop_index, render_index)
 
     def getStopColor(self, gradient_id, gradient_stop_index=0, render_index=0):
@@ -3680,6 +3691,7 @@ class LibSBMLNetwork:
 
             true if the x1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLinearGradientX1.restype = ctypes.c_bool
         return lib.c_api_isSetLinearGradientX1(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getLinearGradientX1(self, gradient_id, render_index=0):
@@ -3727,6 +3739,7 @@ class LibSBMLNetwork:
 
             true if the y1-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLinearGradientY1.restype = ctypes.c_bool
         return lib.c_api_isSetLinearGradientY1(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getLinearGradientY1(self, gradient_id, render_index=0):
@@ -3774,6 +3787,7 @@ class LibSBMLNetwork:
 
             true if the x2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLinearGradientX2.restype = ctypes.c_bool
         return lib.c_api_isSetLinearGradientX2(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getLinearGradientX2(self, gradient_id, render_index=0):
@@ -3821,6 +3835,7 @@ class LibSBMLNetwork:
 
             true if the y2-coordinate of the LinearGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLinearGradientY2.restype = ctypes.c_bool
         return lib.c_api_isSetLinearGradientY2(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getLinearGradientY2(self, gradient_id, render_index=0):
@@ -3868,6 +3883,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetRadialGradientCenterX.restype = ctypes.c_bool
         return lib.c_api_isSetRadialGradientCenterX(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getRadialGradientCenterX(self, gradient_id, render_index=0):
@@ -3915,6 +3931,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the center of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetRadialGradientCenterY.restype = ctypes.c_bool
         return lib.c_api_isSetRadialGradientCenterY(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getRadialGradientCenterY(self, gradient_id, render_index=0):
@@ -3962,6 +3979,7 @@ class LibSBMLNetwork:
 
             true if the radius of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetRadialGradientRadius.restype = ctypes.c_bool
         return lib.c_api_isSetRadialGradientRadius(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getRadialGradientRadius(self, gradient_id, render_index=0):
@@ -4009,6 +4027,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetRadialGradientFocalX.restype = ctypes.c_bool
         return lib.c_api_isSetRadialGradientFocalX(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getRadialGradientFocalX(self, gradient_id, render_index=0):
@@ -4056,6 +4075,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the focal point of the RadialGradient object with the given gradient_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetRadialGradientFocalY.restype = ctypes.c_bool
         return lib.c_api_isSetRadialGradientFocalY(self.sbml_object, str(gradient_id).encode(), render_index)
 
     def getRadialGradientFocalY(self, gradient_id, render_index=0):
@@ -4539,6 +4559,7 @@ class LibSBMLNetwork:
 
             true if the border color of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingBorderColor.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingBorderColor(self.sbml_object, str(line_ending_id).encode(), render_index)
 
     def getLineEndingBorderColor(self, line_ending_id, render_index=0):
@@ -4588,6 +4609,7 @@ class LibSBMLNetwork:
 
             true if the border color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingBorderColor.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingBorderColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceLineEndingBorderColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -4656,6 +4678,7 @@ class LibSBMLNetwork:
 
             true if the border width of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingBorderWidth.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingBorderWidth(self.sbml_object, str(line_ending_id).encode(), render_index)
 
     def getLineEndingBorderWidth(self, line_ending_id, render_index=0):
@@ -4705,6 +4728,7 @@ class LibSBMLNetwork:
 
             true if the border width of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingBorderWidth.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingBorderWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceLineEndingBorderWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -4894,6 +4918,7 @@ class LibSBMLNetwork:
 
             true if the fill color of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingFillColor.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingFillColor(self.sbml_object, str(line_ending_id).encode(), render_index)
 
     def getLineEndingFillColor(self, line_ending_id, render_index=0):
@@ -4961,6 +4986,7 @@ class LibSBMLNetwork:
 
             true if the fill color of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingFillColor.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingFillColor(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceLineEndingFillColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -5068,6 +5094,7 @@ class LibSBMLNetwork:
 
             true if the fill rule of the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingFillRule.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingFillRule(self.sbml_object, str(line_ending_id).encode(), render_index)
 
     def getLineEndingFillRule(self, line_ending_id, render_index=0):
@@ -5117,6 +5144,7 @@ class LibSBMLNetwork:
 
             true if the fill rule of the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingFillRule.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingFillRule(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
 
     def getSpeciesReferenceLineEndingFillRule(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
@@ -5428,6 +5456,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is a rectangle and false otherwise
         """
+        lib.c_api_isLineEndingRectangle.restype = ctypes.c_bool
         return lib.c_api_isLineEndingRectangle(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def isSpeciesReferenceLineEndingRectangle(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5446,6 +5475,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is a rectangle and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingRectangle.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingRectangle(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def isLineEndingEllipse(self, line_ending_id, index=0, render_index=0):
@@ -5462,6 +5492,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is an ellipse and false otherwise
         """
+        lib.c_api_isLineEndingEllipse.restype = ctypes.c_bool
         return lib.c_api_isLineEndingEllipse(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def isSpeciesReferenceLineEndingEllipse(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5480,6 +5511,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is an ellipse and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingEllipse.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingEllipse(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def isLineEndingPolygon(self, line_ending_id, index=0, render_index=0):
@@ -5496,6 +5528,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is a polygon and false otherwise
         """
+        lib.c_api_isLineEndingPolygon.restype = ctypes.c_bool
         return lib.c_api_isLineEndingPolygon(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def isSpeciesReferenceLineEndingPolygon(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5514,6 +5547,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is a polygon and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingPolygon.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingPolygon(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def isLineEndingImage(self, line_ending_id, index=0, render_index=0):
@@ -5530,6 +5564,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is an image and false otherwise
         """
+        lib.c_api_isLineEndingImage.restype = ctypes.c_bool
         return lib.c_api_isLineEndingImage(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def isSpeciesReferenceLineEndingImage(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5548,6 +5583,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is an image and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingImage.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingImage(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def isLineEndingRenderCurve(self, line_ending_id, index=0, render_index=0):
@@ -5564,6 +5600,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is a render curve and false otherwise
         """
+        lib.c_api_isLineEndingRenderCurve.restype = ctypes.c_bool
         return lib.c_api_isLineEndingRenderCurve(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def isSpeciesReferenceLineEndingRenderCurve(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5582,6 +5619,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is a render curve and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingRenderCurve.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingRenderCurve(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def isLineEndingText(self, line_ending_id, index=0, render_index=0):
@@ -5598,6 +5636,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is text and false otherwise
         """
+        lib.c_api_isLineEndingText.restype = ctypes.c_bool
         return lib.c_api_isLineEndingText(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def isSpeciesReferenceLineEndingText(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5616,6 +5655,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is text and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingText.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingText(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def isSetLineEndingGeometricShapeX(self, line_ending_id, index=0, render_index=0):
@@ -5632,6 +5672,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeX.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeX(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeX(self, line_ending_id, index=0, render_index=0):
@@ -5684,6 +5725,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeX.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5756,6 +5798,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeY.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeY(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeY(self, line_ending_id, index=0, render_index=0):
@@ -5808,6 +5851,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeY.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -5880,6 +5924,7 @@ class LibSBMLNetwork:
 
             true if the width of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeWidth.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeWidth(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeWidth(self, line_ending_id, index=0, render_index=0):
@@ -5932,6 +5977,7 @@ class LibSBMLNetwork:
 
             true if the width of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeWidth.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeWidth(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeWidth(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6004,6 +6050,7 @@ class LibSBMLNetwork:
 
             true if the height of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeHeight.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeHeight(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeHeight(self, line_ending_id, index=0, render_index=0):
@@ -6056,6 +6103,7 @@ class LibSBMLNetwork:
 
             true if the height of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeHeight.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeHeight(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeHeight(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6128,6 +6176,7 @@ class LibSBMLNetwork:
 
             true if the ratio of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeRatio.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeRatio(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeRatio(self, line_ending_id, index=0, render_index=0):
@@ -6180,6 +6229,7 @@ class LibSBMLNetwork:
 
             true if the ratio of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRatio.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRatio(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeRatio(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6252,6 +6302,7 @@ class LibSBMLNetwork:
 
             true if the x-radius of the border of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeBorderRadiusX.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeBorderRadiusX(self, line_ending_id, index=0, render_index=0):
@@ -6304,6 +6355,7 @@ class LibSBMLNetwork:
 
             true if the x-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusX.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeBorderRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6376,6 +6428,7 @@ class LibSBMLNetwork:
 
             true if the y-radius of the border of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeBorderRadiusY.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeBorderRadiusY(self, line_ending_id, index=0, render_index=0):
@@ -6428,6 +6481,7 @@ class LibSBMLNetwork:
 
             true if the y-radius of the border of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusY.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeBorderRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6500,6 +6554,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeCenterX.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeCenterX(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeCenterX(self, line_ending_id, index=0, render_index=0):
@@ -6552,6 +6607,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeCenterX.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeCenterX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeCenterX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6624,6 +6680,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeCenterY.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeCenterY(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeCenterY(self, line_ending_id, index=0, render_index=0):
@@ -6676,6 +6733,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the center of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeCenterY.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeCenterY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeCenterY(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6748,6 +6806,7 @@ class LibSBMLNetwork:
 
             true if the x-radius of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeRadiusX.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeRadiusX(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeRadiusX(self, line_ending_id, index=0, render_index=0):
@@ -6800,6 +6859,7 @@ class LibSBMLNetwork:
 
             true if the x-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusX.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusX(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeRadiusX(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -6872,6 +6932,7 @@ class LibSBMLNetwork:
 
             true if the y-radius of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineEndingGeometricShapeRadiusY.restype = ctypes.c_bool
         return lib.c_api_isSetLineEndingGeometricShapeRadiusY(self.sbml_object, str(line_ending_id).encode(), index, render_index)
 
     def getLineEndingGeometricShapeRadiusY(self, line_ending_id, index=0, render_index=0):
@@ -6924,6 +6985,7 @@ class LibSBMLNetwork:
 
             true if the y-radius of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusY.restype = ctypes.c_bool
         return lib.c_api_isSetSpeciesReferenceLineEndingGeometricShapeRadiusY(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, index)
 
     def getSpeciesReferenceLineEndingGeometricShapeRadiusY(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -7031,6 +7093,7 @@ class LibSBMLNetwork:
 
             true if the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object with the given line_ending_id and render_index in the given SBMLDocument is a cubic bezier segment and false otherwise
         """
+        lib.c_api_isLineEndingGeometricShapeSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(line_ending_id).encode(), segment_index, index, render_index)
 
     def isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(self, reaction_id, segment_index, reaction_glyph_index=0, species_reference_index=0, layout_index=0, index=0):
@@ -7050,6 +7113,7 @@ class LibSBMLNetwork:
 
             true if the segment with the given segment_index of the GeometricShape object with the given index in the LineEnding object of the SpeciesReference object with the given reaction_id, reaction_glyph_index, species_reference_index and layout_index in the given SBMLDocument is a cubic bezier segment and false otherwise
         """
+        lib.c_api_isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isSpeciesReferenceLineEndingGeometricShapeSegmentCubicBezier(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index, segment_index, index)
 
     def getLineEndingGeometricShapeSegmentX(self, line_ending_id, segment_index, index=0, render_index=0):
@@ -7636,6 +7700,7 @@ class LibSBMLNetwork:
 
             true if the border color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetBorderColor.restype = ctypes.c_bool
         return lib.c_api_isSetBorderColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def isSetLineColor(self, id, graphical_object_index=0, layout_index=0):
@@ -7652,6 +7717,7 @@ class LibSBMLNetwork:
 
             true if the line color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineColor.restype = ctypes.c_bool
         return lib.c_api_isSetLineColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getBorderColor(self, id, graphical_object_index=0, layout_index=0):
@@ -7870,6 +7936,7 @@ class LibSBMLNetwork:
 
             true if the border width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetBorderWidth.restype = ctypes.c_bool
         return lib.c_api_isSetBorderWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def isSetLineWidth(self, id, graphical_object_index=0, layout_index=0):
@@ -7886,6 +7953,7 @@ class LibSBMLNetwork:
 
             true if the line width of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetLineWidth.restype = ctypes.c_bool
         return lib.c_api_isSetLineWidth(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getBorderWidth(self, id, graphical_object_index=0, layout_index=0):
@@ -8206,6 +8274,7 @@ class LibSBMLNetwork:
 
             true if the fill color of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetFillColor.restype = ctypes.c_bool
         return lib.c_api_isSetFillColor(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getFillColor(self, id, graphical_object_index=0, layout_index=0):
@@ -8569,6 +8638,7 @@ class LibSBMLNetwork:
 
             true if the fill rule of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetFillRule.restype = ctypes.c_bool
         return lib.c_api_isSetFillRule(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getFillRule(self, id, graphical_object_index=0, layout_index=0):
@@ -8781,6 +8851,7 @@ class LibSBMLNetwork:
 
             true if the font family of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetFontFamily.restype = ctypes.c_bool
         return lib.c_api_isSetFontFamily(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getFontFamily(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
@@ -8927,6 +8998,7 @@ class LibSBMLNetwork:
 
             true if the font size of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetFontSize.restype = ctypes.c_bool
         return lib.c_api_isSetFontSize(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getFontSize(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
@@ -9073,6 +9145,7 @@ class LibSBMLNetwork:
 
             true if the font weight of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetFontWeight.restype = ctypes.c_bool
         return lib.c_api_isSetFontWeight(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getFontWeight(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
@@ -9219,6 +9292,7 @@ class LibSBMLNetwork:
 
             true if the font style of the TextGlyph associated with the model entity with the given id, graphical_object_index, text_glyph_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetFontStyle.restype = ctypes.c_bool
         return lib.c_api_isSetFontStyle(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getFontStyle(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
@@ -9365,6 +9439,7 @@ class LibSBMLNetwork:
 
             true if the text horizontal alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetTextHorizontalAlignment.restype = ctypes.c_bool
         return lib.c_api_isSetTextHorizontalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getTextHorizontalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
@@ -9511,6 +9586,7 @@ class LibSBMLNetwork:
 
             true if the text vertical alignment of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetTextVerticalAlignment.restype = ctypes.c_bool
         return lib.c_api_isSetTextVerticalAlignment(self.sbml_object, str(id).encode(), graphical_object_index, text_glyph_index, layout_index)
 
     def getTextVerticalAlignment(self, id, graphical_object_index=0, text_glyph_index=0, layout_index=0):
@@ -9656,6 +9732,7 @@ class LibSBMLNetwork:
 
             true if the start head of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetStartHead.restype = ctypes.c_bool
         return lib.c_api_isSetStartHead(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getStartHead(self, id, graphical_object_index=0, layout_index=0):
@@ -9706,6 +9783,7 @@ class LibSBMLNetwork:
 
             true if the end head of the GraphicalObject associated with the model entity with the given id, graphical_object_index, and layout_index in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetEndHead.restype = ctypes.c_bool
         return lib.c_api_isSetEndHead(self.sbml_object, str(id).encode(), graphical_object_index, layout_index)
 
     def getEndHead(self, id, graphical_object_index=0, layout_index=0):
@@ -9974,6 +10052,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Rectangle object and false otherwise
         """
+        lib.c_api_isRectangle.restype = ctypes.c_bool
         return lib.c_api_isRectangle(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isSquare(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -9991,6 +10070,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Square object and false otherwise
         """
+        lib.c_api_isSquare.restype = ctypes.c_bool
         return lib.c_api_isSquare(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isEllipse(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10008,6 +10088,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Ellipse object and false otherwise
         """
+        lib.c_api_isEllipse.restype = ctypes.c_bool
         return lib.c_api_isEllipse(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isCircle(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10025,6 +10106,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Circle object and false otherwise
         """
+        lib.c_api_isCircle.restype = ctypes.c_bool
         return lib.c_api_isCircle(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isPolygon(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10042,6 +10124,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Polygon object and false otherwise
         """
+        lib.c_api_isPolygon.restype = ctypes.c_bool
         return lib.c_api_isPolygon(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isImage(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10059,6 +10142,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is an Image object and false otherwise
         """
+        lib.c_api_isImage.restype = ctypes.c_bool
         return lib.c_api_isImage(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isRenderCurve(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10076,6 +10160,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a RenderCurve object and false otherwise
         """
+        lib.c_api_isRenderCurve.restype = ctypes.c_bool
         return lib.c_api_isRenderCurve(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isText(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10093,6 +10178,7 @@ class LibSBMLNetwork:
 
             true if the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a Text object and false otherwise
         """
+        lib.c_api_isText.restype = ctypes.c_bool
         return lib.c_api_isText(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def isSetGeometricShapeBorderColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10110,6 +10196,7 @@ class LibSBMLNetwork:
 
             true if the border color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeBorderColor.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeBorderColor(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeBorderColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10163,6 +10250,7 @@ class LibSBMLNetwork:
 
             true if the border width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeBorderWidth.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeBorderWidth(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeBorderWidth(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10216,6 +10304,7 @@ class LibSBMLNetwork:
 
             true if the fill color of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeFillColor.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeFillColor(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeFillColor(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10269,6 +10358,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeX.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeX(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10415,6 +10505,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeY.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeY(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10560,6 +10651,7 @@ class LibSBMLNetwork:
 
             true if the width of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeWidth.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeWidth(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeWidth(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10706,6 +10798,7 @@ class LibSBMLNetwork:
 
             true if the height of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeHeight.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeHeight(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeHeight(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10851,6 +10944,7 @@ class LibSBMLNetwork:
 
             true if the ratio of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeRatio.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeRatio(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeRatio(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -10997,6 +11091,7 @@ class LibSBMLNetwork:
 
             true if the x-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeBorderRadiusX.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeBorderRadiusX(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeBorderRadiusX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -11143,6 +11238,7 @@ class LibSBMLNetwork:
 
             true if the y-radius of the border of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeBorderRadiusY.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeBorderRadiusY(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeBorderRadiusY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -11289,6 +11385,7 @@ class LibSBMLNetwork:
 
             true if the x-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeCenterX.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeCenterX(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeCenterX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -11435,6 +11532,7 @@ class LibSBMLNetwork:
 
             true if the y-coordinate of the center of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeCenterY.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeCenterY(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeCenterY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -11581,6 +11679,7 @@ class LibSBMLNetwork:
 
             true if the x-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeRadiusX.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeRadiusX(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeRadiusX(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -11727,6 +11826,7 @@ class LibSBMLNetwork:
 
             true if the y-radius of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeRadiusY.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeRadiusY(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeRadiusY(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -11891,6 +11991,7 @@ class LibSBMLNetwork:
 
             true if the segment with the given segment_index of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is a cubic bezier segment and false otherwise
         """
+        lib.c_api_isGeometricShapeSegmentCubicBezier.restype = ctypes.c_bool
         return lib.c_api_isGeometricShapeSegmentCubicBezier(self.sbml_object, str(id).encode(), segment_index, geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeSegmentX(self, id, segment_index=0, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -12718,6 +12819,7 @@ class LibSBMLNetwork:
 
             true if the href of the GeometricShape object with the given index associated with the model entity with the given id in the given SBMLDocument is set and false otherwise
         """
+        lib.c_api_isSetGeometricShapeHref.restype = ctypes.c_bool
         return lib.c_api_isSetGeometricShapeHref(self.sbml_object, str(id).encode(), geometric_shape_index, graphical_object_index, layout_index)
 
     def getGeometricShapeHref(self, id, geometric_shape_index=0, graphical_object_index=0, layout_index=0):
@@ -13054,6 +13156,7 @@ class LibSBMLNetwork:
             a boolean that determines whether the autolayout must create a species reference for each stoichiometry or not
 
         """
+        lib.c_api_getStoichiometricSpeciesReference.restype = ctypes.c_bool
         return lib.c_api_getStoichiometricSpeciesReference(self.sbml_object)
 
     def setStoichiometricSpeciesReference(self, stoichiometric_species_reference):
@@ -13065,7 +13168,7 @@ class LibSBMLNetwork:
             - stoichiometric_species_reference (bool): a boolean that determines whether the autolayout must create a species reference for each stoichiometry or not
 
         """
-        return lib.c_api_setStoichiometricSpeciesReference(self.sbml_object, stoichiometric_species_reference)
+        return lib.c_api_setStoichiometricSpeciesReference(self.sbml_object, ctypes.c_bool(stoichiometric_species_reference))
 
     def getUseNameAsTextLabel(self, layout_index=0):
         """
@@ -13080,6 +13183,7 @@ class LibSBMLNetwork:
             a boolean that determines whether to use the name of the model entity as the text label of the GraphicalObject associated with the model entity in the layout
 
         """
+        lib.c_api_getUseNameAsTextLabel.restype = ctypes.c_bool
         return lib.c_api_getUseNameAsTextLabel(self.sbml_object, layout_index)
 
     def setUseNameAsTextLabel(self, use_name_as_text_label, layout_index=0):
@@ -13092,7 +13196,7 @@ class LibSBMLNetwork:
             - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
 
         """
-        return lib.c_api_setUseNameAsTextLabel(self.sbml_object, use_name_as_text_label, layout_index)
+        return lib.c_api_setUseNameAsTextLabel(self.sbml_object, ctypes.c_bool(use_name_as_text_label), layout_index)
             
     def enableDisplayCompartmentsTextLabel(self, display_compartments_text_label):
         """
@@ -13184,19 +13288,8 @@ class LibSBMLNetwork:
 
             a boolean that determines whether the text labels of the reactions are displayed in the layout
         """
+        lib.c_api_whetherDisplayReactionTextLabel.restype = ctypes.c_bool
         return lib.c_api_whetherDisplayReactionTextLabel(str(style_name).encode())
-
-    def _layout_is_specified(self):
-        if self.getNumLayouts():
-            return True
-
-        return False
-
-    def _render_is_specified(self):
-        if self.getNumGlobalRenderInformation() or self.getNumLocalRenderInformation():
-            return True
-
-        return False
 
 
 

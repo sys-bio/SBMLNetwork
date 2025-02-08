@@ -12,7 +12,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S2 -> S3;
         """)
         sbml = model.getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         self.assertNotEqual(network.getX("S1"), math.nan)
         self.assertNotEqual(network.getY("S1"), math.nan)
         self.assertNotEqual(network.getX("S2"), math.nan)
@@ -25,7 +25,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """)
         sbml = model.getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setPosition("S1", 52, 80)
         network.setX("S2", 86)
         network.setY("S2", 73)
@@ -39,7 +39,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """)
         sbml = model.getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setWidth("S1", 52)
         network.setHeight("S1", 80)
         network.setWidth("S2", 86)
@@ -61,7 +61,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S8;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         # default max num connected edges
         self.assertEqual(network.getNumSpeciesGlyphs("S1"), 3)
         # max num connected edges = 7
@@ -74,7 +74,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 is "Species 1";
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         # default use name as text label
         self.assertEqual(network.getText("S1"), "Species 1")
         # set use name as text label to False
@@ -89,7 +89,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setStyle("power")
         self.assertEqual(network.getStyle(), "power")
         self.assertEqual(network.getBackgroundColor(), "white")
@@ -118,7 +118,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setCanvasWidth(1234.0)
         network.setCanvasHeight(1432.0)
         self.assertEqual(network.getCanvasWidth(), 1234.0)
@@ -134,7 +134,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -> S4;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         species_list = ["S1", "S2", "S3"]
         min_position_y = self._get_min_position_y(network, species_list)
         network.align(species_list, "top")
@@ -149,7 +149,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -> S4;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         species_list = ["S1", "S2", "S3"]
         max_position_y = self._get_max_position_y(network, species_list)
         network.align(species_list, "bottom")
@@ -164,7 +164,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -> S4;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         species_list = ["S1", "S2", "S3"]
         min_position_x = self._get_min_position_x(network, species_list)
         network.align(species_list, "left")
@@ -179,7 +179,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -> S4;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         species_list = ["S1", "S2", "S3"]
         max_position_x = self._get_max_position_x(network, species_list)
         network.align(species_list, "right")
@@ -194,7 +194,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -> S4;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         species_list = ["S1", "S2", "S3"]
         min_position_y = self._get_min_position_y(network, species_list)
         max_position_y = self._get_max_position_y(network, species_list)
@@ -210,7 +210,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -> S4;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         species_list = ["S1", "S2", "S3"]
         min_position_x = self._get_min_position_x(network, species_list)
         max_position_x = self._get_max_position_x(network, species_list)
@@ -224,7 +224,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setBackgroundColor("orange")
         self.assertEqual(network.getBackgroundColor(), "orange")
         network.setCompartmentsFillColor("khaki")
@@ -282,7 +282,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setWidth("C", 420.0)
         self.assertEqual(network.getWidth("C"), 420.0)
         network.setWidth("C", 420.0)
@@ -311,7 +311,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setWidth("S1", 42.0)
         self.assertEqual(network.getWidth("S1"), 42.0)
         network.setHeight("S1", 55.0)
@@ -342,7 +342,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J0: S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setWidth("J0", 420.0)
         self.assertEqual(network.getWidth("J0"), 420.0)
         network.setHeight("J0", 550.0)
@@ -369,7 +369,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J0: S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setPosition("S1", 120.0, 250.0)
         self.assertEqual(network.getPosition("S1"), (120.0, 250.0))
         network.setPosition("S2", 420.0, 550.0)
@@ -383,7 +383,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J0: S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setX("S1", 120.0)
         self.assertEqual(network.getX("S1"), 120.0)
         network.setY("S1", 250.0)
@@ -402,7 +402,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J0: S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setPosition("S1", 560.0, 0.0)
         network.setPosition("S2", 30.0, 37.5)
         network.setPosition("J0", 318.13, 29.25)
@@ -453,7 +453,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J0: 2 S1 -> S2;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setPosition("S1", 560.0, 0.0)
         network.setPosition("S2", 30.0, 37.5)
         network.setPosition("J0", 318.13, 29.25)
@@ -522,7 +522,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setLineEndingsBorderColor("yellow")
         self.assertEqual(network.getLineEndingsBorderColor(), "yellow")
         network.setLineEndingsBorderWidth(10)
@@ -537,7 +537,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J2: S3 -> S6 + S7;
         """
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         # set all features in a reaction
         reaction_id = "J0"
         network.setBorderColor(reaction_id, "blue")
@@ -573,7 +573,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J1: S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.createAliasSpeciesGlyph("S1", "J1")
         network.setId("S1", "MyMostFavoriteSpeciesGlyph", graphical_object_index=0)
         network.setId("S1", "MyLeastFavoriteSpeciesGlyph", graphical_object_index=1)
@@ -589,7 +589,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         # linear gradient
         network.setFillColorAsGradient("S1", stop_colors=["#ff6600", "#ffff66"], stop_offsets=[0, 100], gradient_type="linear")
         gradient_id = network.getListOfGradientIds()[-1]
@@ -621,7 +621,7 @@ class TestSBMLNetwork(unittest.TestCase):
         S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         compartment_id = network.getListOfCompartmentIds()[0]
         network.setX(compartment_id, 200)
         network.setY(compartment_id, 250)
@@ -640,7 +640,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J1: S1 -> S4;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         # A specific compartment glyph
         network.makeInvisible("C1")
         self.assertFalse(network.isVisible("C1"))
@@ -682,7 +682,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 + S2 -> S3;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         initial_start_x = network.getSpeciesReferenceCurveSegmentStartPointX("_J0")
         initial_start_y = network.getSpeciesReferenceCurveSegmentStartPointY("_J0")
         initial_base_point1_x = network.getSpeciesReferenceCurveSegmentBasePoint1X("_J0")
@@ -733,7 +733,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J2: S1 + S6 -> S7;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.createAliasSpeciesGlyph("S1", "J1")
         network.createAliasSpeciesGlyph("S1", "J2")
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J0"), 0)
@@ -746,7 +746,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S3 -| J0;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=0), 0)
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=1), 3)
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0", n=2), 5)
@@ -761,7 +761,7 @@ class TestSBMLNetwork(unittest.TestCase):
             S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setSpeciesBorderColor("red")
         self.assertEqual(network.getSpeciesBorderColor(), "red")
         network.setSpeciesFontColor("brown")
@@ -783,7 +783,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J3: S1 + S2 -> S3;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J0"), 0)
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J1"), 0)
         self.assertEqual(network.getSpeciesGlyphIndex("S1", "J2"), 0)
@@ -801,7 +801,7 @@ class TestSBMLNetwork(unittest.TestCase):
             J0: S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S1", "J0"), 0)
         self.assertEqual(network.getSpeciesReferenceIndexAssociatedWithSpecies("S2", "J0"), 1)
 
@@ -809,33 +809,17 @@ class TestSBMLNetwork(unittest.TestCase):
         model = '''
             J0: 100000 S1 -> 200000 S2;
         '''
+        sbmlnetwork.settings.disable_stoichiometric_curves()
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
-        # set stoichiometric species reference
-        network.setStoichiometricSpeciesReference(False)
-        network.autolayout()
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         self.assertEqual(network.getNumSpeciesReferenceAssociatedWithSpecies("S1", "J0"), 1)
-
-    def test_disable_autolayout_at_load(self):
-        model = '''
-            S1 -> S2;
-        '''
-        sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml, disable_autolayout=True)
-        self.assertEqual(network.getNumLayouts(), 0)
-        self.assertEqual(network.getNumGlobalRenderInformation(), 0)
-        self.assertEqual(network.getNumLocalRenderInformation(), 0)
-        network.autolayout()
-        self.assertEqual(network.getNumLayouts(), 1)
-        self.assertEqual(network.getNumGlobalRenderInformation(), 1)
-        self.assertEqual(network.getNumLocalRenderInformation(), 1)
 
     def test_set_colors_of_a_group_of_graphical_objects(self):
         model = '''
             S1 -> S2;
         '''
         sbml = te.loada(model).getSBML()
-        network = sbmlnetwork.SBMLNetwork(sbml)
+        network = sbmlnetwork.load(sbml).libsbmlnetwork
         network.setCompartmentsBorderColor("#FF0000")
         network.setCompartmentsFontColor("#A52A2A")
         network.setSpeciesBorderColor("#00FF00")

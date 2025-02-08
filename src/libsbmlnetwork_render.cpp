@@ -3306,7 +3306,7 @@ int addGeometricShape(RenderGroup* renderGroup, const std::string& shape) {
             shapeObject = renderGroup->createPolygon();
             defaults_setDefaultOctagonShapeFeatures((Polygon*)shapeObject);
         }
-        else if (stringCompare(shape, "rendercurve")) {
+        else if (stringCompare(shape, "rendercurve") || stringCompare(shape, "curve")) {
             shapeObject = renderGroup->createCurve();
             defaults_setDefaultRenderCurveShapeFeatures((RenderCurve*)shapeObject);
         }

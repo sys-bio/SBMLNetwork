@@ -415,10 +415,6 @@ ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex
     return getReactionGlyph(getLayout(document, layoutIndex), reactionId, reactionGlyphIndex);
 }
 
-ReactionGlyph* getReactionGlyph(SBMLDocument* document, unsigned int layoutIndex, unsigned int reactionGlyphIndex) {
-    return getReactionGlyph(getLayout(document, layoutIndex), reactionGlyphIndex);
-}
-
 bool isReactionGlyph(SBMLDocument* document, const std::string& id) {
     return isReactionGlyph(getLayout(document), id);
 }

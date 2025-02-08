@@ -227,17 +227,36 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
 }
 
 int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph) {
-    double x = getPositionX(reactionGlyph);
-    double y = getPositionY(reactionGlyph);
-    double width = getDimensionWidth(reactionGlyph);
-    double height = getDimensionHeight(reactionGlyph);
+    setReactionGlyphBoundingBox(reactionGlyph);
     while (reactionGlyph->getCurve()->getNumCurveSegments())
         reactionGlyph->getCurve()->getCurveSegment(0)->removeFromParentAndDelete();
-    setPositionX(reactionGlyph->getBoundingBox(), x);
-    setPositionY(reactionGlyph->getBoundingBox(), y);
-    setDimensionWidth(reactionGlyph->getBoundingBox(), width);
-    setDimensionHeight(reactionGlyph->getBoundingBox(), height);
+
     return 0;
+}
+
+void setReactionGlyphBoundingBox(ReactionGlyph* reactionGlyph) {
+    if (reactionGlyph->isSetCurve()) {
+        double x1 = reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->x();
+        double y1 = reactionGlyph->getCurve()->getCurveSegment(0)->getStart()->y();
+        double x2 = reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->x();
+        double y2 = reactionGlyph->getCurve()->getCurveSegment(0)->getEnd()->y();
+        double x = std::min(x1, x2);
+        double y = std::min(y1, y2);
+        double width = std::abs(x1 - x2);
+        double height = std::abs(y1 - y2);
+        if (width < defaults_getReactionDefaultWidth()) {
+            x -= 0.5 * (defaults_getReactionDefaultWidth() - width);
+            width = defaults_getReactionDefaultWidth();
+        }
+        if (height < defaults_getReactionDefaultHeight()) {
+            y -= 0.5 * (defaults_getReactionDefaultHeight() - height);
+            height = defaults_getReactionDefaultHeight();
+        }
+        reactionGlyph->getBoundingBox()->setX(x);
+        reactionGlyph->getBoundingBox()->setY(y);
+        reactionGlyph->getBoundingBox()->setWidth(width);
+        reactionGlyph->getBoundingBox()->setHeight(height);
+    }
 }
 
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding) {
@@ -278,7 +297,6 @@ Reaction* findReactionGlyphReaction(Model* model, ReactionGlyph* reactionGlyph) 
 
 SimpleSpeciesReference* findSpeciesReference(Model* model, Layout* layout, ReactionGlyph* reactionGlyph, SpeciesGlyph* speciesGlyph) {
     if (model) {
-        SpeciesGlyph* speciesGlyph = (SpeciesGlyph*)getGraphicalObjectUsingItsOwnId(layout, speciesGlyph->getId());
         if (speciesGlyph) {
             Reaction* reaction = findReactionGlyphReaction(model, reactionGlyph);
             if (reaction) {
@@ -528,9 +546,14 @@ const bool isUniUniReaction(Reaction* reaction) {
 }
 
 const int getStoichiometryAsInteger(Layout* layout, SimpleSpeciesReference* speciesReference) {
-    if (user_data_getUserData(layout, "stoichiometric_species_reference") != "false") {
-        if (speciesReference && dynamic_cast<SpeciesReference*>(speciesReference) && ((SpeciesReference*)speciesReference)->isSetStoichiometry())
-            return int(((SpeciesReference*)speciesReference)->getStoichiometry());
+    if (!speciesReference)
+        return 1;
+
+    std::string userData = user_data_getUserData(layout, "stoichiometric_species_reference");
+    if (userData != "false") {
+        SpeciesReference* speciesRef = dynamic_cast<SpeciesReference*>(speciesReference);
+        if (speciesRef && speciesRef->isSetStoichiometry())
+            return int(speciesRef->getStoichiometry());
     }
 
     return 1;

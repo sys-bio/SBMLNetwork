@@ -1,46 +1,50 @@
 Installation
 ============
 
-To install SBMLNetwork, you can use the following methods:
+To install SBMLNetwork, you can choose from the following installation methods. These methods enable the integration of SBMLNetwork into your workflows and systems based on the components you need.
 
-Installing Python packages
+Install via Python Package
 --------------------------
 
-You can install SBMLNetwork using the `pip` package manager. To do this, run the following command:
+For users who wish to utilize the **Python Package with User-Friendly API**, which simplifies interactions with SBML models and provides graphical representations, you can install SBMLNetwork via the `pip` package manager. This is suitable for users with minimal experience in software development.
+
+Run the following command to install the core package:
 
 .. code-block:: bash
 
    pip install sbmlnetwork
 
-Also, you can install Python bindings of the backend library using the following command:
+.. note::
+
+   **Quick Start**: Check out the :doc:`Use Case Examples </use-case-examples>` page for detailed example workflows to quickly get up to speed with using SBMLNetwork in your Python projects.
+
+To install the Python bindings for the backend library (useful for integrating with the **Python API** for advanced programmatic interaction), use this command:
 
 .. code-block:: bash
 
    pip install libsbmlnetwork
 
-Installing C++ library
------------------------
+Install C++ Library
+-------------------
 
-You can procure precompiled binary files for the libSBMLNetwork C++ library from the designated repository's releases page at `https://github.com/adelhpour/SBMLNetwork/releases <https://github.com/adelhpour/SBMLNetwork/releases>`_. After downloading the binary files, you can link the library to your project and include the following header files in your source code as follows:
+If you need to access the **C API** or **C++ Backend** components directly, you can install the C++ library.
 
-Including C API:
-^^^^^^^^^^^^^^^^
+Precompiled binary files for the libSBMLNetwork C++ library are available on the releases page of the repository at `https://github.com/sys-bio/SBMLNetwork/releases <https://github.com/sys-bio/SBMLNetwork/releases>`_. After downloading the appropriate binaries, link the library to your project and include the necessary header files in your source code:
 
-.. code-block:: c
+- **C API** (if you want to use the **C API** for compatibility with various programming languages):
+    .. code-block:: c
 
-   #include "c_api/libsbmlnetwork_c_api.h"
+    #include "c_api/libsbmlnetwork_c_api.h"
 
-Including C++ API:
-^^^^^^^^^^^^^^^^^^
+- **C++ API** (if you want to directly utilize the **C++ Backend** for high-performance processing of SBML models):
+    .. code-block:: cpp
 
-.. code-block:: cpp
+     #include "libsbmlnetwork_sbmldocument.h"
+     #include "libsbmlnetwork_sbmldocument_layout.h"
+     #include "libsbmlnetwork_sbmldocument_render.h"
 
-   #include "libsbmlnetwork_sbmldocument.h"
-   #include "libsbmlnetwork_sbmldocument_layout.h"
-   #include "libsbmlnetwork_sbmldocument_render.h"
+Building from Source
+--------------------
 
+For users who need to customize SBMLNetwork or build it from scratch (e.g., to modify the **C++ Backend** for performance optimization), follow the instructions provided in the :doc:`Building from source </building>` section.
 
-Building from source
----------------------
-
-To build the SBMLNetwork library from source, you can follow the instructions provided in the :doc:`Building from source </building>` section.

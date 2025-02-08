@@ -52,6 +52,8 @@ void setReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
 int removeReactionGlyphCurve(ReactionGlyph* reactionGlyph);
 
+void setReactionGlyphBoundingBox(ReactionGlyph* reactionGlyph);
+
 void setTextGlyphBoundingBox(TextGlyph* textGlyph, GraphicalObject* graphicalObject, const double& padding = 0.0);
 
 Compartment* findCompartmentGlyphCompartment(Model* model, CompartmentGlyph* compartmentGlyph);

@@ -12,7 +12,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         if (document && reactionGlyph) {
             double padding = getReactionGlyphs(layout, reactionGlyph->getReactionId()).size() * defaults_getAliasReactionGlyphPadding();
             ReactionGlyph* aliasReactionGlyph = alias_element_createAliasReactionGlyph(layout, reactionGlyph, padding);
-            return alias_element_createAliasSpeciesReferenceGlyphs(document, layout, reactionGlyph, aliasReactionGlyph, padding);
+            if (aliasReactionGlyph)
+                return alias_element_createAliasSpeciesReferenceGlyphs(document, layout, reactionGlyph, aliasReactionGlyph, padding);
         }
 
         return -1;
@@ -42,24 +43,24 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
         for (unsigned int i = 0; i < referenceReactionGlyph->getNumSpeciesReferenceGlyphs(); i++) {
             SpeciesReferenceGlyph *speciesReferenceGlyph = referenceReactionGlyph->getSpeciesReferenceGlyph(i);
             SpeciesGlyph *speciesGlyph = layout->getSpeciesGlyph(speciesReferenceGlyph->getSpeciesGlyphId());
-            if (speciesGlyph) {
-                SpeciesGlyph *connectedSpeciesGlyph = NULL;
-                if (speciesGlyphAliasSpeciesGlyphIds.find(speciesGlyph->getId()) == speciesGlyphAliasSpeciesGlyphIds.end())
-                    connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph, padding);
-                else
-                    connectedSpeciesGlyph = layout->getSpeciesGlyph(
-                            speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
-                if (connectedSpeciesGlyph) {
-                    speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
-                    int stoichiometry = getStoichiometryAsInteger(layout,
-                            findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
-                    for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
-                        alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
-                                                         connectedSpeciesGlyph->getId(), stoichiometryIndex, padding);
-                }
-            }
-            else
+            if (!speciesGlyph)
                 return -1;
+
+            SpeciesGlyph *connectedSpeciesGlyph = NULL;
+            if (speciesGlyphAliasSpeciesGlyphIds.find(speciesGlyph->getId()) == speciesGlyphAliasSpeciesGlyphIds.end())
+                connectedSpeciesGlyph = alias_element_createAliasSpeciesGlyph(layout, speciesGlyph, padding);
+            else
+                connectedSpeciesGlyph = layout->getSpeciesGlyph(
+                        speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()]);
+            if (connectedSpeciesGlyph == NULL)
+                return -1;
+
+            speciesGlyphAliasSpeciesGlyphIds[speciesGlyph->getId()] = connectedSpeciesGlyph->getId();
+            int stoichiometry = getStoichiometryAsInteger(layout, findSpeciesReference(document->getModel(), layout, referenceReactionGlyph, speciesGlyph));
+            for (unsigned int stoichiometryIndex = 0; stoichiometryIndex < stoichiometry; stoichiometryIndex++)
+                alias_element_createAliasSpeciesReferenceGlyph(reactionGlyph, speciesReferenceGlyph,
+                                                               connectedSpeciesGlyph->getId(),
+                                                               stoichiometryIndex, padding);
         }
 
         return 0;
