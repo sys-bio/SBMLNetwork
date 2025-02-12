@@ -380,7 +380,8 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
     }
 
     const char* c_api_getSpeciesReferenceId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
-        return strdup(getSpeciesReferenceId(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex).c_str());
+        return strdup(getSpeciesReferenceId(document, layoutIndex, reactionId, reactionGlyphIndex,
+                                            speciesReferenceIndex).c_str());
     }
 
     const char* c_api_getSpeciesReferenceSpeciesId(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
@@ -501,6 +502,18 @@ namespace LIBSBMLNETWORK_CPP_NAMESPACE {
 
     int c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(SBMLDocument* document, const char* reactionId, const double y, int reactionGlyphIndex, int speciesReferenceIndex, int curveSegmentIndex, int layoutIndex) {
         return setSpeciesReferenceCurveSegmentBasePoint2Y(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex, curveSegmentIndex, y);
+    }
+
+    int c_api_makeSpeciesReferenceVisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return makeVisible(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    }
+
+    int c_api_makeSpeciesReferenceInvisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return makeInvisible(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
+    }
+
+    bool c_api_isSpeciesReferenceVisible(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {
+        return isVisible(document, getSpeciesReference(document, layoutIndex, reactionId, reactionGlyphIndex, speciesReferenceIndex));
     }
 
     bool c_api_isSetSpeciesReferenceLineColor(SBMLDocument* document, const char* reactionId, int reactionGlyphIndex, int speciesReferenceIndex, int layoutIndex) {

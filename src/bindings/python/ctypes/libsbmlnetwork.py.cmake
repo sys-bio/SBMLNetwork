@@ -1759,6 +1759,58 @@ class LibSBMLNetwork:
         """
         return lib.c_api_setSpeciesReferenceCurveSegmentBasePoint2Y(self.sbml_object, str(reaction_id).encode(), ctypes.c_double(y), reaction_glyph_index, species_reference_index, curve_segment_index, layout_index)
 
+    def makeSpeciesReferenceVisible(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Makes the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument visible
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReference could not be made visible
+        """
+        return lib.c_api_makeSpeciesReferenceVisible(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def makeSpeciesReferenceInvisible(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Makes the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument invisible
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true on success and false if the SpeciesReference could not be made invisible
+        """
+        return lib.c_api_makeSpeciesReferenceInvisible(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
+    def isSpeciesReferenceVisible(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
+        """
+        Returns whether the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is visible
+
+        :Parameters:
+
+            - reaction_id (string): a string that determines the id of the Reaction
+            - reaction_glyph_index (int): an integer that determines the index of the ReactionGlyph in the given SBMLDocument
+            - species_reference_index (int): an integer that determines the index of the SpeciesReference in the given SBMLDocument
+            - layout_index (int, optional): an integer (default: 0) that determines the index of the Layout object in the given SBMLDocument
+
+        :Returns:
+
+            true if the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is visible and false otherwise
+        """
+        lib.c_api_isSpeciesReferenceVisible.restype = ctypes.c_bool
+        return lib.c_api_isSpeciesReferenceVisible(self.sbml_object, str(reaction_id).encode(), reaction_glyph_index, species_reference_index, layout_index)
+
     def isSetSpeciesReferenceLineColor(self, reaction_id, reaction_glyph_index=0, species_reference_index=0, layout_index=0):
         """
         Returns whether the line color of the SpeciesReference with the given reaction_id, reaction_glyph_index, species_reference_index, and layout_index in the given SBMLDocument is set

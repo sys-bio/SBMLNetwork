@@ -681,6 +681,16 @@ class TestSBMLModel(unittest.TestCase):
         self.assertAlmostEqual(second_segment_control_point_2_position[0] + 50, new_second_segment_control_point_2_position[0], delta=0.1)
         self.assertAlmostEqual(second_segment_control_point_2_position[1] + 50, new_second_segment_control_point_2_position[1], delta=0.1)
 
+    def test_curve_hide_show(self):
+        """ Test if the curve can be hidden and shown """
+        network = sbmlnetwork.load(self.r.getSBML())
+        reaction = network.get_reactions_list()[0]
+        curve = reaction.get_curves_list()[0]
+        curve.hide()
+        self.assertTrue(curve.is_hidden())
+        curve.show()
+        self.assertFalse(curve.is_hidden())
+
     def test_curve_segment_points(self):
         """ Test if the curve segment start and end can be set """
         network = sbmlnetwork.load(self.r.getSBML())
@@ -1559,6 +1569,18 @@ class TestSBMLModel(unittest.TestCase):
             self.assertAlmostEqual(curve_list[i].get_start()[1], start_positions[i][1], delta=1)
             self.assertAlmostEqual(curve_list[i].get_end()[0], end_positions[i][0] + 100, delta=1)
             self.assertAlmostEqual(curve_list[i].get_end()[1], end_positions[i][1] + 100, delta=1)
+
+    def test_curve_list_hide_show(self):
+        """ Test if the curve can be hidden and shown """
+        network = sbmlnetwork.load(self.r.getSBML())
+        reaction_list = network.get_reactions_list()
+        curve_list = reaction_list[0].get_curves_list()
+        curve_list.hide()
+        for curve in curve_list:
+            self.assertTrue(curve.is_hidden())
+        curve_list.show()
+        for curve in curve_list:
+            self.assertFalse(curve.is_hidden())
 
     def test_curve_segment_list_points(self):
         """ Test if the points can be set for the curve segment list """

@@ -227,6 +227,33 @@ class Curve:
 
         return False
 
+    def show(self):
+        if self.species_reference_index is not None:
+            if self.libsbmlnetwork.makeSpeciesReferenceVisible(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index) == 0:
+                return True
+
+        #ToDo: Implement show reaction curve
+
+        return False
+
+    def hide(self):
+        if self.species_reference_index is not None:
+            if self.libsbmlnetwork.makeSpeciesReferenceInvisible(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index) == 0:
+                return True
+
+        #ToDo: Implement hide reaction curve
+
+        return False
+
+    def is_hidden(self):
+        if self.species_reference_index is not None:
+            if self.libsbmlnetwork.isSpeciesReferenceVisible(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index) == 0:
+                return True
+
+        #ToDo: Implement hide reaction curve
+
+        return False
+
     #ToDo: implement set arrow head
 
     def __str__(self):

@@ -154,6 +154,27 @@ class CurveList(list):
 
         return results
 
+    def show(self):
+        results = []
+        for curve in self:
+            results.append(curve.show())
+
+        return results
+
+    def hide(self):
+        results = []
+        for curve in self:
+            results.append(curve.hide())
+
+        return results
+
+    def is_hidden(self):
+        hidden = []
+        for curve in self:
+            hidden.append(curve.is_hidden())
+
+        return hidden
+
     def __str__(self):
         result = []
         for curve in self:
