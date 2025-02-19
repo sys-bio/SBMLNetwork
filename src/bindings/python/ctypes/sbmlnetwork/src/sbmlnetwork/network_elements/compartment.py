@@ -12,6 +12,10 @@ class Compartment(NetworkElementBase):
     def get_compartment_id(self):
         return self.element_id
 
+    @property
+    def compartment_id(self):
+        return self.get_compartment_id()
+
     def get_species_list(self):
         species_list = SpeciesList(libsbmlnetwork=self.libsbmlnetwork)
         species_ids = self.libsbmlnetwork.getListOfSpeciesIds()
@@ -22,6 +26,13 @@ class Compartment(NetworkElementBase):
                     species_list.append(Species(self.libsbmlnetwork, species_id, species_glyph_index))
 
         return species_list
+
+    def get_species(self):
+        return self.get_species_list()
+
+    @property
+    def species(self):
+        return self.get_species()
 
     def get_reactions_list(self):
         reactions_list = ReactionList(libsbmlnetwork=self.libsbmlnetwork)
@@ -34,6 +45,13 @@ class Compartment(NetworkElementBase):
                     reactions_list.append(Reaction(self.libsbmlnetwork, reaction_id, reaction_glyph_index))
 
         return reactions_list
+
+    def get_reactions(self):
+        return self.get_reactions_list()
+
+    @property
+    def reactions(self):
+        return self.get_reactions()
 
     def __str__(self):
         result = []

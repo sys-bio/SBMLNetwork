@@ -74,7 +74,7 @@ class ColorBar(AdditionalElement):
             if label.set_size((1.5 * label.get_size()[0], label.get_size()[1])) == False:
                 return False
 
-        return self.get_labels_list().set_font_size(font_size)
+        return self.get_labels_list().set_font_sizes(font_size)
 
     def set_position(self, position: tuple[float, float]):
         pass

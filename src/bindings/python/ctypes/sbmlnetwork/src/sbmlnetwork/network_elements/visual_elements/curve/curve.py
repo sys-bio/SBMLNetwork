@@ -4,6 +4,7 @@ from .curve_segment import CurveSegment
 from ..visual_element_lists.curve_element_lists import *
 from .arrow_head import ArrowHead
 
+
 class Curve:
 
     def __init__(self, libsbmlnetwork, reaction_id, reaction_glyph_index, species_reference_index):
@@ -17,6 +18,10 @@ class Curve:
 
         return Reaction(self.libsbmlnetwork, self.reaction_id, self.reaction_glyph_index)
 
+    @property
+    def reaction(self):
+        return self.get_reaction()
+
     def get_species(self):
         if self.species_reference_index is not None:
             reaction = self.get_reaction()
@@ -29,6 +34,10 @@ class Curve:
 
         return None
 
+    @property
+    def species(self):
+        return self.get_species()
+
     def get_role(self):
         if self.species_reference_index is not None:
             species = self.get_species()
@@ -37,8 +46,24 @@ class Curve:
 
         return None
 
-    def get_roles_options(self):
+    @property
+    def role(self):
+        return self.get_role()
+
+    def get_role_options(self):
         return self.libsbmlnetwork.getListOfRoles()
+
+    @property
+    def roles_options(self):
+        return self.get_roles_options()
+
+    def get_modifier_role_options(self):
+        roles = self.get_role_options()
+        return [role for role in roles if role not in ["substrate", "sidesubstrate", "product", "sideproduct"]]
+
+    @property
+    def modifier_role_options(self):
+        return self.get_modifier_role_options()
 
     def get_color(self):
         if self.species_reference_index is not None:
@@ -56,6 +81,14 @@ class Curve:
 
         return False
 
+    @property
+    def color(self):
+        return self.get_color()
+
+    @color.setter
+    def color(self, color: str):
+        self.set_color(color)
+
     def get_thickness(self):
         if self.species_reference_index is not None:
             return self.libsbmlnetwork.getSpeciesReferenceLineWidth(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
@@ -72,6 +105,14 @@ class Curve:
 
         return False
 
+    @property
+    def thickness(self):
+        return self.get_thickness()
+
+    @thickness.setter
+    def thickness(self, thickness: float):
+        self.set_thickness(thickness)
+
     def get_start(self):
         first_segment = self.get_segment(0)
         if first_segment is not None:
@@ -86,6 +127,14 @@ class Curve:
                 return True
 
         return False
+
+    @property
+    def start(self):
+        return self.get_start()
+
+    @start.setter
+    def start(self, start: tuple[float, float]):
+        self.set_start(start)
 
     def get_end(self):
         last_segment = self.get_segments_list()[-1]
@@ -102,6 +151,14 @@ class Curve:
 
         return False
 
+    @property
+    def end(self):
+        return self.get_end()
+
+    @end.setter
+    def end(self, end: tuple[float, float]):
+        self.set_end(end)
+
     def get_start_slope(self):
         first_segment = self.get_segments_list()[0]
         if first_segment is not None:
@@ -113,6 +170,10 @@ class Curve:
 
         return 0.0
 
+    @property
+    def start_slope(self):
+        return self.get_start_slope()
+
     def get_end_slope(self):
         last_segment = self.get_segments_list()[-1]
         if last_segment is not None:
@@ -123,6 +184,10 @@ class Curve:
             return (second_point[1] - first_point[1]) / (second_point[0] - first_point[0])
 
         return 0.0
+
+    @property
+    def end_slope(self):
+        return self.get_end_slope()
 
     def add_segment(self, start: tuple[float, float], end: tuple[float, float], control_point_1: tuple[float, float] = None, control_point_2: tuple[float, float] = None):
         if control_point_1 is None:
@@ -195,6 +260,13 @@ class Curve:
 
         return segments
 
+    def get_segments(self):
+        return self.get_segments_list()
+
+    @property
+    def segments(self):
+        return self.get_segments_list()
+
     def get_arrow_head(self):
         if self.species_reference_index is not None:
             if self.libsbmlnetwork.isSetSpeciesReferenceStartHead(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index) or \
@@ -206,6 +278,94 @@ class Curve:
                 return ArrowHead(self.libsbmlnetwork, self.reaction_id, self.reaction_glyph_index, self.species_reference_index)
 
         return None
+
+    @property
+    def arrow_head(self):
+        return self.get_arrow_head()
+
+    def get_arrow_head_relative_position(self):
+        return self.get_arrow_head().get_relative_position()
+
+    def set_arrow_head_relative_position(self, relative_position: tuple[float, float]):
+        return self.get_arrow_head().set_relative_position(relative_position)
+
+    @property
+    def arrow_head_relative_position(self):
+        return self.get_arrow_head_relative_position()
+
+    @arrow_head_relative_position.setter
+    def arrow_head_relative_position(self, relative_position: tuple[float, float]):
+        self.set_arrow_head_relative_position(relative_position)
+
+    def get_arrow_head_size(self):
+        return self.get_arrow_head().get_size()
+
+    def set_arrow_head_size(self, size: tuple[float, float]):
+        return self.get_arrow_head().set_size(size)
+
+    @property
+    def arrow_head_size(self):
+        return self.get_arrow_head_size()
+
+    @arrow_head_size.setter
+    def arrow_head_size(self, size: tuple[float, float]):
+        self.set_arrow_head_size(size)
+
+    def get_arrow_head_shapes(self):
+        return self.get_arrow_head().get_shapes_list()
+
+    @property
+    def arrow_head_shapes(self):
+        return self.get_arrow_head_shapes()
+
+    def get_arrow_head_shape_type(self):
+        return self.get_arrow_head().get_shape_type()
+
+    @property
+    def arrow_head_shape_type(self):
+        return self.get_arrow_head_shape_type()
+
+    def get_arrow_head_border_color(self):
+        return self.get_arrow_head().get_border_color()
+
+    def set_arrow_head_border_color(self, border_color: str):
+        return self.get_arrow_head().set_border_color(border_color)
+
+    @property
+    def arrow_head_border_color(self):
+        return self.get_arrow_head_border_color()
+
+    @arrow_head_border_color.setter
+    def arrow_head_border_color(self, border_color: str):
+        self.set_arrow_head_border_color(border_color)
+
+    def get_arrow_head_border_thickness(self):
+        return self.get_arrow_head().get_border_thickness()
+
+    def set_arrow_head_border_thickness(self, thickness: float):
+        return self.get_arrow_head().set_border_thickness(thickness)
+
+    @property
+    def arrow_head_border_thickness(self):
+        return self.get_arrow_head_border_thickness()
+
+    @arrow_head_border_thickness.setter
+    def arrow_head_border_thickness(self, thickness: float):
+        self.set_arrow_head_border_thickness(thickness)
+
+    def get_arrow_head_fill_color(self):
+        return self.get_arrow_head().get_fill_color()
+
+    def set_arrow_head_fill_color(self, fill_color: str or tuple or list):
+        return self.get_arrow_head().set_fill_color(fill_color)
+
+    @property
+    def arrow_head_fill_color(self):
+        return self.get_arrow_head_fill_color()
+
+    @arrow_head_fill_color.setter
+    def arrow_head_fill_color(self, fill_color: str or tuple or list):
+        self.set_arrow_head_fill_color(fill_color)
 
     def move(self, delta: tuple[float, float]):
         if all(self.get_segments_list().move(delta)):

@@ -12,6 +12,10 @@ class NetworkElementBase:
     def get_id(self):
         return self.libsbmlnetwork.getId(id=self.element_id, graphical_object_index=self.graphical_object_index)
 
+    @property
+    def id(self):
+        return self.get_id()
+
     def get_graphical_object_index(self):
         return self.graphical_object_index
 
@@ -26,6 +30,14 @@ class NetworkElementBase:
 
         return False
 
+    @property
+    def position(self):
+        return self.get_position()
+
+    @position.setter
+    def position(self, position: tuple[float, float]):
+        self.set_position(position)
+
     def get_size(self):
         return (self.libsbmlnetwork.getWidth(id=self.element_id, graphical_object_index=self.graphical_object_index),
                 self.libsbmlnetwork.getHeight(id=self.element_id, graphical_object_index=self.graphical_object_index))
@@ -36,6 +48,14 @@ class NetworkElementBase:
             return True
 
         return False
+
+    @property
+    def size(self):
+        return self.get_size()
+
+    @size.setter
+    def size(self, size: tuple[float, float]):
+        self.set_size(size)
 
     def add_label(self, text: str, relative_position: tuple[float, float] = (0.0, 0.0)):
         if self.libsbmlnetwork.addText(id=self.element_id, graphical_object_index=self.graphical_object_index, text=text) == 0:
@@ -69,6 +89,121 @@ class NetworkElementBase:
             labels.append(Label(self.libsbmlnetwork, self.element_id, self.graphical_object_index, text_glyph_index))
 
         return labels
+
+    def get_labels(self):
+        return self.get_labels_list()
+
+    @property
+    def labels(self):
+        return self.get_labels_list()
+
+    def get_text(self):
+        texts = self.get_labels_list().get_texts()
+        if len(texts) == 1:
+            return texts[0]
+
+        return texts
+
+    def set_text(self, text: str):
+        return self.get_labels_list().set_texts(text)
+
+    @property
+    def text(self):
+        return self.get_text()
+
+    @text.setter
+    def text(self, text: str):
+        self.set_text(text)
+
+    def get_font_color(self):
+        font_colors = self.get_labels_list().get_font_colors()
+        if len(font_colors) == 1:
+            return font_colors[0]
+
+        return font_colors
+
+    def set_font_color(self, font_color: str):
+        return self.get_labels_list().set_font_colors(font_color)
+
+    @property
+    def font_color(self):
+        return self.get_font_color()
+
+    @font_color.setter
+    def font_color(self, font_color: str):
+        self.set_font_color(font_color)
+
+    def get_font(self):
+        fonts = self.get_labels_list().get_fonts()
+        if len(fonts) == 1:
+            return fonts[0]
+
+        return fonts
+
+    def set_font(self, font):
+        return self.get_labels_list().set_fonts(font)
+
+    @property
+    def font(self):
+        return self.get_font()
+
+    @font.setter
+    def font(self, font):
+        self.set_font(font)
+
+    def get_font_size(self):
+        font_sizes = self.get_labels_list().get_font_sizes()
+        if len(font_sizes) == 1:
+            return font_sizes[0]
+
+        return font_sizes
+
+    def set_font_size(self, font_size: float):
+        return self.get_labels_list().set_font_sizes(font_size)
+
+    @property
+    def font_size(self):
+        return self.get_font_size()
+
+    @font_size.setter
+    def font_size(self, font_size: float):
+        self.set_font_size(font_size)
+
+    def set_text_bold(self, bold: bool):
+        return self.get_labels_list().set_bold(bold)
+
+    def is_text_bold(self):
+        is_bold = self.get_labels_list().are_bold()
+        if len(is_bold) == 1:
+            return is_bold[0]
+
+        return is_bold
+
+    @property
+    def text_bold(self):
+        return self.is_text_bold()
+
+    @text_bold.setter
+    def text_bold(self, bold: bool):
+        self.set_text_bold(bold)
+
+    def set_text_italic(self, italic: bool):
+        return self.get_labels_list().set_italic(italic)
+
+    def is_text_italic(self):
+        is_italic = self.get_labels_list().are_italic()
+        if len(is_italic) == 1:
+            return is_italic[0]
+
+        return is_italic
+
+    @property
+    def text_italic(self):
+        return self.is_text_italic()
+
+    @text_italic.setter
+    def text_italic(self, italic: bool):
+        self.set_text_italic(italic)
 
     def add_shape(self, shape_type: str):
         valid_geometric_shapes = self.libsbmlnetwork.getListOfGeometricShapes()
@@ -107,6 +242,14 @@ class NetworkElementBase:
 
         return False
 
+    @property
+    def shape(self):
+        return self.get_shape()
+
+    @shape.setter
+    def shape(self, shape_type: str):
+        self.set_shape(shape_type)
+
     def get_shapes_list(self):
         shapes = ShapeList()
         for geometric_shape_index in range(
@@ -117,8 +260,68 @@ class NetworkElementBase:
 
         return shapes
 
-    def get_shapes_options(self):
+    def get_shapes(self):
+        return self.get_shapes_list()
+
+    @property
+    def shapes(self):
+        return self.get_shapes_list()
+
+    def get_shape_options(self):
         return self.libsbmlnetwork.getListOfGeometricShapes()
+
+    @property
+    def shape_options(self):
+        return self.get_shape_options()
+
+    def get_shape_type(self):
+        return self.get_shapes_list().get_types()
+
+    @property
+    def shape_type(self):
+        return self.get_shape_type()
+
+    def get_border_color(self):
+        return self.get_shapes_list().get_border_colors()
+
+    def set_border_color(self, border_color: str):
+        return self.get_shapes_list().set_border_colors(border_color)
+
+    @property
+    def border_color(self):
+        return self.get_border_color()
+
+    @border_color.setter
+    def border_color(self, border_color: str):
+        self.set_border_color(border_color)
+
+    def get_border_thickness(self):
+        return self.get_shapes_list().get_border_thicknesses()
+
+    def set_border_thickness(self, thickness: float):
+        return self.get_shapes_list().set_border_thicknesses(thickness)
+
+    @property
+    def border_thickness(self):
+        return self.get_border_thickness()
+
+    @border_thickness.setter
+    def border_thickness(self, thickness: float):
+        self.set_border_thickness(thickness)
+
+    def get_fill_color(self):
+        return self.get_shapes_list().get_fill_colors()
+
+    def set_fill_color(self, fill_color: str or tuple or list):
+        return self.get_shapes_list().set_fill_colors(fill_color)
+
+    @property
+    def fill_color(self):
+        return self.get_fill_color()
+
+    @fill_color.setter
+    def fill_color(self, fill_color: str or tuple or list):
+        self.set_fill_color(fill_color)
 
     def hide(self, apply_to_connected_elements=True):
         if self.libsbmlnetwork.makeInvisible(id=self.element_id, graphical_object_index=self.graphical_object_index, apply_to_connected_elements=apply_to_connected_elements) == 0:
@@ -142,19 +345,3 @@ class NetworkElementBase:
         current_position = self.get_position()
         new_position = (current_position[0] + delta[0], current_position[1] + delta[1])
         return self.set_position(new_position)
-
-    def add_meta_data(self, key: str, value: str):
-        self.meta_data[key] = value
-
-    def remove_meta_data(self, key: str):
-        if key in self.meta_data:
-            del self.meta_data[key]
-
-    def get_meta_data(self, key: str):
-        return self.meta_data.get(key, None)
-
-    def get_meta_data_keys(self):
-        return self.meta_data.keys()
-
-    def get_meta_data_values(self):
-        return self.meta_data.values()

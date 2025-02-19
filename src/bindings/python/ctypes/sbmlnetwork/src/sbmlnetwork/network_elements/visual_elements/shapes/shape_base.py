@@ -31,6 +31,10 @@ class ShapeBase:
         else:
             return shape
 
+    @property
+    def type(self):
+        return self.get_type()
+
     def get_border_color(self):
         if self.sub_element_index is None:
             return self.libsbmlnetwork.getGeometricShapeBorderColor(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index)
@@ -47,6 +51,14 @@ class ShapeBase:
 
         return False
 
+    @property
+    def border_color(self):
+        return self.get_border_color()
+
+    @border_color.setter
+    def border_color(self, border_color: str):
+        self.set_border_color(border_color)
+
     def get_border_thickness(self):
         if self.sub_element_index is None:
             return self.libsbmlnetwork.getGeometricShapeBorderWidth(id=self.element_id, graphical_object_index=self.graphical_object_index, geometric_shape_index=self.geometric_shape_index)
@@ -62,6 +74,14 @@ class ShapeBase:
                 return True
 
         return False
+
+    @property
+    def border_thickness(self):
+        return self.get_border_thickness()
+
+    @border_thickness.setter
+    def border_thickness(self, thickness: float):
+        self.set_border_thickness(thickness)
 
     def get_fill_color(self):
         if self.sub_element_index is None:
@@ -83,6 +103,17 @@ class ShapeBase:
                                                                    species_reference_index=self.sub_element_index,
                                                                    fill_color=fill_color) == 0:
                     return True
+
+        return False
+
+    @property
+    def fill_color(self):
+        return self.get_fill_color()
+
+    @fill_color.setter
+    def fill_color(self, fill_color: str or tuple or list):
+        self.set_fill_color(fill_color)
+
         # ToDo: Implement gradient fill color
         # elif isinstance(fill_color, (tuple, list)) and len(fill_color) == 3:
         #     stop_colors, stop_offsets, gradient_type = fill_color
@@ -102,8 +133,8 @@ class ShapeBase:
         #                                                stop_colors=stop_colors, stop_offsets=stop_offsets,
         #                                                gradient_type=gradient_type) == 0:
         #                 return True
-
-        return False
+        #
+        # return False
 
     def __str__(self):
         return (

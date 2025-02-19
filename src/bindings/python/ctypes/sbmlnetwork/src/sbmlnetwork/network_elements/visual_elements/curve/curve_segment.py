@@ -30,6 +30,14 @@ class CurveSegment:
 
         return False
 
+    @property
+    def start(self):
+        return self.get_start()
+
+    @start.setter
+    def start(self, start: tuple[float, float]):
+        self.set_start(start)
+
     def get_end(self):
         if self.species_reference_index is None:
             return (self.libsbmlnetwork.getCurveSegmentEndPointX(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index),
@@ -49,6 +57,14 @@ class CurveSegment:
                 return True
 
         return False
+
+    @property
+    def end(self):
+        return self.get_end()
+
+    @end.setter
+    def end(self, end: tuple[float, float]):
+        self.set_end(end)
 
     def get_control_point_1(self):
         if self.species_reference_index is None:
@@ -70,6 +86,14 @@ class CurveSegment:
 
         return False
 
+    @property
+    def control_point_1(self):
+        return self.get_control_point_1()
+
+    @control_point_1.setter
+    def control_point_1(self, control_point_1: tuple[float, float]):
+        self.set_control_point_1(control_point_1)
+
     def get_control_point_2(self):
         if self.species_reference_index is None:
             return (self.libsbmlnetwork.getCurveSegmentBasePoint2X(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, curve_segment_index=self.curve_segment_index),
@@ -89,6 +113,14 @@ class CurveSegment:
                 return True
 
         return False
+
+    @property
+    def control_point_2(self):
+        return self.get_control_point_2()
+
+    @control_point_2.setter
+    def control_point_2(self, control_point_2: tuple[float, float]):
+        self.set_control_point_2(control_point_2)
 
     def move(self, delta: tuple[float, float]):
         current_start = self.get_start()

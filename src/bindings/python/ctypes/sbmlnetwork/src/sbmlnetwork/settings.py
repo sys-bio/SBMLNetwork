@@ -4,7 +4,7 @@ class Settings:
         self.libsbmlnetwork = libsbmlnetwork
         self.compartment_labels = True
         self.species_labels = True
-        self.reaction_labels = False
+        self.reaction_labels = True
         self.label = "name"
         self.stoichiometric_curves = True
 

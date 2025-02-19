@@ -3,47 +3,67 @@ class LabelList(list):
     def __init__(self, label_list=None):
         super().__init__(label_list or [])
 
-    def get_text(self):
+    def get_texts(self):
         texts = []
         for label in self:
             texts.append(label.get_text())
 
         return texts
 
-    def set_text(self, text: str):
+    def set_texts(self, text: str):
         results = []
         for label in self:
             results.append(label.set_text(text))
 
         return results
 
-    def get_position(self):
+    @property
+    def texts(self):
+        return self.get_texts()
+
+    def get_positions(self):
         positions = []
         for label in self:
             positions.append(label.get_position())
 
         return positions
 
-    def set_position(self, position: tuple[float, float]):
+    def set_positions(self, position: tuple[float, float]):
         results = []
         for label in self:
             results.append(label.set_position(position))
 
         return results
 
-    def get_size(self):
+    @property
+    def positions(self):
+        return self.get_positions()
+
+    @positions.setter
+    def positions(self, position: tuple[float, float]):
+        self.set_positions(position)
+
+    def get_sizes(self):
         sizes = []
         for label in self:
             sizes.append(label.get_size())
 
         return sizes
 
-    def set_size(self, size: tuple[float, float]):
+    def set_sizes(self, size: tuple[float, float]):
         results = []
         for label in self:
             results.append(label.set_size(size))
 
         return results
+
+    @property
+    def sizes(self):
+        return self.get_sizes()
+
+    @sizes.setter
+    def sizes(self, size: tuple[float, float]):
+        self.set_sizes(size)
 
     def align_to_top(self):
         results = []
@@ -94,47 +114,67 @@ class LabelList(list):
 
         return results
 
-    def get_font_color(self):
+    def get_font_colors(self):
         font_colors = []
         for label in self:
             font_colors.append(label.get_font_color())
 
         return font_colors
 
-    def set_font_color(self, font_color: str):
+    def set_font_colors(self, font_color: str):
         results = []
         for label in self:
             results.append(label.set_font_color(font_color))
 
         return results
 
-    def get_font(self):
+    @property
+    def font_colors(self):
+        return self.get_font_colors()
+
+    def get_fonts(self):
         fonts = []
         for label in self:
             fonts.append(label.get_font())
 
         return fonts
 
-    def set_font(self, font: str):
+    def set_fonts(self, font: str):
         results = []
         for label in self:
             results.append(label.set_font(font))
 
         return results
 
-    def get_font_size(self):
+    @property
+    def fonts(self):
+        return self.get_fonts()
+
+    @fonts.setter
+    def fonts(self, font: str):
+        self.set_fonts(font)
+
+    def get_font_sizes(self):
         font_sizes = []
         for label in self:
             font_sizes.append(label.get_font_size())
 
         return font_sizes
 
-    def set_font_size(self, font_size: float):
+    def set_font_sizes(self, font_size: float):
         results = []
         for label in self:
             results.append(label.set_font_size(font_size))
 
         return results
+
+    @property
+    def font_sizes(self):
+        return self.get_font_sizes()
+
+    @font_sizes.setter
+    def font_sizes(self, font_size: float):
+        self.set_font_sizes(font_size)
 
     def set_bold(self, bold: bool):
         results = []
@@ -143,7 +183,7 @@ class LabelList(list):
 
         return results
 
-    def is_bold(self):
+    def are_bold(self):
         is_bold = []
         for label in self:
             is_bold.append(label.is_bold())
@@ -157,7 +197,7 @@ class LabelList(list):
 
         return results
 
-    def is_italic(self):
+    def are_italic(self):
         is_italic = []
         for label in self:
             is_italic.append(label.is_italic())

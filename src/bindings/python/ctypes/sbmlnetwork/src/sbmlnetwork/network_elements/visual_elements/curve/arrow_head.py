@@ -20,6 +20,14 @@ class ArrowHead:
 
         return False
 
+    @property
+    def relative_position(self):
+        return self.get_relative_position()
+
+    @relative_position.setter
+    def relative_position(self, relative_position: tuple[float, float]):
+        self.set_relative_position(relative_position)
+
     def get_size(self):
         return self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxWidth(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index), \
                 self.libsbmlnetwork.getSpeciesReferenceLineEndingBoundingBoxHeight(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)
@@ -30,6 +38,14 @@ class ArrowHead:
             return True
 
         return False
+
+    @property
+    def size(self):
+        return self.get_size()
+
+    @size.setter
+    def size(self, size: tuple[float, float]):
+        self.set_size(size)
 
     def add_shape(self, shape_type: str):
         valid_geometric_shapes = self.libsbmlnetwork.getListOfGeometricShapes()
@@ -64,6 +80,14 @@ class ArrowHead:
 
         return False
 
+    @property
+    def shape(self):
+        return self.get_shape()
+
+    @shape.setter
+    def shape(self, shape_type: str):
+        self.set_shape(shape_type)
+
     def get_shapes_list(self):
         shapes = ShapeList()
         for geometric_shape_index in range(self.libsbmlnetwork.getNumSpeciesReferenceLineEndingGeometricShapes(reaction_id=self.reaction_id, reaction_glyph_index=self.reaction_glyph_index, species_reference_index=self.species_reference_index)):
@@ -71,6 +95,62 @@ class ArrowHead:
             shapes.append(shape)
 
         return shapes
+
+    def get_shapes(self):
+        return self.get_shapes_list()
+
+    @property
+    def shapes(self):
+        return self.get_shapes_list()
+
+    def get_shape_type(self):
+        return self.get_shapes_list().get_types()
+
+    @property
+    def shape_type(self):
+        return self.get_shape_type()
+
+    def get_border_color(self):
+        return self.get_shapes_list().get_border_colors()
+
+    def set_border_color(self, border_color: str):
+        return self.get_shapes_list().set_border_colors(border_color)
+
+    @property
+    def border_color(self):
+        return self.get_border_color()
+
+    @border_color.setter
+    def border_color(self, border_color: str):
+        self.set_border_color(border_color)
+
+    def get_border_thickness(self):
+        return self.get_shapes_list().get_border_thicknesses()
+
+    def set_border_thickness(self, thickness: float):
+        return self.get_shapes_list().set_border_thicknesses(thickness)
+
+    @property
+    def border_thickness(self):
+        return self.get_border_thickness()
+
+    @border_thickness.setter
+    def border_thickness(self, thickness: float):
+        self.set_border_thickness(thickness)
+
+    def get_fill_color(self):
+        return self.get_shapes_list().get_fill_colors()
+
+    def set_fill_color(self, fill_color: str or tuple or list):
+        return self.get_shapes_list().set_fill_colors(fill_color)
+
+    @property
+    def fill_color(self):
+        return self.get_fill_color()
+
+    @fill_color.setter
+    def fill_color(self, fill_color: str or tuple or list):
+        self.set_fill_color(fill_color)
 
     def __str__(self):
         result = []

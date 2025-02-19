@@ -3468,7 +3468,7 @@ int setGeometricShapeType(Style* style, const std::string& shape) {
 }
 
 int setGeometricShapeType(RenderGroup* renderGroup, const std::string& shape) {
-    if (getNumGeometricShapes(renderGroup) && isValidGeometricShapeName(shape, renderGroup)) {
+    if (isValidGeometricShapeName(shape, renderGroup)) {
         if (!addGeometricShape(renderGroup, shape)) {
             while (getNumGeometricShapes(renderGroup) > 1)
                 removeGeometricShape(renderGroup, 0);
